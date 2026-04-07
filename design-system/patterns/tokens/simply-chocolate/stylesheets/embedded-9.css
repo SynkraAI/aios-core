@@ -1,0 +1,80 @@
+
+@import 'https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Libre+Baskerville:ital,wght@0,400&family=Oswald:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap';
+
+@font-face {
+        font-family: 'Nunito-Sans-Klaviyo-Hosted'; 
+        src: url(https://static.klaviyo.com/onsite/hosted-fonts/Nunito-Sans/latin/nunito-sans_latin_italic_400.woff2);
+        font-weight: 400;
+        font-style: italic;
+        font-display: swap;
+      }
+@font-face {
+        font-family: 'Nunito-Sans-Klaviyo-Hosted'; 
+        src: url(https://static.klaviyo.com/onsite/hosted-fonts/Nunito-Sans/latin/nunito-sans_latin_italic_700.woff2);
+        font-weight: 700;
+        font-style: italic;
+        font-display: swap;
+      }
+@font-face {
+        font-family: 'Nunito-Sans-Klaviyo-Hosted'; 
+        src: url(https://static.klaviyo.com/onsite/hosted-fonts/Nunito-Sans/latin/nunito-sans_latin_regular_400.woff2);
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+@font-face {
+        font-family: 'Nunito-Sans-Klaviyo-Hosted'; 
+        src: url(https://static.klaviyo.com/onsite/hosted-fonts/Nunito-Sans/latin/nunito-sans_latin_regular_700.woff2);
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+      }
+@font-face {
+        font-family: 'Poppins-Klaviyo-Hosted'; 
+        src: url(https://static.klaviyo.com/onsite/hosted-fonts/Poppins/latin/poppins_latin_italic_400.woff2);
+        font-weight: 400;
+        font-style: italic;
+        font-display: swap;
+      }
+@font-face {
+        font-family: 'Poppins-Klaviyo-Hosted'; 
+        src: url(https://static.klaviyo.com/onsite/hosted-fonts/Poppins/latin/poppins_latin_italic_700.woff2);
+        font-weight: 700;
+        font-style: italic;
+        font-display: swap;
+      }
+@font-face {
+        font-family: 'Poppins-Klaviyo-Hosted'; 
+        src: url(https://static.klaviyo.com/onsite/hosted-fonts/Poppins/latin/poppins_latin_regular_400_2.woff2);
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+@font-face {
+        font-family: 'Poppins-Klaviyo-Hosted'; 
+        src: url(https://static.klaviyo.com/onsite/hosted-fonts/Poppins/latin/poppins_latin_regular_700.woff2);
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+      }
+@font-face {
+        font-family: 'Simply Header'; 
+        src: url(https://cdn.shopify.com/s/files/1/0581/1909/4479/files/Simply-ChocolateCOMPBold.ttf?v=1763385028);
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+      }
+@font-face {
+        font-family: 'SimplyChocolate Regular'; 
+        src: url(https://cdn.shopify.com/s/files/1/0581/1909/4479/files/Simply-ChocolateRegular_0229ebd9-ccc0-41fc-8394-a64dd65e8695.woff2);
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+@font-face {
+        font-family: 'Social Gothic'; 
+        src: url(https://cdn.shopify.com/s/files/1/0581/1909/4479/files/Social-Gothic.woff2?v=2179328602935495987);
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }

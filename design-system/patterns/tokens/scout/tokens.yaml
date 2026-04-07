@@ -1,0 +1,226 @@
+# Design Tokens - scout
+# Extracted by dissect-artifact.js v1.0.0
+# Source: https://scout.camd.northeastern.edu
+# Date: 2026-04-01T14:07:47.425Z
+
+metadata:
+  version: "1.0.0"
+  source: "https://scout.camd.northeastern.edu"
+  generated_at: "2026-04-01T14:07:47.425Z"
+  node_count: 288
+
+colors:
+  "rgb_0_0_0_":
+    value: "rgb(0, 0, 0)"
+    occurrences: 224
+  "rgb_255_255_255_":
+    value: "rgb(255, 255, 255)"
+    occurrences: 42
+  "rgb_250_249_242_":
+    value: "rgb(250, 249, 242)"
+    occurrences: 28
+  "rgb_140_40_189_":
+    value: "rgb(140, 40, 189)"
+    occurrences: 9
+  "rgb_0_0_238_":
+    value: "rgb(0, 0, 238)"
+    occurrences: 5
+  "rgb_255_102_178_":
+    value: "rgb(255, 102, 178)"
+    occurrences: 2
+  "rgb_255_140_26_":
+    value: "rgb(255, 140, 26)"
+    occurrences: 2
+  "rgb_223_48_32_":
+    value: "rgb(223, 48, 32)"
+    occurrences: 2
+  "rgb_13_165_64_":
+    value: "rgb(13, 165, 64)"
+    occurrences: 2
+  "rgb_51_51_48_":
+    value: "rgb(51, 51, 48)"
+    occurrences: 2
+  "rgb_239_239_239_":
+    value: "rgb(239, 239, 239)"
+    occurrences: 1
+
+typography:
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: "lato, sans-serif"
+    occurrences: 172
+  "18px_400":
+    font-size: "18px"
+    font-weight: "400"
+    font-family: "lato, sans-serif"
+    occurrences: 20
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: ""Times New Roman""
+    occurrences: 12
+  "16px_500":
+    font-size: "16px"
+    font-weight: "500"
+    font-family: "lato, sans-serif"
+    occurrences: 8
+  "28px_700":
+    font-size: "28px"
+    font-weight: "700"
+    font-family: "lato, sans-serif"
+    occurrences: 8
+  "18px_500":
+    font-size: "18px"
+    font-weight: "500"
+    font-family: "lato, sans-serif"
+    occurrences: 8
+  "28px_900":
+    font-size: "28px"
+    font-weight: "900"
+    font-family: "lato, sans-serif"
+    occurrences: 8
+  "20px_700":
+    font-size: "20px"
+    font-weight: "700"
+    font-family: "lato, sans-serif"
+    occurrences: 8
+  "20px_600":
+    font-size: "20px"
+    font-weight: "600"
+    font-family: "lato, sans-serif"
+    occurrences: 8
+  "13_3333px_400":
+    font-size: "13.3333px"
+    font-weight: "400"
+    font-family: "lato, sans-serif"
+    occurrences: 4
+  "13_3333px_400":
+    font-size: "13.3333px"
+    font-weight: "400"
+    font-family: ""Times New Roman""
+    occurrences: 4
+  "48px_700":
+    font-size: "48px"
+    font-weight: "700"
+    font-family: "lato, sans-serif"
+    occurrences: 4
+  "24px_500":
+    font-size: "24px"
+    font-weight: "500"
+    font-family: "lato, sans-serif"
+    occurrences: 4
+  "26px_400":
+    font-size: "26px"
+    font-weight: "400"
+    font-family: "lato, sans-serif"
+    occurrences: 4
+  "16px_700":
+    font-size: "16px"
+    font-weight: "700"
+    font-family: ""Times New Roman""
+    occurrences: 3
+  "18px_700":
+    font-size: "18px"
+    font-weight: "700"
+    font-family: "lato, sans-serif"
+    occurrences: 3
+  "72px_700":
+    font-size: "72px"
+    font-weight: "700"
+    font-family: "lato, sans-serif"
+    occurrences: 1
+  "32px_500":
+    font-size: "32px"
+    font-weight: "500"
+    font-family: "lato, sans-serif"
+    occurrences: 1
+  "36px_700":
+    font-size: "36px"
+    font-weight: "700"
+    font-family: "lato, sans-serif"
+    occurrences: 1
+  "32px_700":
+    font-size: "32px"
+    font-weight: "700"
+    font-family: "lato, sans-serif"
+    occurrences: 1
+
+spacing:
+  "16px":
+    value: "16px"
+    occurrences: 63
+  "32px":
+    value: "32px"
+    occurrences: 25
+  "24px":
+    value: "24px"
+    occurrences: 17
+  "12px":
+    value: "12px"
+    occurrences: 16
+  "96px":
+    value: "96px"
+    occurrences: 15
+  "16_6667px":
+    value: "16.6667px"
+    occurrences: 10
+  "1px":
+    value: "1px"
+    occurrences: 10
+  "4_5px":
+    value: "4.5px"
+    occurrences: 9
+  "5px":
+    value: "5px"
+    occurrences: 8
+  "10px":
+    value: "10px"
+    occurrences: 6
+  "20px":
+    value: "20px"
+    occurrences: 4
+  "_13px":
+    value: "-13px"
+    occurrences: 4
+  "48px":
+    value: "48px"
+    occurrences: 2
+  "17px":
+    value: "17px"
+    occurrences: 2
+  "12_8px":
+    value: "12.8px"
+    occurrences: 2
+  "12_6667px":
+    value: "12.6667px"
+    occurrences: 2
+  "64px":
+    value: "64px"
+    occurrences: 1
+  "8px":
+    value: "8px"
+    occurrences: 1
+  "50px":
+    value: "50px"
+    occurrences: 1
+  "2_5_":
+    value: "2.5%"
+    occurrences: 1
+
+borders:
+  border_1:
+    value: "1px solid rgb(0, 0, 0)"
+    occurrences: 4
+  border_2:
+    value: "2px solid rgb(140, 40, 189)"
+    occurrences: 3
+  border_3:
+    value: "2px solid rgb(255, 255, 255)"
+    occurrences: 2
+  border_4:
+    value: "2px solid rgb(250, 249, 242)"
+    occurrences: 1
+  border_5:
+    value: "2px outset rgb(0, 0, 0)"
+    occurrences: 1

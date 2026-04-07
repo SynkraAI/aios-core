@@ -1,0 +1,328 @@
+# Design Tokens - guiavila-reverso
+# Extracted by dissect-artifact.js v1.0.0
+# Source: https://site.guiavila.com/reverso
+# Date: 2026-04-01T14:53:10.158Z
+
+metadata:
+  version: "1.0.0"
+  source: "https://site.guiavila.com/reverso"
+  generated_at: "2026-04-01T14:53:10.158Z"
+  node_count: 1394
+
+colors:
+  "rgb_0_0_0_":
+    value: "rgb(0, 0, 0)"
+    occurrences: 749
+  "rgb_179_179_179_":
+    value: "rgb(179, 179, 179)"
+    occurrences: 125
+  "rgba_255_255_255_0_8_":
+    value: "rgba(255, 255, 255, 0.8)"
+    occurrences: 119
+  "rgb_255_255_255_":
+    value: "rgb(255, 255, 255)"
+    occurrences: 93
+  "rgba_0_0_0_0_7_":
+    value: "rgba(0, 0, 0, 0.7)"
+    occurrences: 69
+  "rgb_136_147_168_":
+    value: "rgb(136, 147, 168)"
+    occurrences: 66
+  "rgb_86_90_124_":
+    value: "rgb(86, 90, 124)"
+    occurrences: 55
+  "rgb_24_139_246_":
+    value: "rgb(24, 139, 246)"
+    occurrences: 28
+  "rgb_0_3_33_":
+    value: "rgb(0, 3, 33)"
+    occurrences: 26
+  "rgb_203_213_224_":
+    value: "rgb(203, 213, 224)"
+    occurrences: 24
+  "rgb_230_230_230_":
+    value: "rgb(230, 230, 230)"
+    occurrences: 24
+  "rgb_201_216_224_":
+    value: "rgb(201, 216, 224)"
+    occurrences: 18
+  "rgb_231_210_182_":
+    value: "rgb(231, 210, 182)"
+    occurrences: 16
+  "rgb_246_173_85_":
+    value: "rgb(246, 173, 85)"
+    occurrences: 9
+  "rgba_255_255_255_0_08_":
+    value: "rgba(255, 255, 255, 0.08)"
+    occurrences: 7
+  "rgba_255_255_255_0_12_":
+    value: "rgba(255, 255, 255, 0.12)"
+    occurrences: 7
+  "rgb_154_230_180_":
+    value: "rgb(154, 230, 180)"
+    occurrences: 6
+  "rgba_255_28_28_0_24_":
+    value: "rgba(255, 28, 28, 0.24)"
+    occurrences: 4
+  "rgb_250_250_250_":
+    value: "rgb(250, 250, 250)"
+    occurrences: 4
+  "rgb_55_202_55_":
+    value: "rgb(55, 202, 55)"
+    occurrences: 4
+  "rgb_255_98_64_":
+    value: "rgb(255, 98, 64)"
+    occurrences: 2
+  "rgba_0_0_0_0_5_":
+    value: "rgba(0, 0, 0, 0.5)"
+    occurrences: 1
+  "rgb_245_245_245_":
+    value: "rgb(245, 245, 245)"
+    occurrences: 1
+  "rgb_246_246_255_":
+    value: "rgb(246, 246, 255)"
+    occurrences: 1
+  "rgb_37_211_102_":
+    value: "rgb(37, 211, 102)"
+    occurrences: 1
+
+typography:
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: ""Times New Roman""
+    occurrences: 546
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: "Inter"
+    occurrences: 255
+  "18px_400":
+    font-size: "18px"
+    font-weight: "400"
+    font-family: "Inter"
+    occurrences: 224
+  "14px_300":
+    font-size: "14px"
+    font-weight: "300"
+    font-family: "Inter"
+    occurrences: 53
+  "18px_700":
+    font-size: "18px"
+    font-weight: "700"
+    font-family: "Inter"
+    occurrences: 51
+  "16px_700":
+    font-size: "16px"
+    font-weight: "700"
+    font-family: "Inter"
+    occurrences: 40
+  "20px_600":
+    font-size: "20px"
+    font-weight: "600"
+    font-family: "Inter"
+    occurrences: 30
+  "16px_500":
+    font-size: "16px"
+    font-weight: "500"
+    font-family: "Inter"
+    occurrences: 18
+  "24px_400":
+    font-size: "24px"
+    font-weight: "400"
+    font-family: "Inter"
+    occurrences: 18
+  "46px_700":
+    font-size: "46px"
+    font-weight: "700"
+    font-family: "Inter"
+    occurrences: 17
+  "46px_400":
+    font-size: "46px"
+    font-weight: "400"
+    font-family: "Inter"
+    occurrences: 14
+  "14px_500":
+    font-size: "14px"
+    font-weight: "500"
+    font-family: "Inter"
+    occurrences: 13
+  "24px_700":
+    font-size: "24px"
+    font-weight: "700"
+    font-family: "Inter"
+    occurrences: 12
+  "15px_400":
+    font-size: "15px"
+    font-weight: "400"
+    font-family: "Inter"
+    occurrences: 12
+  "46px_600":
+    font-size: "46px"
+    font-weight: "600"
+    font-family: "Inter"
+    occurrences: 11
+  "16px_900":
+    font-size: "16px"
+    font-weight: "900"
+    font-family: ""Font Awesome 5 Free""
+    occurrences: 8
+  "22px_700":
+    font-size: "22px"
+    font-weight: "700"
+    font-family: "Inter"
+    occurrences: 8
+  "15px_700":
+    font-size: "15px"
+    font-weight: "700"
+    font-family: "Inter"
+    occurrences: 8
+  "32px_700":
+    font-size: "32px"
+    font-weight: "700"
+    font-family: "Inter"
+    occurrences: 7
+  "14px_700":
+    font-size: "14px"
+    font-weight: "700"
+    font-family: "Inter"
+    occurrences: 7
+
+spacing:
+  "10px":
+    value: "10px"
+    occurrences: 166
+  "20px":
+    value: "20px"
+    occurrences: 91
+  "15px":
+    value: "15px"
+    occurrences: 62
+  "12px":
+    value: "12px"
+    occurrences: 22
+  "24px":
+    value: "24px"
+    occurrences: 14
+  "40px":
+    value: "40px"
+    occurrences: 10
+  "32px":
+    value: "32px"
+    occurrences: 9
+  "8px":
+    value: "8px"
+    occurrences: 7
+  "60px":
+    value: "60px"
+    occurrences: 4
+  "16px":
+    value: "16px"
+    occurrences: 4
+  "80px":
+    value: "80px"
+    occurrences: 3
+  "_1px":
+    value: "-1px"
+    occurrences: 2
+  "45px":
+    value: "45px"
+    occurrences: 2
+  "4px":
+    value: "4px"
+    occurrences: 2
+  "5px":
+    value: "5px"
+    occurrences: 2
+  "49px":
+    value: "49px"
+    occurrences: 1
+  "293_719px":
+    value: "293.719px"
+    occurrences: 1
+  "300_625px":
+    value: "300.625px"
+    occurrences: 1
+  "100px":
+    value: "100px"
+    occurrences: 1
+  "30px":
+    value: "30px"
+    occurrences: 1
+
+shadows:
+  shadow_1:
+    value: "rgba(0, 0, 0, 0.2) 0px 2px 10px 0px"
+    occurrences: 1
+
+borders:
+  border_1:
+    value: "1px solid undefined"
+    occurrences: 11
+  border_2:
+    value: "4px solid rgb(255, 255, 255)"
+    occurrences: 9
+  border_3:
+    value: "1px solid rgba(255, 255, 255, 0.08)"
+    occurrences: 7
+  border_4:
+    value: "1px solid rgb(255, 255, 255)"
+    occurrences: 6
+  border_5:
+    value: "1px solid rgba(0, 0, 0, 0.12)"
+    occurrences: 1
+  border_6:
+    value: "1px 0px 0px solid none none rgba(0, 0, 0, 0.5) rgb(0, 0, 0) rgb(0, 0, 0)"
+    occurrences: 1
+
+custom_properties:
+  "--malibu": "#63b3ed"
+  "--yellow": "#faf089"
+  "--green": "#9ae6b4"
+  "--headlinefont": "'Inter'"
+  "--color-lx3d0bih": "#222639"
+  "--color-m5gds30h": "#e6e6e6"
+  "--color-ubooyjub": "#b3b3b3ff"
+  "--color-lx2qgvbk": "#565A7C"
+  "--pink": "#fbb6ce"
+  "--color-zvfoifkz": "#990505ff"
+  "--space-grotesk": "'Space Grotesk'"
+  "--color-hwrbbzlv": "#ffffffcc"
+  "--teal": "#81e6d9"
+  "--black": "#000000"
+  "--overlay": "rgba(0, 0, 0, 0.5)"
+  "--white": "#ffffff"
+  "--color-lx4k787l": "#1F1F2E"
+  "--gray": "#cbd5e0"
+  "--color-aouxlspi": "#ff1c1c3d"
+  "--red": "#e93d3d"
+  "--animate-delay": "1s"
+  "--color-lgf1duy4": "#0E182C"
+  "--color-tokfptlc": "#0000001f"
+  "--smoke": "#f5f5f5"
+  "--color-lx3csigp": "#C9D8E0"
+  "--color-lx2qdjfj": "#F6F6FF"
+  "--text-color": "#000000"
+  "--color-m5nrwlxj": "rgba(255,255,255,0.8)"
+  "--indigo": "#757BBD"
+  "--color-hsdfhbuv": "#000000b3"
+  "--color-lx2prsc2": "#000321"
+  "--color-zmvwkkvm": "#ffffff14"
+  "--contentfont": "'Inter'"
+  "--transparent": "transparent"
+  "--color-ytkhiimg": "#ffffff1f"
+  "--animate-duration": "1s"
+  "--color-lx2py304": "#0038FF"
+  "--color-nqqmygjj": "#fafafaff"
+  "--purple": "#d6bcfa"
+  "--color-lx2pyibt": "#FF6240"
+  "--color-ugqknael": "#ffffff29"
+  "--color-lx2q00eu": "#8893A8"
+  "--inter": "'Inter'"
+  "--cobalt": "#155eef"
+  "--primary": "#37ca37"
+  "--color-zpugopap": "#000000ff"
+  "--brandboards-new_color_1333": "#429e6aff"
+  "--color-m5nl35vm": "#1b1724"
+  "--link-color": "#188bf6"
+  "--lato": "'Lato'"

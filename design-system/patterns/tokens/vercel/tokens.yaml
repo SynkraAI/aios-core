@@ -1,0 +1,279 @@
+# Design Tokens - vercel
+# Extracted by dissect-artifact.js v1.0.0
+# Source: https://vercel.com
+# Date: 2026-04-01T11:41:08.412Z
+
+metadata:
+  version: "1.0.0"
+  source: "https://vercel.com"
+  generated_at: "2026-04-01T11:41:08.412Z"
+  node_count: 1086
+
+colors:
+  "rgb_23_23_23_":
+    value: "rgb(23, 23, 23)"
+    occurrences: 673
+  "rgb_77_77_77_":
+    value: "rgb(77, 77, 77)"
+    occurrences: 270
+  "rgb_102_102_102_":
+    value: "rgb(102, 102, 102)"
+    occurrences: 61
+  "rgb_255_255_255_":
+    value: "rgb(255, 255, 255)"
+    occurrences: 31
+  "rgb_143_143_143_":
+    value: "rgb(143, 143, 143)"
+    occurrences: 4
+  "rgb_250_250_250_":
+    value: "rgb(250, 250, 250)"
+    occurrences: 3
+  "rgb_0_0_0_":
+    value: "rgb(0, 0, 0)"
+    occurrences: 3
+  "rgb_0_114_245_":
+    value: "rgb(0, 114, 245)"
+    occurrences: 1
+  "rgb_0_104_214_":
+    value: "rgb(0, 104, 214)"
+    occurrences: 1
+  "rgb_120_32_188_":
+    value: "rgb(120, 32, 188)"
+    occurrences: 1
+
+typography:
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: "Geist, Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 544
+  "14px_400":
+    font-size: "14px"
+    font-weight: "400"
+    font-family: "Geist, Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 327
+  "14px_500":
+    font-size: "14px"
+    font-weight: "500"
+    font-family: "Geist, Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 62
+  "12px_400":
+    font-size: "12px"
+    font-weight: "400"
+    font-family: "Geist, Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 36
+  "16px_500":
+    font-size: "16px"
+    font-weight: "500"
+    font-family: "Geist, Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 16
+  "12px_500":
+    font-size: "12px"
+    font-weight: "500"
+    font-family: ""Geist Mono", ui-monospace, SFMono-Regular, "Roboto Mono", Menlo, Monaco, "Liberation Mono", "DejaVu Sans Mono", "Courier New", monospace, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace"
+    occurrences: 12
+  "13_3333px_400":
+    font-size: "13.3333px"
+    font-weight: "400"
+    font-family: "Geist, Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 6
+  "24px_600":
+    font-size: "24px"
+    font-weight: "600"
+    font-family: "Geist, Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 5
+  "8px_600":
+    font-size: "8px"
+    font-weight: "600"
+    font-family: ""Geist Mono", ui-monospace, SFMono-Regular, "Roboto Mono", Menlo, Monaco, "Liberation Mono", "DejaVu Sans Mono", "Courier New", monospace, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace"
+    occurrences: 5
+  "24px_500":
+    font-size: "24px"
+    font-weight: "500"
+    font-family: "Geist, Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 4
+  "32px_600":
+    font-size: "32px"
+    font-weight: "600"
+    font-family: "Geist, Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 3
+  "48px_600":
+    font-size: "48px"
+    font-weight: "600"
+    font-family: "Geist, Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 2
+  "20px_400":
+    font-size: "20px"
+    font-weight: "400"
+    font-family: "Geist, Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", ui-sans-serif, system-ui, -apple-system, "system-ui", "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji""
+    occurrences: 2
+  "16px_600":
+    font-size: "16px"
+    font-weight: "600"
+    font-family: "Geist, Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 1
+  "14px_400":
+    font-size: "14px"
+    font-weight: "400"
+    font-family: ""Geist Mono", ui-monospace, SFMono-Regular, "Roboto Mono", Menlo, Monaco, "Liberation Mono", "DejaVu Sans Mono", "Courier New", monospace, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 1
+
+spacing:
+  "2px":
+    value: "2px"
+    occurrences: 146
+  "12px":
+    value: "12px"
+    occurrences: 137
+  "4px":
+    value: "4px"
+    occurrences: 123
+  "8px":
+    value: "8px"
+    occurrences: 73
+  "6px":
+    value: "6px"
+    occurrences: 56
+  "_1px":
+    value: "-1px"
+    occurrences: 11
+  "1px":
+    value: "1px"
+    occurrences: 11
+  "48px":
+    value: "48px"
+    occurrences: 10
+  "3px":
+    value: "3px"
+    occurrences: 10
+  "10px":
+    value: "10px"
+    occurrences: 9
+  "24px":
+    value: "24px"
+    occurrences: 6
+  "32px":
+    value: "32px"
+    occurrences: 5
+  "40px":
+    value: "40px"
+    occurrences: 4
+  "16px":
+    value: "16px"
+    occurrences: 3
+  "64px":
+    value: "64px"
+    occurrences: 1
+  "90px":
+    value: "90px"
+    occurrences: 1
+  "48px_24px":
+    value: "48px 24px"
+    occurrences: 1
+
+shadows:
+  shadow_1:
+    value: "rgba(0, 0, 0, 0.08) 0px 0px 0px 1px, rgba(0, 0, 0, 0.04) 0px 2px 2px 0px, rgb(250, 250, 250) 0px 0px 0px 1px"
+    occurrences: 6
+  shadow_2:
+    value: "rgb(235, 235, 235) 0px 0px 0px 1px"
+    occurrences: 3
+  shadow_3:
+    value: "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(0, 114, 245) 0px 0px 0px 4px"
+    occurrences: 1
+  shadow_4:
+    value: "rgba(0, 0, 0, 0.08) 0px 0px 0px 1px, rgb(250, 250, 250) 0px 0px 0px 1px"
+    occurrences: 1
+  shadow_5:
+    value: "rgb(235, 235, 235) 0px 0px 0px 1px, rgba(0, 0, 0, 0.05) 0px 1px 2px 0px"
+    occurrences: 1
+  shadow_6:
+    value: "rgba(0, 0, 0, 0.08) 0px 0px 0px 1px, rgba(0, 0, 0, 0.02) 0px 1px 1px 0px, rgba(0, 0, 0, 0.04) 0px 4px 8px 0px, rgb(250, 250, 250) 0px 0px 0px 1px, rgb(255, 255, 255) 0px 0px 0px 1px"
+    occurrences: 1
+
+borders:
+  border_1:
+    value: "0px 1px 1px 0px none solid solid none rgb(23, 23, 23) rgba(0, 0, 0, 0.05) rgba(0, 0, 0, 0.05) rgb(23, 23, 23)"
+    occurrences: 156
+  border_2:
+    value: "0px 1px 0px 0px none solid none none rgb(23, 23, 23) rgba(0, 0, 0, 0.05) rgb(23, 23, 23) rgb(23, 23, 23)"
+    occurrences: 56
+  border_3:
+    value: "0px 0px 1px none none solid rgb(23, 23, 23) rgb(23, 23, 23) rgba(0, 0, 0, 0.05)"
+    occurrences: 55
+  border_4:
+    value: "1px solid rgba(0, 0, 0, 0.08)"
+    occurrences: 41
+  border_5:
+    value: "0px 1px 0px 0px none dashed none none rgb(23, 23, 23) rgb(235, 235, 235) rgb(23, 23, 23) rgb(23, 23, 23)"
+    occurrences: 6
+  border_6:
+    value: "1px solid rgb(23, 23, 23)"
+    occurrences: 5
+  border_7:
+    value: "0px 1px 0px 0px solid rgb(168, 168, 168)"
+    occurrences: 4
+  border_8:
+    value: "0px 0px 1px solid rgb(168, 168, 168)"
+    occurrences: 4
+  border_9:
+    value: "0px 0px 1px none none solid rgb(23, 23, 23) rgb(23, 23, 23) rgb(235, 235, 235)"
+    occurrences: 4
+  border_10:
+    value: "0px 1px 1px 0px none dashed dashed none rgb(23, 23, 23) rgb(235, 235, 235) rgb(235, 235, 235) rgb(23, 23, 23)"
+    occurrences: 4
+
+gradients:
+  gradient_1: "conic-gradient(from 180deg at 50% 70%, rgba(250, 250, 250, 0) 0deg, rgb(238, 195, 45) 72deg, rgb(236, 75, 75) 144deg, rgb(112, 154, 185) 216deg, rgb(77, 255, 191) 288deg, rgba(250, 250, 250, 0) 360deg)"
+
+custom_properties:
+  "--geist-space-64x": "256px"
+  "--header-height": "64px"
+  "--ds-teal-100": "hsla(169, 70%, 96%, 1)"
+  "--develop-line-end": "#019ae9"
+  "--ds-green-1000-value": "128, 29%, 15%"
+  "--ds-shadow-border-large": "0 0 0 1px #00000014, 0px 2px 2px #0000000a, 0px 8px 16px -4px #0000000a, 0 0 0 1px hsla(0, 0%, 98%, 1)"
+  "--ds-blue-600": "hsla(208, 100%, 66%, 1)"
+  "--ship-text": "#ff5b4f"
+  "--geist-cyan-lighter": "#aaffec"
+  "--ds-amber-700": "hsla(39, 100%, 57%, 1)"
+  "--preview-text": "#de1d8d"
+  "--ds-pink-300-value": "340, 82%, 94%"
+  "--ds-green-800-value": "132, 43%, 39%"
+  "--ds-focus-ring-outline": "2px solid hsla(212, 100%, 48%, 1)"
+  "--geist-console-text-color-default": "#000"
+  "--geist-success-light": "#3291ff"
+  "--ds-amber-500-value": "38, 100%, 71%"
+  "--geist-error": "#e00"
+  "--geist-warning-light": "#f7b955"
+  "--geist-cyan-dark": "#29bc9b"
+  "--ds-amber-900": "hsla(30, 100%, 32%, 1)"
+  "--geist-space-gap": "24px"
+  "--ds-green-200": "hsla(120, 60%, 95%, 1)"
+  "--geist-success-dark": "#0761d1"
+  "--accents-6": "#444"
+  "--geist-form-small-height": "32px"
+  "--ds-red-800-value": "358, 70%, 52%"
+  "--font-mono": "\"Geist Mono\", ui-monospace, SFMono-Regular, Roboto Mono, Menlo, Monaco, Liberation Mono, DejaVu Sans Mono, Courier New, monospace, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol"
+  "--header-import-flow-background": "#fafafacc"
+  "--geist-secondary-lighter": "#eaeaea"
+  "--ds-pink-200-value": "340, 90%, 96%"
+  "--tw-ring-color": "#93c5fd80"
+  "--ds-blue-200": "hsla(210, 100%, 96%, 1)"
+  "--geist-violet-lighter": "#d8ccf1"
+  "--geist-text-gradient": "linear-gradient(180deg, #000c 0%, #000 100%)"
+  "--geist-space-small-negative": "-32px"
+  "--ds-green-1000": "hsla(128, 29%, 15%, 1)"
+  "--header-border-bottom": "0 1px 0 0 #0000001a"
+  "--dropdown-box-shadow": "0 4px 4px 0 #00000005"
+  "--geist-space-gap-negative": "-24px"
+  "--ds-red-1000": "hsla(355, 49%, 15%, 1)"
+  "--ds-shadow-border": "0 0 0 1px #00000014, 0 0 0 1px hsla(0, 0%, 98%, 1)"
+  "--geist-space-4x": "16px"
+  "--wv-orange": "#ffa400"
+  "--ds-amber-800-value": "35, 100%, 52%"
+  "--geist-space-medium": "40px"
+  "--ds-gray-alpha-600": "#00000057"
+  "--ds-pink-300": "hsla(340, 82%, 94%, 1)"
+  "--develop-start-gradient": "#007cf0"
+  "--geist-violet-background-tertiary": "#eae5f4"

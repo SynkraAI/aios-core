@@ -1,0 +1,1 @@
+../../../../../skills/forge/docs/FORGE-SCAFFOLD-PLAN.md

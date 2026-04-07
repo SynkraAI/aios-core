@@ -1,0 +1,218 @@
+{
+  "url": "https://apple.com/iphone",
+  "name": "apple-iphone",
+  "captured_at": "2026-04-01T12:33:17.941Z",
+  "elements": [
+    {
+      "type": "button",
+      "index": 0,
+      "text": "Brasil",
+      "tag": "div",
+      "classes": "ac-ls-dropdown-select",
+      "defaultStyles": {
+        "background": "rgb(250, 250, 252)",
+        "color": "rgba(0, 0, 0, 0.8)",
+        "borderColor": "rgba(0, 0, 0, 0.04)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "11px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(250, 250, 252)",
+        "color": "rgba(0, 0, 0, 0.8)",
+        "borderColor": "rgba(0, 0, 0, 0.04)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "11px",
+        "textDecoration": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-0-default.png",
+        "hover": "btn-0-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 1,
+      "text": "Continuar",
+      "tag": "a",
+      "classes": "ac-ls-button ac-ls-actions-item ac-ls-continue",
+      "defaultStyles": {
+        "background": "rgb(29, 29, 31)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgba(0, 0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "8px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(39, 39, 41)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgba(0, 0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "8px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgb(29, 29, 31)",
+          "to": "rgb(39, 39, 41)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-1-default.png",
+        "hover": "btn-1-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 0,
+      "text": "Apple",
+      "defaultStyles": {
+        "color": "rgba(0, 0, 0, 0.8)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgba(0, 0, 0, 1)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "diffs": {
+        "color": {
+          "from": "rgba(0, 0, 0, 0.8)",
+          "to": "rgba(0, 0, 0, 1)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "link-0-default.png",
+        "hover": "link-0-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 1,
+      "text": "Store",
+      "defaultStyles": {
+        "color": "rgba(0, 0, 0, 0.8)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgba(0, 0, 0, 1)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "diffs": {
+        "color": {
+          "from": "rgba(0, 0, 0, 0.8)",
+          "to": "rgba(0, 0, 0, 1)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "link-1-default.png",
+        "hover": "link-1-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 2,
+      "text": "Shop the Latest",
+      "defaultStyles": {
+        "color": "rgb(51, 51, 54)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(0, 0, 0)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "diffs": {
+        "color": {
+          "from": "rgb(51, 51, 54)",
+          "to": "rgb(0, 0, 0)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "link-2-default.png",
+        "hover": "link-2-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 3,
+      "text": "Mac",
+      "defaultStyles": {
+        "color": "rgb(51, 51, 54)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(0, 0, 0)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "diffs": {
+        "color": {
+          "from": "rgb(51, 51, 54)",
+          "to": "rgb(0, 0, 0)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "link-3-default.png",
+        "hover": "link-3-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 4,
+      "text": "iPad",
+      "defaultStyles": {
+        "color": "rgb(51, 51, 54)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(0, 0, 0)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "diffs": {
+        "color": {
+          "from": "rgb(51, 51, 54)",
+          "to": "rgb(0, 0, 0)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "link-4-default.png",
+        "hover": "link-4-hover.png"
+      }
+    }
+  ]
+}

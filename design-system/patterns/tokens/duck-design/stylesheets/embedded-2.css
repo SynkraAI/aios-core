@@ -1,0 +1,1 @@
+html.w-mod-js:not(.w-mod-ix3) :is(.site-header_main-title, .site_header-info, .customizable_pointer._02, .customizable_pointer._01, .customizable_pointer._03, .method_title-text, .duck-symbol-1, .duck-symbol-2, .selo-webflow, .method-description_item) {visibility: hidden !important;}

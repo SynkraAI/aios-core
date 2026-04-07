@@ -1,0 +1,298 @@
+# Design Tokens - stc-redesign
+# Extracted by dissect-artifact.js v1.0.0
+# Source: https://stc-redesign.vercel.app
+# Date: 2026-04-01T15:37:44.450Z
+
+metadata:
+  version: "1.0.0"
+  source: "https://stc-redesign.vercel.app"
+  generated_at: "2026-04-01T15:37:44.450Z"
+  node_count: 328
+
+colors:
+  "rgb_237_232_224_":
+    value: "rgb(237, 232, 224)"
+    occurrences: 186
+  "rgb_255_255_255_":
+    value: "rgb(255, 255, 255)"
+    occurrences: 49
+  "rgb_234_147_116_":
+    value: "rgb(234, 147, 116)"
+    occurrences: 38
+  "rgb_20_20_32_":
+    value: "rgb(20, 20, 32)"
+    occurrences: 33
+  "rgba_237_232_224_0_5_":
+    value: "rgba(237, 232, 224, 0.5)"
+    occurrences: 13
+  "rgb_12_12_18_":
+    value: "rgb(12, 12, 18)"
+    occurrences: 12
+  "rgba_237_232_224_0_03_":
+    value: "rgba(237, 232, 224, 0.03)"
+    occurrences: 8
+  "rgba_237_232_224_0_2_":
+    value: "rgba(237, 232, 224, 0.2)"
+    occurrences: 6
+  "rgb_208_122_92_":
+    value: "rgb(208, 122, 92)"
+    occurrences: 5
+  "rgb_248_245_240_":
+    value: "rgb(248, 245, 240)"
+    occurrences: 3
+  "rgb_28_28_42_":
+    value: "rgb(28, 28, 42)"
+    occurrences: 3
+  "rgb_0_212_160_":
+    value: "rgb(0, 212, 160)"
+    occurrences: 2
+  "rgb_58_98_196_":
+    value: "rgb(58, 98, 196)"
+    occurrences: 2
+  "rgb_90_126_214_":
+    value: "rgb(90, 126, 214)"
+    occurrences: 2
+  "rgb_255_181_71_":
+    value: "rgb(255, 181, 71)"
+    occurrences: 2
+  "rgba_20_20_32_0_6_":
+    value: "rgba(20, 20, 32, 0.6)"
+    occurrences: 1
+  "rgb_255_107_107_":
+    value: "rgb(255, 107, 107)"
+    occurrences: 1
+  "rgb_200_162_255_":
+    value: "rgb(200, 162, 255)"
+    occurrences: 1
+  "rgb_37_211_102_":
+    value: "rgb(37, 211, 102)"
+    occurrences: 1
+  "rgb_208_200_188_":
+    value: "rgb(208, 200, 188)"
+    occurrences: 1
+
+typography:
+  "15_84px_400":
+    font-size: "15.84px"
+    font-weight: "400"
+    font-family: "Inter, system-ui, sans-serif"
+    occurrences: 115
+  "10px_400":
+    font-size: "10px"
+    font-weight: "400"
+    font-family: ""JetBrains Mono", "Fira Code", monospace"
+    occurrences: 19
+  "316_8px_400":
+    font-size: "316.8px"
+    font-weight: "400"
+    font-family: ""Bebas Neue", Impact, sans-serif"
+    occurrences: 19
+  "86_4px_400":
+    font-size: "86.4px"
+    font-weight: "400"
+    font-family: ""Bebas Neue", Impact, sans-serif"
+    occurrences: 18
+  "259_2px_400":
+    font-size: "259.2px"
+    font-weight: "400"
+    font-family: ""Bebas Neue", Impact, sans-serif"
+    occurrences: 17
+  "28_8px_400":
+    font-size: "28.8px"
+    font-weight: "400"
+    font-family: ""Bebas Neue", Impact, sans-serif"
+    occurrences: 15
+  "115_2px_400":
+    font-size: "115.2px"
+    font-weight: "400"
+    font-family: ""Bebas Neue", Impact, sans-serif"
+    occurrences: 14
+  "100_8px_400":
+    font-size: "100.8px"
+    font-weight: "400"
+    font-family: ""Playfair Display", Georgia, serif"
+    occurrences: 14
+  "25_2px_400":
+    font-size: "25.2px"
+    font-weight: "400"
+    font-family: ""Playfair Display", Georgia, serif"
+    occurrences: 12
+  "11px_400":
+    font-size: "11px"
+    font-weight: "400"
+    font-family: ""JetBrains Mono", "Fira Code", monospace"
+    occurrences: 9
+  "14px_400":
+    font-size: "14px"
+    font-weight: "400"
+    font-family: "Inter, system-ui, sans-serif"
+    occurrences: 9
+  "12px_400":
+    font-size: "12px"
+    font-weight: "400"
+    font-family: ""JetBrains Mono", "Fira Code", monospace"
+    occurrences: 9
+  "129_6px_400":
+    font-size: "129.6px"
+    font-weight: "400"
+    font-family: ""Bebas Neue", Impact, sans-serif"
+    occurrences: 6
+  "18_72px_400":
+    font-size: "18.72px"
+    font-weight: "400"
+    font-family: "Inter, system-ui, sans-serif"
+    occurrences: 6
+  "432px_400":
+    font-size: "432px"
+    font-weight: "400"
+    font-family: ""Bebas Neue", Impact, sans-serif"
+    occurrences: 6
+  "64px_400":
+    font-size: "64px"
+    font-weight: "400"
+    font-family: ""Bebas Neue", Impact, sans-serif"
+    occurrences: 5
+  "13px_400":
+    font-size: "13px"
+    font-weight: "400"
+    font-family: ""JetBrains Mono", "Fira Code", monospace"
+    occurrences: 4
+  "100_8px_400":
+    font-size: "100.8px"
+    font-weight: "400"
+    font-family: ""Bebas Neue", Impact, sans-serif"
+    occurrences: 3
+  "20_16px_400":
+    font-size: "20.16px"
+    font-weight: "400"
+    font-family: ""Playfair Display", Georgia, serif"
+    occurrences: 3
+  "13px_600":
+    font-size: "13px"
+    font-weight: "600"
+    font-family: ""JetBrains Mono", "Fira Code", monospace"
+    occurrences: 3
+
+spacing:
+  "12px":
+    value: "12px"
+    occurrences: 22
+  "43_2px":
+    value: "43.2px"
+    occurrences: 19
+  "16px":
+    value: "16px"
+    occurrences: 14
+  "72px":
+    value: "72px"
+    occurrences: 14
+  "24px":
+    value: "24px"
+    occurrences: 11
+  "4px":
+    value: "4px"
+    occurrences: 9
+  "8px":
+    value: "8px"
+    occurrences: 8
+  "20px":
+    value: "20px"
+    occurrences: 8
+  "32px":
+    value: "32px"
+    occurrences: 5
+  "48px":
+    value: "48px"
+    occurrences: 5
+  "135px":
+    value: "135px"
+    occurrences: 4
+  "10px":
+    value: "10px"
+    occurrences: 2
+  "40px":
+    value: "40px"
+    occurrences: 2
+  "45px":
+    value: "45px"
+    occurrences: 2
+  "90px":
+    value: "90px"
+    occurrences: 2
+  "6px":
+    value: "6px"
+    occurrences: 1
+  "80px":
+    value: "80px"
+    occurrences: 1
+  "_5_76px":
+    value: "-5.76px"
+    occurrences: 1
+  "2250px":
+    value: "2250px"
+    occurrences: 1
+  "86_4px":
+    value: "86.4px"
+    occurrences: 1
+
+shadows:
+  shadow_1:
+    value: "rgba(37, 211, 102, 0.3) 0px 4px 24px 0px"
+    occurrences: 1
+
+borders:
+  border_1:
+    value: "0px 1px 0px 0px none solid none none rgb(237, 232, 224) rgba(237, 232, 224, 0.03) rgb(237, 232, 224) rgb(237, 232, 224)"
+    occurrences: 5
+  border_2:
+    value: "1px solid rgba(255, 255, 255, 0.4)"
+    occurrences: 1
+  border_3:
+    value: "1px solid rgba(255, 255, 255, 0.3)"
+    occurrences: 1
+  border_4:
+    value: "1px 0px solid none rgba(237, 232, 224, 0.08) rgb(237, 232, 224)"
+    occurrences: 1
+  border_5:
+    value: "1px 0px 0px solid none none rgba(237, 232, 224, 0.08) rgb(237, 232, 224) rgb(237, 232, 224)"
+    occurrences: 1
+
+gradients:
+  gradient_1: "linear-gradient(rgb(234, 147, 116), rgba(0, 0, 0, 0))"
+  gradient_2: "linear-gradient(135deg, rgb(26, 42, 94) 0%, rgb(12, 20, 48) 100%)"
+  gradient_3: "linear-gradient(135deg, rgb(90, 42, 26) 0%, rgb(58, 21, 8) 100%)"
+  gradient_4: "linear-gradient(135deg, rgb(74, 40, 0) 0%, rgb(42, 24, 0) 100%)"
+  gradient_5: "linear-gradient(135deg, rgb(59, 10, 15) 0%, rgb(37, 5, 8) 100%)"
+  gradient_6: "linear-gradient(135deg, rgb(42, 26, 78) 0%, rgb(24, 14, 48) 100%)"
+  gradient_7: "linear-gradient(135deg, rgb(237, 232, 224) 0%, rgb(208, 200, 188) 100%)"
+  gradient_8: "linear-gradient(160deg, rgb(20, 20, 32) 0%, rgb(28, 28, 42) 100%)"
+
+custom_properties:
+  "--c-void": "#08080C"
+  "--c-warm": "#FFB547"
+  "--c-mint": "#00D4A0"
+  "--c-white": "#FFFFFF"
+  "--c-salmon": "#EA9374"
+  "--border": "rgba(237, 232, 224, 0.08)"
+  "--c-dark": "#141420"
+  "--text": "#EDE8E0"
+  "--c-surface": "#1C1C2A"
+  "--c-blue-deep": "#3A62C4"
+  "--c-cream": "#EDE8E0"
+  "--text-dim": "rgba(237, 232, 224, 0.2)"
+  "--font-serif": "'Playfair Display', Georgia, serif"
+  "--c-coral": "#FF6B6B"
+  "--font-mono": "'JetBrains Mono', 'Fira Code', monospace"
+  "--font-display": "'Bebas Neue', 'Impact', sans-serif"
+  "--c-warm-white": "#F8F5F0"
+  "--c-blue": "#5A7ED6"
+  "--c-lavender": "#C8A2FF"
+  "--font-body": "'Inter', system-ui, sans-serif"
+  "--c-cream-deep": "#D0C8BC"
+  "--section-pad": "clamp(100px, 15vh, 200px)"
+  "--page-pad": "clamp(24px, 5vw, 80px)"
+  "--ease-out": "cubic-bezier(0.16, 1, 0.3, 1)"
+  "--text-muted": "rgba(237, 232, 224, 0.5)"
+  "--c-deep": "#0C0C12"
+  "--ease-dramatic": "cubic-bezier(0.65, 0.05, 0, 1)"
+  "--c-salmon-deep": "#D07A5C"

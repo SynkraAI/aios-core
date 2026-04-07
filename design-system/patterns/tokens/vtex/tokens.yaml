@@ -1,0 +1,110 @@
+# Design Tokens - vtex
+# Extracted by dissect-artifact.js v1.0.0
+# Source: https://vtex.com
+# Date: 2026-04-01T02:57:16.419Z
+
+metadata:
+  version: "1.0.0"
+  source: "https://vtex.com"
+  generated_at: "2026-04-01T02:57:16.419Z"
+  node_count: 11
+
+colors:
+  "rgb_20_32_50_":
+    value: "rgb(20, 32, 50)"
+    occurrences: 7
+  "rgb_255_255_255_":
+    value: "rgb(255, 255, 255)"
+    occurrences: 3
+  "rgb_243_244_246_":
+    value: "rgb(243, 244, 246)"
+    occurrences: 1
+  "rgb_107_114_128_":
+    value: "rgb(107, 114, 128)"
+    occurrences: 1
+  "rgb_247_25_99_":
+    value: "rgb(247, 25, 99)"
+    occurrences: 1
+
+typography:
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: "VTEXTrust, system-ui, sans-serif"
+    occurrences: 7
+  "20px_400":
+    font-size: "20px"
+    font-weight: "400"
+    font-family: "VTEXTrust, system-ui, sans-serif"
+    occurrences: 1
+  "14px_400":
+    font-size: "14px"
+    font-weight: "400"
+    font-family: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace"
+    occurrences: 1
+
+spacing:
+  "32px":
+    value: "32px"
+    occurrences: 4
+  "16px":
+    value: "16px"
+    occurrences: 3
+  "8px":
+    value: "8px"
+    occurrences: 3
+  "24px":
+    value: "24px"
+    occurrences: 1
+
+custom_properties:
+  "--container-md": "28rem"
+  "--border": "#e5e7eb"
+  "--tw-inset-shadow-alpha": "100%"
+  "--tw-ring-shadow": "0 0 #0000"
+  "--text-2xl": "1.5rem"
+  "--sidebar-primary-foreground": "#fff"
+  "--aspect-video": "16/9"
+  "--card": "#fff"
+  "--color-slate-200": "oklch(92.9% .013 255.508)"
+  "--tw-drop-shadow-alpha": "100%"
+  "--color-slate-700": "oklch(37.2% .044 257.287)"
+  "--text-7xl": "4.5rem"
+  "--tw-animation-delay": "0s"
+  "--text-lg": "1.125rem"
+  "--primary-foreground": "#fff"
+  "--color-blue-700": "oklch(48.8% .243 264.376)"
+  "--color-yellow-800": "oklch(47.6% .114 61.907)"
+  "--color-slate-900": "oklch(20.8% .042 265.755)"
+  "--card-foreground": "#142032"
+  "--tw-outline-style": "solid"
+  "--text-5xl--line-height": "1"
+  "--color-green-100": "oklch(96.2% .044 156.743)"
+  "--leading-normal": "1.5"
+  "--tw-inset-ring-shadow": "0 0 #0000"
+  "--color-emerald-700": "oklch(50.8% .118 165.612)"
+  "--text-base--line-height": "1.5"
+  "--sidebar-accent-foreground": "#fff"
+  "--muted": "#f3f4f6"
+  "--color-cyan-700": "oklch(52% .105 223.128)"
+  "--tw-animation-direction": "normal"
+  "--tw-enter-scale": "1"
+  "--color-gray-300": "oklch(87.2% .01 258.338)"
+  "--accent-foreground": "#142032"
+  "--tracking-wider": ".05em"
+  "--font-mono": "ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,\"Liberation Mono\",\"Courier New\",monospace"
+  "--color-slate-300": "oklch(86.9% .022 252.894)"
+  "--color-gray-500": "oklch(55.1% .027 264.364)"
+  "--popover": "#fff"
+  "--color-green-500": "oklch(72.3% .219 149.579)"
+  "--ring": "#f71963"
+  "--color-gray-50": "oklch(98.5% .002 247.839)"
+  "--color-purple-100": "oklch(94.6% .033 307.174)"
+  "--tw-inset-shadow": "0 0 #0000"
+  "--tw-ring-offset-color": "#fff"
+  "--text-lg--line-height": "calc(1.75/1.125)"
+  "--tw-gradient-from": "rgba(0, 0, 0, 0)"
+  "--color-white": "#fff"
+  "--color-gray-400": "oklch(70.7% .022 261.325)"
+  "--tw-shadow-alpha": "100%"
+  "--tw-gradient-to": "rgba(0, 0, 0, 0)"

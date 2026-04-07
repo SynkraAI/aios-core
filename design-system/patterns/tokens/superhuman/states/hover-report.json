@@ -1,0 +1,276 @@
+{
+  "url": "https://superhuman.com",
+  "name": "superhuman",
+  "captured_at": "2026-04-01T12:39:05.912Z",
+  "elements": [
+    {
+      "type": "button",
+      "index": 0,
+      "text": "Product",
+      "tag": "button",
+      "classes": "button_unstyled__Gf24r nav-links_navLink__2KNGH",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "color(srgb 1 1 1 / 0.95)",
+        "borderColor": "color(srgb 1 1 1 / 0.95)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgb(255, 255, 255)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "underline"
+      },
+      "diffs": {
+        "color": {
+          "from": "color(srgb 1 1 1 / 0.95)",
+          "to": "rgb(255, 255, 255)"
+        },
+        "borderColor": {
+          "from": "color(srgb 1 1 1 / 0.95)",
+          "to": "rgb(255, 255, 255)"
+        },
+        "textDecoration": {
+          "from": "none",
+          "to": "underline"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-0-default.png",
+        "hover": "btn-0-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 1,
+      "text": "Contact sales",
+      "tag": "a",
+      "classes": "link_link__AAIEV button_unstyled__Gf24r",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgb(255, 255, 255)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgb(255, 255, 255)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-1-default.png",
+        "hover": "btn-1-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 2,
+      "text": "Log in",
+      "tag": "a",
+      "classes": "link_link__AAIEV button_unstyled__Gf24r",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgb(255, 255, 255)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgb(255, 255, 255)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-2-default.png",
+        "hover": "btn-2-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 3,
+      "text": "Sign up",
+      "tag": "a",
+      "classes": "link_link__AAIEV button_button__RzPSK button_primaryMysteria__gdDUj button_compact__d5yM_",
+      "defaultStyles": {
+        "background": "rgb(212, 199, 255)",
+        "color": "rgb(41, 40, 39)",
+        "borderColor": "rgb(41, 40, 39)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "8px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(190, 161, 245)",
+        "color": "rgb(41, 40, 39)",
+        "borderColor": "rgb(41, 40, 39)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "8px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgb(212, 199, 255)",
+          "to": "rgb(190, 161, 245)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-3-default.png",
+        "hover": "btn-3-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 1,
+      "text": "Enterprise",
+      "defaultStyles": {
+        "color": "color(srgb 1 1 1 / 0.95)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(255, 255, 255)",
+        "textDecoration": "underline",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "diffs": {
+        "color": {
+          "from": "color(srgb 1 1 1 / 0.95)",
+          "to": "rgb(255, 255, 255)"
+        },
+        "textDecoration": {
+          "from": "none",
+          "to": "underline"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "link-1-default.png",
+        "hover": "link-1-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 2,
+      "text": "Education",
+      "defaultStyles": {
+        "color": "color(srgb 1 1 1 / 0.95)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(255, 255, 255)",
+        "textDecoration": "underline",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "diffs": {
+        "color": {
+          "from": "color(srgb 1 1 1 / 0.95)",
+          "to": "rgb(255, 255, 255)"
+        },
+        "textDecoration": {
+          "from": "none",
+          "to": "underline"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "link-2-default.png",
+        "hover": "link-2-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 3,
+      "text": "Pricing",
+      "defaultStyles": {
+        "color": "color(srgb 1 1 1 / 0.95)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(255, 255, 255)",
+        "textDecoration": "underline",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "diffs": {
+        "color": {
+          "from": "color(srgb 1 1 1 / 0.95)",
+          "to": "rgb(255, 255, 255)"
+        },
+        "textDecoration": {
+          "from": "none",
+          "to": "underline"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "link-3-default.png",
+        "hover": "link-3-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 4,
+      "text": "Contact sales",
+      "defaultStyles": {
+        "color": "rgb(255, 255, 255)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(255, 255, 255)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "link-4-default.png",
+        "hover": "link-4-hover.png"
+      }
+    }
+  ]
+}

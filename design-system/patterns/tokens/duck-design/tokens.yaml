@@ -1,0 +1,276 @@
+# Design Tokens - duck-design
+# Extracted by dissect-artifact.js v1.0.0
+# Source: https://duckstudio.design
+# Date: 2026-04-01T12:09:15.301Z
+
+metadata:
+  version: "1.0.0"
+  source: "https://duckstudio.design"
+  generated_at: "2026-04-01T12:09:15.301Z"
+  node_count: 600
+
+colors:
+  "rgb_0_0_0_":
+    value: "rgb(0, 0, 0)"
+    occurrences: 337
+  "rgb_255_255_255_":
+    value: "rgb(255, 255, 255)"
+    occurrences: 203
+  "rgb_25_25_25_":
+    value: "rgb(25, 25, 25)"
+    occurrences: 33
+  "rgb_102_102_102_":
+    value: "rgb(102, 102, 102)"
+    occurrences: 33
+  "rgb_248_224_142_":
+    value: "rgb(248, 224, 142)"
+    occurrences: 14
+  "rgb_51_51_51_":
+    value: "rgb(51, 51, 51)"
+    occurrences: 6
+  "rgba_0_0_0_0_5_":
+    value: "rgba(0, 0, 0, 0.5)"
+    occurrences: 6
+  "rgb_34_34_34_":
+    value: "rgb(34, 34, 34)"
+    occurrences: 3
+  "rgb_153_153_153_":
+    value: "rgb(153, 153, 153)"
+    occurrences: 3
+  "rgba_0_0_0_0_2_":
+    value: "rgba(0, 0, 0, 0.2)"
+    occurrences: 2
+  "rgb_242_242_242_":
+    value: "rgb(242, 242, 242)"
+    occurrences: 1
+  "rgba_0_0_0_0_69_":
+    value: "rgba(0, 0, 0, 0.69)"
+    occurrences: 1
+  "rgba_0_0_0_0_4_":
+    value: "rgba(0, 0, 0, 0.4)"
+    occurrences: 1
+  "rgb_46_46_46_":
+    value: "rgb(46, 46, 46)"
+    occurrences: 1
+
+typography:
+  "14px_500":
+    font-size: "14px"
+    font-weight: "500"
+    font-family: "Pretendard, sans-serif"
+    occurrences: 348
+  "16px_500":
+    font-size: "16px"
+    font-weight: "500"
+    font-family: "Pretendard, sans-serif"
+    occurrences: 93
+  "24px_500":
+    font-size: "24px"
+    font-weight: "500"
+    font-family: "Pretendard, sans-serif"
+    occurrences: 35
+  "14px_400":
+    font-size: "14px"
+    font-weight: "400"
+    font-family: "Inter, sans-serif"
+    occurrences: 35
+  "11px_600":
+    font-size: "11px"
+    font-weight: "600"
+    font-family: ""Martian Mono SemiExpanded", sans-serif"
+    occurrences: 15
+  "64px_500":
+    font-size: "64px"
+    font-weight: "500"
+    font-family: "Pretendard, sans-serif"
+    occurrences: 14
+  "54px_500":
+    font-size: "54px"
+    font-weight: "500"
+    font-family: "Pretendard, sans-serif"
+    occurrences: 11
+  "16px_500":
+    font-size: "16px"
+    font-weight: "500"
+    font-family: "Inter, sans-serif"
+    occurrences: 8
+  "34px_600":
+    font-size: "34px"
+    font-weight: "600"
+    font-family: "Pretendard, sans-serif"
+    occurrences: 6
+  "13px_500":
+    font-size: "13px"
+    font-weight: "500"
+    font-family: "Pretendard, sans-serif"
+    occurrences: 6
+  "160px_600":
+    font-size: "160px"
+    font-weight: "600"
+    font-family: "Pretendard, sans-serif"
+    occurrences: 4
+  "64px_700":
+    font-size: "64px"
+    font-weight: "700"
+    font-family: "Pretendard, sans-serif"
+    occurrences: 4
+  "16px_600":
+    font-size: "16px"
+    font-weight: "600"
+    font-family: ""Martian Mono SemiExpanded", sans-serif"
+    occurrences: 4
+  "13px_600":
+    font-size: "13px"
+    font-weight: "600"
+    font-family: ""Martian Mono SemiExpanded", sans-serif"
+    occurrences: 3
+  "32px_500":
+    font-size: "32px"
+    font-weight: "500"
+    font-family: "Pretendard, sans-serif"
+    occurrences: 3
+  "80px_600":
+    font-size: "80px"
+    font-weight: "600"
+    font-family: "Pretendard, sans-serif"
+    occurrences: 3
+  "12px_500":
+    font-size: "12px"
+    font-weight: "500"
+    font-family: "Inter, sans-serif"
+    occurrences: 2
+  "24px_500":
+    font-size: "24px"
+    font-weight: "500"
+    font-family: "Inter, sans-serif"
+    occurrences: 2
+  "64px_600":
+    font-size: "64px"
+    font-weight: "600"
+    font-family: "Pretendard, sans-serif"
+    occurrences: 1
+  "24px_600":
+    font-size: "24px"
+    font-weight: "600"
+    font-family: "Pretendard, sans-serif"
+    occurrences: 1
+
+spacing:
+  "10px":
+    value: "10px"
+    occurrences: 35
+  "30px":
+    value: "30px"
+    occurrences: 33
+  "16px":
+    value: "16px"
+    occurrences: 31
+  "15px":
+    value: "15px"
+    occurrences: 27
+  "5px":
+    value: "5px"
+    occurrences: 24
+  "20px":
+    value: "20px"
+    occurrences: 17
+  "25px":
+    value: "25px"
+    occurrences: 13
+  "0_":
+    value: "0%"
+    occurrences: 10
+  "8px":
+    value: "8px"
+    occurrences: 10
+  "18px":
+    value: "18px"
+    occurrences: 8
+  "144px":
+    value: "144px"
+    occurrences: 6
+  "69_1094px":
+    value: "69.1094px"
+    occurrences: 6
+  "4px_normal":
+    value: "4px normal"
+    occurrences: 6
+  "normal_20px":
+    value: "normal 20px"
+    occurrences: 5
+  "normal_25px":
+    value: "normal 25px"
+    occurrences: 4
+  "2_":
+    value: "2%"
+    occurrences: 4
+  "normal_60px":
+    value: "normal 60px"
+    occurrences: 3
+  "28_7969px":
+    value: "28.7969px"
+    occurrences: 3
+  "41_4688px":
+    value: "41.4688px"
+    occurrences: 3
+  "33_1719px":
+    value: "33.1719px"
+    occurrences: 3
+
+shadows:
+  shadow_1:
+    value: "rgba(0, 0, 0, 0.36) 0px 0px 70px 0px"
+    occurrences: 1
+  shadow_2:
+    value: "rgba(17, 23, 156, 0.07) 0px -13px 50px 3px"
+    occurrences: 1
+
+borders:
+  border_1:
+    value: "0px 0px 1px none none solid rgb(0, 0, 0) rgb(0, 0, 0) rgb(102, 102, 102)"
+    occurrences: 14
+  border_2:
+    value: "2px solid rgb(102, 102, 102)"
+    occurrences: 8
+  border_3:
+    value: "2px solid rgba(255, 255, 255, 0.1)"
+    occurrences: 2
+  border_4:
+    value: "1px solid rgb(248, 224, 142)"
+    occurrences: 2
+  border_5:
+    value: "2px solid rgba(255, 255, 255, 0.15)"
+    occurrences: 1
+  border_6:
+    value: "1px solid rgb(0, 0, 0)"
+    occurrences: 1
+  border_7:
+    value: "2px 2px 2px 0px solid rgb(102, 102, 102)"
+    occurrences: 1
+  border_8:
+    value: "1px solid rgb(224, 224, 224)"
+    occurrences: 1
+  border_9:
+    value: "1px solid rgb(235, 238, 240)"
+    occurrences: 1
+
+gradients:
+  gradient_1: "radial-gradient(circle, rgba(162, 162, 162, 0) 76%, rgba(255, 255, 255, 0))"
+  gradient_2: "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5))"
+
+custom_properties:
+  "--y-text": "#635939"
+  "--yellow": "#f8e08e"
+  "--g-white-text": "#999"
+  "--_rebranding--2026---neutral-1000": "black"
+  "--white": "white"
+  "--_rebranding--2026---neutral-300": "#d6cfc6"
+  "--_rebranding--2026---gold-100": "#fbefc7"
+  "--extra-dark": "#191919"
+  "--_rebranding--2026---neutral-100": "#f4eee5"
+  "--g-black-text": "#666"
+  "--_rebranding--2026---neutral-900": "#171616"
+  "--_rebranding--2026---gold-900": "#f8e08e"
+  "--_rebranding--2026---neutral-700": "#666"
+  "--extra-light": "#f2f2f2"
+  "--black": "black"

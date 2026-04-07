@@ -1,0 +1,616 @@
+#!/usr/bin/env node
+'use strict';
+
+/**
+ * ping-pong — Global Code Review Orchestrator
+ *
+ * Run from anywhere. Picks project, picks scope, runs the cycle.
+ *
+ * Usage:
+ *   ping-pong                     — Interactive: pick project + scope
+ *   ping-pong .                   — Run in current directory
+ *   ping-pong ~/CODE/Projects/X   — Run in specific project
+ *   ping-pong --init              — Bootstrap ping-pong in current dir
+ *   ping-pong --reset             — Archive rounds, keep session, start fresh
+ *   ping-pong --with-audit        — Include Gemini audit
+ *   ping-pong --dry-run           — Show commands without executing
+ *   ping-pong --status            — Show status of all tracked projects
+ */
+
+const { execFileSync, execSync } = require('child_process');
+const fs = require('fs');
+const path = require('path');
+const readline = require('readline');
+
+const HOME = process.env.HOME || process.env.USERPROFILE;
+const AIOS_ROOT = path.resolve(__dirname, '..');
+const ORCHESTRATOR = path.join(AIOS_ROOT, 'skills', 'code-review-ping-pong', 'scripts', 'orchestrate.cjs');
+const VALIDATE_SRC = path.join(AIOS_ROOT, 'skills', 'code-review-ping-pong', 'scripts', 'validate.cjs');
+const MULTI_STAGE_SRC = path.join(AIOS_ROOT, 'skills', 'code-review-ping-pong', 'scripts', 'multi-stage.cjs');
+
+// Known project roots to scan
+const PROJECT_ROOTS = [
+  path.join(HOME, 'CODE', 'Projects'),
+  path.join(HOME, 'CODE', 'design-systems'),
+  path.join(HOME, 'CODE', 'frameworks'),
+  path.join(HOME, 'CODE', 'tools'),
+  AIOS_ROOT,
+];
+
+const c = {
+  reset: '\x1b[0m',
+  bold: '\x1b[1m',
+  dim: '\x1b[2m',
+  red: '\x1b[31m',
+  green: '\x1b[32m',
+  yellow: '\x1b[33m',
+  blue: '\x1b[34m',
+  magenta: '\x1b[35m',
+  cyan: '\x1b[36m',
+};
+
+function log(color, icon, msg) {
+  console.log(`${color}${icon}${c.reset} ${msg}`);
+}
+
+function banner(msg) {
+  const line = '━'.repeat(60);
+  console.log(`\n${c.cyan}${line}${c.reset}`);
+  console.log(`${c.cyan}${c.bold}  ${msg}${c.reset}`);
+  console.log(`${c.cyan}${line}${c.reset}\n`);
+}
+
+// ─── Project Discovery ──────────────────────────────────────────────────────
+
+function discoverProjects() {
+  const projects = [];
+
+  for (const root of PROJECT_ROOTS) {
+    if (!fs.existsSync(root)) continue;
+
+    if (root === AIOS_ROOT) {
+      // aios-core is itself a project
+      projects.push({
+        name: 'aios-core',
+        path: root,
+        hasPingPong: fs.existsSync(path.join(root, '.code-review-ping-pong')),
+        state: getProjectState(root),
+      });
+      continue;
+    }
+
+    const entries = fs.readdirSync(root, { withFileTypes: true });
+    for (const entry of entries) {
+      if (!entry.isDirectory() || entry.name.startsWith('.')) continue;
+      const projectPath = path.join(root, entry.name);
+      projects.push({
+        name: entry.name,
+        path: projectPath,
+        hasPingPong: fs.existsSync(path.join(projectPath, '.code-review-ping-pong')),
+        state: getProjectState(projectPath),
+      });
+    }
+  }
+
+  return projects;
+}
+
+function getProjectState(projectPath) {
+  const ppDir = path.join(projectPath, '.code-review-ping-pong');
+  if (!fs.existsSync(ppDir)) return null;
+
+  const nsPath = path.join(ppDir, 'next-step.md');
+  if (!fs.existsSync(nsPath)) return { status: 'no-rounds', round: 0 };
+
+  const content = fs.readFileSync(nsPath, 'utf-8');
+  const stateMatch = content.match(/cycle_state:\s*(\S+)/);
+  const roundMatch = content.match(/current_round:\s*(\d+)/);
+  const state = stateMatch ? stateMatch[1] : 'UNKNOWN';
+  const round = roundMatch ? Number(roundMatch[1]) : 0;
+
+  // Check for multi-stage
+  const hasStages = fs.existsSync(path.join(ppDir, 'stages.yml'));
+
+  let stagesInfo = null;
+  if (hasStages) {
+    const progressPath = path.join(ppDir, 'progress.yml');
+    if (fs.existsSync(progressPath)) {
+      const prog = fs.readFileSync(progressPath, 'utf-8');
+      const completed = prog.match(/completed:\s*(\d+)/);
+      const total = prog.match(/total_stages:\s*(\d+)/);
+      stagesInfo = {
+        completed: completed ? Number(completed[1]) : 0,
+        total: total ? Number(total[1]) : 0,
+      };
+    }
+  }
+
+  return { status: state, round, hasStages, stagesInfo };
+}
+
+function formatState(state) {
+  if (!state) return `${c.dim}(não configurado)${c.reset}`;
+  if (state.status === 'no-rounds') return `${c.dim}(pronto, sem rounds)${c.reset}`;
+  if (state.status === 'COMPLETE') return `${c.green}✅ COMPLETE (round ${state.round})${c.reset}`;
+  if (state.status === 'WAITING_FOR_FIX') return `${c.magenta}🟣 WAITING FIX (round ${state.round})${c.reset}`;
+  if (state.status === 'WAITING_FOR_REVIEW') return `${c.green}🟢 WAITING REVIEW (round ${state.round})${c.reset}`;
+  if (state.status === 'WAITING_FOR_AUDIT') return `${c.blue}🔵 WAITING AUDIT (round ${state.round})${c.reset}`;
+  return `${c.yellow}${state.status} (round ${state.round})${c.reset}`;
+}
+
+// ─── Interactive Prompts ────────────────────────────────────────────────────
+
+function createRl() {
+  return readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  });
+}
+
+function ask(rl, question) {
+  return new Promise((resolve) => {
+    rl.question(question, (answer) => resolve(answer.trim()));
+  });
+}
+
+async function pickProject(rl) {
+  const projects = discoverProjects();
+
+  // Separate: active ping-pong, configured, and unconfigured
+  const active = projects.filter(p => p.state && p.state.status !== 'no-rounds' && p.state.status !== 'COMPLETE');
+  const complete = projects.filter(p => p.state && p.state.status === 'COMPLETE');
+  const ready = projects.filter(p => p.state && p.state.status === 'no-rounds');
+  const unconfigured = projects.filter(p => !p.state);
+
+  banner('Code Review Ping-Pong — Seleção de Projeto');
+
+  let options = [];
+  let idx = 1;
+
+  if (active.length > 0) {
+    console.log(`${c.bold}  Ciclos em andamento:${c.reset}`);
+    for (const p of active) {
+      console.log(`  ${c.cyan}${idx}.${c.reset} ${c.bold}${p.name}${c.reset} ${formatState(p.state)}`);
+      console.log(`     ${c.dim}${p.path}${c.reset}`);
+      options.push(p);
+      idx++;
+    }
+    console.log('');
+  }
+
+  if (complete.length > 0) {
+    console.log(`${c.bold}  Ciclos completos (precisa --reset para novo ciclo):${c.reset}`);
+    for (const p of complete) {
+      console.log(`  ${c.cyan}${idx}.${c.reset} ${p.name} ${formatState(p.state)}`);
+      options.push(p);
+      idx++;
+    }
+    console.log('');
+  }
+
+  if (ready.length > 0) {
+    console.log(`${c.bold}  Prontos (session.md existe, sem rounds):${c.reset}`);
+    for (const p of ready) {
+      console.log(`  ${c.cyan}${idx}.${c.reset} ${p.name} ${formatState(p.state)}`);
+      options.push(p);
+      idx++;
+    }
+    console.log('');
+  }
+
+  // Show max 10 unconfigured
+  const showUnconfigured = unconfigured.slice(0, 10);
+  if (showUnconfigured.length > 0) {
+    console.log(`${c.bold}  Projetos sem ping-pong (precisa --init):${c.reset}`);
+    for (const p of showUnconfigured) {
+      console.log(`  ${c.cyan}${idx}.${c.reset} ${c.dim}${p.name}${c.reset}`);
+      options.push(p);
+      idx++;
+    }
+    if (unconfigured.length > 10) {
+      console.log(`  ${c.dim}  ...e mais ${unconfigured.length - 10} projetos${c.reset}`);
+    }
+    console.log('');
+  }
+
+  console.log(`  ${c.cyan}0.${c.reset} Usar diretório atual: ${c.dim}${process.cwd()}${c.reset}`);
+  console.log(`  ${c.cyan}p.${c.reset} Digitar caminho manualmente`);
+  console.log('');
+
+  const choice = await ask(rl, `${c.cyan}Escolha: ${c.reset}`);
+
+  if (choice === '0') {
+    return process.cwd();
+  }
+
+  if (choice === 'p') {
+    const customPath = await ask(rl, `${c.cyan}Caminho: ${c.reset}`);
+    const resolved = customPath.startsWith('~')
+      ? path.join(HOME, customPath.slice(1))
+      : path.resolve(customPath);
+    if (!fs.existsSync(resolved)) {
+      log(c.red, '✗', `Diretório não encontrado: ${resolved}`);
+      process.exit(1);
+    }
+    return resolved;
+  }
+
+  const num = Number(choice);
+  if (num >= 1 && num <= options.length) {
+    return options[num - 1].path;
+  }
+
+  log(c.red, '✗', 'Opção inválida');
+  process.exit(1);
+}
+
+async function pickAction(rl, projectPath) {
+  const state = getProjectState(projectPath);
+  const ppDir = path.join(projectPath, '.code-review-ping-pong');
+  const projectName = path.basename(projectPath);
+
+  console.log('');
+  log(c.cyan, '📋', `Projeto: ${c.bold}${projectName}${c.reset}`);
+  log(c.cyan, '📁', projectPath);
+
+  if (!state) {
+    log(c.yellow, '⚠', 'Ping-pong não configurado neste projeto');
+    const confirm = await ask(rl, `${c.cyan}Configurar agora? (s/n): ${c.reset}`);
+    if (confirm.toLowerCase() === 's') {
+      return { action: 'init' };
+    }
+    process.exit(0);
+  }
+
+  log(c.cyan, '📊', `Estado: ${formatState(state)}`);
+
+  // Check for multi-stage
+  if (state.hasStages && state.stagesInfo) {
+    log(c.cyan, '📦', `Stages: ${state.stagesInfo.completed}/${state.stagesInfo.total} completos`);
+  }
+
+  console.log('');
+
+  const options = [];
+  let idx = 1;
+
+  if (state.status === 'COMPLETE') {
+    console.log(`  ${c.cyan}${idx}.${c.reset} Reset e iniciar novo ciclo (mesmo escopo)`);
+    options.push('reset-and-run');
+    idx++;
+    console.log(`  ${c.cyan}${idx}.${c.reset} Reset e editar escopo antes de rodar`);
+    options.push('reset-and-edit');
+    idx++;
+  } else if (state.status === 'no-rounds') {
+    console.log(`  ${c.cyan}${idx}.${c.reset} Iniciar ciclo`);
+    options.push('run');
+    idx++;
+    console.log(`  ${c.cyan}${idx}.${c.reset} Editar session.md antes`);
+    options.push('edit');
+    idx++;
+  } else {
+    // In progress
+    console.log(`  ${c.cyan}${idx}.${c.reset} Continuar ciclo (auto-detect mode)`);
+    options.push('run');
+    idx++;
+  }
+
+  console.log(`  ${c.cyan}${idx}.${c.reset} Rodar com Gemini audit (--with-audit)`);
+  options.push('run-audit');
+  idx++;
+  console.log(`  ${c.cyan}${idx}.${c.reset} Dry-run (ver sem executar)`);
+  options.push('dry-run');
+  idx++;
+  console.log(`  ${c.cyan}${idx}.${c.reset} Ver status detalhado`);
+  options.push('status');
+  idx++;
+
+  console.log('');
+  const choice = await ask(rl, `${c.cyan}Ação: ${c.reset}`);
+  const num = Number(choice);
+
+  if (num >= 1 && num <= options.length) {
+    return { action: options[num - 1] };
+  }
+
+  log(c.red, '✗', 'Opção inválida');
+  process.exit(1);
+}
+
+// ─── Commands ───────────────────────────────────────────────────────────────
+
+function initProject(projectPath) {
+  const ppDir = path.join(projectPath, '.code-review-ping-pong');
+
+  if (!fs.existsSync(ppDir)) {
+    fs.mkdirSync(ppDir, { recursive: true });
+    log(c.green, '✓', 'Criado .code-review-ping-pong/');
+  }
+
+  const sessionPath = path.join(ppDir, 'session.md');
+  if (!fs.existsSync(sessionPath)) {
+    writeSessionTemplate(sessionPath, projectPath);
+  } else {
+    log(c.green, '✓', 'session.md já existe');
+  }
+
+  // Copy validator
+  if (fs.existsSync(VALIDATE_SRC)) {
+    const dest = path.join(ppDir, 'validate.cjs');
+    if (!fs.existsSync(dest)) {
+      fs.copyFileSync(VALIDATE_SRC, dest);
+      log(c.green, '✓', 'validate.cjs copiado');
+    }
+  }
+
+  // Copy multi-stage if exists
+  if (fs.existsSync(MULTI_STAGE_SRC)) {
+    const dest = path.join(ppDir, 'multi-stage.cjs');
+    if (!fs.existsSync(dest)) {
+      fs.copyFileSync(MULTI_STAGE_SRC, dest);
+      log(c.green, '✓', 'multi-stage.cjs copiado');
+    }
+  }
+
+  log(c.cyan, '📝', `Edite: ${path.join(ppDir, 'session.md')}`);
+}
+
+function resetProject(projectPath) {
+  const ppDir = path.join(projectPath, '.code-review-ping-pong');
+  if (!fs.existsSync(ppDir)) {
+    log(c.red, '✗', '.code-review-ping-pong/ não encontrado');
+    process.exit(1);
+  }
+
+  const rounds = fs.readdirSync(ppDir).filter(f => /^round-\d+.*\.md$/.test(f));
+  const nextStep = path.join(ppDir, 'next-step.md');
+
+  if (rounds.length === 0) {
+    log(c.yellow, '⚠', 'Nenhum round encontrado. Pronto para novo ciclo.');
+    return;
+  }
+
+  const timestamp = new Date().toISOString().slice(0, 10);
+  const archiveDir = path.join(ppDir, 'archive', `cycle-${timestamp}`);
+  fs.mkdirSync(archiveDir, { recursive: true });
+
+  for (const file of rounds) {
+    fs.renameSync(path.join(ppDir, file), path.join(archiveDir, file));
+  }
+
+  if (fs.existsSync(nextStep)) {
+    fs.renameSync(nextStep, path.join(archiveDir, 'next-step.md'));
+  }
+
+  log(c.green, '✓', `${rounds.length} rounds arquivados`);
+  log(c.green, '✓', 'session.md mantido');
+}
+
+function runOrchestrator(projectPath, extraFlags) {
+  const args = ['--cwd', projectPath, ...extraFlags];
+
+  try {
+    execFileSync('node', [ORCHESTRATOR, ...args], {
+      stdio: 'inherit',
+      cwd: projectPath,
+    });
+  } catch (err) {
+    process.exit(err.status || 1);
+  }
+}
+
+function showStatus(projectPath) {
+  const ppDir = path.join(projectPath, '.code-review-ping-pong');
+
+  // List round files
+  const files = fs.readdirSync(ppDir)
+    .filter(f => /^round-\d+/.test(f))
+    .sort();
+
+  if (files.length === 0) {
+    log(c.yellow, '⚠', 'Nenhum round encontrado');
+    return;
+  }
+
+  console.log('');
+  console.log(`${c.bold}  Rounds:${c.reset}`);
+  for (const f of files) {
+    const filePath = path.join(ppDir, f);
+    const yaml = parseFrontmatter(filePath);
+    if (yaml && yaml.score) {
+      const icon = f.includes('-fixed') ? '🔧' : f.includes('-audit') ? '🔍' : '📝';
+      console.log(`  ${icon} ${f} — score: ${yaml.score}/10, verdict: ${yaml.verdict || '?'}`);
+    } else {
+      console.log(`  📄 ${f}`);
+    }
+  }
+  console.log('');
+}
+
+function writeSessionTemplate(sessionPath, projectPath) {
+  const projectName = path.basename(projectPath);
+  const template = `# Ping-Pong Session
+
+## Scope
+- files: []
+  <!-- Liste os arquivos a revisar, ex: [src/index.ts, src/utils.ts] -->
+
+## Goals
+- Production-ready code
+- No security vulnerabilities
+- Clean architecture
+
+## Constraints
+- <!-- Arquivos/módulos que NÃO devem ser tocados -->
+`;
+  fs.writeFileSync(sessionPath, template);
+  log(c.green, '✓', 'session.md criado (template)');
+}
+
+function parseFrontmatter(filePath) {
+  if (!fs.existsSync(filePath)) return null;
+  const content = fs.readFileSync(filePath, 'utf-8');
+  const match = content.match(/^---\n([\s\S]*?)\n---/);
+  if (!match) return null;
+  const result = {};
+  for (const line of match[1].split('\n')) {
+    const kv = line.match(/^(\w[\w_]*):\s*(.*)$/);
+    if (kv) {
+      let val = kv[2].replace(/^["']|["']$/g, '').trim();
+      if (/^\d+$/.test(val)) val = Number(val);
+      result[kv[1]] = val;
+    }
+  }
+  return result;
+}
+
+// ─── CLI Argument Handling ──────────────────────────────────────────────────
+
+async function main() {
+  const args = process.argv.slice(2);
+
+  // --help
+  if (args.includes('--help') || args.includes('-h')) {
+    console.log(`
+${c.bold}ping-pong${c.reset} — Code Review Ping-Pong (global orchestrator)
+
+${c.bold}Modo interativo (recomendado):${c.reset}
+  ping-pong                     Menu: escolhe projeto, escopo, ação
+
+${c.bold}Modo direto:${c.reset}
+  ping-pong .                   Roda no diretório atual
+  ping-pong ~/CODE/Projects/X   Roda em projeto específico
+  ping-pong --init              Bootstrap no diretório atual
+  ping-pong --reset             Arquiva rounds, mantém session.md
+  ping-pong --status            Status de todos os projetos rastreados
+
+${c.bold}Flags (combinam com qualquer modo):${c.reset}
+  --with-audit                  Inclui Gemini audit após cada fix
+  --dry-run                     Mostra comandos sem executar
+  --max-rounds <N>              Limite de rounds (padrão: 15)
+  --timeout <min>               Timeout por CLI em minutos (padrão: 10)
+
+${c.bold}Exemplo completo (primeiro uso):${c.reset}
+  cd ~/CODE/Projects/MeuApp
+  ping-pong --init              # Cria pasta + template
+  # Edite .code-review-ping-pong/session.md
+  ping-pong                     # Menu interativo
+`);
+    process.exit(0);
+  }
+
+  // --status (all projects)
+  if (args.includes('--status')) {
+    const projects = discoverProjects();
+    const tracked = projects.filter(p => p.hasPingPong);
+    banner('Ping-Pong — Status de Projetos');
+    if (tracked.length === 0) {
+      log(c.yellow, '⚠', 'Nenhum projeto com ping-pong configurado');
+    } else {
+      for (const p of tracked) {
+        console.log(`  ${c.bold}${p.name}${c.reset} ${formatState(p.state)}`);
+        console.log(`  ${c.dim}${p.path}${c.reset}\n`);
+      }
+    }
+    process.exit(0);
+  }
+
+  // --init (current dir)
+  if (args.includes('--init')) {
+    initProject(process.cwd());
+    process.exit(0);
+  }
+
+  // --reset (current dir)
+  if (args.includes('--reset')) {
+    resetProject(process.cwd());
+    process.exit(0);
+  }
+
+  // Direct path argument (e.g. `ping-pong .` or `ping-pong ~/path`)
+  const nonFlagArgs = args.filter(a => !a.startsWith('-'));
+  const flagArgs = args.filter(a => a.startsWith('-') || (args.indexOf(a) > 0 && /^\d+$/.test(a)));
+
+  if (nonFlagArgs.length > 0) {
+    let target = nonFlagArgs[0];
+    if (target === '.') target = process.cwd();
+    else if (target.startsWith('~')) target = path.join(HOME, target.slice(1));
+    else target = path.resolve(target);
+
+    if (!fs.existsSync(target)) {
+      log(c.red, '✗', `Diretório não encontrado: ${target}`);
+      process.exit(1);
+    }
+
+    // Collect pass-through flags
+    const passFlags = [];
+    for (let i = 0; i < args.length; i++) {
+      if (args[i].startsWith('-')) {
+        passFlags.push(args[i]);
+        // Grab value for flags that take a parameter
+        if (['--max-rounds', '--timeout', '--start-from'].includes(args[i]) && args[i + 1]) {
+          passFlags.push(args[++i]);
+        }
+      }
+    }
+
+    runOrchestrator(target, passFlags);
+    process.exit(0);
+  }
+
+  // Interactive mode (no path given)
+  const rl = createRl();
+
+  try {
+    const projectPath = await pickProject(rl);
+    const { action } = await pickAction(rl, projectPath);
+
+    rl.close();
+
+    switch (action) {
+      case 'init':
+        initProject(projectPath);
+        break;
+
+      case 'run':
+        runOrchestrator(projectPath, []);
+        break;
+
+      case 'run-audit':
+        runOrchestrator(projectPath, ['--with-audit']);
+        break;
+
+      case 'dry-run':
+        runOrchestrator(projectPath, ['--dry-run']);
+        break;
+
+      case 'reset-and-run':
+        resetProject(projectPath);
+        runOrchestrator(projectPath, []);
+        break;
+
+      case 'reset-and-edit':
+        resetProject(projectPath);
+        log(c.cyan, '📝', `Edite: ${path.join(projectPath, '.code-review-ping-pong', 'session.md')}`);
+        log(c.cyan, '▶', `Depois rode: ${c.bold}ping-pong ${projectPath}${c.reset}`);
+        break;
+
+      case 'status':
+        showStatus(projectPath);
+        break;
+
+      default:
+        log(c.red, '✗', `Ação desconhecida: ${action}`);
+        process.exit(1);
+    }
+  } catch (err) {
+    rl.close();
+    if (err.message === 'readline was closed') process.exit(0);
+    throw err;
+  }
+}
+
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

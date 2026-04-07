@@ -1,0 +1,403 @@
+# Design Tokens - notion
+# Extracted by dissect-artifact.js v1.0.0
+# Source: https://notion.so
+# Date: 2026-04-01T11:49:18.757Z
+
+metadata:
+  version: "1.0.0"
+  source: "https://notion.so"
+  generated_at: "2026-04-01T11:49:18.757Z"
+  node_count: 1156
+
+colors:
+  "rgba_0_0_0_0_9_":
+    value: "rgba(0, 0, 0, 0.9)"
+    occurrences: 389
+  "rgba_0_0_0_0_95_":
+    value: "rgba(0, 0, 0, 0.95)"
+    occurrences: 179
+  "rgb_255_255_255_":
+    value: "rgb(255, 255, 255)"
+    occurrences: 128
+  "rgba_0_0_0_0_54_":
+    value: "rgba(0, 0, 0, 0.54)"
+    occurrences: 112
+  "rgb_246_245_244_":
+    value: "rgb(246, 245, 244)"
+    occurrences: 93
+  "rgb_49_48_46_":
+    value: "rgb(49, 48, 46)"
+    occurrences: 84
+  "rgb_0_0_0_":
+    value: "rgb(0, 0, 0)"
+    occurrences: 36
+  "rgb_163_158_152_":
+    value: "rgb(163, 158, 152)"
+    occurrences: 24
+  "rgb_97_93_89_":
+    value: "rgb(97, 93, 89)"
+    occurrences: 22
+  "rgba_255_255_255_0_":
+    value: "rgba(255, 255, 255, 0)"
+    occurrences: 17
+  "rgb_98_174_240_":
+    value: "rgb(98, 174, 240)"
+    occurrences: 14
+  "rgb_0_117_222_":
+    value: "rgb(0, 117, 222)"
+    occurrences: 13
+  "rgb_9_127_232_":
+    value: "rgb(9, 127, 232)"
+    occurrences: 12
+  "rgb_2_9_58_":
+    value: "rgb(2, 9, 58)"
+    occurrences: 6
+  "rgb_242_249_255_":
+    value: "rgb(242, 249, 255)"
+    occurrences: 4
+  "rgb_246_73_50_":
+    value: "rgb(246, 73, 50)"
+    occurrences: 4
+  "rgba_0_0_0_0_59_":
+    value: "rgba(0, 0, 0, 0.59)"
+    occurrences: 4
+  "rgb_255_177_16_":
+    value: "rgb(255, 177, 16)"
+    occurrences: 3
+  "rgb_249_249_248_":
+    value: "rgb(249, 249, 248)"
+    occurrences: 3
+  "rgb_42_157_153_":
+    value: "rgb(42, 157, 153)"
+    occurrences: 3
+  "rgb_128_128_128_":
+    value: "rgb(128, 128, 128)"
+    occurrences: 3
+  "rgba_0_0_0_0_1_":
+    value: "rgba(0, 0, 0, 0.1)"
+    occurrences: 3
+  "rgb_247_247_245_":
+    value: "rgb(247, 247, 245)"
+    occurrences: 3
+  "rgb_156_112_84_":
+    value: "rgb(156, 112, 84)"
+    occurrences: 2
+  "rgb_252_248_245_":
+    value: "rgb(252, 248, 245)"
+    occurrences: 2
+  "rgb_255_109_0_":
+    value: "rgb(255, 109, 0)"
+    occurrences: 2
+  "rgb_255_245_237_":
+    value: "rgb(255, 245, 237)"
+    occurrences: 2
+  "rgb_0_91_171_":
+    value: "rgb(0, 91, 171)"
+    occurrences: 2
+  "rgb_254_243_241_":
+    value: "rgb(254, 243, 241)"
+    occurrences: 2
+  "rgb_152_73_232_":
+    value: "rgb(152, 73, 232)"
+    occurrences: 2
+  "rgb_248_245_252_":
+    value: "rgb(248, 245, 252)"
+    occurrences: 2
+  "rgb_120_115_111_":
+    value: "rgb(120, 115, 111)"
+    occurrences: 2
+  "rgb_69_93_211_":
+    value: "rgb(69, 93, 211)"
+    occurrences: 2
+  "rgb_255_201_94_":
+    value: "rgb(255, 201, 94)"
+    occurrences: 2
+  "rgb_247_116_99_":
+    value: "rgb(247, 116, 99)"
+    occurrences: 2
+  "rgb_173_109_237_":
+    value: "rgb(173, 109, 237)"
+    occurrences: 2
+  "rgb_255_138_51_":
+    value: "rgb(255, 138, 51)"
+    occurrences: 2
+  "rgb_255_131_221_":
+    value: "rgb(255, 131, 221)"
+    occurrences: 2
+  "rgb_177_129_100_":
+    value: "rgb(177, 129, 100)"
+    occurrences: 2
+  "rgba_255_255_255_0_75_":
+    value: "rgba(255, 255, 255, 0.75)"
+    occurrences: 2
+
+typography:
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: "NotionInter, Inter, -apple-system, "system-ui", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 687
+  "14px_500":
+    font-size: "14px"
+    font-weight: "500"
+    font-family: "NotionInter, Inter, -apple-system, "system-ui", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 63
+  "16px_500":
+    font-size: "16px"
+    font-weight: "500"
+    font-family: "NotionInter, Inter, -apple-system, "system-ui", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 47
+  "14px_400":
+    font-size: "14px"
+    font-weight: "400"
+    font-family: "NotionInter, Inter, -apple-system, "system-ui", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 39
+  "15px_400":
+    font-size: "15px"
+    font-weight: "400"
+    font-family: "NotionInter, Inter, -apple-system, "system-ui", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 38
+  "12px_500":
+    font-size: "12px"
+    font-weight: "500"
+    font-family: "NotionInter, Inter, -apple-system, "system-ui", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 32
+  "24px_500":
+    font-size: "24px"
+    font-weight: "500"
+    font-family: "NotionInter, Inter, -apple-system, "system-ui", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 21
+  "20px_400":
+    font-size: "20px"
+    font-weight: "400"
+    font-family: "NotionInter, Inter, -apple-system, "system-ui", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 18
+  "48px_400":
+    font-size: "48px"
+    font-weight: "400"
+    font-family: "NotionInter, Inter, -apple-system, "system-ui", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 17
+  "22px_700":
+    font-size: "22px"
+    font-weight: "700"
+    font-family: "NotionInter, Inter, -apple-system, "system-ui", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 16
+  "16px_600":
+    font-size: "16px"
+    font-weight: "600"
+    font-family: "NotionInter, Inter, -apple-system, "system-ui", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 15
+  "16px_700":
+    font-size: "16px"
+    font-weight: "700"
+    font-family: "NotionInter, Inter, -apple-system, "system-ui", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 14
+  "40px_400":
+    font-size: "40px"
+    font-weight: "400"
+    font-family: "NotionInter, Inter, -apple-system, "system-ui", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 14
+  "12px_400":
+    font-size: "12px"
+    font-weight: "400"
+    font-family: "NotionInter, Inter, -apple-system, "system-ui", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 12
+  "20px_600":
+    font-size: "20px"
+    font-weight: "600"
+    font-family: "NotionInter, Inter, -apple-system, "system-ui", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 8
+  "40px_700":
+    font-size: "40px"
+    font-weight: "700"
+    font-family: "NotionInter, Inter, -apple-system, "system-ui", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 8
+  "54px_700":
+    font-size: "54px"
+    font-weight: "700"
+    font-family: "NotionInter, Inter, -apple-system, "system-ui", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 6
+  "15px_600":
+    font-size: "15px"
+    font-weight: "600"
+    font-family: "NotionInter, Inter, -apple-system, "system-ui", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 4
+  "15px_700":
+    font-size: "15px"
+    font-weight: "700"
+    font-family: "NotionInter, Inter, -apple-system, "system-ui", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 4
+  "12px_600":
+    font-size: "12px"
+    font-weight: "600"
+    font-family: "NotionInter, Inter, -apple-system, "system-ui", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 3
+
+spacing:
+  "4px":
+    value: "4px"
+    occurrences: 129
+  "8px":
+    value: "8px"
+    occurrences: 71
+  "24px":
+    value: "24px"
+    occurrences: 70
+  "6px":
+    value: "6px"
+    occurrences: 67
+  "5px":
+    value: "5px"
+    occurrences: 48
+  "3px":
+    value: "3px"
+    occurrences: 46
+  "16px":
+    value: "16px"
+    occurrences: 38
+  "0px_8px":
+    value: "0px 8px"
+    occurrences: 31
+  "12px":
+    value: "12px"
+    occurrences: 28
+  "6_4px":
+    value: "6.4px"
+    occurrences: 21
+  "_1px":
+    value: "-1px"
+    occurrences: 12
+  "32px":
+    value: "32px"
+    occurrences: 11
+  "64px":
+    value: "64px"
+    occurrences: 11
+  "0px_16px":
+    value: "0px 16px"
+    occurrences: 8
+  "36px":
+    value: "36px"
+    occurrences: 7
+  "0px_24px":
+    value: "0px 24px"
+    occurrences: 5
+  "2px":
+    value: "2px"
+    occurrences: 5
+  "14px":
+    value: "14px"
+    occurrences: 4
+  "80px":
+    value: "80px"
+    occurrences: 4
+  "28px":
+    value: "28px"
+    occurrences: 3
+
+shadows:
+  shadow_1:
+    value: "rgba(0, 0, 0, 0.04) 0px 4px 18px 0px, rgba(0, 0, 0, 0.027) 0px 2.025px 7.84688px 0px, rgba(0, 0, 0, 0.02) 0px 0.8px 2.925px 0px, rgba(0, 0, 0, 0.01) 0px 0.175px 1.04062px 0px"
+    occurrences: 16
+  shadow_2:
+    value: "rgba(0, 0, 0, 0.01) 0px 1px 3px 0px, rgba(0, 0, 0, 0.02) 0px 3px 7px 0px, rgba(0, 0, 0, 0.02) 0px 7px 15px 0px, rgba(0, 0, 0, 0.04) 0px 14px 28px 0px, rgba(0, 0, 0, 0.05) 0px 23px 52px 0px"
+    occurrences: 3
+  shadow_3:
+    value: "rgba(0, 0, 0, 0.08) 0px 20px 50px 0px, rgba(0, 0, 0, 0.04) 0px 6px 16px 0px"
+    occurrences: 2
+  shadow_4:
+    value: "rgba(0, 0, 0, 0) 0px 1px 0px 0px"
+    occurrences: 1
+  shadow_5:
+    value: "rgba(255, 255, 255, 0.2) 0px 0px 20px 5px"
+    occurrences: 1
+  shadow_6:
+    value: "rgba(0, 0, 0, 0.03) 0px 3px 9px 0px, rgba(0, 0, 0, 0.016) 0px 0.7px 1.4625px 0px"
+    occurrences: 1
+
+borders:
+  border_1:
+    value: "1px solid rgba(255, 255, 255, 0)"
+    occurrences: 21
+  border_2:
+    value: "1px solid rgba(0, 0, 0, 0.1)"
+    occurrences: 9
+  border_3:
+    value: "1px solid undefined"
+    occurrences: 5
+  border_4:
+    value: "1px 0px 0px solid none none rgba(0, 0, 0, 0.1) rgb(128, 128, 128) rgb(128, 128, 128)"
+    occurrences: 3
+  border_5:
+    value: "0px 1px 1px 0px none solid solid none rgba(0, 0, 0, 0.9) rgb(247, 247, 245) rgb(247, 247, 245) rgba(0, 0, 0, 0.9)"
+    occurrences: 3
+  border_6:
+    value: "1px solid rgba(0, 0, 0, 0.075)"
+    occurrences: 2
+  border_7:
+    value: "1px solid rgba(255, 255, 255, 0.1)"
+    occurrences: 1
+  border_8:
+    value: "1px solid rgb(192, 192, 192)"
+    occurrences: 1
+  border_9:
+    value: "1px solid rgb(221, 221, 221)"
+    occurrences: 1
+  border_10:
+    value: "2px solid rgb(246, 245, 244)"
+    occurrences: 1
+
+gradients:
+  gradient_1: "linear-gradient(rgba(255, 255, 255, 0), rgb(255, 255, 255))"
+
+custom_properties:
+  "--color-card-accent": "#097fe8"
+  "--color-brown-900": "#523410"
+  "--block-color-text-title": "#191918"
+  "--color-pink-500": "#ff64c8"
+  "--typography-block-quote-font": "400 1.625rem /2rem \"Lyon Text\",Georgia,YuMincho,\"Yu Mincho\",\"Hiragino Mincho ProN\",\"Hiragino Mincho Pro\",\"Songti TC\",\"Songti SC\",SimSun,\"Nanum Myeongjo\",NanumMyeongjo,Batang,serif"
+  "--color-orange-600": "#dd5b00"
+  "--typography-global-body-font": "400 1rem /1.5rem NotionInter,Inter,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Helvetica,\"Apple Color Emoji\",Arial,sans-serif,\"Segoe UI Emoji\",\"Segoe UI Symbol\""
+  "--typography-block-quote-md-letter-spacing": "0"
+  "--color-orange-800": "#793400"
+  "--color-button-tertiary-text": "#000000f2"
+  "--color-button-primary-background-active": "#005bab"
+  "--color-teal-400": "#2a9d99"
+  "--color-blue-700": "#005bab"
+  "--color-alpha-black-100": "#0000000d"
+  "--typography-serif-350-regular-font": "400 1.25rem /1.75rem \"Lyon Text\",Georgia,YuMincho,\"Yu Mincho\",\"Hiragino Mincho ProN\",\"Hiragino Mincho Pro\",\"Songti TC\",\"Songti SC\",SimSun,\"Nanum Myeongjo\",NanumMyeongjo,Batang,serif"
+  "--color-button-primary-border": "#fff0"
+  "--color-purple-800": "#391c57"
+  "--typography-sans-600-bold-letter-spacing": "-0.046875rem"
+  "--color-alpha-white-400": "#ffffff4d"
+  "--typography-serif-800-regular-letter-spacing": "-0.125rem"
+  "--typography-sans-1000-regular-letter-spacing": "-0.25rem"
+  "--typography-price-md-letter-spacing": "-0.09375rem"
+  "--spacing-12": "0.75rem"
+  "--motion-duration-300": "300ms"
+  "--font-line-height-600": "2.5rem"
+  "--font-line-height-700": "3rem"
+  "--spacing-80": "5rem"
+  "--color-background-surface-neutral-focus": "#dfdcd9"
+  "--spacing-card-padding-inline-block": "2rem"
+  "--color-background-surface-accent-muted": "#f2f9ff"
+  "--bento-typography-body-letter-spacing": "0"
+  "--typography-sans-100-medium-letter-spacing": "0"
+  "--color-gray-300": "#dfdcd9"
+  "--font-line-height-900": "4rem"
+  "--typography-sans-700-regular-font": "400 2.625rem /3rem NotionInter,Inter,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Helvetica,\"Apple Color Emoji\",Arial,sans-serif,\"Segoe UI Emoji\",\"Segoe UI Symbol\""
+  "--color-badge-secondary-text": "#fff3"
+  "--typography-body-letter-spacing": "0"
+  "--color-gray-500": "#78736f"
+  "--bento-typography-title-lg-letter-spacing": "-0.0390625rem"
+  "--color-checkbox-background-checked": "#191918"
+  "--color-green-500": "#1aae39"
+  "--typography-global-title-subtle-letter-spacing": "-0.09375rem"
+  "--typography-serif-500-regular-font": "400 1.625rem /2rem \"Lyon Text\",Georgia,YuMincho,\"Yu Mincho\",\"Hiragino Mincho ProN\",\"Hiragino Mincho Pro\",\"Songti TC\",\"Songti SC\",SimSun,\"Nanum Myeongjo\",NanumMyeongjo,Batang,serif"
+  "--typography-global-quote-font": "400 1.375rem /1.75rem \"Lyon Text\",Georgia,YuMincho,\"Yu Mincho\",\"Hiragino Mincho ProN\",\"Hiragino Mincho Pro\",\"Songti TC\",\"Songti SC\",SimSun,\"Nanum Myeongjo\",NanumMyeongjo,Batang,serif"
+  "--block-typography-title-font": "700 1.125rem /1.75rem NotionInter,Inter,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Helvetica,\"Apple Color Emoji\",Arial,sans-serif,\"Segoe UI Emoji\",\"Segoe UI Symbol\""
+  "--typography-sans-900-regular-letter-spacing": "-0.171875rem"
+  "--bento-spacing-asset-margin": "1.5rem"
+  "--color-white": "#fff"
+  "--color-gray-400": "#a39e98"
+  "--font-family-fallback-mono": "Nitti,Menlo,Courier,monospace"

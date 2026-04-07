@@ -1,0 +1,135 @@
+{
+  "version": "1.0.0",
+  "name": "guiavila-reverso",
+  "source": "https://site.guiavila.com/reverso",
+  "timestamp": "2026-04-01T14:53:10.158Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "output": "/Users/luizfosc/aios-core/design-system/patterns/tokens/guiavila-reverso",
+  "files": {
+    "html": {
+      "file": "source.html",
+      "size": 792224
+    },
+    "screenshots": [
+      "screenshot-desktop.png",
+      "screenshot-mobile.png"
+    ],
+    "stylesheets": [
+      {
+        "url": "https://fonts.googleapis.com/css?family=Inter:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i%7CSpace%20Grotesk:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i%7CLato:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap",
+        "file": "css",
+        "size": 60204
+      },
+      {
+        "url": "https://stcdn.leadconnectorhq.com/_preview/entry.IgpDOq8p.css",
+        "file": "entry.IgpDOq8p.css",
+        "size": 32399
+      },
+      {
+        "url": "https://stcdn.leadconnectorhq.com/_preview/Video.s2mmLl8o.css",
+        "file": "Video.s2mmLl8o.css",
+        "size": 12659
+      },
+      {
+        "url": "https://stcdn.leadconnectorhq.com/_preview/SocialIcons.Dymsv4qu.css",
+        "file": "SocialIcons.Dymsv4qu.css",
+        "size": 229
+      },
+      {
+        "url": "https://fonts.googleapis.com/css?family=Inter:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i%7CSpace%20Grotesk:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i%7CLato:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap",
+        "file": "css",
+        "size": 60204
+      },
+      {
+        "url": "https://cdn.convertbox.com//static/css/bars-preview.css?id=160301bca992a17e8cd1",
+        "file": "bars-preview.css",
+        "size": 116391
+      },
+      {
+        "embedded": true,
+        "file": "embedded-0.css",
+        "size": 216738
+      },
+      {
+        "embedded": true,
+        "file": "embedded-1.css",
+        "size": 1433
+      },
+      {
+        "embedded": true,
+        "file": "embedded-2.css",
+        "size": 228
+      },
+      {
+        "embedded": true,
+        "file": "embedded-3.css",
+        "size": 968
+      },
+      {
+        "embedded": true,
+        "file": "embedded-4.css",
+        "size": 204
+      },
+      {
+        "embedded": true,
+        "file": "embedded-5.css",
+        "size": 204
+      },
+      {
+        "embedded": true,
+        "file": "embedded-6.css",
+        "size": 526
+      },
+      {
+        "embedded": true,
+        "file": "embedded-7.css",
+        "size": 204
+      },
+      {
+        "embedded": true,
+        "file": "embedded-8.css",
+        "size": 467
+      },
+      {
+        "embedded": true,
+        "file": "embedded-9.css",
+        "size": 862
+      },
+      {
+        "embedded": true,
+        "file": "embedded-10.css",
+        "size": 95374
+      }
+    ],
+    "domTree": {
+      "file": "dom-tree.json",
+      "nodeCount": 1394
+    },
+    "extractedCss": "extracted-css.json",
+    "components": {
+      "file": "components.json",
+      "count": 5
+    },
+    "tokens": "tokens.yaml"
+  },
+  "summary": {
+    "nodeCount": 1394,
+    "uniqueColors": 25,
+    "typographyVariants": 35,
+    "spacingValues": 20,
+    "shadows": 1,
+    "gradients": 0,
+    "animations": 225,
+    "mediaQueries": 296,
+    "customProperties": 56,
+    "gridLayouts": 0,
+    "flexLayouts": 50,
+    "componentTypes": 5,
+    "totalComponents": 88,
+    "stylesheetCount": 17,
+    "inlineStyles": 277
+  }
+}

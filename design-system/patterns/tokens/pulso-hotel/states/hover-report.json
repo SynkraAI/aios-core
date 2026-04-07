@@ -1,0 +1,304 @@
+{
+  "url": "https://pulsohotel.com",
+  "name": "pulso-hotel",
+  "captured_at": "2026-04-01T12:49:16.888Z",
+  "elements": [
+    {
+      "type": "button",
+      "index": 0,
+      "text": "Gastronomia",
+      "tag": "div",
+      "classes": "dropdown-toogle w-dropdown-toggle",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(247, 247, 242)",
+        "borderColor": "rgb(247, 247, 242)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(247, 247, 242)",
+        "borderColor": "rgb(247, 247, 242)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-0-default.png",
+        "hover": "btn-0-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 3,
+      "text": "",
+      "tag": "a",
+      "classes": "swiper-btn-prev is-slider-1 w-inline-block",
+      "defaultStyles": {
+        "background": "rgba(51, 51, 51, 0.5)",
+        "color": "rgb(247, 247, 242)",
+        "borderColor": "rgb(247, 247, 242)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "underline"
+      },
+      "hoverStyles": {
+        "background": "rgba(51, 51, 51, 0.99)",
+        "color": "rgb(247, 247, 242)",
+        "borderColor": "rgb(247, 247, 242)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "underline"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgba(51, 51, 51, 0.5)",
+          "to": "rgba(51, 51, 51, 0.99)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-3-default.png",
+        "hover": "btn-3-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 4,
+      "text": "",
+      "tag": "a",
+      "classes": "swiper-btn-next is-slider-1 w-inline-block",
+      "defaultStyles": {
+        "background": "rgba(51, 51, 51, 0.5)",
+        "color": "rgb(247, 247, 242)",
+        "borderColor": "rgb(247, 247, 242)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "underline"
+      },
+      "hoverStyles": {
+        "background": "rgba(51, 51, 51, 0.99)",
+        "color": "rgb(247, 247, 242)",
+        "borderColor": "rgb(247, 247, 242)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "underline"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgba(51, 51, 51, 0.5)",
+          "to": "rgba(51, 51, 51, 0.99)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-4-default.png",
+        "hover": "btn-4-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 5,
+      "text": "Saiba mais",
+      "tag": "a",
+      "classes": "button w-inline-block",
+      "defaultStyles": {
+        "background": "rgb(247, 247, 242)",
+        "color": "rgb(51, 51, 51)",
+        "borderColor": "rgb(51, 51, 51)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(247, 247, 242, 0.016)",
+        "color": "rgb(244, 244, 239)",
+        "borderColor": "rgb(244, 244, 239)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgb(247, 247, 242)",
+          "to": "rgba(247, 247, 242, 0.016)"
+        },
+        "color": {
+          "from": "rgb(51, 51, 51)",
+          "to": "rgb(244, 244, 239)"
+        },
+        "borderColor": {
+          "from": "rgb(51, 51, 51)",
+          "to": "rgb(244, 244, 239)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-5-default.png",
+        "hover": "btn-5-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 6,
+      "text": "",
+      "tag": "a",
+      "classes": "swiper-btn-prev w-inline-block",
+      "defaultStyles": {
+        "background": "rgba(51, 51, 51, 0.5)",
+        "color": "rgb(247, 247, 242)",
+        "borderColor": "rgb(247, 247, 242)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "underline"
+      },
+      "hoverStyles": {
+        "background": "rgba(51, 51, 51, 0.992)",
+        "color": "rgb(247, 247, 242)",
+        "borderColor": "rgb(247, 247, 242)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "underline"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgba(51, 51, 51, 0.5)",
+          "to": "rgba(51, 51, 51, 0.992)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-6-default.png",
+        "hover": "btn-6-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 7,
+      "text": "",
+      "tag": "a",
+      "classes": "swiper-btn-next w-inline-block",
+      "defaultStyles": {
+        "background": "rgba(51, 51, 51, 0.8)",
+        "color": "rgb(247, 247, 242)",
+        "borderColor": "rgb(247, 247, 242)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "underline"
+      },
+      "hoverStyles": {
+        "background": "rgba(51, 51, 51, 0.996)",
+        "color": "rgb(247, 247, 242)",
+        "borderColor": "rgb(247, 247, 242)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "underline"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgba(51, 51, 51, 0.8)",
+          "to": "rgba(51, 51, 51, 0.996)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-7-default.png",
+        "hover": "btn-7-hover.png"
+      }
+    },
+    {
+      "type": "card",
+      "index": 0,
+      "defaultStyles": {
+        "boxShadow": "none",
+        "transform": "none",
+        "borderColor": "rgb(51, 51, 51)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "hoverStyles": {
+        "boxShadow": "none",
+        "transform": "none",
+        "borderColor": "rgb(51, 51, 51)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "card-0-default.png",
+        "hover": "card-0-hover.png"
+      }
+    },
+    {
+      "type": "card",
+      "index": 1,
+      "defaultStyles": {
+        "boxShadow": "none",
+        "transform": "none",
+        "borderColor": "rgb(51, 51, 51)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "hoverStyles": {
+        "boxShadow": "none",
+        "transform": "none",
+        "borderColor": "rgb(51, 51, 51)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "card-1-default.png",
+        "hover": "card-1-hover.png"
+      }
+    },
+    {
+      "type": "card",
+      "index": 2,
+      "defaultStyles": {
+        "boxShadow": "none",
+        "transform": "matrix(1, 0, 0, 1, 0, -59.1874)",
+        "borderColor": "rgb(51, 51, 51)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "hoverStyles": {
+        "boxShadow": "none",
+        "transform": "matrix(1, 0, 0, 1, 0, -59.1874)",
+        "borderColor": "rgb(51, 51, 51)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "card-2-default.png",
+        "hover": "card-2-hover.png"
+      }
+    }
+  ]
+}

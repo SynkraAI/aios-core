@@ -1,0 +1,78 @@
+{
+  "url": "https://nothing.tech",
+  "name": "nothing",
+  "captured_at": "2026-04-01T13:54:24.811Z",
+  "elements": [
+    {
+      "type": "button",
+      "index": 0,
+      "text": "",
+      "tag": "button",
+      "classes": "size-12 p-4 focus:outline-none",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(229, 231, 235)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(229, 231, 235)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-0-default.png",
+        "hover": "btn-0-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 1,
+      "text": "Stay onUnited Kingdom",
+      "tag": "button",
+      "classes": "flex gap-2 border-b border-grey-darker text-center font-lettera-mono-ll !text-sm uppercase text-grey-darker transition-opacity duration-200 ease-in-out hover:opacity-50",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(88, 90, 90)",
+        "borderColor": "rgb(88, 90, 90)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(88, 90, 90)",
+        "borderColor": "rgb(88, 90, 90)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "0.5",
+        "borderRadius": "0px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "opacity": {
+          "from": "1",
+          "to": "0.5"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-1-default.png",
+        "hover": "btn-1-hover.png"
+      }
+    }
+  ]
+}

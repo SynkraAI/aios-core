@@ -1,0 +1,238 @@
+{
+  "url": "https://lp.guiavila.com/automacoes",
+  "name": "guiavila-automacoes",
+  "captured_at": "2026-04-01T14:55:49.040Z",
+  "elements": [
+    {
+      "type": "button",
+      "index": 1,
+      "text": "Revolucione seu trabalho",
+      "tag": "button",
+      "classes": "framer-t464zj",
+      "defaultStyles": {
+        "background": "rgba(41, 52, 255, 0.16)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "rgba(17, 0, 255, 0.5) 0px 8px 40px 0px, rgba(255, 255, 255, 0) 0px 0px 10px 1px inset, rgba(0, 85, 255, 0.12) 0px 0px 0px 1px",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "800px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(41, 52, 255, 0.16)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "rgba(17, 0, 255, 0.5) 0px 8px 40px 0px, rgba(255, 255, 255, 0) 0px 0px 10px 1px inset, rgba(0, 85, 255, 0.12) 0px 0px 0px 1px",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "800px",
+        "textDecoration": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-1-default.png",
+        "hover": "btn-1-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 2,
+      "text": "",
+      "tag": "button",
+      "classes": "framer-6dhx5y",
+      "defaultStyles": {
+        "background": "rgba(41, 52, 255, 0.16)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "rgba(17, 0, 255, 0.5) 0px 8px 40px 0px, rgba(255, 255, 255, 0) 0px 0px 10px 1px inset, rgba(0, 85, 255, 0.12) 0px 0px 0px 1px",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "800px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(41, 52, 255, 0.16)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "rgba(17, 0, 255, 0.5) 0px 8px 40px 0px, rgba(255, 255, 255, 0) 0px 0px 10px 1px inset, rgba(0, 85, 255, 0.12) 0px 0px 0px 1px",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "800px",
+        "textDecoration": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-2-default.png",
+        "hover": "btn-2-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 3,
+      "text": "",
+      "tag": "button",
+      "classes": "framer-r5sozh",
+      "defaultStyles": {
+        "background": "rgba(41, 52, 255, 0.16)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "rgba(17, 0, 255, 0.5) 0px 8px 40px 0px, rgba(255, 255, 255, 0) 0px 0px 10px 1px inset, rgba(0, 85, 255, 0.12) 0px 0px 0px 1px",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "800px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(41, 52, 255, 0.16)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "rgba(17, 0, 255, 0.5) 0px 8px 40px 0px, rgba(255, 255, 255, 0) 0px 0px 10px 1px inset, rgba(0, 85, 255, 0.12) 0px 0px 0px 1px",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "800px",
+        "textDecoration": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-3-default.png",
+        "hover": "btn-3-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 4,
+      "text": "",
+      "tag": "button",
+      "classes": "framer-9c8bxh",
+      "defaultStyles": {
+        "background": "rgba(41, 52, 255, 0.16)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "rgba(17, 0, 255, 0.5) 0px 8px 40px 0px, rgba(255, 255, 255, 0) 0px 0px 10px 1px inset, rgba(0, 85, 255, 0.12) 0px 0px 0px 1px",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "800px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(41, 52, 255, 0.16)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "rgba(17, 0, 255, 0.5) 0px 8px 40px 0px, rgba(255, 255, 255, 0) 0px 0px 10px 1px inset, rgba(0, 85, 255, 0.12) 0px 0px 0px 1px",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "800px",
+        "textDecoration": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-4-default.png",
+        "hover": "btn-4-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 5,
+      "text": "",
+      "tag": "button",
+      "classes": "framer-d5ycvl",
+      "defaultStyles": {
+        "background": "rgba(41, 52, 255, 0.16)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "rgba(17, 0, 255, 0.5) 0px 8px 40px 0px, rgba(255, 255, 255, 0) 0px 0px 10px 1px inset, rgba(0, 85, 255, 0.12) 0px 0px 0px 1px",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "800px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(41, 52, 255, 0.16)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "rgba(17, 0, 255, 0.5) 0px 8px 40px 0px, rgba(255, 255, 255, 0) 0px 0px 10px 1px inset, rgba(0, 85, 255, 0.12) 0px 0px 0px 1px",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "800px",
+        "textDecoration": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-5-default.png",
+        "hover": "btn-5-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 6,
+      "text": "",
+      "tag": "button",
+      "classes": "framer-12q06th",
+      "defaultStyles": {
+        "background": "rgba(41, 52, 255, 0.16)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "rgba(17, 0, 255, 0.5) 0px 8px 40px 0px, rgba(255, 255, 255, 0) 0px 0px 10px 1px inset, rgba(0, 85, 255, 0.12) 0px 0px 0px 1px",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "800px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(41, 52, 255, 0.16)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "rgba(17, 0, 255, 0.5) 0px 8px 40px 0px, rgba(255, 255, 255, 0) 0px 0px 10px 1px inset, rgba(0, 85, 255, 0.12) 0px 0px 0px 1px",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "800px",
+        "textDecoration": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-6-default.png",
+        "hover": "btn-6-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 7,
+      "text": "Sobre mim",
+      "tag": "button",
+      "classes": "framer-1413h3c",
+      "defaultStyles": {
+        "background": "rgba(41, 52, 255, 0.16)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "rgba(17, 0, 255, 0.5) 0px 8px 40px 0px, rgba(255, 255, 255, 0) 0px 0px 10px 1px inset, rgba(0, 85, 255, 0.12) 0px 0px 0px 1px",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "800px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(41, 52, 255, 0.16)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "rgba(17, 0, 255, 0.5) 0px 8px 40px 0px, rgba(255, 255, 255, 0) 0px 0px 10px 1px inset, rgba(0, 85, 255, 0.12) 0px 0px 0px 1px",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "800px",
+        "textDecoration": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-7-default.png",
+        "hover": "btn-7-hover.png"
+      }
+    }
+  ]
+}

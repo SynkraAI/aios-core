@@ -1,0 +1,298 @@
+{
+  "url": "https://nubank.com.br",
+  "name": "nubank",
+  "captured_at": "2026-04-01T12:44:32.906Z",
+  "elements": [
+    {
+      "type": "button",
+      "index": 4,
+      "text": "Saiba Mais",
+      "tag": "button",
+      "classes": "chakra-button css-1sgjvse",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(130, 10, 209)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "color": {
+          "from": "rgb(0, 0, 0)",
+          "to": "rgb(130, 10, 209)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-4-default.png",
+        "hover": "btn-4-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 6,
+      "text": "",
+      "tag": "button",
+      "classes": "chakra-button css-ny34ub",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "999px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "999px",
+        "textDecoration": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-6-default.png",
+        "hover": "btn-6-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 7,
+      "text": "Quero ser Nubank",
+      "tag": "button",
+      "classes": "chakra-button css-1lh8fq0",
+      "defaultStyles": {
+        "background": "rgb(130, 10, 209)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgba(0, 0, 0, 0) rgb(255, 255, 255)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "999px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(73, 11, 117)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgba(0, 0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "999px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgb(130, 10, 209)",
+          "to": "rgb(73, 11, 117)"
+        },
+        "borderColor": {
+          "from": "rgba(0, 0, 0, 0) rgb(255, 255, 255)",
+          "to": "rgba(0, 0, 0, 0)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-7-default.png",
+        "hover": "btn-7-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 1,
+      "text": "Nubank",
+      "defaultStyles": {
+        "color": "rgb(0, 0, 0)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(130, 10, 209)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "diffs": {
+        "color": {
+          "from": "rgb(0, 0, 0)",
+          "to": "rgb(130, 10, 209)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "link-1-default.png",
+        "hover": "link-1-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 2,
+      "text": "Conheça o Nubank",
+      "defaultStyles": {
+        "color": "rgb(130, 10, 209)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(73, 11, 117)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "diffs": {
+        "color": {
+          "from": "rgb(130, 10, 209)",
+          "to": "rgb(73, 11, 117)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "link-2-default.png",
+        "hover": "link-2-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 3,
+      "text": "Nu Empresas",
+      "defaultStyles": {
+        "color": "rgb(0, 0, 0)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(130, 10, 209)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "diffs": {
+        "color": {
+          "from": "rgb(0, 0, 0)",
+          "to": "rgb(130, 10, 209)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "link-3-default.png",
+        "hover": "link-3-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 4,
+      "text": "Conheça o Nu Empresas",
+      "defaultStyles": {
+        "color": "rgb(130, 10, 209)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(73, 11, 117)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "diffs": {
+        "color": {
+          "from": "rgb(130, 10, 209)",
+          "to": "rgb(73, 11, 117)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "link-4-default.png",
+        "hover": "link-4-hover.png"
+      }
+    },
+    {
+      "type": "card",
+      "index": 0,
+      "defaultStyles": {
+        "boxShadow": "none",
+        "transform": "none",
+        "borderColor": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "hoverStyles": {
+        "boxShadow": "none",
+        "transform": "none",
+        "borderColor": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "card-0-default.png",
+        "hover": "card-0-hover.png"
+      }
+    },
+    {
+      "type": "card",
+      "index": 1,
+      "defaultStyles": {
+        "boxShadow": "none",
+        "transform": "none",
+        "borderColor": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "hoverStyles": {
+        "boxShadow": "none",
+        "transform": "none",
+        "borderColor": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "card-1-default.png",
+        "hover": "card-1-hover.png"
+      }
+    },
+    {
+      "type": "card",
+      "index": 2,
+      "defaultStyles": {
+        "boxShadow": "none",
+        "transform": "none",
+        "borderColor": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "hoverStyles": {
+        "boxShadow": "none",
+        "transform": "none",
+        "borderColor": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "card-2-default.png",
+        "hover": "card-2-hover.png"
+      }
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+
+            #featurebase-iframe-wrapper.featurebase-messenger-frame-wrapper {
+              --fb-element-bottom: 20px !important;
+            }
+            .featurebase-notification-frame-wrapper {
+              --fb-element-bottom: 4px !important;
+            }
+          

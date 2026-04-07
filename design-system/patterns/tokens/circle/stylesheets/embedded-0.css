@@ -1,0 +1,28 @@
+
+  /* Critical above-the-fold styles */
+  html { scroll-behavior: smooth; }
+  body { 
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    margin: 0;
+    font-family: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  
+  /* Critical design tokens */
+  :root {
+    --color-primary: #506CF0;
+    --color-gray-950: #0A0A0A;
+    --color-white: #FFFFFF;
+    --color-primary-text: #0A0A0A;
+    --color-text-secondary: #262626;
+    --font-family-primary: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-size-body-md: 20px;
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-bold: 700;
+  }
+  
+  /* Hide content during font load to prevent FOUT */
+  .font-loading { visibility: hidden; }
+  .font-loaded { visibility: visible; }

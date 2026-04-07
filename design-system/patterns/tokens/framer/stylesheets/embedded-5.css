@@ -1,0 +1,33 @@
+
+#__framer-editorbar {
+    /* https://sergeyski.com/css-color-scheme-and-iframes-lessons-learned-from-disqus-background-bug */
+    color-scheme: light dark;
+    overflow: hidden;
+    position: fixed;
+    border: none;
+    z-index: calc(2147483647);
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    touch-action: manipulation;
+}
+
+@supports (height: 100dvh) {
+    #__framer-editorbar {
+        height: 100dvh;
+    }
+}
+
+#__framer-editorbar.status_hidden {
+    display: none;
+}
+
+#__framer-editorbar.status_visually_hidden {
+    clip-path: circle(1px at calc(100% - 1px) calc(100% - 1px));
+    z-index: calc(2147483647 - 1);
+}
+
+#__framer-editorbar.status_measuring {
+    clip-path: unset;
+}

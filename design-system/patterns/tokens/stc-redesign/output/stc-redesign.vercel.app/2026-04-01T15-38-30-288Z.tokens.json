@@ -1,0 +1,305 @@
+{
+  "$extensions": {
+    "com.dembrandt": {
+      "url": "https://stc-redesign.vercel.app/",
+      "domain": "stc-redesign.vercel.app",
+      "extractedAt": "2026-04-01T15:38:29.640Z"
+    }
+  },
+  "color": {
+    "palette": {
+      "palette-1": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            1,
+            1
+          ],
+          "hex": "#ffffff",
+          "alpha": 0.4
+        },
+        "$description": "Count: 92, Confidence: high"
+      },
+      "palette-2": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.918,
+            0.576,
+            0.455
+          ],
+          "hex": "#ea9374"
+        },
+        "$description": "Count: 67, Confidence: high"
+      },
+      "palette-3": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.078,
+            0.078,
+            0.125
+          ],
+          "hex": "#141420"
+        },
+        "$description": "Count: 51, Confidence: high"
+      },
+      "palette-4": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.227,
+            0.384,
+            0.769
+          ],
+          "hex": "#3a62c4"
+        },
+        "$description": "Count: 3, Confidence: high"
+      },
+      "palette-5": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            1,
+            1
+          ],
+          "hex": "#ffffff",
+          "alpha": 0.047
+        },
+        "$description": "Count: 1, Confidence: medium"
+      },
+      "palette-6": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            1,
+            1
+          ],
+          "hex": "#ffffff",
+          "alpha": 0.475
+        },
+        "$description": "Count: 1, Confidence: medium"
+      },
+      "palette-7": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.451,
+            0.451,
+            0.467
+          ],
+          "hex": "#737377"
+        },
+        "$description": "Count: 1, Confidence: medium"
+      },
+      "palette-8": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.929,
+            0.91,
+            0.878
+          ],
+          "hex": "#ede8e0",
+          "alpha": 0.79
+        },
+        "$description": "Count: 1, Confidence: medium"
+      }
+    }
+  },
+  "typography": {
+    "font-family": {
+      "bebas-neue": {
+        "$type": "fontFamily",
+        "$value": "Bebas Neue"
+      },
+      "playfair-display": {
+        "$type": "fontFamily",
+        "$value": "Playfair Display"
+      },
+      "inter": {
+        "$type": "fontFamily",
+        "$value": "Inter"
+      },
+      "jetbrains-mono": {
+        "$type": "fontFamily",
+        "$value": "JetBrains Mono"
+      }
+    },
+    "style": {
+      "text-heading-1": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{typography.font-family.playfair-display}",
+          "fontSize": {
+            "$type": "dimension",
+            "$value": {
+              "value": 80,
+              "unit": "px"
+            }
+          },
+          "fontWeight": {
+            "$type": "fontWeight",
+            "$value": 400
+          },
+          "lineHeight": {
+            "$type": "number",
+            "$value": 1.6
+          }
+        }
+      }
+    }
+  },
+  "spacing": {
+    "spacing-1": {
+      "$type": "dimension",
+      "$value": {
+        "value": 4,
+        "unit": "px"
+      }
+    },
+    "spacing-2": {
+      "$type": "dimension",
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      }
+    },
+    "spacing-3": {
+      "$type": "dimension",
+      "$value": {
+        "value": 10,
+        "unit": "px"
+      }
+    },
+    "spacing-4": {
+      "$type": "dimension",
+      "$value": {
+        "value": 12,
+        "unit": "px"
+      }
+    },
+    "spacing-5": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      }
+    },
+    "spacing-6": {
+      "$type": "dimension",
+      "$value": {
+        "value": 20,
+        "unit": "px"
+      }
+    },
+    "spacing-7": {
+      "$type": "dimension",
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      }
+    },
+    "spacing-8": {
+      "$type": "dimension",
+      "$value": {
+        "value": 32,
+        "unit": "px"
+      }
+    },
+    "spacing-9": {
+      "$type": "dimension",
+      "$value": {
+        "value": 40,
+        "unit": "px"
+      }
+    },
+    "spacing-10": {
+      "$type": "dimension",
+      "$value": {
+        "value": 48,
+        "unit": "px"
+      }
+    },
+    "spacing-11": {
+      "$type": "dimension",
+      "$value": {
+        "value": 54,
+        "unit": "px"
+      }
+    },
+    "spacing-12": {
+      "$type": "dimension",
+      "$value": {
+        "value": 56,
+        "unit": "px"
+      }
+    }
+  },
+  "radius": {
+    "radius-1": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0,
+        "unit": "px"
+      }
+    },
+    "radius-2": {
+      "$type": "dimension",
+      "$value": {
+        "value": 20,
+        "unit": "px"
+      }
+    },
+    "radius-3": {
+      "$type": "dimension",
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      }
+    },
+    "radius-4": {
+      "$type": "dimension",
+      "$value": {
+        "value": 50,
+        "unit": "%"
+      }
+    }
+  },
+  "border": {
+    "width": {
+      "border-width-1": {
+        "$type": "dimension",
+        "$value": {
+          "value": 0,
+          "unit": "px"
+        }
+      }
+    },
+    "color": {
+      "border-color-1": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.929,
+            0.91,
+            0.878
+          ],
+          "hex": "#ede8e0"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+
+.swiper:hover .swiper-navigation-wrap {
+  opacity: 1
+}
+.swiper {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}

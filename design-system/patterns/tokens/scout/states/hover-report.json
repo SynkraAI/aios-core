@@ -1,0 +1,133 @@
+{
+  "url": "https://scout.camd.northeastern.edu",
+  "name": "scout",
+  "captured_at": "2026-04-01T14:10:52.367Z",
+  "elements": [
+    {
+      "type": "button",
+      "index": 0,
+      "text": "Apply",
+      "tag": "button",
+      "classes": "sc-d8df5d81-1 chhSkq",
+      "defaultStyles": {
+        "background": "rgb(250, 249, 242)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(250, 249, 242)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "30px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(0, 0, 0)",
+        "color": "rgb(250, 249, 242)",
+        "borderColor": "rgb(250, 249, 242)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "30px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgb(250, 249, 242)",
+          "to": "rgb(0, 0, 0)"
+        },
+        "color": {
+          "from": "rgb(0, 0, 0)",
+          "to": "rgb(250, 249, 242)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-0-default.png",
+        "hover": "btn-0-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 2,
+      "text": "What we do",
+      "tag": "button",
+      "classes": "sc-d8df5d81-1 joMjMB",
+      "defaultStyles": {
+        "background": "rgb(140, 40, 189)",
+        "color": "rgb(250, 249, 242)",
+        "borderColor": "rgb(140, 40, 189)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "30px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(250, 249, 242)",
+        "color": "rgb(140, 40, 189)",
+        "borderColor": "rgb(140, 40, 189)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "30px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgb(140, 40, 189)",
+          "to": "rgb(250, 249, 242)"
+        },
+        "color": {
+          "from": "rgb(250, 249, 242)",
+          "to": "rgb(140, 40, 189)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-2-default.png",
+        "hover": "btn-2-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 3,
+      "text": "All work",
+      "tag": "button",
+      "classes": "sc-d8df5d81-1 bqcfTp",
+      "defaultStyles": {
+        "background": "rgb(255, 255, 255)",
+        "color": "rgb(140, 40, 189)",
+        "borderColor": "rgb(140, 40, 189)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "30px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(140, 40, 189)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgb(140, 40, 189)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "30px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgb(255, 255, 255)",
+          "to": "rgb(140, 40, 189)"
+        },
+        "color": {
+          "from": "rgb(140, 40, 189)",
+          "to": "rgb(255, 255, 255)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-3-default.png",
+        "hover": "btn-3-hover.png"
+      }
+    }
+  ]
+}

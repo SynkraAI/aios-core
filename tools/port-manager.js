@@ -4,15 +4,18 @@
  * Port Manager — Automatic port allocation and conflict detection for AIOX projects
  *
  * Usage:
- *   node tools/port-manager.js check <port>          # Check if port is available
+ *   node tools/port-manager.js check <port>               # Check if port is available
  *   node tools/port-manager.js allocate <project> <type>  # Allocate next free port
- *   node tools/port-manager.js list                  # List all allocated ports
- *   node tools/port-manager.js release <project>     # Release project's port
+ *   node tools/port-manager.js auto <project> [type]      # Allocate + output PORT=XXXX (for shell)
+ *   node tools/port-manager.js scan                       # Show all occupied ports
+ *   node tools/port-manager.js list                       # List all allocated ports
+ *   node tools/port-manager.js release <project>          # Release project's port
  */
 
 const fs = require('fs');
 const path = require('path');
 const net = require('net');
+const { execSync } = require('child_process');
 
 // Port ranges por tipo de projeto
 const PORT_RANGES = {
@@ -243,6 +246,164 @@ function releasePort(projectName) {
 }
 
 /**
+ * Auto-allocate port for a project and output for shell eval
+ * Usage: eval $(node tools/port-manager.js auto my-app app)
+ * @param {string} projectName - Project name
+ * @param {string} [type] - Project type (auto-detected if omitted)
+ */
+async function autoPort(projectName, type) {
+  const registry = loadRegistry();
+
+  // If project already has a port, reuse it (if still free)
+  if (registry[projectName]) {
+    const existing = registry[projectName].port;
+    const stillFree = await checkPortAvailable(existing);
+    if (stillFree) {
+      // Output for shell eval
+      console.log(`PORT=${existing}`);
+      process.exit(0);
+    }
+    // Port was taken by something else — reallocate
+    delete registry[projectName];
+  }
+
+  // Auto-detect type if not provided
+  if (!type) {
+    type = detectProjectType(projectName);
+  }
+
+  const port = await findNextFreePort(type, registry);
+  if (!port) {
+    console.error(`# ❌ Nenhuma porta livre no range de ${type} (${PORT_RANGES[type].start}-${PORT_RANGES[type].end})`);
+    process.exit(1);
+  }
+
+  // Register
+  registry[projectName] = {
+    port,
+    type,
+    allocatedAt: new Date().toISOString(),
+    status: 'allocated'
+  };
+  saveRegistry(registry);
+
+  // Output for shell eval
+  console.log(`PORT=${port}`);
+}
+
+/**
+ * Detect project type from package.json or directory heuristics
+ * @param {string} projectName - Project name (unused but kept for future)
+ * @returns {string} Detected type
+ */
+function detectProjectType() {
+  const cwd = process.cwd();
+
+  // Check package.json for hints
+  const pkgPath = path.join(cwd, 'package.json');
+  if (fs.existsSync(pkgPath)) {
+    try {
+      const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+      const deps = { ...pkg.dependencies, ...pkg.devDependencies };
+      const scripts = pkg.scripts || {};
+
+      // API frameworks
+      if (deps.express || deps.fastify || deps.hapi || deps.koa || deps['@nestjs/core']) {
+        return 'api';
+      }
+
+      // App frameworks
+      if (deps.next || deps.nuxt || deps.vite || deps['@angular/core'] || deps.svelte || deps.remix) {
+        return 'app';
+      }
+
+      // Check scripts for clues
+      const allScripts = Object.values(scripts).join(' ');
+      if (allScripts.includes('next ') || allScripts.includes('vite') || allScripts.includes('react-scripts')) {
+        return 'app';
+      }
+      if (allScripts.includes('nodemon') || allScripts.includes('ts-node')) {
+        return 'api';
+      }
+    } catch {
+      // Ignore parse errors
+    }
+  }
+
+  // Check if inside aios-core squads/
+  if (cwd.includes('/squads/')) return 'squad';
+  if (cwd.includes('/tools/')) return 'pipeline';
+
+  // Default
+  return 'app';
+}
+
+/**
+ * Scan all commonly used ports and show what's occupied
+ */
+async function scanPorts() {
+  console.log('\n🔍 Escaneando portas...\n');
+
+  // Collect all range ports
+  const allPorts = [];
+  for (const [type, range] of Object.entries(PORT_RANGES)) {
+    for (let p = range.start; p <= range.start + 10; p++) {
+      allPorts.push({ port: p, type });
+    }
+  }
+
+  // Also check common ports
+  const COMMON_PORTS = [80, 443, 8080, 8443, 9000, 9090];
+  for (const p of COMMON_PORTS) {
+    allPorts.push({ port: p, type: 'common' });
+  }
+
+  // Deduplicate and sort
+  const seen = new Set();
+  const unique = allPorts.filter(({ port }) => {
+    if (seen.has(port)) return false;
+    seen.add(port);
+    return true;
+  }).sort((a, b) => a.port - b.port);
+
+  // Check each port
+  const occupied = [];
+  const checks = unique.map(async ({ port, type }) => {
+    const available = await checkPortAvailable(port);
+    if (!available) {
+      occupied.push({ port, type });
+    }
+  });
+  await Promise.all(checks);
+  occupied.sort((a, b) => a.port - b.port);
+
+  if (occupied.length === 0) {
+    console.log('✅ Nenhuma porta ocupada nos ranges monitorados.\n');
+    return;
+  }
+
+  // Try to identify process using lsof (macOS/Linux)
+  console.log('Porta'.padEnd(8) + 'Tipo'.padEnd(12) + 'Processo');
+  console.log('-'.repeat(60));
+
+  for (const { port, type } of occupied) {
+    let processInfo = '(desconhecido)';
+    try {
+      const output = execSync(`lsof -i :${port} -sTCP:LISTEN -P -n 2>/dev/null | tail -1`, { encoding: 'utf8' }).trim();
+      if (output) {
+        const parts = output.split(/\s+/);
+        processInfo = `${parts[0]} (PID: ${parts[1]})`;
+      }
+    } catch {
+      // lsof not available or no permission
+    }
+    console.log(`${String(port).padEnd(8)}${type.padEnd(12)}${processInfo}`);
+  }
+
+  console.log(`\n📊 Total: ${occupied.length} porta(s) ocupada(s)\n`);
+}
+
+/**
  * Show usage help
  */
 function showHelp() {
@@ -252,6 +413,8 @@ Port Manager — AIOX
 Uso:
   node tools/port-manager.js check <port>               # Verificar se porta está livre
   node tools/port-manager.js allocate <project> <type>  # Alocar porta para projeto
+  node tools/port-manager.js auto <project> [type]      # Alocar + output PORT=XXXX
+  node tools/port-manager.js scan                       # Mostrar portas ocupadas
   node tools/port-manager.js list                       # Listar portas alocadas
   node tools/port-manager.js release <project>          # Liberar porta do projeto
 
@@ -266,53 +429,117 @@ Ranges de portas:
 Exemplos:
   node tools/port-manager.js check 3000
   node tools/port-manager.js allocate meu-app app
+  node tools/port-manager.js auto meu-app              # auto-detect type
+  node tools/port-manager.js auto meu-app api          # explicit type
+  node tools/port-manager.js scan
   node tools/port-manager.js list
   node tools/port-manager.js release meu-app
+
+Shell integration:
+  eval \\$(node ~/aios-core/tools/port-manager.js auto my-app)
+  npm run dev  # PORT já está setado
 `);
 }
 
-// CLI Entry Point
-const [,, command, ...args] = process.argv;
+// Module exports for programmatic use
+module.exports = {
+  checkPortAvailable,
+  findNextFreePort,
+  loadRegistry,
+  saveRegistry,
+  detectProjectType,
+  PORT_RANGES,
+  REGISTRY_PATH,
 
-(async () => {
-  switch (command) {
-    case 'check':
-      if (args.length !== 1) {
-        console.error('❌ Uso: node tools/port-manager.js check <port>');
-        process.exit(1);
-      }
-      await checkPort(args[0]);
-      break;
+  /**
+   * Get a free port for a project (programmatic API)
+   * @param {string} projectName - Project name
+   * @param {string} [type] - Project type (auto-detected if omitted)
+   * @returns {Promise<number>} Allocated port
+   */
+  async getPort(projectName, type) {
+    const registry = loadRegistry();
 
-    case 'allocate':
-      if (args.length !== 2) {
-        console.error('❌ Uso: node tools/port-manager.js allocate <project> <type>');
-        process.exit(1);
-      }
-      await allocatePort(args[0], args[1]);
-      break;
+    // Reuse existing allocation if still free
+    if (registry[projectName]) {
+      const existing = registry[projectName].port;
+      const stillFree = await checkPortAvailable(existing);
+      if (stillFree) return existing;
+      delete registry[projectName];
+    }
 
-    case 'list':
-      listPorts();
-      break;
+    if (!type) type = detectProjectType();
 
-    case 'release':
-      if (args.length !== 1) {
-        console.error('❌ Uso: node tools/port-manager.js release <project>');
-        process.exit(1);
-      }
-      releasePort(args[0]);
-      break;
+    const port = await findNextFreePort(type, registry);
+    if (!port) throw new Error(`No free ports in ${type} range`);
 
-    case 'help':
-    case '--help':
-    case '-h':
-      showHelp();
-      break;
-
-    default:
-      console.error(`❌ Comando desconhecido: ${command || '(nenhum)'}`);
-      showHelp();
-      process.exit(1);
+    registry[projectName] = {
+      port,
+      type,
+      allocatedAt: new Date().toISOString(),
+      status: 'allocated'
+    };
+    saveRegistry(registry);
+    return port;
   }
-})();
+};
+
+// CLI Entry Point (only when run directly)
+if (require.main === module) {
+  const [,, command, ...args] = process.argv;
+
+  (async () => {
+    switch (command) {
+      case 'check':
+        if (args.length !== 1) {
+          console.error('❌ Uso: node tools/port-manager.js check <port>');
+          process.exit(1);
+        }
+        await checkPort(args[0]);
+        break;
+
+      case 'allocate':
+        if (args.length !== 2) {
+          console.error('❌ Uso: node tools/port-manager.js allocate <project> <type>');
+          process.exit(1);
+        }
+        await allocatePort(args[0], args[1]);
+        break;
+
+      case 'auto':
+        if (args.length < 1 || args.length > 2) {
+          console.error('❌ Uso: node tools/port-manager.js auto <project> [type]');
+          process.exit(1);
+        }
+        await autoPort(args[0], args[1]);
+        break;
+
+      case 'scan':
+        await scanPorts();
+        break;
+
+      case 'list':
+        listPorts();
+        break;
+
+      case 'release':
+        if (args.length !== 1) {
+          console.error('❌ Uso: node tools/port-manager.js release <project>');
+          process.exit(1);
+        }
+        releasePort(args[0]);
+        break;
+
+      case 'help':
+      case '--help':
+      case '-h':
+        showHelp();
+        break;
+
+      default:
+        console.error(`❌ Comando desconhecido: ${command || '(nenhum)'}`);
+        showHelp();
+        process.exit(1);
+    }
+  })();
+}

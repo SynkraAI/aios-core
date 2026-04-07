@@ -1,0 +1,251 @@
+{
+  "url": "https://makemepulse.com",
+  "name": "makemepulse",
+  "captured_at": "2026-04-01T13:52:36.948Z",
+  "elements": [
+    {
+      "type": "button",
+      "index": 1,
+      "text": "Discover makemeplay.",
+      "tag": "a",
+      "classes": "cta",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgb(196, 196, 196)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgb(196, 196, 196)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-1-default.png",
+        "hover": "btn-1-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 3,
+      "text": "Give an email, get the newsletter.",
+      "tag": "button",
+      "classes": "newsletter-form-cta block w-full p-24 lg:p-16 text-left focus:outline-none",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(15, 15, 15)",
+        "borderColor": "rgb(196, 196, 196)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(15, 15, 15)",
+        "borderColor": "rgb(196, 196, 196)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-3-default.png",
+        "hover": "btn-3-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 1,
+      "text": "Home",
+      "defaultStyles": {
+        "color": "rgb(255, 255, 255)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(255, 255, 255)",
+        "textDecoration": "none",
+        "opacity": "0.5",
+        "transform": "none"
+      },
+      "diffs": {
+        "opacity": {
+          "from": "1",
+          "to": "0.5"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "link-1-default.png",
+        "hover": "link-1-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 2,
+      "text": "Case studies",
+      "defaultStyles": {
+        "color": "rgb(255, 255, 255)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(255, 255, 255)",
+        "textDecoration": "none",
+        "opacity": "0.5",
+        "transform": "none"
+      },
+      "diffs": {
+        "opacity": {
+          "from": "1",
+          "to": "0.5"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "link-2-default.png",
+        "hover": "link-2-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 3,
+      "text": "What we do",
+      "defaultStyles": {
+        "color": "rgb(255, 255, 255)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(255, 255, 255)",
+        "textDecoration": "none",
+        "opacity": "0.5",
+        "transform": "none"
+      },
+      "diffs": {
+        "opacity": {
+          "from": "1",
+          "to": "0.5"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "link-3-default.png",
+        "hover": "link-3-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 4,
+      "text": "Who we are",
+      "defaultStyles": {
+        "color": "rgb(255, 255, 255)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(255, 255, 255)",
+        "textDecoration": "none",
+        "opacity": "0.5",
+        "transform": "none"
+      },
+      "diffs": {
+        "opacity": {
+          "from": "1",
+          "to": "0.5"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "link-4-default.png",
+        "hover": "link-4-hover.png"
+      }
+    },
+    {
+      "type": "card",
+      "index": 0,
+      "defaultStyles": {
+        "boxShadow": "none",
+        "transform": "none",
+        "borderColor": "rgb(196, 196, 196)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "hoverStyles": {
+        "boxShadow": "none",
+        "transform": "none",
+        "borderColor": "rgb(196, 196, 196)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "card-0-default.png",
+        "hover": "card-0-hover.png"
+      }
+    },
+    {
+      "type": "card",
+      "index": 1,
+      "defaultStyles": {
+        "boxShadow": "none",
+        "transform": "none",
+        "borderColor": "rgb(196, 196, 196)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "hoverStyles": {
+        "boxShadow": "none",
+        "transform": "none",
+        "borderColor": "rgb(196, 196, 196)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "card-1-default.png",
+        "hover": "card-1-hover.png"
+      }
+    },
+    {
+      "type": "card",
+      "index": 2,
+      "defaultStyles": {
+        "boxShadow": "none",
+        "transform": "none",
+        "borderColor": "rgb(196, 196, 196)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "hoverStyles": {
+        "boxShadow": "none",
+        "transform": "none",
+        "borderColor": "rgb(196, 196, 196)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "card-2-default.png",
+        "hover": "card-2-hover.png"
+      }
+    }
+  ]
+}

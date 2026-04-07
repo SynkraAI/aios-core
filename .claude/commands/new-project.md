@@ -107,7 +107,7 @@ Se squad informado ≠ "nenhum ainda":
 ## Passo 1.5: Scan automático de arquivos existentes
 
 Antes de criar, busque no codebase por arquivos que já existam relacionados ao projeto:
-1. Stories em `docs/stories/active/` e `docs/stories/completed/` que contenham o nome do projeto
+1. Stories em `docs/stories/active/` e `docs/stories/done/` que contenham o nome do projeto
 2. Epics em `docs/stories/epics/` que contenham o nome do projeto
 3. Squads em `squads/{squad}/` (se squad informado)
 4. Scripts em `tools/` que contenham o nome do projeto
@@ -137,7 +137,7 @@ Eles serão incluídos na seção "Arquivos Chave" do INDEX.md.
 2. Crie `.aios/` dentro do projeto com subpastas:
    - `.aios/sessions/` — session files de checkpoint/resume
    - `.aios/stories/active/` — stories ativas
-   - `.aios/stories/completed/` — stories concluídas
+   - `.aios/stories/done/` — stories concluídas
    - `.aios/epics/` — epics do projeto
    - `.aios/memory/` — memória persistente do projeto
    - `.aios/memory/feedback/` — feedback do usuário por tópico
@@ -165,40 +165,21 @@ Eles serão incluídos na seção "Arquivos Chave" do INDEX.md.
 
 **APENAS se o projeto vive FORA de aios-core** (path externo).
 
-Crie `{project-path}/.claude/CLAUDE.md` com este conteúdo:
+**Use o template centralizado via `copy-project-config.js`:**
 
-```markdown
-# CLAUDE.md — {Nome Legível}
-
-## Projeto AIOX
-Este projeto usa governança híbrida AIOX. INDEX, stories e sessions vivem localmente em `.aios/`.
-
-## Governança
-- **INDEX.md:** `.aios/INDEX.md` (governança local)
-- **Stories ativas:** `.aios/stories/active/`
-- **Sessions:** `.aios/sessions/`
-- **Skills:** `.aios/skills` (symlink → `~/aios-core/skills` — acesso a todas as skills do framework)
-- **ACTIVE.md:** `~/aios-core/docs/projects/ACTIVE.md` (registry central)
-- **Framework:** `~/aios-core/`
-
-## Ao iniciar sessão neste diretório
-1. Leia `.aios/INDEX.md` para contexto completo
-2. Verifique se há session file recente em `.aios/sessions/`
-3. Ou use: `/resume {nome}`
-
-## Ao finalizar sessão
-1. Use: `/checkpoint` (detecta automaticamente modo HYBRID)
-2. INDEX.md e session são salvos em `.aios/` local
-
-## Estilo de comunicação
-- **Tom:** explique como se fosse para um adolescente curioso de 15 anos. Inteligente, mas sem jargão
-- **Metáforas obrigatórias:** sempre usar analogias do cotidiano para conceitos técnicos ou abstratos
-- **Concisão:** se dá pra explicar em 3 linhas, não use 10
-- **Estrutura pós-tarefa:** O que fiz, Por quê, Próximo passo, Erros (se houver)
-
-## Convenções deste projeto
-{A definir — preencha com stack, lint rules, etc. conforme o projeto evolui}
+```bash
+node ~/aios-core/tools/copy-project-config.js {project-path} {type} "{projectName}" HYBRID
 ```
+
+Este script lê `~/aios-core/tools/templates/project-configs/base/.claude/CLAUDE.md` (single source of truth) e preenche os placeholders automaticamente. Os placeholders `{{MODE}}`, `{{INDEX_PATH}}`, `{{STORIES_PATH}}`, `{{SESSIONS_PATH}}`, `{{SAVE_LOCATION}}` e `{{PROJECT_SLUG}}` são calculados pela função `computePaths()` do script.
+
+**Se o script não estiver disponível (fallback manual)**, preencher os placeholders do template:
+| `{{SESSIONS_PATH}}` | `.aios/sessions/` |
+| `{{PROJECT_SLUG}}` | `{nome}` (kebab-case) |
+
+**Se o template não existir (edge case):** gerar inline com as seções mínimas (Governança + Comunicação + Behavioral Rules).
+
+**Regra:** NUNCA hardcodar o CLAUDE.md inteiro neste arquivo. Sempre partir do template.
 
 ## Passo 2.6: Criar memory files (templates)
 

@@ -1,0 +1,140 @@
+{
+  "version": "1.0.0",
+  "name": "raycast",
+  "source": "https://raycast.com",
+  "timestamp": "2026-04-01T11:42:50.656Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "output": "/Users/luizfosc/aios-core/design-system/patterns/tokens/raycast",
+  "files": {
+    "html": {
+      "file": "source.html",
+      "size": 641753
+    },
+    "screenshots": [
+      "screenshot-desktop.png",
+      "screenshot-mobile.png"
+    ],
+    "stylesheets": [
+      {
+        "url": "https://www.raycast.com/_next/static/css/8ca5e46561ffff67.css",
+        "file": "8ca5e46561ffff67.css",
+        "size": 81135
+      },
+      {
+        "url": "https://www.raycast.com/_next/static/css/f1de5538ee4eef17.css",
+        "file": "f1de5538ee4eef17.css",
+        "size": 6032
+      },
+      {
+        "url": "https://www.raycast.com/_next/static/css/ea652b94ffdea88d.css",
+        "file": "ea652b94ffdea88d.css",
+        "size": 30399
+      },
+      {
+        "url": "https://www.raycast.com/_next/static/css/5038a0f8e1dbb537.css",
+        "file": "5038a0f8e1dbb537.css",
+        "size": 20615
+      },
+      {
+        "url": "https://www.raycast.com/_next/static/css/7895ac7aab38a613.css",
+        "file": "7895ac7aab38a613.css",
+        "size": 4720
+      },
+      {
+        "url": "https://www.raycast.com/_next/static/css/af9f5781b0bfa376.css",
+        "file": "af9f5781b0bfa376.css",
+        "size": 10991
+      },
+      {
+        "url": "https://www.raycast.com/_next/static/css/a59e492e46719f4d.css",
+        "file": "a59e492e46719f4d.css",
+        "size": 182
+      },
+      {
+        "url": "https://www.raycast.com/_next/static/css/4b9ae64dfe6b13c7.css",
+        "file": "4b9ae64dfe6b13c7.css",
+        "size": 59368
+      },
+      {
+        "url": "https://www.raycast.com/_next/static/css/3563776b487bdaf8.css",
+        "file": "3563776b487bdaf8.css",
+        "size": 7723
+      },
+      {
+        "url": "https://www.raycast.com/_next/static/css/daa5c66cd12da278.css",
+        "file": "daa5c66cd12da278.css",
+        "size": 74157
+      },
+      {
+        "url": "https://www.raycast.com/_next/static/css/6f4babb312bbd534.css",
+        "file": "6f4babb312bbd534.css",
+        "size": 81996
+      },
+      {
+        "url": "https://www.raycast.com/_next/static/css/c645df5701d05f92.css",
+        "file": "c645df5701d05f92.css",
+        "size": 29679
+      },
+      {
+        "url": "https://www.raycast.com/_next/static/css/693b2155f5de85b5.css",
+        "file": "693b2155f5de85b5.css",
+        "size": 968
+      },
+      {
+        "url": "https://www.raycast.com/_next/static/css/467af547d1448fcc.css",
+        "file": "467af547d1448fcc.css",
+        "size": 408
+      },
+      {
+        "url": "https://www.raycast.com/_next/static/css/e4f18a234f9d4400.css",
+        "file": "e4f18a234f9d4400.css",
+        "size": 556
+      },
+      {
+        "url": "https://www.raycast.com/_next/static/css/522dafa8852fa032.css",
+        "file": "522dafa8852fa032.css",
+        "size": 570
+      },
+      {
+        "url": "https://www.raycast.com/_next/static/css/75b1cd5a5ffd9cd7.css",
+        "file": "75b1cd5a5ffd9cd7.css",
+        "size": 669
+      },
+      {
+        "url": "https://www.raycast.com/_next/static/css/a405bfcbd0b1a3ab.css",
+        "file": "a405bfcbd0b1a3ab.css",
+        "size": 335
+      }
+    ],
+    "domTree": {
+      "file": "dom-tree.json",
+      "nodeCount": 1778
+    },
+    "extractedCss": "extracted-css.json",
+    "components": {
+      "file": "components.json",
+      "count": 15
+    },
+    "tokens": "tokens.yaml"
+  },
+  "summary": {
+    "nodeCount": 1778,
+    "uniqueColors": 30,
+    "typographyVariants": 30,
+    "spacingValues": 42,
+    "shadows": 32,
+    "gradients": 34,
+    "animations": 70,
+    "mediaQueries": 477,
+    "customProperties": 87,
+    "gridLayouts": 20,
+    "flexLayouts": 50,
+    "componentTypes": 15,
+    "totalComponents": 429,
+    "stylesheetCount": 18,
+    "inlineStyles": 523
+  }
+}

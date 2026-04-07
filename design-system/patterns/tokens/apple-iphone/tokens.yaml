@@ -1,0 +1,375 @@
+# Design Tokens - apple-iphone
+# Extracted by dissect-artifact.js v1.0.0
+# Source: https://apple.com/iphone
+# Date: 2026-04-01T11:46:23.713Z
+
+metadata:
+  version: "1.0.0"
+  source: "https://apple.com/iphone"
+  generated_at: "2026-04-01T11:46:23.713Z"
+  node_count: 3888
+
+colors:
+  "rgb_29_29_31_":
+    value: "rgb(29, 29, 31)"
+    occurrences: 2596
+  "rgb_51_51_54_":
+    value: "rgb(51, 51, 54)"
+    occurrences: 267
+  "rgba_0_0_0_0_56_":
+    value: "rgba(0, 0, 0, 0.56)"
+    occurrences: 196
+  "rgb_110_110_115_":
+    value: "rgb(110, 110, 115)"
+    occurrences: 188
+  "rgb_255_255_255_":
+    value: "rgb(255, 255, 255)"
+    occurrences: 134
+  "rgba_0_0_0_0_72_":
+    value: "rgba(0, 0, 0, 0.72)"
+    occurrences: 109
+  "rgb_0_102_204_":
+    value: "rgb(0, 102, 204)"
+    occurrences: 94
+  "rgba_0_0_0_0_8_":
+    value: "rgba(0, 0, 0, 0.8)"
+    occurrences: 85
+  "rgb_245_245_247_":
+    value: "rgb(245, 245, 247)"
+    occurrences: 80
+  "rgba_0_0_0_0_88_":
+    value: "rgba(0, 0, 0, 0.88)"
+    occurrences: 80
+  "rgba_255_255_255_0_92_":
+    value: "rgba(255, 255, 255, 0.92)"
+    occurrences: 31
+  "rgb_0_0_0_":
+    value: "rgb(0, 0, 0)"
+    occurrences: 28
+  "rgb_250_250_252_":
+    value: "rgb(250, 250, 252)"
+    occurrences: 20
+  "rgba_210_210_215_0_64_":
+    value: "rgba(210, 210, 215, 0.64)"
+    occurrences: 12
+  "rgb_182_68_0_":
+    value: "rgb(182, 68, 0)"
+    occurrences: 6
+  "rgb_0_113_227_":
+    value: "rgb(0, 113, 227)"
+    occurrences: 6
+  "rgb_134_134_139_":
+    value: "rgb(134, 134, 139)"
+    occurrences: 3
+  "rgb_245_245_245_":
+    value: "rgb(245, 245, 245)"
+    occurrences: 2
+  "rgb_53_56_57_":
+    value: "rgb(53, 56, 57)"
+    occurrences: 2
+  "rgba_51_51_54_0_52_":
+    value: "rgba(51, 51, 54, 0.52)"
+    occurrences: 2
+  "rgba_255_255_255_0_8_":
+    value: "rgba(255, 255, 255, 0.8)"
+    occurrences: 2
+  "rgba_232_232_237_0_4_":
+    value: "rgba(232, 232, 237, 0.4)"
+    occurrences: 1
+  "rgb_247_115_20_":
+    value: "rgb(247, 115, 20)"
+    occurrences: 1
+  "rgb_43_49_69_":
+    value: "rgb(43, 49, 69)"
+    occurrences: 1
+  "rgb_247_247_247_":
+    value: "rgb(247, 247, 247)"
+    occurrences: 1
+  "rgb_237_248_255_":
+    value: "rgb(237, 248, 255)"
+    occurrences: 1
+  "rgb_255_252_242_":
+    value: "rgb(255, 252, 242)"
+    occurrences: 1
+  "rgb_218_201_230_":
+    value: "rgb(218, 201, 230)"
+    occurrences: 1
+  "rgb_164_176_132_":
+    value: "rgb(164, 176, 132)"
+    occurrences: 1
+  "rgb_140_166_201_":
+    value: "rgb(140, 166, 201)"
+    occurrences: 1
+  "rgb_252_231_230_":
+    value: "rgb(252, 231, 230)"
+    occurrences: 1
+  "rgb_250_250_250_":
+    value: "rgb(250, 250, 250)"
+    occurrences: 1
+  "rgb_60_64_66_":
+    value: "rgb(60, 64, 66)"
+    occurrences: 1
+  "rgb_147_165_235_":
+    value: "rgb(147, 165, 235)"
+    occurrences: 1
+  "rgb_171_207_205_":
+    value: "rgb(171, 207, 205)"
+    occurrences: 1
+  "rgb_237_168_213_":
+    value: "rgb(237, 168, 213)"
+    occurrences: 1
+  "rgba_232_232_237_0_52_":
+    value: "rgba(232, 232, 237, 0.52)"
+    occurrences: 1
+  "rgba_255_255_255_0_32_":
+    value: "rgba(255, 255, 255, 0.32)"
+    occurrences: 1
+  "rgba_255_255_255_0_16_":
+    value: "rgba(255, 255, 255, 0.16)"
+    occurrences: 1
+  "rgb_232_232_237_":
+    value: "rgb(232, 232, 237)"
+    occurrences: 1
+
+typography:
+  "17px_400":
+    font-size: "17px"
+    font-weight: "400"
+    font-family: ""SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif"
+    occurrences: 2223
+  "12px_400":
+    font-size: "12px"
+    font-weight: "400"
+    font-family: ""SF Pro Text", "Myriad Set Pro", "SF Pro Icons", "Apple Legacy Chevron", "Helvetica Neue", Helvetica, Arial, sans-serif"
+    occurrences: 307
+  "12px_600":
+    font-size: "12px"
+    font-weight: "600"
+    font-family: ""SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif"
+    occurrences: 298
+  "28px_600":
+    font-size: "28px"
+    font-weight: "600"
+    font-family: ""SF Pro Display", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif"
+    occurrences: 294
+  "24px_600":
+    font-size: "24px"
+    font-weight: "600"
+    font-family: ""SF Pro Display", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif"
+    occurrences: 177
+  "17px_600":
+    font-size: "17px"
+    font-weight: "600"
+    font-family: ""SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif"
+    occurrences: 116
+  "12px_400":
+    font-size: "12px"
+    font-weight: "400"
+    font-family: ""SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif"
+    occurrences: 112
+  "56px_600":
+    font-size: "56px"
+    font-weight: "600"
+    font-family: ""SF Pro Display", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif"
+    occurrences: 58
+  "12px_600":
+    font-size: "12px"
+    font-weight: "600"
+    font-family: ""SF Pro Text", "Myriad Set Pro", "SF Pro Icons", "Apple Legacy Chevron", "Helvetica Neue", Helvetica, Arial, sans-serif"
+    occurrences: 44
+  "19px_600":
+    font-size: "19px"
+    font-weight: "600"
+    font-family: ""SF Pro Display", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif"
+    occurrences: 26
+  "19_89px_600":
+    font-size: "19.89px"
+    font-weight: "600"
+    font-family: ""SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif"
+    occurrences: 17
+  "17px_400":
+    font-size: "17px"
+    font-weight: "400"
+    font-family: ""SF Pro Text", "Myriad Set Pro", system-ui, -apple-system, "system-ui", "Segoe UI", "SF Pro Icons", "Apple Legacy Icons", "Helvetica Neue", Helvetica, Arial, sans-serif"
+    occurrences: 14
+  "32px_600":
+    font-size: "32px"
+    font-weight: "600"
+    font-family: ""SF Pro Display", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif"
+    occurrences: 10
+  "14px_600":
+    font-size: "14px"
+    font-weight: "600"
+    font-family: ""SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif"
+    occurrences: 9
+  "14px_400":
+    font-size: "14px"
+    font-weight: "400"
+    font-family: ""SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif"
+    occurrences: 8
+  "undefined_400":
+    font-size: "undefined"
+    font-weight: "400"
+    font-family: ""SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif"
+    occurrences: 6
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: ""Times New Roman""
+    occurrences: 5
+  "10px_400":
+    font-size: "10px"
+    font-weight: "400"
+    font-family: ""SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif"
+    occurrences: 4
+  "24px_300":
+    font-size: "24px"
+    font-weight: "300"
+    font-family: ""SF Pro Text", "Myriad Set Pro", system-ui, -apple-system, "system-ui", "Segoe UI", "SF Pro Icons", "Apple Legacy Icons", "Helvetica Neue", Helvetica, Arial, sans-serif"
+    occurrences: 3
+  "25_5px_600":
+    font-size: "25.5px"
+    font-weight: "600"
+    font-family: ""SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif"
+    occurrences: 2
+
+spacing:
+  "7px":
+    value: "7px"
+    occurrences: 314
+  "_6px":
+    value: "-6px"
+    occurrences: 192
+  "9_6px":
+    value: "9.6px"
+    occurrences: 121
+  "64px":
+    value: "64px"
+    occurrences: 97
+  "20px":
+    value: "20px"
+    occurrences: 93
+  "40px":
+    value: "40px"
+    occurrences: 73
+  "9px":
+    value: "9px"
+    occurrences: 73
+  "32px":
+    value: "32px"
+    occurrences: 63
+  "22_4px":
+    value: "22.4px"
+    occurrences: 56
+  "76px":
+    value: "76px"
+    occurrences: 54
+  "_1px":
+    value: "-1px"
+    occurrences: 44
+  "13_6px":
+    value: "13.6px"
+    occurrences: 44
+  "10px":
+    value: "10px"
+    occurrences: 38
+  "12px":
+    value: "12px"
+    occurrences: 32
+  "_4px":
+    value: "-4px"
+    occurrences: 31
+  "2px":
+    value: "2px"
+    occurrences: 26
+  "14px":
+    value: "14px"
+    occurrences: 26
+  "15px":
+    value: "15px"
+    occurrences: 25
+  "11px":
+    value: "11px"
+    occurrences: 23
+  "4px":
+    value: "4px"
+    occurrences: 18
+
+borders:
+  border_1:
+    value: "1px solid undefined"
+    occurrences: 8
+  border_2:
+    value: "1px 0px 0px solid none none rgb(210, 210, 215)"
+    occurrences: 2
+  border_3:
+    value: "0px 0px 1px none none solid rgba(0, 0, 0, 0.56) rgba(0, 0, 0, 0.56) rgba(0, 0, 0, 0.16)"
+    occurrences: 2
+  border_4:
+    value: "1px 0px 0px solid none none rgba(0, 0, 0, 0) rgb(29, 29, 31) rgb(29, 29, 31)"
+    occurrences: 1
+  border_5:
+    value: "3px solid rgba(0, 0, 0, 0.04)"
+    occurrences: 1
+  border_6:
+    value: "3px solid rgb(250, 250, 252)"
+    occurrences: 1
+  border_7:
+    value: "0px 0px 3px none none solid rgba(0, 0, 0, 0.8) rgba(0, 0, 0, 0.8) rgb(250, 250, 252)"
+    occurrences: 1
+
+gradients:
+  gradient_1: "linear-gradient(rgba(0, 0, 0, 0.24), rgba(0, 0, 0, 0.42), rgba(0, 0, 0, 0.56))"
+  gradient_2: "linear-gradient(to right, rgba(255, 255, 255, 0), rgb(255, 255, 255) 50%)"
+
+custom_properties:
+  "--finish-silver": "#f0f2f2"
+  "--finish-iphone-17-pro-cosmic-orange": "#f77e2d"
+  "--finish-iphone-17e-pink": "#fce7e6"
+  "--r-localnav-viewport-small-min-width": "viewport-get-property-for(\"ac-localnav:small\", min-width)"
+  "--finish-alpine-green": "#576856"
+  "--r-globalnav-background-opened": "#fafafc"
+  "--sk-productred": "rgb(175,30,45)"
+  "--sk-enviro-green": "rgb(0,217,89)"
+  "--finish-iphone-air-gold": "#fffcf5"
+  "--sk-fill-secondary": "rgb(250,250,252)"
+  "--r-localnav-viewport-medium-min-width": "viewport-get-property-for(\"ac-localnav:medium\", min-width)"
+  "--sk-fill-orange-secondary": "rgb(255,249,244)"
+  "--sk-link-disabled-opacity": "0.42"
+  "--finish-desert-titanium": "#bfa48f"
+  "--finish-iphone-se-3-midnight": "#232a31"
+  "--sk-fill-gray-secondary": "rgb(134,134,139)"
+  "--sk-fill-red": "rgb(227,0,0)"
+  "--finish-iphone-15-blue": "#d5dde0"
+  "--sk-fill-green-secondary": "rgb(245,255,246)"
+  "--r-sk-safe-area-inset-start": "0px"
+  "--finish-iphone-15-pink": "#ebd0d2"
+  "--r-localnav-gn-height": "calc(44px * 1)"
+  "--r-localnav-viewport-large-query": "min-width(1024px)"
+  "--r-localeswitcher-height": "70px"
+  "--sk-glyph-orange": "rgb(182,68,0)"
+  "--finish-ultramarine": "#6467e6"
+  "--r-globalmessage-segment-height": "0px"
+  "--global-nav-collective-height": "calc(44px + 70px)"
+  "--sk-paragraph-plus-headline-margin": "1.6em"
+  "--sk-glyph-red": "rgb(227,0,0)"
+  "--finish-iphone-13-pro-silver": "#f1f2ed"
+  "--finish-black": "#3c4042"
+  "--finish-iphone-air-white": "#fcfcfc"
+  "--sk-glyph-gray-secondary-alt": "rgb(66,66,69)"
+  "--global-section-padding": "160px"
+  "--sk-focus-color": "#0071e3"
+  "--r-globalnav-height": "44px"
+  "--r-localnav-viewport-medium-query": "min-width(834px)"
+  "--r-sk-start": "left"
+  "--finish-graphite": "#54524f"
+  "--r-localnav-viewport-small-max-width": "viewport-get-property-for(\"ac-localnav:small\", max-width)"
+  "--sk-enviro-neutral": "rgb(232,232,237)"
+  "--finish-black-titanium": "#3c3c3d"
+  "--sk-fill-gray-tertiary-alpha": "rgba(0,0,0,0.16)"
+  "--sk-glyph-green": "rgb(0,128,9)"
+  "--finish-teal": "#85adac"
+  "--finish-mist-blue": "#96aed1"
+  "--sk-glyph": "rgb(0,0,0)"
+  "--sk-fill-gray-alpha": "rgba(0,0,0,0.88)"
+  "--finish-iphone-13-blue": "#276787"

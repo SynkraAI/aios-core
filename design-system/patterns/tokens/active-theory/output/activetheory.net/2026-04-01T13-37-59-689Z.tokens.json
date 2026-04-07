@@ -1,0 +1,45 @@
+{
+  "$extensions": {
+    "com.dembrandt": {
+      "url": "https://activetheory.net/unsupported",
+      "domain": "activetheory.net",
+      "extractedAt": "2026-04-01T13:37:59.251Z"
+    }
+  },
+  "typography": {
+    "font-family": {
+      "nbarchitekt": {
+        "$type": "fontFamily",
+        "$value": "nbarchitekt"
+      }
+    },
+    "style": {
+      "text-heading-1": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{typography.font-family.nbarchitekt}",
+          "fontSize": {
+            "$type": "dimension",
+            "$value": {
+              "value": 18,
+              "unit": "px"
+            }
+          },
+          "fontWeight": {
+            "$type": "fontWeight",
+            "$value": 700
+          }
+        }
+      }
+    }
+  },
+  "spacing": {
+    "spacing-1": {
+      "$type": "dimension",
+      "$value": {
+        "value": 270,
+        "unit": "px"
+      }
+    }
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "version": "1.0.0",
+  "name": "apple-iphone",
+  "source": "https://apple.com/iphone",
+  "timestamp": "2026-04-01T11:46:23.713Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "output": "/Users/luizfosc/aios-core/design-system/patterns/tokens/apple-iphone",
+  "files": {
+    "html": {
+      "file": "source.html",
+      "size": 821592
+    },
+    "screenshots": [
+      "screenshot-desktop.png",
+      "screenshot-mobile.png"
+    ],
+    "stylesheets": [
+      {
+        "url": "https://www.apple.com/api-www/global-elements/global-header/v1/assets/globalheader.css",
+        "file": "globalheader.css",
+        "size": 171397
+      },
+      {
+        "url": "https://www.apple.com/ac/globalfooter/8/en_US/styles/ac-globalfooter.built.css",
+        "file": "ac-globalfooter.built.css",
+        "size": 56204
+      },
+      {
+        "url": "https://www.apple.com/ac/localnav/9/styles/ac-localnav.built.css",
+        "file": "ac-localnav.built.css",
+        "size": 82544
+      },
+      {
+        "url": "https://www.apple.com/wss/fonts?families=SF+Pro,v3|SF+Pro+Icons,v3",
+        "file": "fonts",
+        "size": 0
+      },
+      {
+        "url": "https://www.apple.com/v/iphone/home/cj/built/styles/overview.built.css",
+        "file": "overview.built.css",
+        "size": 646137
+      },
+      {
+        "url": "https://www.apple.com/ac/localeswitcher/4/pt_BR/styles/localeswitcher.built.css",
+        "file": "localeswitcher.built.css",
+        "size": 39687
+      },
+      {
+        "url": "https://www.apple.com/ac/ac-films/7.4.1/styles/modal.css",
+        "file": "modal.css",
+        "size": 166063
+      }
+    ],
+    "domTree": {
+      "file": "dom-tree.json",
+      "nodeCount": 3888
+    },
+    "extractedCss": "extracted-css.json",
+    "components": {
+      "file": "components.json",
+      "count": 22
+    },
+    "tokens": "tokens.yaml"
+  },
+  "summary": {
+    "nodeCount": 3888,
+    "uniqueColors": 40,
+    "typographyVariants": 25,
+    "spacingValues": 61,
+    "shadows": 0,
+    "gradients": 2,
+    "animations": 27,
+    "mediaQueries": 865,
+    "customProperties": 138,
+    "gridLayouts": 20,
+    "flexLayouts": 50,
+    "componentTypes": 22,
+    "totalComponents": 2493,
+    "stylesheetCount": 7,
+    "inlineStyles": 464
+  }
+}

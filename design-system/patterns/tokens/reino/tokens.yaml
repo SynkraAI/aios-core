@@ -1,0 +1,257 @@
+# Design Tokens - reino
+# Extracted by dissect-artifact.js v1.0.0
+# Source: https://reinostudio.com.br
+# Date: 2026-04-01T12:10:44.582Z
+
+metadata:
+  version: "1.0.0"
+  source: "https://reinostudio.com.br"
+  generated_at: "2026-04-01T12:10:44.582Z"
+  node_count: 508
+
+colors:
+  "rgb_0_0_0_":
+    value: "rgb(0, 0, 0)"
+    occurrences: 403
+  "rgb_255_255_255_":
+    value: "rgb(255, 255, 255)"
+    occurrences: 117
+  "rgb_43_47_49_":
+    value: "rgb(43, 47, 49)"
+    occurrences: 6
+  "rgb_0_122_255_":
+    value: "rgb(0, 122, 255)"
+    occurrences: 4
+
+typography:
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: "Inter, sans-serif"
+    occurrences: 336
+  "32px_400":
+    font-size: "32px"
+    font-weight: "400"
+    font-family: "Poppins, sans-serif"
+    occurrences: 35
+  "16px_500":
+    font-size: "16px"
+    font-weight: "500"
+    font-family: "Inter, sans-serif"
+    occurrences: 23
+  "14px_400":
+    font-size: "14px"
+    font-weight: "400"
+    font-family: "Inter, sans-serif"
+    occurrences: 21
+  "20px_400":
+    font-size: "20px"
+    font-weight: "400"
+    font-family: "Inter, sans-serif"
+    occurrences: 13
+  "13_3333px_400":
+    font-size: "13.3333px"
+    font-weight: "400"
+    font-family: "Arial"
+    occurrences: 10
+  "112px_400":
+    font-size: "112px"
+    font-weight: "400"
+    font-family: "Poppins, sans-serif"
+    occurrences: 9
+  "16px_700":
+    font-size: "16px"
+    font-weight: "700"
+    font-family: "Inter, sans-serif"
+    occurrences: 7
+  "16px_700":
+    font-size: "16px"
+    font-weight: "700"
+    font-family: "Poppins, sans-serif"
+    occurrences: 7
+  "14px_400":
+    font-size: "14px"
+    font-weight: "400"
+    font-family: ""Font Awesome 6 Brands""
+    occurrences: 6
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: "Arial"
+    occurrences: 5
+  "16px_900":
+    font-size: "16px"
+    font-weight: "900"
+    font-family: ""Font Awesome 6 Pro""
+    occurrences: 5
+  "96px_600":
+    font-size: "96px"
+    font-weight: "600"
+    font-family: "Poppins, sans-serif"
+    occurrences: 4
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: ""Times New Roman""
+    occurrences: 3
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: ""Font Awesome 6 Brands""
+    occurrences: 3
+  "200px_700":
+    font-size: "200px"
+    font-weight: "700"
+    font-family: "Poppins, sans-serif"
+    occurrences: 3
+  "32px_400":
+    font-size: "32px"
+    font-weight: "400"
+    font-family: "Arial"
+    occurrences: 2
+  "32px_400":
+    font-size: "32px"
+    font-weight: "400"
+    font-family: ""Font Awesome 6 Pro""
+    occurrences: 2
+  "76_8px_600":
+    font-size: "76.8px"
+    font-weight: "600"
+    font-family: "Poppins, sans-serif"
+    occurrences: 2
+  "24px_700":
+    font-size: "24px"
+    font-weight: "700"
+    font-family: "Poppins, sans-serif"
+    occurrences: 2
+
+spacing:
+  "64px":
+    value: "64px"
+    occurrences: 36
+  "10px":
+    value: "10px"
+    occurrences: 36
+  "24px":
+    value: "24px"
+    occurrences: 16
+  "60px":
+    value: "60px"
+    occurrences: 16
+  "100px":
+    value: "100px"
+    occurrences: 14
+  "52_8px":
+    value: "52.8px"
+    occurrences: 12
+  "80px":
+    value: "80px"
+    occurrences: 10
+  "8px":
+    value: "8px"
+    occurrences: 8
+  "16px":
+    value: "16px"
+    occurrences: 7
+  "128px":
+    value: "128px"
+    occurrences: 6
+  "160px":
+    value: "160px"
+    occurrences: 5
+  "48px":
+    value: "48px"
+    occurrences: 5
+  "20px":
+    value: "20px"
+    occurrences: 4
+  "40px":
+    value: "40px"
+    occurrences: 4
+  "_10px":
+    value: "-10px"
+    occurrences: 3
+  "96px":
+    value: "96px"
+    occurrences: 3
+  "32px":
+    value: "32px"
+    occurrences: 2
+  "_22px":
+    value: "-22px"
+    occurrences: 2
+
+borders:
+  border_1:
+    value: "1px solid rgb(0, 0, 0)"
+    occurrences: 3
+  border_2:
+    value: "1px solid rgb(255, 255, 255)"
+    occurrences: 2
+  border_3:
+    value: "2px solid rgb(0, 0, 0)"
+    occurrences: 1
+  border_4:
+    value: "0px 1px 0px 0px none solid none none rgb(255, 255, 255)"
+    occurrences: 1
+  border_5:
+    value: "1px 0px 0px solid none none rgb(43, 47, 49) rgb(255, 255, 255) rgb(255, 255, 255)"
+    occurrences: 1
+  border_6:
+    value: "0px 1px 0px 0px none solid none none rgb(0, 0, 0)"
+    occurrences: 1
+  border_7:
+    value: "1px 0px 0px solid none none rgb(43, 47, 49) rgb(0, 0, 0) rgb(0, 0, 0)"
+    occurrences: 1
+
+custom_properties:
+  "--shades06-rgb": "57, 60, 62"
+  "--fa-style-family-classic": "\"Font Awesome 6 Pro\""
+  "--wp--preset--gradient--midnight": "linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%)"
+  "--shades02-rgb": "0, 0, 0"
+  "--shades08": "#121212"
+  "--wp--preset--font-size--large": "36px"
+  "--wp--preset--shadow--outlined": "6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0)"
+  "--shades07-rgb": "245, 245, 245"
+  "--shades01-rgb": "255, 255, 255"
+  "--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan": "linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%)"
+  "--wp--preset--color--vivid-purple": "#9b51e0"
+  "--wp--preset--gradient--blush-light-purple": "linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%)"
+  "--wp--preset--aspect-ratio--16-9": "16/9"
+  "--wp--preset--color--pale-pink": "#f78da7"
+  "--fa-font-regular": "normal 400 1em/1 \"Font Awesome 6 Pro\""
+  "--wp--preset--color--cyan-bluish-gray": "#abb8c3"
+  "--wp--preset--gradient--electric-grass": "linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%)"
+  "--shades03-rgb": "43, 47, 48"
+  "--wp--preset--gradient--blush-bordeaux": "linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%)"
+  "--wp--preset--spacing--60": "2.25rem"
+  "--wp--preset--color--vivid-green-cyan": "#00d084"
+  "--wp--preset--shadow--deep": "12px 12px 50px rgba(0, 0, 0, 0.4)"
+  "--fa-font-brands": "normal 400 1em/1 \"Font Awesome 6 Brands\""
+  "--wp--preset--spacing--40": "1rem"
+  "--shades04-rgb": "189, 189, 189"
+  "--wp--preset--aspect-ratio--3-2": "3/2"
+  "--shades04": "#bdbdbd"
+  "--wp--preset--color--luminous-vivid-orange": "#ff6900"
+  "--wp--preset--font-size--x-large": "42px"
+  "--shades07": "#f5f5f5"
+  "--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple": "linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%)"
+  "--swiper-theme-color": "#007aff"
+  "--shades05-rgb": "224, 224, 224"
+  "--wp--preset--aspect-ratio--2-3": "2/3"
+  "--shades08-rgb": "18, 18, 18"
+  "--wp--preset--color--vivid-cyan-blue": "#0693e3"
+  "--wp--preset--shadow--natural": "6px 6px 9px rgba(0, 0, 0, 0.2)"
+  "--fa-style-family-duotone": "\"Font Awesome 6 Duotone\""
+  "--wp--preset--spacing--30": "0.67rem"
+  "--wp--preset--aspect-ratio--4-3": "4/3"
+  "--wp--preset--spacing--50": "1.5rem"
+  "--wp--preset--color--pale-cyan-blue": "#8ed1fc"
+  "--wp--preset--font-size--small": "13px"
+  "--wp--preset--spacing--70": "3.38rem"
+  "--fa-font-light": "normal 300 1em/1 \"Font Awesome 6 Pro\""
+  "--swiper-navigation-size": "44px"
+  "--fa-font-duotone": "normal 900 1em/1 \"Font Awesome 6 Duotone\""
+  "--fa-font-thin": "normal 100 1em/1 \"Font Awesome 6 Pro\""
+  "--shades06": "#393c3e"
+  "--wp--preset--gradient--luminous-dusk": "linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%)"

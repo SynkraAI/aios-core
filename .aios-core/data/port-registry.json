@@ -40,5 +40,65 @@
     "type": "pipeline",
     "allocatedAt": "2026-03-26T17:02:54.594Z",
     "status": "allocated"
+  },
+  "dne-digital-student-id": {
+    "port": 3003,
+    "type": "app",
+    "allocatedAt": "2026-04-03T17:10:38.873Z",
+    "status": "allocated"
+  },
+  "leadhunter": {
+    "port": 3004,
+    "type": "app",
+    "allocatedAt": "2026-04-06T14:21:14.193Z",
+    "status": "allocated"
+  },
+  "instagram-scraper": {
+    "port": 3005,
+    "type": "app",
+    "allocatedAt": "2026-04-06T18:15:15.128Z",
+    "status": "allocated"
+  },
+  "whatsapp-group-prospector": {
+    "port": 3006,
+    "type": "app",
+    "allocatedAt": "2026-04-06T18:27:42.730Z",
+    "status": "allocated"
+  },
+  "leadhunter-backend": {
+    "port": 3007,
+    "type": "app",
+    "allocatedAt": "2026-04-07T00:22:33.340Z",
+    "status": "allocated"
+  },
+  "leadhunter-frontend": {
+    "port": 3008,
+    "type": "app",
+    "allocatedAt": "2026-04-07T00:23:46.734Z",
+    "status": "allocated"
+  },
+  "designcode-ui-storybook": {
+    "port": 3009,
+    "type": "app",
+    "allocatedAt": "2026-04-07T02:08:03.182Z",
+    "status": "allocated"
+  },
+  "designcode-ui": {
+    "port": 3010,
+    "type": "app",
+    "allocatedAt": "2026-04-07T02:11:10.017Z",
+    "status": "allocated"
+  },
+  "shadcn-dash-landing": {
+    "port": 3011,
+    "type": "app",
+    "allocatedAt": "2026-04-07T02:51:25.889Z",
+    "status": "allocated"
+  },
+  "studio-admin": {
+    "port": 3012,
+    "type": "app",
+    "allocatedAt": "2026-04-07T02:51:30.138Z",
+    "status": "allocated"
   }
 }

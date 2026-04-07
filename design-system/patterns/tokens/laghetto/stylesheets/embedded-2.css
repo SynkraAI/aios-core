@@ -1,0 +1,129 @@
+
+.lightpick {
+    padding: 0 !important;
+    border-radius: 0px !important;
+    box-shadow: none !important;
+    font-family: Inter !important;
+    width: 100% !important;
+    color: #0a2d23 !important;
+}
+
+.lightpick__month {
+    padding: 0px !important;
+    width: 100% !important;
+    
+}
+
+.lightpick__months {
+    background-color: #fff !important;
+    grid-gap: 45px !important;
+}
+
+.lightpick__month-title {
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    margin-left: 0px !important;
+    font-size: 18px  !important;
+    border-radius: 0px !important;
+    padding-bottom: 12px !important;
+    margin-bottom: 12px !important;
+    border-bottom: solid 1px #0000002b !important;
+    width: 100%  !important;
+    display: flex  !important;
+    flex-direction: row  !important;
+    justify-content: center  !important;
+}
+
+.lightpick__days {
+    grid-gap: 4px;
+}
+
+.lightpick__toolbar {
+    justify-content: space-between !important;
+    position: absolute !important;
+    width: 100% !important;
+}
+
+.lightpick__previous-action, .lightpick__next-action, .lightpick__close-action {
+    margin-left: 0px !important;
+    width: 28px !important;
+    height: 28px !important;
+    background-color: #12443f1f !important;
+    color: #12433e !important;
+    font-size: 16px !important;
+    top: -4px !important;
+    border-radius: 6px !important;
+    font-family: system-ui !important;
+}
+
+.lightpick__month-title > .lightpick__select-months {
+    margin-right: 6px !important;
+    text-transform: capitalize !important;
+}
+
+.lightpick__day-of-the-week {
+    font-size: 9px !important;
+    font-weight: 500 !important;
+    text-transform: uppercase !important;
+}
+
+.lightpick__day {
+    font-size: 14px !important;
+    border-radius: 12px !important;
+    cursor: pointer !important;
+}
+
+.lightpick__day.is-start-date.is-end-date {
+    background-color: #0a2d23 !important;
+    color: #c7f1c5 !important;
+    background-image: none !important;
+}
+
+.lightpick__day.is-start-date, .lightpick__day.is-end-date, .lightpick__day.is-start-date:hover, .lightpick__day.is-end-date:hover {
+    background-color: #0a2d23 !important;
+    color: #c7f1c5 !important;
+    background-image: none !important;
+}
+
+.is-in-range {
+    background-color: #c7f1c5 !important;
+    background-image: none !important;
+}
+
+.lightpick__day:not(.is-disabled):hover {
+    background-image: none !important;
+    background-color: #e2e8e8 !important;
+    color: #0a2d23 !important;
+}
+
+.lightpick__day.is-today {
+    background-image: url("https://cdn.prod.website-files.com/653165ffb9b62901aa741efd/653a7a60a436923f4c611fa9_graph_today-calendar.svg") !important;
+    color: #2a606a !important;
+    font-weight: 700 !important;
+}
+
+@media screen and (max-width: 479px) {
+	
+  .lightpick__month {
+    	padding: 12px !important;
+	}
+  
+  .lightpick__month-title {
+      padding: 8px 0 14px !important;
+  }
+  
+  .lightpick__months {
+    border-radius: 10px !important;
+	}
+  
+  .lightpick__previous-action, .lightpick__next-action {
+    margin-left: 0px !important;
+    margin-right: 24px !important;
+    margin-bottom: 18px !important;
+  }
+  
+  .lightpick--inlined {
+    border-radius: 9px !important;
+    overflow: hidden;
+	}
+}

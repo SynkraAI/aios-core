@@ -1,0 +1,11 @@
+
+        [data-scope="jar-gal-h8hdin2ys76"] { --clip: 0% }
+        [data-scope="jar-gal-h8hdin2ys76"] .media {
+          clip-path: inset(var(--clip) var(--clip) var(--clip) var(--clip));
+          transition:
+            opacity 600ms cubic-bezier(0.25, 0.1, 0.25, 1),
+            clip-path 600ms cubic-bezier(0.25, 0.1, 0.25, 1);
+          will-change: opacity, clip-path;
+        }
+        [data-scope="jar-gal-h8hdin2ys76"]:hover { --clip: 0.7% }
+      

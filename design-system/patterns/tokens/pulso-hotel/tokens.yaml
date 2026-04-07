@@ -1,0 +1,324 @@
+# Design Tokens - pulso-hotel
+# Extracted by dissect-artifact.js v1.0.0
+# Source: https://pulsohotel.com
+# Date: 2026-04-01T12:13:13.556Z
+
+metadata:
+  version: "1.0.0"
+  source: "https://pulsohotel.com"
+  generated_at: "2026-04-01T12:13:13.556Z"
+  node_count: 660
+
+colors:
+  "rgb_51_51_51_":
+    value: "rgb(51, 51, 51)"
+    occurrences: 401
+  "rgb_247_247_242_":
+    value: "rgb(247, 247, 242)"
+    occurrences: 169
+  "rgb_255_255_255_":
+    value: "rgb(255, 255, 255)"
+    occurrences: 83
+  "rgb_217_181_125_":
+    value: "rgb(217, 181, 125)"
+    occurrences: 59
+  "rgba_51_51_51_0_5_":
+    value: "rgba(51, 51, 51, 0.5)"
+    occurrences: 13
+  "rgba_255_255_255_0_":
+    value: "rgba(255, 255, 255, 0)"
+    occurrences: 12
+  "rgb_71_97_77_":
+    value: "rgb(71, 97, 77)"
+    occurrences: 6
+  "rgba_51_51_51_0_8_":
+    value: "rgba(51, 51, 51, 0.8)"
+    occurrences: 3
+  "rgb_221_221_221_":
+    value: "rgb(221, 221, 221)"
+    occurrences: 2
+  "rgba_247_247_242_0_73_":
+    value: "rgba(247, 247, 242, 0.73)"
+    occurrences: 2
+  "rgb_203_192_173_":
+    value: "rgb(203, 192, 173)"
+    occurrences: 2
+  "rgb_59_11_11_":
+    value: "rgb(59, 11, 11)"
+    occurrences: 2
+  "rgb_0_0_0_":
+    value: "rgb(0, 0, 0)"
+    occurrences: 1
+  "rgba_51_51_51_0_2_":
+    value: "rgba(51, 51, 51, 0.2)"
+    occurrences: 1
+  "rgb_250_128_114_":
+    value: "rgb(250, 128, 114)"
+    occurrences: 1
+  "rgb_217_45_32_":
+    value: "rgb(217, 45, 32)"
+    occurrences: 1
+  "rgb_248_247_243_":
+    value: "rgb(248, 247, 243)"
+    occurrences: 1
+  "rgba_255_255_255_0_18_":
+    value: "rgba(255, 255, 255, 0.18)"
+    occurrences: 1
+  "rgb_255_222_222_":
+    value: "rgb(255, 222, 222)"
+    occurrences: 1
+  "rgb_255_53_32_":
+    value: "rgb(255, 53, 32)"
+    occurrences: 1
+  "rgb_182_0_0_":
+    value: "rgb(182, 0, 0)"
+    occurrences: 1
+
+typography:
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: ""Fff Acidgrotesk", Tahoma, sans-serif"
+    occurrences: 398
+  "14px_400":
+    font-size: "14px"
+    font-weight: "400"
+    font-family: ""Fff Acidgrotesk", Tahoma, sans-serif"
+    occurrences: 66
+  "28px_200":
+    font-size: "28px"
+    font-weight: "200"
+    font-family: ""Fff Acidgrotesk", Tahoma, sans-serif"
+    occurrences: 50
+  "14px_300":
+    font-size: "14px"
+    font-weight: "300"
+    font-family: ""Fff Acidgrotesk", Tahoma, sans-serif"
+    occurrences: 47
+  "16px_300":
+    font-size: "16px"
+    font-weight: "300"
+    font-family: ""Fff Acidgrotesk", Tahoma, sans-serif"
+    occurrences: 17
+  "14px_600":
+    font-size: "14px"
+    font-weight: "600"
+    font-family: ""Fff Acidgrotesk", Tahoma, sans-serif"
+    occurrences: 9
+  "12px_400":
+    font-size: "12px"
+    font-weight: "400"
+    font-family: ""Helvetica Neue", Arial, Helvetica, sans-serif"
+    occurrences: 9
+  "24px_400":
+    font-size: "24px"
+    font-weight: "400"
+    font-family: ""Fff Acidgrotesk", Tahoma, sans-serif"
+    occurrences: 8
+  "12_6px_300":
+    font-size: "12.6px"
+    font-weight: "300"
+    font-family: ""Fff Acidgrotesk", Tahoma, sans-serif"
+    occurrences: 7
+  "14px_700":
+    font-size: "14px"
+    font-weight: "700"
+    font-family: ""Fff Acidgrotesk", Tahoma, sans-serif"
+    occurrences: 5
+  "12px_400":
+    font-size: "12px"
+    font-weight: "400"
+    font-family: ""Fff Acidgrotesk", Tahoma, sans-serif"
+    occurrences: 4
+  "18_9px_300":
+    font-size: "18.9px"
+    font-weight: "300"
+    font-family: ""Fff Acidgrotesk", Tahoma, sans-serif"
+    occurrences: 4
+  "14px_400":
+    font-size: "14px"
+    font-weight: "400"
+    font-family: ""ZSIQ Roboto""
+    occurrences: 3
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: ""Times New Roman""
+    occurrences: 1
+  "24px_300":
+    font-size: "24px"
+    font-weight: "300"
+    font-family: ""Fff Acidgrotesk", Tahoma, sans-serif"
+    occurrences: 1
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: ""ZSIQ Roboto""
+    occurrences: 1
+  "11px_400":
+    font-size: "11px"
+    font-weight: "400"
+    font-family: ""ZSIQ Roboto""
+    occurrences: 1
+  "13px_700":
+    font-size: "13px"
+    font-weight: "700"
+    font-family: "Roboto, sans-serif"
+    occurrences: 1
+
+spacing:
+  "24px":
+    value: "24px"
+    occurrences: 50
+  "16px":
+    value: "16px"
+    occurrences: 34
+  "32px":
+    value: "32px"
+    occurrences: 24
+  "10px":
+    value: "10px"
+    occurrences: 18
+  "8px":
+    value: "8px"
+    occurrences: 17
+  "88px":
+    value: "88px"
+    occurrences: 13
+  "12px":
+    value: "12px"
+    occurrences: 11
+  "7px":
+    value: "7px"
+    occurrences: 9
+  "56px":
+    value: "56px"
+    occurrences: 7
+  "20px":
+    value: "20px"
+    occurrences: 6
+  "normal_8px":
+    value: "normal 8px"
+    occurrences: 4
+  "1px":
+    value: "1px"
+    occurrences: 4
+  "48px":
+    value: "48px"
+    occurrences: 3
+  "192px":
+    value: "192px"
+    occurrences: 3
+  "40px":
+    value: "40px"
+    occurrences: 2
+  "normal_16px":
+    value: "normal 16px"
+    occurrences: 1
+  "128px":
+    value: "128px"
+    occurrences: 1
+  "40px_16px":
+    value: "40px 16px"
+    occurrences: 1
+  "7_48px":
+    value: "7.48px"
+    occurrences: 1
+
+shadows:
+  shadow_1:
+    value: "rgba(0, 0, 0, 0.3) 0px 0px 20px 0px"
+    occurrences: 2
+  shadow_2:
+    value: "rgba(0, 0, 0, 0.4) 0px 20px 40px 0px"
+    occurrences: 1
+  shadow_3:
+    value: "rgb(0, 0, 0) 1px 1px 10px -3px"
+    occurrences: 1
+  shadow_4:
+    value: "rgb(0, 0, 0) 0px 0px 5px 0px"
+    occurrences: 1
+
+borders:
+  border_1:
+    value: "1px solid rgb(247, 247, 242)"
+    occurrences: 5
+  border_2:
+    value: "1px solid rgb(51, 51, 51)"
+    occurrences: 4
+  border_3:
+    value: "1px 0px 0px solid none none rgb(51, 51, 51)"
+    occurrences: 4
+  border_4:
+    value: "1px 0px 0px solid none none rgb(247, 247, 242)"
+    occurrences: 4
+  border_5:
+    value: "1px 0px 0px solid none none rgb(217, 181, 125) rgb(0, 0, 0) rgb(0, 0, 0)"
+    occurrences: 3
+  border_6:
+    value: "0px 0px 1px none none solid rgb(247, 247, 242)"
+    occurrences: 2
+  border_7:
+    value: "0px 0px 1px none none solid rgb(51, 51, 51) rgb(51, 51, 51) rgb(247, 247, 242)"
+    occurrences: 1
+  border_8:
+    value: "0px 0px 1px none none solid rgb(51, 51, 51) rgb(51, 51, 51) rgba(51, 51, 51, 0.2)"
+    occurrences: 1
+  border_9:
+    value: "0px 0px 1px none none solid rgb(0, 0, 0) rgb(0, 0, 0) rgb(217, 181, 125)"
+    occurrences: 1
+  border_10:
+    value: "1px solid rgb(217, 181, 125)"
+    occurrences: 1
+
+custom_properties:
+  "--_theme---text-color--error": "#3b0b0b"
+  "--_layout---spacing--small": "1rem"
+  "--_theme---text-color--warning": "#5e5515"
+  "--_sizes---max-width--large": "48rem"
+  "--_layout---padding--xsmall": ".5rem"
+  "--brand--white": "#fff"
+  "--_typography---h2--h2-font-size": "1.75rem"
+  "--_typography---h1--h1-letter-spacing": "0rem"
+  "--_sizes---max-width--xsmall": "16rem"
+  "--_typography---font-size--medium": "1.25rem"
+  "--_typography---font-size--regular": "1rem"
+  "--_layout---padding--xxsmall": ".25rem"
+  "--_sizes---border-width--thin": "1px"
+  "--brand--red": "#d92d20"
+  "--_theme---background--alternate<deleted|variable-41ecbc38-077c-494f-9138-9468b7354b23>": "#fff"
+  "--_typography---h2--h2-font-weight": "200"
+  "--_theme---system--warning-background<deleted|variable-b0ee00e7-091a-a3f5-1619-b09d07f4475a>": "#fcf8d8"
+  "--_typography---font-size--large": "1.5rem"
+  "--brand--green": "#47614d"
+  "--_typography---h3--h3-letter-spacing": "0rem"
+  "--brand--navy": "#261f3e"
+  "--_theme---background--success<deleted|variable-879e2a57-3170-38fd-0ae7-d0e890873ab2>": "#cef5ca"
+  "--brand--green<deleted|variable-250c51ef-9593-472e-ebda-2eee102638aa>": "#cef5ca"
+  "--_typography---h2--h2-letter-spacing": "0rem"
+  "--neutral--white<deleted|variable-248be024-93cf-6ec4-8eec-0e9f047a83ae>": "#fff"
+  "--_sizes---max-width--small": "20rem"
+  "--_typography---h2--h2-line-height": "1.4"
+  "--_typography---h4--h4-line-height": "1.4"
+  "--_typography---h6--h6-line-height<deleted|variable-51e4046c-3c1c-87b9-6e62-87ab1f939d0c>": "1.5"
+  "--_typography---h1--h1-font-size": "3.5rem"
+  "--font-weight--normal": "400"
+  "--_sizes---border-width--bold": ".25rem"
+  "--_layout---section-padding--medium": "5.5rem"
+  "--_theme---border-color--secondary": "#333"
+  "--_sizes---max-width--xxlarge": "100rem"
+  "--_sizes---border-width--normal": ".125rem"
+  "--_typography---h4--h4-letter-spacing": "0rem"
+  "--_typography---font-height--body": "1.6"
+  "--_theme---text-color--secondary": "#d9b57d"
+  "--_layout---spacing--xsmall": ".5rem"
+  "--_typography---font-height--xlarge<deleted|variable-fe71e8c1-c1b3-8808-888a-205f4660ffd9>": "1.5"
+  "--_typography---h5--h5-font-weight": "700"
+  "--_theme---background--secondary": "#cbc0ad"
+  "--_sizes---border-radius--medium": ".5rem"
+  "--_typography---h4--h4-font-size": "1.5rem"
+  "--_theme---link-color--primary": "#333"
+  "--brand--transparent": "#fff0"
+  "--_theme---system--success-background<deleted|variable-8fc09a81-a1c7-3c5b-2cf2-835ad5d96212>": "#cef5ca"
+  "--_theme---background--error": "#d92d20"
+  "--_typography---h4--h4-font-weight": "300"

@@ -1,0 +1,8 @@
+#toplevel_page_omnisend > a > div.wp-menu-image.dashicons-before > img {
+	opacity: 1;
+	width: 20px;
+}
+
+.omnisend-settings-text {
+	color: #35938f;
+}

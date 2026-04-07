@@ -1,0 +1,270 @@
+{
+  "$extensions": {
+    "com.dembrandt": {
+      "url": "https://www.makemepulse.com/",
+      "domain": "makemepulse.com",
+      "extractedAt": "2026-04-01T13:51:19.933Z"
+    }
+  },
+  "color": {
+    "semantic": {
+      "primary": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            1,
+            1
+          ],
+          "hex": "#ffffff"
+        }
+      }
+    },
+    "palette": {
+      "palette-1": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.769,
+            0.769,
+            0.769
+          ],
+          "hex": "#c4c4c4"
+        },
+        "$description": "Count: 623, Confidence: high"
+      },
+      "palette-2": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            1,
+            1
+          ],
+          "hex": "#ffffff"
+        },
+        "$description": "Count: 220, Confidence: high"
+      },
+      "palette-3": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "hex": "#000000"
+        },
+        "$description": "Count: 31, Confidence: high"
+      }
+    }
+  },
+  "typography": {
+    "font-family": {
+      "biotif": {
+        "$type": "fontFamily",
+        "$value": "Biotif"
+      },
+      "beatrice-display": {
+        "$type": "fontFamily",
+        "$value": "Beatrice Display"
+      }
+    },
+    "style": {
+      "text-heading-1": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{typography.font-family.biotif}",
+          "fontSize": {
+            "$type": "dimension",
+            "$value": {
+              "value": 17,
+              "unit": "px"
+            }
+          },
+          "fontWeight": {
+            "$type": "fontWeight",
+            "$value": 400
+          },
+          "lineHeight": {
+            "$type": "number",
+            "$value": 1.5
+          }
+        }
+      },
+      "text-link": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{typography.font-family.biotif}",
+          "fontSize": {
+            "$type": "dimension",
+            "$value": {
+              "value": 17,
+              "unit": "px"
+            }
+          },
+          "fontWeight": {
+            "$type": "fontWeight",
+            "$value": 400
+          },
+          "lineHeight": {
+            "$type": "number",
+            "$value": 1.5
+          }
+        }
+      },
+      "text-button": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{typography.font-family.biotif}",
+          "fontSize": {
+            "$type": "dimension",
+            "$value": {
+              "value": 16,
+              "unit": "px"
+            }
+          },
+          "fontWeight": {
+            "$type": "fontWeight",
+            "$value": 400
+          },
+          "lineHeight": {
+            "$type": "number",
+            "$value": 1.5
+          }
+        }
+      }
+    }
+  },
+  "spacing": {
+    "spacing-1": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.1,
+        "unit": "px"
+      }
+    },
+    "spacing-2": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.878,
+        "unit": "px"
+      }
+    },
+    "spacing-3": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1.54,
+        "unit": "px"
+      }
+    },
+    "spacing-4": {
+      "$type": "dimension",
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      }
+    },
+    "spacing-5": {
+      "$type": "dimension",
+      "$value": {
+        "value": 2.981,
+        "unit": "px"
+      }
+    },
+    "spacing-6": {
+      "$type": "dimension",
+      "$value": {
+        "value": 3.14,
+        "unit": "px"
+      }
+    },
+    "spacing-7": {
+      "$type": "dimension",
+      "$value": {
+        "value": 4.86,
+        "unit": "px"
+      }
+    },
+    "spacing-8": {
+      "$type": "dimension",
+      "$value": {
+        "value": 5.019,
+        "unit": "px"
+      }
+    },
+    "spacing-9": {
+      "$type": "dimension",
+      "$value": {
+        "value": 6.46,
+        "unit": "px"
+      }
+    },
+    "spacing-10": {
+      "$type": "dimension",
+      "$value": {
+        "value": 7.122,
+        "unit": "px"
+      }
+    },
+    "spacing-11": {
+      "$type": "dimension",
+      "$value": {
+        "value": 7.9,
+        "unit": "px"
+      }
+    },
+    "spacing-12": {
+      "$type": "dimension",
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      }
+    }
+  },
+  "radius": {
+    "radius-1": {
+      "$type": "dimension",
+      "$value": {
+        "value": 9999,
+        "unit": "px"
+      }
+    }
+  },
+  "shadow": {
+    "shadow-1": {
+      "$type": "shadow",
+      "$value": {
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 0,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 0,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0.03,
+          "unit": "px"
+        },
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "hex": "#000000"
+        }
+      }
+    }
+  }
+}

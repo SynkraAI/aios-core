@@ -1,0 +1,68 @@
+
+  
+
+    a#rd-button-lsx6p8kf {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .coupon-container #rd-button-lsx6p8kf-coupon-code {
+      width: 100%;
+    }
+
+    .coupon-container #rd-button-lsx6p8kf-coupon-code input {
+      text-align: center;
+    }
+
+    #rd-button-lsx6p8kf.bricks--component,
+    #rd-button-lsx6p8kf-coupon.bricks--component {
+      -ms-flex-align: center;
+      -ms-flex-direction: column;
+      -ms-flex-pack: center;
+      align-self: flex-end;
+      background-color: rgba(11,97,86,1);
+      border-bottom-style: none;
+      border-color: #000000;
+      border-left-style: none;
+      border-radius: 6px;
+      border-right-style: none;
+      border-top-style: none;
+      border-width: 0px;
+      
+          box-shadow: 0px
+                      0px
+                      0px
+                      0px
+                      #cccccc;
+        ;
+      color: #FFFFFF;
+      cursor: pointer;
+      font-family: Open Sans, sans-serif;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: normal;
+      height: 40px;
+      justify-content: center;
+      line-height: 1.42857;
+      margin-bottom: 0px;
+      margin-top: 0px;
+      max-width: 150px;
+      text-align: center;
+      text-decoration: none;
+      width: 100%;
+      padding-right: 10px;
+      padding-left: 10px;
+    }
+    @media screen and (max-width: 767px) {
+      #rd-button-lsx6p8kf.bricks--component,
+      #rd-button-lsx6p8kf-coupon.bricks--component {
+        height: auto;
+        padding-top: 0.66em;
+        padding-bottom: 0.66em;
+        align-self: center;
+      }
+    }
+  
+
+  
+

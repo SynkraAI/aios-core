@@ -1,0 +1,17 @@
+
+      #didomi-host .didomi-exterior-border {
+        border-color: rgba(0,0,0,0.3);
+      }
+
+      #didomi-host .didomi-popup-container {
+        border-color: rgba(0,0,0,1);
+      }
+
+      #didomi-host .didomi-components-button {
+        border-radius: 0px;
+        border-color: rgba(34, 34, 34, 0.2);
+        border-width: 1px;
+        background-color: #eeeeee;
+        color: #444444;
+      }
+      

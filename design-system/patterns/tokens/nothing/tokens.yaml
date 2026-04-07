@@ -1,0 +1,243 @@
+# Design Tokens - nothing
+# Extracted by dissect-artifact.js v1.0.0
+# Source: https://nothing.tech
+# Date: 2026-04-01T13:50:31.130Z
+
+metadata:
+  version: "1.0.0"
+  source: "https://nothing.tech"
+  generated_at: "2026-04-01T13:50:31.130Z"
+  node_count: 752
+
+colors:
+  "rgb_0_0_0_":
+    value: "rgb(0, 0, 0)"
+    occurrences: 652
+  "rgb_255_255_255_":
+    value: "rgb(255, 255, 255)"
+    occurrences: 450
+  "rgb_82_110_122_":
+    value: "rgb(82, 110, 122)"
+    occurrences: 16
+  "rgb_51_51_51_":
+    value: "rgb(51, 51, 51)"
+    occurrences: 14
+  "rgba_88_90_90_0_05_":
+    value: "rgba(88, 90, 90, 0.05)"
+    occurrences: 11
+  "rgba_255_255_255_0_8_":
+    value: "rgba(255, 255, 255, 0.8)"
+    occurrences: 9
+  "rgba_255_255_255_0_05_":
+    value: "rgba(255, 255, 255, 0.05)"
+    occurrences: 6
+  "rgb_198_16_46_":
+    value: "rgb(198, 16, 46)"
+    occurrences: 5
+  "rgba_88_90_90_0_6_":
+    value: "rgba(88, 90, 90, 0.6)"
+    occurrences: 4
+  "rgb_245_245_245_":
+    value: "rgb(245, 245, 245)"
+    occurrences: 2
+  "rgb_68_68_68_":
+    value: "rgb(68, 68, 68)"
+    occurrences: 2
+  "rgb_88_90_90_":
+    value: "rgb(88, 90, 90)"
+    occurrences: 2
+  "rgb_38_89_116_":
+    value: "rgb(38, 89, 116)"
+    occurrences: 1
+  "rgb_238_238_238_":
+    value: "rgb(238, 238, 238)"
+    occurrences: 1
+
+typography:
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: "NType82-Regular, sans-serif"
+    occurrences: 615
+  "11px_400":
+    font-size: "11px"
+    font-weight: "400"
+    font-family: "LatteraMonoLL, sans-serif"
+    occurrences: 41
+  "24px_100":
+    font-size: "24px"
+    font-weight: "100"
+    font-family: "NType82-Regular, sans-serif"
+    occurrences: 21
+  "12px_700":
+    font-size: "12px"
+    font-weight: "700"
+    font-family: "Arial, sans-serif"
+    occurrences: 17
+  "15px_400":
+    font-size: "15px"
+    font-weight: "400"
+    font-family: "Arial, sans-serif"
+    occurrences: 16
+  "20px_55":
+    font-size: "20px"
+    font-weight: "55"
+    font-family: "Ndot-Regular, sans-serif"
+    occurrences: 9
+  "40px_400":
+    font-size: "40px"
+    font-weight: "400"
+    font-family: "Ndot-Regular, sans-serif"
+    occurrences: 8
+  "14px_400":
+    font-size: "14px"
+    font-weight: "400"
+    font-family: "LatteraMonoLL, sans-serif"
+    occurrences: 5
+  "16px_700":
+    font-size: "16px"
+    font-weight: "700"
+    font-family: "Arial, sans-serif"
+    occurrences: 4
+  "12px_400":
+    font-size: "12px"
+    font-weight: "400"
+    font-family: "Arial, sans-serif"
+    occurrences: 2
+  "12px_400":
+    font-size: "12px"
+    font-weight: "400"
+    font-family: "LatteraMonoLL, sans-serif"
+    occurrences: 2
+  "32px_100":
+    font-size: "32px"
+    font-weight: "100"
+    font-family: "NType82-Regular, sans-serif"
+    occurrences: 2
+
+spacing:
+  "114_672px":
+    value: "114.672px"
+    occurrences: 56
+  "16px":
+    value: "16px"
+    occurrences: 52
+  "8px":
+    value: "8px"
+    occurrences: 41
+  "114_656px":
+    value: "114.656px"
+    occurrences: 40
+  "32px":
+    value: "32px"
+    occurrences: 29
+  "4px":
+    value: "4px"
+    occurrences: 26
+  "0px_16px":
+    value: "0px 16px"
+    occurrences: 7
+  "40px":
+    value: "40px"
+    occurrences: 3
+  "2px":
+    value: "2px"
+    occurrences: 3
+  "12px":
+    value: "12px"
+    occurrences: 3
+  "172_156px":
+    value: "172.156px"
+    occurrences: 2
+  "1px":
+    value: "1px"
+    occurrences: 2
+  "45px":
+    value: "45px"
+    occurrences: 2
+  "30px":
+    value: "30px"
+    occurrences: 2
+  "20px":
+    value: "20px"
+    occurrences: 2
+  "80px":
+    value: "80px"
+    occurrences: 2
+  "64px":
+    value: "64px"
+    occurrences: 2
+  "_10px":
+    value: "-10px"
+    occurrences: 1
+  "15px":
+    value: "15px"
+    occurrences: 1
+  "10px":
+    value: "10px"
+    occurrences: 1
+
+shadows:
+  shadow_1:
+    value: "rgba(0, 0, 0, 0.1) 0px 20px 50px 0px"
+    occurrences: 1
+
+borders:
+  border_1:
+    value: "1px solid rgba(0, 0, 0, 0.3)"
+    occurrences: 1
+  border_2:
+    value: "0px 0px 1px solid rgb(88, 90, 90)"
+    occurrences: 1
+
+custom_properties:
+  "--tw-ring-offset-shadow": "0 0 #0000"
+  "--tw-backdrop-sepia": ""
+  "--header-height": "64px"
+  "--tw-ring-shadow": "0 0 #0000"
+  "--aside-width": "400px"
+  "--accent-yellow": "47 100% 50%"
+  "--tw-sepia": ""
+  "--cart-aside-summary-height-with-discount": "300px"
+  "--tw-ordinal": ""
+  "--tw-backdrop-saturate": ""
+  "--tw-contain-style": ""
+  "--grey-darker": "180 1% 35%"
+  "--tw-ring-inset": ""
+  "--accent-blue": "214 100% 21%"
+  "--tw-backdrop-invert": ""
+  "--grey-lighter": "180 1% 85%"
+  "--tw-numeric-spacing": ""
+  "--tw-border-spacing-x": "0"
+  "--tw-brightness": ""
+  "--tw-backdrop-grayscale": ""
+  "--tw-hue-rotate": ""
+  "--tw-scale-y": "1"
+  "--cell-size": "115px"
+  "--tw-pan-y": ""
+  "--tw-backdrop-contrast": ""
+  "--color-dark": "#000"
+  "--tw-drop-shadow": ""
+  "--tw-ring-color": "rgb(59 130 246 / .5)"
+  "--tw-backdrop-brightness": ""
+  "--tw-pan-x": ""
+  "--tw-translate-y": "0"
+  "--tw-rotate": "0"
+  "--tw-ring-offset-color": "#fff"
+  "--tw-contain-size": ""
+  "--tw-contrast": ""
+  "--accent-red": "350 85% 42%"
+  "--tw-skew-x": "0"
+  "--grey-lightest": "0 0% 96%"
+  "--tw-backdrop-blur": ""
+  "--cart-aside-summary-height": "250px"
+  "--grey-official": "180 1% 70%"
+  "--tw-shadow": "0 0 #0000"
+  "--tw-translate-x": "0"
+  "--tw-ring-offset-width": "0px"
+  "--tw-gradient-via-position": ""
+  "--grid-item-width": "355px"
+  "--tw-saturate": ""
+  "--tw-scroll-snap-strictness": "proximity"
+  "--tw-grayscale": ""
+  "--tw-scale-x": "1"

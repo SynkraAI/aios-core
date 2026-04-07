@@ -1,0 +1,13 @@
+
+    #shopify-section-template--20910374060356__featured-collections {
+      --product-list-items-per-row: 2;
+      --product-list-horizontal-spacing-factor: 0.5;
+      --product-list-vertical-spacing-factor: 0.5;
+    }
+
+    @media screen and (min-width: 700px) {
+      #shopify-section-template--20910374060356__featured-collections {
+        --product-list-items-per-row: 3;
+      }
+    }
+  

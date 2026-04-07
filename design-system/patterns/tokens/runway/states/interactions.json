@@ -1,0 +1,2003 @@
+{
+  "url": "https://runwayml.com",
+  "name": "runway",
+  "timestamp": "2026-04-01T11:54:31.772Z",
+  "totalElements": 50,
+  "elementsWithStates": 32,
+  "interactions": [
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "hover:text-mediumGray translate-y-1 inline-flex relative items-center",
+      "selector": "a.hover:text-mediumGray.translate-y-1.inline-flex.relative.items-center",
+      "baseStyles": {
+        "color": "rgb(12, 12, 12)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "matrix(1, 0, 0, 1, 0, 4)",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(12, 12, 12) none 0px",
+        "outlineColor": "rgb(12, 12, 12)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(12, 12, 12)",
+            "to": "rgb(64, 64, 64)"
+          },
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "transform": {
+            "from": "matrix(1, 0, 0, 1, 0, 4)",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(12, 12, 12) none 0px",
+            "to": "rgb(64, 64, 64) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(12, 12, 12)",
+            "to": "rgb(64, 64, 64)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(12, 12, 12)",
+            "to": "rgb(64, 64, 64)"
+          },
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "transform": {
+            "from": "matrix(1, 0, 0, 1, 0, 4)",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(12, 12, 12) none 0px",
+            "to": "rgb(64, 64, 64) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(12, 12, 12)",
+            "to": "rgb(64, 64, 64)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Research",
+      "classes": "rw-eyebrow px-4 py-2",
+      "selector": "a.rw-eyebrow.px-4.py-2",
+      "baseStyles": {
+        "color": "rgb(12, 12, 12)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(12, 12, 12) none 0px",
+        "outlineColor": "rgb(12, 12, 12)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(12, 12, 12)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "outline": {
+            "from": "rgb(12, 12, 12) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(12, 12, 12)",
+            "to": "rgb(255, 255, 255)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgb(12, 12, 12) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(12, 12, 12)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Product",
+      "classes": "rw-eyebrow px-4 py-2",
+      "selector": "a.rw-eyebrow.px-4.py-2",
+      "baseStyles": {
+        "color": "rgb(12, 12, 12)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(12, 12, 12) none 0px",
+        "outlineColor": "rgb(12, 12, 12)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(12, 12, 12)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "outline": {
+            "from": "rgb(12, 12, 12) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(12, 12, 12)",
+            "to": "rgb(255, 255, 255)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgb(12, 12, 12) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(12, 12, 12)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Resources",
+      "classes": "rw-eyebrow px-4 py-2",
+      "selector": "a.rw-eyebrow.px-4.py-2",
+      "baseStyles": {
+        "color": "rgb(12, 12, 12)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(12, 12, 12) none 0px",
+        "outlineColor": "rgb(12, 12, 12)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(12, 12, 12)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "outline": {
+            "from": "rgb(12, 12, 12) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(12, 12, 12)",
+            "to": "rgb(255, 255, 255)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgb(12, 12, 12) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(12, 12, 12)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Solutions",
+      "classes": "rw-eyebrow px-4 py-2",
+      "selector": "a.rw-eyebrow.px-4.py-2",
+      "baseStyles": {
+        "color": "rgb(12, 12, 12)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(12, 12, 12) none 0px",
+        "outlineColor": "rgb(12, 12, 12)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(12, 12, 12)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "outline": {
+            "from": "rgb(12, 12, 12) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(12, 12, 12)",
+            "to": "rgb(255, 255, 255)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgb(12, 12, 12) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(12, 12, 12)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Company",
+      "classes": "rw-eyebrow px-4 py-2",
+      "selector": "a.rw-eyebrow.px-4.py-2",
+      "baseStyles": {
+        "color": "rgb(12, 12, 12)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(12, 12, 12) none 0px",
+        "outlineColor": "rgb(12, 12, 12)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(12, 12, 12)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "outline": {
+            "from": "rgb(12, 12, 12) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(12, 12, 12)",
+            "to": "rgb(255, 255, 255)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgb(12, 12, 12) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(12, 12, 12)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Enterprise Sales",
+      "classes": "font-semibold transition-all duration-150 inline-flex items-center justify-center gap-2 focus-visibl",
+      "selector": "a.font-semibold.transition-all.duration-150.inline-flex.items-center.justify-center.gap-2.focus-visible:outline-none.focus-visible:ring-2.focus-visible:ring-offset-2.focus-visible:ring-blue-500.py-1.5.px-2.5.text-sm.leading-5.rounded-md.bg-[#EEF1F5].text-[#1A1A1A].hover:bg-[#E7EAF0].active:bg-[#F5F7FA].hidden.sm:block.shrink-0.opacity-0.lg:opacity-100",
+      "baseStyles": {
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgb(238, 241, 245)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "6px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(26, 26, 26) none 0px",
+        "outlineColor": "rgb(26, 26, 26)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgb(238, 241, 245)",
+            "to": "rgb(231, 234, 240)"
+          }
+        },
+        "focus": {
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(59, 130, 246) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(26, 26, 26) none 0px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(26, 26, 26)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Log in",
+      "classes": "font-semibold transition-all duration-150 inline-flex items-center justify-center gap-2 focus-visibl",
+      "selector": "a.font-semibold.transition-all.duration-150.inline-flex.items-center.justify-center.gap-2.focus-visible:outline-none.focus-visible:ring-2.focus-visible:ring-offset-2.focus-visible:ring-blue-500.py-1.5.px-2.5.text-sm.leading-5.rounded-md.bg-[#EEF1F5].text-[#1A1A1A].hover:bg-[#E7EAF0].active:bg-[#F5F7FA].shrink-0.opacity-0.lg:opacity-100",
+      "baseStyles": {
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgb(238, 241, 245)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "6px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(26, 26, 26) none 0px",
+        "outlineColor": "rgb(26, 26, 26)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgb(238, 241, 245)",
+            "to": "rgb(231, 234, 240)"
+          }
+        },
+        "focus": {
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(59, 130, 246) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(26, 26, 26) none 0px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(26, 26, 26)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Try Runway",
+      "classes": "font-semibold transition-all duration-150 inline-flex items-center justify-center gap-2 focus-visibl",
+      "selector": "a.font-semibold.transition-all.duration-150.inline-flex.items-center.justify-center.gap-2.focus-visible:outline-none.focus-visible:ring-2.focus-visible:ring-offset-2.focus-visible:ring-blue-500.py-1.5.px-2.5.text-sm.leading-5.rounded-md.bg-neutral-800.text-white.hover:bg-black.active:bg-[#595959].shrink-0.opacity-100",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(38, 38, 38)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "6px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgb(38, 38, 38)",
+            "to": "rgb(0, 0, 0)"
+          }
+        },
+        "focus": {
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(59, 130, 246) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Get Started",
+      "classes": "font-semibold transition-all duration-150 inline-flex items-center justify-center gap-2 focus-visibl",
+      "selector": "a.font-semibold.transition-all.duration-150.inline-flex.items-center.justify-center.gap-2.focus-visible:outline-none.focus-visible:ring-2.focus-visible:ring-offset-2.focus-visible:ring-blue-500.px-3.py-2.text-base.leading-6.rounded-lg.bg-[#F7F7F7].text-[#0C0C0C].hover:bg-white.active:bg-[#DCDCDC]",
+      "baseStyles": {
+        "color": "rgb(12, 12, 12)",
+        "backgroundColor": "rgb(247, 247, 247)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "8px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(12, 12, 12) none 0px",
+        "outlineColor": "rgb(12, 12, 12)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgb(247, 247, 247)",
+            "to": "rgb(255, 255, 255)"
+          }
+        },
+        "focus": {
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(59, 130, 246) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(12, 12, 12) none 0px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(12, 12, 12)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Try now",
+      "classes": "font-semibold transition-all duration-150 inline-flex items-center justify-center gap-2 focus-visibl",
+      "selector": "a.font-semibold.transition-all.duration-150.inline-flex.items-center.justify-center.gap-2.focus-visible:outline-none.focus-visible:ring-2.focus-visible:ring-offset-2.focus-visible:ring-blue-500.py-1.px-2.text-sm.leading-5.rounded-[4px].bg-neutral-800.text-white.hover:bg-black.active:bg-[#595959].mt-4",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(38, 38, 38)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "4px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgb(38, 38, 38)",
+            "to": "rgb(0, 0, 0)"
+          }
+        },
+        "focus": {
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(59, 130, 246) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Learn more",
+      "classes": "font-semibold transition-all duration-150 inline-flex items-center justify-center gap-2 focus-visibl",
+      "selector": "a.font-semibold.transition-all.duration-150.inline-flex.items-center.justify-center.gap-2.focus-visible:outline-none.focus-visible:ring-2.focus-visible:ring-offset-2.focus-visible:ring-blue-500.py-1.px-2.text-sm.leading-5.rounded-[4px].bg-white.outline.outline-1.outline-[#E0E4EB].-outline-offset-1.text-[#1A1A1A].hover:bg-[#F5F7FA].active:bg-[#EEF1F5].mt-4",
+      "baseStyles": {
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "4px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(224, 228, 235) solid 1px",
+        "outlineColor": "rgb(224, 228, 235)",
+        "outlineWidth": "1px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(26, 26, 26)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "backgroundColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(26, 26, 26)"
+          },
+          "outline": {
+            "from": "rgb(224, 228, 235) solid 1px",
+            "to": "rgb(58, 58, 58) solid 3px"
+          },
+          "outlineColor": {
+            "from": "rgb(224, 228, 235)",
+            "to": "rgb(58, 58, 58)"
+          },
+          "outlineWidth": {
+            "from": "1px",
+            "to": "3px"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(26, 26, 26)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "backgroundColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(59, 130, 246) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(224, 228, 235) solid 1px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(224, 228, 235)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "1px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Explore the Research",
+      "classes": "font-semibold transition-all duration-150 inline-flex items-center justify-center gap-2 focus-visibl",
+      "selector": "a.font-semibold.transition-all.duration-150.inline-flex.items-center.justify-center.gap-2.focus-visible:outline-none.focus-visible:ring-2.focus-visible:ring-offset-2.focus-visible:ring-blue-500.py-1.px-2.text-sm.leading-5.rounded-[4px].bg-white.outline.outline-1.outline-[#E0E4EB].-outline-offset-1.text-[#1A1A1A].hover:bg-[#F5F7FA].active:bg-[#EEF1F5].mt-4",
+      "baseStyles": {
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "4px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(224, 228, 235) solid 1px",
+        "outlineColor": "rgb(224, 228, 235)",
+        "outlineWidth": "1px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(245, 247, 250)"
+          }
+        },
+        "focus": {
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(59, 130, 246) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(224, 228, 235) solid 1px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(224, 228, 235)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "1px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Explore the Research",
+      "classes": "font-semibold transition-all duration-150 inline-flex items-center justify-center gap-2 focus-visibl",
+      "selector": "a.font-semibold.transition-all.duration-150.inline-flex.items-center.justify-center.gap-2.focus-visible:outline-none.focus-visible:ring-2.focus-visible:ring-offset-2.focus-visible:ring-blue-500.py-1.px-2.text-sm.leading-5.rounded-[4px].bg-white.outline.outline-1.outline-[#E0E4EB].-outline-offset-1.text-[#1A1A1A].hover:bg-[#F5F7FA].active:bg-[#EEF1F5].mt-4",
+      "baseStyles": {
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "4px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(224, 228, 235) solid 1px",
+        "outlineColor": "rgb(224, 228, 235)",
+        "outlineWidth": "1px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(245, 247, 250)"
+          }
+        },
+        "focus": {
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(59, 130, 246) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(224, 228, 235) solid 1px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(224, 228, 235)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "1px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Learn more",
+      "classes": "font-semibold transition-all duration-150 inline-flex items-center justify-center gap-2 focus-visibl",
+      "selector": "a.font-semibold.transition-all.duration-150.inline-flex.items-center.justify-center.gap-2.focus-visible:outline-none.focus-visible:ring-2.focus-visible:ring-offset-2.focus-visible:ring-blue-500.py-1.px-2.text-sm.leading-5.rounded-[4px].bg-white.outline.outline-1.outline-[#E0E4EB].-outline-offset-1.text-[#1A1A1A].hover:bg-[#F5F7FA].active:bg-[#EEF1F5].mt-4",
+      "baseStyles": {
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "4px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(224, 228, 235) solid 1px",
+        "outlineColor": "rgb(224, 228, 235)",
+        "outlineWidth": "1px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(26, 26, 26)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "backgroundColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(26, 26, 26)"
+          },
+          "outline": {
+            "from": "rgb(224, 228, 235) solid 1px",
+            "to": "rgb(58, 58, 58) solid 3px"
+          },
+          "outlineColor": {
+            "from": "rgb(224, 228, 235)",
+            "to": "rgb(58, 58, 58)"
+          },
+          "outlineWidth": {
+            "from": "1px",
+            "to": "3px"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(26, 26, 26)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "backgroundColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(59, 130, 246) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(224, 228, 235) solid 1px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(224, 228, 235)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "1px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Learn more",
+      "classes": "font-semibold transition-all duration-150 inline-flex items-center justify-center gap-2 focus-visibl",
+      "selector": "a.font-semibold.transition-all.duration-150.inline-flex.items-center.justify-center.gap-2.focus-visible:outline-none.focus-visible:ring-2.focus-visible:ring-offset-2.focus-visible:ring-blue-500.py-1.5.px-2.5.text-sm.leading-5.rounded-md.bg-[#F7F7F7]/5.backdrop-blur.text-white.outline.outline-1.outline-white/75.-outline-offset-1.hover:bg-[#F7F7F7]/15.active:bg-[#F7F7F7]/25.mt-8",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(247, 247, 247, 0.05)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "6px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(255, 255, 255, 0.75) solid 1px",
+        "outlineColor": "rgba(255, 255, 255, 0.75)",
+        "outlineWidth": "1px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "blur(8px)"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgba(247, 247, 247, 0.05)",
+            "to": "rgb(26, 26, 26)"
+          },
+          "borderRadius": {
+            "from": "6px",
+            "to": "4px"
+          },
+          "outline": {
+            "from": "rgba(255, 255, 255, 0.75) solid 1px",
+            "to": "rgb(58, 58, 58) solid 3px"
+          },
+          "outlineColor": {
+            "from": "rgba(255, 255, 255, 0.75)",
+            "to": "rgb(58, 58, 58)"
+          },
+          "outlineWidth": {
+            "from": "1px",
+            "to": "3px"
+          },
+          "backdropFilter": {
+            "from": "blur(8px)",
+            "to": "none"
+          }
+        },
+        "focus": {
+          "backgroundColor": {
+            "from": "rgba(247, 247, 247, 0.05)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "6px",
+            "to": "4px"
+          },
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(59, 130, 246) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgba(255, 255, 255, 0.75) solid 1px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgba(255, 255, 255, 0.75)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "1px",
+            "to": "2px"
+          },
+          "backdropFilter": {
+            "from": "blur(8px)",
+            "to": "none"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Learn more",
+      "classes": "font-semibold transition-all duration-150 inline-flex items-center justify-center gap-2 focus-visibl",
+      "selector": "a.font-semibold.transition-all.duration-150.inline-flex.items-center.justify-center.gap-2.focus-visible:outline-none.focus-visible:ring-2.focus-visible:ring-offset-2.focus-visible:ring-blue-500.py-1.px-2.text-sm.leading-5.rounded-[4px].bg-transparent.text-white.outline.outline-transparent.hover:outline-[#3A3A3A].-outline-offset-1.hover:bg-[#1A1A1A].active:bg-[#262626]",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "4px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) solid 3px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "3px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(26, 26, 26)"
+          },
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) solid 3px",
+            "to": "rgb(58, 58, 58) solid 3px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(58, 58, 58)"
+          }
+        },
+        "focus": {
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(59, 130, 246) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) solid 3px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineWidth": {
+            "from": "3px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Learn more",
+      "classes": "font-semibold transition-all duration-150 inline-flex items-center justify-center gap-2 focus-visibl",
+      "selector": "a.font-semibold.transition-all.duration-150.inline-flex.items-center.justify-center.gap-2.focus-visible:outline-none.focus-visible:ring-2.focus-visible:ring-offset-2.focus-visible:ring-blue-500.py-1.5.px-2.5.text-sm.leading-5.rounded-md.bg-neutral-800.text-white.hover:bg-black.active:bg-[#595959].mt-4",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(38, 38, 38)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "6px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgb(38, 38, 38)",
+            "to": "rgb(26, 26, 26)"
+          },
+          "borderRadius": {
+            "from": "6px",
+            "to": "4px"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgb(58, 58, 58) solid 3px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(58, 58, 58)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "3px"
+          }
+        },
+        "focus": {
+          "backgroundColor": {
+            "from": "rgb(38, 38, 38)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "6px",
+            "to": "4px"
+          },
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(59, 130, 246) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Learn more",
+      "classes": "font-semibold transition-all duration-150 inline-flex items-center justify-center gap-2 focus-visibl",
+      "selector": "a.font-semibold.transition-all.duration-150.inline-flex.items-center.justify-center.gap-2.focus-visible:outline-none.focus-visible:ring-2.focus-visible:ring-offset-2.focus-visible:ring-blue-500.py-1.px-2.text-sm.leading-5.rounded-[4px].bg-transparent.text-white.outline.outline-transparent.hover:outline-[#3A3A3A].-outline-offset-1.hover:bg-[#1A1A1A].active:bg-[#262626]",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "4px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) solid 3px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "3px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(26, 26, 26)"
+          },
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) solid 3px",
+            "to": "rgb(58, 58, 58) solid 3px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(58, 58, 58)"
+          }
+        },
+        "focus": {
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(59, 130, 246) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) solid 3px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineWidth": {
+            "from": "3px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Learn more",
+      "classes": "font-semibold transition-all duration-150 inline-flex items-center justify-center gap-2 focus-visibl",
+      "selector": "a.font-semibold.transition-all.duration-150.inline-flex.items-center.justify-center.gap-2.focus-visible:outline-none.focus-visible:ring-2.focus-visible:ring-offset-2.focus-visible:ring-blue-500.py-1.5.px-2.5.text-sm.leading-5.rounded-md.bg-neutral-800.text-white.hover:bg-black.active:bg-[#595959].mt-4",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(38, 38, 38)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "6px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgb(38, 38, 38)",
+            "to": "rgb(26, 26, 26)"
+          },
+          "borderRadius": {
+            "from": "6px",
+            "to": "4px"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgb(58, 58, 58) solid 3px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(58, 58, 58)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "3px"
+          }
+        },
+        "focus": {
+          "backgroundColor": {
+            "from": "rgb(38, 38, 38)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "6px",
+            "to": "4px"
+          },
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(59, 130, 246) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Learn more",
+      "classes": "font-semibold transition-all duration-150 inline-flex items-center justify-center gap-2 focus-visibl",
+      "selector": "a.font-semibold.transition-all.duration-150.inline-flex.items-center.justify-center.gap-2.focus-visible:outline-none.focus-visible:ring-2.focus-visible:ring-offset-2.focus-visible:ring-blue-500.py-1.px-2.text-sm.leading-5.rounded-[4px].bg-transparent.text-white.outline.outline-transparent.hover:outline-[#3A3A3A].-outline-offset-1.hover:bg-[#1A1A1A].active:bg-[#262626]",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "4px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) solid 3px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "3px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(26, 26, 26)"
+          },
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) solid 3px",
+            "to": "rgb(58, 58, 58) solid 3px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(58, 58, 58)"
+          }
+        },
+        "focus": {
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(59, 130, 246) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) solid 3px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineWidth": {
+            "from": "3px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Learn more",
+      "classes": "font-semibold transition-all duration-150 inline-flex items-center justify-center gap-2 focus-visibl",
+      "selector": "a.font-semibold.transition-all.duration-150.inline-flex.items-center.justify-center.gap-2.focus-visible:outline-none.focus-visible:ring-2.focus-visible:ring-offset-2.focus-visible:ring-blue-500.py-1.5.px-2.5.text-sm.leading-5.rounded-md.bg-neutral-800.text-white.hover:bg-black.active:bg-[#595959].mt-4",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(38, 38, 38)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "6px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgb(38, 38, 38)",
+            "to": "rgb(26, 26, 26)"
+          },
+          "borderRadius": {
+            "from": "6px",
+            "to": "4px"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgb(58, 58, 58) solid 3px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(58, 58, 58)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "3px"
+          }
+        },
+        "focus": {
+          "backgroundColor": {
+            "from": "rgb(38, 38, 38)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "6px",
+            "to": "4px"
+          },
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(59, 130, 246) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "aspect-[1.9] w-full rounded-lg overflow-hidden flex",
+      "selector": "a.aspect-[1.9].w-full.rounded-lg.overflow-hidden.flex",
+      "baseStyles": {
+        "color": "rgb(64, 64, 64)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "8px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(64, 64, 64) none 0px",
+        "outlineColor": "rgb(64, 64, 64)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderRadius": {
+            "from": "8px",
+            "to": "0px"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderRadius": {
+            "from": "8px",
+            "to": "0px"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Learn more",
+      "classes": "font-semibold transition-all duration-150 inline-flex items-center justify-center gap-2 focus-visibl",
+      "selector": "a.font-semibold.transition-all.duration-150.inline-flex.items-center.justify-center.gap-2.focus-visible:outline-none.focus-visible:ring-2.focus-visible:ring-offset-2.focus-visible:ring-blue-500.py-1.px-2.text-sm.leading-5.rounded-[4px].bg-transparent.text-[#1A1A1A].hover:bg-[#F5F7FA].active:bg-[#E7EAF0]",
+      "baseStyles": {
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "4px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(26, 26, 26) none 0px",
+        "outlineColor": "rgb(26, 26, 26)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(26, 26, 26)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(26, 26, 26)"
+          },
+          "outline": {
+            "from": "rgb(26, 26, 26) none 0px",
+            "to": "rgb(58, 58, 58) solid 3px"
+          },
+          "outlineColor": {
+            "from": "rgb(26, 26, 26)",
+            "to": "rgb(58, 58, 58)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "3px"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(26, 26, 26)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(59, 130, 246) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(26, 26, 26) none 0px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(26, 26, 26)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "aspect-[1.9] w-full rounded-lg overflow-hidden flex",
+      "selector": "a.aspect-[1.9].w-full.rounded-lg.overflow-hidden.flex",
+      "baseStyles": {
+        "color": "rgb(64, 64, 64)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "8px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(64, 64, 64) none 0px",
+        "outlineColor": "rgb(64, 64, 64)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderRadius": {
+            "from": "8px",
+            "to": "0px"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderRadius": {
+            "from": "8px",
+            "to": "0px"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Runway Announces Partnership with Lionsgate",
+      "classes": "text-2xl !leading-none mb-2 mr-6 max-w-64",
+      "selector": "a.text-2xl.!leading-none.mb-2.mr-6.max-w-64",
+      "baseStyles": {
+        "color": "rgb(64, 64, 64)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(64, 64, 64) none 0px",
+        "outlineColor": "rgb(64, 64, 64)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "outline": {
+            "from": "rgb(64, 64, 64) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(64, 64, 64)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Learn more",
+      "classes": "font-semibold transition-all duration-150 inline-flex items-center justify-center gap-2 focus-visibl",
+      "selector": "a.font-semibold.transition-all.duration-150.inline-flex.items-center.justify-center.gap-2.focus-visible:outline-none.focus-visible:ring-2.focus-visible:ring-offset-2.focus-visible:ring-blue-500.py-1.px-2.text-sm.leading-5.rounded-[4px].bg-transparent.text-[#1A1A1A].hover:bg-[#F5F7FA].active:bg-[#E7EAF0]",
+      "baseStyles": {
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "4px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(26, 26, 26) none 0px",
+        "outlineColor": "rgb(26, 26, 26)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(26, 26, 26)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(26, 26, 26)"
+          },
+          "outline": {
+            "from": "rgb(26, 26, 26) none 0px",
+            "to": "rgb(58, 58, 58) solid 3px"
+          },
+          "outlineColor": {
+            "from": "rgb(26, 26, 26)",
+            "to": "rgb(58, 58, 58)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "3px"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(26, 26, 26)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(59, 130, 246) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(26, 26, 26) none 0px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(26, 26, 26)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "aspect-[1.9] w-full rounded-lg overflow-hidden flex",
+      "selector": "a.aspect-[1.9].w-full.rounded-lg.overflow-hidden.flex",
+      "baseStyles": {
+        "color": "rgb(64, 64, 64)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "8px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(64, 64, 64) none 0px",
+        "outlineColor": "rgb(64, 64, 64)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderRadius": {
+            "from": "8px",
+            "to": "0px"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderRadius": {
+            "from": "8px",
+            "to": "0px"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Learn more",
+      "classes": "font-semibold transition-all duration-150 inline-flex items-center justify-center gap-2 focus-visibl",
+      "selector": "a.font-semibold.transition-all.duration-150.inline-flex.items-center.justify-center.gap-2.focus-visible:outline-none.focus-visible:ring-2.focus-visible:ring-offset-2.focus-visible:ring-blue-500.py-1.px-2.text-sm.leading-5.rounded-[4px].bg-transparent.text-[#1A1A1A].hover:bg-[#F5F7FA].active:bg-[#E7EAF0]",
+      "baseStyles": {
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "4px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(26, 26, 26) none 0px",
+        "outlineColor": "rgb(26, 26, 26)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(26, 26, 26)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(26, 26, 26)"
+          },
+          "outline": {
+            "from": "rgb(26, 26, 26) none 0px",
+            "to": "rgb(58, 58, 58) solid 3px"
+          },
+          "outlineColor": {
+            "from": "rgb(26, 26, 26)",
+            "to": "rgb(58, 58, 58)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "3px"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(26, 26, 26)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(59, 130, 246) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(26, 26, 26) none 0px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(26, 26, 26)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "aspect-[1.9] w-full rounded-lg overflow-hidden flex",
+      "selector": "a.aspect-[1.9].w-full.rounded-lg.overflow-hidden.flex",
+      "baseStyles": {
+        "color": "rgb(64, 64, 64)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "8px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(64, 64, 64) none 0px",
+        "outlineColor": "rgb(64, 64, 64)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderRadius": {
+            "from": "8px",
+            "to": "0px"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderRadius": {
+            "from": "8px",
+            "to": "0px"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Learn more",
+      "classes": "font-semibold transition-all duration-150 inline-flex items-center justify-center gap-2 focus-visibl",
+      "selector": "a.font-semibold.transition-all.duration-150.inline-flex.items-center.justify-center.gap-2.focus-visible:outline-none.focus-visible:ring-2.focus-visible:ring-offset-2.focus-visible:ring-blue-500.py-1.px-2.text-sm.leading-5.rounded-[4px].bg-transparent.text-[#1A1A1A].hover:bg-[#F5F7FA].active:bg-[#E7EAF0]",
+      "baseStyles": {
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "4px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(26, 26, 26) none 0px",
+        "outlineColor": "rgb(26, 26, 26)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(26, 26, 26)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(26, 26, 26)"
+          },
+          "outline": {
+            "from": "rgb(26, 26, 26) none 0px",
+            "to": "rgb(58, 58, 58) solid 3px"
+          },
+          "outlineColor": {
+            "from": "rgb(26, 26, 26)",
+            "to": "rgb(58, 58, 58)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "3px"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(26, 26, 26)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(59, 130, 246) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(26, 26, 26) none 0px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(26, 26, 26)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "See careers",
+      "classes": "font-semibold transition-all duration-150 inline-flex items-center justify-center gap-2 focus-visibl",
+      "selector": "a.font-semibold.transition-all.duration-150.inline-flex.items-center.justify-center.gap-2.focus-visible:outline-none.focus-visible:ring-2.focus-visible:ring-offset-2.focus-visible:ring-blue-500.px-3.py-2.text-base.leading-6.rounded-lg.bg-[#F7F7F7]/5.backdrop-blur.text-white.outline.outline-1.outline-white/75.-outline-offset-1.hover:bg-[#F7F7F7]/15.active:bg-[#F7F7F7]/25.mt-4",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(247, 247, 247, 0.05)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "8px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(255, 255, 255, 0.75) solid 1px",
+        "outlineColor": "rgba(255, 255, 255, 0.75)",
+        "outlineWidth": "1px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "blur(8px)"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgba(247, 247, 247, 0.05)",
+            "to": "rgba(247, 247, 247, 0.15)"
+          }
+        },
+        "focus": {
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(59, 130, 246) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgba(255, 255, 255, 0.75) solid 1px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgba(255, 255, 255, 0.75)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "1px",
+            "to": "2px"
+          }
+        }
+      }
+    }
+  ]
+}

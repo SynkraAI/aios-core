@@ -1,0 +1,150 @@
+{
+  "version": "1.0.0",
+  "name": "stc-original",
+  "source": "https://stcgroup.com.br",
+  "timestamp": "2026-04-01T15:37:43.608Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "output": "/Users/luizfosc/aios-core/design-system/patterns/tokens/stc-original",
+  "files": {
+    "html": {
+      "file": "source.html",
+      "size": 177075
+    },
+    "screenshots": [
+      "screenshot-desktop.png",
+      "screenshot-mobile.png"
+    ],
+    "stylesheets": [
+      {
+        "url": "https://stcgroup.com.br/wp-content/plugins/kubio/build/block-library/style.css?ver=1738799520",
+        "file": "style.css",
+        "size": 188792
+      },
+      {
+        "url": "https://stcgroup.com.br/wp-content/plugins/click-to-chat-for-whatsapp/new/inc/assets/css/main.css?ver=4.16",
+        "file": "main.css",
+        "size": 1593
+      },
+      {
+        "url": "https://stcgroup.com.br/wp-includes/css/dist/block-library/style.min.css?ver=6.7.5",
+        "file": "style.min.css",
+        "size": 114703
+      },
+      {
+        "url": "https://fonts.googleapis.com/css?family=Open+Sans%3A300%2C300italic%2C400%2C400italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%7CMulish%3A400%7CRoboto%3A100%2C100italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C700%2C700italic%2C900%2C900italic%7CCarter+One%3A400%7CPoppins%3A300%2C400%2C400italic%2C500%2C600%2C700%2C700italic&display=swap",
+        "file": "css",
+        "size": 145124
+      },
+      {
+        "url": "https://stcgroup.com.br/wp-content/plugins/kubio/build/third-party-blocks/style.css?ver=1738799520",
+        "file": "style.css",
+        "size": 29162
+      },
+      {
+        "url": "https://stcgroup.com.br/wp-content/plugins/omnisend/styles/site-styles.css?1775057867&ver=1.6.2",
+        "file": "site-styles.css",
+        "size": 148
+      },
+      {
+        "url": "https://stcgroup.com.br/wp-content/themes/vertice//resources/theme/fse-base-style.css?ver=1.0.69",
+        "file": "fse-base-style.css",
+        "size": 5083
+      },
+      {
+        "url": "https://stcgroup.com.br/wp-content/plugins/elementor/assets/css/frontend.min.css?ver=3.27.5",
+        "file": "frontend.min.css",
+        "size": 53269
+      },
+      {
+        "url": "https://stcgroup.com.br/wp-content/uploads/elementor/css/post-109.css?ver=1773221049",
+        "file": "post-109.css",
+        "size": 1166
+      },
+      {
+        "url": "https://fonts.googleapis.com/css?family=Roboto%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto+Slab%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic&display=swap&ver=6.7.5",
+        "file": "css",
+        "size": 124335
+      },
+      {
+        "embedded": true,
+        "file": "embedded-0.css",
+        "size": 50683
+      },
+      {
+        "embedded": true,
+        "file": "embedded-1.css",
+        "size": 296
+      },
+      {
+        "embedded": true,
+        "file": "embedded-2.css",
+        "size": 293
+      },
+      {
+        "embedded": true,
+        "file": "embedded-3.css",
+        "size": 11820
+      },
+      {
+        "embedded": true,
+        "file": "embedded-4.css",
+        "size": 593
+      },
+      {
+        "embedded": true,
+        "file": "embedded-5.css",
+        "size": 722
+      },
+      {
+        "embedded": true,
+        "file": "embedded-7.css",
+        "size": 445
+      },
+      {
+        "embedded": true,
+        "file": "embedded-8.css",
+        "size": 52
+      },
+      {
+        "embedded": true,
+        "file": "embedded-9.css",
+        "size": 52
+      },
+      {
+        "embedded": true,
+        "file": "embedded-10.css",
+        "size": 213
+      }
+    ],
+    "domTree": {
+      "file": "dom-tree.json",
+      "nodeCount": 533
+    },
+    "extractedCss": "extracted-css.json",
+    "components": {
+      "file": "components.json",
+      "count": 9
+    },
+    "tokens": "tokens.yaml"
+  },
+  "summary": {
+    "nodeCount": 533,
+    "uniqueColors": 17,
+    "typographyVariants": 14,
+    "spacingValues": 17,
+    "shadows": 1,
+    "gradients": 0,
+    "animations": 193,
+    "mediaQueries": 143,
+    "customProperties": 107,
+    "gridLayouts": 0,
+    "flexLayouts": 50,
+    "componentTypes": 9,
+    "totalComponents": 59,
+    "stylesheetCount": 20,
+    "inlineStyles": 18
+  }
+}

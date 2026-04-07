@@ -1,0 +1,297 @@
+[
+  {
+    "type": "main-content",
+    "count": 1,
+    "samples": [
+      {
+        "tag": "main",
+        "classes": [
+          "page_main__GlU4n"
+        ],
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 6446
+        },
+        "styles": {
+          "display": "flex",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "padding": "32px 96px 0px 96px",
+          "borderRadius": "0px"
+        }
+      }
+    ]
+  },
+  {
+    "type": "form",
+    "count": 1,
+    "samples": [
+      {
+        "tag": "form",
+        "classes": [
+          "sc-91e5ee56-7",
+          "cfNXYW"
+        ],
+        "rect": {
+          "x": 96,
+          "y": 6670,
+          "width": 478,
+          "height": 136
+        },
+        "styles": {
+          "display": "flex",
+          "background": "rgb(0, 0, 0)",
+          "color": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      }
+    ]
+  },
+  {
+    "type": "button",
+    "count": 15,
+    "samples": [
+      {
+        "tag": "button",
+        "classes": [
+          "sc-d8df5d81-1",
+          "chhSkq"
+        ],
+        "rect": {
+          "x": 1246,
+          "y": 28,
+          "width": 98,
+          "height": 53
+        },
+        "styles": {
+          "display": "flex",
+          "background": "rgb(250, 249, 242)",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "13.3333px",
+          "fontWeight": "400",
+          "padding": "16.6667px 26.6667px 16.6667px 26.6667px",
+          "borderRadius": "30px"
+        }
+      },
+      {
+        "tag": "button",
+        "classes": [
+          "sc-f60c332c-4",
+          "biSrpz"
+        ],
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "styles": {
+          "display": "none",
+          "background": "rgb(239, 239, 239)",
+          "color": "rgb(255, 255, 255)",
+          "fontSize": "13.3333px",
+          "fontWeight": "400",
+          "padding": "1px 6px 1px 6px",
+          "borderRadius": "0px"
+        }
+      },
+      {
+        "tag": "button",
+        "classes": [
+          "sc-d8df5d81-1",
+          "joMjMB"
+        ],
+        "rect": {
+          "x": 96,
+          "y": 1632,
+          "width": 143,
+          "height": 53
+        },
+        "styles": {
+          "display": "flex",
+          "background": "rgb(140, 40, 189)",
+          "color": "rgb(250, 249, 242)",
+          "fontSize": "13.3333px",
+          "fontWeight": "400",
+          "padding": "16.6667px 26.6667px 16.6667px 26.6667px",
+          "borderRadius": "30px"
+        }
+      }
+    ]
+  },
+  {
+    "type": "form-input",
+    "count": 1,
+    "samples": [
+      {
+        "tag": "input",
+        "classes": [
+          "sc-91e5ee56-10",
+          "duwYhT"
+        ],
+        "rect": {
+          "x": 96,
+          "y": 6670,
+          "width": 478,
+          "height": 59
+        },
+        "styles": {
+          "display": "block",
+          "background": "rgb(51, 51, 48)",
+          "color": "rgb(255, 255, 255)",
+          "fontSize": "20px",
+          "fontWeight": "400",
+          "padding": "17px 29px 17px 29px",
+          "borderRadius": "3px"
+        }
+      }
+    ]
+  },
+  {
+    "type": "image",
+    "count": 43,
+    "samples": [
+      {
+        "tag": "img",
+        "classes": [],
+        "rect": {
+          "x": 96,
+          "y": 28,
+          "width": 128,
+          "height": 49
+        },
+        "styles": {
+          "display": "inline",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgba(0, 0, 0, 0)",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      },
+      {
+        "tag": "img",
+        "classes": [
+          "sc-2b6fd32f-2",
+          "foCsbO"
+        ],
+        "rect": {
+          "x": -58,
+          "y": 664,
+          "width": 360,
+          "height": 360
+        },
+        "styles": {
+          "display": "block",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      },
+      {
+        "tag": "img",
+        "classes": [
+          "sc-2b6fd32f-2",
+          "foCsbO"
+        ],
+        "rect": {
+          "x": 352,
+          "y": 664,
+          "width": 360,
+          "height": 360
+        },
+        "styles": {
+          "display": "block",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      }
+    ]
+  },
+  {
+    "type": "carousel",
+    "count": 10,
+    "samples": [
+      {
+        "tag": "div",
+        "classes": [
+          "carousel-root"
+        ],
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "styles": {
+          "display": "block",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      },
+      {
+        "tag": "div",
+        "classes": [
+          "carousel",
+          "carousel-slider"
+        ],
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "styles": {
+          "display": "block",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      },
+      {
+        "tag": "div",
+        "classes": [
+          "slider-wrapper",
+          "axis-horizontal"
+        ],
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "styles": {
+          "display": "block",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      }
+    ]
+  }
+]

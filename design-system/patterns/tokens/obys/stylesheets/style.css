@@ -1,0 +1,19 @@
+/*
+Theme Name: Obys
+Author: #
+Author URI: http://#
+Theme URI: https://themeforest.net/item/koalogger-simple-wordpress-blogging-theme-rtl/20789803
+Description: #
+Version: 1.2
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags: sticky-post, threaded-comments, theme-options, translation-ready, post-formats, full-width-template
+Text Domain: obys
+*/
+
+#contact-form br {
+  display: none !important;
+}
+.grecaptcha-badge {
+    visibility: hidden;
+}

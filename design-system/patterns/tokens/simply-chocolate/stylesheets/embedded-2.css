@@ -1,0 +1,342 @@
+/* Typography (heading) */
+  @font-face {
+  font-family: "Open Sans";
+  font-weight: 400;
+  font-style: normal;
+  font-display: fallback;
+  src: url("//www.simplychocolate.dk/cdn/fonts/open_sans/opensans_n4.c32e4d4eca5273f6d4ee95ddf54b5bbb75fc9b61.woff2") format("woff2"),
+       url("//www.simplychocolate.dk/cdn/fonts/open_sans/opensans_n4.5f3406f8d94162b37bfa232b486ac93ee892406d.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Open Sans";
+  font-weight: 400;
+  font-style: italic;
+  font-display: fallback;
+  src: url("//www.simplychocolate.dk/cdn/fonts/open_sans/opensans_i4.6f1d45f7a46916cc95c694aab32ecbf7509cbf33.woff2") format("woff2"),
+       url("//www.simplychocolate.dk/cdn/fonts/open_sans/opensans_i4.4efaa52d5a57aa9a57c1556cc2b7465d18839daa.woff") format("woff");
+}
+
+/* Typography (body) */
+  @font-face {
+  font-family: "Open Sans";
+  font-weight: 400;
+  font-style: normal;
+  font-display: fallback;
+  src: url("//www.simplychocolate.dk/cdn/fonts/open_sans/opensans_n4.c32e4d4eca5273f6d4ee95ddf54b5bbb75fc9b61.woff2") format("woff2"),
+       url("//www.simplychocolate.dk/cdn/fonts/open_sans/opensans_n4.5f3406f8d94162b37bfa232b486ac93ee892406d.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Open Sans";
+  font-weight: 400;
+  font-style: italic;
+  font-display: fallback;
+  src: url("//www.simplychocolate.dk/cdn/fonts/open_sans/opensans_i4.6f1d45f7a46916cc95c694aab32ecbf7509cbf33.woff2") format("woff2"),
+       url("//www.simplychocolate.dk/cdn/fonts/open_sans/opensans_i4.4efaa52d5a57aa9a57c1556cc2b7465d18839daa.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Open Sans";
+  font-weight: 700;
+  font-style: normal;
+  font-display: fallback;
+  src: url("//www.simplychocolate.dk/cdn/fonts/open_sans/opensans_n7.a9393be1574ea8606c68f4441806b2711d0d13e4.woff2") format("woff2"),
+       url("//www.simplychocolate.dk/cdn/fonts/open_sans/opensans_n7.7b8af34a6ebf52beb1a4c1d8c73ad6910ec2e553.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Open Sans";
+  font-weight: 700;
+  font-style: italic;
+  font-display: fallback;
+  src: url("//www.simplychocolate.dk/cdn/fonts/open_sans/opensans_i7.916ced2e2ce15f7fcd95d196601a15e7b89ee9a4.woff2") format("woff2"),
+       url("//www.simplychocolate.dk/cdn/fonts/open_sans/opensans_i7.99a9cff8c86ea65461de497ade3d515a98f8b32a.woff") format("woff");
+}
+
+:root {
+    /* Container */
+    --container-max-width: 100%;
+    --container-xxs-max-width: 27.5rem; /* 440px */
+    --container-xs-max-width: 42.5rem; /* 680px */
+    --container-sm-max-width: 61.25rem; /* 980px */
+    --container-md-max-width: 71.875rem; /* 1150px */
+    --container-lg-max-width: 78.75rem; /* 1260px */
+    --container-xl-max-width: 85rem; /* 1360px */
+    --container-gutter: 1.25rem;
+
+    --section-vertical-spacing: 2.5rem;
+    --section-vertical-spacing-tight:2.5rem;
+
+    --section-stack-gap:2.25rem;
+    --section-stack-gap-tight:2.25rem;
+
+    /* Form settings */
+    --form-gap: 1.25rem; /* Gap between fieldset and submit button */
+    --fieldset-gap: 1rem; /* Gap between each form input within a fieldset */
+    --form-control-gap: 0.625rem; /* Gap between input and label (ignored for floating label) */
+    --checkbox-control-gap: 0.75rem; /* Horizontal gap between checkbox and its associated label */
+    --input-padding-block: 0.65rem; /* Vertical padding for input, textarea and native select */
+    --input-padding-inline: 0.8rem; /* Horizontal padding for input, textarea and native select */
+    --checkbox-size: 0.875rem; /* Size (width and height) for checkbox */
+
+    /* Other sizes */
+    --sticky-area-height: calc(var(--announcement-bar-is-sticky, 0) * var(--announcement-bar-height, 0px) + var(--header-is-sticky, 0) * var(--header-height, 0px));
+
+    /* RTL support */
+    --transform-logical-flip: 1;
+    --transform-origin-start: left;
+    --transform-origin-end: right;
+
+    /**
+     * ---------------------------------------------------------------------
+     * TYPOGRAPHY
+     * ---------------------------------------------------------------------
+     */
+
+    /* Font properties */
+    --heading-font-family: "Open Sans", sans-serif;
+    --heading-font-weight: 400;
+    --heading-font-style: normal;
+    --heading-text-transform: normal;
+    --heading-letter-spacing: 0.0em;
+    --text-font-family: "Open Sans", sans-serif;
+    --text-font-weight: 400;
+    --text-font-style: normal;
+    --text-letter-spacing: 0.03em;
+    --button-font: var(--text-font-style) var(--text-font-weight) var(--text-sm) / 1.65 var(--text-font-family);
+    --button-text-transform: normal;
+    --button-letter-spacing: 0.0em;
+
+    /* Font sizes */--text-heading-size-factor: 1.5;
+    --text-h1: max(0.6875rem, clamp(1.375rem, 1.146341463414634rem + 0.975609756097561vw, 2rem) * var(--text-heading-size-factor));
+    --text-h2: max(0.6875rem, clamp(1.25rem, 1.0670731707317074rem + 0.7804878048780488vw, 1.75rem) * var(--text-heading-size-factor));
+    --text-h3: max(0.6875rem, clamp(1.125rem, 1.0335365853658536rem + 0.3902439024390244vw, 1.375rem) * var(--text-heading-size-factor));
+    --text-h4: max(0.6875rem, clamp(1rem, 0.9542682926829268rem + 0.1951219512195122vw, 1.125rem) * var(--text-heading-size-factor));
+    --text-h5: calc(0.875rem * var(--text-heading-size-factor));
+    --text-h6: calc(0.75rem * var(--text-heading-size-factor));
+
+    --text-xs: 0.875rem;
+    --text-sm: 0.9375rem;
+    --text-base: 1.0rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+
+    /* Rounded variables (used for border radius) */
+    --rounded-full: 9999px;
+    --button-border-radius: 0.25rem;
+    --input-border-radius: 0.25rem;
+
+    /* Box shadow */
+    --shadow-sm: 0 2px 8px rgb(0 0 0 / 0.05);
+    --shadow: 0 5px 15px rgb(0 0 0 / 0.05);
+    --shadow-md: 0 5px 30px rgb(0 0 0 / 0.05);
+    --shadow-block: px px px rgb(var(--text-primary) / 0.0);
+
+    /**
+     * ---------------------------------------------------------------------
+     * OTHER
+     * ---------------------------------------------------------------------
+     */
+
+    --checkmark-svg-url: url(//www.simplychocolate.dk/cdn/shop/t/74/assets/checkmark.svg?v=77552481021870063511708085571);
+    --cursor-zoom-in-svg-url: url(//www.simplychocolate.dk/cdn/shop/t/74/assets/cursor-zoom-in.svg?v=112480252220988712521708005360);
+  }
+
+  [dir="rtl"]:root {
+    /* RTL support */
+    --transform-logical-flip: -1;
+    --transform-origin-start: right;
+    --transform-origin-end: left;
+  }
+
+  @media screen and (min-width: 700px) {
+    :root {
+      /* Typography (font size) */
+      --text-xs: 0.875rem;
+      --text-sm: 0.9375rem;
+      --text-base: 1.0rem;
+      --text-lg: 1.125rem;
+      --text-xl: 1.375rem;
+
+      /* Spacing settings */
+      --container-gutter: 2rem;
+    }
+  }
+
+  @media screen and (min-width: 1000px) {
+    :root {
+      /* Spacing settings */
+      --container-gutter: 3rem;
+
+      --section-vertical-spacing: 4rem;
+      --section-vertical-spacing-tight: 4rem;
+
+      --section-stack-gap:3rem;
+      --section-stack-gap-tight:3rem;
+    }
+  }:root {/* Overlay used for modal */
+    --page-overlay: 0 0 0 / 0.4;
+
+    /* We use the first scheme background as default */
+    --page-background: ;
+
+    /* Product colors */
+    --on-sale-text: 126 78 53;
+    --on-sale-badge-background: 126 78 53;
+    --on-sale-badge-text: 255 255 255;
+    --sold-out-badge-background: 239 239 239;
+    --sold-out-badge-text: 0 0 0 / 0.65;
+    --custom-badge-background: 28 28 28;
+    --custom-badge-text: 255 255 255;
+    --star-color: 28 28 28;
+
+    /* Status colors */
+    --success-background: 218 226 220;
+    --success-text: 79 118 87;
+    --warning-background: 253 241 224;
+    --warning-text: 237 138 0;
+    --error-background: 232 196 196;
+    --error-text: 159 9 9;
+
+    --custom_labels_background : #f9f8f8;
+    --custom_labels_text_color : #201b1b;
+  }.color-scheme--scheme-1 {
+      /* Color settings */--accent: 70 49 38;
+      --text-color: 28 28 28;
+      --background: 255 255 255 / 1.0;
+      --background-without-opacity: 255 255 255;
+      --background-gradient: ;--border-color: 221 221 221;/* Button colors */
+      --button-background: 70 49 38;
+      --button-text-color: 255 255 255;
+
+      /* Circled buttons */
+      --circle-button-background: 255 255 255;
+      --circle-button-text-color: 28 28 28;
+    }.shopify-section:has(.section-spacing.color-scheme--bg-54922f2e920ba8346f6dc0fba343d673) + .shopify-section:has(.section-spacing.color-scheme--bg-54922f2e920ba8346f6dc0fba343d673:not(.bordered-section)) .section-spacing {
+      padding-block-start: 0;
+    }.color-scheme--scheme-2 {
+      /* Color settings */--accent: 70 49 38;
+      --text-color: 0 0 0;
+      --background: 239 239 239 / 1.0;
+      --background-without-opacity: 239 239 239;
+      --background-gradient: ;--border-color: 203 203 203;/* Button colors */
+      --button-background: 70 49 38;
+      --button-text-color: 255 255 255;
+
+      /* Circled buttons */
+      --circle-button-background: 255 255 255;
+      --circle-button-text-color: 28 28 28;
+    }.shopify-section:has(.section-spacing.color-scheme--bg-609ecfcfee2f667ac6c12366fc6ece56) + .shopify-section:has(.section-spacing.color-scheme--bg-609ecfcfee2f667ac6c12366fc6ece56:not(.bordered-section)) .section-spacing {
+      padding-block-start: 0;
+    }.color-scheme--scheme-3 {
+      /* Color settings */--accent: 70 49 38;
+      --text-color: 0 0 0;
+      --background: 255 255 255 / 1.0;
+      --background-without-opacity: 255 255 255;
+      --background-gradient: ;--border-color: 217 217 217;/* Button colors */
+      --button-background: 70 49 38;
+      --button-text-color: 255 255 255;
+
+      /* Circled buttons */
+      --circle-button-background: 255 255 255;
+      --circle-button-text-color: 28 28 28;
+    }.shopify-section:has(.section-spacing.color-scheme--bg-54922f2e920ba8346f6dc0fba343d673) + .shopify-section:has(.section-spacing.color-scheme--bg-54922f2e920ba8346f6dc0fba343d673:not(.bordered-section)) .section-spacing {
+      padding-block-start: 0;
+    }.color-scheme--scheme-4 {
+      /* Color settings */--accent: 255 255 255;
+      --text-color: 255 255 255;
+      --background: 0 0 0 / 0.0;
+      --background-without-opacity: 0 0 0;
+      --background-gradient: ;--border-color: 255 255 255;/* Button colors */
+      --button-background: 255 255 255;
+      --button-text-color: 28 28 28;
+
+      /* Circled buttons */
+      --circle-button-background: 255 255 255;
+      --circle-button-text-color: 28 28 28;
+    }.shopify-section:has(.section-spacing.color-scheme--bg-3671eee015764974ee0aef1536023e0f) + .shopify-section:has(.section-spacing.color-scheme--bg-3671eee015764974ee0aef1536023e0f:not(.bordered-section)) .section-spacing {
+      padding-block-start: 0;
+    }.color-scheme--scheme-b06b6b35-f436-4a01-bd81-48d29c8c503b {
+      /* Color settings */--accent: 255 255 255;
+      --text-color: 255 255 255;
+      --background: 36 36 36 / 1.0;
+      --background-without-opacity: 36 36 36;
+      --background-gradient: ;--border-color: 69 69 69;/* Button colors */
+      --button-background: 255 255 255;
+      --button-text-color: 36 36 36;
+
+      /* Circled buttons */
+      --circle-button-background: 255 255 255;
+      --circle-button-text-color: 36 36 36;
+    }.shopify-section:has(.section-spacing.color-scheme--bg-ba7a3d0f3955641d9ca4aabb3ef3e723) + .shopify-section:has(.section-spacing.color-scheme--bg-ba7a3d0f3955641d9ca4aabb3ef3e723:not(.bordered-section)) .section-spacing {
+      padding-block-start: 0;
+    }.color-scheme--scheme-7fd88c24-312c-467d-8e8a-26961dfed648 {
+      /* Color settings */--accent: 255 255 255;
+      --text-color: 255 255 255;
+      --background: 255 255 255 / 1.0;
+      --background-without-opacity: 255 255 255;
+      --background-gradient: linear-gradient(310deg, rgba(200, 179, 153, 1) 1%, rgba(200, 179, 153, 0.95) 56%, rgba(200, 179, 153, 0.88) 92%, rgba(200, 179, 153, 1) 98%);--border-color: 255 255 255 / 0.15;/* Button colors */
+      --button-background: 255 255 255;
+      --button-text-color: 0 0 0;
+
+      /* Circled buttons */
+      --circle-button-background: 255 255 255;
+      --circle-button-text-color: 255 255 255;
+    }.shopify-section:has(.section-spacing.color-scheme--bg-a79308afa2168d20ed33187f72b02ce6) + .shopify-section:has(.section-spacing.color-scheme--bg-a79308afa2168d20ed33187f72b02ce6:not(.bordered-section)) .section-spacing {
+      padding-block-start: 0;
+    }.color-scheme--scheme-60d8bdd2-0de1-40c6-a8d3-2b7d5d93cbca {
+      /* Color settings */--accent: 255 255 255;
+      --text-color: 255 255 255;
+      --background: 164 90 42 / 1.0;
+      --background-without-opacity: 164 90 42;
+      --background-gradient: ;--border-color: 178 115 74;/* Button colors */
+      --button-background: 255 255 255;
+      --button-text-color: 255 255 255;
+
+      /* Circled buttons */
+      --circle-button-background: 255 255 255;
+      --circle-button-text-color: 28 28 28;
+    }.shopify-section:has(.section-spacing.color-scheme--bg-aad84d7b3be0b92f1480203b5b2f6b29) + .shopify-section:has(.section-spacing.color-scheme--bg-aad84d7b3be0b92f1480203b5b2f6b29:not(.bordered-section)) .section-spacing {
+      padding-block-start: 0;
+    }.color-scheme--scheme-ce2998c7-91c0-46f2-8822-b61be782cc65 {
+      /* Color settings */--accent: 255 255 255;
+      --text-color: 255 255 255;
+      --background: 70 49 38 / 1.0;
+      --background-without-opacity: 70 49 38;
+      --background-gradient: ;--border-color: 98 80 71;/* Button colors */
+      --button-background: 255 255 255;
+      --button-text-color: 28 28 28;
+
+      /* Circled buttons */
+      --circle-button-background: 255 255 255;
+      --circle-button-text-color: 28 28 28;
+    }.shopify-section:has(.section-spacing.color-scheme--bg-248de8ea3111f592e434cd8240266bc8) + .shopify-section:has(.section-spacing.color-scheme--bg-248de8ea3111f592e434cd8240266bc8:not(.bordered-section)) .section-spacing {
+      padding-block-start: 0;
+    }.color-scheme--scheme-deae4b3d-3816-457b-a645-4db46cb3d51e {
+      /* Color settings */--accent: 156 101 119;
+      --text-color: 255 255 255;
+      --background: 193 89 117 / 1.0;
+      --background-without-opacity: 193 89 117;
+      --background-gradient: ;--border-color: 202 114 138;/* Button colors */
+      --button-background: 156 101 119;
+      --button-text-color: 255 255 255;
+
+      /* Circled buttons */
+      --circle-button-background: 255 255 255;
+      --circle-button-text-color: 28 28 28;
+    }.shopify-section:has(.section-spacing.color-scheme--bg-b880ce6316bda75c7af0bff2e81fdcee) + .shopify-section:has(.section-spacing.color-scheme--bg-b880ce6316bda75c7af0bff2e81fdcee:not(.bordered-section)) .section-spacing {
+      padding-block-start: 0;
+    }.color-scheme--dialog {
+      /* Color settings */--accent: 70 49 38;
+      --text-color: 0 0 0;
+      --background: 239 239 239 / 1.0;
+      --background-without-opacity: 239 239 239;
+      --background-gradient: ;--border-color: 203 203 203;/* Button colors */
+      --button-background: 70 49 38;
+      --button-text-color: 255 255 255;
+
+      /* Circled buttons */
+      --circle-button-background: 255 255 255;
+      --circle-button-text-color: 28 28 28;
+    }

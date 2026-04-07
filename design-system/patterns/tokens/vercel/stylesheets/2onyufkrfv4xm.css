@@ -1,0 +1,2 @@
+:root{--banner-min-height:64px;scroll-padding:0}body{background:var(--ds-background-200)!important}@media (min-width:2300px){[data-ai-chat-panel]{position:fixed!important}}@property --value{syntax:"<integer>";inherits:true;initial-value:0}@counter-style pad{system:extends decimal;pad:2 "0"}
+/*# sourceMappingURL=2261h73m39o2s.css.map*/

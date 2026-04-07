@@ -1,0 +1,125 @@
+{
+  "version": "1.0.0",
+  "name": "anthropic",
+  "source": "https://anthropic.com",
+  "timestamp": "2026-04-01T11:57:28.453Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "output": "/Users/luizfosc/aios-core/design-system/patterns/tokens/anthropic",
+  "files": {
+    "html": {
+      "file": "source.html",
+      "size": 838976
+    },
+    "screenshots": [
+      "screenshot-desktop.png",
+      "screenshot-mobile.png"
+    ],
+    "stylesheets": [
+      {
+        "url": "https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/css/ant-brand.shared.62b17f009.min.css",
+        "file": "ant-brand.shared.62b17f009.min.css",
+        "size": 271381
+      },
+      {
+        "embedded": true,
+        "file": "embedded-0.css",
+        "size": 58
+      },
+      {
+        "embedded": true,
+        "file": "embedded-1.css",
+        "size": 132
+      },
+      {
+        "embedded": true,
+        "file": "embedded-2.css",
+        "size": 86
+      },
+      {
+        "embedded": true,
+        "file": "embedded-3.css",
+        "size": 100
+      },
+      {
+        "embedded": true,
+        "file": "embedded-4.css",
+        "size": 46
+      },
+      {
+        "embedded": true,
+        "file": "embedded-5.css",
+        "size": 458
+      },
+      {
+        "embedded": true,
+        "file": "embedded-7.css",
+        "size": 672
+      },
+      {
+        "embedded": true,
+        "file": "embedded-8.css",
+        "size": 739
+      },
+      {
+        "embedded": true,
+        "file": "embedded-10.css",
+        "size": 7160
+      },
+      {
+        "embedded": true,
+        "file": "embedded-11.css",
+        "size": 5457
+      },
+      {
+        "embedded": true,
+        "file": "embedded-12.css",
+        "size": 2986
+      },
+      {
+        "embedded": true,
+        "file": "embedded-13.css",
+        "size": 7267
+      },
+      {
+        "embedded": true,
+        "file": "embedded-14.css",
+        "size": 5168
+      },
+      {
+        "embedded": true,
+        "file": "embedded-15.css",
+        "size": 1784
+      }
+    ],
+    "domTree": {
+      "file": "dom-tree.json",
+      "nodeCount": 965
+    },
+    "extractedCss": "extracted-css.json",
+    "components": {
+      "file": "components.json",
+      "count": 14
+    },
+    "tokens": "tokens.yaml"
+  },
+  "summary": {
+    "nodeCount": 965,
+    "uniqueColors": 16,
+    "typographyVariants": 23,
+    "spacingValues": 27,
+    "shadows": 1,
+    "gradients": 2,
+    "animations": 7,
+    "mediaQueries": 21,
+    "customProperties": 282,
+    "gridLayouts": 12,
+    "flexLayouts": 50,
+    "componentTypes": 14,
+    "totalComponents": 287,
+    "stylesheetCount": 15,
+    "inlineStyles": 53
+  }
+}

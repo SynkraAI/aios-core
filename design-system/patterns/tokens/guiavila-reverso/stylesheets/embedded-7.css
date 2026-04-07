@@ -1,0 +1,8 @@
+
+.fade-enter-active[data-v-5874e31a], .fade-leave-active[data-v-5874e31a] {
+  transition: opacity .4s ease;
+  opacity: 1;
+}
+.fade-enter[data-v-5874e31a], .fade-leave-to[data-v-5874e31a] {
+  opacity: 0;
+}

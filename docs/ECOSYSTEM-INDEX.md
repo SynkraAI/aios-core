@@ -1,11 +1,11 @@
 # AIOS Ecosystem Index
 
-*Atualizado: 2026-03-19 00:56:13*  
+*Atualizado: 2026-04-07 00:38:06*  
 *Regenerar: `node scripts/generate-ecosystem-index.js`*
 
 ---
 
-## 🧠 Minds (40)
+## 🧠 Minds (43)
 
 | # | Mind | Slug | Status | Fidelidade | Especialidade |
 |---|------|------|--------|------------|---------------|
@@ -15,14 +15,14 @@
 | 4 | **Tathi Deandhela** | `tathi-deandhela` | Complete | Premium | Comunicação, Influência |
 | 5 | **Luiz Fosc** | `luiz-fosc` | Complete | Premium | Tecnologia, AI, Negócios |
 | 6 | **Gui Ávila** | `gui-avila` | Complete | Intermediate | Automação, Negócios |
-| 7 | **Thiago Tessman** | `thiago-tessman` | Partial | Intermediate | Conversão, Marketing Digital |
+| 7 | **Thiago Tessman** | `thiago-tessman` | Complete | Intermediate | Conversão, Tráfego Pago, Google/Meta Ads |
 | 8 | **Merlin Mann** | `merlin-mann` | Complete | Intermediate | Produtividade, Criatividade |
 | 9 | **Tiago Forte** | `tiago-forte` | Complete | Intermediate | Second Brain, PKM |
 | 10 | **Charlie Munger** | `charlie-munger` | Complete | Intermediate | Mental Models, Investimentos |
 | 11 | **Paulo Vieira** | `paulo-vieira` | Complete | Premium | Coaching, Inteligência Emocional |
-| 12 | **Alex Hormozi** | `alex-hormozi` | Partial | Basic | Ofertas, Escala, Business |
-| 13 | **Renner Silva** | `renner-silva` | Sources Only | - | Marketing, Vendas |
-| 14 | **Renan Vieira** | `renan-vieira` | Sources Only | - | Funis, Vendas |
+| 12 | **Alex Hormozi** | `hormozi` | Complete | Premium | Ofertas, Escala, Ads, Copy |
+| 13 | **Renner Silva** | `renner-silva` | Complete | Intermediate | Marketing, Vendas, Roteiros |
+| 14 | **Renan Vieira** | `renan-vieira` | Complete | Intermediate | Funis, Vendas, Mentoria |
 | 15 | **Alistair Croll** | `alistair-croll` | Complete | Intermediate | Lean Analytics |
 | 16 | **Eliyahu Goldratt** | `eliyahu-goldratt` | Complete | Intermediate | Theory of Constraints |
 | 17 | **John Doerr** | `john-doerr` | Complete | Intermediate | OKRs |
@@ -33,22 +33,25 @@
 | 22 | **Nicole Forsgren** | `nicole-forsgren` | Complete | Intermediate | DevOps, DORA Metrics |
 | 23 | **Simon Wardley** | `simon-wardley` | Complete | Intermediate | Wardley Mapping |
 | 24 | **Skelton & Pais** | `skelton-pais` | Complete | Intermediate | Team Topologies |
-| 25 | **Annie Duke** | `annie-duke` | Sources Only | - | Decision Making |
-| 26 | **Chris Voss** | `chris-voss` | Sources Only | - | Negociação |
-| 27 | **Clayton Christensen** | `clayton-christensen` | Sources Only | - | Disruptive Innovation |
-| 28 | **Elon Musk** | `elon-musk` | Sources Only | - | Engenharia, Space, AI |
-| 29 | **Hamilton Helmer** | `hamilton-helmer` | Sources Only | - | 7 Powers, Strategy |
-| 30 | **Keith Cunningham** | `keith-cunningham` | Sources Only | - | Business, Thinking |
-| 31 | **Nassim Taleb** | `nassim-taleb` | Sources Only | - | Antifragilidade, Risco |
-| 32 | **Robert Cialdini** | `robert-cialdini` | Sources Only | - | Persuasão, Influência |
-| 33 | **Shane Parrish** | `shane-parrish` | Sources Only | - | Mental Models |
-| 34 | **Steve Jobs** | `steve-jobs` | Sources Only | - | Design, Produto |
-| 35 | **Verne Harnish** | `verne-harnish` | Sources Only | - | Scaling Up |
-| 36 | **Walt Disney** | `walt-disney` | Sources Only | - | Criatividade, Storytelling |
+| 25 | **Annie Duke** | `annie-duke` | Complete | Intermediate | Decision Making |
+| 26 | **Chris Voss** | `chris-voss` | Complete | Intermediate | Negociação |
+| 27 | **Clayton Christensen** | `clayton-christensen` | Complete | Intermediate | Disruptive Innovation |
+| 28 | **Elon Musk** | `elon-musk` | Complete | Intermediate | Engenharia, Space, AI |
+| 29 | **Hamilton Helmer** | `hamilton-helmer` | Complete | Intermediate | 7 Powers, Strategy |
+| 30 | **Keith Cunningham** | `keith-cunningham` | Complete | Intermediate | Business, Thinking |
+| 31 | **Nassim Taleb** | `nassim-taleb` | Complete | Intermediate | Antifragilidade, Risco |
+| 32 | **Robert Cialdini** | `robert-cialdini` | Complete | Premium | Persuasão, Influência, Pre-Suasion |
+| 33 | **Shane Parrish** | `shane-parrish` | Complete | Intermediate | Mental Models |
+| 34 | **Steve Jobs** | `steve-jobs` | Complete | Intermediate | Design, Produto |
+| 35 | **Verne Harnish** | `verne-harnish` | Complete | Intermediate | Scaling Up |
+| 36 | **Walt Disney** | `walt-disney` | Complete | Intermediate | Criatividade, Storytelling |
 | 37 | **Leandro Ladeira** | `leandro-ladeira` | Complete | Premium | Copy, Marketing Digital, Infoprodutos |
 | 38 | **Dan Koe** | `dan-koe` | Complete | Premium | One-Person Business, Conteúdo |
-| 39 | **Alex Hormozi (Full)** | `hormozi` | Complete | Premium | Ofertas, Escala, Ads, Copy |
-| 40 | **José Amorim** | `jose-amorim` | Partial | Intermediate | Nexialismo, IA, Conteúdo |
+| 39 | **José Amorim** | `jose-amorim` | Partial | Intermediate | Nexialismo, IA, Conteúdo |
+| 40 | **Marcos Hiller** | `marcos-hiller` | Complete | Intermediate | Branding, Marketing |
+| 41 | **Pedro Sobral** | `pedro-sobral` | Complete | Intermediate | Tráfego Pago, Gestão |
+| 42 | **Juliana Gomes** | `juliana-gomes` | Complete | Intermediate | Conteúdo, Digital |
+| 43 | **Ícaro de Carvalho** | `icaro-de-carvalho` | Complete | Intermediate | Marketing, Copywriting, Negócios |
 
 ---
 
@@ -83,7 +86,7 @@
 
 ---
 
-## 🏢 Agentes por Squad (385)
+## 🏢 Agentes por Squad (434)
 
 ### Squad: advisor-board (14)
 
@@ -131,6 +134,16 @@
 - **AutonomyAuditor** — N/A
 - **AgentArchitect** — N/A
 
+### Squad: ai-reels (7)
+
+- **voice-engineer** — N/A
+- **video-composer** — N/A
+- **script-director** — N/A
+- **qa-sentinel** — N/A
+- **hook-architect** — N/A
+- **avatar-director** — N/A
+- **ai-reels-chief** — N/A
+
 ### Squad: audio-reels (7)
 
 - **SFX Designer** — N/A
@@ -140,6 +153,18 @@
 - **Audio Reels Ops** — N/A
 - **Image Prompter** — N/A
 - **Audio Reels Chief** — N/A
+
+### Squad: brandcraft (9)
+
+- **video-architect** — N/A
+- **token-extractor** — N/A
+- **template-architect** — N/A
+- **quality-validator** — N/A
+- **pptx-architect** — N/A
+- **pdf-extractor** — N/A
+- **image-generator** — N/A
+- **doc-generator** — N/A
+- **brandcraft-chief** — N/A
 
 ### Squad: branding (7)
 
@@ -181,13 +206,12 @@
 - **espiao** — N/A
 - **aiox-chief** — N/A
 
-### Squad: content-engine (28)
+### Squad: content-engine (20)
 
 - **visual-typographer** — N/A
 - **visual-technician** — N/A
 - **visual-director** — N/A
 - **vanessa-lau** — N/A
-- **stefan-georgi** — N/A
 - **social-strategist** — N/A
 - **oraculo-torriani** — N/A
 - **nicolas-cole** — N/A
@@ -200,17 +224,10 @@
 - **icp-ana** — N/A
 - **george-blackman** — N/A
 - **gary-vaynerchuk** — N/A
-- **gary-halbert** — N/A
-- **eugene-schwartz** — N/A
 - **devil-advocate** — N/A
-- **david-ogilvy** — N/A
-- **dan-koe** — N/A
-- **dan-kennedy** — N/A
 - **copy-chief** — N/A
 - **content-engine** — N/A
-- **claude-hopkins** — N/A
 - **caleb-ralston** — N/A
-- **alex-hormozi** — N/A
 
 ### Squad: conteudo (10)
 
@@ -280,11 +297,15 @@
 - **koe-arquiteto** — N/A
 - **koe-advisor** — N/A
 
+### Squad: db-sage (1)
+
+- **db-sage** — N/A
+
 ### Squad: design (9)
 
 - **storybook-expert** — N/A
 - **page-composer** — N/A
-- **nano-banana-generator** — |
+- **nano-banana-generator** — N/A
 - **ds-token-architect** — N/A
 - **ds-foundations-lead** — N/A
 - **design-chief** — N/A
@@ -309,9 +330,14 @@
 
 - **ensinio-expert** — N/A
 
-### Squad: etl-universal-converter (1)
+### Squad: etl-squad (6)
 
+- **validator** — N/A
+- **parser** — N/A
+- **loader** — N/A
+- **extractor** — N/A
 - **etl-chief** — N/A
+- **enricher** — N/A
 
 ### Squad: file-research (1)
 
@@ -348,6 +374,15 @@
 - **hormozi-advisor** — N/A
 - **hormozi-ads** — N/A
 
+### Squad: icaro-de-carvalho (6)
+
+- **rafael-kiso** — N/A
+- **pedro-sobral** — N/A
+- **marcos-hiller** — N/A
+- **juliana-gomes** — N/A
+- **icaro-de-carvalho** — N/A
+- **icaro-chief** — N/A
+
 ### Squad: icp-cloning (6)
 
 - **synapse-processor** — N/A
@@ -378,6 +413,17 @@
 - **TopologyAnalyst** — N/A
 - **TechRadar** — N/A
 - **PerformanceTracker** — N/A
+- **KaizenChief** — N/A
+- **CostAnalyst** — N/A
+- **CapabilityMapper** — N/A
+- **BottleneckHunter** — N/A
+
+### Squad: kaizen-v2 (8)
+
+- **TopologyAnalyst** — N/A
+- **TechRadar** — N/A
+- **PerformanceTracker** — N/A
+- **MemoryKeeper** — N/A
 - **KaizenChief** — N/A
 - **CostAnalyst** — N/A
 - **CapabilityMapper** — N/A
@@ -481,6 +527,13 @@
 - **chris-voss** — N/A
 - **chet-holmes** — N/A
 
+### Squad: openclaw-manager (4)
+
+- **skill-ops** — N/A
+- **openclaw-chief** — N/A
+- **fleet-monitor** — N/A
+- **claw-provisioner** — N/A
+
 ### Squad: palestras-master (5)
 
 - **palestras-quality-gate** — N/A
@@ -492,6 +545,15 @@
 ### Squad: paulo-vieira (1)
 
 - **paulo-vieira** — N/A
+
+### Squad: playwright-architect (6)
+
+- **script-tester-validator** — N/A
+- **script-architect** — N/A
+- **recon-mapper** — N/A
+- **playwright-chief** — N/A
+- **pattern-librarian-architect** — N/A
+- **code-generator** — N/A
 
 ### Squad: presenca-digital (9)
 
@@ -536,6 +598,23 @@
 - **Chin — Practitioner Translator** — >
 - **Argyris — Gap Detector** — >
 
+### Squad: root-diagnosis (14)
+
+- **thomas-wedell-wedellsborg** — N/A
+- **stafford-beer** — N/A
+- **root-diagnosis-chief** — N/A
+- **peter-senge** — N/A
+- **peter-checkland** — N/A
+- **min-basadur** — N/A
+- **kepner-tregoe** — N/A
+- **gary-klein** — N/A
+- **eli-goldratt** — N/A
+- **edgar-schein** — N/A
+- **douglas-hubbard** — N/A
+- **dean-gano** — N/A
+- **dave-snowden** — N/A
+- **chris-argyris** — N/A
+
 ### Squad: seo (8)
 
 - **technical-auditor** — N/A
@@ -567,18 +646,12 @@
 - **sop-auditor** — N/A
 - **sop-analyst** — N/A
 
-### Squad: squad-creator (6)
+### Squad: squad-creator-pro (6)
 
 - **squad-diagnostician** — N/A
 - **squad-chief** — N/A
 - **squad-architect** — N/A
 - **sop-extractor** — N/A
-- **pedro-valerio** — N/A
-- **oalanicolas** — N/A
-
-### Squad: squad-creator (3)
-
-- **squad-chief** — N/A
 - **pedro-valerio** — N/A
 - **oalanicolas** — N/A
 
@@ -650,12 +723,12 @@
 
 | Categoria | Quantidade |
 |-----------|------------|
-| **Minds** | 40 |
+| **Minds** | 43 |
 | **Agentes Core** | 24 |
-| **Squads** | 58 |
-| **Agentes de Squads** | 385 |
-| **TOTAL** | 449 |
+| **Squads** | 65 |
+| **Agentes de Squads** | 434 |
+| **TOTAL** | 501 |
 
 ---
 
-*Gerado automaticamente em 2026-03-19 00:56:13*
+*Gerado automaticamente em 2026-04-07 00:38:06*

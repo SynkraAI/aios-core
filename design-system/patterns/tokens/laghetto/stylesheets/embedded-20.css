@@ -1,0 +1,21 @@
+
+  
+    #rd-section-lv12iglr {
+      
+          background-color: #ffffff;
+        
+      border-bottom-style: none;
+      border-color: #000000;
+      border-left-style: none;
+      border-radius: 0px;
+      border-right-style: none;
+      border-top-style: none;
+      border-width: 1px;
+    }
+
+    #rd-section-lv12iglr > div:not(.bricks--row) {
+      min-height: 0px;
+    }
+  
+
+  

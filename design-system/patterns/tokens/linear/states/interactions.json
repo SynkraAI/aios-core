@@ -1,0 +1,1854 @@
+{
+  "url": "https://linear.app",
+  "name": "linear",
+  "timestamp": "2026-04-01T11:40:43.986Z",
+  "totalElements": 50,
+  "elementsWithStates": 35,
+  "interactions": [
+    {
+      "tag": "a",
+      "text": "Skip to content →",
+      "classes": "SkipNav_root__DcHPR",
+      "selector": "a.SkipNav_root__DcHPR",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(94, 106, 210)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "0",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) none 0px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(8, 9, 10) 0px 0px 0px 2px, rgb(94, 106, 210) 0px 0px 0px 4px"
+          },
+          "opacity": {
+            "from": "0",
+            "to": "1"
+          },
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) none 0px",
+            "to": "rgb(94, 106, 210) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(94, 106, 210)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "Header_logoLink__Sgfy4 Link_root__cNtak",
+      "selector": "a.Header_logoLink__Sgfy4.Link_root__cNtak",
+      "baseStyles": {
+        "color": "rgb(247, 248, 248)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(247, 248, 248)",
+        "borderWidth": "0px",
+        "borderRadius": "6px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) none 0px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(8, 9, 10)"
+          },
+          "borderRadius": {
+            "from": "6px",
+            "to": "0px"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(8, 9, 10)"
+          },
+          "borderRadius": {
+            "from": "6px",
+            "to": "0px"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Customers",
+      "classes": "Header_anchor__CTwdv Link_root__cNtak",
+      "selector": "a.Header_anchor__CTwdv.Link_root__cNtak",
+      "baseStyles": {
+        "color": "rgb(138, 143, 152)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(138, 143, 152)",
+        "borderWidth": "0px",
+        "borderRadius": "4px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) none 0px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), background 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          },
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgba(255, 255, 255, 0.08)"
+          },
+          "borderColor": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) none 0px",
+            "to": "rgb(94, 106, 210) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(94, 106, 210)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Pricing",
+      "classes": "Header_anchor__CTwdv Link_root__cNtak",
+      "selector": "a.Header_anchor__CTwdv.Link_root__cNtak",
+      "baseStyles": {
+        "color": "rgb(138, 143, 152)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(138, 143, 152)",
+        "borderWidth": "0px",
+        "borderRadius": "4px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) none 0px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), background 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          },
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgba(255, 255, 255, 0.08)"
+          },
+          "borderColor": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) none 0px",
+            "to": "rgb(94, 106, 210) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(94, 106, 210)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Now",
+      "classes": "Header_anchor__CTwdv Link_root__cNtak",
+      "selector": "a.Header_anchor__CTwdv.Link_root__cNtak",
+      "baseStyles": {
+        "color": "rgb(138, 143, 152)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(138, 143, 152)",
+        "borderWidth": "0px",
+        "borderRadius": "4px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) none 0px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), background 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          },
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgba(255, 255, 255, 0.08)"
+          },
+          "borderColor": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) none 0px",
+            "to": "rgb(94, 106, 210) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(94, 106, 210)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Contact",
+      "classes": "Header_anchor__CTwdv Link_root__cNtak",
+      "selector": "a.Header_anchor__CTwdv.Link_root__cNtak",
+      "baseStyles": {
+        "color": "rgb(138, 143, 152)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(138, 143, 152)",
+        "borderWidth": "0px",
+        "borderRadius": "4px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) none 0px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), background 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          },
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgba(255, 255, 255, 0.08)"
+          },
+          "borderColor": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) none 0px",
+            "to": "rgb(94, 106, 210) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(94, 106, 210)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Log in",
+      "classes": "Header_anchor__CTwdv Link_root__cNtak",
+      "selector": "a.Header_anchor__CTwdv.Link_root__cNtak",
+      "baseStyles": {
+        "color": "rgb(138, 143, 152)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(138, 143, 152)",
+        "borderWidth": "0px",
+        "borderRadius": "4px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) none 0px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), background 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          },
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgba(255, 255, 255, 0.08)"
+          },
+          "borderColor": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) none 0px",
+            "to": "rgb(94, 106, 210) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(94, 106, 210)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Sign up",
+      "classes": "Button_root__Stmhv Button_variant-invert__ECHZN Button_size-small__sjtMt Button_variant__1FJO9 Link_",
+      "selector": "a.Button_root__Stmhv.Button_variant-invert__ECHZN.Button_size-small__sjtMt.Button_variant__1FJO9.Link_root__cNtak",
+      "baseStyles": {
+        "color": "rgb(8, 9, 10)",
+        "backgroundColor": "rgb(230, 230, 230)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(230, 230, 230)",
+        "borderWidth": "1px",
+        "borderRadius": "4px",
+        "boxShadow": "rgba(0, 0, 0, 0) 0px 8px 2px 0px, rgba(0, 0, 0, 0.01) 0px 5px 2px 0px, rgba(0, 0, 0, 0.04) 0px 3px 2px 0px, rgba(0, 0, 0, 0.07) 0px 1px 1px 0px, rgba(0, 0, 0, 0.08) 0px 0px 1px 0px",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) none 0px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "border 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94), background-color 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94), color 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgb(230, 230, 230)",
+            "to": "rgb(255, 255, 255)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) none 0px",
+            "to": "rgb(94, 106, 210) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(94, 106, 210)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "Logos_logosLink__k61eG Link_root__cNtak",
+      "selector": "a.Logos_logosLink__k61eG.Link_root__cNtak",
+      "baseStyles": {
+        "color": "rgb(247, 248, 248)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(247, 248, 248)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) none 0px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(8, 9, 10)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(8, 9, 10)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Advanced filters and share issues in private teams",
+      "classes": "Changelog_link__IM2Ji Link_root__cNtak",
+      "selector": "a.Changelog_link__IM2Ji.Link_root__cNtak",
+      "baseStyles": {
+        "color": "rgb(247, 248, 248)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(247, 248, 248)",
+        "borderWidth": "0px",
+        "borderRadius": "4px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) none 0px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "filter 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(247, 248, 248)",
+            "to": "rgb(208, 214, 224)"
+          },
+          "borderColor": {
+            "from": "rgb(247, 248, 248)",
+            "to": "rgb(208, 214, 224)"
+          },
+          "borderRadius": {
+            "from": "4px",
+            "to": "0px"
+          },
+          "transition": {
+            "from": "filter 0.1s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(247, 248, 248)",
+            "to": "rgb(208, 214, 224)"
+          },
+          "borderColor": {
+            "from": "rgb(247, 248, 248)",
+            "to": "rgb(208, 214, 224)"
+          },
+          "borderRadius": {
+            "from": "4px",
+            "to": "0px"
+          },
+          "transition": {
+            "from": "filter 0.1s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Get started",
+      "classes": "Button_root__Stmhv Button_variant-invert__ECHZN Button_size-default__6r2_r Button_variant__1FJO9 Lin",
+      "selector": "a.Button_root__Stmhv.Button_variant-invert__ECHZN.Button_size-default__6r2_r.Button_variant__1FJO9.Link_root__cNtak",
+      "baseStyles": {
+        "color": "rgb(8, 9, 10)",
+        "backgroundColor": "rgb(230, 230, 230)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(230, 230, 230)",
+        "borderWidth": "1px",
+        "borderRadius": "4px",
+        "boxShadow": "rgba(0, 0, 0, 0) 0px 8px 2px 0px, rgba(0, 0, 0, 0.01) 0px 5px 2px 0px, rgba(0, 0, 0, 0.04) 0px 3px 2px 0px, rgba(0, 0, 0, 0.07) 0px 1px 1px 0px, rgba(0, 0, 0, 0.08) 0px 0px 1px 0px",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) none 0px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "border 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94), background-color 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94), color 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgb(230, 230, 230)",
+            "to": "rgb(255, 255, 255)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) none 0px",
+            "to": "rgb(94, 106, 210) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(94, 106, 210)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Contact sales",
+      "classes": "Button_root__Stmhv Button_variant-secondary__Y2SNH Button_size-default__6r2_r Button_variant__1FJO9 ",
+      "selector": "a.Button_root__Stmhv.Button_variant-secondary__Y2SNH.Button_size-default__6r2_r.Button_variant__1FJO9.Link_root__cNtak",
+      "baseStyles": {
+        "color": "rgb(247, 248, 248)",
+        "backgroundColor": "rgb(40, 40, 44)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(62, 62, 68)",
+        "borderWidth": "1px",
+        "borderRadius": "4px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) none 0px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "border 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94), background-color 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94), color 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "filter": {
+            "from": "none",
+            "to": "brightness(1.25)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) none 0px",
+            "to": "rgb(94, 106, 210) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(94, 106, 210)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "Footer_logoWrapper__9IJLI Link_root__cNtak Link_variant-fade__U2YWc",
+      "selector": "a.Footer_logoWrapper__9IJLI.Link_root__cNtak.Link_variant-fade__U2YWc",
+      "baseStyles": {
+        "color": "rgb(247, 248, 248)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(247, 248, 248)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) none 0px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(8, 9, 10)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "color 0.1s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(8, 9, 10)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "color 0.1s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Intake",
+      "classes": "Footer_sectionLink__yuXh6 Link_root__cNtak Link_variant-dimmed__kvcr0",
+      "selector": "a.Footer_sectionLink__yuXh6.Link_root__cNtak.Link_variant-dimmed__kvcr0",
+      "baseStyles": {
+        "color": "rgb(138, 143, 152)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(138, 143, 152)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) none 0px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "transition": {
+            "from": "color 0.1s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "transition": {
+            "from": "color 0.1s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Plan",
+      "classes": "Footer_sectionLink__yuXh6 Link_root__cNtak Link_variant-dimmed__kvcr0",
+      "selector": "a.Footer_sectionLink__yuXh6.Link_root__cNtak.Link_variant-dimmed__kvcr0",
+      "baseStyles": {
+        "color": "rgb(138, 143, 152)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(138, 143, 152)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) none 0px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "transition": {
+            "from": "color 0.1s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "transition": {
+            "from": "color 0.1s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Build",
+      "classes": "Footer_sectionLink__yuXh6 Link_root__cNtak Link_variant-dimmed__kvcr0",
+      "selector": "a.Footer_sectionLink__yuXh6.Link_root__cNtak.Link_variant-dimmed__kvcr0",
+      "baseStyles": {
+        "color": "rgb(138, 143, 152)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(138, 143, 152)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) none 0px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "transition": {
+            "from": "color 0.1s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "transition": {
+            "from": "color 0.1s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Diffs",
+      "classes": "Footer_sectionLink__yuXh6 Link_root__cNtak Link_variant-dimmed__kvcr0",
+      "selector": "a.Footer_sectionLink__yuXh6.Link_root__cNtak.Link_variant-dimmed__kvcr0",
+      "baseStyles": {
+        "color": "rgb(138, 143, 152)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(138, 143, 152)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) none 0px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          },
+          "borderColor": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) none 0px",
+            "to": "rgb(94, 106, 210) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(94, 106, 210)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Monitor",
+      "classes": "Footer_sectionLink__yuXh6 Link_root__cNtak Link_variant-dimmed__kvcr0",
+      "selector": "a.Footer_sectionLink__yuXh6.Link_root__cNtak.Link_variant-dimmed__kvcr0",
+      "baseStyles": {
+        "color": "rgb(138, 143, 152)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(138, 143, 152)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) none 0px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "transition": {
+            "from": "color 0.1s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "transition": {
+            "from": "color 0.1s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Pricing",
+      "classes": "Footer_sectionLink__yuXh6 Link_root__cNtak Link_variant-dimmed__kvcr0",
+      "selector": "a.Footer_sectionLink__yuXh6.Link_root__cNtak.Link_variant-dimmed__kvcr0",
+      "baseStyles": {
+        "color": "rgb(138, 143, 152)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(138, 143, 152)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) none 0px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          },
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgba(255, 255, 255, 0.08)"
+          },
+          "borderColor": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          },
+          "borderRadius": {
+            "from": "0px",
+            "to": "4px"
+          },
+          "transition": {
+            "from": "color 0.1s",
+            "to": "color 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), background 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "0px",
+            "to": "4px"
+          },
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) none 0px",
+            "to": "rgb(94, 106, 210) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(94, 106, 210)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          },
+          "transition": {
+            "from": "color 0.1s",
+            "to": "color 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), background 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Security",
+      "classes": "Footer_sectionLink__yuXh6 Link_root__cNtak Link_variant-dimmed__kvcr0",
+      "selector": "a.Footer_sectionLink__yuXh6.Link_root__cNtak.Link_variant-dimmed__kvcr0",
+      "baseStyles": {
+        "color": "rgb(138, 143, 152)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(138, 143, 152)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) none 0px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          },
+          "borderColor": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) none 0px",
+            "to": "rgb(94, 106, 210) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(94, 106, 210)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Asks",
+      "classes": "Footer_sectionLink__yuXh6 Link_root__cNtak Link_variant-dimmed__kvcr0",
+      "selector": "a.Footer_sectionLink__yuXh6.Link_root__cNtak.Link_variant-dimmed__kvcr0",
+      "baseStyles": {
+        "color": "rgb(138, 143, 152)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(138, 143, 152)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) none 0px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          },
+          "borderColor": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) none 0px",
+            "to": "rgb(94, 106, 210) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(94, 106, 210)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Agents",
+      "classes": "Footer_sectionLink__yuXh6 Link_root__cNtak Link_variant-dimmed__kvcr0",
+      "selector": "a.Footer_sectionLink__yuXh6.Link_root__cNtak.Link_variant-dimmed__kvcr0",
+      "baseStyles": {
+        "color": "rgb(138, 143, 152)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(138, 143, 152)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) none 0px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "transition": {
+            "from": "color 0.1s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "transition": {
+            "from": "color 0.1s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Customer Requests",
+      "classes": "Footer_sectionLink__yuXh6 Link_root__cNtak Link_variant-dimmed__kvcr0",
+      "selector": "a.Footer_sectionLink__yuXh6.Link_root__cNtak.Link_variant-dimmed__kvcr0",
+      "baseStyles": {
+        "color": "rgb(138, 143, 152)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(138, 143, 152)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) none 0px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "transition": {
+            "from": "color 0.1s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "transition": {
+            "from": "color 0.1s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Insights",
+      "classes": "Footer_sectionLink__yuXh6 Link_root__cNtak Link_variant-dimmed__kvcr0",
+      "selector": "a.Footer_sectionLink__yuXh6.Link_root__cNtak.Link_variant-dimmed__kvcr0",
+      "baseStyles": {
+        "color": "rgb(138, 143, 152)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(138, 143, 152)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) none 0px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "transition": {
+            "from": "color 0.1s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "transition": {
+            "from": "color 0.1s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Mobile",
+      "classes": "Footer_sectionLink__yuXh6 Link_root__cNtak Link_variant-dimmed__kvcr0",
+      "selector": "a.Footer_sectionLink__yuXh6.Link_root__cNtak.Link_variant-dimmed__kvcr0",
+      "baseStyles": {
+        "color": "rgb(138, 143, 152)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(138, 143, 152)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) none 0px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          },
+          "borderColor": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) none 0px",
+            "to": "rgb(94, 106, 210) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(94, 106, 210)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Integrations",
+      "classes": "Footer_sectionLink__yuXh6 Link_root__cNtak Link_variant-dimmed__kvcr0",
+      "selector": "a.Footer_sectionLink__yuXh6.Link_root__cNtak.Link_variant-dimmed__kvcr0",
+      "baseStyles": {
+        "color": "rgb(138, 143, 152)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(138, 143, 152)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) none 0px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          },
+          "borderColor": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) none 0px",
+            "to": "rgb(94, 106, 210) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(94, 106, 210)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Changelog",
+      "classes": "Footer_sectionLink__yuXh6 Link_root__cNtak Link_variant-dimmed__kvcr0",
+      "selector": "a.Footer_sectionLink__yuXh6.Link_root__cNtak.Link_variant-dimmed__kvcr0",
+      "baseStyles": {
+        "color": "rgb(138, 143, 152)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(138, 143, 152)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) none 0px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          },
+          "borderColor": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "color 0.1s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          },
+          "borderColor": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "color 0.1s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "About",
+      "classes": "Footer_sectionLink__yuXh6 Link_root__cNtak Link_variant-dimmed__kvcr0",
+      "selector": "a.Footer_sectionLink__yuXh6.Link_root__cNtak.Link_variant-dimmed__kvcr0",
+      "baseStyles": {
+        "color": "rgb(138, 143, 152)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(138, 143, 152)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) none 0px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          },
+          "borderColor": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) none 0px",
+            "to": "rgb(94, 106, 210) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(94, 106, 210)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Customers",
+      "classes": "Footer_sectionLink__yuXh6 Link_root__cNtak Link_variant-dimmed__kvcr0",
+      "selector": "a.Footer_sectionLink__yuXh6.Link_root__cNtak.Link_variant-dimmed__kvcr0",
+      "baseStyles": {
+        "color": "rgb(138, 143, 152)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(138, 143, 152)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) none 0px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          },
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgba(255, 255, 255, 0.08)"
+          },
+          "borderColor": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          },
+          "borderRadius": {
+            "from": "0px",
+            "to": "4px"
+          },
+          "transition": {
+            "from": "color 0.1s",
+            "to": "color 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), background 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "0px",
+            "to": "4px"
+          },
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) none 0px",
+            "to": "rgb(94, 106, 210) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(94, 106, 210)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          },
+          "transition": {
+            "from": "color 0.1s",
+            "to": "color 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), background 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Careers",
+      "classes": "Footer_sectionLink__yuXh6 Link_root__cNtak Link_variant-dimmed__kvcr0",
+      "selector": "a.Footer_sectionLink__yuXh6.Link_root__cNtak.Link_variant-dimmed__kvcr0",
+      "baseStyles": {
+        "color": "rgb(138, 143, 152)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(138, 143, 152)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) none 0px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          },
+          "borderColor": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) none 0px",
+            "to": "rgb(94, 106, 210) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(94, 106, 210)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Blog",
+      "classes": "Footer_sectionLink__yuXh6 Link_root__cNtak Link_variant-dimmed__kvcr0",
+      "selector": "a.Footer_sectionLink__yuXh6.Link_root__cNtak.Link_variant-dimmed__kvcr0",
+      "baseStyles": {
+        "color": "rgb(138, 143, 152)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(138, 143, 152)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) none 0px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          },
+          "borderColor": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) none 0px",
+            "to": "rgb(94, 106, 210) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(94, 106, 210)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Method",
+      "classes": "Footer_sectionLink__yuXh6 Link_root__cNtak Link_variant-dimmed__kvcr0",
+      "selector": "a.Footer_sectionLink__yuXh6.Link_root__cNtak.Link_variant-dimmed__kvcr0",
+      "baseStyles": {
+        "color": "rgb(138, 143, 152)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(138, 143, 152)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) none 0px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          },
+          "borderColor": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) none 0px",
+            "to": "rgb(94, 106, 210) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(94, 106, 210)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Quality",
+      "classes": "Footer_sectionLink__yuXh6 Link_root__cNtak Link_variant-dimmed__kvcr0",
+      "selector": "a.Footer_sectionLink__yuXh6.Link_root__cNtak.Link_variant-dimmed__kvcr0",
+      "baseStyles": {
+        "color": "rgb(138, 143, 152)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(138, 143, 152)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) none 0px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          },
+          "borderColor": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) none 0px",
+            "to": "rgb(94, 106, 210) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(94, 106, 210)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Brand",
+      "classes": "Footer_sectionLink__yuXh6 Link_root__cNtak Link_variant-dimmed__kvcr0",
+      "selector": "a.Footer_sectionLink__yuXh6.Link_root__cNtak.Link_variant-dimmed__kvcr0",
+      "baseStyles": {
+        "color": "rgb(138, 143, 152)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(138, 143, 152)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) none 0px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          },
+          "borderColor": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) none 0px",
+            "to": "rgb(94, 106, 210) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(94, 106, 210)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Switch",
+      "classes": "Footer_sectionLink__yuXh6 Link_root__cNtak Link_variant-dimmed__kvcr0",
+      "selector": "a.Footer_sectionLink__yuXh6.Link_root__cNtak.Link_variant-dimmed__kvcr0",
+      "baseStyles": {
+        "color": "rgb(138, 143, 152)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(138, 143, 152)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) none 0px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          },
+          "borderColor": {
+            "from": "rgb(138, 143, 152)",
+            "to": "rgb(247, 248, 248)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) none 0px",
+            "to": "rgb(94, 106, 210) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(94, 106, 210)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    }
+  ]
+}

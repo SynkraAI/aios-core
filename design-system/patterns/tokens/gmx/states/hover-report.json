@@ -1,0 +1,388 @@
+{
+  "url": "https://gmxdigital.com",
+  "name": "gmx",
+  "captured_at": "2026-04-01T12:55:41.728Z",
+  "elements": [
+    {
+      "type": "button",
+      "index": 0,
+      "text": "EN",
+      "tag": "a",
+      "classes": "gmx-btn-nav lang-switch",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgba(0, 242, 254, 0.4)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "0.9",
+        "borderRadius": "50px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(0, 242, 254, 0.08)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgba(0, 242, 254, 1)",
+        "boxShadow": "rgba(0, 242, 254, 0.25) 0px 0px 24px 0px, rgba(0, 242, 254, 0.08) 0px 0px 59.9999px 0px",
+        "transform": "matrix(1, 0, 0, 1, -0.401641, 0)",
+        "opacity": "1",
+        "borderRadius": "50px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgba(0, 0, 0, 0)",
+          "to": "rgba(0, 242, 254, 0.08)"
+        },
+        "borderColor": {
+          "from": "rgba(0, 242, 254, 0.4)",
+          "to": "rgba(0, 242, 254, 1)"
+        },
+        "boxShadow": {
+          "from": "none",
+          "to": "rgba(0, 242, 254, 0.25) 0px 0px 24px 0px, rgba(0, 242, 254, 0.08) 0px 0px 59.9999px 0px"
+        },
+        "transform": {
+          "from": "none",
+          "to": "matrix(1, 0, 0, 1, -0.401641, 0)"
+        },
+        "opacity": {
+          "from": "0.9",
+          "to": "1"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-0-default.png",
+        "hover": "btn-0-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 1,
+      "text": "INICIAR PROJETO",
+      "tag": "a",
+      "classes": "gmx-btn-nav scroll-link header-desktop-only",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgba(255, 255, 255, 0.08)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "50px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(255, 255, 255, 0.9)",
+        "color": "rgb(25, 25, 25)",
+        "borderColor": "rgba(255, 255, 255, 0.91)",
+        "boxShadow": "rgba(0, 242, 254, 0.227) 0px 0px 21.6332px 0px, rgba(0, 242, 254, 0.07) 0px 0px 54.083px 0px",
+        "transform": "matrix(1, 0, 0, 1, -0.317492, 0)",
+        "opacity": "1",
+        "borderRadius": "50px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgba(0, 0, 0, 0)",
+          "to": "rgba(255, 255, 255, 0.9)"
+        },
+        "color": {
+          "from": "rgb(255, 255, 255)",
+          "to": "rgb(25, 25, 25)"
+        },
+        "borderColor": {
+          "from": "rgba(255, 255, 255, 0.08)",
+          "to": "rgba(255, 255, 255, 0.91)"
+        },
+        "boxShadow": {
+          "from": "none",
+          "to": "rgba(0, 242, 254, 0.227) 0px 0px 21.6332px 0px, rgba(0, 242, 254, 0.07) 0px 0px 54.083px 0px"
+        },
+        "transform": {
+          "from": "none",
+          "to": "matrix(1, 0, 0, 1, -0.317492, 0)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-1-default.png",
+        "hover": "btn-1-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 2,
+      "text": "FALE CONOSCO",
+      "tag": "a",
+      "classes": "gmx-btn-nav header-desktop-only",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgba(255, 255, 255, 0.08)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "50px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(255, 255, 255, 0.973)",
+        "color": "rgb(7, 7, 7)",
+        "borderColor": "rgba(255, 255, 255, 0.976)",
+        "boxShadow": "rgba(0, 242, 254, 0.243) 0px 0px 23.3619px 0px, rgba(0, 242, 254, 0.075) 0px 0px 58.4048px 0px",
+        "transform": "matrix(1, 0, 0, 1, -0.134953, 0)",
+        "opacity": "1",
+        "borderRadius": "50px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgba(0, 0, 0, 0)",
+          "to": "rgba(255, 255, 255, 0.973)"
+        },
+        "color": {
+          "from": "rgb(255, 255, 255)",
+          "to": "rgb(7, 7, 7)"
+        },
+        "borderColor": {
+          "from": "rgba(255, 255, 255, 0.08)",
+          "to": "rgba(255, 255, 255, 0.976)"
+        },
+        "boxShadow": {
+          "from": "none",
+          "to": "rgba(0, 242, 254, 0.243) 0px 0px 23.3619px 0px, rgba(0, 242, 254, 0.075) 0px 0px 58.4048px 0px"
+        },
+        "transform": {
+          "from": "none",
+          "to": "matrix(1, 0, 0, 1, -0.134953, 0)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-2-default.png",
+        "hover": "btn-2-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 5,
+      "text": "EXPERIÊNCIA IMERSIVA • WEB DESIGN\n                ",
+      "tag": "div",
+      "classes": "bento-card featured reveal-up gmx-click-card",
+      "defaultStyles": {
+        "background": "rgba(255, 255, 255, 0.6)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgba(255, 255, 255, 0.6)",
+        "boxShadow": "rgba(0, 0, 0, 0.06) 0px 8px 32px 0px, rgba(255, 255, 255, 0.8) 0px 1px 0px 0px inset, rgba(0, 0, 0, 0.02) 0px -1px 0px 0px inset",
+        "transform": "matrix(0.96, 0, 0, 0.96, 0, 0)",
+        "opacity": "1",
+        "borderRadius": "20px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(255, 255, 255, 0.6)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgba(255, 255, 255, 0)",
+        "boxShadow": "rgba(0, 0, 0, 0.08) 0px 19.9653px 49.9479px 0px, rgba(255, 255, 255, 0.9) 0px 1px 0px 0px inset, rgba(0, 0, 0, 0) 0px -0.00289313px 0px 0px inset",
+        "transform": "matrix(1, 0, 0, 1, 0, 42.364)",
+        "opacity": "1",
+        "borderRadius": "20px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "borderColor": {
+          "from": "rgba(255, 255, 255, 0.6)",
+          "to": "rgba(255, 255, 255, 0)"
+        },
+        "boxShadow": {
+          "from": "rgba(0, 0, 0, 0.06) 0px 8px 32px 0px, rgba(255, 255, 255, 0.8) 0px 1px 0px 0px inset, rgba(0, 0, 0, 0.02) 0px -1px 0px 0px inset",
+          "to": "rgba(0, 0, 0, 0.08) 0px 19.9653px 49.9479px 0px, rgba(255, 255, 255, 0.9) 0px 1px 0px 0px inset, rgba(0, 0, 0, 0) 0px -0.00289313px 0px 0px inset"
+        },
+        "transform": {
+          "from": "matrix(0.96, 0, 0, 0.96, 0, 0)",
+          "to": "matrix(1, 0, 0, 1, 0, 42.364)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-5-default.png",
+        "hover": "btn-5-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 6,
+      "text": "IDENTIDADE VISUAL • BRAND SYSTEM\n                +",
+      "tag": "div",
+      "classes": "bento-card reveal-up gmx-click-card",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgba(255, 255, 255, 0.6)",
+        "boxShadow": "rgba(0, 0, 0, 0.06) 0px 8px 32px 0px, rgba(255, 255, 255, 0.8) 0px 1px 0px 0px inset, rgba(0, 0, 0, 0.02) 0px -1px 0px 0px inset",
+        "transform": "matrix(1, 0, 0, 1, 0, 38.0857)",
+        "opacity": "1",
+        "borderRadius": "20px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgba(255, 255, 255, 0.035)",
+        "boxShadow": "rgba(0, 0, 0, 0.08) 0px 19.2793px 48.9189px 0px, rgba(255, 255, 255, 0.894) 0px 1px 0px 0px inset, rgba(0, 0, 0, 0) 0px -0.0600594px 0px 0px inset",
+        "transform": "matrix(1, 0, 0, 1, 0, 31.2401)",
+        "opacity": "1",
+        "borderRadius": "20px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "borderColor": {
+          "from": "rgba(255, 255, 255, 0.6)",
+          "to": "rgba(255, 255, 255, 0.035)"
+        },
+        "boxShadow": {
+          "from": "rgba(0, 0, 0, 0.06) 0px 8px 32px 0px, rgba(255, 255, 255, 0.8) 0px 1px 0px 0px inset, rgba(0, 0, 0, 0.02) 0px -1px 0px 0px inset",
+          "to": "rgba(0, 0, 0, 0.08) 0px 19.2793px 48.9189px 0px, rgba(255, 255, 255, 0.894) 0px 1px 0px 0px inset, rgba(0, 0, 0, 0) 0px -0.0600594px 0px 0px inset"
+        },
+        "transform": {
+          "from": "matrix(1, 0, 0, 1, 0, 38.0857)",
+          "to": "matrix(1, 0, 0, 1, 0, 31.2401)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-6-default.png",
+        "hover": "btn-6-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 7,
+      "text": "UI/UX • PERFORMANCE\n                +\n            ",
+      "tag": "div",
+      "classes": "bento-card reveal-up gmx-click-card",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgba(255, 255, 255, 0.6)",
+        "boxShadow": "rgba(0, 0, 0, 0.06) 0px 8px 32px 0px, rgba(255, 255, 255, 0.8) 0px 1px 0px 0px inset, rgba(0, 0, 0, 0.02) 0px -1px 0px 0px inset",
+        "transform": "matrix(1, 0, 0, 1, 0, 33.476)",
+        "opacity": "1",
+        "borderRadius": "20px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgba(255, 255, 255, 0.027)",
+        "boxShadow": "rgba(0, 0, 0, 0.08) 0px 19.4315px 49.1472px 0px, rgba(255, 255, 255, 0.898) 0px 1px 0px 0px inset, rgba(0, 0, 0, 0) 0px -0.0473771px 0px 0px inset",
+        "transform": "matrix(1, 0, 0, 1, 0, 33.476)",
+        "opacity": "1",
+        "borderRadius": "20px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "borderColor": {
+          "from": "rgba(255, 255, 255, 0.6)",
+          "to": "rgba(255, 255, 255, 0.027)"
+        },
+        "boxShadow": {
+          "from": "rgba(0, 0, 0, 0.06) 0px 8px 32px 0px, rgba(255, 255, 255, 0.8) 0px 1px 0px 0px inset, rgba(0, 0, 0, 0.02) 0px -1px 0px 0px inset",
+          "to": "rgba(0, 0, 0, 0.08) 0px 19.4315px 49.1472px 0px, rgba(255, 255, 255, 0.898) 0px 1px 0px 0px inset, rgba(0, 0, 0, 0) 0px -0.0473771px 0px 0px inset"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-7-default.png",
+        "hover": "btn-7-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 3,
+      "text": "INÍCIO",
+      "defaultStyles": {
+        "color": "rgb(255, 255, 255)",
+        "textDecoration": "none",
+        "opacity": "0",
+        "transform": "matrix(1, 0, 0, 1, 0, 20)"
+      },
+      "hoverStyles": {
+        "color": "rgb(0, 242, 254)",
+        "textDecoration": "none",
+        "opacity": "0",
+        "transform": "matrix(1, 0, 0, 1, 0, 20)"
+      },
+      "diffs": {
+        "color": {
+          "from": "rgb(255, 255, 255)",
+          "to": "rgb(0, 242, 254)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "link-3-default.png",
+        "hover": "link-3-hover.png"
+      }
+    },
+    {
+      "type": "card",
+      "index": 1,
+      "defaultStyles": {
+        "boxShadow": "none",
+        "transform": "none",
+        "borderColor": "rgb(17, 17, 17)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "hoverStyles": {
+        "boxShadow": "none",
+        "transform": "none",
+        "borderColor": "rgb(17, 17, 17)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "card-1-default.png",
+        "hover": "card-1-hover.png"
+      }
+    },
+    {
+      "type": "card",
+      "index": 2,
+      "defaultStyles": {
+        "boxShadow": "rgba(0, 0, 0, 0.06) 0px 8px 32px 0px, rgba(255, 255, 255, 0.8) 0px 1px 0px 0px inset, rgba(0, 0, 0, 0.02) 0px -1px 0px 0px inset",
+        "transform": "matrix(1, 0, 0, 1, 0, 45.8542)",
+        "borderColor": "rgba(255, 255, 255, 0.6)",
+        "background": "rgba(255, 255, 255, 0.6)"
+      },
+      "hoverStyles": {
+        "boxShadow": "rgba(0, 0, 0, 0.08) 0px 19.8557px 49.7835px 0px, rgba(255, 255, 255, 0.9) 0px 1px 0px 0px inset, rgba(0, 0, 0, 0) 0px -0.0120262px 0px 0px inset",
+        "transform": "matrix(1, 0, 0, 1, 0, 41.2032)",
+        "borderColor": "rgba(255, 255, 255, 0.008)",
+        "background": "rgba(255, 255, 255, 0.6)"
+      },
+      "diffs": {
+        "boxShadow": {
+          "from": "rgba(0, 0, 0, 0.06) 0px 8px 32px 0px, rgba(255, 255, 255, 0.8) 0px 1px 0px 0px inset, rgba(0, 0, 0, 0.02) 0px -1px 0px 0px inset",
+          "to": "rgba(0, 0, 0, 0.08) 0px 19.8557px 49.7835px 0px, rgba(255, 255, 255, 0.9) 0px 1px 0px 0px inset, rgba(0, 0, 0, 0) 0px -0.0120262px 0px 0px inset"
+        },
+        "transform": {
+          "from": "matrix(1, 0, 0, 1, 0, 45.8542)",
+          "to": "matrix(1, 0, 0, 1, 0, 41.2032)"
+        },
+        "borderColor": {
+          "from": "rgba(255, 255, 255, 0.6)",
+          "to": "rgba(255, 255, 255, 0.008)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "card-2-default.png",
+        "hover": "card-2-hover.png"
+      }
+    }
+  ]
+}

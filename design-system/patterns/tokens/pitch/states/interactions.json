@@ -1,0 +1,594 @@
+{
+  "url": "https://pitch.com",
+  "name": "pitch",
+  "timestamp": "2026-04-01T12:00:15.087Z",
+  "totalElements": 50,
+  "elementsWithStates": 11,
+  "interactions": [
+    {
+      "tag": "a",
+      "text": "See what’s new",
+      "classes": "style_readMoreLink__v_MwY style_readMore__T4JIH",
+      "selector": "a.style_readMoreLink__v_MwY.style_readMore__T4JIH",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(0, 0, 0)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.5s ease-out",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "transition": {
+            "from": "color 0.5s ease-out",
+            "to": "background-position 0.5s ease-out"
+          }
+        },
+        "focus": {
+          "transition": {
+            "from": "color 0.5s ease-out",
+            "to": "background-position 0.5s ease-out"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Log in",
+      "classes": "style_button__yXCPf style_transparent__qvMU6 style_signIn__XuZZ_ style_navButton__4OnCu",
+      "selector": "a.style_button__yXCPf.style_transparent__qvMU6.style_signIn__XuZZ_.style_navButton__4OnCu",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "6px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "borderRadius": {
+            "from": "6px",
+            "to": "0px"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "6px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Sign up",
+      "classes": "style_button__yXCPf style_light__bvLRB style_navButton__4OnCu",
+      "selector": "a.style_button__yXCPf.style_light__bvLRB.style_navButton__4OnCu",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "6px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "backgroundImage": {
+            "from": "none",
+            "to": "linear-gradient(90deg, rgb(141, 73, 247), rgb(107, 83, 255))"
+          },
+          "borderColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "6px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgba(0, 0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "backgroundImage": {
+            "from": "none",
+            "to": "linear-gradient(90deg, rgb(141, 73, 247), rgb(107, 83, 255))"
+          },
+          "borderColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "6px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgba(0, 0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Product",
+      "classes": "style_link__BxPOs",
+      "selector": "a.style_link__BxPOs",
+      "baseStyles": {
+        "color": "rgba(255, 255, 255, 0.8)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "linear-gradient(90deg, rgb(255, 255, 255), rgb(255, 255, 255), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8))",
+        "borderColor": "rgba(255, 255, 255, 0.8)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(255, 255, 255, 0.8) none 0px",
+        "outlineColor": "rgba(255, 255, 255, 0.8)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "background 0.12s ease-in-out",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgba(255, 255, 255, 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderColor": {
+            "from": "rgba(255, 255, 255, 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "outline": {
+            "from": "rgba(255, 255, 255, 0.8) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgba(255, 255, 255, 0.8)",
+            "to": "rgb(255, 255, 255)"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Use Cases",
+      "classes": "style_link__BxPOs",
+      "selector": "a.style_link__BxPOs",
+      "baseStyles": {
+        "color": "rgba(255, 255, 255, 0.8)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "linear-gradient(90deg, rgb(255, 255, 255), rgb(255, 255, 255), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8))",
+        "borderColor": "rgba(255, 255, 255, 0.8)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(255, 255, 255, 0.8) none 0px",
+        "outlineColor": "rgba(255, 255, 255, 0.8)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "background 0.12s ease-in-out",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgba(255, 255, 255, 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderColor": {
+            "from": "rgba(255, 255, 255, 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "outline": {
+            "from": "rgba(255, 255, 255, 0.8) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgba(255, 255, 255, 0.8)",
+            "to": "rgb(255, 255, 255)"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Templates",
+      "classes": "style_link__BxPOs",
+      "selector": "a.style_link__BxPOs",
+      "baseStyles": {
+        "color": "rgba(255, 255, 255, 0.8)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "linear-gradient(90deg, rgb(255, 255, 255), rgb(255, 255, 255), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8))",
+        "borderColor": "rgba(255, 255, 255, 0.8)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(255, 255, 255, 0.8) none 0px",
+        "outlineColor": "rgba(255, 255, 255, 0.8)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "background 0.12s ease-in-out",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgba(255, 255, 255, 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderColor": {
+            "from": "rgba(255, 255, 255, 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "outline": {
+            "from": "rgba(255, 255, 255, 0.8) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgba(255, 255, 255, 0.8)",
+            "to": "rgb(255, 255, 255)"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Resources",
+      "classes": "style_link__BxPOs",
+      "selector": "a.style_link__BxPOs",
+      "baseStyles": {
+        "color": "rgba(255, 255, 255, 0.8)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "linear-gradient(90deg, rgb(255, 255, 255), rgb(255, 255, 255), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8))",
+        "borderColor": "rgba(255, 255, 255, 0.8)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(255, 255, 255, 0.8) none 0px",
+        "outlineColor": "rgba(255, 255, 255, 0.8)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "background 0.12s ease-in-out",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgba(255, 255, 255, 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderColor": {
+            "from": "rgba(255, 255, 255, 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "outline": {
+            "from": "rgba(255, 255, 255, 0.8) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgba(255, 255, 255, 0.8)",
+            "to": "rgb(255, 255, 255)"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Pricing",
+      "classes": "style_link__BxPOs",
+      "selector": "a.style_link__BxPOs",
+      "baseStyles": {
+        "color": "rgba(255, 255, 255, 0.8)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "linear-gradient(90deg, rgb(255, 255, 255), rgb(255, 255, 255), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8))",
+        "borderColor": "rgba(255, 255, 255, 0.8)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(255, 255, 255, 0.8) none 0px",
+        "outlineColor": "rgba(255, 255, 255, 0.8)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "background 0.12s ease-in-out",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgba(255, 255, 255, 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderColor": {
+            "from": "rgba(255, 255, 255, 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "outline": {
+            "from": "rgba(255, 255, 255, 0.8) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgba(255, 255, 255, 0.8)",
+            "to": "rgb(255, 255, 255)"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Sign up for free",
+      "classes": "style_button__yXCPf style_hero__sdInm style_light__bvLRB",
+      "selector": "a.style_button__yXCPf.style_hero__sdInm.style_light__bvLRB",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "6px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "backgroundImage": {
+            "from": "none",
+            "to": "linear-gradient(90deg, rgb(141, 73, 247), rgb(107, 83, 255))"
+          },
+          "borderColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "6px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgba(0, 0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "backgroundImage": {
+            "from": "none",
+            "to": "linear-gradient(90deg, rgb(141, 73, 247), rgb(107, 83, 255))"
+          },
+          "borderColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "6px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgba(0, 0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Get a demo",
+      "classes": "style_button__yXCPf style_hero__sdInm style_transparent__qvMU6",
+      "selector": "a.style_button__yXCPf.style_hero__sdInm.style_transparent__qvMU6",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "6px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "borderRadius": {
+            "from": "6px",
+            "to": "0px"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "6px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Explore the templates gallery",
+      "classes": "style_readMoreLink__v_MwY style_blue__hJGGX style_spacing__0RY1y style_top-extra-small__niX3S style_",
+      "selector": "a.style_readMoreLink__v_MwY.style_blue__hJGGX.style_spacing__0RY1y.style_top-extra-small__niX3S.style_bottom-large__aTCXD",
+      "baseStyles": {
+        "color": "rgb(141, 73, 247)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(141, 73, 247)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(141, 73, 247) none 0px",
+        "outlineColor": "rgb(141, 73, 247)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.5s ease-out",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(141, 73, 247)",
+            "to": "rgb(114, 81, 253)"
+          },
+          "backgroundImage": {
+            "from": "none",
+            "to": "linear-gradient(90deg, rgb(141, 73, 247), rgb(107, 83, 255), rgb(141, 73, 247))"
+          },
+          "borderColor": {
+            "from": "rgb(141, 73, 247)",
+            "to": "rgb(114, 81, 253)"
+          },
+          "outline": {
+            "from": "rgb(141, 73, 247) none 0px",
+            "to": "rgb(114, 81, 253) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(141, 73, 247)",
+            "to": "rgb(114, 81, 253)"
+          },
+          "transition": {
+            "from": "color 0.5s ease-out",
+            "to": "background-position 0.5s ease-out"
+          }
+        },
+        "focus": {
+          "backgroundImage": {
+            "from": "none",
+            "to": "linear-gradient(90deg, rgb(141, 73, 247), rgb(107, 83, 255), rgb(141, 73, 247))"
+          },
+          "transition": {
+            "from": "color 0.5s ease-out",
+            "to": "background-position 0.5s ease-out"
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "url": "https://webflow.com",
+  "name": "webflow",
+  "captured_at": "2026-04-01T14:11:36.693Z",
+  "elements": [
+    {
+      "type": "button",
+      "index": 1,
+      "text": "Platform→",
+      "tag": "button",
+      "classes": "nav-link cc-dropdown-btn cc-js",
+      "defaultStyles": {
+        "background": "rgba(255, 255, 255, 0)",
+        "color": "rgb(8, 8, 8)",
+        "borderColor": "rgb(8, 8, 8) rgb(8, 8, 8) rgba(0, 0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(255, 255, 255, 0)",
+        "color": "color(srgb 0.0745341 0.399346 0.886564)",
+        "borderColor": "color(srgb 0.0745341 0.399346 0.886564) color(srgb 0.0745341 0.399346 0.886564) rgba(0, 0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "color": {
+          "from": "rgb(8, 8, 8)",
+          "to": "color(srgb 0.0745341 0.399346 0.886564)"
+        },
+        "borderColor": {
+          "from": "rgb(8, 8, 8) rgb(8, 8, 8) rgba(0, 0, 0, 0)",
+          "to": "color(srgb 0.0745341 0.399346 0.886564) color(srgb 0.0745341 0.399346 0.886564) rgba(0, 0, 0, 0)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-1-default.png",
+        "hover": "btn-1-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 7,
+      "text": "Solutions→",
+      "tag": "button",
+      "classes": "nav-link cc-dropdown-btn cc-js",
+      "defaultStyles": {
+        "background": "rgba(255, 255, 255, 0)",
+        "color": "rgb(8, 8, 8)",
+        "borderColor": "rgb(8, 8, 8) rgb(8, 8, 8) rgba(0, 0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(255, 255, 255, 0)",
+        "color": "color(srgb 0.0745341 0.399346 0.886564)",
+        "borderColor": "color(srgb 0.0745341 0.399346 0.886564) color(srgb 0.0745341 0.399346 0.886564) rgba(0, 0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "color": {
+          "from": "rgb(8, 8, 8)",
+          "to": "color(srgb 0.0745341 0.399346 0.886564)"
+        },
+        "borderColor": {
+          "from": "rgb(8, 8, 8) rgb(8, 8, 8) rgba(0, 0, 0, 0)",
+          "to": "color(srgb 0.0745341 0.399346 0.886564) color(srgb 0.0745341 0.399346 0.886564) rgba(0, 0, 0, 0)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-7-default.png",
+        "hover": "btn-7-hover.png"
+      }
+    }
+  ]
+}

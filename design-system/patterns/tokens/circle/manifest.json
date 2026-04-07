@@ -1,0 +1,775 @@
+{
+  "version": "1.0.0",
+  "name": "circle",
+  "source": "https://circle.so",
+  "timestamp": "2026-04-01T12:02:46.052Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "output": "/Users/luizfosc/aios-core/design-system/patterns/tokens/circle",
+  "files": {
+    "html": {
+      "file": "source.html",
+      "size": 1654657
+    },
+    "screenshots": [
+      "screenshot-desktop.png",
+      "screenshot-mobile.png"
+    ],
+    "stylesheets": [
+      {
+        "url": "https://circle.so/_next/static/chunks/d8f7d0dd8e40b338.css",
+        "file": "d8f7d0dd8e40b338.css",
+        "size": 3603
+      },
+      {
+        "url": "https://circle.so/_next/static/chunks/d9a1b4ec6cdcb470.css",
+        "file": "d9a1b4ec6cdcb470.css",
+        "size": 229119
+      },
+      {
+        "url": "https://circle.so/_next/static/chunks/e1a70e6732944bf5.css",
+        "file": "e1a70e6732944bf5.css",
+        "size": 224885
+      },
+      {
+        "url": "https://circle.so/_next/static/chunks/fa7fa258de75f0d1.css",
+        "file": "fa7fa258de75f0d1.css",
+        "size": 11957
+      },
+      {
+        "url": "https://circle.so/_next/static/chunks/5b33c6ddf6f8af17.css",
+        "file": "5b33c6ddf6f8af17.css",
+        "size": 2109
+      },
+      {
+        "url": "https://circle.so/_next/static/chunks/3ef18760881bc6e9.css",
+        "file": "3ef18760881bc6e9.css",
+        "size": 47625
+      },
+      {
+        "url": "https://circle.so/_next/static/chunks/fd3c2ec05bb1746c.css",
+        "file": "fd3c2ec05bb1746c.css",
+        "size": 35739
+      },
+      {
+        "url": "https://circle.so/_next/static/chunks/65099679b754aa82.css",
+        "file": "65099679b754aa82.css",
+        "size": 10000
+      },
+      {
+        "url": "https://circle.so/_next/static/chunks/13f8fa7dc1504af6.css",
+        "file": "13f8fa7dc1504af6.css",
+        "size": 1297
+      },
+      {
+        "embedded": true,
+        "file": "embedded-0.css",
+        "size": 933
+      },
+      {
+        "embedded": true,
+        "file": "embedded-1.css",
+        "size": 262
+      },
+      {
+        "embedded": true,
+        "file": "embedded-2.css",
+        "size": 650
+      },
+      {
+        "embedded": true,
+        "file": "embedded-3.css",
+        "size": 475
+      },
+      {
+        "embedded": true,
+        "file": "embedded-4.css",
+        "size": 207
+      },
+      {
+        "embedded": true,
+        "file": "embedded-5.css",
+        "size": 677
+      },
+      {
+        "embedded": true,
+        "file": "embedded-6.css",
+        "size": 198
+      },
+      {
+        "embedded": true,
+        "file": "embedded-7.css",
+        "size": 73
+      },
+      {
+        "embedded": true,
+        "file": "embedded-8.css",
+        "size": 682
+      },
+      {
+        "embedded": true,
+        "file": "embedded-9.css",
+        "size": 796
+      },
+      {
+        "embedded": true,
+        "file": "embedded-10.css",
+        "size": 74
+      },
+      {
+        "embedded": true,
+        "file": "embedded-11.css",
+        "size": 1007
+      },
+      {
+        "embedded": true,
+        "file": "embedded-12.css",
+        "size": 505
+      },
+      {
+        "embedded": true,
+        "file": "embedded-13.css",
+        "size": 75
+      },
+      {
+        "embedded": true,
+        "file": "embedded-14.css",
+        "size": 785
+      },
+      {
+        "embedded": true,
+        "file": "embedded-15.css",
+        "size": 550
+      },
+      {
+        "embedded": true,
+        "file": "embedded-16.css",
+        "size": 275
+      },
+      {
+        "embedded": true,
+        "file": "embedded-17.css",
+        "size": 703
+      },
+      {
+        "embedded": true,
+        "file": "embedded-18.css",
+        "size": 311
+      },
+      {
+        "embedded": true,
+        "file": "embedded-19.css",
+        "size": 89
+      },
+      {
+        "embedded": true,
+        "file": "embedded-20.css",
+        "size": 313
+      },
+      {
+        "embedded": true,
+        "file": "embedded-21.css",
+        "size": 74
+      },
+      {
+        "embedded": true,
+        "file": "embedded-22.css",
+        "size": 1122
+      },
+      {
+        "embedded": true,
+        "file": "embedded-23.css",
+        "size": 382
+      },
+      {
+        "embedded": true,
+        "file": "embedded-24.css",
+        "size": 105
+      },
+      {
+        "embedded": true,
+        "file": "embedded-25.css",
+        "size": 300
+      },
+      {
+        "embedded": true,
+        "file": "embedded-26.css",
+        "size": 954
+      },
+      {
+        "embedded": true,
+        "file": "embedded-27.css",
+        "size": 1227
+      },
+      {
+        "embedded": true,
+        "file": "embedded-28.css",
+        "size": 302
+      },
+      {
+        "embedded": true,
+        "file": "embedded-29.css",
+        "size": 486
+      },
+      {
+        "embedded": true,
+        "file": "embedded-30.css",
+        "size": 519
+      },
+      {
+        "embedded": true,
+        "file": "embedded-31.css",
+        "size": 631
+      },
+      {
+        "embedded": true,
+        "file": "embedded-32.css",
+        "size": 585
+      },
+      {
+        "embedded": true,
+        "file": "embedded-33.css",
+        "size": 761
+      },
+      {
+        "embedded": true,
+        "file": "embedded-34.css",
+        "size": 492
+      },
+      {
+        "embedded": true,
+        "file": "embedded-35.css",
+        "size": 761
+      },
+      {
+        "embedded": true,
+        "file": "embedded-36.css",
+        "size": 459
+      },
+      {
+        "embedded": true,
+        "file": "embedded-37.css",
+        "size": 923
+      },
+      {
+        "embedded": true,
+        "file": "embedded-38.css",
+        "size": 1172
+      },
+      {
+        "embedded": true,
+        "file": "embedded-39.css",
+        "size": 441
+      },
+      {
+        "embedded": true,
+        "file": "embedded-40.css",
+        "size": 666
+      },
+      {
+        "embedded": true,
+        "file": "embedded-41.css",
+        "size": 75
+      },
+      {
+        "embedded": true,
+        "file": "embedded-42.css",
+        "size": 287
+      },
+      {
+        "embedded": true,
+        "file": "embedded-43.css",
+        "size": 605
+      },
+      {
+        "embedded": true,
+        "file": "embedded-44.css",
+        "size": 529
+      },
+      {
+        "embedded": true,
+        "file": "embedded-45.css",
+        "size": 981
+      },
+      {
+        "embedded": true,
+        "file": "embedded-46.css",
+        "size": 77
+      },
+      {
+        "embedded": true,
+        "file": "embedded-47.css",
+        "size": 659
+      },
+      {
+        "embedded": true,
+        "file": "embedded-48.css",
+        "size": 493
+      },
+      {
+        "embedded": true,
+        "file": "embedded-49.css",
+        "size": 761
+      },
+      {
+        "embedded": true,
+        "file": "embedded-50.css",
+        "size": 647
+      },
+      {
+        "embedded": true,
+        "file": "embedded-51.css",
+        "size": 1136
+      },
+      {
+        "embedded": true,
+        "file": "embedded-52.css",
+        "size": 1150
+      },
+      {
+        "embedded": true,
+        "file": "embedded-53.css",
+        "size": 607
+      },
+      {
+        "embedded": true,
+        "file": "embedded-54.css",
+        "size": 750
+      },
+      {
+        "embedded": true,
+        "file": "embedded-55.css",
+        "size": 468
+      },
+      {
+        "embedded": true,
+        "file": "embedded-56.css",
+        "size": 538
+      },
+      {
+        "embedded": true,
+        "file": "embedded-57.css",
+        "size": 659
+      },
+      {
+        "embedded": true,
+        "file": "embedded-58.css",
+        "size": 1084
+      },
+      {
+        "embedded": true,
+        "file": "embedded-59.css",
+        "size": 1162
+      },
+      {
+        "embedded": true,
+        "file": "embedded-60.css",
+        "size": 631
+      },
+      {
+        "embedded": true,
+        "file": "embedded-61.css",
+        "size": 226
+      },
+      {
+        "embedded": true,
+        "file": "embedded-62.css",
+        "size": 755
+      },
+      {
+        "embedded": true,
+        "file": "embedded-63.css",
+        "size": 526
+      },
+      {
+        "embedded": true,
+        "file": "embedded-64.css",
+        "size": 624
+      },
+      {
+        "embedded": true,
+        "file": "embedded-65.css",
+        "size": 1162
+      },
+      {
+        "embedded": true,
+        "file": "embedded-66.css",
+        "size": 631
+      },
+      {
+        "embedded": true,
+        "file": "embedded-67.css",
+        "size": 755
+      },
+      {
+        "embedded": true,
+        "file": "embedded-68.css",
+        "size": 639
+      },
+      {
+        "embedded": true,
+        "file": "embedded-69.css",
+        "size": 755
+      },
+      {
+        "embedded": true,
+        "file": "embedded-70.css",
+        "size": 1165
+      },
+      {
+        "embedded": true,
+        "file": "embedded-71.css",
+        "size": 772
+      },
+      {
+        "embedded": true,
+        "file": "embedded-72.css",
+        "size": 544
+      },
+      {
+        "embedded": true,
+        "file": "embedded-73.css",
+        "size": 1162
+      },
+      {
+        "embedded": true,
+        "file": "embedded-74.css",
+        "size": 792
+      },
+      {
+        "embedded": true,
+        "file": "embedded-75.css",
+        "size": 1167
+      },
+      {
+        "embedded": true,
+        "file": "embedded-76.css",
+        "size": 624
+      },
+      {
+        "embedded": true,
+        "file": "embedded-77.css",
+        "size": 277
+      },
+      {
+        "embedded": true,
+        "file": "embedded-78.css",
+        "size": 462
+      },
+      {
+        "embedded": true,
+        "file": "embedded-79.css",
+        "size": 770
+      },
+      {
+        "embedded": true,
+        "file": "embedded-80.css",
+        "size": 658
+      },
+      {
+        "embedded": true,
+        "file": "embedded-81.css",
+        "size": 1152
+      },
+      {
+        "embedded": true,
+        "file": "embedded-82.css",
+        "size": 1147
+      },
+      {
+        "embedded": true,
+        "file": "embedded-83.css",
+        "size": 573
+      },
+      {
+        "embedded": true,
+        "file": "embedded-84.css",
+        "size": 593
+      },
+      {
+        "embedded": true,
+        "file": "embedded-85.css",
+        "size": 737
+      },
+      {
+        "embedded": true,
+        "file": "embedded-86.css",
+        "size": 357
+      },
+      {
+        "embedded": true,
+        "file": "embedded-87.css",
+        "size": 500
+      },
+      {
+        "embedded": true,
+        "file": "embedded-88.css",
+        "size": 330
+      },
+      {
+        "embedded": true,
+        "file": "embedded-89.css",
+        "size": 730
+      },
+      {
+        "embedded": true,
+        "file": "embedded-90.css",
+        "size": 389
+      },
+      {
+        "embedded": true,
+        "file": "embedded-91.css",
+        "size": 593
+      },
+      {
+        "embedded": true,
+        "file": "embedded-92.css",
+        "size": 643
+      },
+      {
+        "embedded": true,
+        "file": "embedded-93.css",
+        "size": 389
+      },
+      {
+        "embedded": true,
+        "file": "embedded-94.css",
+        "size": 652
+      },
+      {
+        "embedded": true,
+        "file": "embedded-95.css",
+        "size": 403
+      },
+      {
+        "embedded": true,
+        "file": "embedded-96.css",
+        "size": 737
+      },
+      {
+        "embedded": true,
+        "file": "embedded-97.css",
+        "size": 499
+      },
+      {
+        "embedded": true,
+        "file": "embedded-98.css",
+        "size": 367
+      },
+      {
+        "embedded": true,
+        "file": "embedded-99.css",
+        "size": 736
+      },
+      {
+        "embedded": true,
+        "file": "embedded-100.css",
+        "size": 402
+      },
+      {
+        "embedded": true,
+        "file": "embedded-101.css",
+        "size": 499
+      },
+      {
+        "embedded": true,
+        "file": "embedded-102.css",
+        "size": 459
+      },
+      {
+        "embedded": true,
+        "file": "embedded-103.css",
+        "size": 612
+      },
+      {
+        "embedded": true,
+        "file": "embedded-104.css",
+        "size": 701
+      },
+      {
+        "embedded": true,
+        "file": "embedded-105.css",
+        "size": 661
+      },
+      {
+        "embedded": true,
+        "file": "embedded-106.css",
+        "size": 1136
+      },
+      {
+        "embedded": true,
+        "file": "embedded-107.css",
+        "size": 420
+      },
+      {
+        "embedded": true,
+        "file": "embedded-108.css",
+        "size": 489
+      },
+      {
+        "embedded": true,
+        "file": "embedded-109.css",
+        "size": 466
+      },
+      {
+        "embedded": true,
+        "file": "embedded-110.css",
+        "size": 759
+      },
+      {
+        "embedded": true,
+        "file": "embedded-111.css",
+        "size": 286
+      },
+      {
+        "embedded": true,
+        "file": "embedded-112.css",
+        "size": 520
+      },
+      {
+        "embedded": true,
+        "file": "embedded-113.css",
+        "size": 471
+      },
+      {
+        "embedded": true,
+        "file": "embedded-114.css",
+        "size": 333
+      },
+      {
+        "embedded": true,
+        "file": "embedded-115.css",
+        "size": 88
+      },
+      {
+        "embedded": true,
+        "file": "embedded-116.css",
+        "size": 634
+      },
+      {
+        "embedded": true,
+        "file": "embedded-117.css",
+        "size": 813
+      },
+      {
+        "embedded": true,
+        "file": "embedded-118.css",
+        "size": 871
+      },
+      {
+        "embedded": true,
+        "file": "embedded-119.css",
+        "size": 551
+      },
+      {
+        "embedded": true,
+        "file": "embedded-120.css",
+        "size": 296
+      },
+      {
+        "embedded": true,
+        "file": "embedded-121.css",
+        "size": 200
+      },
+      {
+        "embedded": true,
+        "file": "embedded-122.css",
+        "size": 73
+      },
+      {
+        "embedded": true,
+        "file": "embedded-123.css",
+        "size": 412
+      },
+      {
+        "embedded": true,
+        "file": "embedded-124.css",
+        "size": 651
+      },
+      {
+        "embedded": true,
+        "file": "embedded-125.css",
+        "size": 217
+      },
+      {
+        "embedded": true,
+        "file": "embedded-126.css",
+        "size": 560
+      },
+      {
+        "embedded": true,
+        "file": "embedded-127.css",
+        "size": 554
+      },
+      {
+        "embedded": true,
+        "file": "embedded-128.css",
+        "size": 716
+      },
+      {
+        "embedded": true,
+        "file": "embedded-129.css",
+        "size": 75
+      },
+      {
+        "embedded": true,
+        "file": "embedded-130.css",
+        "size": 490
+      },
+      {
+        "embedded": true,
+        "file": "embedded-131.css",
+        "size": 575
+      },
+      {
+        "embedded": true,
+        "file": "embedded-132.css",
+        "size": 74
+      },
+      {
+        "embedded": true,
+        "file": "embedded-133.css",
+        "size": 760
+      },
+      {
+        "embedded": true,
+        "file": "embedded-134.css",
+        "size": 1143
+      },
+      {
+        "embedded": true,
+        "file": "embedded-136.css",
+        "size": 3140
+      }
+    ],
+    "domTree": {
+      "file": "dom-tree.json",
+      "nodeCount": 1332
+    },
+    "extractedCss": "extracted-css.json",
+    "components": {
+      "file": "components.json",
+      "count": 14
+    },
+    "tokens": "tokens.yaml"
+  },
+  "summary": {
+    "nodeCount": 1332,
+    "uniqueColors": 29,
+    "typographyVariants": 35,
+    "spacingValues": 47,
+    "shadows": 3,
+    "gradients": 8,
+    "animations": 32,
+    "mediaQueries": 271,
+    "customProperties": 477,
+    "gridLayouts": 1,
+    "flexLayouts": 50,
+    "componentTypes": 14,
+    "totalComponents": 373,
+    "stylesheetCount": 145,
+    "inlineStyles": 324
+  }
+}

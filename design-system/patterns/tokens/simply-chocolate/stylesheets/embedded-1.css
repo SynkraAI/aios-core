@@ -1,0 +1,17 @@
+
+      @font-face {
+        font-family: "Simply-ChocolateCOMPBold";
+        font-display: swap;
+        src: url("//www.simplychocolate.dk/cdn/shop/files/Simply-ChocolateCOMPBold.woff2?v=8458499103956447333") format("woff2"), url("//www.simplychocolate.dk/cdn/shop/t/74/assets/Simply-ChocolateCOMPBold.woff?v=24192") format("woff");
+      }
+      @font-face {
+        font-family: "Simply-ChocolateRegular";
+        font-display: swap;
+        src: url("//www.simplychocolate.dk/cdn/shop/files/Simply-ChocolateRegular.woff2?v=605569223968536023") format("woff2"), url("//www.simplychocolate.dk/cdn/shop/t/74/assets/Simply-ChocolateRegular.woff?v=24192") format("woff");
+      }
+      @font-face {
+        font-family: "Simply-ChocolateBold";
+        font-display: swap;
+        src: url("//www.simplychocolate.dk/cdn/shop/files/Simply-ChocolateBold.woff2?v=1088651318109424683") format("woff2"), url("//www.simplychocolate.dk/cdn/shop/t/74/assets/Simply-ChocolateBold.woff?v=24192") format("woff");
+      }
+    

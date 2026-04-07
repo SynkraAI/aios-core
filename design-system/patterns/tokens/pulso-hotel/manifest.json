@@ -1,0 +1,150 @@
+{
+  "version": "1.0.0",
+  "name": "pulso-hotel",
+  "source": "https://pulsohotel.com",
+  "timestamp": "2026-04-01T12:13:13.556Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "output": "/Users/luizfosc/aios-core/design-system/patterns/tokens/pulso-hotel",
+  "files": {
+    "html": {
+      "file": "source.html",
+      "size": 159735
+    },
+    "screenshots": [
+      "screenshot-desktop.png",
+      "screenshot-mobile.png"
+    ],
+    "stylesheets": [
+      {
+        "url": "https://cdn.prod.website-files.com/68265b957b542bbddcc21b1d/css/pulso-hotel-stg.webflow.shared.d56c9e1e1.min.css",
+        "file": "pulso-hotel-stg.webflow.shared.d56c9e1e1.min.css",
+        "size": 31447
+      },
+      {
+        "url": "https://cdn.prod.website-files.com/68265b957b542bbddcc21b1d/css/pulso-hotel-stg.webflow.68265b957b542bbddcc21b17-4f6453bc8.min.css",
+        "file": "pulso-hotel-stg.webflow.68265b957b542bbddcc21b17-4f6453bc8.min.css",
+        "size": 86768
+      },
+      {
+        "url": "https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css",
+        "file": "mapbox-gl.css",
+        "size": 36640
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css",
+        "file": "flatpickr.min.css",
+        "size": 16166
+      },
+      {
+        "url": "https://cdn.asksuite.com/infochat.css?v=1770734024029",
+        "file": "infochat.css",
+        "size": 43732
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css",
+        "file": "swiper-bundle.min.css",
+        "size": 18454
+      },
+      {
+        "embedded": true,
+        "file": "embedded-0.css",
+        "size": 58
+      },
+      {
+        "embedded": true,
+        "file": "embedded-1.css",
+        "size": 24
+      },
+      {
+        "embedded": true,
+        "file": "embedded-2.css",
+        "size": 173
+      },
+      {
+        "embedded": true,
+        "file": "embedded-3.css",
+        "size": 7498
+      },
+      {
+        "embedded": true,
+        "file": "embedded-4.css",
+        "size": 2820
+      },
+      {
+        "embedded": true,
+        "file": "embedded-5.css",
+        "size": 684
+      },
+      {
+        "embedded": true,
+        "file": "embedded-6.css",
+        "size": 144
+      },
+      {
+        "embedded": true,
+        "file": "embedded-7.css",
+        "size": 262
+      },
+      {
+        "embedded": true,
+        "file": "embedded-8.css",
+        "size": 204
+      },
+      {
+        "embedded": true,
+        "file": "embedded-9.css",
+        "size": 87
+      },
+      {
+        "embedded": true,
+        "file": "embedded-10.css",
+        "size": 131
+      },
+      {
+        "embedded": true,
+        "file": "embedded-11.css",
+        "size": 1005
+      },
+      {
+        "embedded": true,
+        "file": "embedded-12.css",
+        "size": 813
+      },
+      {
+        "embedded": true,
+        "file": "embedded-13.css",
+        "size": 1412
+      }
+    ],
+    "domTree": {
+      "file": "dom-tree.json",
+      "nodeCount": 660
+    },
+    "extractedCss": "extracted-css.json",
+    "components": {
+      "file": "components.json",
+      "count": 19
+    },
+    "tokens": "tokens.yaml"
+  },
+  "summary": {
+    "nodeCount": 660,
+    "uniqueColors": 21,
+    "typographyVariants": 18,
+    "spacingValues": 19,
+    "shadows": 4,
+    "gradients": 0,
+    "animations": 1,
+    "mediaQueries": 19,
+    "customProperties": 120,
+    "gridLayouts": 20,
+    "flexLayouts": 50,
+    "componentTypes": 19,
+    "totalComponents": 316,
+    "stylesheetCount": 20,
+    "inlineStyles": 62
+  }
+}

@@ -1,0 +1,7 @@
+
+  @media (max-width: 700px) {
+    .rdstation-popup-position-bottom_left.floating-button.floating-button--close {
+      margin-bottom: 65px;
+      transform: scale(0.7);
+    }
+  }

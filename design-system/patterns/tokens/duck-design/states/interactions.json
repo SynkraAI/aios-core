@@ -1,0 +1,990 @@
+{
+  "url": "https://duckstudio.design",
+  "name": "duck-design",
+  "timestamp": "2026-04-01T12:10:18.105Z",
+  "totalElements": 50,
+  "elementsWithStates": 17,
+  "interactions": [
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "brand-2 w-nav-brand w--current",
+      "selector": "a.brand-2.w-nav-brand.w--current",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(51, 51, 51)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.35s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(51, 51, 51) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "0.35s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(51, 51, 51) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "0.35s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Solicite um orçamento  →",
+      "classes": "button black hide-mobile w-button",
+      "selector": "a.button.black.hide-mobile.w-button",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "100px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.35s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgb(19, 107, 208) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(19, 107, 208)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "brand-2 w-nav-brand w--current",
+      "selector": "a.brand-2.w-nav-brand.w--current",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(51, 51, 51)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.35s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(51, 51, 51) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "0.35s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(51, 51, 51) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "0.35s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Solicite um orçamento →",
+      "classes": "button black hide-mobile w-button",
+      "selector": "a.button.black.hide-mobile.w-button",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "100px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.35s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgb(35, 117, 211) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(35, 117, 211)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Converse conosco →",
+      "classes": "button black center w-button",
+      "selector": "a.button.black.center.w-button",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "100px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.35s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "opacity": {
+            "from": "1",
+            "to": "0.602108"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgb(35, 117, 211) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(35, 117, 211)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Confira nosso portfólio →",
+      "classes": "button outline-black center w-button",
+      "selector": "a.button.outline-black.center.w-button",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(0, 0, 0)",
+        "borderWidth": "1px",
+        "borderRadius": "100px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.35s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "opacity": {
+            "from": "1",
+            "to": "0.60477"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgb(0, 82, 176) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(0, 82, 176)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Confira o portfólio de sites  →",
+      "classes": "button full-width w-button",
+      "selector": "#w-node-_4a6970ee-a9d6-a29e-0035-f98c51570dee-6d27b84b",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgb(248, 224, 142)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(0, 0, 0)",
+        "borderWidth": "0px",
+        "borderRadius": "100px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.35s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "opacity": {
+            "from": "1",
+            "to": "0.620769"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgb(0, 78, 168) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(0, 78, 168)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Saber mais sobre sites  →",
+      "classes": "button outline-yellow full-width w-button",
+      "selector": "a.button.outline-yellow.full-width.w-button",
+      "baseStyles": {
+        "color": "rgb(248, 224, 142)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(248, 224, 142)",
+        "borderWidth": "1px",
+        "borderRadius": "100px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(248, 224, 142) none 0px",
+        "outlineColor": "rgb(248, 224, 142)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.35s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "opacity": {
+            "from": "1",
+            "to": "0.608662"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgb(248, 224, 142) none 0px",
+            "to": "rgb(43, 118, 193) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(248, 224, 142)",
+            "to": "rgb(43, 118, 193)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Confira o portfólio de produtos  →",
+      "classes": "button full-width w-button",
+      "selector": "#w-node-d80bafaa-e66c-467a-a707-e4230a71ae91-6d27b84b",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgb(248, 224, 142)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(0, 0, 0)",
+        "borderWidth": "0px",
+        "borderRadius": "100px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.35s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "opacity": {
+            "from": "1",
+            "to": "0.614215"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgb(0, 78, 168) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(0, 78, 168)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Saber mais sobre produtos →",
+      "classes": "button outline-yellow full-width w-button",
+      "selector": "a.button.outline-yellow.full-width.w-button",
+      "baseStyles": {
+        "color": "rgb(248, 224, 142)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(248, 224, 142)",
+        "borderWidth": "1px",
+        "borderRadius": "100px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(248, 224, 142) none 0px",
+        "outlineColor": "rgb(248, 224, 142)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.35s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "opacity": {
+            "from": "1",
+            "to": "0.608782"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgb(248, 224, 142) none 0px",
+            "to": "rgb(43, 117, 193) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(248, 224, 142)",
+            "to": "rgb(43, 117, 193)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Vagas",
+      "classes": "footer-link-bloc w-inline-block",
+      "selector": "a.footer-link-bloc.w-inline-block",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(0, 0, 0)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.35s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "opacity": {
+            "from": "1",
+            "to": "0.8"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "transition": {
+            "from": "0.35s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "opacity": {
+            "from": "1",
+            "to": "0.8"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "transition": {
+            "from": "0.35s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Webflow Partner",
+      "classes": "footer-link-bloc w-inline-block",
+      "selector": "a.footer-link-bloc.w-inline-block",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(0, 0, 0)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.35s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "0.35s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "0.35s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "(54) 99611-8657",
+      "classes": "footer-link-bloc w-inline-block",
+      "selector": "a.footer-link-bloc.w-inline-block",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(0, 0, 0)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.35s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "opacity": {
+            "from": "1",
+            "to": "0.8"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "transition": {
+            "from": "0.35s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "opacity": {
+            "from": "1",
+            "to": "0.8"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "transition": {
+            "from": "0.35s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "política de privacidade e cookies",
+      "classes": "",
+      "selector": "a",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(0, 0, 0)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.35s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(102, 102, 102)"
+          },
+          "borderColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(102, 102, 102)"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgb(102, 102, 102) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(102, 102, 102)"
+          },
+          "transition": {
+            "from": "0.35s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(102, 102, 102)"
+          },
+          "borderColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(102, 102, 102)"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgb(102, 102, 102) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(102, 102, 102)"
+          },
+          "transition": {
+            "from": "0.35s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "div",
+      "text": "",
+      "classes": "_23-nav-menu-button open-modal open-nav-pill w-nav-button",
+      "selector": "div._23-nav-menu-button.open-modal.open-nav-pill.w-nav-button",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(0, 0, 0)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "div",
+      "text": "BR",
+      "classes": "wg-dd-1-togle w-dropdown-toggle",
+      "selector": "#w-dropdown-toggle-0",
+      "baseStyles": {
+        "color": "rgb(34, 34, 34)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(34, 34, 34)",
+        "borderWidth": "0px",
+        "borderRadius": "4px 4px 0px 0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(34, 34, 34) none 0px",
+        "outlineColor": "rgb(34, 34, 34)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "borderRadius": {
+            "from": "4px 4px 0px 0px",
+            "to": "0px"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "4px 4px 0px 0px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "div",
+      "text": "",
+      "classes": "_23-nav-menu-button open-modal w-nav-button",
+      "selector": "div._23-nav-menu-button.open-modal.w-nav-button",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(0, 0, 0)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    }
+  ]
+}

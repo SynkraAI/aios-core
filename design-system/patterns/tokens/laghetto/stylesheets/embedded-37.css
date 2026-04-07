@@ -1,0 +1,24 @@
+
+  
+    #rd-column-k8hluoeo {
+      flex: 10 0 0;
+    }
+
+    #rd-column-k8hluoeo > div {
+      
+          background-color: transparent;
+        
+      justify-content: center;
+      padding-top: 0px;
+      padding-right: 15px;
+      padding-bottom: 0px;
+      padding-left: 15px;
+    }
+    @media screen and (max-width: 767px) {
+      #rd-column-k8hluoeo > div {
+        min-height: auto !important;
+      }
+    }
+  
+
+  

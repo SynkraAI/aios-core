@@ -1,0 +1,452 @@
+[
+  {
+    "type": "button",
+    "count": 1,
+    "samples": [
+      {
+        "tag": "button",
+        "classes": [
+          "position-relative",
+          "wp-block-kubio-menu-offscreen__iconWrapper",
+          "style-WWb_xDkl1J1-iconWrapper",
+          "style-local-12-iconWrapper",
+          "kubio-offscreen-icon-wrapper"
+        ],
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "styles": {
+          "display": "none",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(255, 255, 255)",
+          "fontSize": "13.3333px",
+          "fontWeight": "400",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "4px"
+        }
+      }
+    ]
+  },
+  {
+    "type": "cta-link",
+    "count": 1,
+    "samples": [
+      {
+        "tag": "a",
+        "classes": [
+          "position-relative",
+          "wp-block-kubio-button__link",
+          "style-4U7h00Djw0-link",
+          "style-local-73-link",
+          "h-w-100"
+        ],
+        "rect": {
+          "x": 1091,
+          "y": 3120,
+          "width": 230,
+          "height": 56
+        },
+        "styles": {
+          "display": "flex",
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(18, 19, 21)",
+          "fontSize": "14px",
+          "fontWeight": "300",
+          "padding": "20px 40px 20px 40px",
+          "borderRadius": "0px"
+        }
+      }
+    ]
+  },
+  {
+    "type": "hero",
+    "count": 2,
+    "samples": [
+      {
+        "tag": "div",
+        "classes": [
+          "wp-block",
+          "wp-block-kubio-hero",
+          "position-relative",
+          "wp-block-kubio-hero__outer",
+          "style-c2VkBDY6GSW-outer"
+        ],
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 846
+        },
+        "styles": {
+          "display": "flex",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(255, 255, 255)",
+          "fontSize": "18px",
+          "fontWeight": "300",
+          "padding": "150px 0px 150px 0px",
+          "borderRadius": "0px"
+        }
+      },
+      {
+        "tag": "div",
+        "classes": [
+          "position-relative",
+          "wp-block-kubio-hero__inner",
+          "style-c2VkBDY6GSW-inner",
+          "style-local-22-inner",
+          "h-navigation-padding"
+        ],
+        "rect": {
+          "x": 104,
+          "y": 150,
+          "width": 1232,
+          "height": 546
+        },
+        "styles": {
+          "display": "block",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(255, 255, 255)",
+          "fontSize": "18px",
+          "fontWeight": "300",
+          "padding": "190px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      }
+    ]
+  },
+  {
+    "type": "dropdown",
+    "count": 12,
+    "samples": [
+      {
+        "tag": "div",
+        "classes": [
+          "wp-block",
+          "wp-block-kubio-dropdown-menu",
+          "position-relative",
+          "wp-block-kubio-dropdown-menu__outer",
+          "style-kMkGGU-voXp-outer"
+        ],
+        "rect": {
+          "x": 1132,
+          "y": 95,
+          "width": 196,
+          "height": 0
+        },
+        "styles": {
+          "display": "flex",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "fontWeight": "300",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      },
+      {
+        "tag": "div",
+        "classes": [
+          "wp-block",
+          "wp-block-kubio-menu-items",
+          "position-relative",
+          "wp-block-kubio-menu-items__outer",
+          "style-1XHtESJOr0r-outer"
+        ],
+        "rect": {
+          "x": 1132,
+          "y": 95,
+          "width": 196,
+          "height": 0
+        },
+        "styles": {
+          "display": "flex",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "fontWeight": "300",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      },
+      {
+        "tag": "div",
+        "classes": [
+          "wp-block",
+          "wp-block-kubio-menu-offscreen",
+          "position-relative",
+          "wp-block-kubio-menu-offscreen__container",
+          "style-WWb_xDkl1J1-container"
+        ],
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "styles": {
+          "display": "none",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "fontWeight": "300",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      }
+    ]
+  },
+  {
+    "type": "tabs",
+    "count": 1,
+    "samples": [
+      {
+        "tag": "ul",
+        "classes": [
+          "wp-block",
+          "wp-block-kubio-iconlist",
+          "position-relative",
+          "wp-block-kubio-iconlist__outer",
+          "style-Ga0jqTuEz-outer"
+        ],
+        "rect": {
+          "x": 680,
+          "y": 4507,
+          "width": 657,
+          "height": 186
+        },
+        "styles": {
+          "display": "flex",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(10, 14, 20)",
+          "fontSize": "18px",
+          "fontWeight": "300",
+          "padding": "30px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      }
+    ]
+  },
+  {
+    "type": "accordion",
+    "count": 1,
+    "samples": [
+      {
+        "tag": "div",
+        "classes": [
+          "wp-block",
+          "wp-block-kubio-accordion-menu",
+          "position-relative",
+          "wp-block-kubio-accordion-menu__outer",
+          "style-XS6tDkjKt0C-outer"
+        ],
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "styles": {
+          "display": "flex",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "fontWeight": "300",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      }
+    ]
+  },
+  {
+    "type": "image",
+    "count": 32,
+    "samples": [
+      {
+        "tag": "img",
+        "classes": [
+          "position-relative",
+          "wp-block-kubio-logo__image",
+          "style-CqUTk-do-12-image",
+          "style-local-6-image",
+          "kubio-logo-image"
+        ],
+        "rect": {
+          "x": 127,
+          "y": 20,
+          "width": 150,
+          "height": 150
+        },
+        "styles": {
+          "display": "block",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(66, 99, 190)",
+          "fontSize": "18px",
+          "fontWeight": "400",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      },
+      {
+        "tag": "img",
+        "classes": [
+          "position-relative",
+          "wp-block-kubio-logo__alternateImage",
+          "style-CqUTk-do-12-alternateImage",
+          "style-local-6-alternateImage",
+          "kubio-logo-image"
+        ],
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "styles": {
+          "display": "none",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(66, 99, 190)",
+          "fontSize": "18px",
+          "fontWeight": "400",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      },
+      {
+        "tag": "div",
+        "classes": [
+          "overlay-image-layer"
+        ],
+        "rect": {
+          "x": 0,
+          "y": -2,
+          "width": 1440,
+          "height": 850
+        },
+        "styles": {
+          "display": "block",
+          "background": "rgb(0, 0, 0)",
+          "color": "rgb(255, 255, 255)",
+          "fontSize": "18px",
+          "fontWeight": "300",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      }
+    ]
+  },
+  {
+    "type": "grid-layout",
+    "count": 8,
+    "samples": [
+      {
+        "tag": "div",
+        "classes": [
+          "position-relative",
+          "wp-block-kubio-navigation-section__nav-section",
+          "style-ujiYT_cF2X-nav-section",
+          "style-local-2-nav-section",
+          "h-section-grid-container"
+        ],
+        "rect": {
+          "x": 104,
+          "y": 20,
+          "width": 1232,
+          "height": 150
+        },
+        "styles": {
+          "display": "block",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(10, 14, 20)",
+          "fontSize": "18px",
+          "fontWeight": "300",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      },
+      {
+        "tag": "div",
+        "classes": [
+          "position-relative",
+          "wp-block-kubio-hero__inner",
+          "style-c2VkBDY6GSW-inner",
+          "style-local-22-inner",
+          "h-navigation-padding"
+        ],
+        "rect": {
+          "x": 104,
+          "y": 150,
+          "width": 1232,
+          "height": 546
+        },
+        "styles": {
+          "display": "block",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(255, 255, 255)",
+          "fontSize": "18px",
+          "fontWeight": "300",
+          "padding": "190px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      },
+      {
+        "tag": "div",
+        "classes": [
+          "position-relative",
+          "wp-block-kubio-section__inner",
+          "style-Nyr-MBkKgj-inner",
+          "style-local-27-inner",
+          "h-section-grid-container"
+        ],
+        "rect": {
+          "x": 104,
+          "y": 936,
+          "width": 1232,
+          "height": 740
+        },
+        "styles": {
+          "display": "flex",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(10, 14, 20)",
+          "fontSize": "18px",
+          "fontWeight": "300",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      }
+    ]
+  },
+  {
+    "type": "table",
+    "count": 1,
+    "samples": [
+      {
+        "tag": "ul",
+        "classes": [
+          "wp-block",
+          "wp-block-kubio-iconlist",
+          "position-relative",
+          "wp-block-kubio-iconlist__outer",
+          "style-Ga0jqTuEz-outer"
+        ],
+        "rect": {
+          "x": 680,
+          "y": 4507,
+          "width": 657,
+          "height": 186
+        },
+        "styles": {
+          "display": "flex",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(10, 14, 20)",
+          "fontSize": "18px",
+          "fontWeight": "300",
+          "padding": "30px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      }
+    ]
+  }
+]

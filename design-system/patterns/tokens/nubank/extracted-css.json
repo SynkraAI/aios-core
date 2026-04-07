@@ -1,0 +1,3073 @@
+{
+  "colors": [
+    {
+      "value": "rgb(0, 0, 0)",
+      "count": 598
+    },
+    {
+      "value": "rgb(255, 255, 255)",
+      "count": 117
+    },
+    {
+      "value": "rgb(162, 162, 162)",
+      "count": 97
+    },
+    {
+      "value": "rgb(130, 10, 209)",
+      "count": 39
+    },
+    {
+      "value": "rgb(244, 244, 244)",
+      "count": 14
+    },
+    {
+      "value": "rgba(202, 202, 202, 0.3)",
+      "count": 13
+    },
+    {
+      "value": "rgba(244, 244, 244, 0.8)",
+      "count": 6
+    },
+    {
+      "value": "rgba(0, 0, 0, 0.3)",
+      "count": 6
+    },
+    {
+      "value": "rgba(65, 65, 64, 0.4)",
+      "count": 6
+    },
+    {
+      "value": "rgba(0, 0, 0, 0.6)",
+      "count": 3
+    },
+    {
+      "value": "rgb(41, 11, 77)",
+      "count": 2
+    },
+    {
+      "value": "rgb(113, 79, 143)",
+      "count": 2
+    },
+    {
+      "value": "rgb(119, 119, 119)",
+      "count": 1
+    }
+  ],
+  "typography": [
+    {
+      "value": "16px/400/graphikMedium, \"graphikMedium Fallback\", arial, helvetica",
+      "count": 590
+    },
+    {
+      "value": "18px/400/graphikMedium, \"graphikMedium Fallback\", arial, helvetica",
+      "count": 66
+    },
+    {
+      "value": "16px/500/graphikMedium, \"graphikMedium Fallback\", arial, helvetica",
+      "count": 34
+    },
+    {
+      "value": "22px/500/graphikMedium, \"graphikMedium Fallback\", arial, helvetica",
+      "count": 33
+    },
+    {
+      "value": "20px/100/nubankIcons, \"nubankIcons Fallback\", sans-serif",
+      "count": 15
+    },
+    {
+      "value": "20px/400/graphikMedium, \"graphikMedium Fallback\", arial, helvetica",
+      "count": 12
+    },
+    {
+      "value": "48px/500/graphikMedium, \"graphikMedium Fallback\", arial, helvetica",
+      "count": 10
+    },
+    {
+      "value": "18px/500/graphikMedium, \"graphikMedium Fallback\", arial, helvetica",
+      "count": 10
+    },
+    {
+      "value": "14px/500/graphikMedium, \"graphikMedium Fallback\", arial, helvetica",
+      "count": 8
+    },
+    {
+      "value": "24px/100/nubankIcons, \"nubankIcons Fallback\", sans-serif",
+      "count": 7
+    },
+    {
+      "value": "18px/100/nubankIcons, \"nubankIcons Fallback\", sans-serif",
+      "count": 6
+    },
+    {
+      "value": "36px/500/graphikMedium, \"graphikMedium Fallback\", arial, helvetica",
+      "count": 6
+    },
+    {
+      "value": "32px/100/nubankIcons, \"nubankIcons Fallback\", sans-serif",
+      "count": 5
+    },
+    {
+      "value": "24px/500/graphikMedium, \"graphikMedium Fallback\", arial, helvetica",
+      "count": 4
+    },
+    {
+      "value": "27px/100/nubankIcons, \"nubankIcons Fallback\", sans-serif",
+      "count": 4
+    },
+    {
+      "value": "24px/400/graphikMedium, \"graphikMedium Fallback\", arial, helvetica",
+      "count": 2
+    },
+    {
+      "value": "56px/500/graphikMedium, \"graphikMedium Fallback\", arial, helvetica",
+      "count": 1
+    },
+    {
+      "value": "20px/500/graphikMedium, \"graphikMedium Fallback\", arial, helvetica",
+      "count": 1
+    },
+    {
+      "value": "12px/400/graphikMedium, \"graphikMedium Fallback\", arial, helvetica",
+      "count": 1
+    }
+  ],
+  "spacing": [
+    {
+      "value": "24px",
+      "count": 102
+    },
+    {
+      "value": "8px",
+      "count": 54
+    },
+    {
+      "value": "4px",
+      "count": 30
+    },
+    {
+      "value": "16px",
+      "count": 23
+    },
+    {
+      "value": "32px",
+      "count": 15
+    },
+    {
+      "value": "48px",
+      "count": 11
+    },
+    {
+      "value": "80px",
+      "count": 10
+    },
+    {
+      "value": "64px",
+      "count": 8
+    },
+    {
+      "value": "40px",
+      "count": 4
+    },
+    {
+      "value": "64px 8px",
+      "count": 3
+    },
+    {
+      "value": "112px",
+      "count": 3
+    },
+    {
+      "value": "0px 24px",
+      "count": 2
+    },
+    {
+      "value": "6px",
+      "count": 2
+    },
+    {
+      "value": "18px",
+      "count": 2
+    },
+    {
+      "value": "240px",
+      "count": 1
+    },
+    {
+      "value": "136px",
+      "count": 1
+    },
+    {
+      "value": "16px normal",
+      "count": 1
+    },
+    {
+      "value": "2px",
+      "count": 1
+    },
+    {
+      "value": "12px",
+      "count": 1
+    },
+    {
+      "value": "96px",
+      "count": 1
+    },
+    {
+      "value": "normal 8px",
+      "count": 1
+    }
+  ],
+  "borders": [
+    {
+      "value": "4px solid undefined",
+      "count": 18
+    },
+    {
+      "value": "2px solid undefined",
+      "count": 6
+    },
+    {
+      "value": "1px 0px 0px solid rgba(202, 202, 202, 0.5) rgb(0, 0, 0) rgb(0, 0, 0)",
+      "count": 5
+    },
+    {
+      "value": "2px solid rgb(255, 255, 255)",
+      "count": 2
+    },
+    {
+      "value": "4px 0px solid none rgba(0, 0, 0, 0) rgb(0, 0, 0)",
+      "count": 1
+    },
+    {
+      "value": "4px 0px solid none rgba(0, 0, 0, 0) rgb(255, 255, 255)",
+      "count": 1
+    }
+  ],
+  "shadows": [],
+  "gradients": [
+    "linear-gradient(rgba(0, 0, 0, 0), rgb(0, 0, 0))",
+    "linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.08) 16%, rgba(0, 0, 0, 0.24) 50%, rgba(0, 0, 0, 0.4) 100%)"
+  ],
+  "animations": [
+    {
+      "name": "animation-u0nmg8",
+      "cssText": "@-webkit-keyframes animation-u0nmg8 { \n  0%, 100% { transform: translateY(-3px); }\n  50% { transform: translateY(12px); }\n}"
+    },
+    {
+      "name": "animation-u0nmg8",
+      "cssText": "@keyframes animation-u0nmg8 { \n  0%, 100% { transform: translateY(-3px); }\n  50% { transform: translateY(12px); }\n}"
+    }
+  ],
+  "transitions": [
+    "all",
+    "transform",
+    "transform, opacity, height",
+    "0.15s ease-out",
+    "1s",
+    "opacity",
+    "width 0.35s cubic-bezier(0.21, 0, 0.25, 0.99)",
+    "0.65s"
+  ],
+  "mediaQueries": [
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1x72l5n",
+          "cssText": ".css-1x72l5n { gap: var(--space-x6); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1x72l5n",
+          "cssText": ".css-1x72l5n { padding-inline-start: var(--space-x6); padding-inline-end: var(--space-x6); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1400px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1x72l5n",
+          "cssText": ".css-1x72l5n { padding-inline-start: var(--space-x30); padding-inline-end: var(--space-x30); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1537px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1x72l5n",
+          "cssText": ".css-1x72l5n { padding-inline: calc(-648px + (0.5 * 100dvw)) calc(-648px + (0.5 * 100dvw)); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 992px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1lskf4d",
+          "cssText": ".css-1lskf4d { gap: var(--space-x6); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1400px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1lskf4d",
+          "cssText": ".css-1lskf4d { gap: var(--space-x8); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1537px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1lskf4d",
+          "cssText": ".css-1lskf4d { gap: var(--space-x24); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 390px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1jo04v7 transition",
+          "cssText": ".css-1jo04v7 transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 576px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1jo04v7 transition",
+          "cssText": ".css-1jo04v7 transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1jo04v7 transition",
+          "cssText": ".css-1jo04v7 transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 390px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-110tpna transition",
+          "cssText": ".css-110tpna transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 576px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-110tpna transition",
+          "cssText": ".css-110tpna transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-110tpna transition",
+          "cssText": ".css-110tpna transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1kswvvr",
+          "cssText": ".css-1kswvvr { padding-inline-start: var(--space-x6); padding-inline-end: var(--space-x6); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1400px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1kswvvr",
+          "cssText": ".css-1kswvvr { padding-inline-start: var(--space-x30); padding-inline-end: var(--space-x30); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1537px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1kswvvr",
+          "cssText": ".css-1kswvvr { padding-inline: calc(-648px + (0.5 * 100dvw)) calc(-648px + (0.5 * 100dvw)); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-ekcad5",
+          "cssText": ".css-ekcad5 { column-gap: ; row-gap: 0px; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-kbws8c",
+          "cssText": ".css-kbws8c { background-color: transparent; height: 792px; min-height: auto; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-8sdrgt",
+          "cssText": ".css-8sdrgt { border-bottom-left-radius: var(--radii-extraLarge); border-bottom-right-radius: var(--radii-extraLarge); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-12wm7vj",
+          "cssText": ".css-12wm7vj { border-bottom-left-radius: var(--radii-extraLarge); border-bottom-right-radius: var(--radii-extraLarge); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-9ktysq",
+          "cssText": ".css-9ktysq { border-bottom-left-radius: var(--radii-extraLarge); border-bottom-right-radius: var(--radii-extraLarge); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1uwonl0",
+          "cssText": ".css-1uwonl0 { padding-left: var(--space-x16); padding-right: var(--space-x16); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1uwonl0",
+          "cssText": ".css-1uwonl0 { flex-direction: row; padding-left: var(--space-x30); padding-right: var(--space-x30); padding-bottom: var(--space-x34); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1537px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1uwonl0",
+          "cssText": ".css-1uwonl0 { padding-left: calc(-648.5px + (0.5 * 100dvw)); padding-right: calc(-648.5px + (0.5 * 100dvw)); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-19lzz9r",
+          "cssText": ".css-19lzz9r { position: static; grid-column-end: 8; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1hu10o8",
+          "cssText": ".css-1hu10o8 { position: static; padding-right: var(--space-x20); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 390px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1dy0udl transition",
+          "cssText": ".css-1dy0udl transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 576px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1dy0udl transition",
+          "cssText": ".css-1dy0udl transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1dy0udl transition",
+          "cssText": ".css-1dy0udl transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 992px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1g6cizn",
+          "cssText": ".css-1g6cizn { color: var(--colors-neutrals-0); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1400px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1g6cizn",
+          "cssText": ".css-1g6cizn { font-size: var(--fontSizes-x28); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-qlk69y",
+          "cssText": ".css-qlk69y { margin-top: var(--space-x6); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-6kvkpm",
+          "cssText": ".css-6kvkpm { display: flex; -webkit-box-align: end; align-items: end; -webkit-box-pack: end; justify-content: end; margin-top: 0px; grid-column-start: 8; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1400px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-6kvkpm",
+          "cssText": ".css-6kvkpm { grid-column-start: 9; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1pcykb6",
+          "cssText": ".css-1pcykb6 { max-width: 416px; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 992px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-olq2tn",
+          "cssText": ".css-olq2tn { letter-spacing: var(--letterSpacings-99); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1400px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-olq2tn",
+          "cssText": ".css-olq2tn { font-size: var(--fontSizes-x10); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1400px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-9bnqxy label",
+          "cssText": ".css-9bnqxy label { font-size: 1.25em; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-qrzglf",
+          "cssText": ".css-qrzglf { padding-left: var(--space-x16); padding-right: var(--space-x16); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-qrzglf",
+          "cssText": ".css-qrzglf { padding-left: var(--space-x30); padding-right: var(--space-x30); padding-top: var(--space-x16); padding-bottom: var(--space-x16); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1537px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-qrzglf",
+          "cssText": ".css-qrzglf { padding-left: calc(-648.5px + (0.5 * 100dvw)); padding-right: calc(-648.5px + (0.5 * 100dvw)); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-19q7yrf",
+          "cssText": ".css-19q7yrf { grid-column: 2 / 12; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-12z4ciw",
+          "cssText": ".css-12z4ciw { padding-left: var(--space-x16); padding-right: var(--space-x16); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-12z4ciw",
+          "cssText": ".css-12z4ciw { padding-left: var(--space-x30); padding-right: var(--space-x30); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1537px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-12z4ciw",
+          "cssText": ".css-12z4ciw { padding-left: calc(-648.5px + (0.5 * 100dvw)); padding-right: calc(-648.5px + (0.5 * 100dvw)); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-bysenm",
+          "cssText": ".css-bysenm { grid-column: 2 / 12; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 992px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-bysenm",
+          "cssText": ".css-bysenm { grid-column: 3 / 11; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-bysenm",
+          "cssText": ".css-bysenm { grid-column: 1 / 13; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1400px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-bysenm",
+          "cssText": ".css-bysenm { grid-column: 2 / 12; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-djrn8d",
+          "cssText": ".css-djrn8d { flex-direction: row; padding-bottom: var(--space-x12); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1400px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-djrn8d",
+          "cssText": ".css-djrn8d { padding-top: var(--space-x20); padding-bottom: var(--space-x20); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-5er67h",
+          "cssText": ".css-5er67h { padding-bottom: var(--space-x16); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1400px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-5er67h",
+          "cssText": ".css-5er67h { padding-bottom: 0px; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (max-width: 1199.98px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-5er67h",
+          "cssText": ".css-5er67h { display: none; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-wwet96",
+          "cssText": ".css-wwet96 { text-align: left; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1400px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-wwet96",
+          "cssText": ".css-wwet96 { font-size: var(--fontSizes-x24); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 390px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-fkpome transition",
+          "cssText": ".css-fkpome transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 576px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-fkpome transition",
+          "cssText": ".css-fkpome transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-fkpome transition",
+          "cssText": ".css-fkpome transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1e7pyzt",
+          "cssText": ".css-1e7pyzt { text-align: left; min-height: 0px; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1400px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1e7pyzt",
+          "cssText": ".css-1e7pyzt { font-size: var(--fontSizes-x11); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 390px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-164jjzg transition",
+          "cssText": ".css-164jjzg transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 576px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-164jjzg transition",
+          "cssText": ".css-164jjzg transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-164jjzg transition",
+          "cssText": ".css-164jjzg transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-12ltou6",
+          "cssText": ".css-12ltou6 { padding-inline-start: var(--space-x8); padding-inline-end: var(--space-x8); padding-top: var(--space-x4); padding-bottom: var(--space-x4); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1otsmgp",
+          "cssText": ".css-1otsmgp { display: none; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-tv8qb4",
+          "cssText": ".css-tv8qb4 { max-width: 526px; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-7pa4ew",
+          "cssText": ".css-7pa4ew { border-radius: var(--radii-lg); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1bn9veo",
+          "cssText": ".css-1bn9veo { display: none; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-roeou0",
+          "cssText": ".css-roeou0 { padding-inline-start: var(--space-x8); padding-inline-end: var(--space-x8); padding-top: var(--space-x4); padding-bottom: var(--space-x4); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1j9cr92",
+          "cssText": ".css-1j9cr92 { padding-inline-start: var(--space-x8); padding-inline-end: var(--space-x8); padding-top: var(--space-x4); padding-bottom: var(--space-x4); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-ez4i6l",
+          "cssText": ".css-ez4i6l { border-radius: var(--radii-lg); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1c4pefu",
+          "cssText": ".css-1c4pefu { padding-inline-start: var(--space-x8); padding-inline-end: var(--space-x8); padding-top: var(--space-x4); padding-bottom: var(--space-x4); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1vrwn4b",
+          "cssText": ".css-1vrwn4b { padding-inline-start: var(--space-x8); padding-inline-end: var(--space-x8); padding-top: var(--space-x4); padding-bottom: var(--space-x4); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-xj2j9f",
+          "cssText": ".css-xj2j9f { padding-inline-start: var(--space-x8); padding-inline-end: var(--space-x8); padding-top: var(--space-x4); padding-bottom: var(--space-x4); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 390px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1smz5l0 transition",
+          "cssText": ".css-1smz5l0 transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 576px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1smz5l0 transition",
+          "cssText": ".css-1smz5l0 transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1smz5l0 transition",
+          "cssText": ".css-1smz5l0 transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1smz5l0",
+          "cssText": ".css-1smz5l0 { position: absolute; justify-self: flex-start; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1400px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1smz5l0",
+          "cssText": ".css-1smz5l0 { padding-top: var(--space-x20); padding-bottom: var(--space-x20); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-7c5f7b",
+          "cssText": ".css-7c5f7b { padding-left: var(--space-x16); padding-right: var(--space-x16); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-7c5f7b",
+          "cssText": ".css-7c5f7b { padding-left: var(--space-x30); padding-right: var(--space-x30); padding-top: var(--space-x20); padding-bottom: var(--space-x20); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1537px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-7c5f7b",
+          "cssText": ".css-7c5f7b { padding-left: calc(-648.5px + (0.5 * 100dvw)); padding-right: calc(-648.5px + (0.5 * 100dvw)); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1vnhpsl",
+          "cssText": ".css-1vnhpsl { grid-column: 2 / 12; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 992px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1vnhpsl",
+          "cssText": ".css-1vnhpsl { grid-column: 3 / 11; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1vnhpsl",
+          "cssText": ".css-1vnhpsl { grid-column: 2 / 12; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-7qfxpl",
+          "cssText": ".css-7qfxpl { margin-bottom: var(--space-x10); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1400px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-7qfxpl",
+          "cssText": ".css-7qfxpl { font-size: var(--fontSizes-x24); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1537px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1lygabo",
+          "cssText": ".css-1lygabo { min-height: 210px; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1400px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-7jpgr9",
+          "cssText": ".css-7jpgr9 { font-size: var(--fontSizes-x11); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1wcehju",
+          "cssText": ".css-1wcehju { padding-left: var(--space-x16); padding-right: var(--space-x16); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 992px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1wcehju",
+          "cssText": ".css-1wcehju { padding-top: var(--space-x16); padding-bottom: var(--space-x16); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1wcehju",
+          "cssText": ".css-1wcehju { padding-left: var(--space-x30); padding-right: var(--space-x30); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1537px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1wcehju",
+          "cssText": ".css-1wcehju { padding-left: calc(-648.5px + (0.5 * 100dvw)); padding-right: calc(-648.5px + (0.5 * 100dvw)); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 992px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-moqfrr",
+          "cssText": ".css-moqfrr { grid-column: 2 / 12; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1pa5y3t",
+          "cssText": ".css-1pa5y3t { padding-inline-start: var(--space-x28); padding-inline-end: var(--space-x28); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1400px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1pa5y3t",
+          "cssText": ".css-1pa5y3t { padding-top: var(--space-x28); border-radius: var(--radii-lg); margin-top: var(--space-x24); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1400px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-k2rdc1",
+          "cssText": ".css-k2rdc1 { position: absolute; top: calc(var(--space-x25) * -1); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 390px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-t07t8c transition",
+          "cssText": ".css-t07t8c transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 576px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-t07t8c transition",
+          "cssText": ".css-t07t8c transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-t07t8c transition",
+          "cssText": ".css-t07t8c transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1400px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-vz47ed",
+          "cssText": ".css-vz47ed { margin-bottom: var(--space-x4); margin-top: var(--space-x6); color: var(--colors-content-primary); font-size: var(--fontSizes-x24); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 576px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-2ib1rl",
+          "cssText": ".css-2ib1rl { max-width: 100%; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1400px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-2ib1rl",
+          "cssText": ".css-2ib1rl { max-width: 600px; margin-bottom: var(--space-x10); color: var(--colors-content-primary); font-size: var(--fontSizes-x11); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1400px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1m9kjrf",
+          "cssText": ".css-1m9kjrf { flex-direction: row; gap: var(--space-x6); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 390px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-4unfe6 transition",
+          "cssText": ".css-4unfe6 transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 576px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-4unfe6 transition",
+          "cssText": ".css-4unfe6 transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-4unfe6 transition",
+          "cssText": ".css-4unfe6 transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1400px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1x3qf6m",
+          "cssText": ".css-1x3qf6m { height: 172px; flex-direction: column; align-items: flex-start; padding-top: var(--space-x6); color: var(--colors-content-primary); font-size: var(--fontSizes-x11); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1400px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-ulq6dt",
+          "cssText": ".css-ulq6dt { align-self: flex-end; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 390px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-6eg7o3 transition",
+          "cssText": ".css-6eg7o3 transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 576px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-6eg7o3 transition",
+          "cssText": ".css-6eg7o3 transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-6eg7o3 transition",
+          "cssText": ".css-6eg7o3 transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 390px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-vmqn6v transition",
+          "cssText": ".css-vmqn6v transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 576px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-vmqn6v transition",
+          "cssText": ".css-vmqn6v transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-vmqn6v transition",
+          "cssText": ".css-vmqn6v transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 390px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-947n7u transition",
+          "cssText": ".css-947n7u transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 576px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-947n7u transition",
+          "cssText": ".css-947n7u transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-947n7u transition",
+          "cssText": ".css-947n7u transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 390px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1qxa76n transition",
+          "cssText": ".css-1qxa76n transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 576px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1qxa76n transition",
+          "cssText": ".css-1qxa76n transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1qxa76n transition",
+          "cssText": ".css-1qxa76n transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1400px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-upg1js",
+          "cssText": ".css-upg1js { margin-top: var(--space-x10); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-g3n2zi",
+          "cssText": ".css-g3n2zi { padding-left: var(--space-x16); padding-right: var(--space-x16); padding-inline-start: var(--space-x16); padding-inline-end: var(--space-x16); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-g3n2zi",
+          "cssText": ".css-g3n2zi { padding-left: var(--space-x30); padding-right: var(--space-x30); padding-top: var(--space-x16); padding-bottom: var(--space-x16); padding-inline-start: var(--space-x30); padding-inline-end: var(--space-x30); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1537px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-g3n2zi",
+          "cssText": ".css-g3n2zi { padding-left: calc(-648.5px + (0.5 * 100dvw)); padding-right: calc(-648.5px + (0.5 * 100dvw)); padding-inline: calc(-648.5px + (0.5 * 100dvw)) calc(-648.5px + (0.5 * 100dvw)); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1o64dla",
+          "cssText": ".css-1o64dla { grid-column: 2 / 6; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1400px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-psmze4",
+          "cssText": ".css-psmze4 { font-size: var(--fontSizes-x24); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-11xc0h5",
+          "cssText": ".css-11xc0h5 { grid-row: 3 / 5; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-11xc0h5",
+          "cssText": ".css-11xc0h5 { grid-column-start: 2; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-d8ybtq",
+          "cssText": ".css-d8ybtq { grid-column-start: 6; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 390px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-16zu6hj transition",
+          "cssText": ".css-16zu6hj transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 576px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-16zu6hj transition",
+          "cssText": ".css-16zu6hj transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-16zu6hj transition",
+          "cssText": ".css-16zu6hj transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1al5tu8",
+          "cssText": ".css-1al5tu8 { min-width: 60vw; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-11ywhcs",
+          "cssText": ".css-11ywhcs { padding-inline-start: var(--space-x16); padding-inline-end: var(--space-x16); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-11ywhcs",
+          "cssText": ".css-11ywhcs { padding-inline-start: var(--space-x30); padding-inline-end: var(--space-x30); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1537px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-11ywhcs",
+          "cssText": ".css-11ywhcs { padding-inline-start: var(--space-x78); padding-inline-end: var(--space-x78); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-xju829",
+          "cssText": ".css-xju829 { gap: var(--space-x6); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 992px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-nh6d68",
+          "cssText": ".css-nh6d68 { padding-inline-start: var(--space-x12); padding-inline-end: var(--space-x12); padding-top: var(--space-x8); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-nh6d68",
+          "cssText": ".css-nh6d68 { padding-bottom: var(--space-x8); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1ygqxlf",
+          "cssText": ".css-1ygqxlf { flex-direction: row; gap: var(--space-x6); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1400px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-kb8md5",
+          "cssText": ".css-kb8md5 { font-size: var(--fontSizes-x8); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1400px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-77ea5q",
+          "cssText": ".css-77ea5q { font-size: var(--fontSizes-x8); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-sy1n14",
+          "cssText": ".css-sy1n14 { gap: var(--space-x6); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 992px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-sy1n14",
+          "cssText": ".css-sy1n14 { gap: var(--space-x4); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-oxw8q",
+          "cssText": ".css-oxw8q { padding-left: var(--space-x16); padding-right: var(--space-x16); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 992px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-oxw8q",
+          "cssText": ".css-oxw8q { padding-top: var(--space-x28); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-oxw8q",
+          "cssText": ".css-oxw8q { padding-left: var(--space-x30); padding-right: var(--space-x30); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1537px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-oxw8q",
+          "cssText": ".css-oxw8q { padding-left: calc(-648.5px + (0.5 * 100dvw)); padding-right: calc(-648.5px + (0.5 * 100dvw)); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 992px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-dityg6",
+          "cssText": ".css-dityg6 { -webkit-box-align: center; align-items: center; -webkit-box-pack: start; justify-content: flex-start; flex-direction: row; padding-bottom: var(--space-x16); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1537px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-dityg6",
+          "cssText": ".css-dityg6 { gap: var(--space-x12); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-ni5vqa",
+          "cssText": ".css-ni5vqa { min-width: 310px; height: 530px; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 992px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-ni5vqa",
+          "cssText": ".css-ni5vqa { height: 549px; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-ni5vqa",
+          "cssText": ".css-ni5vqa { min-width: 347px; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1400px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-ni5vqa",
+          "cssText": ".css-ni5vqa { min-width: 310px; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-121cx3c",
+          "cssText": ".css-121cx3c { max-width: 310px; height: 467px; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 992px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-10zrf1a",
+          "cssText": ".css-10zrf1a { color: var(--colors-content-buttonLabel); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1400px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-10zrf1a",
+          "cssText": ".css-10zrf1a { font-size: var(--fontSizes-x18); letter-spacing: var(--letterSpacings-98); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 390px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-8bgpit transition",
+          "cssText": ".css-8bgpit transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 576px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-8bgpit transition",
+          "cssText": ".css-8bgpit transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-8bgpit transition",
+          "cssText": ".css-8bgpit transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1400px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-nwy9u9",
+          "cssText": ".css-nwy9u9 { margin-top: var(--space-x10); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 992px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1h5jtxc",
+          "cssText": ".css-1h5jtxc { padding-bottom: var(--space-x6); max-width: 310px; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1400px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1h5jtxc",
+          "cssText": ".css-1h5jtxc { font-size: var(--fontSizes-x11); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 576px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1bb651d",
+          "cssText": ".css-1bb651d { height: 305px; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1bb651d",
+          "cssText": ".css-1bb651d { height: 184px; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1400px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1bb651d",
+          "cssText": ".css-1bb651d { height: 181px; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-uwml55",
+          "cssText": ".css-uwml55 { min-height: 144px; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1hcgriw",
+          "cssText": ".css-1hcgriw { min-height: 104px; max-width: 364px; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1400px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1hcgriw",
+          "cssText": ".css-1hcgriw { min-height: 87px; font-size: var(--fontSizes-x11); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 390px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1kibauo transition",
+          "cssText": ".css-1kibauo transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 576px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1kibauo transition",
+          "cssText": ".css-1kibauo transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1kibauo transition",
+          "cssText": ".css-1kibauo transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-rs6geh",
+          "cssText": ".css-rs6geh { padding-inline-start: var(--space-x16); padding-inline-end: var(--space-x16); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 390px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1eshgn0 transition",
+          "cssText": ".css-1eshgn0 transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 576px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1eshgn0 transition",
+          "cssText": ".css-1eshgn0 transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1eshgn0 transition",
+          "cssText": ".css-1eshgn0 transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-15ojrj1",
+          "cssText": ".css-15ojrj1 { gap: var(--space-x3); padding-inline-start: var(--space-x16); padding-inline-end: var(--space-x16); flex-direction: row-reverse; --chakra-space-x-reverse: 1; --chakra-divide-x-reverse: 1; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-vwxfgw",
+          "cssText": ".css-vwxfgw { padding-inline-start: var(--space-x16); padding-inline-end: var(--space-x16); flex-flow: wrap; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 390px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-nkt1rp transition",
+          "cssText": ".css-nkt1rp transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 576px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-nkt1rp transition",
+          "cssText": ".css-nkt1rp transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-nkt1rp transition",
+          "cssText": ".css-nkt1rp transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1rz28gw",
+          "cssText": ".css-1rz28gw { border-bottom-left-radius: var(--radii-extraLarge); border-bottom-right-radius: var(--radii-extraLarge); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-7g0cky",
+          "cssText": ".css-7g0cky { max-width: 720px; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 992px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1nosdmw",
+          "cssText": ".css-1nosdmw { padding-inline-start: var(--space-x30); padding-inline-end: var(--space-x30); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1400px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1nosdmw",
+          "cssText": ".css-1nosdmw { font-size: var(--fontSizes-x24); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 390px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1gvdxbh transition",
+          "cssText": ".css-1gvdxbh transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 576px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1gvdxbh transition",
+          "cssText": ".css-1gvdxbh transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1gvdxbh transition",
+          "cssText": ".css-1gvdxbh transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-cypy3z",
+          "cssText": ".css-cypy3z { text-align: left; min-height: 0px; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1400px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-cypy3z",
+          "cssText": ".css-cypy3z { font-size: var(--fontSizes-x11); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1duyurf",
+          "cssText": ".css-1duyurf { padding-top: var(--space-x20); padding-bottom: var(--space-x20); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1f4ifq0",
+          "cssText": ".css-1f4ifq0 { gap: var(--space-x6); padding-left: var(--space-x16); padding-right: var(--space-x16); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-ebyzok",
+          "cssText": ".css-ebyzok { padding-left: 0px; padding-right: 0px; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-q1fvsu .swiper",
+          "cssText": ".css-q1fvsu .swiper { padding-left: 0px; padding-right: 0px; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-s63wav",
+          "cssText": ".css-s63wav { border-radius: var(--radii-lg); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1400px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1f60msj",
+          "cssText": ".css-1f60msj { font-size: var(--fontSizes-x11); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 992px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1sthuyx",
+          "cssText": ".css-1sthuyx { line-height: var(--lineHeights-178); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1sthuyx",
+          "cssText": ".css-1sthuyx { min-height: 104px; max-width: 364px; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1400px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1sthuyx",
+          "cssText": ".css-1sthuyx { min-height: 87px; font-size: var(--fontSizes-x11); }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 390px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1bcyig8 transition",
+          "cssText": ".css-1bcyig8 transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 576px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1bcyig8 transition",
+          "cssText": ".css-1bcyig8 transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1bcyig8 transition",
+          "cssText": ".css-1bcyig8 transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 1200px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-k9nu3d",
+          "cssText": ".css-k9nu3d { flex-direction: row; }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 390px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-amqo9k transition",
+          "cssText": ".css-amqo9k transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 576px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-amqo9k transition",
+          "cssText": ".css-amqo9k transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-amqo9k transition",
+          "cssText": ".css-amqo9k transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 390px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1ctkad transition",
+          "cssText": ".css-1ctkad transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 576px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1ctkad transition",
+          "cssText": ".css-1ctkad transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-1ctkad transition",
+          "cssText": ".css-1ctkad transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 390px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-uc4yjd transition",
+          "cssText": ".css-uc4yjd transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 576px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-uc4yjd transition",
+          "cssText": ".css-uc4yjd transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-uc4yjd transition",
+          "cssText": ".css-uc4yjd transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 390px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-fk2k3i transition",
+          "cssText": ".css-fk2k3i transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 576px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-fk2k3i transition",
+          "cssText": ".css-fk2k3i transition { }"
+        }
+      ]
+    },
+    {
+      "condition": "screen and (min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".css-fk2k3i transition",
+          "cssText": ".css-fk2k3i transition { }"
+        }
+      ]
+    }
+  ],
+  "customProperties": {
+    "--colors-content-primary": "#000000",
+    "--space-x38-5": "154px",
+    "--space-x15": "60px",
+    "--colors-neutrals-90": "#2A2A2A",
+    "--fonts-code": "monospace",
+    "--breakpoints-md": "768px",
+    "--space-carouselBetween": "-12px",
+    "--lineHeights-166": "1.66",
+    "--colors-brand-core-70": "#610F9B",
+    "--space-x5-5": "22px",
+    "--colors-neutrals-alpha-black-30": "rgba(0, 0, 0, 0.3)",
+    "--letterSpacings-137": "1.375em",
+    "--space-x56": "224px",
+    "--colors-neutrals-alpha-offWhite-80": "rgba(244, 244, 244, 0.8)",
+    "--borderWidths-3": "3px",
+    "--colors-brand-pj-20": "#EADBF1",
+    "--lineHeights-233": "2.33",
+    "--radii-medium": "24px",
+    "--borderWidths-0": "0",
+    "--space-x24": "96px",
+    "--lineHeights-178": "1.78",
+    "--colors-brand-core-10": "#E9DFF6",
+    "--breakpoints-xl": "1200px",
+    "--fontWeights-bold": "700",
+    "--colors-surfaces-states-hovered": "#490B75",
+    "--lineHeights-130": "1.3",
+    "--space-x78": "312px",
+    "--lineHeights-222": "2.22",
+    "--colors-brand-core-20": "#ECD9FF",
+    "--colors-neutrals-alpha-gray-50": "rgba(202, 202, 202, 0.5)",
+    "--lineHeights-200": "2",
+    "--colors-surfaces-transparentSubtle-accentStroke": "rgba(65, 65, 64, 0.4)",
+    "--colors-surfaces-transparentDefault-mid": "rgba(202, 202, 202, 0.3)",
+    "--colors-neutrals-alpha-dark-25": "rgba(65, 65, 64, 0.25)",
+    "--lineHeights-192": "1.92",
+    "--colors-feedback-yellow-30": "#EAA950",
+    "--space-x66": "264px",
+    "--colors-neutrals-45": "#A2A2A2",
+    "--radii-md": "24px",
+    "--colors-surfaces-transparentStrong-accentStrong": "rgba(202, 202, 202, 0.5)",
+    "--colors-neutrals-30": "#BFBEBE",
+    "--colors-content-secondary": "#777777",
+    "--colors-brand-ultravioleta-50": "#854BCC",
+    "--space-x26": "104px",
+    "--colors-neutrals-80": "#414140",
+    "--space-x20": "80px",
+    "--colors-content-states-subtler": "#D2A5FF",
+    "--letterSpacings-99": "-0.01em",
+    "--space-x4-5": "18px",
+    "--fontSizes-x5": "10px",
+    "--colors-brand-pj-dark-30": "#643D7C",
+    "--colors-surfaces-states-pressedActive": "#320850",
+    "--colors-neutrals-alpha-dark-50": "rgba(65, 65, 64, 0.5)",
+    "--space-cardMarginDesktop": "64px",
+    "--letterSpacings-98": "-0.02em",
+    "--space-x60": "240px",
+    "--space-x1": "4px",
+    "--space-x5": "20px",
+    "--space-carouselLeft": "24px",
+    "--colors-brand-ultravioleta-30": "#CDAAF0",
+    "--breakpoints-sm": "576px",
+    "--radii-small": "12px",
+    "--colors-content-feedback-attention": "#9B5A00",
+    "--colors-brand-ultravioleta-70": "#613399",
+    "--space-x2-5": "10px",
+    "--lineHeights-310": "3.1",
+    "--space-x18": "72px",
+    "--font-nusans-text": "\"nuSansText\",\"nuSansText Fallback\",arial,helvetica",
+    "--fonts-primary": "\"graphikMedium\",\"graphikMedium Fallback\",arial,helvetica",
+    "--space-x25": "100px",
+    "--fontSizes-x18": "36px",
+    "--colors-feedback-red-30": "#FF9D9C",
+    "--colors-surfaces-transparentStrong-accentHighest": "rgba(202, 202, 202, 0.7)",
+    "--colors-feedback-green-30": "#3ED57D",
+    "--fontSizes-x12": "24px",
+    "--space-x32": "128px",
+    "--lineHeights-285": "2.85",
+    "--colors-content-states-pressedActive": "#320850",
+    "--fontSizes-x11": "22px",
+    "--colors-brand-ultravioleta-20": "#EADAF9",
+    "--lineHeights-110": "1.1",
+    "--lineHeights-122": "1.22",
+    "--font-nubank-icons": "\"nubankIcons\",\"nubankIcons Fallback\"",
+    "--breakpoints-base": "0px",
+    "--fontSizes-x10": "20px",
+    "--colors-brand-ultravioleta-60": "#7035BE",
+    "--colors-backgroundColors-headerBackgroundStrong": "rgba(255, 255, 255, 0.8)",
+    "--chakra-space-x-reverse": "0",
+    "--colors-neutrals-alpha-gray-30": "rgba(202, 202, 202, 0.3)",
+    "--colors-neutrals-alpha-dark-10": "rgba(65, 65, 64, 0.1)",
+    "--colors-surfaces-transparentSubtle-accentDisabled": "rgba(202, 202, 202, 0.2)",
+    "--fontSizes-x20": "40px",
+    "--lineHeights-85": ".85",
+    "--chakra-ring-color": "rgba(66, 153, 225, 0.6)",
+    "--fontWeights-regular": "400",
+    "--lineHeights-137": "1.37",
+    "--colors-backgroundColors-highest": "#777777",
+    "--colors-surfaces-progressBarOnNeutral": "rgba(202, 202, 202, 0.3)",
+    "--colors-surfaces-transparentDefault-default": "rgba(255, 255, 255, 0.6)",
+    "--lineHeights-250": "2.5",
+    "--fontSizes-x6": "12px",
+    "--colors-surfaces-transparentStrong-accentStroke": "rgba(65, 65, 64, 0.4)",
+    "--lineHeights-261": "2.61",
+    "--colors-brand-pj-10": "#F5EEF9",
+    "--colors-brand-pj-dark-50": "#9573B6",
+    "--lineHeights-120": "1.2",
+    "--colors-brand-pj-70": "#652590",
+    "--colors-neutrals-alpha-white-80": "rgba(255, 255, 255, 0.8)",
+    "--colors-feedback-red-50": "#D01D1C",
+    "--colors-brand-core-40": "#AA68FF",
+    "--colors-content-icon": "#000000",
+    "--colors-surfaces-states-subtle": "#AA68FF",
+    "--space-x2": "8px",
+    "--colors-brand-ultravioleta-40": "#AE77E7",
+    "--colors-backgroundColors-headerBackgroundDefault": "rgba(244, 244, 244, 0.8)",
+    "--colors-neutrals-alpha-white-65": "rgba(255, 255, 255, 0.65)",
+    "--colors-backgroundColors-default": "#FFFFFF",
+    "--breakpoints-xxxl": "1537px",
+    "--colors-content-states-enabled": "#820AD1",
+    "--colors-brand-pj-dark-90": "#E7DFEF",
+    "--colors-content-feedback-success": "#0C7A3A",
+    "--colors-bordersColors-default": "#E4E4E4",
+    "--lineHeights-326": "3.26",
+    "--colors-surfaces-highest": "#2A2A2A",
+    "--space-x10": "40px",
+    "--colors-surfaces-states-lowest": "#E9DFF6",
+    "--chakra-ring-inset": "",
+    "--space-carouselRight": "24px",
+    "--space-x23": "92px",
+    "--font-nusans-display": "\"nuSansDisplay\",\"nuSansDisplay Fallback\",arial,helvetica",
+    "--space-x75": "300px",
+    "--chakra-vh": "100dvh",
+    "--fontSizes-x48": "96px",
+    "--colors-brand-pj-dark-20": "#3E1F4D",
+    "--colors-surfaces-defaultOnColor": "#FFFFFF",
+    "--colors-neutrals-alpha-dark-80": "rgba(65, 65, 64, 0.8)",
+    "--space-x22": "88px",
+    "--sizes-borderWidth": "borderWidths.0",
+    "--colors-surfaces-subtleOnSubtle": "#E4E4E4",
+    "--space-x11-5": "46px",
+    "--colors-brand-core-80": "#490B75",
+    "--breakpoints-xs": "390px",
+    "--lineHeights-146": "1.46",
+    "--colors-brand-core-30": "#D2A5FF",
+    "--space-x7": "28px",
+    "--space-x6": "24px",
+    "--colors-bordersColors-accentFocus": "#D2A5FF",
+    "--colors-surfaces-transparentSubtle-accentDefault": "rgba(202, 202, 202, 0.3)",
+    "--colors-brand-pj-dark-60": "#A78BC3",
+    "--colors-neutrals-0": "#FFFFFF",
+    "--colors-surfaces-transparentDefault-contentOverlay": "rgba(202, 202, 202, 0.3)",
+    "--space-x0-75": "3px",
+    "--colors-surfaces-transparentSubtle-accentStrong": "rgba(202, 202, 202, 0.5)",
+    "--fontSizes-x15": "30px",
+    "--colors-neutrals-alpha-black-60": "rgba(0, 0, 0, 0.6)",
+    "--lineHeights-162": "1.62",
+    "--radii-full": "999px",
+    "--colors-surfaces-progressBarOnColor": "rgba(255, 255, 255, 0.6)",
+    "--lineHeights-350": "3.5",
+    "--space-x33": "132px",
+    "--borderWidths-4": "4px",
+    "--space-x1-25": "5px",
+    "--lineHeights-240": "2.4",
+    "--colors-brand-pj-60": "#714F8F",
+    "--borderWidths-1": "1px",
+    "--colors-content-linkActive": "#17092C",
+    "--fontSizes-x16": "32px",
+    "--colors-neutrals-70": "#5E5D5D",
+    "--colors-brand-core-50": "#9436E1",
+    "--fontSizes-x9": "18px",
+    "--space-x36": "144px",
+    "--lineHeights-144": "1.44",
+    "--lineHeights-100": "1.0",
+    "--colors-feedback-green-50": "#0C7A3A",
+    "--colors-neutrals-alpha-gray-70": "rgba(202, 202, 202, 0.7)",
+    "--colors-content-states-lowest": "#E9DFF6",
+    "--lineHeights-150": "1.5",
+    "--colors-content-onColor": "#000000",
+    "--fontSizes-x30": "60px",
+    "--colors-surfaces-states-disabled": "#E4E4E4",
+    "--letterSpacings-97": "-0.03em",
+    "--colors-feedback-yellow-50": "#9B5A00",
+    "--colors-neutrals-15": "#E4E4E4",
+    "--radii-lg": "32px",
+    "--colors-neutrals-alpha-gray-20": "rgba(202, 202, 202, 0.2)",
+    "--space-x40": "160px",
+    "--colors-surfaces-transparentDefault-high": "rgba(255, 255, 255, 0.8)",
+    "--fontWeights-medium": "500",
+    "--colors-neutrals-alpha-black-15": "rgba(0, 0, 0, 0.15)",
+    "--space-x34": "136px",
+    "--colors-brand-pj-dark-100": "#F5F1F8",
+    "--colors-neutrals-alpha-black-45": "rgba(0, 0, 0, 0.45)",
+    "--space-x28": "112px",
+    "--swiper-theme-color": "#007aff",
+    "--colors-brand-pj-80": "#490C74",
+    "--space-x23-5": "94px",
+    "--space-x16": "64px",
+    "--colors-brand-ultravioleta-90": "#290B4D",
+    "--lineHeights-25": ".25",
+    "--space-stackedCards": "32px",
+    "--colors-surfaces-strong": "#A2A2A2",
+    "--colors-surfaces-states-subtler": "#D2A5FF",
+    "--space-x29-5": "118px",
+    "--colors-content-linkHover": "#3E1874",
+    "--colors-content-states-subtle": "#AA68FF",
+    "--fontSizes-x32": "64px",
+    "--space-x14": "56px",
+    "--colors-content-inverse": "#FFFFFF",
+    "--space-x29": "116px",
+    "--colors-brand-core-100": "#1D042E",
+    "--colors-brand-pj-40": "#A087AE",
+    "--space-x11": "44px",
+    "--colors-brand-ultravioleta-80": "#3E1874",
+    "--lineHeights-180": "1.8",
+    "--fontSizes-x78": "156px",
+    "--colors-brand-pj-50": "#886A9E",
+    "--fontSizes-x19": "38px",
+    "--lineHeights-385": "3.85",
+    "--colors-brand-pj-dark-80": "#D5C8E2",
+    "--colors-backgroundColors-high": "#E9DFF6",
+    "--fontSizes-x14": "28px",
+    "--radii-large": "32px",
+    "--colors-brand-ultravioleta-100": "#17092C",
+    "--chakra-ring-shadow": "0 0 #0000",
+    "--space-x0-5": "2px",
+    "--colors-brand-pj-dark-10": "#2F183B",
+    "--radii-xl": "48px",
+    "--fontSizes-x28": "56px",
+    "--fontSizes-x17": "34px",
+    "--colors-neutrals-55": "#777777",
+    "--radii-sm": "12px",
+    "--colors-neutrals-alpha-black-80": "rgba(0, 0, 0, 0.8)",
+    "--colors-surfaces-stronger": "#777777",
+    "--colors-backgroundColors-subtleToZero": "#F4F4F4",
+    "--space-none": "0",
+    "--colors-brand-pj-90": "#320851",
+    "--chakra-ring-offset-shadow": "0 0 #0000",
+    "--space-x13": "52px",
+    "--space-x3": "12px",
+    "--lineHeights-140": "1.4",
+    "--space-x8": "32px",
+    "--colors-surfaces-transparentStrong-accentDefault": "rgba(202, 202, 202, 0.3)",
+    "--letterSpacings-100": "0",
+    "--colors-surfaces-states-enabled": "#820AD1",
+    "--colors-bordersColors-color": "#E9DFF6",
+    "--colors-neutrals-20": "#D5D4D4",
+    "--colors-content-states-disabled": "#A2A2A2",
+    "--colors-surfaces-default": "#FFFFFF",
+    "--radii-none": "0",
+    "--font-nubank-regular": "\"graphikRegular\",\"graphikRegular Fallback\",arial,helvetica",
+    "--colors-backgroundColors-subtle": "#F4F4F4",
+    "--font-nubank-medium": "\"graphikMedium\",\"graphikMedium Fallback\",arial,helvetica",
+    "--colors-brand-pj-dark-70": "#C1ADD5",
+    "--colors-neutrals-alpha-black-10": "rgba(0, 0, 0, 0.1)",
+    "--colors-content-states-hovered": "#490B75",
+    "--space-betweenCards": "8px",
+    "--space-x21": "84px",
+    "--space-x3-5": "14px",
+    "--space-x1-5": "6px",
+    "--space-x46": "184px",
+    "--colors-surfaces-transparentDefault-overlay": "rgba(65, 65, 64, 0.8)",
+    "--space-x4": "16px",
+    "--colors-neutrals-alpha-dark-60": "rgba(65, 65, 64, 0.6)",
+    "--colors-neutrals-10": "#EFEFEF",
+    "--colors-surfaces-headerLogo": "#820AD1",
+    "--colors-neutrals-alpha-white-60": "rgba(255, 255, 255, 0.6)",
+    "--colors-content-base": "#000000",
+    "--colors-neutrals-95": "#212121",
+    "--colors-surfaces-transparentSubtle-accentHighest": "rgba(202, 202, 202, 0.7)",
+    "--colors-brand-core-60": "#820AD1",
+    "--colors-brand-pj-30": "#C3B2CA",
+    "--colors-brand-core-90": "#320850",
+    "--chakra-ring-offset-width": "0px",
+    "--chakra-space-y-reverse": "0",
+    "--fonts-secondary": "\"graphikRegular\",\"graphikRegular Fallback\",arial,helvetica",
+    "--colors-brand-pj-dark-40": "#785296",
+    "--borderWidths-2": "2px",
+    "--lineHeights-255": "2.55",
+    "--fontSizes-x8": "16px",
+    "--fontSizes-x24": "48px",
+    "--colors-brand-ultravioleta-10": "#F3ECFC",
+    "--space-x12": "48px",
+    "--swiper-navigation-size": "44px",
+    "--colors-surfaces-transparentStrong-accentDisabled": "rgba(202, 202, 202, 0.2)",
+    "--fontSizes-x7": "14px",
+    "--breakpoints-lg": "992px",
+    "--space-x9": "36px",
+    "--colors-neutrals-5": "#F4F4F4",
+    "--lineHeights-280": "2.8",
+    "--colors-brand-pj-100": "#1C052E",
+    "--colors-content-feedback-critical": "#D01D1C",
+    "--colors-backgroundColors-strong": "#E4E4E4",
+    "--radii-extraLarge": "48px",
+    "--space-heroDesktop": "120px",
+    "--space-x30": "120px",
+    "--colors-content-link": "#820AD1",
+    "--colors-neutrals-alpha-dark-40": "rgba(65, 65, 64, 0.4)",
+    "--breakpoints-xxl": "1400px",
+    "--space-x10-5": "42px",
+    "--space-x0-25": "1px",
+    "--fontSizes-x56": "112px",
+    "--chakra-ring-offset-color": "#fff",
+    "--colors-neutrals-100": "#000000",
+    "--colors-surfaces-subtle": "#F4F4F4",
+    "--lineHeights-270": "2.7",
+    "--space-x19": "76px",
+    "--colors-bordersColors-colorBrand": "#ECD9FF",
+    "--colors-content-buttonLabel": "#FFFFFF"
+  },
+  "gridLayouts": [
+    {
+      "columns": "78px 78px 78px 78px 78px 78px 78px 78px 78px 78px 78px 78px",
+      "rows": "80px",
+      "gap": "24px"
+    },
+    {
+      "columns": "98px 98px 98px 98px 98px 98px 98px 98px 98px 98px 98px 98px",
+      "rows": "792px 0px",
+      "gap": "0px 24px"
+    },
+    {
+      "columns": "78px 78px 78px 78px 78px 78px 78px 78px 78px 78px 78px 78px",
+      "rows": "240px",
+      "gap": "0px 24px"
+    },
+    {
+      "columns": "28px 28px 28px 28px 28px 28px 28px 28px 28px 28px 28px 28px",
+      "rows": "52px 124px",
+      "gap": "16px normal"
+    },
+    {
+      "columns": "78px 78px 78px 78px 78px 78px 78px 78px 78px 78px 78px 78px",
+      "rows": "754.594px",
+      "gap": "24px"
+    },
+    {
+      "columns": "78px 78px 78px 78px 78px 78px 78px 78px 78px 78px 78px 78px",
+      "rows": "563.984px",
+      "gap": "24px"
+    },
+    {
+      "columns": "78px 78px 78px 78px 78px 78px 78px 78px 78px 78px 78px 78px",
+      "rows": "984.797px",
+      "gap": "24px"
+    },
+    {
+      "columns": "78px 78px 78px 78px 78px 78px 78px 78px 78px 78px 78px 78px",
+      "rows": "713.984px",
+      "gap": "24px"
+    },
+    {
+      "columns": "78px 78px 78px 78px 78px 78px 78px 78px 78px 78px 78px 78px",
+      "rows": "397px",
+      "gap": "24px"
+    },
+    {
+      "columns": "78px 78px 78px 78px 78px 78px 78px 78px 78px 78px 78px 78px",
+      "rows": "136px",
+      "gap": "24px"
+    },
+    {
+      "columns": "78px 78px 78px 78px 78px 78px 78px 78px 78px 78px 78px 78px",
+      "rows": "755.297px",
+      "gap": "24px"
+    }
+  ],
+  "flexLayouts": [
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "justify": "space-between",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "gap": "32px"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center",
+      "gap": "24px"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "justify": "space-between",
+      "align": "center",
+      "gap": "8px"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "justify": "center",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "justify": "center",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "justify": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "flex-end"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "justify": "center",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap"
+    },
+    {
+      "direction": "column",
+      "wrap": "nowrap",
+      "justify": "flex-end",
+      "align": "flex-start"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "flex-end"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "justify": "end",
+      "align": "end"
+    },
+    {
+      "direction": "column",
+      "wrap": "nowrap",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "justify": "center",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "justify": "space-between",
+      "align": "center",
+      "gap": "8px"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "justify": "center",
+      "align": "flex-start"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "justify": "center",
+      "align": "flex-start"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "justify": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "justify": "center",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap"
+    },
+    {
+      "direction": "column",
+      "wrap": "nowrap",
+      "justify": "flex-end",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "justify": "center",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center"
+    },
+    {
+      "direction": "column",
+      "wrap": "nowrap",
+      "justify": "flex-end",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "justify": "center",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center"
+    },
+    {
+      "direction": "column",
+      "wrap": "nowrap",
+      "justify": "flex-end",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "justify": "center",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center"
+    },
+    {
+      "direction": "column",
+      "wrap": "nowrap",
+      "justify": "flex-end",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "justify": "center",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center"
+    },
+    {
+      "direction": "column",
+      "wrap": "nowrap",
+      "justify": "flex-end",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "justify": "center",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center"
+    }
+  ]
+}

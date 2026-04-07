@@ -1,0 +1,29 @@
+
+  
+    #rd-column-k8hluha1 {
+      flex: 12 0 0;
+    }
+
+    #rd-column-k8hluha1 > div {
+      
+            background-image: url(https://d335luupugsy2.cloudfront.net/cms/files/18740/1595939276/$ubt4h4q1mvh), linear-gradient(to bottom, rgba(233,224,215,1) 0%, rgba(233,224,215,1) 100%);
+            background-position-x: 50%;
+            background-position-y: 100%;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: scroll;
+          
+      justify-content: center;
+      padding-top: 0px;
+      padding-right: 15px;
+      padding-bottom: 0px;
+      padding-left: 15px;
+    }
+    @media screen and (max-width: 767px) {
+      #rd-column-k8hluha1 > div {
+        min-height: auto !important;
+      }
+    }
+  
+
+  

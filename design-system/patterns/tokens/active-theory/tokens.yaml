@@ -1,0 +1,35 @@
+# Design Tokens - active-theory
+# Extracted by dissect-artifact.js v1.0.0
+# Source: https://activetheory.net
+# Date: 2026-04-01T13:36:57.108Z
+
+metadata:
+  version: "1.0.0"
+  source: "https://activetheory.net"
+  generated_at: "2026-04-01T13:36:57.108Z"
+  node_count: 2
+
+colors:
+  "rgb_255_255_255_":
+    value: "rgb(255, 255, 255)"
+    occurrences: 2
+  "rgb_0_0_0_":
+    value: "rgb(0, 0, 0)"
+    occurrences: 1
+
+typography:
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: "nbarchitekt, Helvetica, Arial, sans-serif"
+    occurrences: 1
+  "18px_700":
+    font-size: "18px"
+    font-weight: "700"
+    font-family: "nbarchitekt, Helvetica, Arial, sans-serif"
+    occurrences: 1
+
+spacing:
+  "225px":
+    value: "225px"
+    occurrences: 1

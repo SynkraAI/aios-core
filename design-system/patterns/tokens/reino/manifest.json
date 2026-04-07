@@ -1,0 +1,90 @@
+{
+  "version": "1.0.0",
+  "name": "reino",
+  "source": "https://reinostudio.com.br",
+  "timestamp": "2026-04-01T12:10:44.582Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "output": "/Users/luizfosc/aios-core/design-system/patterns/tokens/reino",
+  "files": {
+    "html": {
+      "file": "source.html",
+      "size": 66209
+    },
+    "screenshots": [
+      "screenshot-desktop.png",
+      "screenshot-mobile.png"
+    ],
+    "stylesheets": [
+      {
+        "url": "https://reinostudio.com.br/wp-content/cache/wpo-minify/1771911268/assets/wpo-minify-header-contact-form-71771911100.min.css",
+        "file": "wpo-minify-header-contact-form-71771911100.min.css",
+        "size": 2413
+      },
+      {
+        "url": "https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap",
+        "file": "css2",
+        "size": 33508
+      },
+      {
+        "url": "https://reinostudio.com.br/wp-content/themes/reino/assets/lib/FontAwesome_v6.5.1/css/all.css",
+        "file": "all.css",
+        "size": 519719
+      },
+      {
+        "url": "https://reinostudio.com.br/wp-content/themes/reino/assets/lib/SwiperJs/swiper-bundle.min.css",
+        "file": "swiper-bundle.min.css",
+        "size": 18449
+      },
+      {
+        "url": "https://reinostudio.com.br/wp-content/themes/reino/assets/css/style.css",
+        "file": "style.css",
+        "size": 100091
+      },
+      {
+        "embedded": true,
+        "file": "embedded-0.css",
+        "size": 135
+      },
+      {
+        "embedded": true,
+        "file": "embedded-1.css",
+        "size": 50
+      },
+      {
+        "embedded": true,
+        "file": "embedded-2.css",
+        "size": 8876
+      }
+    ],
+    "domTree": {
+      "file": "dom-tree.json",
+      "nodeCount": 508
+    },
+    "extractedCss": "extracted-css.json",
+    "components": {
+      "file": "components.json",
+      "count": 12
+    },
+    "tokens": "tokens.yaml"
+  },
+  "summary": {
+    "nodeCount": 508,
+    "uniqueColors": 4,
+    "typographyVariants": 26,
+    "spacingValues": 18,
+    "shadows": 0,
+    "gradients": 0,
+    "animations": 17,
+    "mediaQueries": 17,
+    "customProperties": 74,
+    "gridLayouts": 6,
+    "flexLayouts": 50,
+    "componentTypes": 12,
+    "totalComponents": 209,
+    "stylesheetCount": 8,
+    "inlineStyles": 143
+  }
+}

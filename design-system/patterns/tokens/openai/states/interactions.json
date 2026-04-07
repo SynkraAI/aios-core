@@ -1,0 +1,1543 @@
+{
+  "url": "https://openai.com",
+  "name": "openai",
+  "timestamp": "2026-04-01T11:56:27.022Z",
+  "totalElements": 50,
+  "elementsWithStates": 28,
+  "interactions": [
+    {
+      "tag": "a",
+      "text": "Skip to main content",
+      "classes": "transition duration-short ease-curve-a rounded-[2.5rem] text-nowrap min-h-md flex items-center justi",
+      "selector": "a.transition.duration-short.ease-curve-a.rounded-[2.5rem].text-nowrap.min-h-md.flex.items-center.justify-center.gap-[0.3em].text-cta.focus:outline.outline-offset-2.h-[2.5rem].start-sm.md:start-md.top-header-h.text-nav-header!.pointer-events-none.absolute.z-10.h-auto!.min-h-0!.px-4!.py-2!.leading-none!.opacity-0.outline-none!.focus-visible:pointer-events-auto.focus-visible:opacity-100.bg-primary-4.text-primary-100.px-xs.hover:bg-primary-12.disabled:bg-primary-4.disabled:text-primary-60.focus:bg-primary-12.focus:outline-primary-12",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0.04)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "40px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "0",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.2s cubic-bezier(0, 0, 1, 1), background-color 0.2s cubic-bezier(0, 0, 1, 1), border-color 0.2s cubic-bezier(0, 0, 1, 1), outline-color 0.2s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.2s cubic-bezier(0, 0, 1, 1), fill 0.2s cubic-bezier(0, 0, 1, 1), stroke 0.2s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.2s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.2s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.2s cubic-bezier(0, 0, 1, 1), opacity 0.2s cubic-bezier(0, 0, 1, 1), box-shadow 0.2s cubic-bezier(0, 0, 1, 1), transform 0.2s cubic-bezier(0, 0, 1, 1), translate 0.2s cubic-bezier(0, 0, 1, 1), scale 0.2s cubic-bezier(0, 0, 1, 1), rotate 0.2s cubic-bezier(0, 0, 1, 1), filter 0.2s cubic-bezier(0, 0, 1, 1), backdrop-filter 0.2s cubic-bezier(0, 0, 1, 1), display 0.2s cubic-bezier(0, 0, 1, 1), content-visibility 0.2s cubic-bezier(0, 0, 1, 1), overlay 0.2s cubic-bezier(0, 0, 1, 1), pointer-events 0.2s cubic-bezier(0, 0, 1, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0.04)",
+            "to": "rgba(0, 0, 0, 0.12)"
+          },
+          "opacity": {
+            "from": "0",
+            "to": "1"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgba(0, 0, 0, 0.12) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.12)"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "transition ease-curve-a duration-250 group/header-wordmark py-xs text-primary-100 duration-fast flex",
+      "selector": "a.transition.ease-curve-a.duration-250.group/header-wordmark.py-xs.text-primary-100.duration-fast.flex.h-full.shrink-0.items-center.transition-colors.focus-visible:outline-none.motion-reduce:transition-none",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s cubic-bezier(0, 0, 1, 1), background-color 0.1s cubic-bezier(0, 0, 1, 1), border-color 0.1s cubic-bezier(0, 0, 1, 1), outline-color 0.1s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.1s cubic-bezier(0, 0, 1, 1), fill 0.1s cubic-bezier(0, 0, 1, 1), stroke 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.1s cubic-bezier(0, 0, 1, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "color 0.1s cubic-bezier(0, 0, 1, 1), background-color 0.1s cubic-bezier(0, 0, 1, 1), border-color 0.1s cubic-bezier(0, 0, 1, 1), outline-color 0.1s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.1s cubic-bezier(0, 0, 1, 1), fill 0.1s cubic-bezier(0, 0, 1, 1), stroke 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.1s cubic-bezier(0, 0, 1, 1)",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "color 0.1s cubic-bezier(0, 0, 1, 1), background-color 0.1s cubic-bezier(0, 0, 1, 1), border-color 0.1s cubic-bezier(0, 0, 1, 1), outline-color 0.1s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.1s cubic-bezier(0, 0, 1, 1), fill 0.1s cubic-bezier(0, 0, 1, 1), stroke 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.1s cubic-bezier(0, 0, 1, 1)",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Research",
+      "classes": "transition ease-curve-a duration-250 group/desktop-nav-trigger duration-fast inline-flex h-full item",
+      "selector": "a.transition.ease-curve-a.duration-250.group/desktop-nav-trigger.duration-fast.inline-flex.h-full.items-center.text-primary-100.transition-colors.motion-reduce:transition-none.hover:text-primary-100.focus-visible:text-primary-100.focus-visible:outline-none.cursor-pointer",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s cubic-bezier(0, 0, 1, 1), background-color 0.1s cubic-bezier(0, 0, 1, 1), border-color 0.1s cubic-bezier(0, 0, 1, 1), outline-color 0.1s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.1s cubic-bezier(0, 0, 1, 1), fill 0.1s cubic-bezier(0, 0, 1, 1), stroke 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.1s cubic-bezier(0, 0, 1, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "transition": {
+            "from": "color 0.1s cubic-bezier(0, 0, 1, 1), background-color 0.1s cubic-bezier(0, 0, 1, 1), border-color 0.1s cubic-bezier(0, 0, 1, 1), outline-color 0.1s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.1s cubic-bezier(0, 0, 1, 1), fill 0.1s cubic-bezier(0, 0, 1, 1), stroke 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.1s cubic-bezier(0, 0, 1, 1)",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "transition": {
+            "from": "color 0.1s cubic-bezier(0, 0, 1, 1), background-color 0.1s cubic-bezier(0, 0, 1, 1), border-color 0.1s cubic-bezier(0, 0, 1, 1), outline-color 0.1s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.1s cubic-bezier(0, 0, 1, 1), fill 0.1s cubic-bezier(0, 0, 1, 1), stroke 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.1s cubic-bezier(0, 0, 1, 1)",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Business",
+      "classes": "transition ease-curve-a duration-250 group/desktop-nav-trigger duration-fast inline-flex h-full item",
+      "selector": "a.transition.ease-curve-a.duration-250.group/desktop-nav-trigger.duration-fast.inline-flex.h-full.items-center.text-primary-100.transition-colors.motion-reduce:transition-none.hover:text-primary-100.focus-visible:text-primary-100.focus-visible:outline-none.cursor-pointer",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s cubic-bezier(0, 0, 1, 1), background-color 0.1s cubic-bezier(0, 0, 1, 1), border-color 0.1s cubic-bezier(0, 0, 1, 1), outline-color 0.1s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.1s cubic-bezier(0, 0, 1, 1), fill 0.1s cubic-bezier(0, 0, 1, 1), stroke 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.1s cubic-bezier(0, 0, 1, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "transition": {
+            "from": "color 0.1s cubic-bezier(0, 0, 1, 1), background-color 0.1s cubic-bezier(0, 0, 1, 1), border-color 0.1s cubic-bezier(0, 0, 1, 1), outline-color 0.1s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.1s cubic-bezier(0, 0, 1, 1), fill 0.1s cubic-bezier(0, 0, 1, 1), stroke 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.1s cubic-bezier(0, 0, 1, 1)",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "transition": {
+            "from": "color 0.1s cubic-bezier(0, 0, 1, 1), background-color 0.1s cubic-bezier(0, 0, 1, 1), border-color 0.1s cubic-bezier(0, 0, 1, 1), outline-color 0.1s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.1s cubic-bezier(0, 0, 1, 1), fill 0.1s cubic-bezier(0, 0, 1, 1), stroke 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.1s cubic-bezier(0, 0, 1, 1)",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Developers",
+      "classes": "transition ease-curve-a duration-250 group/desktop-nav-trigger duration-fast inline-flex h-full item",
+      "selector": "a.transition.ease-curve-a.duration-250.group/desktop-nav-trigger.duration-fast.inline-flex.h-full.items-center.text-primary-100.transition-colors.motion-reduce:transition-none.hover:text-primary-100.focus-visible:text-primary-100.focus-visible:outline-none.cursor-pointer",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s cubic-bezier(0, 0, 1, 1), background-color 0.1s cubic-bezier(0, 0, 1, 1), border-color 0.1s cubic-bezier(0, 0, 1, 1), outline-color 0.1s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.1s cubic-bezier(0, 0, 1, 1), fill 0.1s cubic-bezier(0, 0, 1, 1), stroke 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.1s cubic-bezier(0, 0, 1, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "transition": {
+            "from": "color 0.1s cubic-bezier(0, 0, 1, 1), background-color 0.1s cubic-bezier(0, 0, 1, 1), border-color 0.1s cubic-bezier(0, 0, 1, 1), outline-color 0.1s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.1s cubic-bezier(0, 0, 1, 1), fill 0.1s cubic-bezier(0, 0, 1, 1), stroke 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.1s cubic-bezier(0, 0, 1, 1)",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "transition": {
+            "from": "color 0.1s cubic-bezier(0, 0, 1, 1), background-color 0.1s cubic-bezier(0, 0, 1, 1), border-color 0.1s cubic-bezier(0, 0, 1, 1), outline-color 0.1s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.1s cubic-bezier(0, 0, 1, 1), fill 0.1s cubic-bezier(0, 0, 1, 1), stroke 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.1s cubic-bezier(0, 0, 1, 1)",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Company",
+      "classes": "transition ease-curve-a duration-250 group/desktop-nav-trigger duration-fast inline-flex h-full item",
+      "selector": "a.transition.ease-curve-a.duration-250.group/desktop-nav-trigger.duration-fast.inline-flex.h-full.items-center.text-primary-100.transition-colors.motion-reduce:transition-none.hover:text-primary-100.focus-visible:text-primary-100.focus-visible:outline-none.cursor-pointer",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s cubic-bezier(0, 0, 1, 1), background-color 0.1s cubic-bezier(0, 0, 1, 1), border-color 0.1s cubic-bezier(0, 0, 1, 1), outline-color 0.1s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.1s cubic-bezier(0, 0, 1, 1), fill 0.1s cubic-bezier(0, 0, 1, 1), stroke 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.1s cubic-bezier(0, 0, 1, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "transition": {
+            "from": "color 0.1s cubic-bezier(0, 0, 1, 1), background-color 0.1s cubic-bezier(0, 0, 1, 1), border-color 0.1s cubic-bezier(0, 0, 1, 1), outline-color 0.1s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.1s cubic-bezier(0, 0, 1, 1), fill 0.1s cubic-bezier(0, 0, 1, 1), stroke 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.1s cubic-bezier(0, 0, 1, 1)",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "transition": {
+            "from": "color 0.1s cubic-bezier(0, 0, 1, 1), background-color 0.1s cubic-bezier(0, 0, 1, 1), border-color 0.1s cubic-bezier(0, 0, 1, 1), outline-color 0.1s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.1s cubic-bezier(0, 0, 1, 1), fill 0.1s cubic-bezier(0, 0, 1, 1), stroke 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.1s cubic-bezier(0, 0, 1, 1)",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Search with ChatGPT",
+      "classes": "transition ease-curve-a duration-250 border-primary-12 hover:bg-primary-4 whitespace-nowrap text-cta",
+      "selector": "a.transition.ease-curve-a.duration-250.border-primary-12.hover:bg-primary-4.whitespace-nowrap.text-cta.flex.h-[40px].items-center.!rounded-full.border.border-solid.bg-transparent.px-3.leading-none.transition.light:shadow-splash-chatpgpt-links",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgba(0, 0, 0, 0.12)",
+        "borderWidth": "1px",
+        "borderRadius": "9999px",
+        "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.02) 0px 4px 6px 0px, rgba(0, 0, 0, 0.05) 0px 0px 2px 0px",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.25s cubic-bezier(0, 0, 1, 1), background-color 0.25s cubic-bezier(0, 0, 1, 1), border-color 0.25s cubic-bezier(0, 0, 1, 1), outline-color 0.25s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.25s cubic-bezier(0, 0, 1, 1), fill 0.25s cubic-bezier(0, 0, 1, 1), stroke 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.25s cubic-bezier(0, 0, 1, 1), opacity 0.25s cubic-bezier(0, 0, 1, 1), box-shadow 0.25s cubic-bezier(0, 0, 1, 1), transform 0.25s cubic-bezier(0, 0, 1, 1), translate 0.25s cubic-bezier(0, 0, 1, 1), scale 0.25s cubic-bezier(0, 0, 1, 1), rotate 0.25s cubic-bezier(0, 0, 1, 1), filter 0.25s cubic-bezier(0, 0, 1, 1), backdrop-filter 0.25s cubic-bezier(0, 0, 1, 1), display 0.25s cubic-bezier(0, 0, 1, 1), content-visibility 0.25s cubic-bezier(0, 0, 1, 1), overlay 0.25s cubic-bezier(0, 0, 1, 1), pointer-events 0.25s cubic-bezier(0, 0, 1, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.6)"
+          },
+          "borderColor": {
+            "from": "rgba(0, 0, 0, 0.12)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "1px",
+            "to": "0px"
+          },
+          "borderRadius": {
+            "from": "9999px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.02) 0px 4px 6px 0px, rgba(0, 0, 0, 0.05) 0px 0px 2px 0px",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgba(0, 0, 0, 0.6) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.6)"
+          },
+          "transition": {
+            "from": "color 0.25s cubic-bezier(0, 0, 1, 1), background-color 0.25s cubic-bezier(0, 0, 1, 1), border-color 0.25s cubic-bezier(0, 0, 1, 1), outline-color 0.25s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.25s cubic-bezier(0, 0, 1, 1), fill 0.25s cubic-bezier(0, 0, 1, 1), stroke 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.25s cubic-bezier(0, 0, 1, 1), opacity 0.25s cubic-bezier(0, 0, 1, 1), box-shadow 0.25s cubic-bezier(0, 0, 1, 1), transform 0.25s cubic-bezier(0, 0, 1, 1), translate 0.25s cubic-bezier(0, 0, 1, 1), scale 0.25s cubic-bezier(0, 0, 1, 1), rotate 0.25s cubic-bezier(0, 0, 1, 1), filter 0.25s cubic-bezier(0, 0, 1, 1), backdrop-filter 0.25s cubic-bezier(0, 0, 1, 1), display 0.25s cubic-bezier(0, 0, 1, 1), content-visibility 0.25s cubic-bezier(0, 0, 1, 1), overlay 0.25s cubic-bezier(0, 0, 1, 1), pointer-events 0.25s cubic-bezier(0, 0, 1, 1)",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.6)"
+          },
+          "borderColor": {
+            "from": "rgba(0, 0, 0, 0.12)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "1px",
+            "to": "0px"
+          },
+          "borderRadius": {
+            "from": "9999px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.02) 0px 4px 6px 0px, rgba(0, 0, 0, 0.05) 0px 0px 2px 0px",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgba(0, 0, 0, 0.6) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.6)"
+          },
+          "transition": {
+            "from": "color 0.25s cubic-bezier(0, 0, 1, 1), background-color 0.25s cubic-bezier(0, 0, 1, 1), border-color 0.25s cubic-bezier(0, 0, 1, 1), outline-color 0.25s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.25s cubic-bezier(0, 0, 1, 1), fill 0.25s cubic-bezier(0, 0, 1, 1), stroke 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.25s cubic-bezier(0, 0, 1, 1), opacity 0.25s cubic-bezier(0, 0, 1, 1), box-shadow 0.25s cubic-bezier(0, 0, 1, 1), transform 0.25s cubic-bezier(0, 0, 1, 1), translate 0.25s cubic-bezier(0, 0, 1, 1), scale 0.25s cubic-bezier(0, 0, 1, 1), rotate 0.25s cubic-bezier(0, 0, 1, 1), filter 0.25s cubic-bezier(0, 0, 1, 1), backdrop-filter 0.25s cubic-bezier(0, 0, 1, 1), display 0.25s cubic-bezier(0, 0, 1, 1), content-visibility 0.25s cubic-bezier(0, 0, 1, 1), overlay 0.25s cubic-bezier(0, 0, 1, 1), pointer-events 0.25s cubic-bezier(0, 0, 1, 1)",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Talk with ChatGPT",
+      "classes": "transition ease-curve-a duration-250 border-primary-12 hover:bg-primary-4 whitespace-nowrap text-cta",
+      "selector": "a.transition.ease-curve-a.duration-250.border-primary-12.hover:bg-primary-4.whitespace-nowrap.text-cta.flex.h-[40px].items-center.!rounded-full.border.border-solid.bg-transparent.px-3.leading-none.transition.light:shadow-splash-chatpgpt-links",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgba(0, 0, 0, 0.12)",
+        "borderWidth": "1px",
+        "borderRadius": "9999px",
+        "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.02) 0px 4px 6px 0px, rgba(0, 0, 0, 0.05) 0px 0px 2px 0px",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.25s cubic-bezier(0, 0, 1, 1), background-color 0.25s cubic-bezier(0, 0, 1, 1), border-color 0.25s cubic-bezier(0, 0, 1, 1), outline-color 0.25s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.25s cubic-bezier(0, 0, 1, 1), fill 0.25s cubic-bezier(0, 0, 1, 1), stroke 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.25s cubic-bezier(0, 0, 1, 1), opacity 0.25s cubic-bezier(0, 0, 1, 1), box-shadow 0.25s cubic-bezier(0, 0, 1, 1), transform 0.25s cubic-bezier(0, 0, 1, 1), translate 0.25s cubic-bezier(0, 0, 1, 1), scale 0.25s cubic-bezier(0, 0, 1, 1), rotate 0.25s cubic-bezier(0, 0, 1, 1), filter 0.25s cubic-bezier(0, 0, 1, 1), backdrop-filter 0.25s cubic-bezier(0, 0, 1, 1), display 0.25s cubic-bezier(0, 0, 1, 1), content-visibility 0.25s cubic-bezier(0, 0, 1, 1), overlay 0.25s cubic-bezier(0, 0, 1, 1), pointer-events 0.25s cubic-bezier(0, 0, 1, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.6)"
+          },
+          "borderColor": {
+            "from": "rgba(0, 0, 0, 0.12)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "1px",
+            "to": "0px"
+          },
+          "borderRadius": {
+            "from": "9999px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.02) 0px 4px 6px 0px, rgba(0, 0, 0, 0.05) 0px 0px 2px 0px",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgba(0, 0, 0, 0.6) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.6)"
+          },
+          "transition": {
+            "from": "color 0.25s cubic-bezier(0, 0, 1, 1), background-color 0.25s cubic-bezier(0, 0, 1, 1), border-color 0.25s cubic-bezier(0, 0, 1, 1), outline-color 0.25s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.25s cubic-bezier(0, 0, 1, 1), fill 0.25s cubic-bezier(0, 0, 1, 1), stroke 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.25s cubic-bezier(0, 0, 1, 1), opacity 0.25s cubic-bezier(0, 0, 1, 1), box-shadow 0.25s cubic-bezier(0, 0, 1, 1), transform 0.25s cubic-bezier(0, 0, 1, 1), translate 0.25s cubic-bezier(0, 0, 1, 1), scale 0.25s cubic-bezier(0, 0, 1, 1), rotate 0.25s cubic-bezier(0, 0, 1, 1), filter 0.25s cubic-bezier(0, 0, 1, 1), backdrop-filter 0.25s cubic-bezier(0, 0, 1, 1), display 0.25s cubic-bezier(0, 0, 1, 1), content-visibility 0.25s cubic-bezier(0, 0, 1, 1), overlay 0.25s cubic-bezier(0, 0, 1, 1), pointer-events 0.25s cubic-bezier(0, 0, 1, 1)",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.6)"
+          },
+          "borderColor": {
+            "from": "rgba(0, 0, 0, 0.12)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "1px",
+            "to": "0px"
+          },
+          "borderRadius": {
+            "from": "9999px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.02) 0px 4px 6px 0px, rgba(0, 0, 0, 0.05) 0px 0px 2px 0px",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgba(0, 0, 0, 0.6) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.6)"
+          },
+          "transition": {
+            "from": "color 0.25s cubic-bezier(0, 0, 1, 1), background-color 0.25s cubic-bezier(0, 0, 1, 1), border-color 0.25s cubic-bezier(0, 0, 1, 1), outline-color 0.25s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.25s cubic-bezier(0, 0, 1, 1), fill 0.25s cubic-bezier(0, 0, 1, 1), stroke 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.25s cubic-bezier(0, 0, 1, 1), opacity 0.25s cubic-bezier(0, 0, 1, 1), box-shadow 0.25s cubic-bezier(0, 0, 1, 1), transform 0.25s cubic-bezier(0, 0, 1, 1), translate 0.25s cubic-bezier(0, 0, 1, 1), scale 0.25s cubic-bezier(0, 0, 1, 1), rotate 0.25s cubic-bezier(0, 0, 1, 1), filter 0.25s cubic-bezier(0, 0, 1, 1), backdrop-filter 0.25s cubic-bezier(0, 0, 1, 1), display 0.25s cubic-bezier(0, 0, 1, 1), content-visibility 0.25s cubic-bezier(0, 0, 1, 1), overlay 0.25s cubic-bezier(0, 0, 1, 1), pointer-events 0.25s cubic-bezier(0, 0, 1, 1)",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Research",
+      "classes": "transition ease-curve-a duration-250 border-primary-12 hover:bg-primary-4 whitespace-nowrap text-cta",
+      "selector": "a.transition.ease-curve-a.duration-250.border-primary-12.hover:bg-primary-4.whitespace-nowrap.text-cta.flex.h-[40px].items-center.!rounded-full.border.border-solid.bg-transparent.px-3.leading-none.transition.light:shadow-splash-chatpgpt-links",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgba(0, 0, 0, 0.12)",
+        "borderWidth": "1px",
+        "borderRadius": "9999px",
+        "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.02) 0px 4px 6px 0px, rgba(0, 0, 0, 0.05) 0px 0px 2px 0px",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.25s cubic-bezier(0, 0, 1, 1), background-color 0.25s cubic-bezier(0, 0, 1, 1), border-color 0.25s cubic-bezier(0, 0, 1, 1), outline-color 0.25s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.25s cubic-bezier(0, 0, 1, 1), fill 0.25s cubic-bezier(0, 0, 1, 1), stroke 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.25s cubic-bezier(0, 0, 1, 1), opacity 0.25s cubic-bezier(0, 0, 1, 1), box-shadow 0.25s cubic-bezier(0, 0, 1, 1), transform 0.25s cubic-bezier(0, 0, 1, 1), translate 0.25s cubic-bezier(0, 0, 1, 1), scale 0.25s cubic-bezier(0, 0, 1, 1), rotate 0.25s cubic-bezier(0, 0, 1, 1), filter 0.25s cubic-bezier(0, 0, 1, 1), backdrop-filter 0.25s cubic-bezier(0, 0, 1, 1), display 0.25s cubic-bezier(0, 0, 1, 1), content-visibility 0.25s cubic-bezier(0, 0, 1, 1), overlay 0.25s cubic-bezier(0, 0, 1, 1), pointer-events 0.25s cubic-bezier(0, 0, 1, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "borderColor": {
+            "from": "rgba(0, 0, 0, 0.12)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "1px",
+            "to": "0px"
+          },
+          "borderRadius": {
+            "from": "9999px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.02) 0px 4px 6px 0px, rgba(0, 0, 0, 0.05) 0px 0px 2px 0px",
+            "to": "none"
+          },
+          "transition": {
+            "from": "color 0.25s cubic-bezier(0, 0, 1, 1), background-color 0.25s cubic-bezier(0, 0, 1, 1), border-color 0.25s cubic-bezier(0, 0, 1, 1), outline-color 0.25s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.25s cubic-bezier(0, 0, 1, 1), fill 0.25s cubic-bezier(0, 0, 1, 1), stroke 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.25s cubic-bezier(0, 0, 1, 1), opacity 0.25s cubic-bezier(0, 0, 1, 1), box-shadow 0.25s cubic-bezier(0, 0, 1, 1), transform 0.25s cubic-bezier(0, 0, 1, 1), translate 0.25s cubic-bezier(0, 0, 1, 1), scale 0.25s cubic-bezier(0, 0, 1, 1), rotate 0.25s cubic-bezier(0, 0, 1, 1), filter 0.25s cubic-bezier(0, 0, 1, 1), backdrop-filter 0.25s cubic-bezier(0, 0, 1, 1), display 0.25s cubic-bezier(0, 0, 1, 1), content-visibility 0.25s cubic-bezier(0, 0, 1, 1), overlay 0.25s cubic-bezier(0, 0, 1, 1), pointer-events 0.25s cubic-bezier(0, 0, 1, 1)",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "borderColor": {
+            "from": "rgba(0, 0, 0, 0.12)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "1px",
+            "to": "0px"
+          },
+          "borderRadius": {
+            "from": "9999px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.02) 0px 4px 6px 0px, rgba(0, 0, 0, 0.05) 0px 0px 2px 0px",
+            "to": "none"
+          },
+          "transition": {
+            "from": "color 0.25s cubic-bezier(0, 0, 1, 1), background-color 0.25s cubic-bezier(0, 0, 1, 1), border-color 0.25s cubic-bezier(0, 0, 1, 1), outline-color 0.25s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.25s cubic-bezier(0, 0, 1, 1), fill 0.25s cubic-bezier(0, 0, 1, 1), stroke 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.25s cubic-bezier(0, 0, 1, 1), opacity 0.25s cubic-bezier(0, 0, 1, 1), box-shadow 0.25s cubic-bezier(0, 0, 1, 1), transform 0.25s cubic-bezier(0, 0, 1, 1), translate 0.25s cubic-bezier(0, 0, 1, 1), scale 0.25s cubic-bezier(0, 0, 1, 1), rotate 0.25s cubic-bezier(0, 0, 1, 1), filter 0.25s cubic-bezier(0, 0, 1, 1), backdrop-filter 0.25s cubic-bezier(0, 0, 1, 1), display 0.25s cubic-bezier(0, 0, 1, 1), content-visibility 0.25s cubic-bezier(0, 0, 1, 1), overlay 0.25s cubic-bezier(0, 0, 1, 1), pointer-events 0.25s cubic-bezier(0, 0, 1, 1)",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Sora",
+      "classes": "transition ease-curve-a duration-250 border-primary-12 hover:bg-primary-4 whitespace-nowrap text-cta",
+      "selector": "a.transition.ease-curve-a.duration-250.border-primary-12.hover:bg-primary-4.whitespace-nowrap.text-cta.flex.h-[40px].items-center.!rounded-full.border.border-solid.bg-transparent.px-3.leading-none.transition.light:shadow-splash-chatpgpt-links",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgba(0, 0, 0, 0.12)",
+        "borderWidth": "1px",
+        "borderRadius": "9999px",
+        "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.02) 0px 4px 6px 0px, rgba(0, 0, 0, 0.05) 0px 0px 2px 0px",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.25s cubic-bezier(0, 0, 1, 1), background-color 0.25s cubic-bezier(0, 0, 1, 1), border-color 0.25s cubic-bezier(0, 0, 1, 1), outline-color 0.25s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.25s cubic-bezier(0, 0, 1, 1), fill 0.25s cubic-bezier(0, 0, 1, 1), stroke 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.25s cubic-bezier(0, 0, 1, 1), opacity 0.25s cubic-bezier(0, 0, 1, 1), box-shadow 0.25s cubic-bezier(0, 0, 1, 1), transform 0.25s cubic-bezier(0, 0, 1, 1), translate 0.25s cubic-bezier(0, 0, 1, 1), scale 0.25s cubic-bezier(0, 0, 1, 1), rotate 0.25s cubic-bezier(0, 0, 1, 1), filter 0.25s cubic-bezier(0, 0, 1, 1), backdrop-filter 0.25s cubic-bezier(0, 0, 1, 1), display 0.25s cubic-bezier(0, 0, 1, 1), content-visibility 0.25s cubic-bezier(0, 0, 1, 1), overlay 0.25s cubic-bezier(0, 0, 1, 1), pointer-events 0.25s cubic-bezier(0, 0, 1, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.6)"
+          },
+          "borderColor": {
+            "from": "rgba(0, 0, 0, 0.12)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "1px",
+            "to": "0px"
+          },
+          "borderRadius": {
+            "from": "9999px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.02) 0px 4px 6px 0px, rgba(0, 0, 0, 0.05) 0px 0px 2px 0px",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgba(0, 0, 0, 0.6) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.6)"
+          },
+          "transition": {
+            "from": "color 0.25s cubic-bezier(0, 0, 1, 1), background-color 0.25s cubic-bezier(0, 0, 1, 1), border-color 0.25s cubic-bezier(0, 0, 1, 1), outline-color 0.25s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.25s cubic-bezier(0, 0, 1, 1), fill 0.25s cubic-bezier(0, 0, 1, 1), stroke 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.25s cubic-bezier(0, 0, 1, 1), opacity 0.25s cubic-bezier(0, 0, 1, 1), box-shadow 0.25s cubic-bezier(0, 0, 1, 1), transform 0.25s cubic-bezier(0, 0, 1, 1), translate 0.25s cubic-bezier(0, 0, 1, 1), scale 0.25s cubic-bezier(0, 0, 1, 1), rotate 0.25s cubic-bezier(0, 0, 1, 1), filter 0.25s cubic-bezier(0, 0, 1, 1), backdrop-filter 0.25s cubic-bezier(0, 0, 1, 1), display 0.25s cubic-bezier(0, 0, 1, 1), content-visibility 0.25s cubic-bezier(0, 0, 1, 1), overlay 0.25s cubic-bezier(0, 0, 1, 1), pointer-events 0.25s cubic-bezier(0, 0, 1, 1)",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.6)"
+          },
+          "borderColor": {
+            "from": "rgba(0, 0, 0, 0.12)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "1px",
+            "to": "0px"
+          },
+          "borderRadius": {
+            "from": "9999px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.02) 0px 4px 6px 0px, rgba(0, 0, 0, 0.05) 0px 0px 2px 0px",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgba(0, 0, 0, 0.6) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.6)"
+          },
+          "transition": {
+            "from": "color 0.25s cubic-bezier(0, 0, 1, 1), background-color 0.25s cubic-bezier(0, 0, 1, 1), border-color 0.25s cubic-bezier(0, 0, 1, 1), outline-color 0.25s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.25s cubic-bezier(0, 0, 1, 1), fill 0.25s cubic-bezier(0, 0, 1, 1), stroke 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.25s cubic-bezier(0, 0, 1, 1), opacity 0.25s cubic-bezier(0, 0, 1, 1), box-shadow 0.25s cubic-bezier(0, 0, 1, 1), transform 0.25s cubic-bezier(0, 0, 1, 1), translate 0.25s cubic-bezier(0, 0, 1, 1), scale 0.25s cubic-bezier(0, 0, 1, 1), rotate 0.25s cubic-bezier(0, 0, 1, 1), filter 0.25s cubic-bezier(0, 0, 1, 1), backdrop-filter 0.25s cubic-bezier(0, 0, 1, 1), display 0.25s cubic-bezier(0, 0, 1, 1), content-visibility 0.25s cubic-bezier(0, 0, 1, 1), overlay 0.25s cubic-bezier(0, 0, 1, 1), pointer-events 0.25s cubic-bezier(0, 0, 1, 1)",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "View more",
+      "classes": "transition duration-short ease-curve-a rounded-[2.5rem] text-nowrap min-h-md flex items-center justi",
+      "selector": "a.transition.duration-short.ease-curve-a.rounded-[2.5rem].text-nowrap.min-h-md.flex.items-center.justify-center.gap-[0.3em].text-cta.focus:outline.outline-offset-2.h-[2.5rem].min-h-0.text-primary-100.hover:text-primary-60.disabled:text-primary-44.focus:outline-none.focus-visible:outline-primary-44.px-0.!rounded",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "4px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.2s cubic-bezier(0, 0, 1, 1), background-color 0.2s cubic-bezier(0, 0, 1, 1), border-color 0.2s cubic-bezier(0, 0, 1, 1), outline-color 0.2s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.2s cubic-bezier(0, 0, 1, 1), fill 0.2s cubic-bezier(0, 0, 1, 1), stroke 0.2s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.2s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.2s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.2s cubic-bezier(0, 0, 1, 1), opacity 0.2s cubic-bezier(0, 0, 1, 1), box-shadow 0.2s cubic-bezier(0, 0, 1, 1), transform 0.2s cubic-bezier(0, 0, 1, 1), translate 0.2s cubic-bezier(0, 0, 1, 1), scale 0.2s cubic-bezier(0, 0, 1, 1), rotate 0.2s cubic-bezier(0, 0, 1, 1), filter 0.2s cubic-bezier(0, 0, 1, 1), backdrop-filter 0.2s cubic-bezier(0, 0, 1, 1), display 0.2s cubic-bezier(0, 0, 1, 1), content-visibility 0.2s cubic-bezier(0, 0, 1, 1), overlay 0.2s cubic-bezier(0, 0, 1, 1), pointer-events 0.2s cubic-bezier(0, 0, 1, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.6)"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgba(0, 0, 0, 0.6) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.6)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgba(0, 0, 0, 0.44) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.44)"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "OpenAI Model Craft: Parameter Golf",
+      "classes": "transition ease-curve-a duration-250 ps-xs @lg:ps-md text-primary-100 @xl:pe-xl flex-auto after:abso",
+      "selector": "#3VrUQkeQ5qBXwfPjuhbtf2",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.25s cubic-bezier(0, 0, 1, 1), background-color 0.25s cubic-bezier(0, 0, 1, 1), border-color 0.25s cubic-bezier(0, 0, 1, 1), outline-color 0.25s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.25s cubic-bezier(0, 0, 1, 1), fill 0.25s cubic-bezier(0, 0, 1, 1), stroke 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.25s cubic-bezier(0, 0, 1, 1), opacity 0.25s cubic-bezier(0, 0, 1, 1), box-shadow 0.25s cubic-bezier(0, 0, 1, 1), transform 0.25s cubic-bezier(0, 0, 1, 1), translate 0.25s cubic-bezier(0, 0, 1, 1), scale 0.25s cubic-bezier(0, 0, 1, 1), rotate 0.25s cubic-bezier(0, 0, 1, 1), filter 0.25s cubic-bezier(0, 0, 1, 1), backdrop-filter 0.25s cubic-bezier(0, 0, 1, 1), display 0.25s cubic-bezier(0, 0, 1, 1), content-visibility 0.25s cubic-bezier(0, 0, 1, 1), overlay 0.25s cubic-bezier(0, 0, 1, 1), pointer-events 0.25s cubic-bezier(0, 0, 1, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "transition": {
+            "from": "color 0.25s cubic-bezier(0, 0, 1, 1), background-color 0.25s cubic-bezier(0, 0, 1, 1), border-color 0.25s cubic-bezier(0, 0, 1, 1), outline-color 0.25s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.25s cubic-bezier(0, 0, 1, 1), fill 0.25s cubic-bezier(0, 0, 1, 1), stroke 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.25s cubic-bezier(0, 0, 1, 1), opacity 0.25s cubic-bezier(0, 0, 1, 1), box-shadow 0.25s cubic-bezier(0, 0, 1, 1), transform 0.25s cubic-bezier(0, 0, 1, 1), translate 0.25s cubic-bezier(0, 0, 1, 1), scale 0.25s cubic-bezier(0, 0, 1, 1), rotate 0.25s cubic-bezier(0, 0, 1, 1), filter 0.25s cubic-bezier(0, 0, 1, 1), backdrop-filter 0.25s cubic-bezier(0, 0, 1, 1), display 0.25s cubic-bezier(0, 0, 1, 1), content-visibility 0.25s cubic-bezier(0, 0, 1, 1), overlay 0.25s cubic-bezier(0, 0, 1, 1), pointer-events 0.25s cubic-bezier(0, 0, 1, 1)",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "transition": {
+            "from": "color 0.25s cubic-bezier(0, 0, 1, 1), background-color 0.25s cubic-bezier(0, 0, 1, 1), border-color 0.25s cubic-bezier(0, 0, 1, 1), outline-color 0.25s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.25s cubic-bezier(0, 0, 1, 1), fill 0.25s cubic-bezier(0, 0, 1, 1), stroke 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.25s cubic-bezier(0, 0, 1, 1), opacity 0.25s cubic-bezier(0, 0, 1, 1), box-shadow 0.25s cubic-bezier(0, 0, 1, 1), transform 0.25s cubic-bezier(0, 0, 1, 1), translate 0.25s cubic-bezier(0, 0, 1, 1), scale 0.25s cubic-bezier(0, 0, 1, 1), rotate 0.25s cubic-bezier(0, 0, 1, 1), filter 0.25s cubic-bezier(0, 0, 1, 1), backdrop-filter 0.25s cubic-bezier(0, 0, 1, 1), display 0.25s cubic-bezier(0, 0, 1, 1), content-visibility 0.25s cubic-bezier(0, 0, 1, 1), overlay 0.25s cubic-bezier(0, 0, 1, 1), pointer-events 0.25s cubic-bezier(0, 0, 1, 1)",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "View all",
+      "classes": "transition duration-short ease-curve-a rounded-[2.5rem] text-nowrap min-h-md flex items-center justi",
+      "selector": "a.transition.duration-short.ease-curve-a.rounded-[2.5rem].text-nowrap.min-h-md.flex.items-center.justify-center.gap-[0.3em].text-cta.focus:outline.outline-offset-2.h-[2.5rem].min-h-0.text-primary-100.hover:text-primary-60.disabled:text-primary-44.focus:outline-none.focus-visible:outline-primary-44.px-0.!rounded",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "4px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.2s cubic-bezier(0, 0, 1, 1), background-color 0.2s cubic-bezier(0, 0, 1, 1), border-color 0.2s cubic-bezier(0, 0, 1, 1), outline-color 0.2s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.2s cubic-bezier(0, 0, 1, 1), fill 0.2s cubic-bezier(0, 0, 1, 1), stroke 0.2s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.2s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.2s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.2s cubic-bezier(0, 0, 1, 1), opacity 0.2s cubic-bezier(0, 0, 1, 1), box-shadow 0.2s cubic-bezier(0, 0, 1, 1), transform 0.2s cubic-bezier(0, 0, 1, 1), translate 0.2s cubic-bezier(0, 0, 1, 1), scale 0.2s cubic-bezier(0, 0, 1, 1), rotate 0.2s cubic-bezier(0, 0, 1, 1), filter 0.2s cubic-bezier(0, 0, 1, 1), backdrop-filter 0.2s cubic-bezier(0, 0, 1, 1), display 0.2s cubic-bezier(0, 0, 1, 1), content-visibility 0.2s cubic-bezier(0, 0, 1, 1), overlay 0.2s cubic-bezier(0, 0, 1, 1), pointer-events 0.2s cubic-bezier(0, 0, 1, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.6)"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgba(0, 0, 0, 0.6) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.6)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgba(0, 0, 0, 0.44) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.44)"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "A salvage yard in Nevada",
+      "classes": "transition ease-curve-a duration-250 pt-2xs duration-medium ease-curve-d block w-full transition-[op",
+      "selector": "a.transition.ease-curve-a.duration-250.pt-2xs.duration-medium.ease-curve-d.block.w-full.transition-[opacity,background].after:absolute.after:inset-0.after:content-['']",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "opacity 0.3s cubic-bezier(0.6, 0, 0.4, 1), background 0.3s cubic-bezier(0.6, 0, 0.4, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "transition": {
+            "from": "opacity 0.3s cubic-bezier(0.6, 0, 0.4, 1), background 0.3s cubic-bezier(0.6, 0, 0.4, 1)",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "transition": {
+            "from": "opacity 0.3s cubic-bezier(0.6, 0, 0.4, 1), background 0.3s cubic-bezier(0.6, 0, 0.4, 1)",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "A seed farm in South Carolina",
+      "classes": "transition ease-curve-a duration-250 pt-2xs duration-medium ease-curve-d block w-full transition-[op",
+      "selector": "a.transition.ease-curve-a.duration-250.pt-2xs.duration-medium.ease-curve-d.block.w-full.transition-[opacity,background].after:absolute.after:inset-0.after:content-['']",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "opacity 0.3s cubic-bezier(0.6, 0, 0.4, 1), background 0.3s cubic-bezier(0.6, 0, 0.4, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "transition": {
+            "from": "opacity 0.3s cubic-bezier(0.6, 0, 0.4, 1), background 0.3s cubic-bezier(0.6, 0, 0.4, 1)",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "transition": {
+            "from": "opacity 0.3s cubic-bezier(0.6, 0, 0.4, 1), background 0.3s cubic-bezier(0.6, 0, 0.4, 1)",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "A tamale shop in California",
+      "classes": "transition ease-curve-a duration-250 pt-2xs duration-medium ease-curve-d block w-full transition-[op",
+      "selector": "a.transition.ease-curve-a.duration-250.pt-2xs.duration-medium.ease-curve-d.block.w-full.transition-[opacity,background].after:absolute.after:inset-0.after:content-['']",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "opacity 0.3s cubic-bezier(0.6, 0, 0.4, 1), background 0.3s cubic-bezier(0.6, 0, 0.4, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "transition": {
+            "from": "opacity 0.3s cubic-bezier(0.6, 0, 0.4, 1), background 0.3s cubic-bezier(0.6, 0, 0.4, 1)",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "transition": {
+            "from": "opacity 0.3s cubic-bezier(0.6, 0, 0.4, 1), background 0.3s cubic-bezier(0.6, 0, 0.4, 1)",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "View all",
+      "classes": "transition duration-short ease-curve-a rounded-[2.5rem] text-nowrap min-h-md flex items-center justi",
+      "selector": "a.transition.duration-short.ease-curve-a.rounded-[2.5rem].text-nowrap.min-h-md.flex.items-center.justify-center.gap-[0.3em].text-cta.focus:outline.outline-offset-2.h-[2.5rem].min-h-0.text-primary-100.hover:text-primary-60.disabled:text-primary-44.focus:outline-none.focus-visible:outline-primary-44.px-0.!rounded",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "4px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.2s cubic-bezier(0, 0, 1, 1), background-color 0.2s cubic-bezier(0, 0, 1, 1), border-color 0.2s cubic-bezier(0, 0, 1, 1), outline-color 0.2s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.2s cubic-bezier(0, 0, 1, 1), fill 0.2s cubic-bezier(0, 0, 1, 1), stroke 0.2s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.2s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.2s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.2s cubic-bezier(0, 0, 1, 1), opacity 0.2s cubic-bezier(0, 0, 1, 1), box-shadow 0.2s cubic-bezier(0, 0, 1, 1), transform 0.2s cubic-bezier(0, 0, 1, 1), translate 0.2s cubic-bezier(0, 0, 1, 1), scale 0.2s cubic-bezier(0, 0, 1, 1), rotate 0.2s cubic-bezier(0, 0, 1, 1), filter 0.2s cubic-bezier(0, 0, 1, 1), backdrop-filter 0.2s cubic-bezier(0, 0, 1, 1), display 0.2s cubic-bezier(0, 0, 1, 1), content-visibility 0.2s cubic-bezier(0, 0, 1, 1), overlay 0.2s cubic-bezier(0, 0, 1, 1), pointer-events 0.2s cubic-bezier(0, 0, 1, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.6)"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgba(0, 0, 0, 0.6) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.6)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgba(0, 0, 0, 0.443) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.443)"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "View all",
+      "classes": "transition duration-short ease-curve-a rounded-[2.5rem] text-nowrap min-h-md flex items-center justi",
+      "selector": "a.transition.duration-short.ease-curve-a.rounded-[2.5rem].text-nowrap.min-h-md.flex.items-center.justify-center.gap-[0.3em].text-cta.focus:outline.outline-offset-2.h-[2.5rem].min-h-0.text-primary-100.hover:text-primary-60.disabled:text-primary-44.focus:outline-none.focus-visible:outline-primary-44.px-0.!rounded",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "4px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.2s cubic-bezier(0, 0, 1, 1), background-color 0.2s cubic-bezier(0, 0, 1, 1), border-color 0.2s cubic-bezier(0, 0, 1, 1), outline-color 0.2s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.2s cubic-bezier(0, 0, 1, 1), fill 0.2s cubic-bezier(0, 0, 1, 1), stroke 0.2s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.2s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.2s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.2s cubic-bezier(0, 0, 1, 1), opacity 0.2s cubic-bezier(0, 0, 1, 1), box-shadow 0.2s cubic-bezier(0, 0, 1, 1), transform 0.2s cubic-bezier(0, 0, 1, 1), translate 0.2s cubic-bezier(0, 0, 1, 1), scale 0.2s cubic-bezier(0, 0, 1, 1), rotate 0.2s cubic-bezier(0, 0, 1, 1), filter 0.2s cubic-bezier(0, 0, 1, 1), backdrop-filter 0.2s cubic-bezier(0, 0, 1, 1), display 0.2s cubic-bezier(0, 0, 1, 1), content-visibility 0.2s cubic-bezier(0, 0, 1, 1), overlay 0.2s cubic-bezier(0, 0, 1, 1), pointer-events 0.2s cubic-bezier(0, 0, 1, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.6)"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgba(0, 0, 0, 0.6) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.6)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgba(0, 0, 0, 0.49) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.49)"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "transition ease-curve-a duration-250 pt-2xs duration-medium ease-curve-d block w-full transition-[op",
+      "selector": "a.transition.ease-curve-a.duration-250.pt-2xs.duration-medium.ease-curve-d.block.w-full.transition-[opacity,background].after:absolute.after:inset-0.after:content-['']",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "opacity 0.3s cubic-bezier(0.6, 0, 0.4, 1), background 0.3s cubic-bezier(0.6, 0, 0.4, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "opacity 0.3s cubic-bezier(0.6, 0, 0.4, 1), background 0.3s cubic-bezier(0.6, 0, 0.4, 1)",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "opacity 0.3s cubic-bezier(0.6, 0, 0.4, 1), background 0.3s cubic-bezier(0.6, 0, 0.4, 1)",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "transition ease-curve-a duration-250 pt-2xs duration-medium ease-curve-d block w-full transition-[op",
+      "selector": "a.transition.ease-curve-a.duration-250.pt-2xs.duration-medium.ease-curve-d.block.w-full.transition-[opacity,background].after:absolute.after:inset-0.after:content-['']",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "opacity 0.3s cubic-bezier(0.6, 0, 0.4, 1), background 0.3s cubic-bezier(0.6, 0, 0.4, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "opacity 0.3s cubic-bezier(0.6, 0, 0.4, 1), background 0.3s cubic-bezier(0.6, 0, 0.4, 1)",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "opacity 0.3s cubic-bezier(0.6, 0, 0.4, 1), background 0.3s cubic-bezier(0.6, 0, 0.4, 1)",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Download",
+      "classes": "transition duration-short ease-curve-a rounded-[2.5rem] text-nowrap min-h-md flex items-center justi",
+      "selector": "a.transition.duration-short.ease-curve-a.rounded-[2.5rem].text-nowrap.min-h-md.flex.items-center.justify-center.gap-[0.3em].text-cta.focus:outline.outline-offset-2.h-[2.5rem].bg-primary-4.text-primary-100.px-xs.hover:bg-primary-12.disabled:bg-primary-4.disabled:text-primary-60.focus:bg-primary-12.focus:outline-primary-12",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0.04)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "40px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.2s cubic-bezier(0, 0, 1, 1), background-color 0.2s cubic-bezier(0, 0, 1, 1), border-color 0.2s cubic-bezier(0, 0, 1, 1), outline-color 0.2s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.2s cubic-bezier(0, 0, 1, 1), fill 0.2s cubic-bezier(0, 0, 1, 1), stroke 0.2s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.2s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.2s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.2s cubic-bezier(0, 0, 1, 1), opacity 0.2s cubic-bezier(0, 0, 1, 1), box-shadow 0.2s cubic-bezier(0, 0, 1, 1), transform 0.2s cubic-bezier(0, 0, 1, 1), translate 0.2s cubic-bezier(0, 0, 1, 1), scale 0.2s cubic-bezier(0, 0, 1, 1), rotate 0.2s cubic-bezier(0, 0, 1, 1), filter 0.2s cubic-bezier(0, 0, 1, 1), backdrop-filter 0.2s cubic-bezier(0, 0, 1, 1), display 0.2s cubic-bezier(0, 0, 1, 1), content-visibility 0.2s cubic-bezier(0, 0, 1, 1), overlay 0.2s cubic-bezier(0, 0, 1, 1), pointer-events 0.2s cubic-bezier(0, 0, 1, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0.04)",
+            "to": "rgba(0, 0, 0, 0.12)"
+          }
+        },
+        "focus": {
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0.04)",
+            "to": "rgba(0, 0, 0, 0.12)"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgba(0, 0, 0, 0.196) solid 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.196)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Economic Research",
+      "classes": "transition ease-curve-a duration-250 hover:text-primary-60",
+      "selector": "a.transition.ease-curve-a.duration-250.hover:text-primary-60",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.25s cubic-bezier(0, 0, 1, 1), background-color 0.25s cubic-bezier(0, 0, 1, 1), border-color 0.25s cubic-bezier(0, 0, 1, 1), outline-color 0.25s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.25s cubic-bezier(0, 0, 1, 1), fill 0.25s cubic-bezier(0, 0, 1, 1), stroke 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.25s cubic-bezier(0, 0, 1, 1), opacity 0.25s cubic-bezier(0, 0, 1, 1), box-shadow 0.25s cubic-bezier(0, 0, 1, 1), transform 0.25s cubic-bezier(0, 0, 1, 1), translate 0.25s cubic-bezier(0, 0, 1, 1), scale 0.25s cubic-bezier(0, 0, 1, 1), rotate 0.25s cubic-bezier(0, 0, 1, 1), filter 0.25s cubic-bezier(0, 0, 1, 1), backdrop-filter 0.25s cubic-bezier(0, 0, 1, 1), display 0.25s cubic-bezier(0, 0, 1, 1), content-visibility 0.25s cubic-bezier(0, 0, 1, 1), overlay 0.25s cubic-bezier(0, 0, 1, 1), pointer-events 0.25s cubic-bezier(0, 0, 1, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.6)"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgba(0, 0, 0, 0.6) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.6)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgba(0, 0, 0, 0.59) solid 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.59)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "GPT-5",
+      "classes": "transition ease-curve-a duration-250 hover:text-primary-60",
+      "selector": "a.transition.ease-curve-a.duration-250.hover:text-primary-60",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.25s cubic-bezier(0, 0, 1, 1), background-color 0.25s cubic-bezier(0, 0, 1, 1), border-color 0.25s cubic-bezier(0, 0, 1, 1), outline-color 0.25s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.25s cubic-bezier(0, 0, 1, 1), fill 0.25s cubic-bezier(0, 0, 1, 1), stroke 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.25s cubic-bezier(0, 0, 1, 1), opacity 0.25s cubic-bezier(0, 0, 1, 1), box-shadow 0.25s cubic-bezier(0, 0, 1, 1), transform 0.25s cubic-bezier(0, 0, 1, 1), translate 0.25s cubic-bezier(0, 0, 1, 1), scale 0.25s cubic-bezier(0, 0, 1, 1), rotate 0.25s cubic-bezier(0, 0, 1, 1), filter 0.25s cubic-bezier(0, 0, 1, 1), backdrop-filter 0.25s cubic-bezier(0, 0, 1, 1), display 0.25s cubic-bezier(0, 0, 1, 1), content-visibility 0.25s cubic-bezier(0, 0, 1, 1), overlay 0.25s cubic-bezier(0, 0, 1, 1), pointer-events 0.25s cubic-bezier(0, 0, 1, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.6)"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgba(0, 0, 0, 0.6) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.6)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgba(0, 0, 0, 0.59) solid 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.59)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Codex",
+      "classes": "transition ease-curve-a duration-250 hover:text-primary-60",
+      "selector": "a.transition.ease-curve-a.duration-250.hover:text-primary-60",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.25s cubic-bezier(0, 0, 1, 1), background-color 0.25s cubic-bezier(0, 0, 1, 1), border-color 0.25s cubic-bezier(0, 0, 1, 1), outline-color 0.25s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.25s cubic-bezier(0, 0, 1, 1), fill 0.25s cubic-bezier(0, 0, 1, 1), stroke 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.25s cubic-bezier(0, 0, 1, 1), opacity 0.25s cubic-bezier(0, 0, 1, 1), box-shadow 0.25s cubic-bezier(0, 0, 1, 1), transform 0.25s cubic-bezier(0, 0, 1, 1), translate 0.25s cubic-bezier(0, 0, 1, 1), scale 0.25s cubic-bezier(0, 0, 1, 1), rotate 0.25s cubic-bezier(0, 0, 1, 1), filter 0.25s cubic-bezier(0, 0, 1, 1), backdrop-filter 0.25s cubic-bezier(0, 0, 1, 1), display 0.25s cubic-bezier(0, 0, 1, 1), content-visibility 0.25s cubic-bezier(0, 0, 1, 1), overlay 0.25s cubic-bezier(0, 0, 1, 1), pointer-events 0.25s cubic-bezier(0, 0, 1, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.6)"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgba(0, 0, 0, 0.6) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.6)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgba(0, 0, 0, 0.553) solid 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.553)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Safety Approach",
+      "classes": "transition ease-curve-a duration-250 hover:text-primary-60",
+      "selector": "a.transition.ease-curve-a.duration-250.hover:text-primary-60",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.25s cubic-bezier(0, 0, 1, 1), background-color 0.25s cubic-bezier(0, 0, 1, 1), border-color 0.25s cubic-bezier(0, 0, 1, 1), outline-color 0.25s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.25s cubic-bezier(0, 0, 1, 1), fill 0.25s cubic-bezier(0, 0, 1, 1), stroke 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.25s cubic-bezier(0, 0, 1, 1), opacity 0.25s cubic-bezier(0, 0, 1, 1), box-shadow 0.25s cubic-bezier(0, 0, 1, 1), transform 0.25s cubic-bezier(0, 0, 1, 1), translate 0.25s cubic-bezier(0, 0, 1, 1), scale 0.25s cubic-bezier(0, 0, 1, 1), rotate 0.25s cubic-bezier(0, 0, 1, 1), filter 0.25s cubic-bezier(0, 0, 1, 1), backdrop-filter 0.25s cubic-bezier(0, 0, 1, 1), display 0.25s cubic-bezier(0, 0, 1, 1), content-visibility 0.25s cubic-bezier(0, 0, 1, 1), overlay 0.25s cubic-bezier(0, 0, 1, 1), pointer-events 0.25s cubic-bezier(0, 0, 1, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.6)"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgba(0, 0, 0, 0.6) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.6)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgba(0, 0, 0, 0.59) solid 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.59)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Security & Privacy",
+      "classes": "transition ease-curve-a duration-250 hover:text-primary-60",
+      "selector": "a.transition.ease-curve-a.duration-250.hover:text-primary-60",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.25s cubic-bezier(0, 0, 1, 1), background-color 0.25s cubic-bezier(0, 0, 1, 1), border-color 0.25s cubic-bezier(0, 0, 1, 1), outline-color 0.25s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.25s cubic-bezier(0, 0, 1, 1), fill 0.25s cubic-bezier(0, 0, 1, 1), stroke 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.25s cubic-bezier(0, 0, 1, 1), opacity 0.25s cubic-bezier(0, 0, 1, 1), box-shadow 0.25s cubic-bezier(0, 0, 1, 1), transform 0.25s cubic-bezier(0, 0, 1, 1), translate 0.25s cubic-bezier(0, 0, 1, 1), scale 0.25s cubic-bezier(0, 0, 1, 1), rotate 0.25s cubic-bezier(0, 0, 1, 1), filter 0.25s cubic-bezier(0, 0, 1, 1), backdrop-filter 0.25s cubic-bezier(0, 0, 1, 1), display 0.25s cubic-bezier(0, 0, 1, 1), content-visibility 0.25s cubic-bezier(0, 0, 1, 1), overlay 0.25s cubic-bezier(0, 0, 1, 1), pointer-events 0.25s cubic-bezier(0, 0, 1, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.6)"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgba(0, 0, 0, 0.6) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.6)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgba(0, 0, 0, 0.59) solid 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.59)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Trust & Transparency",
+      "classes": "transition ease-curve-a duration-250 hover:text-primary-60",
+      "selector": "a.transition.ease-curve-a.duration-250.hover:text-primary-60",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.25s cubic-bezier(0, 0, 1, 1), background-color 0.25s cubic-bezier(0, 0, 1, 1), border-color 0.25s cubic-bezier(0, 0, 1, 1), outline-color 0.25s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.25s cubic-bezier(0, 0, 1, 1), fill 0.25s cubic-bezier(0, 0, 1, 1), stroke 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.25s cubic-bezier(0, 0, 1, 1), opacity 0.25s cubic-bezier(0, 0, 1, 1), box-shadow 0.25s cubic-bezier(0, 0, 1, 1), transform 0.25s cubic-bezier(0, 0, 1, 1), translate 0.25s cubic-bezier(0, 0, 1, 1), scale 0.25s cubic-bezier(0, 0, 1, 1), rotate 0.25s cubic-bezier(0, 0, 1, 1), filter 0.25s cubic-bezier(0, 0, 1, 1), backdrop-filter 0.25s cubic-bezier(0, 0, 1, 1), display 0.25s cubic-bezier(0, 0, 1, 1), content-visibility 0.25s cubic-bezier(0, 0, 1, 1), overlay 0.25s cubic-bezier(0, 0, 1, 1), pointer-events 0.25s cubic-bezier(0, 0, 1, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.6)"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgba(0, 0, 0, 0.6) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.6)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgba(0, 0, 0, 0.592) solid 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0.592)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Business",
+      "classes": "transition ease-curve-a duration-250 hover:text-primary-60",
+      "selector": "a.transition.ease-curve-a.duration-250.hover:text-primary-60",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.25s cubic-bezier(0, 0, 1, 1), background-color 0.25s cubic-bezier(0, 0, 1, 1), border-color 0.25s cubic-bezier(0, 0, 1, 1), outline-color 0.25s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.25s cubic-bezier(0, 0, 1, 1), fill 0.25s cubic-bezier(0, 0, 1, 1), stroke 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.25s cubic-bezier(0, 0, 1, 1), opacity 0.25s cubic-bezier(0, 0, 1, 1), box-shadow 0.25s cubic-bezier(0, 0, 1, 1), transform 0.25s cubic-bezier(0, 0, 1, 1), translate 0.25s cubic-bezier(0, 0, 1, 1), scale 0.25s cubic-bezier(0, 0, 1, 1), rotate 0.25s cubic-bezier(0, 0, 1, 1), filter 0.25s cubic-bezier(0, 0, 1, 1), backdrop-filter 0.25s cubic-bezier(0, 0, 1, 1), display 0.25s cubic-bezier(0, 0, 1, 1), content-visibility 0.25s cubic-bezier(0, 0, 1, 1), overlay 0.25s cubic-bezier(0, 0, 1, 1), pointer-events 0.25s cubic-bezier(0, 0, 1, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "transition": {
+            "from": "color 0.25s cubic-bezier(0, 0, 1, 1), background-color 0.25s cubic-bezier(0, 0, 1, 1), border-color 0.25s cubic-bezier(0, 0, 1, 1), outline-color 0.25s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.25s cubic-bezier(0, 0, 1, 1), fill 0.25s cubic-bezier(0, 0, 1, 1), stroke 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.25s cubic-bezier(0, 0, 1, 1), opacity 0.25s cubic-bezier(0, 0, 1, 1), box-shadow 0.25s cubic-bezier(0, 0, 1, 1), transform 0.25s cubic-bezier(0, 0, 1, 1), translate 0.25s cubic-bezier(0, 0, 1, 1), scale 0.25s cubic-bezier(0, 0, 1, 1), rotate 0.25s cubic-bezier(0, 0, 1, 1), filter 0.25s cubic-bezier(0, 0, 1, 1), backdrop-filter 0.25s cubic-bezier(0, 0, 1, 1), display 0.25s cubic-bezier(0, 0, 1, 1), content-visibility 0.25s cubic-bezier(0, 0, 1, 1), overlay 0.25s cubic-bezier(0, 0, 1, 1), pointer-events 0.25s cubic-bezier(0, 0, 1, 1)",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "transition": {
+            "from": "color 0.25s cubic-bezier(0, 0, 1, 1), background-color 0.25s cubic-bezier(0, 0, 1, 1), border-color 0.25s cubic-bezier(0, 0, 1, 1), outline-color 0.25s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.25s cubic-bezier(0, 0, 1, 1), fill 0.25s cubic-bezier(0, 0, 1, 1), stroke 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.25s cubic-bezier(0, 0, 1, 1), opacity 0.25s cubic-bezier(0, 0, 1, 1), box-shadow 0.25s cubic-bezier(0, 0, 1, 1), transform 0.25s cubic-bezier(0, 0, 1, 1), translate 0.25s cubic-bezier(0, 0, 1, 1), scale 0.25s cubic-bezier(0, 0, 1, 1), rotate 0.25s cubic-bezier(0, 0, 1, 1), filter 0.25s cubic-bezier(0, 0, 1, 1), backdrop-filter 0.25s cubic-bezier(0, 0, 1, 1), display 0.25s cubic-bezier(0, 0, 1, 1), content-visibility 0.25s cubic-bezier(0, 0, 1, 1), overlay 0.25s cubic-bezier(0, 0, 1, 1), pointer-events 0.25s cubic-bezier(0, 0, 1, 1)",
+            "to": "all"
+          }
+        }
+      }
+    }
+  ]
+}

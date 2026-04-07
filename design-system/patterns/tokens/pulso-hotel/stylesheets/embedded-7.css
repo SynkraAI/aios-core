@@ -1,0 +1,17 @@
+
+
+.form_input.is-evento {
+  transition: all 0.5s ease-in-out;
+}
+
+.form_input.is-evento::placeholder {
+  transition: opacity 0.5s ease-in-out;
+}
+
+.form_input.is-evento:hover {
+  border-width: 1.5px;
+}
+
+.form_input.is-evento:hover::placeholder {
+  opacity: 0.6;
+}

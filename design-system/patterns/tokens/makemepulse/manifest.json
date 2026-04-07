@@ -1,0 +1,295 @@
+{
+  "version": "1.0.0",
+  "name": "makemepulse",
+  "source": "https://makemepulse.com",
+  "timestamp": "2026-04-01T13:50:30.403Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "output": "/Users/luizfosc/aios-core/design-system/patterns/tokens/makemepulse",
+  "files": {
+    "html": {
+      "file": "source.html",
+      "size": 271945
+    },
+    "screenshots": [
+      "screenshot-desktop.png",
+      "screenshot-mobile.png"
+    ],
+    "stylesheets": [
+      {
+        "embedded": true,
+        "file": "embedded-0.css",
+        "size": 65410
+      },
+      {
+        "embedded": true,
+        "file": "embedded-1.css",
+        "size": 2341
+      },
+      {
+        "embedded": true,
+        "file": "embedded-2.css",
+        "size": 313
+      },
+      {
+        "embedded": true,
+        "file": "embedded-3.css",
+        "size": 1140
+      },
+      {
+        "embedded": true,
+        "file": "embedded-4.css",
+        "size": 144
+      },
+      {
+        "embedded": true,
+        "file": "embedded-5.css",
+        "size": 108
+      },
+      {
+        "embedded": true,
+        "file": "embedded-6.css",
+        "size": 286
+      },
+      {
+        "embedded": true,
+        "file": "embedded-7.css",
+        "size": 41
+      },
+      {
+        "embedded": true,
+        "file": "embedded-8.css",
+        "size": 35
+      },
+      {
+        "embedded": true,
+        "file": "embedded-9.css",
+        "size": 130
+      },
+      {
+        "embedded": true,
+        "file": "embedded-10.css",
+        "size": 30
+      },
+      {
+        "embedded": true,
+        "file": "embedded-12.css",
+        "size": 377
+      },
+      {
+        "embedded": true,
+        "file": "embedded-13.css",
+        "size": 1179
+      },
+      {
+        "embedded": true,
+        "file": "embedded-14.css",
+        "size": 94
+      },
+      {
+        "embedded": true,
+        "file": "embedded-15.css",
+        "size": 53
+      },
+      {
+        "embedded": true,
+        "file": "embedded-16.css",
+        "size": 55
+      },
+      {
+        "embedded": true,
+        "file": "embedded-17.css",
+        "size": 37
+      },
+      {
+        "embedded": true,
+        "file": "embedded-18.css",
+        "size": 105
+      },
+      {
+        "embedded": true,
+        "file": "embedded-19.css",
+        "size": 408
+      },
+      {
+        "embedded": true,
+        "file": "embedded-20.css",
+        "size": 295
+      },
+      {
+        "embedded": true,
+        "file": "embedded-21.css",
+        "size": 411
+      },
+      {
+        "embedded": true,
+        "file": "embedded-22.css",
+        "size": 283
+      },
+      {
+        "embedded": true,
+        "file": "embedded-23.css",
+        "size": 49
+      },
+      {
+        "embedded": true,
+        "file": "embedded-24.css",
+        "size": 74
+      },
+      {
+        "embedded": true,
+        "file": "embedded-25.css",
+        "size": 104
+      },
+      {
+        "embedded": true,
+        "file": "embedded-26.css",
+        "size": 56
+      },
+      {
+        "embedded": true,
+        "file": "embedded-27.css",
+        "size": 540
+      },
+      {
+        "embedded": true,
+        "file": "embedded-28.css",
+        "size": 153
+      },
+      {
+        "embedded": true,
+        "file": "embedded-29.css",
+        "size": 75
+      },
+      {
+        "embedded": true,
+        "file": "embedded-30.css",
+        "size": 133
+      },
+      {
+        "embedded": true,
+        "file": "embedded-31.css",
+        "size": 133
+      },
+      {
+        "embedded": true,
+        "file": "embedded-32.css",
+        "size": 593
+      },
+      {
+        "embedded": true,
+        "file": "embedded-33.css",
+        "size": 85
+      },
+      {
+        "embedded": true,
+        "file": "embedded-34.css",
+        "size": 318
+      },
+      {
+        "embedded": true,
+        "file": "embedded-35.css",
+        "size": 107
+      },
+      {
+        "embedded": true,
+        "file": "embedded-36.css",
+        "size": 88
+      },
+      {
+        "embedded": true,
+        "file": "embedded-37.css",
+        "size": 2542
+      },
+      {
+        "embedded": true,
+        "file": "embedded-38.css",
+        "size": 149
+      },
+      {
+        "embedded": true,
+        "file": "embedded-39.css",
+        "size": 58
+      },
+      {
+        "embedded": true,
+        "file": "embedded-40.css",
+        "size": 56
+      },
+      {
+        "embedded": true,
+        "file": "embedded-41.css",
+        "size": 619
+      },
+      {
+        "embedded": true,
+        "file": "embedded-42.css",
+        "size": 143
+      },
+      {
+        "embedded": true,
+        "file": "embedded-43.css",
+        "size": 1867
+      },
+      {
+        "embedded": true,
+        "file": "embedded-44.css",
+        "size": 133
+      },
+      {
+        "embedded": true,
+        "file": "embedded-45.css",
+        "size": 898
+      },
+      {
+        "embedded": true,
+        "file": "embedded-46.css",
+        "size": 40
+      },
+      {
+        "embedded": true,
+        "file": "embedded-47.css",
+        "size": 245
+      },
+      {
+        "embedded": true,
+        "file": "embedded-48.css",
+        "size": 40
+      },
+      {
+        "embedded": true,
+        "file": "embedded-49.css",
+        "size": 3102
+      }
+    ],
+    "domTree": {
+      "file": "dom-tree.json",
+      "nodeCount": 746
+    },
+    "extractedCss": "extracted-css.json",
+    "components": {
+      "file": "components.json",
+      "count": 16
+    },
+    "tokens": "tokens.yaml"
+  },
+  "summary": {
+    "nodeCount": 746,
+    "uniqueColors": 14,
+    "typographyVariants": 16,
+    "spacingValues": 61,
+    "shadows": 3,
+    "gradients": 0,
+    "animations": 4,
+    "mediaQueries": 123,
+    "customProperties": 1,
+    "gridLayouts": 20,
+    "flexLayouts": 50,
+    "componentTypes": 16,
+    "totalComponents": 319,
+    "stylesheetCount": 49,
+    "inlineStyles": 218
+  }
+}

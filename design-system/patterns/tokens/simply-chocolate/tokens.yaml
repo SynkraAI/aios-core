@@ -1,0 +1,410 @@
+# Design Tokens - simply-chocolate
+# Extracted by dissect-artifact.js v1.0.0
+# Source: https://simplychocolate.dk
+# Date: 2026-04-01T13:59:10.647Z
+
+metadata:
+  version: "1.0.0"
+  source: "https://simplychocolate.dk"
+  generated_at: "2026-04-01T13:59:10.647Z"
+  node_count: 4009
+
+colors:
+  "rgb_28_28_28_":
+    value: "rgb(28, 28, 28)"
+    occurrences: 2895
+  "rgb_255_255_255_":
+    value: "rgb(255, 255, 255)"
+    occurrences: 292
+  "rgb_0_0_0_":
+    value: "rgb(0, 0, 0)"
+    occurrences: 221
+  "rgb_35_73_35_":
+    value: "rgb(35, 73, 35)"
+    occurrences: 208
+  "rgba_0_0_0_0_65_":
+    value: "rgba(0, 0, 0, 0.65)"
+    occurrences: 96
+  "rgb_102_102_102_":
+    value: "rgb(102, 102, 102)"
+    occurrences: 72
+  "rgba_255_255_255_0_65_":
+    value: "rgba(255, 255, 255, 0.65)"
+    occurrences: 32
+  "rgb_204_204_204_":
+    value: "rgb(204, 204, 204)"
+    occurrences: 26
+  "rgba_0_0_0_0_8_":
+    value: "rgba(0, 0, 0, 0.8)"
+    occurrences: 24
+  "rgb_238_238_238_":
+    value: "rgb(238, 238, 238)"
+    occurrences: 18
+  "rgba_0_0_0_0_45_":
+    value: "rgba(0, 0, 0, 0.45)"
+    occurrences: 12
+  "rgba_28_28_28_0_65_":
+    value: "rgba(28, 28, 28, 0.65)"
+    occurrences: 10
+  "rgb_74_137_72_":
+    value: "rgb(74, 137, 72)"
+    occurrences: 10
+  "rgba_0_0_0_0_5_":
+    value: "rgba(0, 0, 0, 0.5)"
+    occurrences: 9
+  "rgb_246_246_246_":
+    value: "rgb(246, 246, 246)"
+    occurrences: 8
+  "rgb_249_248_248_":
+    value: "rgb(249, 248, 248)"
+    occurrences: 7
+  "rgb_239_239_239_":
+    value: "rgb(239, 239, 239)"
+    occurrences: 5
+  "rgb_44_98_44_":
+    value: "rgb(44, 98, 44)"
+    occurrences: 3
+  "rgb_136_136_136_":
+    value: "rgb(136, 136, 136)"
+    occurrences: 3
+  "rgb_70_49_38_":
+    value: "rgb(70, 49, 38)"
+    occurrences: 3
+  "rgb_51_51_51_":
+    value: "rgb(51, 51, 51)"
+    occurrences: 3
+  "rgba_255_255_255_0_7_":
+    value: "rgba(255, 255, 255, 0.7)"
+    occurrences: 3
+  "rgb_36_36_36_":
+    value: "rgb(36, 36, 36)"
+    occurrences: 3
+  "rgb_68_68_68_":
+    value: "rgb(68, 68, 68)"
+    occurrences: 2
+  "rgba_255_255_255_0_5_":
+    value: "rgba(255, 255, 255, 0.5)"
+    occurrences: 2
+  "rgba_255_255_255_0_08_":
+    value: "rgba(255, 255, 255, 0.08)"
+    occurrences: 2
+  "rgba_255_255_255_0_25_":
+    value: "rgba(255, 255, 255, 0.25)"
+    occurrences: 2
+  "rgba_0_0_0_0_7_":
+    value: "rgba(0, 0, 0, 0.7)"
+    occurrences: 1
+  "rgb_226_226_226_":
+    value: "rgb(226, 226, 226)"
+    occurrences: 1
+  "rgb_66_132_69_":
+    value: "rgb(66, 132, 69)"
+    occurrences: 1
+  "rgba_18_18_18_0_82_":
+    value: "rgba(18, 18, 18, 0.82)"
+    occurrences: 1
+  "rgba_255_255_255_0_15_":
+    value: "rgba(255, 255, 255, 0.15)"
+    occurrences: 1
+  "rgba_255_255_255_0_3_":
+    value: "rgba(255, 255, 255, 0.3)"
+    occurrences: 1
+  "rgb_255_107_107_":
+    value: "rgb(255, 107, 107)"
+    occurrences: 1
+  "rgba_255_255_255_0_75_":
+    value: "rgba(255, 255, 255, 0.75)"
+    occurrences: 1
+  "rgba_70_49_38_0_":
+    value: "rgba(70, 49, 38, 0)"
+    occurrences: 1
+  "rgba_255_255_255_0_":
+    value: "rgba(255, 255, 255, 0)"
+    occurrences: 1
+  "rgb_0_102_204_":
+    value: "rgb(0, 102, 204)"
+    occurrences: 1
+  "rgba_0_0_0_0_08_":
+    value: "rgba(0, 0, 0, 0.08)"
+    occurrences: 1
+
+typography:
+  "13_5px_400":
+    font-size: "13.5px"
+    font-weight: "400"
+    font-family: "Simply-ChocolateRegular"
+    occurrences: 1070
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: "Simply-ChocolateRegular"
+    occurrences: 822
+  "15px_400":
+    font-size: "15px"
+    font-weight: "400"
+    font-family: "Simply-ChocolateRegular"
+    occurrences: 641
+  "13_5px_700":
+    font-size: "13.5px"
+    font-weight: "700"
+    font-family: "Simply-ChocolateRegular"
+    occurrences: 535
+  "15px_700":
+    font-size: "15px"
+    font-weight: "700"
+    font-family: "Simply-ChocolateRegular"
+    occurrences: 337
+  "12_15px_600":
+    font-size: "12.15px"
+    font-weight: "600"
+    font-family: "Simply-ChocolateRegular"
+    occurrences: 190
+  "11px_400":
+    font-size: "11px"
+    font-weight: "400"
+    font-family: "Simply-ChocolateRegular"
+    occurrences: 48
+  "18px_400":
+    font-size: "18px"
+    font-weight: "400"
+    font-family: "Simply-ChocolateBold"
+    occurrences: 39
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: "ui-sans-serif, system-ui, -apple-system, "system-ui", "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji""
+    occurrences: 36
+  "24px_400":
+    font-size: "24px"
+    font-weight: "400"
+    font-family: "Arial, Helvetica, sans-serif"
+    occurrences: 24
+  "17px_600":
+    font-size: "17px"
+    font-weight: "600"
+    font-family: "Simply-ChocolateRegular"
+    occurrences: 24
+  "15px_600":
+    font-size: "15px"
+    font-weight: "600"
+    font-family: "Simply-ChocolateRegular"
+    occurrences: 21
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: "Simply-ChocolateCOMPBold"
+    occurrences: 18
+  "12px_400":
+    font-size: "12px"
+    font-weight: "400"
+    font-family: "Simply-ChocolateRegular"
+    occurrences: 15
+  "15px_500":
+    font-size: "15px"
+    font-weight: "500"
+    font-family: "Simply-ChocolateRegular"
+    occurrences: 12
+  "19_2px_400":
+    font-size: "19.2px"
+    font-weight: "400"
+    font-family: "Simply-ChocolateCOMPBold"
+    occurrences: 12
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: ""Times New Roman""
+    occurrences: 9
+  "42px_400":
+    font-size: "42px"
+    font-weight: "400"
+    font-family: "Simply-ChocolateCOMPBold"
+    occurrences: 8
+  "14px_500":
+    font-size: "14px"
+    font-weight: "500"
+    font-family: "ui-sans-serif, system-ui, -apple-system, "system-ui", "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji""
+    occurrences: 8
+  "25px_400":
+    font-size: "25px"
+    font-weight: "400"
+    font-family: "Simply-ChocolateRegular"
+    occurrences: 7
+
+spacing:
+  "20px":
+    value: "20px"
+    occurrences: 350
+  "10px":
+    value: "10px"
+    occurrences: 162
+  "12px":
+    value: "12px"
+    occurrences: 119
+  "15px":
+    value: "15px"
+    occurrences: 52
+  "_1px":
+    value: "-1px"
+    occurrences: 52
+  "3px":
+    value: "3px"
+    occurrences: 34
+  "64px":
+    value: "64px"
+    occurrences: 28
+  "8px":
+    value: "8px"
+    occurrences: 24
+  "36px":
+    value: "36px"
+    occurrences: 20
+  "4px":
+    value: "4px"
+    occurrences: 19
+  "48px":
+    value: "48px"
+    occurrences: 15
+  "5px":
+    value: "5px"
+    occurrences: 13
+  "40px":
+    value: "40px"
+    occurrences: 12
+  "2px":
+    value: "2px"
+    occurrences: 9
+  "16px":
+    value: "16px"
+    occurrences: 8
+  "25px":
+    value: "25px"
+    occurrences: 7
+  "30px":
+    value: "30px"
+    occurrences: 6
+  "10_4px":
+    value: "10.4px"
+    occurrences: 6
+  "6px":
+    value: "6px"
+    occurrences: 6
+  "24px":
+    value: "24px"
+    occurrences: 5
+
+shadows:
+  shadow_1:
+    value: "rgba(0, 0, 0, 0.2) 0px 2px 4px 0px"
+    occurrences: 34
+  shadow_2:
+    value: "rgba(0, 0, 0, 0.12) 0px -5px 10px 0px inset, rgba(255, 255, 255, 0.18) 0px 5px 10px 0px inset"
+    occurrences: 15
+  shadow_3:
+    value: "rgba(0, 0, 0, 0.12) 0px -5px 10px 0px inset, rgba(255, 255, 255, 0.18) 0px 5px 10px 0px inset, rgba(0, 0, 0, 0.25) 0px 4px 12px 0px"
+    occurrences: 5
+  shadow_4:
+    value: "rgba(0, 0, 0, 0.25) 0px 8px 20px 0px"
+    occurrences: 3
+  shadow_5:
+    value: "rgba(0, 0, 0, 0) 0px -1px 0px 0px inset"
+    occurrences: 1
+  shadow_6:
+    value: "rgb(255, 255, 255) 0px 0px 0px 2px"
+    occurrences: 1
+  shadow_7:
+    value: "rgba(0, 0, 0, 0.35) 0px 8px 30px 0px"
+    occurrences: 1
+  shadow_8:
+    value: "rgba(255, 255, 255, 0.3) 0px 0px 0px 0px"
+    occurrences: 1
+
+borders:
+  border_1:
+    value: "0px 0px 1px solid rgb(221, 221, 221) rgb(221, 221, 221) rgb(238, 238, 238)"
+    occurrences: 24
+  border_2:
+    value: "1px solid rgb(238, 238, 238)"
+    occurrences: 24
+  border_3:
+    value: "1px 0px 0px solid rgb(238, 238, 238) rgb(221, 221, 221) rgb(221, 221, 221)"
+    occurrences: 24
+  border_4:
+    value: "1px solid rgb(70, 49, 38)"
+    occurrences: 7
+  border_5:
+    value: "1px 0px 0px solid rgb(221, 221, 221)"
+    occurrences: 6
+  border_6:
+    value: "3px solid rgb(128, 128, 128) rgb(243, 243, 243) rgb(243, 243, 243)"
+    occurrences: 6
+  border_7:
+    value: "0px 3px 3px 0px solid rgb(34, 34, 34)"
+    occurrences: 5
+  border_8:
+    value: "1px solid rgb(255, 255, 255)"
+    occurrences: 5
+  border_9:
+    value: "1px solid rgb(246, 246, 246)"
+    occurrences: 4
+  border_10:
+    value: "0px 0px 1px solid rgb(221, 221, 221)"
+    occurrences: 4
+
+gradients:
+  gradient_1: "linear-gradient(to right, rgb(0, 0, 0), rgb(0, 0, 0))"
+  gradient_2: "linear-gradient(to right, rgb(28, 28, 28), rgb(28, 28, 28))"
+  gradient_3: "linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255))"
+  gradient_4: "linear-gradient(155deg, rgb(242, 212, 160), rgb(232, 184, 122) 40%, rgb(196, 148, 74))"
+  gradient_5: "linear-gradient(to top, rgb(45, 90, 30), rgb(58, 122, 40), rgba(0, 0, 0, 0))"
+
+custom_properties:
+  "--on-sale-text": "126 78 53"
+  "--heading-font-weight": "400"
+  "--atlas-loading-skeleton-highlight-color": "rgba(0, 0, 0, 0.02)"
+  "--header-height": "82px"
+  "--atlas-space-huge": "32px"
+  "--atlas-space-small": "12px"
+  "--sold-out-badge-background": "239 239 239"
+  "--container-xl-max-width": "85rem"
+  "--atlas-line-height-large": "28px"
+  "--section-vertical-spacing": "4rem"
+  "--atlas-popover-shadow": "0 20px 48px 0 rgba(55, 63, 71, 0.16), 0 12px 24px 0 rgba(55, 63, 71, 0.2), 0 0 12px 0 rgba(55, 63, 71, 0.08)"
+  "--atlas-margin-h1": "24px"
+  "--atlas-button-padding-small": "5px 12px"
+  "--atlas-input-border-radius-small": "8px"
+  "--text-h2": "max(0.6875rem, clamp(1.25rem, 1.0670731707317074rem + 0.7804878048780488vw, 1.75rem) * 1.5)"
+  "--shadow-md": "0 5px 30px rgb(0 0 0 / 0.05)"
+  "--atlas-button-icon-size-tiny": "24px"
+  "--text-lg": "1.125rem"
+  "--atlas-faq-font-weight": "500"
+  "--atlas-widget-starting-radius": "8px"
+  "--button-font": "normal 400 0.9375rem / 1.65 \"Open Sans\", sans-serif"
+  "--atlas-input-background-disabled": "rgba(0, 0, 0, 0.05)"
+  "--atlas-favorites-font-weight": "undefined"
+  "--atlas-line-height-tiny": "16px"
+  "--text-h6": "calc(0.75rem * 1.5)"
+  "--star-color": "28 28 28"
+  "--success-text": "79 118 87"
+  "--container-xs-max-width": "42.5rem"
+  "--hover-color": "#234923"
+  "--atlas-widget-background-color": "#FFFFFF"
+  "--warning-text": "237 138 0"
+  "--atlas-button-padding-normal": "7px 12px"
+  "--success-background": "218 226 220"
+  "--text-h4": "max(0.6875rem, clamp(1rem, 0.9542682926829268rem + 0.1951219512195122vw, 1.125rem) * 1.5)"
+  "--on-sale-badge-background": "126 78 53"
+  "--atlas-button-border-radius": "8px"
+  "--custom_labels_background": "#f9f8f8"
+  "--custom-badge-text": "255 255 255"
+  "--checkmark-svg-url": "url(//www.simplychocolate.dk/cdn/shop/t/74/assets/checkmark.svg?v=77552481021870063511708085571)"
+  "--text-letter-spacing": "0.03em"
+  "--atlas-button-font-weight": "500"
+  "--atlas-line-height-h1": "48px"
+  "--atlas-shadow-medium": "0px 8px 16px 0px rgba(55, 63, 71, 0.2)"
+  "--atlas-font-size-h5": "16px"
+  "--kl-reviews-color-light-gray": "#e9e9eb"
+  "--sce-success": "#428445"
+  "--atlas-button-primary": "#000000"
+  "--atlas-faq-fill-color": "#000000"
+  "--atlas-card-shadow": "0px 2px 8px 0px rgba(55, 63, 71, 0.08), 0px 1px 2px 0px rgba(55, 63, 71, 0.12)"
+  "--atlas-button-border-radius-normal": "8px"

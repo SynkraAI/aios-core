@@ -1,0 +1,916 @@
+{
+  "url": "https://stcgroup.com.br",
+  "name": "stc-original",
+  "timestamp": "2026-04-01T15:38:46.639Z",
+  "totalElements": 13,
+  "elementsWithStates": 13,
+  "interactions": [
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "wp-block wp-block-kubio-logo  position-relative wp-block-kubio-logo__container style-CqUTk-do-12-con",
+      "selector": "a.wp-block.wp-block-kubio-logo.position-relative.wp-block-kubio-logo__container.style-CqUTk-do-12-container.style-local-6-container.kubio-has-gap-fallback.kubio-logo-direction-row.kubio-logo-without-text.autodetect-mode",
+      "baseStyles": {
+        "color": "rgb(66, 99, 190)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(66, 99, 190)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(66, 99, 190) none 0px",
+        "outlineColor": "rgb(66, 99, 190)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(66, 99, 190) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(66, 99, 190) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Entre em Contato",
+      "classes": "position-relative wp-block-kubio-button__link style-4U7h00Djw0-link style-local-73-link h-w-100 h-gl",
+      "selector": "a.position-relative.wp-block-kubio-button__link.style-4U7h00Djw0-link.style-local-73-link.h-w-100.h-global-transition",
+      "baseStyles": {
+        "color": "rgb(18, 19, 21)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(18, 19, 21) none 0px",
+        "outlineColor": "rgb(18, 19, 21)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "background 1s, padding 1s, margin 1s, border 1s, transform 1s, filter 1s, box-shadow 1s, opacity 1s, color 1s, fill 1s, font 1s, border-radius 1s, max-height 1s, max-width 1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(18, 19, 21)",
+            "to": "rgb(140, 140, 141)"
+          },
+          "backgroundColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(140, 140, 141)"
+          },
+          "borderWidth": {
+            "from": "1px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(18, 19, 21) none 0px",
+            "to": "rgb(140, 140, 141) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(18, 19, 21)",
+            "to": "rgb(140, 140, 141)"
+          },
+          "transition": {
+            "from": "background 1s, padding 1s, margin 1s, border 1s, transform 1s, filter 1s, box-shadow 1s, opacity 1s, color 1s, fill 1s, font 1s, border-radius 1s, max-height 1s, max-width 1s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(18, 19, 21)",
+            "to": "rgb(24, 25, 27)"
+          },
+          "backgroundColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(24, 25, 27)"
+          },
+          "borderWidth": {
+            "from": "1px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(18, 19, 21) none 0px",
+            "to": "rgb(24, 25, 27) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(18, 19, 21)",
+            "to": "rgb(24, 25, 27)"
+          },
+          "transition": {
+            "from": "background 1s, padding 1s, margin 1s, border 1s, transform 1s, filter 1s, box-shadow 1s, opacity 1s, color 1s, fill 1s, font 1s, border-radius 1s, max-height 1s, max-width 1s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "wp-block wp-block-kubio-social-icon  position-relative wp-block-kubio-social-icon__link style-4fv2m0",
+      "selector": "a.wp-block.wp-block-kubio-social-icon.position-relative.wp-block-kubio-social-icon__link.style-4fv2m0P5E1-link.style-local-108-link.social-icon-link",
+      "baseStyles": {
+        "color": "rgb(66, 99, 190)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(66, 99, 190)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(66, 99, 190) none 0px",
+        "outlineColor": "rgb(66, 99, 190)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(66, 99, 190) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(66, 99, 190) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "wp-block wp-block-kubio-social-icon  position-relative wp-block-kubio-social-icon__link style-Z3857k",
+      "selector": "a.wp-block.wp-block-kubio-social-icon.position-relative.wp-block-kubio-social-icon__link.style-Z3857kXrqW-link.style-local-109-link.social-icon-link",
+      "baseStyles": {
+        "color": "rgb(66, 99, 190)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(66, 99, 190)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(66, 99, 190) none 0px",
+        "outlineColor": "rgb(66, 99, 190)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(66, 99, 190) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(66, 99, 190) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "wp-block wp-block-kubio-social-icon  position-relative wp-block-kubio-social-icon__link style-f1qmHk",
+      "selector": "a.wp-block.wp-block-kubio-social-icon.position-relative.wp-block-kubio-social-icon__link.style-f1qmHk86kx-link.style-local-110-link.social-icon-link",
+      "baseStyles": {
+        "color": "rgb(66, 99, 190)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(66, 99, 190)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(66, 99, 190) none 0px",
+        "outlineColor": "rgb(66, 99, 190)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(66, 99, 190) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(66, 99, 190) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "‎+55 (19) 98260-7927",
+      "classes": "position-relative wp-block-kubio-iconlistitem__ style-l7_WCtyM8G- style-local-113-",
+      "selector": "a.position-relative.wp-block-kubio-iconlistitem__.style-l7_WCtyM8G-.style-local-113-",
+      "baseStyles": {
+        "color": "rgb(66, 99, 190)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(66, 99, 190)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(66, 99, 190) none 0px",
+        "outlineColor": "rgb(66, 99, 190)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(18, 19, 21)"
+          },
+          "borderColor": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(18, 19, 21)"
+          },
+          "outline": {
+            "from": "rgb(66, 99, 190) none 0px",
+            "to": "rgb(18, 19, 21) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(18, 19, 21)"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(18, 19, 21)"
+          },
+          "borderColor": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(18, 19, 21)"
+          },
+          "outline": {
+            "from": "rgb(66, 99, 190) none 0px",
+            "to": "rgb(18, 19, 21) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(18, 19, 21)"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "suporte@stcgroup.com.br",
+      "classes": "position-relative wp-block-kubio-iconlistitem__ style-r5TLYhReSn- style-local-115-",
+      "selector": "a.position-relative.wp-block-kubio-iconlistitem__.style-r5TLYhReSn-.style-local-115-",
+      "baseStyles": {
+        "color": "rgb(66, 99, 190)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(66, 99, 190)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(66, 99, 190) none 0px",
+        "outlineColor": "rgb(66, 99, 190)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(18, 19, 21)"
+          },
+          "borderColor": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(18, 19, 21)"
+          },
+          "outline": {
+            "from": "rgb(66, 99, 190) none 0px",
+            "to": "rgb(18, 19, 21) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(18, 19, 21)"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(18, 19, 21)"
+          },
+          "borderColor": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(18, 19, 21)"
+          },
+          "outline": {
+            "from": "rgb(66, 99, 190) none 0px",
+            "to": "rgb(18, 19, 21) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(18, 19, 21)"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Av. 2, 1368 – Jardim Claret, Rio Claro – SP",
+      "classes": "position-relative wp-block-kubio-iconlistitem__ style-1joaTdVOdf- style-local-117-",
+      "selector": "a.position-relative.wp-block-kubio-iconlistitem__.style-1joaTdVOdf-.style-local-117-",
+      "baseStyles": {
+        "color": "rgb(66, 99, 190)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(66, 99, 190)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(66, 99, 190) none 0px",
+        "outlineColor": "rgb(66, 99, 190)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(18, 19, 21)"
+          },
+          "borderColor": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(18, 19, 21)"
+          },
+          "outline": {
+            "from": "rgb(66, 99, 190) none 0px",
+            "to": "rgb(18, 19, 21) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(18, 19, 21)"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(18, 19, 21)"
+          },
+          "borderColor": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(18, 19, 21)"
+          },
+          "outline": {
+            "from": "rgb(66, 99, 190) none 0px",
+            "to": "rgb(18, 19, 21) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(18, 19, 21)"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Kubio",
+      "classes": "",
+      "selector": "a",
+      "baseStyles": {
+        "color": "rgb(66, 99, 190)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(66, 99, 190)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(66, 99, 190) none 0px",
+        "outlineColor": "rgb(66, 99, 190)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(36, 54, 104)"
+          },
+          "borderColor": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(36, 54, 104)"
+          },
+          "outline": {
+            "from": "rgb(66, 99, 190) none 0px",
+            "to": "rgb(36, 54, 104) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(66, 99, 190)",
+            "to": "rgb(36, 54, 104)"
+          }
+        }
+      }
+    },
+    {
+      "tag": "div",
+      "text": "Entre em Contato",
+      "classes": "wp-block wp-block-kubio-buttongroup  position-relative wp-block-kubio-buttongroup__outer style-cg28l",
+      "selector": "#buttons-2",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "auto",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(140, 140, 141)"
+          },
+          "borderColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(140, 140, 141)"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgb(140, 140, 141) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(140, 140, 141)"
+          },
+          "cursor": {
+            "from": "auto",
+            "to": "pointer"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(24, 25, 27)"
+          },
+          "borderColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(24, 25, 27)"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgb(24, 25, 27) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(24, 25, 27)"
+          },
+          "cursor": {
+            "from": "auto",
+            "to": "pointer"
+          }
+        }
+      }
+    },
+    {
+      "tag": "div",
+      "text": "Entre em Contato",
+      "classes": "position-relative wp-block-kubio-buttongroup__spacing style-cg28lCQfL-spacing style-local-72-spacing",
+      "selector": "div.position-relative.wp-block-kubio-buttongroup__spacing.style-cg28lCQfL-spacing.style-local-72-spacing.h-x-container-inner",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "auto",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(140, 140, 141)"
+          },
+          "borderColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(140, 140, 141)"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgb(140, 140, 141) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(140, 140, 141)"
+          },
+          "cursor": {
+            "from": "auto",
+            "to": "pointer"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(24, 25, 27)"
+          },
+          "borderColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(24, 25, 27)"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgb(24, 25, 27) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(24, 25, 27)"
+          },
+          "cursor": {
+            "from": "auto",
+            "to": "pointer"
+          }
+        }
+      }
+    },
+    {
+      "tag": "span",
+      "text": "Entre em Contato",
+      "classes": "wp-block wp-block-kubio-button  position-relative wp-block-kubio-button__outer style-4U7h00Djw0-oute",
+      "selector": "span.wp-block.wp-block-kubio-button.position-relative.wp-block-kubio-button__outer.style-4U7h00Djw0-outer.style-local-73-outer.kubio-button-container",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "auto",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(140, 140, 141)"
+          },
+          "borderColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(140, 140, 141)"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgb(140, 140, 141) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(140, 140, 141)"
+          },
+          "cursor": {
+            "from": "auto",
+            "to": "pointer"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(24, 25, 27)"
+          },
+          "borderColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(24, 25, 27)"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgb(24, 25, 27) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(24, 25, 27)"
+          },
+          "cursor": {
+            "from": "auto",
+            "to": "pointer"
+          }
+        }
+      }
+    },
+    {
+      "tag": "span",
+      "text": "Entre em Contato",
+      "classes": "position-relative wp-block-kubio-button__text style-4U7h00Djw0-text style-local-73-text kubio-inheri",
+      "selector": "span.position-relative.wp-block-kubio-button__text.style-4U7h00Djw0-text.style-local-73-text.kubio-inherit-typography",
+      "baseStyles": {
+        "color": "rgb(18, 19, 21)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(18, 19, 21)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(18, 19, 21) none 0px",
+        "outlineColor": "rgb(18, 19, 21)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(18, 19, 21)",
+            "to": "rgb(140, 140, 141)"
+          },
+          "borderColor": {
+            "from": "rgb(18, 19, 21)",
+            "to": "rgb(140, 140, 141)"
+          },
+          "outline": {
+            "from": "rgb(18, 19, 21) none 0px",
+            "to": "rgb(140, 140, 141) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(18, 19, 21)",
+            "to": "rgb(140, 140, 141)"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(18, 19, 21)",
+            "to": "rgb(24, 25, 27)"
+          },
+          "borderColor": {
+            "from": "rgb(18, 19, 21)",
+            "to": "rgb(24, 25, 27)"
+          },
+          "outline": {
+            "from": "rgb(18, 19, 21) none 0px",
+            "to": "rgb(24, 25, 27) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(18, 19, 21)",
+            "to": "rgb(24, 25, 27)"
+          }
+        }
+      }
+    }
+  ]
+}

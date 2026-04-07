@@ -1,0 +1,539 @@
+[
+  {
+    "type": "navigation",
+    "count": 1,
+    "samples": [
+      {
+        "tag": "nav",
+        "classes": [
+          "nav"
+        ],
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 86
+        },
+        "styles": {
+          "display": "flex",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(255, 255, 255)",
+          "fontSize": "15.84px",
+          "fontWeight": "400",
+          "padding": "24px 72px 24px 72px",
+          "borderRadius": "0px"
+        }
+      }
+    ]
+  },
+  {
+    "type": "footer",
+    "count": 1,
+    "samples": [
+      {
+        "tag": "footer",
+        "classes": [
+          "footer"
+        ],
+        "rect": {
+          "x": 0,
+          "y": 16331,
+          "width": 1440,
+          "height": 133
+        },
+        "styles": {
+          "display": "block",
+          "background": "rgb(248, 245, 240)",
+          "color": "rgb(20, 20, 32)",
+          "fontSize": "15.84px",
+          "fontWeight": "400",
+          "padding": "48px 72px 48px 72px",
+          "borderRadius": "0px"
+        }
+      }
+    ]
+  },
+  {
+    "type": "main-content",
+    "count": 1,
+    "samples": [
+      {
+        "tag": "main",
+        "classes": [],
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 16331
+        },
+        "styles": {
+          "display": "block",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(237, 232, 224)",
+          "fontSize": "15.84px",
+          "fontWeight": "400",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      }
+    ]
+  },
+  {
+    "type": "button",
+    "count": 1,
+    "samples": [
+      {
+        "tag": "button",
+        "classes": [
+          "nav-burger"
+        ],
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "styles": {
+          "display": "none",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(255, 255, 255)",
+          "fontSize": "15.84px",
+          "fontWeight": "400",
+          "padding": "8px 8px 8px 8px",
+          "borderRadius": "0px"
+        }
+      }
+    ]
+  },
+  {
+    "type": "cta-link",
+    "count": 1,
+    "samples": [
+      {
+        "tag": "a",
+        "classes": [
+          "contact-btn"
+        ],
+        "rect": {
+          "x": 570,
+          "y": 15993,
+          "width": 301,
+          "height": 59
+        },
+        "styles": {
+          "display": "inline-flex",
+          "background": "rgb(58, 98, 196)",
+          "color": "rgb(255, 255, 255)",
+          "fontSize": "12px",
+          "fontWeight": "400",
+          "padding": "20px 64px 20px 64px",
+          "borderRadius": "0px"
+        }
+      }
+    ]
+  },
+  {
+    "type": "card",
+    "count": 39,
+    "samples": [
+      {
+        "tag": "div",
+        "classes": [
+          "stack-card"
+        ],
+        "rect": {
+          "x": 43,
+          "y": 7955,
+          "width": 1354,
+          "height": 828
+        },
+        "styles": {
+          "display": "flex",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(255, 255, 255)",
+          "fontSize": "15.84px",
+          "fontWeight": "400",
+          "padding": "72px 72px 72px 72px",
+          "borderRadius": "24px"
+        }
+      },
+      {
+        "tag": "span",
+        "classes": [
+          "card-num"
+        ],
+        "rect": {
+          "x": 115,
+          "y": 8230,
+          "width": 1210,
+          "height": 19
+        },
+        "styles": {
+          "display": "block",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(255, 255, 255)",
+          "fontSize": "12px",
+          "fontWeight": "400",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      },
+      {
+        "tag": "h3",
+        "classes": [
+          "card-title",
+          "display"
+        ],
+        "rect": {
+          "x": 115,
+          "y": 8269,
+          "width": 1210,
+          "height": 119
+        },
+        "styles": {
+          "display": "block",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(255, 255, 255)",
+          "fontSize": "129.6px",
+          "fontWeight": "400",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      }
+    ]
+  },
+  {
+    "type": "hero",
+    "count": 6,
+    "samples": [
+      {
+        "tag": "section",
+        "classes": [
+          "section",
+          "s-hero"
+        ],
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 900
+        },
+        "styles": {
+          "display": "flex",
+          "background": "rgb(12, 12, 18)",
+          "color": "rgb(237, 232, 224)",
+          "fontSize": "15.84px",
+          "fontWeight": "400",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      },
+      {
+        "tag": "div",
+        "classes": [
+          "hero-content"
+        ],
+        "rect": {
+          "x": 324,
+          "y": 264,
+          "width": 792,
+          "height": 372
+        },
+        "styles": {
+          "display": "block",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(237, 232, 224)",
+          "fontSize": "15.84px",
+          "fontWeight": "400",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      },
+      {
+        "tag": "h1",
+        "classes": [
+          "hero-title"
+        ],
+        "rect": {
+          "x": 324,
+          "y": 264,
+          "width": 792,
+          "height": 322
+        },
+        "styles": {
+          "display": "flex",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(237, 232, 224)",
+          "fontSize": "31.68px",
+          "fontWeight": "700",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      }
+    ]
+  },
+  {
+    "type": "dropdown",
+    "count": 2,
+    "samples": [
+      {
+        "tag": "div",
+        "classes": [
+          "mobile-menu"
+        ],
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "styles": {
+          "display": "none",
+          "background": "rgb(12, 12, 18)",
+          "color": "rgb(237, 232, 224)",
+          "fontSize": "15.84px",
+          "fontWeight": "400",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      },
+      {
+        "tag": "div",
+        "classes": [
+          "mobile-menu-inner"
+        ],
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "styles": {
+          "display": "flex",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(237, 232, 224)",
+          "fontSize": "15.84px",
+          "fontWeight": "400",
+          "padding": "80px 32px 48px 32px",
+          "borderRadius": "0px"
+        }
+      }
+    ]
+  },
+  {
+    "type": "badge",
+    "count": 2,
+    "samples": [
+      {
+        "tag": "div",
+        "classes": [
+          "stack-stage"
+        ],
+        "rect": {
+          "x": 0,
+          "y": 7919,
+          "width": 1440,
+          "height": 900
+        },
+        "styles": {
+          "display": "block",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(20, 20, 32)",
+          "fontSize": "15.84px",
+          "fontWeight": "400",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      },
+      {
+        "tag": "span",
+        "classes": [
+          "footer-tagline",
+          "serif",
+          "italic"
+        ],
+        "rect": {
+          "x": 501,
+          "y": 16386,
+          "width": 115,
+          "height": 22
+        },
+        "styles": {
+          "display": "block",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(208, 122, 92)",
+          "fontSize": "14px",
+          "fontWeight": "400",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      }
+    ]
+  },
+  {
+    "type": "avatar",
+    "count": 3,
+    "samples": [
+      {
+        "tag": "div",
+        "classes": [
+          "testimonial-avatar"
+        ],
+        "rect": {
+          "x": 115,
+          "y": 14829,
+          "width": 48,
+          "height": 48
+        },
+        "styles": {
+          "display": "flex",
+          "background": "rgb(90, 126, 214)",
+          "color": "rgb(12, 12, 18)",
+          "fontSize": "13px",
+          "fontWeight": "600",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "50%"
+        }
+      },
+      {
+        "tag": "div",
+        "classes": [
+          "testimonial-avatar"
+        ],
+        "rect": {
+          "x": 557,
+          "y": 14829,
+          "width": 48,
+          "height": 48
+        },
+        "styles": {
+          "display": "flex",
+          "background": "rgb(234, 147, 116)",
+          "color": "rgb(12, 12, 18)",
+          "fontSize": "13px",
+          "fontWeight": "600",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "50%"
+        }
+      },
+      {
+        "tag": "div",
+        "classes": [
+          "testimonial-avatar"
+        ],
+        "rect": {
+          "x": 998,
+          "y": 14829,
+          "width": 48,
+          "height": 48
+        },
+        "styles": {
+          "display": "flex",
+          "background": "rgb(255, 181, 71)",
+          "color": "rgb(12, 12, 18)",
+          "fontSize": "13px",
+          "fontWeight": "600",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "50%"
+        }
+      }
+    ]
+  },
+  {
+    "type": "grid-layout",
+    "count": 3,
+    "samples": [
+      {
+        "tag": "div",
+        "classes": [
+          "grid-lines",
+          "visible"
+        ],
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 900
+        },
+        "styles": {
+          "display": "flex",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(237, 232, 224)",
+          "fontSize": "15.84px",
+          "fontWeight": "400",
+          "padding": "0px 72px 0px 72px",
+          "borderRadius": "0px"
+        }
+      },
+      {
+        "tag": "div",
+        "classes": [
+          "about-grid"
+        ],
+        "rect": {
+          "x": 120,
+          "y": 4185,
+          "width": 1200,
+          "height": 318
+        },
+        "styles": {
+          "display": "grid",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(20, 20, 32)",
+          "fontSize": "15.84px",
+          "fontWeight": "400",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      },
+      {
+        "tag": "div",
+        "classes": [
+          "testimonials-grid"
+        ],
+        "rect": {
+          "x": 72,
+          "y": 14540,
+          "width": 1296,
+          "height": 380
+        },
+        "styles": {
+          "display": "grid",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(237, 232, 224)",
+          "fontSize": "15.84px",
+          "fontWeight": "400",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      }
+    ]
+  },
+  {
+    "type": "progress",
+    "count": 1,
+    "samples": [
+      {
+        "tag": "div",
+        "classes": [
+          "scroll-progress"
+        ],
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 3
+        },
+        "styles": {
+          "display": "block",
+          "background": "rgb(234, 147, 116)",
+          "color": "rgb(237, 232, 224)",
+          "fontSize": "15.84px",
+          "fontWeight": "400",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      }
+    ]
+  }
+]

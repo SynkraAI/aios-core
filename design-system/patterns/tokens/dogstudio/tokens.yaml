@@ -1,0 +1,261 @@
+# Design Tokens - dogstudio
+# Extracted by dissect-artifact.js v1.0.0
+# Source: https://dogstudio.co
+# Date: 2026-04-01T13:36:58.925Z
+
+metadata:
+  version: "1.0.0"
+  source: "https://dogstudio.co"
+  generated_at: "2026-04-01T13:36:58.925Z"
+  node_count: 491
+
+colors:
+  "rgb_255_255_255_":
+    value: "rgb(255, 255, 255)"
+    occurrences: 334
+  "rgba_160_168_220_0_7_":
+    value: "rgba(160, 168, 220, 0.7)"
+    occurrences: 37
+  "rgba_160_168_220_0_8_":
+    value: "rgba(160, 168, 220, 0.8)"
+    occurrences: 25
+  "rgba_187_194_229_0_3_":
+    value: "rgba(187, 194, 229, 0.3)"
+    occurrences: 22
+  "rgb_0_0_0_":
+    value: "rgb(0, 0, 0)"
+    occurrences: 16
+  "rgb_0_0_238_":
+    value: "rgb(0, 0, 238)"
+    occurrences: 16
+  "rgb_228_51_51_":
+    value: "rgb(228, 51, 51)"
+    occurrences: 8
+  "rgba_187_194_229_0_4_":
+    value: "rgba(187, 194, 229, 0.4)"
+    occurrences: 7
+  "rgb_19_20_25_":
+    value: "rgb(19, 20, 25)"
+    occurrences: 5
+  "rgb_255_73_64_":
+    value: "rgb(255, 73, 64)"
+    occurrences: 3
+  "rgb_14_16_26_":
+    value: "rgb(14, 16, 26)"
+    occurrences: 2
+  "rgb_255_248_234_":
+    value: "rgb(255, 248, 234)"
+    occurrences: 1
+  "rgb_90_180_0_":
+    value: "rgb(90, 180, 0)"
+    occurrences: 1
+  "rgb_237_188_104_":
+    value: "rgb(237, 188, 104)"
+    occurrences: 1
+  "rgb_100_109_158_":
+    value: "rgb(100, 109, 158)"
+    occurrences: 1
+  "rgb_215_154_33_":
+    value: "rgb(215, 154, 33)"
+    occurrences: 1
+  "rgb_95_196_170_":
+    value: "rgb(95, 196, 170)"
+    occurrences: 1
+  "rgb_88_165_196_":
+    value: "rgb(88, 165, 196)"
+    occurrences: 1
+  "rgb_255_46_191_":
+    value: "rgb(255, 46, 191)"
+    occurrences: 1
+  "rgb_255_102_160_":
+    value: "rgb(255, 102, 160)"
+    occurrences: 1
+  "rgb_91_178_122_":
+    value: "rgb(91, 178, 122)"
+    occurrences: 1
+  "rgb_133_117_81_":
+    value: "rgb(133, 117, 81)"
+    occurrences: 1
+  "rgba_19_20_25_0_8_":
+    value: "rgba(19, 20, 25, 0.8)"
+    occurrences: 1
+
+typography:
+  "14px_400":
+    font-size: "14px"
+    font-weight: "400"
+    font-family: "Heebo, Helvetica, Arial, sans-serif"
+    occurrences: 170
+  "11px_400":
+    font-size: "11px"
+    font-weight: "400"
+    font-family: "Heebo, Helvetica, Arial, sans-serif"
+    occurrences: 58
+  "20px_300":
+    font-size: "20px"
+    font-weight: "300"
+    font-family: "Heebo, Helvetica, Arial, sans-serif"
+    occurrences: 26
+  "15px_500":
+    font-size: "15px"
+    font-weight: "500"
+    font-family: "Heebo, Helvetica, Arial, sans-serif"
+    occurrences: 21
+  "80px_200":
+    font-size: "80px"
+    font-weight: "200"
+    font-family: "Heebo, Helvetica, Arial, sans-serif"
+    occurrences: 14
+  "50px_400":
+    font-size: "50px"
+    font-weight: "400"
+    font-family: ""GT Sectra Display", Times, Georgia, serif"
+    occurrences: 13
+  "13_3333px_400":
+    font-size: "13.3333px"
+    font-weight: "400"
+    font-family: "Arial"
+    occurrences: 10
+  "120px_700":
+    font-size: "120px"
+    font-weight: "700"
+    font-family: ""GT Sectra Display", Times, Georgia, serif"
+    occurrences: 9
+  "18px_400":
+    font-size: "18px"
+    font-weight: "400"
+    font-family: "Calibri, Helvetica, sans-serif"
+    occurrences: 8
+  "13px_500":
+    font-size: "13px"
+    font-weight: "500"
+    font-family: "Heebo, Helvetica, Arial, sans-serif"
+    occurrences: 8
+  "9px_700":
+    font-size: "9px"
+    font-weight: "700"
+    font-family: "Gilroy, Helvetica, Arial, sans-serif"
+    occurrences: 8
+  "8px_700":
+    font-size: "8px"
+    font-weight: "700"
+    font-family: "Gilroy, Helvetica, Arial, sans-serif"
+    occurrences: 7
+  "40px_700":
+    font-size: "40px"
+    font-weight: "700"
+    font-family: ""GT Sectra Display", Times, Georgia, serif"
+    occurrences: 7
+  "14px_500":
+    font-size: "14px"
+    font-weight: "500"
+    font-family: "Heebo, Helvetica, Arial, sans-serif"
+    occurrences: 6
+  "60px_200":
+    font-size: "60px"
+    font-weight: "200"
+    font-family: "Heebo, Helvetica, Arial, sans-serif"
+    occurrences: 5
+  "11px_700":
+    font-size: "11px"
+    font-weight: "700"
+    font-family: "Gilroy, Helvetica, Arial, sans-serif"
+    occurrences: 5
+  "23px_300":
+    font-size: "23px"
+    font-weight: "300"
+    font-family: "Heebo, Helvetica, Arial, sans-serif"
+    occurrences: 4
+  "11px_500":
+    font-size: "11px"
+    font-weight: "500"
+    font-family: "Gilroy, Helvetica, Arial, sans-serif"
+    occurrences: 4
+  "22px_300":
+    font-size: "22px"
+    font-weight: "300"
+    font-family: "Heebo, Helvetica, Arial, sans-serif"
+    occurrences: 3
+  "12px_500":
+    font-size: "12px"
+    font-weight: "500"
+    font-family: "Gilroy, Helvetica, Arial, sans-serif"
+    occurrences: 3
+
+spacing:
+  "_1px":
+    value: "-1px"
+    occurrences: 71
+  "20px":
+    value: "20px"
+    occurrences: 23
+  "13px":
+    value: "13px"
+    occurrences: 10
+  "6px":
+    value: "6px"
+    occurrences: 8
+  "12px":
+    value: "12px"
+    occurrences: 7
+  "19px":
+    value: "19px"
+    occurrences: 7
+  "1px":
+    value: "1px"
+    occurrences: 6
+  "7px":
+    value: "7px"
+    occurrences: 4
+  "9px":
+    value: "9px"
+    occurrences: 2
+  "50px":
+    value: "50px"
+    occurrences: 2
+  "8px":
+    value: "8px"
+    occurrences: 2
+  "15px":
+    value: "15px"
+    occurrences: 2
+  "35px":
+    value: "35px"
+    occurrences: 2
+  "40px":
+    value: "40px"
+    occurrences: 2
+  "_2px":
+    value: "-2px"
+    occurrences: 1
+  "_67px":
+    value: "-67px"
+    occurrences: 1
+  "_65px":
+    value: "-65px"
+    occurrences: 1
+  "_70px":
+    value: "-70px"
+    occurrences: 1
+  "55px":
+    value: "55px"
+    occurrences: 1
+  "200px":
+    value: "200px"
+    occurrences: 1
+
+shadows:
+  shadow_1:
+    value: "rgba(0, 0, 0, 0.4) 0px 0px 2px 0px"
+    occurrences: 2
+  shadow_2:
+    value: "rgba(0, 0, 0, 0.2) 0px 0px 5px 0px"
+    occurrences: 1
+
+borders:
+  border_1:
+    value: "0px 0px 1px none none solid rgb(0, 0, 0) rgb(0, 0, 0) rgb(162, 147, 48)"
+    occurrences: 1
+  border_2:
+    value: "1px 0px 0px solid none none rgba(182, 193, 250, 0.1) rgb(255, 255, 255) rgb(255, 255, 255)"
+    occurrences: 1

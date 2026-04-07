@@ -1,9 +1,21 @@
 # @oalanicolas Memory - Mind Cloning Architect
 
 ## Quick Stats
-- Minds clonados: 16 (1 palestrante, 4 technical thought leaders, 3 productivity/decision experts, 1 negotiation expert, 1 business educator, 2 strategy theorists, 1 product visionary, 1 engineer-emperor, 1 risk philosopher, 1 entertainment visionary)
-- Fidelidade média: 8.9/10
-- Fontes processadas: 90K+ linhas (livros Tier 0 + papers acadêmicos + web sources)
+- Minds clonados: 18 (1 palestrante, 4 technical thought leaders, 3 productivity/decision experts, 1 negotiation expert, 1 business educator, 2 strategy theorists, 1 product visionary, 1 engineer-emperor, 1 risk philosopher, 1 entertainment visionary, 1 paid traffic specialist, 1 influence scientist)
+- Fidelidade média: 9.0/10
+- Fontes processadas: 90K+ linhas (livros Tier 0 + papers acadêmicos + web sources + cursos + 580K words Cialdini)
+
+- [2026-04-04] robert-cialdini v1.0 → squads/mind-cloning/minds/robert-cialdini/outputs/ (Tier 0 Premium: 4 livros ~526K words + 10 YouTube long-form ~52K words)
+  - 3 arquivos YAML: voice_dna.yaml, thinking_dna.yaml, mind_dna_complete.yaml
+  - Voice DNA: 10 proprietary terms quantificados (click-run, levers, pre-suasion, trigger feature, the-we-is-the-shared-me, smugglers-bunglers-detectives), 8 conversational markers (it turns out 50+, research shows 80+, there's a lovely study 40+), 30+ signature phrases em 5 categorias (identity/teaching/modern/ethical/heritage), 3 voice modes (scientist_storyteller 60%, warm_grandfather 30%, ethical_guardian 10%)
+  - Thinking DNA: 10 core mental models, 7 Universal Principles completos (cada um: definition + mechanisms + studies + applications + defense + ethical frame), Pre-Suasion framework (3 parts + post-suasion), Neidert Core Motives Model (Relationship→Uncertainty→Action), Smugglers-Bunglers-Detectives ethics typology, 6 secondary frameworks
+  - 12 episodic memories (Turquoise 1/2 misread, 3-year undercover, Nazi guard 10th prisoner, Joe Girard I Like You cards, Ali Reda Dearborn, Langer copier BECAUSE, McDonald's balloons entry, Cuban Missile Crisis reframed, Boy Scout popcorn, Consulting $1M pre-suasion, Milgram shocks, Sicilian grandfather)
+  - 15 decision heuristics, 12 anti-patterns (The Big Mistake, Gift-as-Device, Opinion-Seeking when you want a Partner, Captainitis, etc.)
+  - System prompt + decision tree com ethical gate em step 1
+  - Sources: Influence 2021 Expanded (201K primary) + Pre-Suasion (125K primary) + Influence Science&Practice (125K) + small BIG (75K) + Lewis Howes (16K primary conversational) + DOAC/Steven Bartlett (9K primary modern) + unSILOed (9K academic) + RSA + Stanford GSB + 5 Big Think/animated videos
+  - Total corpus: ~580K words, strategic sampling ~70K deeply
+  - Fidelidade estimada: 95% (Premium — um dos melhores datasets possíveis, book prose e spoken voice remarkavelmente consistentes, signature phrases validadas across 2 entrevistas independentes de 2021)
+  - Último mind "Sources Only" do sistema — backlog agora zerado
 
 ---
 
@@ -67,9 +79,15 @@
   - System prompt + Decision Tree (8-step Strategic Assessment Protocol)
   - Fidelidade estimada: 9.0/10 (Tier 0 source, single book gap)
 
-- [2026-03-09] renner-silva v1.2 → squads/squad-creator/data/minds/renner_silva/05_clone_final/ (fidelidade 9.5/10, 19 KBs, 29 memorias episodicas)
-  - v1.1: 9.3/10 | v1.2: 9.5/10 (+0.2)
-  - Gap principal restante: ME-01 a ME-07 rasas, cross-refs unidirecionais
+- [2026-04-03] renner-silva v2.0 → squads/mind-cloning/minds/renner-silva/outputs/ (fidelidade 92%, ~90K linhas processadas)
+  - 3 arquivos YAML: voice_dna.yaml, thinking_dna.yaml, mind_dna_complete.yaml
+  - Voice DNA: 20+ signature phrases, 3 voice modes (mentor 70%, comandante 20%, verdade crua 10%), 18 vocabulary fingerprints quantificados
+  - Thinking DNA: 8 core mental models, 6 frameworks (Aplauda de Pé 5 passos, Roteiro 8 Estágios, Pitch 5 Dedos, Duas Maneiras, Seleção, Mágica)
+  - 10 episodic memories, 12 decision heuristics, 10 anti-patterns, 7 knowledge bases, psychological profile
+  - System prompt + decision tree (7 steps) para instanciar agente
+  - Sources: 4 mentorias transcritas (~50K linhas), 4 lives (~40K), Método Aplauda de Pé completo, Obsidian Vault (15 conceitos)
+  - v1.2 era em squads/squad-creator/data/minds/. v2.0 migrado para local canônico.
+  - Gaps: Método S.I.M., 8 nomes exatos do roteiro, livro "Hábitos" não lido
 
 - [2026-03-11] james-taylor v2.0 → squads/business-rules-extraction/agents/james-taylor.md (fonte Tier 0: livro "Decision Management Systems", 7.6K linhas)
   - Extraído Voice DNA + Thinking DNA + 10 episodic memories de case studies
@@ -139,6 +157,15 @@
   - Existing agent: squads/negotiation/agents/chris-voss.md (negotiation squad)
   - Gap: livro Tier 0 nao lido diretamente (arquivo nao encontrado no path esperado — gitignored/cleaned)
   - Fidelidade estimada: 87%
+
+- [2026-04-03] thiago-tessman v3.0 → squads/mind-cloning/minds/thiago-tessman/outputs/ (fonte Tier 0: curso Conversão Extrema 204 aulas + 21 YouTube)
+  - 3 arquivos YAML: voice_dna.yaml, thinking_dna.yaml, mind_dna_complete.yaml
+  - Voice DNA: 40 signature phrases, 17 vocabulary fingerprints quantificados (pó 145x, e aí 107x, o que que 129x), 17 sentence patterns, 4 tone-by-format
+  - Thinking DNA: Círculo 6V (framework principal), 17 secondary frameworks, 34 decision heuristics, 20 veto conditions, 4 decision trees
+  - 154 frameworks catalogados, 590+ heurísticas extraídas, TOP-30 curadas
+  - 10 episodic memories, 12 meta-principles, 15 objection handling patterns, 7 knowledge bases
+  - System prompt + decision tree para instanciar agente
+  - Fidelidade estimada: 91%
 
 ---
 

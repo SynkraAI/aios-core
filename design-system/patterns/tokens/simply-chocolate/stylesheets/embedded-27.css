@@ -1,0 +1,25 @@
+
+      div[id*="instafeed_app_block"] {
+        width: 100%;
+      }
+      div.shopify-section:has(> [id*="instafeed_app_block"]) {
+      width: 100%;
+      }
+      body #insta-feed {
+          
+
+          
+          margin-bottom: 0px!important;
+          
+
+          
+
+          
+
+          
+          text-align: center;
+      }
+      
+
+      
+      

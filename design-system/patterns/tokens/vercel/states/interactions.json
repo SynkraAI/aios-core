@@ -1,0 +1,1858 @@
+{
+  "url": "https://vercel.com",
+  "name": "vercel",
+  "timestamp": "2026-04-01T11:42:33.727Z",
+  "totalElements": 50,
+  "elementsWithStates": 31,
+  "interactions": [
+    {
+      "tag": "a",
+      "text": "Skip to content",
+      "classes": "skip-nav-link-module__uw4zXa__skipLink",
+      "selector": "a.skip-nav-link-module__uw4zXa__skipLink",
+      "baseStyles": {
+        "color": "rgb(0, 114, 245)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(0, 114, 245)",
+        "borderWidth": "0px",
+        "borderRadius": "6px",
+        "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(0, 114, 245) 0px 0px 0px 4px",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "0",
+        "textDecoration": "underline",
+        "outline": "rgb(0, 114, 245) none 0px",
+        "outlineColor": "rgb(0, 114, 245)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "opacity": {
+            "from": "0",
+            "to": "1"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "link-module__Q1NRQq__link no-underline vercel-logo inline-flex items-center [&_img]:max-w-none",
+      "selector": "#menu-button-_R_2ipfcqaivbH1_",
+      "baseStyles": {
+        "color": "rgb(23, 23, 23)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(23, 23, 23)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(23, 23, 23) none 0px",
+        "outlineColor": "rgb(23, 23, 23)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(250, 250, 250)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(250, 250, 250)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "AI Cloud",
+      "classes": "link-module__Q1NRQq__link no-underline",
+      "selector": "a.link-module__Q1NRQq__link.no-underline",
+      "baseStyles": {
+        "color": "rgb(77, 77, 77)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(77, 77, 77)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(77, 77, 77) none 0px",
+        "outlineColor": "rgb(77, 77, 77)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "outline": {
+            "from": "rgb(77, 77, 77) none 0px",
+            "to": "rgb(0, 114, 245) auto 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(77, 77, 77)",
+            "to": "rgb(0, 114, 245)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Security",
+      "classes": "link-module__Q1NRQq__link no-underline",
+      "selector": "a.link-module__Q1NRQq__link.no-underline",
+      "baseStyles": {
+        "color": "rgb(77, 77, 77)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(77, 77, 77)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(77, 77, 77) none 0px",
+        "outlineColor": "rgb(77, 77, 77)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "outline": {
+            "from": "rgb(77, 77, 77) none 0px",
+            "to": "rgb(0, 114, 245) auto 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(77, 77, 77)",
+            "to": "rgb(0, 114, 245)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Enterprise",
+      "classes": "link-module__Q1NRQq__link no-underline navigation-menu-module__AENi4G__link",
+      "selector": "a.link-module__Q1NRQq__link.no-underline.navigation-menu-module__AENi4G__link",
+      "baseStyles": {
+        "color": "rgb(77, 77, 77)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(77, 77, 77)",
+        "borderWidth": "0px",
+        "borderRadius": "9999px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(77, 77, 77) none 0px",
+        "outlineColor": "rgb(77, 77, 77)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.09s, background 0.09s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(77, 77, 77)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(235, 235, 235)"
+          },
+          "borderColor": {
+            "from": "rgb(77, 77, 77)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "outline": {
+            "from": "rgb(77, 77, 77) none 0px",
+            "to": "rgb(23, 23, 23) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(77, 77, 77)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "transition": {
+            "from": "color 0.09s, background 0.09s",
+            "to": "color, background"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(77, 77, 77)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "borderColor": {
+            "from": "rgb(77, 77, 77)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(0, 114, 245) 0px 0px 0px 4px"
+          },
+          "outline": {
+            "from": "rgb(77, 77, 77) none 0px",
+            "to": "rgb(23, 23, 23) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(77, 77, 77)",
+            "to": "rgb(23, 23, 23)"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Pricing",
+      "classes": "link-module__Q1NRQq__link no-underline navigation-menu-module__AENi4G__link",
+      "selector": "a.link-module__Q1NRQq__link.no-underline.navigation-menu-module__AENi4G__link",
+      "baseStyles": {
+        "color": "rgb(77, 77, 77)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(77, 77, 77)",
+        "borderWidth": "0px",
+        "borderRadius": "9999px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(77, 77, 77) none 0px",
+        "outlineColor": "rgb(77, 77, 77)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.09s, background 0.09s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(77, 77, 77)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(235, 235, 235)"
+          },
+          "borderColor": {
+            "from": "rgb(77, 77, 77)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "outline": {
+            "from": "rgb(77, 77, 77) none 0px",
+            "to": "rgb(23, 23, 23) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(77, 77, 77)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "transition": {
+            "from": "color 0.09s, background 0.09s",
+            "to": "color, background"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(77, 77, 77)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "borderColor": {
+            "from": "rgb(77, 77, 77)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(0, 114, 245) 0px 0px 0px 4px"
+          },
+          "outline": {
+            "from": "rgb(77, 77, 77) none 0px",
+            "to": "rgb(23, 23, 23) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(77, 77, 77)",
+            "to": "rgb(23, 23, 23)"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Log In",
+      "classes": "button-module__QyrFCa__base reset-module__ylizOa__reset button-module__QyrFCa__button reset-module__",
+      "selector": "a.button-module__QyrFCa__base.reset-module__ylizOa__reset.button-module__QyrFCa__button.reset-module__ylizOa__reset.button-module__QyrFCa__secondary.button-module__QyrFCa__small.button-module__QyrFCa__invert",
+      "baseStyles": {
+        "color": "rgb(23, 23, 23)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(23, 23, 23)",
+        "borderWidth": "0px",
+        "borderRadius": "6px",
+        "boxShadow": "rgb(235, 235, 235) 0px 0px 0px 1px",
+        "textShadow": "none",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(23, 23, 23) none 0px",
+        "outlineColor": "rgb(23, 23, 23)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "border-color 0.15s, background 0.15s, color 0.15s, transform 0.15s, box-shadow 0.15s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "6px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgb(235, 235, 235) 0px 0px 0px 1px",
+            "to": "none"
+          },
+          "transform": {
+            "from": "matrix(1, 0, 0, 1, 0, 0)",
+            "to": "none"
+          },
+          "transition": {
+            "from": "border-color 0.15s, background 0.15s, color 0.15s, transform 0.15s, box-shadow 0.15s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "backgroundColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "6px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgb(235, 235, 235) 0px 0px 0px 1px",
+            "to": "none"
+          },
+          "transform": {
+            "from": "matrix(1, 0, 0, 1, 0, 0)",
+            "to": "none"
+          },
+          "transition": {
+            "from": "border-color 0.15s, background 0.15s, color 0.15s, transform 0.15s, box-shadow 0.15s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Sign Up",
+      "classes": "button-module__QyrFCa__base reset-module__ylizOa__reset button-module__QyrFCa__button reset-module__",
+      "selector": "a.button-module__QyrFCa__base.reset-module__ylizOa__reset.button-module__QyrFCa__button.reset-module__ylizOa__reset.morphing-button-link-module__KniueW__ghostCta.button-module__QyrFCa__small.button-module__QyrFCa__invert",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(23, 23, 23)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "6px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "opacity": "0",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "border-color 0.15s, background 0.15s, color 0.15s, transform 0.15s, box-shadow 0.15s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "backgroundColor": {
+            "from": "rgb(23, 23, 23)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "6px",
+            "to": "0px"
+          },
+          "transform": {
+            "from": "matrix(1, 0, 0, 1, 0, 0)",
+            "to": "none"
+          },
+          "opacity": {
+            "from": "0",
+            "to": "1"
+          },
+          "transition": {
+            "from": "border-color 0.15s, background 0.15s, color 0.15s, transform 0.15s, box-shadow 0.15s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Sign Up",
+      "classes": "button-module__QyrFCa__base reset-module__ylizOa__reset button-module__QyrFCa__button reset-module__",
+      "selector": "a.button-module__QyrFCa__base.reset-module__ylizOa__reset.button-module__QyrFCa__button.reset-module__ylizOa__reset.morphing-button-link-module__KniueW__displayCta.button-module__QyrFCa__small.button-module__QyrFCa__invert",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(23, 23, 23)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "6px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "border-color 0.3s cubic-bezier(0.39, 0.18, 0.17, 0.99), background 0.3s cubic-bezier(0.39, 0.18, 0.17, 0.99), color 0.3s cubic-bezier(0.39, 0.18, 0.17, 0.99), transform 0.3s cubic-bezier(0.39, 0.18, 0.17, 0.99), box-shadow 0.3s cubic-bezier(0.39, 0.18, 0.17, 0.99), width 0.4s cubic-bezier(0.39, 0.18, 0.17, 0.99)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "backgroundColor": {
+            "from": "rgb(23, 23, 23)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "6px",
+            "to": "0px"
+          },
+          "transform": {
+            "from": "matrix(1, 0, 0, 1, 0, 0)",
+            "to": "none"
+          },
+          "transition": {
+            "from": "border-color 0.3s cubic-bezier(0.39, 0.18, 0.17, 0.99), background 0.3s cubic-bezier(0.39, 0.18, 0.17, 0.99), color 0.3s cubic-bezier(0.39, 0.18, 0.17, 0.99), transform 0.3s cubic-bezier(0.39, 0.18, 0.17, 0.99), box-shadow 0.3s cubic-bezier(0.39, 0.18, 0.17, 0.99), width 0.4s cubic-bezier(0.39, 0.18, 0.17, 0.99)",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Enterprise",
+      "classes": "button-module__QyrFCa__base reset-module__ylizOa__reset button-module__QyrFCa__button reset-module__",
+      "selector": "a.button-module__QyrFCa__base.reset-module__ylizOa__reset.button-module__QyrFCa__button.reset-module__ylizOa__reset.button-module__QyrFCa__secondary.button-module__QyrFCa__rounded.button-module__QyrFCa__shadow.button-module__QyrFCa__invert",
+      "baseStyles": {
+        "color": "rgb(23, 23, 23)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(23, 23, 23)",
+        "borderWidth": "0px",
+        "borderRadius": "100px",
+        "boxShadow": "rgba(0, 0, 0, 0.08) 0px 0px 0px 1px, rgba(0, 0, 0, 0.04) 0px 2px 2px 0px, rgb(250, 250, 250) 0px 0px 0px 1px",
+        "textShadow": "none",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(23, 23, 23) none 0px",
+        "outlineColor": "rgb(23, 23, 23)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "border-color 0.15s, background 0.15s, color 0.15s, transform 0.15s, box-shadow 0.15s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(235, 235, 235)"
+          },
+          "borderRadius": {
+            "from": "100px",
+            "to": "9999px"
+          },
+          "boxShadow": {
+            "from": "rgba(0, 0, 0, 0.08) 0px 0px 0px 1px, rgba(0, 0, 0, 0.04) 0px 2px 2px 0px, rgb(250, 250, 250) 0px 0px 0px 1px",
+            "to": "none"
+          },
+          "transform": {
+            "from": "matrix(1, 0, 0, 1, 0, 0)",
+            "to": "none"
+          },
+          "transition": {
+            "from": "border-color 0.15s, background 0.15s, color 0.15s, transform 0.15s, box-shadow 0.15s",
+            "to": "color, background"
+          }
+        },
+        "focus": {
+          "backgroundColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "100px",
+            "to": "9999px"
+          },
+          "boxShadow": {
+            "from": "rgba(0, 0, 0, 0.08) 0px 0px 0px 1px, rgba(0, 0, 0, 0.04) 0px 2px 2px 0px, rgb(250, 250, 250) 0px 0px 0px 1px",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(0, 114, 245) 0px 0px 0px 4px"
+          },
+          "transform": {
+            "from": "matrix(1, 0, 0, 1, 0, 0)",
+            "to": "none"
+          },
+          "transition": {
+            "from": "border-color 0.15s, background 0.15s, color 0.15s, transform 0.15s, box-shadow 0.15s",
+            "to": "color 0.09s, background 0.09s"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Security",
+      "classes": "button-module__QyrFCa__base reset-module__ylizOa__reset button-module__QyrFCa__button reset-module__",
+      "selector": "a.button-module__QyrFCa__base.reset-module__ylizOa__reset.button-module__QyrFCa__button.reset-module__ylizOa__reset.button-module__QyrFCa__secondary.button-module__QyrFCa__rounded.button-module__QyrFCa__shadow.button-module__QyrFCa__invert",
+      "baseStyles": {
+        "color": "rgb(23, 23, 23)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(23, 23, 23)",
+        "borderWidth": "0px",
+        "borderRadius": "100px",
+        "boxShadow": "rgba(0, 0, 0, 0.08) 0px 0px 0px 1px, rgba(0, 0, 0, 0.04) 0px 2px 2px 0px, rgb(250, 250, 250) 0px 0px 0px 1px",
+        "textShadow": "none",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(23, 23, 23) none 0px",
+        "outlineColor": "rgb(23, 23, 23)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "border-color 0.15s, background 0.15s, color 0.15s, transform 0.15s, box-shadow 0.15s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "color": {
+            "from": "rgb(23, 23, 23)",
+            "to": "rgb(77, 77, 77)"
+          },
+          "backgroundColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(23, 23, 23)",
+            "to": "rgb(77, 77, 77)"
+          },
+          "borderRadius": {
+            "from": "100px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgba(0, 0, 0, 0.08) 0px 0px 0px 1px, rgba(0, 0, 0, 0.04) 0px 2px 2px 0px, rgb(250, 250, 250) 0px 0px 0px 1px",
+            "to": "none"
+          },
+          "transform": {
+            "from": "matrix(1, 0, 0, 1, 0, 0)",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(23, 23, 23) none 0px",
+            "to": "rgb(0, 114, 245) auto 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(23, 23, 23)",
+            "to": "rgb(0, 114, 245)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          },
+          "transition": {
+            "from": "border-color 0.15s, background 0.15s, color 0.15s, transform 0.15s, box-shadow 0.15s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Talk to an Expert",
+      "classes": "button-module__QyrFCa__base reset-module__ylizOa__reset button-module__QyrFCa__button reset-module__",
+      "selector": "a.button-module__QyrFCa__base.reset-module__ylizOa__reset.button-module__QyrFCa__button.reset-module__ylizOa__reset.button-module__QyrFCa__secondary.button-module__QyrFCa__rounded.button-module__QyrFCa__shadow.button-module__QyrFCa__invert",
+      "baseStyles": {
+        "color": "rgb(23, 23, 23)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(23, 23, 23)",
+        "borderWidth": "0px",
+        "borderRadius": "100px",
+        "boxShadow": "rgba(0, 0, 0, 0.08) 0px 0px 0px 1px, rgba(0, 0, 0, 0.04) 0px 2px 2px 0px, rgb(250, 250, 250) 0px 0px 0px 1px",
+        "textShadow": "none",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(23, 23, 23) none 0px",
+        "outlineColor": "rgb(23, 23, 23)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "border-color 0.15s, background 0.15s, color 0.15s, transform 0.15s, box-shadow 0.15s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "100px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgba(0, 0, 0, 0.08) 0px 0px 0px 1px, rgba(0, 0, 0, 0.04) 0px 2px 2px 0px, rgb(250, 250, 250) 0px 0px 0px 1px",
+            "to": "none"
+          },
+          "transform": {
+            "from": "matrix(1, 0, 0, 1, 0, 0)",
+            "to": "none"
+          },
+          "transition": {
+            "from": "border-color 0.15s, background 0.15s, color 0.15s, transform 0.15s, box-shadow 0.15s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "backgroundColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "100px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgba(0, 0, 0, 0.08) 0px 0px 0px 1px, rgba(0, 0, 0, 0.04) 0px 2px 2px 0px, rgb(250, 250, 250) 0px 0px 0px 1px",
+            "to": "none"
+          },
+          "transform": {
+            "from": "matrix(1, 0, 0, 1, 0, 0)",
+            "to": "none"
+          },
+          "transition": {
+            "from": "border-color 0.15s, background 0.15s, color 0.15s, transform 0.15s, box-shadow 0.15s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Explore Enterprise",
+      "classes": "button-module__QyrFCa__base reset-module__ylizOa__reset button-module__QyrFCa__button reset-module__",
+      "selector": "a.button-module__QyrFCa__base.reset-module__ylizOa__reset.button-module__QyrFCa__button.reset-module__ylizOa__reset.button-module__QyrFCa__secondary.button-module__QyrFCa__rounded.button-module__QyrFCa__shadow.button-module__QyrFCa__invert",
+      "baseStyles": {
+        "color": "rgb(23, 23, 23)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(23, 23, 23)",
+        "borderWidth": "0px",
+        "borderRadius": "100px",
+        "boxShadow": "rgba(0, 0, 0, 0.08) 0px 0px 0px 1px, rgba(0, 0, 0, 0.04) 0px 2px 2px 0px, rgb(250, 250, 250) 0px 0px 0px 1px",
+        "textShadow": "none",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(23, 23, 23) none 0px",
+        "outlineColor": "rgb(23, 23, 23)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "border-color 0.15s, background 0.15s, color 0.15s, transform 0.15s, box-shadow 0.15s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "100px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgba(0, 0, 0, 0.08) 0px 0px 0px 1px, rgba(0, 0, 0, 0.04) 0px 2px 2px 0px, rgb(250, 250, 250) 0px 0px 0px 1px",
+            "to": "none"
+          },
+          "transform": {
+            "from": "matrix(1, 0, 0, 1, 0, 0)",
+            "to": "none"
+          },
+          "transition": {
+            "from": "border-color 0.15s, background 0.15s, color 0.15s, transform 0.15s, box-shadow 0.15s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "backgroundColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "100px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgba(0, 0, 0, 0.08) 0px 0px 0px 1px, rgba(0, 0, 0, 0.04) 0px 2px 2px 0px, rgb(250, 250, 250) 0px 0px 0px 1px",
+            "to": "none"
+          },
+          "transform": {
+            "from": "matrix(1, 0, 0, 1, 0, 0)",
+            "to": "none"
+          },
+          "transition": {
+            "from": "border-color 0.15s, background 0.15s, color 0.15s, transform 0.15s, box-shadow 0.15s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Templates",
+      "classes": "link-module__Q1NRQq__link no-underline link-module__Q1NRQq__secondary flex items-center gap-1.5 w-fi",
+      "selector": "a.link-module__Q1NRQq__link.no-underline.link-module__Q1NRQq__secondary.flex.items-center.gap-1.5.w-fit.p-0.5.-ml-0.5",
+      "baseStyles": {
+        "color": "rgb(102, 102, 102)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(102, 102, 102)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(102, 102, 102) none 0px",
+        "outlineColor": "rgb(102, 102, 102)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "color": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "borderColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "outline": {
+            "from": "rgb(102, 102, 102) none 0px",
+            "to": "rgb(23, 23, 23) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "transition": {
+            "from": "color 0.1s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Supported frameworks",
+      "classes": "link-module__Q1NRQq__link no-underline link-module__Q1NRQq__secondary flex items-center gap-1.5 w-fi",
+      "selector": "a.link-module__Q1NRQq__link.no-underline.link-module__Q1NRQq__secondary.flex.items-center.gap-1.5.w-fit.p-0.5.-ml-0.5",
+      "baseStyles": {
+        "color": "rgb(102, 102, 102)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(102, 102, 102)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(102, 102, 102) none 0px",
+        "outlineColor": "rgb(102, 102, 102)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(102, 102, 102) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(0, 0, 0)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgb(102, 102, 102) none 0px",
+            "to": "rgb(0, 114, 245) auto 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(0, 114, 245)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Marketplace",
+      "classes": "link-module__Q1NRQq__link no-underline link-module__Q1NRQq__secondary flex items-center gap-1.5 w-fi",
+      "selector": "a.link-module__Q1NRQq__link.no-underline.link-module__Q1NRQq__secondary.flex.items-center.gap-1.5.w-fit.p-0.5.-ml-0.5",
+      "baseStyles": {
+        "color": "rgb(102, 102, 102)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(102, 102, 102)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(102, 102, 102) none 0px",
+        "outlineColor": "rgb(102, 102, 102)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "color": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "borderColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "outline": {
+            "from": "rgb(102, 102, 102) none 0px",
+            "to": "rgb(23, 23, 23) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "transition": {
+            "from": "color 0.1s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Domains",
+      "classes": "link-module__Q1NRQq__link no-underline link-module__Q1NRQq__secondary flex items-center gap-1.5 w-fi",
+      "selector": "a.link-module__Q1NRQq__link.no-underline.link-module__Q1NRQq__secondary.flex.items-center.gap-1.5.w-fit.p-0.5.-ml-0.5",
+      "baseStyles": {
+        "color": "rgb(102, 102, 102)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(102, 102, 102)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(102, 102, 102) none 0px",
+        "outlineColor": "rgb(102, 102, 102)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(102, 102, 102) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(0, 0, 0)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgb(102, 102, 102) none 0px",
+            "to": "rgb(0, 114, 245) auto 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(0, 114, 245)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Next.js on Vercel",
+      "classes": "link-module__Q1NRQq__link no-underline link-module__Q1NRQq__secondary flex items-center gap-1.5 w-fi",
+      "selector": "a.link-module__Q1NRQq__link.no-underline.link-module__Q1NRQq__secondary.flex.items-center.gap-1.5.w-fit.p-0.5.-ml-0.5",
+      "baseStyles": {
+        "color": "rgb(102, 102, 102)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(102, 102, 102)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(102, 102, 102) none 0px",
+        "outlineColor": "rgb(102, 102, 102)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(102, 102, 102) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(0, 0, 0)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgb(102, 102, 102) none 0px",
+            "to": "rgb(0, 114, 245) auto 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(0, 114, 245)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Turborepo",
+      "classes": "link-module__Q1NRQq__link no-underline link-module__Q1NRQq__secondary flex items-center gap-1.5 w-fi",
+      "selector": "a.link-module__Q1NRQq__link.no-underline.link-module__Q1NRQq__secondary.flex.items-center.gap-1.5.w-fit.p-0.5.-ml-0.5",
+      "baseStyles": {
+        "color": "rgb(102, 102, 102)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(102, 102, 102)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(102, 102, 102) none 0px",
+        "outlineColor": "rgb(102, 102, 102)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "color": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "borderColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "outline": {
+            "from": "rgb(102, 102, 102) none 0px",
+            "to": "rgb(23, 23, 23) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "transition": {
+            "from": "color 0.1s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "v0",
+      "classes": "link-module__Q1NRQq__link no-underline link-module__Q1NRQq__secondary flex items-center gap-1.5 w-fi",
+      "selector": "a.link-module__Q1NRQq__link.no-underline.link-module__Q1NRQq__secondary.flex.items-center.gap-1.5.w-fit.p-0.5.-ml-0.5",
+      "baseStyles": {
+        "color": "rgb(102, 102, 102)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(102, 102, 102)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(102, 102, 102) none 0px",
+        "outlineColor": "rgb(102, 102, 102)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "color": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "borderColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "outline": {
+            "from": "rgb(102, 102, 102) none 0px",
+            "to": "rgb(23, 23, 23) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "transition": {
+            "from": "color 0.1s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Content delivery network",
+      "classes": "link-module__Q1NRQq__link no-underline link-module__Q1NRQq__secondary flex items-center gap-1.5 w-fi",
+      "selector": "a.link-module__Q1NRQq__link.no-underline.link-module__Q1NRQq__secondary.flex.items-center.gap-1.5.w-fit.p-0.5.-ml-0.5",
+      "baseStyles": {
+        "color": "rgb(102, 102, 102)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(102, 102, 102)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(102, 102, 102) none 0px",
+        "outlineColor": "rgb(102, 102, 102)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(102, 102, 102) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(0, 0, 0)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgb(102, 102, 102) none 0px",
+            "to": "rgb(0, 114, 245) auto 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(0, 114, 245)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Fluid compute",
+      "classes": "link-module__Q1NRQq__link no-underline link-module__Q1NRQq__secondary flex items-center gap-1.5 w-fi",
+      "selector": "a.link-module__Q1NRQq__link.no-underline.link-module__Q1NRQq__secondary.flex.items-center.gap-1.5.w-fit.p-0.5.-ml-0.5",
+      "baseStyles": {
+        "color": "rgb(102, 102, 102)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(102, 102, 102)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(102, 102, 102) none 0px",
+        "outlineColor": "rgb(102, 102, 102)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(102, 102, 102) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(0, 0, 0)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgb(102, 102, 102) none 0px",
+            "to": "rgb(0, 114, 245) auto 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(0, 114, 245)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "CI/CD",
+      "classes": "link-module__Q1NRQq__link no-underline link-module__Q1NRQq__secondary flex items-center gap-1.5 w-fi",
+      "selector": "a.link-module__Q1NRQq__link.no-underline.link-module__Q1NRQq__secondary.flex.items-center.gap-1.5.w-fit.p-0.5.-ml-0.5",
+      "baseStyles": {
+        "color": "rgb(102, 102, 102)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(102, 102, 102)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(102, 102, 102) none 0px",
+        "outlineColor": "rgb(102, 102, 102)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "color": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "borderColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "outline": {
+            "from": "rgb(102, 102, 102) none 0px",
+            "to": "rgb(23, 23, 23) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "transition": {
+            "from": "color 0.1s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Observability",
+      "classes": "link-module__Q1NRQq__link no-underline link-module__Q1NRQq__secondary flex items-center gap-1.5 w-fi",
+      "selector": "a.link-module__Q1NRQq__link.no-underline.link-module__Q1NRQq__secondary.flex.items-center.gap-1.5.w-fit.p-0.5.-ml-0.5",
+      "baseStyles": {
+        "color": "rgb(102, 102, 102)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(102, 102, 102)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(102, 102, 102) none 0px",
+        "outlineColor": "rgb(102, 102, 102)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "color": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "borderColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "outline": {
+            "from": "rgb(102, 102, 102) none 0px",
+            "to": "rgb(23, 23, 23) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "transition": {
+            "from": "color 0.1s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Platform security",
+      "classes": "link-module__Q1NRQq__link no-underline link-module__Q1NRQq__secondary flex items-center gap-1.5 w-fi",
+      "selector": "a.link-module__Q1NRQq__link.no-underline.link-module__Q1NRQq__secondary.flex.items-center.gap-1.5.w-fit.p-0.5.-ml-0.5",
+      "baseStyles": {
+        "color": "rgb(102, 102, 102)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(102, 102, 102)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(102, 102, 102) none 0px",
+        "outlineColor": "rgb(102, 102, 102)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(102, 102, 102) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(0, 0, 0)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgb(102, 102, 102) none 0px",
+            "to": "rgb(0, 114, 245) auto 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(0, 114, 245)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Web Application Firewall",
+      "classes": "link-module__Q1NRQq__link no-underline link-module__Q1NRQq__secondary flex items-center gap-1.5 w-fi",
+      "selector": "a.link-module__Q1NRQq__link.no-underline.link-module__Q1NRQq__secondary.flex.items-center.gap-1.5.w-fit.p-0.5.-ml-0.5",
+      "baseStyles": {
+        "color": "rgb(102, 102, 102)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(102, 102, 102)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(102, 102, 102) none 0px",
+        "outlineColor": "rgb(102, 102, 102)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "color": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "borderColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "outline": {
+            "from": "rgb(102, 102, 102) none 0px",
+            "to": "rgb(23, 23, 23) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "transition": {
+            "from": "color 0.1s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Bot management",
+      "classes": "link-module__Q1NRQq__link no-underline link-module__Q1NRQq__secondary flex items-center gap-1.5 w-fi",
+      "selector": "a.link-module__Q1NRQq__link.no-underline.link-module__Q1NRQq__secondary.flex.items-center.gap-1.5.w-fit.p-0.5.-ml-0.5",
+      "baseStyles": {
+        "color": "rgb(102, 102, 102)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(102, 102, 102)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(102, 102, 102) none 0px",
+        "outlineColor": "rgb(102, 102, 102)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(102, 102, 102) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(0, 0, 0)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgb(102, 102, 102) none 0px",
+            "to": "rgb(0, 114, 245) auto 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(0, 114, 245)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "BotID",
+      "classes": "link-module__Q1NRQq__link no-underline link-module__Q1NRQq__secondary flex items-center gap-1.5 w-fi",
+      "selector": "a.link-module__Q1NRQq__link.no-underline.link-module__Q1NRQq__secondary.flex.items-center.gap-1.5.w-fit.p-0.5.-ml-0.5",
+      "baseStyles": {
+        "color": "rgb(102, 102, 102)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(102, 102, 102)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(102, 102, 102) none 0px",
+        "outlineColor": "rgb(102, 102, 102)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "color": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "borderColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "outline": {
+            "from": "rgb(102, 102, 102) none 0px",
+            "to": "rgb(23, 23, 23) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "transition": {
+            "from": "color 0.1s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Pricing",
+      "classes": "link-module__Q1NRQq__link no-underline link-module__Q1NRQq__secondary flex items-center gap-1.5 w-fi",
+      "selector": "a.link-module__Q1NRQq__link.no-underline.link-module__Q1NRQq__secondary.flex.items-center.gap-1.5.w-fit.p-0.5.-ml-0.5",
+      "baseStyles": {
+        "color": "rgb(102, 102, 102)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(102, 102, 102)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(102, 102, 102) none 0px",
+        "outlineColor": "rgb(102, 102, 102)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(235, 235, 235)"
+          },
+          "borderColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "borderRadius": {
+            "from": "0px",
+            "to": "9999px"
+          },
+          "outline": {
+            "from": "rgb(102, 102, 102) none 0px",
+            "to": "rgb(23, 23, 23) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "transition": {
+            "from": "color 0.1s",
+            "to": "color, background"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "borderColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "borderRadius": {
+            "from": "0px",
+            "to": "9999px"
+          },
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(0, 114, 245) 0px 0px 0px 4px"
+          },
+          "outline": {
+            "from": "rgb(102, 102, 102) none 0px",
+            "to": "rgb(23, 23, 23) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "transition": {
+            "from": "color 0.1s",
+            "to": "color 0.09s, background 0.09s"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Customers",
+      "classes": "link-module__Q1NRQq__link no-underline link-module__Q1NRQq__secondary flex items-center gap-1.5 w-fi",
+      "selector": "a.link-module__Q1NRQq__link.no-underline.link-module__Q1NRQq__secondary.flex.items-center.gap-1.5.w-fit.p-0.5.-ml-0.5",
+      "baseStyles": {
+        "color": "rgb(102, 102, 102)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(102, 102, 102)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(102, 102, 102) none 0px",
+        "outlineColor": "rgb(102, 102, 102)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "color": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "borderColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "outline": {
+            "from": "rgb(102, 102, 102) none 0px",
+            "to": "rgb(23, 23, 23) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "transition": {
+            "from": "color 0.1s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Enterprise",
+      "classes": "link-module__Q1NRQq__link no-underline link-module__Q1NRQq__secondary flex items-center gap-1.5 w-fi",
+      "selector": "a.link-module__Q1NRQq__link.no-underline.link-module__Q1NRQq__secondary.flex.items-center.gap-1.5.w-fit.p-0.5.-ml-0.5",
+      "baseStyles": {
+        "color": "rgb(102, 102, 102)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(102, 102, 102)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(102, 102, 102) none 0px",
+        "outlineColor": "rgb(102, 102, 102)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.1s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(235, 235, 235)"
+          },
+          "borderColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "borderRadius": {
+            "from": "0px",
+            "to": "9999px"
+          },
+          "outline": {
+            "from": "rgb(102, 102, 102) none 0px",
+            "to": "rgb(23, 23, 23) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "transition": {
+            "from": "color 0.1s",
+            "to": "color, background"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "borderColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "borderRadius": {
+            "from": "0px",
+            "to": "9999px"
+          },
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(0, 114, 245) 0px 0px 0px 4px"
+          },
+          "outline": {
+            "from": "rgb(102, 102, 102) none 0px",
+            "to": "rgb(23, 23, 23) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(102, 102, 102)",
+            "to": "rgb(23, 23, 23)"
+          },
+          "transition": {
+            "from": "color 0.1s",
+            "to": "color 0.09s, background 0.09s"
+          }
+        }
+      }
+    }
+  ]
+}

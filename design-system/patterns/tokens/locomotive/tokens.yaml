@@ -1,0 +1,177 @@
+# Design Tokens - locomotive
+# Extracted by dissect-artifact.js v1.0.0
+# Source: https://locomotive.ca
+# Date: 2026-04-01T13:36:55.256Z
+
+metadata:
+  version: "1.0.0"
+  source: "https://locomotive.ca"
+  generated_at: "2026-04-01T13:36:55.256Z"
+  node_count: 326
+
+colors:
+  "rgb_0_0_0_":
+    value: "rgb(0, 0, 0)"
+    occurrences: 262
+  "rgb_255_255_255_":
+    value: "rgb(255, 255, 255)"
+    occurrences: 70
+  "rgb_49_45_251_":
+    value: "rgb(49, 45, 251)"
+    occurrences: 1
+
+typography:
+  "26px_400":
+    font-size: "26px"
+    font-weight: "400"
+    font-family: "HelveticaNowDisplay, -apple-system, "system-ui", "avenir next", avenir, "segoe ui", "helvetica neue", helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif"
+    occurrences: 158
+  "15px_400":
+    font-size: "15px"
+    font-weight: "400"
+    font-family: "HelveticaNowDisplay, -apple-system, "system-ui", "avenir next", avenir, "segoe ui", "helvetica neue", helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif"
+    occurrences: 81
+  "70px_400":
+    font-size: "70px"
+    font-weight: "400"
+    font-family: "LocomotiveNew, -apple-system, "system-ui", "avenir next", avenir, "segoe ui", "helvetica neue", helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif"
+    occurrences: 41
+  "110px_400":
+    font-size: "110px"
+    font-weight: "400"
+    font-family: "LocomotiveNew, -apple-system, "system-ui", "avenir next", avenir, "segoe ui", "helvetica neue", helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif"
+    occurrences: 32
+  "undefined_400":
+    font-size: "undefined"
+    font-weight: "400"
+    font-family: "HelveticaNowDisplay, -apple-system, "system-ui", "avenir next", avenir, "segoe ui", "helvetica neue", helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif"
+    occurrences: 8
+  "115_2px_400":
+    font-size: "115.2px"
+    font-weight: "400"
+    font-family: "LocomotiveNew, -apple-system, "system-ui", "avenir next", avenir, "segoe ui", "helvetica neue", helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif"
+    occurrences: 3
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: ""Times New Roman""
+    occurrences: 2
+
+spacing:
+  "7px":
+    value: "7px"
+    occurrences: 32
+  "20px":
+    value: "20px"
+    occurrences: 23
+  "10px":
+    value: "10px"
+    occurrences: 10
+  "150px":
+    value: "150px"
+    occurrences: 4
+  "80px":
+    value: "80px"
+    occurrences: 3
+  "30px":
+    value: "30px"
+    occurrences: 3
+  "_7px":
+    value: "-7px"
+    occurrences: 3
+  "0px_20px":
+    value: "0px 20px"
+    occurrences: 3
+  "3_9px":
+    value: "3.9px"
+    occurrences: 3
+  "7_8px":
+    value: "7.8px"
+    occurrences: 3
+  "40px":
+    value: "40px"
+    occurrences: 2
+  "5px_8px":
+    value: "5px 8px"
+    occurrences: 2
+  "160px":
+    value: "160px"
+    occurrences: 2
+  "60px":
+    value: "60px"
+    occurrences: 1
+  "586_656px":
+    value: "586.656px"
+    occurrences: 1
+  "14px":
+    value: "14px"
+    occurrences: 1
+  "250px":
+    value: "250px"
+    occurrences: 1
+  "604_797px":
+    value: "604.797px"
+    occurrences: 1
+
+borders:
+  border_1:
+    value: "0px 0px 2px none none solid rgb(0, 0, 0)"
+    occurrences: 15
+  border_2:
+    value: "2px 0px 0px solid none none rgb(0, 0, 0)"
+    occurrences: 12
+
+gradients:
+  gradient_1: "linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgb(255, 255, 255) 50%)"
+
+custom_properties:
+  "--border": "solid 2px"
+  "--cc-btn-primary-hover-border-color": "#000"
+  "--header-height": "4rem"
+  "--spacing-enormous-mobile": "140"
+  "--cc-bg": "#fff"
+  "--cc-btn-primary-hover-color": "#fff"
+  "--spacing-small-mobile": "30"
+  "--cc-cookie-category-block-border": "#f0f4f7"
+  "--cc-toggle-readonly-bg": "#d5dee2"
+  "--spacing-tiny-mobile": "20"
+  "--spacing-micro": "14"
+  "--cc-overlay-bg": "rgba(0,0,0,.65)"
+  "--spacing-large": "80"
+  "--spacing-medium": "40"
+  "--cc-modal-transition-duration": ".25s"
+  "--cc-btn-secondary-bg": "#eaeff2"
+  "--color-bg": "#FFFFFF"
+  "--cc-btn-primary-border-color": "#30363c"
+  "--cc-toggle-off-knob-bg": "#fff"
+  "--font-size-h2": "1.7333333333rem"
+  "--cc-cookie-category-expanded-block-hover-bg": "#dee4e9"
+  "--font-size-h3": "1.4666666667rem"
+  "--cc-cookie-category-block-hover-bg": "#e9eff4"
+  "--cc-pm-toggle-border-radius": "4em"
+  "--about-head-content-offset-vh": "0.15"
+  "--spacing-micro-mobile": "8"
+  "--spacing-huge": "200"
+  "--color": "#000000"
+  "--spacing-large-mobile": "52"
+  "--cc-modal-border-radius": ".5rem"
+  "--cc-cookie-category-block-hover-border": "#e9eff4"
+  "--cc-secondary-color": "#5e6266"
+  "--font-size-h1": "4.6666666667rem"
+  "--cc-footer-border-color": "#e4eaed"
+  "--cc-btn-primary-bg": "#30363c"
+  "--spacing-big": "150"
+  "--head-padding-vh": "0.25"
+  "--spacing-medium-mobile": "40"
+  "--cc-btn-secondary-hover-color": "#000"
+  "--swiper-theme-color": "#007aff"
+  "--font-size-h4": "1.3333333333rem"
+  "--cc-btn-secondary-border-color": "#eaeff2"
+  "--cc-font-family": "-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\""
+  "--cc-toggle-on-knob-bg": "#fff"
+  "--cc-cookie-category-expanded-block-bg": "transparent"
+  "--vh": "9px"
+  "--cc-toggle-readonly-knob-icon-color": "#d5dee2"
+  "--cc-section-category-border": "#f0f4f7"
+  "--cc-btn-secondary-color": "#2c2f31"
+  "--cc-btn-secondary-hover-bg": "#d4dae0"

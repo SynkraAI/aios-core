@@ -1,0 +1,371 @@
+# Design Tokens - farmrio
+# Extracted by dissect-artifact.js v1.0.0
+# Source: https://farmrio.com.br
+# Date: 2026-04-01T12:18:09.213Z
+
+metadata:
+  version: "1.0.0"
+  source: "https://farmrio.com.br"
+  generated_at: "2026-04-01T12:18:09.213Z"
+  node_count: 2779
+
+colors:
+  "rgb_51_51_51_":
+    value: "rgb(51, 51, 51)"
+    occurrences: 2482
+  "rgb_255_255_255_":
+    value: "rgb(255, 255, 255)"
+    occurrences: 133
+  "oklch_0_31_0_0_":
+    value: "oklch(0.31 0 0)"
+    occurrences: 87
+  "rgb_153_153_153_":
+    value: "rgb(153, 153, 153)"
+    occurrences: 32
+  "rgb_229_229_229_":
+    value: "rgb(229, 229, 229)"
+    occurrences: 19
+  "rgb_0_0_0_":
+    value: "rgb(0, 0, 0)"
+    occurrences: 13
+  "rgb_85_85_85_":
+    value: "rgb(85, 85, 85)"
+    occurrences: 8
+  "rgb_39_69_92_":
+    value: "rgb(39, 69, 92)"
+    occurrences: 8
+  "rgb_140_140_140_":
+    value: "rgb(140, 140, 140)"
+    occurrences: 5
+  "rgb_233_233_233_":
+    value: "rgb(233, 233, 233)"
+    occurrences: 4
+  "rgb_56_96_190_":
+    value: "rgb(56, 96, 190)"
+    occurrences: 3
+  "rgb_118_118_118_":
+    value: "rgb(118, 118, 118)"
+    occurrences: 3
+  "oklch_0_32_0_0_":
+    value: "oklch(0.32 0 0)"
+    occurrences: 2
+  "rgb_35_164_132_":
+    value: "rgb(35, 164, 132)"
+    occurrences: 2
+  "rgb_31_41_55_":
+    value: "rgb(31, 41, 55)"
+    occurrences: 2
+  "rgb_107_114_128_":
+    value: "rgb(107, 114, 128)"
+    occurrences: 2
+  "rgb_245_245_245_":
+    value: "rgb(245, 245, 245)"
+    occurrences: 2
+  "rgb_101_101_101_":
+    value: "rgb(101, 101, 101)"
+    occurrences: 2
+  "rgb_241_252_249_":
+    value: "rgb(241, 252, 249)"
+    occurrences: 1
+  "rgba_0_0_0_0_4_":
+    value: "rgba(0, 0, 0, 0.4)"
+    occurrences: 1
+  "rgba_0_0_0_0_2_":
+    value: "rgba(0, 0, 0, 0.2)"
+    occurrences: 1
+  "rgb_254_111_102_":
+    value: "rgb(254, 111, 102)"
+    occurrences: 1
+  "rgb_75_89_99_":
+    value: "rgb(75, 89, 99)"
+    occurrences: 1
+  "rgba_0_0_0_0_5_":
+    value: "rgba(0, 0, 0, 0.5)"
+    occurrences: 1
+  "rgb_249_255_250_":
+    value: "rgb(249, 255, 250)"
+    occurrences: 1
+  "rgb_105_105_105_":
+    value: "rgb(105, 105, 105)"
+    occurrences: 1
+  "rgb_244_244_244_":
+    value: "rgb(244, 244, 244)"
+    occurrences: 1
+
+typography:
+  "14px_400":
+    font-size: "14px"
+    font-weight: "400"
+    font-family: "Montserrat, sans-serif"
+    occurrences: 1171
+  "17px_400":
+    font-size: "17px"
+    font-weight: "400"
+    font-family: "Montserrat, sans-serif"
+    occurrences: 1080
+  "12px_400":
+    font-size: "12px"
+    font-weight: "400"
+    font-family: "Montserrat, sans-serif"
+    occurrences: 92
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: "Montserrat, sans-serif"
+    occurrences: 90
+  "19px_400":
+    font-size: "19px"
+    font-weight: "400"
+    font-family: "Montserrat, sans-serif"
+    occurrences: 44
+  "14px_300":
+    font-size: "14px"
+    font-weight: "300"
+    font-family: "Montserrat, sans-serif"
+    occurrences: 33
+  "14px_600":
+    font-size: "14px"
+    font-weight: "600"
+    font-family: "Montserrat, sans-serif"
+    occurrences: 15
+  "24px_400":
+    font-size: "24px"
+    font-weight: "400"
+    font-family: "Montserrat, sans-serif"
+    occurrences: 15
+  "12px_300":
+    font-size: "12px"
+    font-weight: "300"
+    font-family: "Montserrat, sans-serif"
+    occurrences: 13
+  "14_4px_700":
+    font-size: "14.4px"
+    font-weight: "700"
+    font-family: "Montserrat, sans-serif"
+    occurrences: 11
+  "12_992px_400":
+    font-size: "12.992px"
+    font-weight: "400"
+    font-family: "Montserrat, sans-serif"
+    occurrences: 9
+  "13_6px_400":
+    font-size: "13.6px"
+    font-weight: "400"
+    font-family: "Montserrat, sans-serif"
+    occurrences: 7
+  "16px_300":
+    font-size: "16px"
+    font-weight: "300"
+    font-family: "Montserrat, sans-serif"
+    occurrences: 6
+  "10px_300":
+    font-size: "10px"
+    font-weight: "300"
+    font-family: "Montserrat, sans-serif"
+    occurrences: 6
+  "13px_400":
+    font-size: "13px"
+    font-weight: "400"
+    font-family: "Montserrat, sans-serif"
+    occurrences: 5
+  "14px_700":
+    font-size: "14px"
+    font-weight: "700"
+    font-family: "Montserrat, sans-serif"
+    occurrences: 5
+  "16px_100":
+    font-size: "16px"
+    font-weight: "100"
+    font-family: "Montserrat, sans-serif"
+    occurrences: 4
+  "12px_100":
+    font-size: "12px"
+    font-weight: "100"
+    font-family: "Montserrat, sans-serif"
+    occurrences: 4
+  "14px_400":
+    font-size: "14px"
+    font-weight: "400"
+    font-family: ""Open Sans", Arial, sans-serif"
+    occurrences: 4
+  "16px_700":
+    font-size: "16px"
+    font-weight: "700"
+    font-family: "Montserrat, sans-serif"
+    occurrences: 4
+
+spacing:
+  "8px":
+    value: "8px"
+    occurrences: 444
+  "24px":
+    value: "24px"
+    occurrences: 106
+  "14px":
+    value: "14px"
+    occurrences: 45
+  "16px":
+    value: "16px"
+    occurrences: 40
+  "12px":
+    value: "12px"
+    occurrences: 27
+  "20px":
+    value: "20px"
+    occurrences: 24
+  "10px":
+    value: "10px"
+    occurrences: 21
+  "4px":
+    value: "4px"
+    occurrences: 12
+  "40px":
+    value: "40px"
+    occurrences: 10
+  "1px":
+    value: "1px"
+    occurrences: 10
+  "15px":
+    value: "15px"
+    occurrences: 10
+  "11_2px":
+    value: "11.2px"
+    occurrences: 8
+  "5px":
+    value: "5px"
+    occurrences: 7
+  "6px":
+    value: "6px"
+    occurrences: 4
+  "_1px":
+    value: "-1px"
+    occurrences: 4
+  "56px":
+    value: "56px"
+    occurrences: 3
+  "32px":
+    value: "32px"
+    occurrences: 3
+  "2px":
+    value: "2px"
+    occurrences: 3
+  "25px":
+    value: "25px"
+    occurrences: 3
+  "36px":
+    value: "36px"
+    occurrences: 2
+
+shadows:
+  shadow_1:
+    value: "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+    occurrences: 8
+  shadow_2:
+    value: "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 1px 2px 0px"
+    occurrences: 2
+  shadow_3:
+    value: "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.1) 0px 4px 6px -4px"
+    occurrences: 1
+  shadow_4:
+    value: "rgba(0, 0, 0, 0.2) 0px 0px 18px 0px"
+    occurrences: 1
+  shadow_5:
+    value: "rgb(153, 153, 153) 0px 2px 10px -3px"
+    occurrences: 1
+  shadow_6:
+    value: "rgb(199, 197, 199) -3px -3px 5px -2px"
+    occurrences: 1
+  shadow_7:
+    value: "rgb(199, 197, 199) 0px 0px 12px 2px"
+    occurrences: 1
+
+borders:
+  border_1:
+    value: "0px 0px 1px solid rgb(245, 245, 245)"
+    occurrences: 365
+  border_2:
+    value: "1px solid rgb(229, 229, 229)"
+    occurrences: 50
+  border_3:
+    value: "1px solid rgb(51, 51, 51)"
+    occurrences: 7
+  border_4:
+    value: "1px solid rgb(245, 245, 245)"
+    occurrences: 5
+  border_5:
+    value: "1px 0px 0px solid rgb(229, 229, 229)"
+    occurrences: 5
+  border_6:
+    value: "0px 0px 1px solid rgb(229, 231, 235)"
+    occurrences: 5
+  border_7:
+    value: "0px 1px 1px none solid solid rgb(51, 51, 51) rgb(216, 216, 216) rgb(216, 216, 216)"
+    occurrences: 3
+  border_8:
+    value: "1px solid rgb(221, 221, 221)"
+    occurrences: 3
+  border_9:
+    value: "1px solid oklch(0.32 0 0)"
+    occurrences: 2
+  border_10:
+    value: "1px solid rgb(146, 148, 150)"
+    occurrences: 2
+
+gradients:
+  gradient_1: "linear-gradient(90deg, rgb(222, 227, 94), rgb(255, 148, 145), rgb(135, 94, 143), rgb(153, 201, 181), rgb(222, 227, 94))"
+  gradient_2: "linear-gradient(90deg, rgb(230, 235, 126), rgb(255, 148, 145), rgb(134, 94, 144), rgb(153, 201, 181), rgb(230, 235, 126))"
+  gradient_3: "linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0px, rgba(0, 0, 0, 0) 100%), linear-gradient(100deg, rgba(255, 255, 255, 0.1) 25%, rgba(0, 0, 0, 0) 25%)"
+  gradient_4: "linear-gradient(to right, rgb(255, 255, 255) 0%, rgba(242, 242, 242, 0.5) 0%)"
+  gradient_5: "linear-gradient(105deg, rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) 40%, rgb(255, 255, 255) 50%, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0) 100%)"
+
+custom_properties:
+  "--swal2-deny-button-border-radius": "0.25em"
+  "--swal2-input-focus-box-shadow": "inset 0 1px 1px rgba(0, 0, 0, 0.06), 0 0 0 3px rgba(100, 150, 200, 0.5)"
+  "--tw-backdrop-sepia": ""
+  "--tw-ring-shadow": "0 0 #0000"
+  "--su": "95% 0.05 163deg"
+  "--swal2-input-border": "1px solid #d9d9d9"
+  "--swal2-actions-border-radius": "0"
+  "--swal2-close-button-position": ""
+  "--fallback-wac": "#fe6f66"
+  "--fallback-in": "#4a4a4a"
+  "--tw-sepia": ""
+  "--tab-radius": "0.5rem"
+  "--tw-ordinal": ""
+  "--s": "32% 0.00 0deg"
+  "--fallback-p": "#333333"
+  "--fallback-s": "#333"
+  "--fallback-b1": "#ffffff"
+  "--fallback-inc": "#f5f5f5"
+  "--fallback-er": "#fae2e2"
+  "--swal2-progress-step-background": "#add8e6"
+  "--swal2-input-border-radius": "0.1875em"
+  "--tw-backdrop-invert": ""
+  "--swal2-timer-progress-bar-background": "rgba(0, 0, 0, 0.3)"
+  "--fallback-erc": "#ef4444"
+  "--p": "32% 0.00 0deg"
+  "--fade-time": "2.7s"
+  "--swal2-container-padding": "0.625em"
+  "--swal2-action-button-hover": "black 10%"
+  "--fallback-wa": "#000000"
+  "--fallback-bc": "#999999"
+  "--tw-border-spacing-x": "0"
+  "--header-mobile-height": "80px"
+  "--swal2-input-transition": "border-color 0.2s, box-shadow 0.2s"
+  "--nc": "100% 0.00 0deg"
+  "--swal2-actions-margin": "1.25em auto 0"
+  "--tw-backdrop-grayscale": ""
+  "--b2": "100% 0.00 0deg"
+  "--swal2-close-button-inset": "auto"
+  "--tw-hue-rotate": ""
+  "--swal2-close-button-color": "#ccc"
+  "--tw-pan-y": ""
+  "--fallback-a": "#ffffff"
+  "--tw-ring-color": "rgba(59,130,246,.5)"
+  "--quick-add-to-cart-mobile-height": "100px"
+  "--swal2-footer-color": ""
+  "--rounded-badge": "1.9rem"
+  "--swal2-actions-width": "auto"
+  "--swal2-outline": "0 0 0 3px rgba(100, 150, 200, 0.5)"
+  "--a": "100% 0.00 0deg"
+  "--bc": "68% 0.00 0deg"

@@ -1,0 +1,70 @@
+{
+  "version": "1.0.0",
+  "name": "pitch",
+  "source": "https://pitch.com",
+  "timestamp": "2026-04-01T11:59:10.618Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "output": "/Users/luizfosc/aios-core/design-system/patterns/tokens/pitch",
+  "files": {
+    "html": {
+      "file": "source.html",
+      "size": 4056671
+    },
+    "screenshots": [
+      "screenshot-desktop.png",
+      "screenshot-mobile.png"
+    ],
+    "stylesheets": [
+      {
+        "url": "https://pitch.com/_next/static/css/9f97db57c3397be4.css",
+        "file": "9f97db57c3397be4.css",
+        "size": 51730
+      },
+      {
+        "url": "https://pitch.com/_next/static/css/85a0acc380fe7b69.css",
+        "file": "85a0acc380fe7b69.css",
+        "size": 17708
+      },
+      {
+        "url": "https://pitch.com/_next/static/css/8926c94c00494e7f.css",
+        "file": "8926c94c00494e7f.css",
+        "size": 40268
+      },
+      {
+        "embedded": true,
+        "file": "embedded-0.css",
+        "size": 5405
+      }
+    ],
+    "domTree": {
+      "file": "dom-tree.json",
+      "nodeCount": 897
+    },
+    "extractedCss": "extracted-css.json",
+    "components": {
+      "file": "components.json",
+      "count": 14
+    },
+    "tokens": "tokens.yaml"
+  },
+  "summary": {
+    "nodeCount": 897,
+    "uniqueColors": 20,
+    "typographyVariants": 24,
+    "spacingValues": 38,
+    "shadows": 6,
+    "gradients": 13,
+    "animations": 21,
+    "mediaQueries": 230,
+    "customProperties": 3,
+    "gridLayouts": 20,
+    "flexLayouts": 50,
+    "componentTypes": 14,
+    "totalComponents": 277,
+    "stylesheetCount": 4,
+    "inlineStyles": 45
+  }
+}

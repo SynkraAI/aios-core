@@ -1,0 +1,256 @@
+{
+  "$extensions": {
+    "com.dembrandt": {
+      "url": "https://nothing.tech/",
+      "domain": "nothing.tech",
+      "extractedAt": "2026-04-01T13:51:18.142Z"
+    }
+  },
+  "color": {
+    "palette": {
+      "palette-1": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.898,
+            0.906,
+            0.922
+          ],
+          "hex": "#e5e7eb"
+        },
+        "$description": "Count: 834, Confidence: high"
+      },
+      "palette-2": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "hex": "#000000"
+        },
+        "$description": "Count: 670, Confidence: high"
+      },
+      "palette-3": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.345,
+            0.353,
+            0.353
+          ],
+          "hex": "#585a5a"
+        },
+        "$description": "Count: 29, Confidence: high"
+      },
+      "palette-4": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.2,
+            0.2,
+            0.2
+          ],
+          "hex": "#333333"
+        },
+        "$description": "Count: 13, Confidence: high"
+      }
+    }
+  },
+  "typography": {
+    "font-family": {
+      "ndot-regular": {
+        "$type": "fontFamily",
+        "$value": "Ndot-Regular"
+      },
+      "ntype82-regular": {
+        "$type": "fontFamily",
+        "$value": "NType82-Regular"
+      },
+      "arial": {
+        "$type": "fontFamily",
+        "$value": "Arial"
+      },
+      "ntype82-headline": {
+        "$type": "fontFamily",
+        "$value": "NType82-Headline"
+      },
+      "latteramonoll": {
+        "$type": "fontFamily",
+        "$value": "LatteraMonoLL"
+      }
+    },
+    "style": {
+      "text-link": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{typography.font-family.ntype82-regular}",
+          "fontSize": {
+            "$type": "dimension",
+            "$value": {
+              "value": 16,
+              "unit": "px"
+            }
+          },
+          "fontWeight": {
+            "$type": "fontWeight",
+            "$value": 400
+          },
+          "lineHeight": {
+            "$type": "number",
+            "$value": 1.4
+          }
+        }
+      },
+      "text-heading-1": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{typography.font-family.ntype82-regular}",
+          "fontSize": {
+            "$type": "dimension",
+            "$value": {
+              "value": 16,
+              "unit": "px"
+            }
+          },
+          "fontWeight": {
+            "$type": "fontWeight",
+            "$value": 400
+          },
+          "lineHeight": {
+            "$type": "number",
+            "$value": 1.4
+          }
+        }
+      },
+      "text-button": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{typography.font-family.ntype82-regular}",
+          "fontSize": {
+            "$type": "dimension",
+            "$value": {
+              "value": 16,
+              "unit": "px"
+            }
+          },
+          "fontWeight": {
+            "$type": "fontWeight",
+            "$value": 400
+          },
+          "lineHeight": {
+            "$type": "number",
+            "$value": 1.4
+          }
+        }
+      }
+    }
+  },
+  "spacing": {
+    "spacing-1": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "px"
+      }
+    },
+    "spacing-2": {
+      "$type": "dimension",
+      "$value": {
+        "value": 4,
+        "unit": "px"
+      }
+    },
+    "spacing-3": {
+      "$type": "dimension",
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      }
+    },
+    "spacing-4": {
+      "$type": "dimension",
+      "$value": {
+        "value": 10,
+        "unit": "px"
+      }
+    },
+    "spacing-5": {
+      "$type": "dimension",
+      "$value": {
+        "value": 15,
+        "unit": "px"
+      }
+    },
+    "spacing-6": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      }
+    },
+    "spacing-7": {
+      "$type": "dimension",
+      "$value": {
+        "value": 20,
+        "unit": "px"
+      }
+    },
+    "spacing-8": {
+      "$type": "dimension",
+      "$value": {
+        "value": 30,
+        "unit": "px"
+      }
+    },
+    "spacing-9": {
+      "$type": "dimension",
+      "$value": {
+        "value": 32,
+        "unit": "px"
+      }
+    },
+    "spacing-10": {
+      "$type": "dimension",
+      "$value": {
+        "value": 40,
+        "unit": "px"
+      }
+    },
+    "spacing-11": {
+      "$type": "dimension",
+      "$value": {
+        "value": 45,
+        "unit": "px"
+      }
+    },
+    "spacing-12": {
+      "$type": "dimension",
+      "$value": {
+        "value": 56,
+        "unit": "px"
+      }
+    }
+  },
+  "radius": {
+    "radius-1": {
+      "$type": "dimension",
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      }
+    },
+    "radius-2": {
+      "$type": "dimension",
+      "$value": {
+        "value": 9999,
+        "unit": "px"
+      }
+    }
+  }
+}

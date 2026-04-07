@@ -1,0 +1,346 @@
+# Design Tokens - framer
+# Extracted by dissect-artifact.js v1.0.0
+# Source: https://framer.com
+# Date: 2026-04-01T11:47:40.544Z
+
+metadata:
+  version: "1.0.0"
+  source: "https://framer.com"
+  generated_at: "2026-04-01T11:47:40.544Z"
+  node_count: 3896
+
+colors:
+  "rgb_0_0_0_":
+    value: "rgb(0, 0, 0)"
+    occurrences: 1837
+  "rgb_0_0_238_":
+    value: "rgb(0, 0, 238)"
+    occurrences: 1584
+  "rgb_255_255_255_":
+    value: "rgb(255, 255, 255)"
+    occurrences: 358
+  "rgba_255_255_255_0_6_":
+    value: "rgba(255, 255, 255, 0.6)"
+    occurrences: 159
+  "rgb_166_166_166_":
+    value: "rgb(166, 166, 166)"
+    occurrences: 50
+  "rgba_0_153_255_0_15_":
+    value: "rgba(0, 153, 255, 0.15)"
+    occurrences: 30
+  "rgba_255_255_255_0_1_":
+    value: "rgba(255, 255, 255, 0.1)"
+    occurrences: 15
+  "rgba_255_255_255_0_08_":
+    value: "rgba(255, 255, 255, 0.08)"
+    occurrences: 12
+  "rgb_204_204_204_":
+    value: "rgb(204, 204, 204)"
+    occurrences: 12
+  "rgb_8_8_8_":
+    value: "rgb(8, 8, 8)"
+    occurrences: 11
+  "rgb_153_153_153_":
+    value: "rgb(153, 153, 153)"
+    occurrences: 11
+  "rgb_43_43_43_":
+    value: "rgb(43, 43, 43)"
+    occurrences: 10
+  "rgba_255_255_255_0_4_":
+    value: "rgba(255, 255, 255, 0.4)"
+    occurrences: 8
+  "rgb_0_153_255_":
+    value: "rgb(0, 153, 255)"
+    occurrences: 8
+  "rgb_140_140_140_":
+    value: "rgb(140, 140, 140)"
+    occurrences: 8
+  "rgba_255_255_255_0_15_":
+    value: "rgba(255, 255, 255, 0.15)"
+    occurrences: 6
+  "rgb_36_36_36_":
+    value: "rgb(36, 36, 36)"
+    occurrences: 4
+  "rgb_23_23_23_":
+    value: "rgb(23, 23, 23)"
+    occurrences: 3
+  "rgba_0_0_0_0_04_":
+    value: "rgba(0, 0, 0, 0.04)"
+    occurrences: 3
+  "rgb_34_34_34_":
+    value: "rgb(34, 34, 34)"
+    occurrences: 3
+  "rgba_0_0_0_0_03_":
+    value: "rgba(0, 0, 0, 0.03)"
+    occurrences: 3
+  "rgba_255_255_255_0_05_":
+    value: "rgba(255, 255, 255, 0.05)"
+    occurrences: 2
+  "rgba_255_255_255_0_8_":
+    value: "rgba(255, 255, 255, 0.8)"
+    occurrences: 2
+  "rgba_8_8_8_0_7_":
+    value: "rgba(8, 8, 8, 0.7)"
+    occurrences: 2
+  "rgb_26_26_26_":
+    value: "rgb(26, 26, 26)"
+    occurrences: 2
+  "rgb_136_136_136_":
+    value: "rgb(136, 136, 136)"
+    occurrences: 2
+  "rgb_33_33_33_":
+    value: "rgb(33, 33, 33)"
+    occurrences: 2
+  "rgba_255_255_255_0_":
+    value: "rgba(255, 255, 255, 0)"
+    occurrences: 2
+  "rgba_0_0_0_0_7_":
+    value: "rgba(0, 0, 0, 0.7)"
+    occurrences: 1
+  "rgb_18_18_18_":
+    value: "rgb(18, 18, 18)"
+    occurrences: 1
+  "rgb_0_85_255_":
+    value: "rgb(0, 85, 255)"
+    occurrences: 1
+  "rgb_61_61_61_":
+    value: "rgb(61, 61, 61)"
+    occurrences: 1
+  "rgb_253_93_92_":
+    value: "rgb(253, 93, 92)"
+    occurrences: 1
+  "rgb_250_200_10_":
+    value: "rgb(250, 200, 10)"
+    occurrences: 1
+  "rgb_51_198_89_":
+    value: "rgb(51, 198, 89)"
+    occurrences: 1
+  "rgba_0_132_255_0_12_":
+    value: "rgba(0, 132, 255, 0.12)"
+    occurrences: 1
+  "rgba_136_136_136_0_5_":
+    value: "rgba(136, 136, 136, 0.5)"
+    occurrences: 1
+  "rgba_8_154_255_0_2_":
+    value: "rgba(8, 154, 255, 0.2)"
+    occurrences: 1
+  "rgb_17_17_17_":
+    value: "rgb(17, 17, 17)"
+    occurrences: 1
+  "rgba_0_0_0_0_6_":
+    value: "rgba(0, 0, 0, 0.6)"
+    occurrences: 1
+
+typography:
+  "12px_400":
+    font-size: "12px"
+    font-weight: "400"
+    font-family: "sans-serif"
+    occurrences: 3263
+  "15px_400":
+    font-size: "15px"
+    font-weight: "400"
+    font-family: ""Inter Variable", "Inter Variable Placeholder", sans-serif"
+    occurrences: 241
+  "12px_500":
+    font-size: "12px"
+    font-weight: "500"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 71
+  "13px_500":
+    font-size: "13px"
+    font-weight: "500"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 71
+  "14px_400":
+    font-size: "14px"
+    font-weight: "400"
+    font-family: ""Inter Variable", "Inter Variable Placeholder", sans-serif"
+    occurrences: 51
+  "12px_600":
+    font-size: "12px"
+    font-weight: "600"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 20
+  "32px_500":
+    font-size: "32px"
+    font-weight: "500"
+    font-family: ""GT Walsheim Medium", "GT Walsheim Medium Placeholder", sans-serif"
+    occurrences: 20
+  "18px_400":
+    font-size: "18px"
+    font-weight: "400"
+    font-family: ""Inter Variable", "Inter Variable Placeholder", sans-serif"
+    occurrences: 17
+  "24px_400":
+    font-size: "24px"
+    font-weight: "400"
+    font-family: ""Inter Variable", "Inter Variable Placeholder", sans-serif"
+    occurrences: 13
+  "15px_400":
+    font-size: "15px"
+    font-weight: "400"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 8
+  "12px_500":
+    font-size: "12px"
+    font-weight: "500"
+    font-family: ""Mona Sans", "Mona Sans Placeholder", sans-serif"
+    occurrences: 8
+  "13px_600":
+    font-size: "13px"
+    font-weight: "600"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 7
+  "14px_500":
+    font-size: "14px"
+    font-weight: "500"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 6
+  "62px_500":
+    font-size: "62px"
+    font-weight: "500"
+    font-family: ""GT Walsheim Medium", "GT Walsheim Medium Placeholder", sans-serif"
+    occurrences: 5
+  "12px_400":
+    font-size: "12px"
+    font-weight: "400"
+    font-family: ""Inter Variable", "Inter Variable Placeholder", sans-serif"
+    occurrences: 5
+  "12px_400":
+    font-size: "12px"
+    font-weight: "400"
+    font-family: "Inter, system-ui, -apple-system, "system-ui", "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 5
+  "undefined_400":
+    font-size: "undefined"
+    font-weight: "400"
+    font-family: "sans-serif"
+    occurrences: 4
+  "61_5px_100":
+    font-size: "61.5px"
+    font-weight: "100"
+    font-family: ""mona sans""
+    occurrences: 4
+  "10_4px_400":
+    font-size: "10.4px"
+    font-weight: "400"
+    font-family: ""Azeret Mono", monospace"
+    occurrences: 3
+  "20px_600":
+    font-size: "20px"
+    font-weight: "600"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 3
+
+spacing:
+  "10px":
+    value: "10px"
+    occurrences: 530
+  "5px":
+    value: "5px"
+    occurrences: 161
+  "60px":
+    value: "60px"
+    occurrences: 110
+  "15px":
+    value: "15px"
+    occurrences: 61
+  "20px":
+    value: "20px"
+    occurrences: 59
+  "2px":
+    value: "2px"
+    occurrences: 45
+  "1px":
+    value: "1px"
+    occurrences: 39
+  "6px":
+    value: "6px"
+    occurrences: 38
+  "4px":
+    value: "4px"
+    occurrences: 34
+  "30px":
+    value: "30px"
+    occurrences: 16
+  "8px":
+    value: "8px"
+    occurrences: 15
+  "40px":
+    value: "40px"
+    occurrences: 13
+  "3px":
+    value: "3px"
+    occurrences: 11
+  "160px":
+    value: "160px"
+    occurrences: 10
+  "12px":
+    value: "12px"
+    occurrences: 8
+  "2_08px":
+    value: "2.08px"
+    occurrences: 6
+  "80px":
+    value: "80px"
+    occurrences: 5
+  "7px":
+    value: "7px"
+    occurrences: 3
+  "0_675px":
+    value: "0.675px"
+    occurrences: 3
+  "47px":
+    value: "47px"
+    occurrences: 3
+
+shadows:
+  shadow_1:
+    value: "rgb(9, 9, 9) 0px 0px 0px 2px"
+    occurrences: 4
+  shadow_2:
+    value: "rgba(255, 255, 255, 0.1) 0px 0.5px 0px 0.5px, rgba(0, 0, 0, 0.25) 0px 10px 30px 0px"
+    occurrences: 3
+  shadow_3:
+    value: "rgba(0, 0, 0, 0.3) 0px 10px 10px 0px"
+    occurrences: 2
+  shadow_4:
+    value: "rgba(0, 0, 0, 0.2) 0px 10px 20px 0px, rgba(0, 0, 0, 0.25) 0px 2px 4px 0px"
+    occurrences: 2
+  shadow_5:
+    value: "rgba(0, 0, 0, 0.25) 0px 25px 50px 0px, rgba(0, 0, 0, 0.5) 0px 5px 25px 0px"
+    occurrences: 1
+  shadow_6:
+    value: "rgba(0, 0, 0, 0.45) -15px 0px 10px 0px"
+    occurrences: 1
+  shadow_7:
+    value: "rgba(0, 0, 0, 0.4) -50px 0px 10px 0px"
+    occurrences: 1
+  shadow_8:
+    value: "rgba(0, 0, 0, 0.15) 0px 2px 4px 0px, rgba(0, 0, 0, 0.05) 0px 1px 0px 0px"
+    occurrences: 1
+  shadow_9:
+    value: "rgba(0, 0, 0, 0.6) -10px 10px 20px 10px"
+    occurrences: 1
+  shadow_10:
+    value: "rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(0, 0, 0, 0.05) 0px 1px 0px 0px, rgba(255, 255, 255, 0.15) 0px 0px 0px 1px"
+    occurrences: 1
+
+borders:
+  border_1:
+    value: "1px solid rgb(0, 153, 255)"
+    occurrences: 30
+  border_2:
+    value: "1px solid rgba(0, 0, 0, 0.06)"
+    occurrences: 3
+
+gradients:
+  gradient_1: "linear-gradient(rgba(8, 8, 8, 0) 0%, rgb(8, 8, 8) 100%)"
+  gradient_2: "linear-gradient(rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 100%)"
+  gradient_3: "linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 41.3464%, rgb(0, 0, 0) 100%)"
+  gradient_4: "linear-gradient(rgba(5, 255, 159, 0) 0%, rgba(0, 0, 0, 0.06) 100%)"
+  gradient_5: "radial-gradient(100% 100% at 0% 0%, rgb(255, 255, 255) 0%, rgb(0, 0, 0) 100%)"
+
+custom_properties:
+  "--one-if-corner-shape-supported": "1"

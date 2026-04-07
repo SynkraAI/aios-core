@@ -1,0 +1,253 @@
+# Design Tokens - stc-original
+# Extracted by dissect-artifact.js v1.0.0
+# Source: https://stcgroup.com.br
+# Date: 2026-04-01T15:37:43.608Z
+
+metadata:
+  version: "1.0.0"
+  source: "https://stcgroup.com.br"
+  generated_at: "2026-04-01T15:37:43.608Z"
+  node_count: 533
+
+colors:
+  "rgb_10_14_20_":
+    value: "rgb(10, 14, 20)"
+    occurrences: 375
+  "rgb_255_255_255_":
+    value: "rgb(255, 255, 255)"
+    occurrences: 80
+  "rgb_0_0_0_":
+    value: "rgb(0, 0, 0)"
+    occurrences: 22
+  "rgb_66_99_190_":
+    value: "rgb(66, 99, 190)"
+    occurrences: 22
+  "rgb_18_19_21_":
+    value: "rgb(18, 19, 21)"
+    occurrences: 17
+  "rgb_90_95_105_":
+    value: "rgb(90, 95, 105)"
+    occurrences: 11
+  "rgb_50_50_50_":
+    value: "rgb(50, 50, 50)"
+    occurrences: 3
+  "rgba_234_147_116_0_":
+    value: "rgba(234, 147, 116, 0)"
+    occurrences: 3
+  "rgb_238_238_238_":
+    value: "rgb(238, 238, 238)"
+    occurrences: 2
+  "rgb_37_211_102_":
+    value: "rgb(37, 211, 102)"
+    occurrences: 2
+  "rgba_58_58_58_0_62_":
+    value: "rgba(58, 58, 58, 0.62)"
+    occurrences: 1
+  "rgba_0_0_0_0_1_":
+    value: "rgba(0, 0, 0, 0.1)"
+    occurrences: 1
+  "rgba_229_229_229_0_44_":
+    value: "rgba(229, 229, 229, 0.44)"
+    occurrences: 1
+  "rgba_66_99_190_0_1_":
+    value: "rgba(66, 99, 190, 0.1)"
+    occurrences: 1
+  "rgb_10_10_10_":
+    value: "rgb(10, 10, 10)"
+    occurrences: 1
+  "rgb_34_43_52_":
+    value: "rgb(34, 43, 52)"
+    occurrences: 1
+  "rgba_0_0_0_0_5_":
+    value: "rgba(0, 0, 0, 0.5)"
+    occurrences: 1
+
+typography:
+  "18px_300":
+    font-size: "18px"
+    font-weight: "300"
+    font-family: "Roboto, Helvetica, Arial, sans-serif, serif"
+    occurrences: 435
+  "18px_400":
+    font-size: "18px"
+    font-weight: "400"
+    font-family: "Poppins, Helvetica, Arial, sans-serif, serif"
+    occurrences: 27
+  "16px_300":
+    font-size: "16px"
+    font-weight: "300"
+    font-family: "Roboto, Helvetica, Arial, sans-serif, serif"
+    occurrences: 15
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: "sans-serif"
+    occurrences: 12
+  "22_5px_600":
+    font-size: "22.5px"
+    font-weight: "600"
+    font-family: "Poppins, Helvetica, Arial, sans-serif, serif"
+    occurrences: 7
+  "undefined_300":
+    font-size: "undefined"
+    font-weight: "300"
+    font-family: "Roboto, Helvetica, Arial, sans-serif, serif"
+    occurrences: 6
+  "54px_600":
+    font-size: "54px"
+    font-weight: "600"
+    font-family: "Poppins, Helvetica, Arial, sans-serif, serif"
+    occurrences: 4
+  "14px_300":
+    font-size: "14px"
+    font-weight: "300"
+    font-family: "Roboto, Helvetica, Arial, sans-serif, serif"
+    occurrences: 3
+  "14_4px_600":
+    font-size: "14.4px"
+    font-weight: "600"
+    font-family: "Poppins, Helvetica, Arial, sans-serif, serif"
+    occurrences: 3
+  "13_3333px_400":
+    font-size: "13.3333px"
+    font-weight: "400"
+    font-family: "Arial"
+    occurrences: 2
+  "14px_300":
+    font-size: "14px"
+    font-weight: "300"
+    font-family: "Poppins, Helvetica, Arial, sans-serif, serif"
+    occurrences: 2
+  "81px_600":
+    font-size: "81px"
+    font-weight: "600"
+    font-family: "Poppins, Helvetica, Arial, sans-serif, serif"
+    occurrences: 1
+  "22_5px_300":
+    font-size: "22.5px"
+    font-weight: "300"
+    font-family: "Roboto, Helvetica, Arial, sans-serif, serif"
+    occurrences: 1
+  "36px_500":
+    font-size: "36px"
+    font-weight: "500"
+    font-family: "Poppins, Helvetica, Arial, sans-serif, serif"
+    occurrences: 1
+
+spacing:
+  "15px":
+    value: "15px"
+    occurrences: 62
+  "20px":
+    value: "20px"
+    occurrences: 27
+  "30px":
+    value: "30px"
+    occurrences: 22
+  "10px":
+    value: "10px"
+    occurrences: 13
+  "_15px":
+    value: "-15px"
+    occurrences: 12
+  "8px":
+    value: "8px"
+    occurrences: 12
+  "90px":
+    value: "90px"
+    occurrences: 8
+  "6px":
+    value: "6px"
+    occurrences: 6
+  "5px":
+    value: "5px"
+    occurrences: 2
+  "150px":
+    value: "150px"
+    occurrences: 2
+  "_30px":
+    value: "-30px"
+    occurrences: 2
+  "_8px":
+    value: "-8px"
+    occurrences: 2
+  "14px":
+    value: "14px"
+    occurrences: 2
+  "190px":
+    value: "190px"
+    occurrences: 1
+  "_20px":
+    value: "-20px"
+    occurrences: 1
+  "103_672px":
+    value: "103.672px"
+    occurrences: 1
+  "78_7969px":
+    value: "78.7969px"
+    occurrences: 1
+
+shadows:
+  shadow_1:
+    value: "rgba(0, 0, 0, 0.5) 0px 0px 11px 0px"
+    occurrences: 1
+
+borders:
+  border_1:
+    value: "0px 0px 3px none none solid rgb(10, 14, 20) rgb(10, 14, 20) rgb(234, 147, 116)"
+    occurrences: 2
+  border_2:
+    value: "1px solid rgb(255, 255, 255)"
+    occurrences: 1
+
+custom_properties:
+  "--kubio-color-4": "43,66,123"
+  "--kubio-color-5": "255,255,255"
+  "--wp--preset--gradient--midnight": "linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%)"
+  "--kubio-color-2-variant-4": "148,93,73"
+  "--wp-admin-theme-color-darker-20": "#005a87"
+  "--wp--preset--font-size--large": "2em"
+  "--wp--preset--shadow--outlined": "6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1)"
+  "--kubio-color-1-variant-4": "36,54,104"
+  "--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan": "linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%)"
+  "--wp--preset--gradient--blush-light-purple": "linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%)"
+  "--kubio-color-2-variant-2": "234,147,116"
+  "--wp--preset--color--vivid-purple": "#9b51e0"
+  "--kubio-color-1-variant-2": "66,99,190"
+  "--wp--preset--aspect-ratio--16-9": "16/9"
+  "--kubio-color-5-variant-1": "255,255,255"
+  "--wp--preset--color--pale-pink": "#f78da7"
+  "--wp--preset--color--kubio-color-1": "rgba(66,99,190, 1)"
+  "--wp-block-synced-color--rgb": "122,0,223"
+  "--kubio-color-2-variant-3": "233,89,37"
+  "--wp-bound-block-color": "#7a00df"
+  "--wp--preset--color--cyan-bluish-gray": "#abb8c3"
+  "--kubio-color-3-variant-2": "128,136,144"
+  "--wp--preset--gradient--electric-grass": "linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%)"
+  "--kubio-color-1-variant-3": "2,52,189"
+  "--wp--preset--gradient--blush-bordeaux": "linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%)"
+  "--wp--preset--spacing--60": "2.25rem"
+  "--wp--preset--color--vivid-green-cyan": "#00d084"
+  "--wp--preset--shadow--deep": "12px 12px 50px rgba(0, 0, 0, 0.4)"
+  "--wp--style--global--content-size": "620px"
+  "--kubio-color-5-variant-2": "204,204,204"
+  "--kubio-color-3-variant-5": "52,55,58"
+  "--kubio-color-6-variant-5": "3,9,20"
+  "--wp-admin-theme-color-darker-20--rgb": "0,90,135"
+  "--wp--preset--spacing--40": "1rem"
+  "--wp-admin-theme-color--rgb": "0,124,186"
+  "--wp-admin-theme-color": "#007cba"
+  "--kubio-color-3-variant-3": "80,112,143"
+  "--wp--preset--aspect-ratio--3-2": "3/2"
+  "--wp--preset--color--luminous-vivid-orange": "#ff6900"
+  "--wp--preset--color--kubio-color-2": "rgba(234,147,116, 1)"
+  "--page-title-display": "block"
+  "--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple": "linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%)"
+  "--wp--preset--aspect-ratio--2-3": "2/3"
+  "--wp--preset--font-size--huge": "42px"
+  "--wp--preset--font-size--x-large": "2.5em"
+  "--wp--preset--font-size--normal": "16px"
+  "--kubio-color-5-variant-3": "153,153,153"
+  "--kubio-color-1": "66,99,190"
+  "--wp--preset--font-size--xx-large": "3em"
+  "--kubio-color-6-variant-2": "90,95,105"

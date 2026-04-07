@@ -1,0 +1,67 @@
+
+  
+  #bricks-component-b4VX0oCEXBLFfkVfJm2ZNg .bricks-form {
+    padding: 0 5px;
+    height: auto;
+  }
+
+  #bricks-component-b4VX0oCEXBLFfkVfJm2ZNg .bricks-form__fieldset {
+    display: flex;
+    flex-flow: row wrap;
+    margin-left: -5px;
+    margin-right: -5px;
+  }
+
+  #bricks-component-b4VX0oCEXBLFfkVfJm2ZNg .bricks-form__field {
+    width: 100%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Hide generated jQuery validator label */
+  #bricks-component-b4VX0oCEXBLFfkVfJm2ZNg .bricks-form__field label.error {
+    display: none !important;
+  }
+
+  #bricks-component-b4VX0oCEXBLFfkVfJm2ZNg .bricks-form__label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 0.4em;
+    line-height: 1.25;
+    position: relative !important;
+    vertical-align: middle;
+  }
+
+  #bricks-component-b4VX0oCEXBLFfkVfJm2ZNg .bricks-form__input {
+    display: block;
+    width: 100%;
+    padding: 0 0.5em;
+    line-height: 1.42857;
+  }
+
+  #bricks-component-b4VX0oCEXBLFfkVfJm2ZNg .bricks-form__input.error {
+    border: 1px solid red !important;
+  }
+
+  #bricks-component-b4VX0oCEXBLFfkVfJm2ZNg .bricks-form__field__option .bricks-form__label {
+    padding-left: 1.33em;
+    margin-bottom: 0.2em;
+  }
+
+  #bricks-component-b4VX0oCEXBLFfkVfJm2ZNg .bricks-form__field__option .bricks-form__label input[type='checkbox'],
+  #bricks-component-b4VX0oCEXBLFfkVfJm2ZNg .bricks-form__field__option .bricks-form__label input[type='radio'] {
+    margin: 0px 0px 0px -1.33em;
+  }
+
+  #bricks-component-b4VX0oCEXBLFfkVfJm2ZNg .bricks-form__submit {
+    width: 100%;
+    position: relative;
+  }
+
+  @media screen and (min-width: 768px) {
+    #bricks-component-b4VX0oCEXBLFfkVfJm2ZNg .bricks-form {
+      padding: 0;
+    }
+  }
+  

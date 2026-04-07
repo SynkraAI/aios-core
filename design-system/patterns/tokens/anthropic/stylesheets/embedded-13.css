@@ -1,0 +1,221 @@
+
+  :root {
+    --nav--height: 4.25rem;
+    --nav--banner-height: 2.75rem;
+    --nav--height-total: var(--nav--height);
+    --nav--icon-thickness: var(--border-width--main);
+    --nav--hamburger-thickness: var(--nav--icon-thickness);
+    --nav--hamburger-gap: 0.4rem;
+    --nav--hamburger-rotate: 45;
+    --nav--menu-open-duration: 400ms;
+    --nav--menu-close-duration: 400ms;
+    --nav--dropdown-duration: 200ms;
+    --nav--dropdown-open-duration: 200ms;
+    --nav--dropdown-delay: 0ms;
+  }
+
+  /* On smaller screens */
+  @media (width < 56em) {
+    /* Disable scroll when mobile menu is open */
+    --nav--height: 4.375rem;
+    body:has(.nav_component .w-nav-button.w--open) { overflow: hidden; }
+    .nav_menu_wrap { padding-top: 4.375rem; }
+    .nav_buttons_item { flex-flow: column !important; width: 100%; }
+    .nav_dropdown_main_ad, .nav_btn_combo_wrap { display: none !important; }
+  }
+
+  /* On larger screens */
+  @container (min-width: 56em) {
+    /* show desktop nav & dropdown backdrop */
+    .nav_wrap.is-desktop { display: block; }
+    /* hide mobile nav & mobile menu backdrop */
+    .nav_wrap.is-mobile { display: none; }
+    /* nav height on larger than responsive nav */
+    .nav_contain { height: var(--nav--height); }
+    .nav_buttons_item .btn_main_wrap:nth-of-type(2) { display: none; } 
+  }
+
+  /* dropdown list: initial state */
+  html:not(.wf-design-mode) .nav_dropdown_component > .w-dropdown-list {
+    /* removes display none to enable css transitions */
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    /* sets list to 0 height by default */
+    grid-template-rows: 0fr;
+    transition: opacity var(--nav--menu-open-duration) cubic-bezier(.77,0,.175,1);
+    /* makes list content not focusable when closed */
+    visibility: hidden;
+    opacity: 0;
+    width: max-content;
+  }
+
+  /* makes list content focusable when opened */
+  html:not(.wf-design-mode) .nav_dropdown_component > .w-dropdown-list.w--open {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  /* Ensure dropdown content is properly contained */
+  html:not(.wf-design-mode) .nav_dropdown_component > .w-dropdown-list > .nav_dropdown_main_content {
+    /* Required for grid-template-rows transition to work */
+    min-height: 0;
+    overflow: hidden;
+
+  }
+
+  /* set open state of dropdown list */
+  .nav_dropdown_component:has(> .w-dropdown-toggle[aria-expanded="true"]) > .w-dropdown-list {
+    --nav--dropdown-duration: var(--nav--dropdown-open-duration);
+    grid-template-rows: 1fr;
+  }
+
+  /* on desktop, delay dropdown opening if another dropdown is open */
+  .nav_wrap.is-desktop:has(.nav_dropdown_component > .w-dropdown-toggle.w--open[aria-expanded="false"]) .nav_dropdown_component:has(> .w--open[aria-expanded="true"]) > .w-dropdown-list {
+    transition-delay: var(--nav--dropdown-duration);
+  }
+
+  /* set open state of dropdown list */
+  .nav_dropdown_component:has(> .w-dropdown-toggle[aria-expanded="true"]) > .nav_dropdown_main_wrap {
+    padding-bottom: 1.5rem;
+  }
+
+  /* rotate arrow inside open dropdown */
+  .w-dropdown-toggle[aria-expanded="true"] .nav_links_svg {
+    transform: rotate(-180deg);
+  }
+  /* animate first hamburger line when opened */
+  .nav_component .w-nav-button.w--open > * > :first-child {
+    transform: translateY(calc(var(--nav--hamburger-thickness) * 0.75 + var(--nav--hamburger-gap) * 1)) rotate(calc(var(--nav--hamburger-rotate) * -1deg));
+  }
+  /* animate second hamburger line when opened */
+  .nav_component .w-nav-button.w--open > * > :last-child {
+    transform: translateY(calc(var(--nav--hamburger-thickness) * -0.75 + var(--nav--hamburger-gap) * -1)) rotate(calc(var(--nav--hamburger-rotate) * 1deg));
+    width: 100%;
+
+  }
+  .nav_component .w-nav-button.w--open > * > :nth-child(2) {
+    opacity: 0;
+
+  }
+
+  /* menu animations */
+  @keyframes menuOpen {
+    from { clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); }
+    to { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+  }
+
+  @keyframes menuClose {
+    from { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+    to { clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); }
+  }
+  /* menu open */
+  .nav_component:has(.w-nav-button.w--open) .w-nav-menu {
+    animation: menuOpen var(--nav--menu-open-duration) ease-in-out forwards;
+  }
+  /* menu close */
+  .nav_component:has(.w-nav-button:not(.w--open)) .w-nav-menu {
+    animation: menuClose var(--nav--menu-close-duration) ease-in-out forwards;
+  }
+  /* position overflow to top of screen */
+  .nav_component .w-nav-overlay {
+    top: 0;
+    min-height: 100vh;
+  }
+  /* search focus underline */
+  .nav_search_wrap:has(input:focus-visible) {
+    border-color: var(--_theme---text);
+  }
+  /* open dropdown on mobile */
+  .nav_wrap.is-mobile [data-open-on-mobile] > .w-dropdown-toggle {
+    display: none;
+  }
+  .nav_wrap.is-mobile [data-open-on-mobile] > .w-dropdown-list {
+    visibility: visible;
+    opacity: 1;
+    display: block;
+    grid-template-rows: 1fr;
+  }
+  /* Rotate Nav Banner Arrow When External Link */
+  a[target="_blank"] .nav_banner_svg {
+    transform: rotate(-45deg);
+  }
+  /* nav banner */
+  html:has(.nav_banner_wrap:not(.w-condition-invisible)):not(.hide-nav-banner) {
+    --nav--height-total: calc(var(--nav--banner-height) + var(--nav--height));
+  }
+
+  .hide-nav-banner .nav_banner_wrap {
+    display: none;
+  }
+
+  /* Animating image on hover */
+  .nav_dropdown_main_ad:hover .g_visual_img {
+    transform: scale(1.05);
+    transition: transform 0.2s ease;
+  }
+
+  /* Make sure the image has a smooth transition by default */
+  .g_visual_img {
+    transition: transform 0.2s ease;
+  }
+  /* Change the color of nav link out icon when hovered */
+  .nav_dropdown_link:hover .nav_linkout_icon{
+    color: inherit;
+  }
+
+  /* Update the styling of nav button dropdown on mobile*/
+  .nav_wrap.is-mobile .nav_links_link.is-btn-dropdown{
+    padding-top: var(--_spacing---space--5);
+    padding-right: 0;
+    padding-bottom: var(--_spacing---space--5);
+  }
+
+  /* Remove the desktop styling from button dropdown icon on mobile*/
+  .nav_wrap.is-mobile .btn_dropdown_link_wrap{
+    padding: 0px;
+    background-color: transparent;
+    border: none;
+    color: inherit;
+    width: 100%;
+  }
+
+  /* Remove the desktop styling from button dropdown icon wrapper on mobile*/
+  .nav_wrap.is-mobile .btn_dropdown_icon_wrap{
+    padding: 0px;
+    height: auto;
+    border: none;
+  }
+
+  /* Unhide the actions wrapper to show the buttons on mobile */
+  .nav_wrap.is-mobile .nav_actions_wrap{
+    display:flex;
+  }
+
+  /* Set the dropdown menu to full width on mobile */
+  .nav_wrap.is-mobile .nav_dropdown_component > .w-dropdown-list.w--open{
+    width: 100%;
+  }
+
+  /* Remove extra margin from the dropdown on mobile */
+  .nav_wrap.is-mobile .nav_dropdown_main_content{
+    margin-top: 0px;
+  }
+
+  /* Hide the login button inside the cloud dropdown on mobile*/
+  .nav_links_item.is-mobile:last-child .btn_main_wrap.is-nav{
+    display: none;
+  }
+
+  /* Remove the underline from button dropdown text */
+  .nav_links_link.is-btn-dropdown .nav_links_text:hover{
+    text-decoration: none;
+  }
+
+  .nav_dropdown_component.u-position-relative{
+    position: relative !important;
+  }
+
+  .nav_links_link.is-btn-dropdown ~ .nav_dropdown_main_wrap.is-desktop{
+    transform: translate(0%);
+    right: 0;
+  }

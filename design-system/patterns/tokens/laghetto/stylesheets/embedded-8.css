@@ -1,0 +1,6 @@
+.wg-default,
+.wg-default .country-selector {
+  position: fixed;
+  bottom: 0px;
+  right: 20px;
+}

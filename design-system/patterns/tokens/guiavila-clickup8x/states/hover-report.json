@@ -1,0 +1,62 @@
+{
+  "url": "https://lp.guiavila.com/clickup8x",
+  "name": "guiavila-clickup8x",
+  "captured_at": "2026-04-01T14:55:44.981Z",
+  "elements": [
+    {
+      "type": "button",
+      "index": 0,
+      "text": "",
+      "tag": "button",
+      "classes": "",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "matrix(1, 0, 0, 1, -34, -24)",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "matrix(1, 0, 0, 1, -34, -24)",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-0-default.png",
+        "hover": "btn-0-hover.png"
+      }
+    },
+    {
+      "type": "card",
+      "index": 0,
+      "defaultStyles": {
+        "boxShadow": "none",
+        "transform": "none",
+        "borderColor": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "hoverStyles": {
+        "boxShadow": "none",
+        "transform": "none",
+        "borderColor": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "card-0-default.png",
+        "hover": "card-0-hover.png"
+      }
+    }
+  ]
+}

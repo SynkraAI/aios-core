@@ -1,0 +1,2786 @@
+{
+  "url": "https://superhuman.com",
+  "name": "superhuman",
+  "timestamp": "2026-04-01T11:52:30.304Z",
+  "totalElements": 50,
+  "elementsWithStates": 41,
+  "interactions": [
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "link_link__AAIEV header_logo__ymBro",
+      "selector": "a.link_link__AAIEV.header_logo__ymBro",
+      "baseStyles": {
+        "color": "color(srgb 1 1 1 / 0.95)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "color(srgb 1 1 1 / 0.95)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline 1px",
+        "outline": "color(srgb 1 1 1 / 0.95) none 0px",
+        "outlineColor": "color(srgb 1 1 1 / 0.95)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.2s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "color(srgb 1 1 1 / 0.95)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "color(srgb 1 1 1 / 0.95)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "textDecoration": {
+            "from": "underline 1px",
+            "to": "none"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.95) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.95)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "color 0.2s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "color(srgb 1 1 1 / 0.95)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "color(srgb 1 1 1 / 0.95)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "textDecoration": {
+            "from": "underline 1px",
+            "to": "none"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.95) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.95)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "color 0.2s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Enterprise",
+      "classes": "link_link__AAIEV nav-links_navLink__2KNGH",
+      "selector": "a.link_link__AAIEV.nav-links_navLink__2KNGH",
+      "baseStyles": {
+        "color": "color(srgb 1 1 1 / 0.95)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "color(srgb 1 1 1 / 0.95)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "color(srgb 1 1 1 / 0.95) none 0px",
+        "outlineColor": "color(srgb 1 1 1 / 0.95)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.2s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "color(srgb 1 1 1 / 0.95)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderColor": {
+            "from": "color(srgb 1 1 1 / 0.95)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.95) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.95)",
+            "to": "rgb(255, 255, 255)"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "0px",
+            "to": "6px"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.95) none 0px",
+            "to": "rgb(1, 99, 198) solid 2px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.95)",
+            "to": "rgb(1, 99, 198)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Education",
+      "classes": "link_link__AAIEV nav-links_navLink__2KNGH",
+      "selector": "a.link_link__AAIEV.nav-links_navLink__2KNGH",
+      "baseStyles": {
+        "color": "color(srgb 1 1 1 / 0.95)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "color(srgb 1 1 1 / 0.95)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "color(srgb 1 1 1 / 0.95) none 0px",
+        "outlineColor": "color(srgb 1 1 1 / 0.95)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.2s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "color(srgb 1 1 1 / 0.95)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderColor": {
+            "from": "color(srgb 1 1 1 / 0.95)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.95) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.95)",
+            "to": "rgb(255, 255, 255)"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "0px",
+            "to": "6px"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.95) none 0px",
+            "to": "rgb(1, 99, 198) solid 2px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.95)",
+            "to": "rgb(1, 99, 198)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Pricing",
+      "classes": "link_link__AAIEV nav-links_navLink__2KNGH",
+      "selector": "a.link_link__AAIEV.nav-links_navLink__2KNGH",
+      "baseStyles": {
+        "color": "color(srgb 1 1 1 / 0.95)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "color(srgb 1 1 1 / 0.95)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "color(srgb 1 1 1 / 0.95) none 0px",
+        "outlineColor": "color(srgb 1 1 1 / 0.95)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.2s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "color(srgb 1 1 1 / 0.95)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderColor": {
+            "from": "color(srgb 1 1 1 / 0.95)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.95) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.95)",
+            "to": "rgb(255, 255, 255)"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "0px",
+            "to": "6px"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.95) none 0px",
+            "to": "rgb(1, 99, 198) solid 2px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.95)",
+            "to": "rgb(1, 99, 198)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Contact sales",
+      "classes": "link_link__AAIEV button_unstyled__Gf24r",
+      "selector": "a.link_link__AAIEV.button_unstyled__Gf24r",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.2s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "transition": {
+            "from": "color 0.2s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "transition": {
+            "from": "color 0.2s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Log in",
+      "classes": "link_link__AAIEV button_unstyled__Gf24r",
+      "selector": "a.link_link__AAIEV.button_unstyled__Gf24r",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.2s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "transition": {
+            "from": "color 0.2s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "transition": {
+            "from": "color 0.2s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Sign up",
+      "classes": "link_link__AAIEV button_button__RzPSK button_primaryMysteria__gdDUj button_compact__d5yM_",
+      "selector": "a.link_link__AAIEV.button_button__RzPSK.button_primaryMysteria__gdDUj.button_compact__d5yM_",
+      "baseStyles": {
+        "color": "rgb(41, 40, 39)",
+        "backgroundColor": "rgb(212, 199, 255)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(41, 40, 39)",
+        "borderWidth": "0px",
+        "borderRadius": "8px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(41, 40, 39) none 0px",
+        "outlineColor": "rgb(41, 40, 39)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "background-color 0.2s ease-in-out",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgb(212, 199, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "8px",
+            "to": "0px"
+          },
+          "transition": {
+            "from": "background-color 0.2s ease-in-out",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "backgroundColor": {
+            "from": "rgb(212, 199, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "8px",
+            "to": "0px"
+          },
+          "transition": {
+            "from": "background-color 0.2s ease-in-out",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Get Superhuman",
+      "classes": "hero-button_heroButton__LEsDD",
+      "selector": "a.hero-button_heroButton__LEsDD",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "linear-gradient(rgb(27, 25, 56) 0px, rgb(27, 25, 56) 100%)",
+        "borderColor": "rgba(255, 255, 255, 0.12)",
+        "borderWidth": "1px",
+        "borderRadius": "12px",
+        "boxShadow": "rgba(14, 18, 27, 0.24) 0px 1px 2px 0px, rgb(53, 48, 136) 0px 0px 0px 1px",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundImage": {
+            "from": "linear-gradient(rgb(27, 25, 56) 0px, rgb(27, 25, 56) 100%)",
+            "to": "none"
+          },
+          "borderColor": {
+            "from": "rgba(255, 255, 255, 0.12)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderWidth": {
+            "from": "1px",
+            "to": "0px"
+          },
+          "borderRadius": {
+            "from": "12px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgba(14, 18, 27, 0.24) 0px 1px 2px 0px, rgb(53, 48, 136) 0px 0px 0px 1px",
+            "to": "none"
+          },
+          "textShadow": {
+            "from": "none",
+            "to": "rgba(13, 12, 37, 0.18) 0px 1px 0px"
+          }
+        },
+        "focus": {
+          "backgroundImage": {
+            "from": "linear-gradient(rgb(27, 25, 56) 0px, rgb(27, 25, 56) 100%)",
+            "to": "none"
+          },
+          "borderColor": {
+            "from": "rgba(255, 255, 255, 0.12)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderWidth": {
+            "from": "1px",
+            "to": "0px"
+          },
+          "borderRadius": {
+            "from": "12px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgba(14, 18, 27, 0.24) 0px 1px 2px 0px, rgb(53, 48, 136) 0px 0px 0px 1px",
+            "to": "none"
+          },
+          "textShadow": {
+            "from": "none",
+            "to": "rgba(13, 12, 37, 0.18) 0px 1px 0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Get the suite",
+      "classes": "link_link__AAIEV button_button__RzPSK button_secondaryMysteria__aFWKF",
+      "selector": "a.link_link__AAIEV.button_button__RzPSK.button_secondaryMysteria__aFWKF",
+      "baseStyles": {
+        "color": "rgb(113, 76, 182)",
+        "backgroundColor": "rgba(255, 255, 255, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(113, 76, 182)",
+        "borderWidth": "0px",
+        "borderRadius": "8px",
+        "boxShadow": "rgb(113, 76, 182) 0px 0px 0px 1px inset",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(113, 76, 182) none 0px",
+        "outlineColor": "rgb(113, 76, 182)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "box-shadow 0.2s ease-in-out",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(113, 76, 182)",
+            "to": "rgb(83, 49, 146)"
+          },
+          "backgroundColor": {
+            "from": "rgba(255, 255, 255, 0)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(113, 76, 182)",
+            "to": "rgb(83, 49, 146)"
+          },
+          "borderRadius": {
+            "from": "8px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgb(113, 76, 182) 0px 0px 0px 1px inset",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(113, 76, 182) none 0px",
+            "to": "rgb(83, 49, 146) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(113, 76, 182)",
+            "to": "rgb(83, 49, 146)"
+          },
+          "transition": {
+            "from": "box-shadow 0.2s ease-in-out",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "backgroundColor": {
+            "from": "rgba(255, 255, 255, 0)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "8px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgb(113, 76, 182) 0px 0px 0px 1px inset",
+            "to": "none"
+          },
+          "transition": {
+            "from": "box-shadow 0.2s ease-in-out",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Learn more about Mail",
+      "classes": "link_link__AAIEV tabbed-section-content_link__QLHSL",
+      "selector": "a.link_link__AAIEV.tabbed-section-content_link__QLHSL",
+      "baseStyles": {
+        "color": "rgb(113, 76, 182)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(113, 76, 182)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline 1px",
+        "outline": "rgb(113, 76, 182) none 0px",
+        "outlineColor": "rgb(113, 76, 182)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "gap 0.15s ease-in-out",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(113, 76, 182)",
+            "to": "rgb(83, 49, 146)"
+          },
+          "borderColor": {
+            "from": "rgb(113, 76, 182)",
+            "to": "rgb(83, 49, 146)"
+          },
+          "textDecoration": {
+            "from": "underline 1px",
+            "to": "underline"
+          },
+          "outline": {
+            "from": "rgb(113, 76, 182) none 0px",
+            "to": "rgb(83, 49, 146) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(113, 76, 182)",
+            "to": "rgb(83, 49, 146)"
+          },
+          "transition": {
+            "from": "gap 0.15s ease-in-out",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "textDecoration": {
+            "from": "underline 1px",
+            "to": "underline"
+          },
+          "transition": {
+            "from": "gap 0.15s ease-in-out",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Learn more about Grammarly",
+      "classes": "link_link__AAIEV tabbed-section-content_link__QLHSL",
+      "selector": "a.link_link__AAIEV.tabbed-section-content_link__QLHSL",
+      "baseStyles": {
+        "color": "rgb(113, 76, 182)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(113, 76, 182)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline 1px",
+        "outline": "rgb(113, 76, 182) none 0px",
+        "outlineColor": "rgb(113, 76, 182)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "gap 0.15s ease-in-out",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(113, 76, 182)",
+            "to": "rgb(83, 49, 146)"
+          },
+          "borderColor": {
+            "from": "rgb(113, 76, 182)",
+            "to": "rgb(83, 49, 146)"
+          },
+          "textDecoration": {
+            "from": "underline 1px",
+            "to": "underline"
+          },
+          "outline": {
+            "from": "rgb(113, 76, 182) none 0px",
+            "to": "rgb(83, 49, 146) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(113, 76, 182)",
+            "to": "rgb(83, 49, 146)"
+          },
+          "transition": {
+            "from": "gap 0.15s ease-in-out",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "textDecoration": {
+            "from": "underline 1px",
+            "to": "underline"
+          },
+          "transition": {
+            "from": "gap 0.15s ease-in-out",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Learn more about Coda",
+      "classes": "link_link__AAIEV tabbed-section-content_link__QLHSL",
+      "selector": "a.link_link__AAIEV.tabbed-section-content_link__QLHSL",
+      "baseStyles": {
+        "color": "rgb(113, 76, 182)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(113, 76, 182)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline 1px",
+        "outline": "rgb(113, 76, 182) none 0px",
+        "outlineColor": "rgb(113, 76, 182)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "gap 0.15s ease-in-out",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(113, 76, 182)",
+            "to": "rgb(83, 49, 146)"
+          },
+          "borderColor": {
+            "from": "rgb(113, 76, 182)",
+            "to": "rgb(83, 49, 146)"
+          },
+          "textDecoration": {
+            "from": "underline 1px",
+            "to": "underline"
+          },
+          "outline": {
+            "from": "rgb(113, 76, 182) none 0px",
+            "to": "rgb(83, 49, 146) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(113, 76, 182)",
+            "to": "rgb(83, 49, 146)"
+          },
+          "transition": {
+            "from": "gap 0.15s ease-in-out",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "textDecoration": {
+            "from": "underline 1px",
+            "to": "underline"
+          },
+          "transition": {
+            "from": "gap 0.15s ease-in-out",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Learn more about Go",
+      "classes": "link_link__AAIEV tabbed-section-content_link__QLHSL",
+      "selector": "a.link_link__AAIEV.tabbed-section-content_link__QLHSL",
+      "baseStyles": {
+        "color": "rgb(113, 76, 182)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(113, 76, 182)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline 1px",
+        "outline": "rgb(113, 76, 182) none 0px",
+        "outlineColor": "rgb(113, 76, 182)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "gap 0.15s ease-in-out",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(113, 76, 182)",
+            "to": "rgb(83, 49, 146)"
+          },
+          "borderColor": {
+            "from": "rgb(113, 76, 182)",
+            "to": "rgb(83, 49, 146)"
+          },
+          "textDecoration": {
+            "from": "underline 1px",
+            "to": "underline"
+          },
+          "outline": {
+            "from": "rgb(113, 76, 182) none 0px",
+            "to": "rgb(83, 49, 146) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(113, 76, 182)",
+            "to": "rgb(83, 49, 146)"
+          },
+          "transition": {
+            "from": "gap 0.15s ease-in-out",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "textDecoration": {
+            "from": "underline 1px",
+            "to": "underline"
+          },
+          "transition": {
+            "from": "gap 0.15s ease-in-out",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Read our announcement",
+      "classes": "link_link__AAIEV button_button__RzPSK button_secondaryHeart__asuq7",
+      "selector": "a.link_link__AAIEV.button_button__RzPSK.button_secondaryHeart__asuq7",
+      "baseStyles": {
+        "color": "color(srgb 1 1 1 / 0.95)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "color(srgb 1 1 1 / 0.95)",
+        "borderWidth": "0px",
+        "borderRadius": "8px",
+        "boxShadow": "color(srgb 1 1 1 / 0.95) 0px 0px 0px 1px inset",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "color(srgb 1 1 1 / 0.95) none 0px",
+        "outlineColor": "color(srgb 1 1 1 / 0.95)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "box-shadow 0.2s ease-in-out",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "color(srgb 1 1 1 / 0.95)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderColor": {
+            "from": "color(srgb 1 1 1 / 0.95)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderRadius": {
+            "from": "8px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "color(srgb 1 1 1 / 0.95) 0px 0px 0px 1px inset",
+            "to": "none"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.95) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.95)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "transition": {
+            "from": "box-shadow 0.2s ease-in-out",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "8px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "color(srgb 1 1 1 / 0.95) 0px 0px 0px 1px inset",
+            "to": "none"
+          },
+          "transition": {
+            "from": "box-shadow 0.2s ease-in-out",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Get Superhuman",
+      "classes": "link_link__AAIEV button_button__RzPSK button_primaryHeart__SVFEx",
+      "selector": "a.link_link__AAIEV.button_button__RzPSK.button_primaryHeart__SVFEx",
+      "baseStyles": {
+        "color": "rgb(41, 40, 39)",
+        "backgroundColor": "color(srgb 1 1 1 / 0.95)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(41, 40, 39)",
+        "borderWidth": "0px",
+        "borderRadius": "8px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(41, 40, 39) none 0px",
+        "outlineColor": "rgb(41, 40, 39)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "background-color 0.2s ease-in-out",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(41, 40, 39)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "backgroundColor": {
+            "from": "color(srgb 1 1 1 / 0.95)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(41, 40, 39)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderRadius": {
+            "from": "8px",
+            "to": "0px"
+          },
+          "textShadow": {
+            "from": "none",
+            "to": "rgba(13, 12, 37, 0.18) 0px 1px 0px"
+          },
+          "outline": {
+            "from": "rgb(41, 40, 39) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(41, 40, 39)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "transition": {
+            "from": "background-color 0.2s ease-in-out",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(41, 40, 39)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "backgroundColor": {
+            "from": "color(srgb 1 1 1 / 0.95)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(41, 40, 39)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderRadius": {
+            "from": "8px",
+            "to": "0px"
+          },
+          "textShadow": {
+            "from": "none",
+            "to": "rgba(13, 12, 37, 0.18) 0px 1px 0px"
+          },
+          "outline": {
+            "from": "rgb(41, 40, 39) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(41, 40, 39)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "transition": {
+            "from": "background-color 0.2s ease-in-out",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Contact Us",
+      "classes": "link_link__AAIEV nav-links_navLink__2KNGH footer_navLink__24Djd",
+      "selector": "a.link_link__AAIEV.nav-links_navLink__2KNGH.footer_navLink__24Djd",
+      "baseStyles": {
+        "color": "color(srgb 1 1 1 / 0.8)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "color(srgb 1 1 1 / 0.8)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "color(srgb 1 1 1 / 0.8) none 0px",
+        "outlineColor": "color(srgb 1 1 1 / 0.8)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.2s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "0px",
+            "to": "6px"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(1, 99, 198) solid 2px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(1, 99, 198)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "About",
+      "classes": "link_link__AAIEV nav-links_navLink__2KNGH footer_navLink__24Djd",
+      "selector": "a.link_link__AAIEV.nav-links_navLink__2KNGH.footer_navLink__24Djd",
+      "baseStyles": {
+        "color": "color(srgb 1 1 1 / 0.8)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "color(srgb 1 1 1 / 0.8)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "color(srgb 1 1 1 / 0.8) none 0px",
+        "outlineColor": "color(srgb 1 1 1 / 0.8)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.2s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "0px",
+            "to": "6px"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(1, 99, 198) solid 2px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(1, 99, 198)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Mission & Values",
+      "classes": "link_link__AAIEV nav-links_navLink__2KNGH footer_navLink__24Djd",
+      "selector": "a.link_link__AAIEV.nav-links_navLink__2KNGH.footer_navLink__24Djd",
+      "baseStyles": {
+        "color": "color(srgb 1 1 1 / 0.8)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "color(srgb 1 1 1 / 0.8)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "color(srgb 1 1 1 / 0.8) none 0px",
+        "outlineColor": "color(srgb 1 1 1 / 0.8)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.2s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "0px",
+            "to": "6px"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(1, 99, 198) solid 2px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(1, 99, 198)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Careers",
+      "classes": "link_link__AAIEV nav-links_navLink__2KNGH footer_navLink__24Djd",
+      "selector": "a.link_link__AAIEV.nav-links_navLink__2KNGH.footer_navLink__24Djd",
+      "baseStyles": {
+        "color": "color(srgb 1 1 1 / 0.8)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "color(srgb 1 1 1 / 0.8)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "color(srgb 1 1 1 / 0.8) none 0px",
+        "outlineColor": "color(srgb 1 1 1 / 0.8)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.2s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "0px",
+            "to": "6px"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(1, 99, 198) solid 2px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(1, 99, 198)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Help Center",
+      "classes": "link_link__AAIEV nav-links_navLink__2KNGH footer_navLink__24Djd",
+      "selector": "a.link_link__AAIEV.nav-links_navLink__2KNGH.footer_navLink__24Djd",
+      "baseStyles": {
+        "color": "color(srgb 1 1 1 / 0.8)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "color(srgb 1 1 1 / 0.8)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "color(srgb 1 1 1 / 0.8) none 0px",
+        "outlineColor": "color(srgb 1 1 1 / 0.8)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.2s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "0px",
+            "to": "6px"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(1, 99, 198) solid 2px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(1, 99, 198)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Partners",
+      "classes": "link_link__AAIEV nav-links_navLink__2KNGH footer_navLink__24Djd",
+      "selector": "a.link_link__AAIEV.nav-links_navLink__2KNGH.footer_navLink__24Djd",
+      "baseStyles": {
+        "color": "color(srgb 1 1 1 / 0.8)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "color(srgb 1 1 1 / 0.8)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "color(srgb 1 1 1 / 0.8) none 0px",
+        "outlineColor": "color(srgb 1 1 1 / 0.8)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.2s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "0px",
+            "to": "6px"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(1, 99, 198) solid 2px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(1, 99, 198)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Superhuman Platform",
+      "classes": "link_link__AAIEV nav-links_navLink__2KNGH footer_navLink__24Djd",
+      "selector": "a.link_link__AAIEV.nav-links_navLink__2KNGH.footer_navLink__24Djd",
+      "baseStyles": {
+        "color": "color(srgb 1 1 1 / 0.8)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "color(srgb 1 1 1 / 0.8)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "color(srgb 1 1 1 / 0.8) none 0px",
+        "outlineColor": "color(srgb 1 1 1 / 0.8)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.2s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "0px",
+            "to": "6px"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(1, 99, 198) solid 2px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(1, 99, 198)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Terms",
+      "classes": "link_link__AAIEV nav-links_navLink__2KNGH footer_navLink__24Djd",
+      "selector": "a.link_link__AAIEV.nav-links_navLink__2KNGH.footer_navLink__24Djd",
+      "baseStyles": {
+        "color": "color(srgb 1 1 1 / 0.8)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "color(srgb 1 1 1 / 0.8)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "color(srgb 1 1 1 / 0.8) none 0px",
+        "outlineColor": "color(srgb 1 1 1 / 0.8)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.2s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "0px",
+            "to": "6px"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(1, 99, 198) solid 2px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(1, 99, 198)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Privacy Policy",
+      "classes": "link_link__AAIEV nav-links_navLink__2KNGH footer_navLink__24Djd",
+      "selector": "a.link_link__AAIEV.nav-links_navLink__2KNGH.footer_navLink__24Djd",
+      "baseStyles": {
+        "color": "color(srgb 1 1 1 / 0.8)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "color(srgb 1 1 1 / 0.8)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "color(srgb 1 1 1 / 0.8) none 0px",
+        "outlineColor": "color(srgb 1 1 1 / 0.8)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.2s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "0px",
+            "to": "6px"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(1, 99, 198) solid 2px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(1, 99, 198)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Trust",
+      "classes": "link_link__AAIEV nav-links_navLink__2KNGH footer_navLink__24Djd",
+      "selector": "a.link_link__AAIEV.nav-links_navLink__2KNGH.footer_navLink__24Djd",
+      "baseStyles": {
+        "color": "color(srgb 1 1 1 / 0.8)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "color(srgb 1 1 1 / 0.8)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "color(srgb 1 1 1 / 0.8) none 0px",
+        "outlineColor": "color(srgb 1 1 1 / 0.8)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.2s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "0px",
+            "to": "6px"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(1, 99, 198) solid 2px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(1, 99, 198)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Customer Business Agreement",
+      "classes": "link_link__AAIEV nav-links_navLink__2KNGH footer_navLink__24Djd",
+      "selector": "a.link_link__AAIEV.nav-links_navLink__2KNGH.footer_navLink__24Djd",
+      "baseStyles": {
+        "color": "color(srgb 1 1 1 / 0.8)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "color(srgb 1 1 1 / 0.8)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "color(srgb 1 1 1 / 0.8) none 0px",
+        "outlineColor": "color(srgb 1 1 1 / 0.8)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.2s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "0px",
+            "to": "6px"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(1, 99, 198) solid 2px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(1, 99, 198)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Legal Notices",
+      "classes": "link_link__AAIEV nav-links_navLink__2KNGH footer_navLink__24Djd",
+      "selector": "a.link_link__AAIEV.nav-links_navLink__2KNGH.footer_navLink__24Djd",
+      "baseStyles": {
+        "color": "color(srgb 1 1 1 / 0.8)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "color(srgb 1 1 1 / 0.8)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "color(srgb 1 1 1 / 0.8) none 0px",
+        "outlineColor": "color(srgb 1 1 1 / 0.8)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.2s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "0px",
+            "to": "6px"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(1, 99, 198) solid 2px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(1, 99, 198)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Cookies Preferences Center",
+      "classes": "link_link__AAIEV nav-links_navLink__2KNGH footer_navLink__24Djd footer_privacyChoicesNavLink__Qt5Ch",
+      "selector": "a.link_link__AAIEV.nav-links_navLink__2KNGH.footer_navLink__24Djd.footer_privacyChoicesNavLink__Qt5Ch",
+      "baseStyles": {
+        "color": "color(srgb 1 1 1 / 0.8)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "color(srgb 1 1 1 / 0.8)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "color(srgb 1 1 1 / 0.8) none 0px",
+        "outlineColor": "color(srgb 1 1 1 / 0.8)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.2s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "0px",
+            "to": "6px"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(1, 99, 198) solid 2px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(1, 99, 198)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "LinkedIn",
+      "classes": "link_link__AAIEV nav-links_navLink__2KNGH footer_navLink__24Djd",
+      "selector": "a.link_link__AAIEV.nav-links_navLink__2KNGH.footer_navLink__24Djd",
+      "baseStyles": {
+        "color": "color(srgb 1 1 1 / 0.8)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "color(srgb 1 1 1 / 0.8)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "color(srgb 1 1 1 / 0.8) none 0px",
+        "outlineColor": "color(srgb 1 1 1 / 0.8)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.2s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "0px",
+            "to": "6px"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(1, 99, 198) solid 2px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(1, 99, 198)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "X",
+      "classes": "link_link__AAIEV nav-links_navLink__2KNGH footer_navLink__24Djd",
+      "selector": "a.link_link__AAIEV.nav-links_navLink__2KNGH.footer_navLink__24Djd",
+      "baseStyles": {
+        "color": "color(srgb 1 1 1 / 0.8)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "color(srgb 1 1 1 / 0.8)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "color(srgb 1 1 1 / 0.8) none 0px",
+        "outlineColor": "color(srgb 1 1 1 / 0.8)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.2s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "0px",
+            "to": "6px"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(1, 99, 198) solid 2px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(1, 99, 198)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "TikTok",
+      "classes": "link_link__AAIEV nav-links_navLink__2KNGH footer_navLink__24Djd",
+      "selector": "a.link_link__AAIEV.nav-links_navLink__2KNGH.footer_navLink__24Djd",
+      "baseStyles": {
+        "color": "color(srgb 1 1 1 / 0.8)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "color(srgb 1 1 1 / 0.8)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "color(srgb 1 1 1 / 0.8) none 0px",
+        "outlineColor": "color(srgb 1 1 1 / 0.8)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.2s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "0px",
+            "to": "6px"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(1, 99, 198) solid 2px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(1, 99, 198)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Instagram",
+      "classes": "link_link__AAIEV nav-links_navLink__2KNGH footer_navLink__24Djd",
+      "selector": "a.link_link__AAIEV.nav-links_navLink__2KNGH.footer_navLink__24Djd",
+      "baseStyles": {
+        "color": "color(srgb 1 1 1 / 0.8)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "color(srgb 1 1 1 / 0.8)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "color(srgb 1 1 1 / 0.8) none 0px",
+        "outlineColor": "color(srgb 1 1 1 / 0.8)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.2s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "0px",
+            "to": "6px"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(1, 99, 198) solid 2px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(1, 99, 198)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Threads",
+      "classes": "link_link__AAIEV nav-links_navLink__2KNGH footer_navLink__24Djd",
+      "selector": "a.link_link__AAIEV.nav-links_navLink__2KNGH.footer_navLink__24Djd",
+      "baseStyles": {
+        "color": "color(srgb 1 1 1 / 0.8)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "color(srgb 1 1 1 / 0.8)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "color(srgb 1 1 1 / 0.8) none 0px",
+        "outlineColor": "color(srgb 1 1 1 / 0.8)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.2s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "0px",
+            "to": "6px"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(1, 99, 198) solid 2px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(1, 99, 198)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Facebook",
+      "classes": "link_link__AAIEV nav-links_navLink__2KNGH footer_navLink__24Djd",
+      "selector": "a.link_link__AAIEV.nav-links_navLink__2KNGH.footer_navLink__24Djd",
+      "baseStyles": {
+        "color": "color(srgb 1 1 1 / 0.8)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "color(srgb 1 1 1 / 0.8)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "color(srgb 1 1 1 / 0.8) none 0px",
+        "outlineColor": "color(srgb 1 1 1 / 0.8)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.2s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(255, 255, 255)"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "0px",
+            "to": "6px"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.8) none 0px",
+            "to": "rgb(1, 99, 198) solid 2px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.8)",
+            "to": "rgb(1, 99, 198)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "Product",
+      "classes": "button_unstyled__Gf24r nav-links_navLink__2KNGH",
+      "selector": "button.button_unstyled__Gf24r.nav-links_navLink__2KNGH",
+      "baseStyles": {
+        "color": "color(srgb 1 1 1 / 0.95)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "color(srgb 1 1 1 / 0.95)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "color(srgb 1 1 1 / 0.95) none 0px",
+        "outlineColor": "color(srgb 1 1 1 / 0.95)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "color(srgb 1 1 1 / 0.95)",
+            "to": "rgb(20, 20, 19)"
+          },
+          "borderColor": {
+            "from": "color(srgb 1 1 1 / 0.95)",
+            "to": "rgb(20, 20, 19)"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.95) none 0px",
+            "to": "rgb(20, 20, 19) none 0px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.95)",
+            "to": "rgb(20, 20, 19)"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "color(srgb 1 1 1 / 0.95)",
+            "to": "rgb(41, 40, 39)"
+          },
+          "borderColor": {
+            "from": "color(srgb 1 1 1 / 0.95)",
+            "to": "rgb(41, 40, 39)"
+          },
+          "outline": {
+            "from": "color(srgb 1 1 1 / 0.95) none 0px",
+            "to": "rgb(41, 40, 39) none 0px"
+          },
+          "outlineColor": {
+            "from": "color(srgb 1 1 1 / 0.95)",
+            "to": "rgb(41, 40, 39)"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "Mail",
+      "classes": "button_unstyled__Gf24r tabbed-section-header_navItem__EobAJ flex-1",
+      "selector": "button.button_unstyled__Gf24r.tabbed-section-header_navItem__EobAJ.flex-1",
+      "baseStyles": {
+        "color": "rgb(41, 40, 39)",
+        "backgroundColor": "rgb(233, 229, 221)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(41, 40, 39) color(srgb 0.45098 0.443137 0.427451 / 0.2) rgb(41, 40, 39) rgb(41, 40, 39)",
+        "borderWidth": "0px 1px 0px 0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(41, 40, 39) none 0px",
+        "outlineColor": "rgb(41, 40, 39)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgb(233, 229, 221)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(41, 40, 39) color(srgb 0.45098 0.443137 0.427451 / 0.2) rgb(41, 40, 39) rgb(41, 40, 39)",
+            "to": "rgb(41, 40, 39)"
+          },
+          "borderWidth": {
+            "from": "0px 1px 0px 0px",
+            "to": "0px"
+          }
+        },
+        "focus": {
+          "backgroundColor": {
+            "from": "rgb(233, 229, 221)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(41, 40, 39) color(srgb 0.45098 0.443137 0.427451 / 0.2) rgb(41, 40, 39) rgb(41, 40, 39)",
+            "to": "rgb(41, 40, 39)"
+          },
+          "borderWidth": {
+            "from": "0px 1px 0px 0px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "div",
+      "text": "Contact sales",
+      "classes": "cta-button_ctaContainer__Xe6fc cta-button_center__tknZ1",
+      "selector": "div.cta-button_ctaContainer__Xe6fc.cta-button_center__tknZ1",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "auto",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(41, 40, 39)"
+          },
+          "borderColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(41, 40, 39)"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgb(41, 40, 39) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(41, 40, 39)"
+          },
+          "cursor": {
+            "from": "auto",
+            "to": "pointer"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(41, 40, 39)"
+          },
+          "borderColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(41, 40, 39)"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgb(41, 40, 39) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(41, 40, 39)"
+          },
+          "cursor": {
+            "from": "auto",
+            "to": "pointer"
+          }
+        }
+      }
+    },
+    {
+      "tag": "span",
+      "text": "Contact sales",
+      "classes": "text_text__RO8_0 button_text__zGLt3",
+      "selector": "span.text_text__RO8_0.button_text__zGLt3",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(41, 40, 39)"
+          },
+          "borderColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(41, 40, 39)"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgb(41, 40, 39) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(41, 40, 39)"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(41, 40, 39)"
+          },
+          "borderColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(41, 40, 39)"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgb(41, 40, 39) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(41, 40, 39)"
+          }
+        }
+      }
+    },
+    {
+      "tag": "div",
+      "text": "Log in",
+      "classes": "cta-button_ctaContainer__Xe6fc cta-button_center__tknZ1",
+      "selector": "div.cta-button_ctaContainer__Xe6fc.cta-button_center__tknZ1",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "auto",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(41, 40, 39)"
+          },
+          "borderColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(41, 40, 39)"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgb(41, 40, 39) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(41, 40, 39)"
+          },
+          "cursor": {
+            "from": "auto",
+            "to": "pointer"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(41, 40, 39)"
+          },
+          "borderColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(41, 40, 39)"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgb(41, 40, 39) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(41, 40, 39)"
+          },
+          "cursor": {
+            "from": "auto",
+            "to": "pointer"
+          }
+        }
+      }
+    },
+    {
+      "tag": "span",
+      "text": "Log in",
+      "classes": "text_text__RO8_0 button_text__zGLt3",
+      "selector": "span.text_text__RO8_0.button_text__zGLt3",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(41, 40, 39)"
+          },
+          "borderColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(41, 40, 39)"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgb(41, 40, 39) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(41, 40, 39)"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(41, 40, 39)"
+          },
+          "borderColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(41, 40, 39)"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgb(41, 40, 39) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(41, 40, 39)"
+          }
+        }
+      }
+    },
+    {
+      "tag": "div",
+      "text": "Sign up",
+      "classes": "cta-button_ctaContainer__Xe6fc cta-button_center__tknZ1",
+      "selector": "div.cta-button_ctaContainer__Xe6fc.cta-button_center__tknZ1",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "auto",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "cursor": {
+            "from": "auto",
+            "to": "pointer"
+          }
+        },
+        "focus": {
+          "cursor": {
+            "from": "auto",
+            "to": "pointer"
+          }
+        }
+      }
+    }
+  ]
+}

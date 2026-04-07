@@ -1,0 +1,17 @@
+{
+  "name": "@aios/brand-schema",
+  "version": "1.0.0",
+  "description": "Unified brand token schema for the AIOS content ecosystem",
+  "type": "module",
+  "main": "index.mjs",
+  "exports": {
+    ".": "./index.mjs",
+    "./adapters/*": "./adapters/*.mjs"
+  },
+  "scripts": {
+    "test": "node --test test/",
+    "validate": "node index.mjs validate",
+    "list": "node index.mjs list"
+  },
+  "keywords": ["brand", "tokens", "design-system", "aios"]
+}

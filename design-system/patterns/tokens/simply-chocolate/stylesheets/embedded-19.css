@@ -1,0 +1,17 @@
+
+    #shopify-section-template--20910374060356__024c843c-33d4-4955-bc2c-99d461311c4c {
+      --media-grid-row-height: 300px;
+      --media-grid-gap: 1.5rem;}
+
+    @media screen and (min-width: 700px) {
+      #shopify-section-template--20910374060356__024c843c-33d4-4955-bc2c-99d461311c4c {
+        --media-grid-row-height: 400px;
+      }
+    }
+
+    @media screen and (min-width: 1150px) {
+      #shopify-section-template--20910374060356__024c843c-33d4-4955-bc2c-99d461311c4c {
+        --media-grid-gap: 1.875rem;
+      }
+    }
+  

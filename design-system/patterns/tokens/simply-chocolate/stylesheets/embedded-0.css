@@ -1,0 +1,15 @@
+
+@media screen and (max-width: 600px) {
+
+  .icon {
+    color: black;
+  }
+  .header__logo-image {
+    --header-show-transparent-logo: 0;
+  }
+}
+h6 {
+  font-family: Simply-ChocolateCOMPBold;!important
+}
+
+  

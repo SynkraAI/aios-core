@@ -1,0 +1,265 @@
+{
+  "version": "1.0.0",
+  "name": "simply-chocolate",
+  "source": "https://simplychocolate.dk",
+  "timestamp": "2026-04-01T13:59:10.647Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "output": "/Users/luizfosc/aios-core/design-system/patterns/tokens/simply-chocolate",
+  "files": {
+    "html": {
+      "file": "source.html",
+      "size": 966413
+    },
+    "screenshots": [
+      "screenshot-desktop.png",
+      "screenshot-mobile.png"
+    ],
+    "stylesheets": [
+      {
+        "url": "https://www.simplychocolate.dk/cdn/shopifycloud/portable-wallets/latest/accelerated-checkout-backwards-compat.css",
+        "file": "accelerated-checkout-backwards-compat.css",
+        "size": 13937
+      },
+      {
+        "url": "https://www.simplychocolate.dk/cdn/shop/t/74/assets/theme.css?v=116526165203463045351761915611",
+        "file": "theme.css",
+        "size": 142699
+      },
+      {
+        "url": "https://cdn.shopify.com/extensions/019d0124-c6cf-7a1e-acbe-106d6eb747de/rimix-product-badges-227/assets/product-badges.css",
+        "file": "product-badges.css",
+        "size": 4590
+      },
+      {
+        "url": "https://cdn.shopify.com/extensions/019d0124-c6cf-7a1e-acbe-106d6eb747de/rimix-product-badges-227/assets/quantity-discount.css",
+        "file": "quantity-discount.css",
+        "size": 13953
+      },
+      {
+        "url": "https://static.klaviyo.com/onsite/js/build-preview/commit-3ff41a9518f1b4c12bf958f12f9a9c05fc0668c0/1700.4322ca475415ad3612a4.css",
+        "file": "1700.4322ca475415ad3612a4.css",
+        "size": 84522
+      },
+      {
+        "url": "https://instafeed.nfcube.com/cdn/instafeed-16.11.2.css",
+        "file": "instafeed-16.11.2.css",
+        "size": 37012
+      },
+      {
+        "url": "https://static.klaviyo.com/onsite/js/build-preview/commit-3ff41a9518f1b4c12bf958f12f9a9c05fc0668c0/532.f5cf641d94bc70223e6f.css",
+        "file": "532.f5cf641d94bc70223e6f.css",
+        "size": 82439
+      },
+      {
+        "url": "https://unpkg.com/swiper@8/swiper-bundle.min.css",
+        "file": "swiper-bundle.min.css",
+        "size": 16493
+      },
+      {
+        "url": "https://www.simplychocolate.dk/cdn/shop/t/74/assets/gp-global.css?v=87885327820804461371754549757",
+        "file": "gp-global.css",
+        "size": 68352
+      },
+      {
+        "embedded": true,
+        "file": "embedded-0.css",
+        "size": 203
+      },
+      {
+        "embedded": true,
+        "file": "embedded-1.css",
+        "size": 1012
+      },
+      {
+        "embedded": true,
+        "file": "embedded-2.css",
+        "size": 15128
+      },
+      {
+        "embedded": true,
+        "file": "embedded-3.css",
+        "size": 385
+      },
+      {
+        "embedded": true,
+        "file": "embedded-5.css",
+        "size": 3922
+      },
+      {
+        "embedded": true,
+        "file": "embedded-6.css",
+        "size": 215
+      },
+      {
+        "embedded": true,
+        "file": "embedded-7.css",
+        "size": 695
+      },
+      {
+        "embedded": true,
+        "file": "embedded-8.css",
+        "size": 720
+      },
+      {
+        "embedded": true,
+        "file": "embedded-9.css",
+        "size": 3276
+      },
+      {
+        "embedded": true,
+        "file": "embedded-10.css",
+        "size": 1682
+      },
+      {
+        "embedded": true,
+        "file": "embedded-12.css",
+        "size": 31692
+      },
+      {
+        "embedded": true,
+        "file": "embedded-13.css",
+        "size": 967
+      },
+      {
+        "embedded": true,
+        "file": "embedded-14.css",
+        "size": 692
+      },
+      {
+        "embedded": true,
+        "file": "embedded-15.css",
+        "size": 410
+      },
+      {
+        "embedded": true,
+        "file": "embedded-16.css",
+        "size": 2946
+      },
+      {
+        "embedded": true,
+        "file": "embedded-17.css",
+        "size": 773
+      },
+      {
+        "embedded": true,
+        "file": "embedded-18.css",
+        "size": 201
+      },
+      {
+        "embedded": true,
+        "file": "embedded-19.css",
+        "size": 529
+      },
+      {
+        "embedded": true,
+        "file": "embedded-20.css",
+        "size": 110
+      },
+      {
+        "embedded": true,
+        "file": "embedded-21.css",
+        "size": 393
+      },
+      {
+        "embedded": true,
+        "file": "embedded-22.css",
+        "size": 70
+      },
+      {
+        "embedded": true,
+        "file": "embedded-23.css",
+        "size": 70
+      },
+      {
+        "embedded": true,
+        "file": "embedded-24.css",
+        "size": 70
+      },
+      {
+        "embedded": true,
+        "file": "embedded-25.css",
+        "size": 70
+      },
+      {
+        "embedded": true,
+        "file": "embedded-26.css",
+        "size": 195
+      },
+      {
+        "embedded": true,
+        "file": "embedded-27.css",
+        "size": 354
+      },
+      {
+        "embedded": true,
+        "file": "embedded-28.css",
+        "size": 5526
+      },
+      {
+        "embedded": true,
+        "file": "embedded-29.css",
+        "size": 4914
+      },
+      {
+        "embedded": true,
+        "file": "embedded-30.css",
+        "size": 2800
+      },
+      {
+        "embedded": true,
+        "file": "embedded-31.css",
+        "size": 13664
+      },
+      {
+        "embedded": true,
+        "file": "embedded-32.css",
+        "size": 110
+      },
+      {
+        "embedded": true,
+        "file": "embedded-33.css",
+        "size": 148
+      },
+      {
+        "embedded": true,
+        "file": "embedded-34.css",
+        "size": 130
+      },
+      {
+        "embedded": true,
+        "file": "embedded-36.css",
+        "size": 2822
+      }
+    ],
+    "domTree": {
+      "file": "dom-tree.json",
+      "nodeCount": 4009
+    },
+    "extractedCss": "extracted-css.json",
+    "components": {
+      "file": "components.json",
+      "count": 20
+    },
+    "tokens": "tokens.yaml"
+  },
+  "summary": {
+    "nodeCount": 4009,
+    "uniqueColors": 39,
+    "typographyVariants": 59,
+    "spacingValues": 46,
+    "shadows": 8,
+    "gradients": 5,
+    "animations": 59,
+    "mediaQueries": 245,
+    "customProperties": 241,
+    "gridLayouts": 20,
+    "flexLayouts": 50,
+    "componentTypes": 20,
+    "totalComponents": 684,
+    "stylesheetCount": 43,
+    "inlineStyles": 218
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "version": "1.0.0",
+  "name": "openai",
+  "source": "https://openai.com",
+  "timestamp": "2026-04-01T11:54:49.238Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "output": "/Users/luizfosc/aios-core/design-system/patterns/tokens/openai",
+  "files": {
+    "html": {
+      "file": "source.html",
+      "size": 417378
+    },
+    "screenshots": [
+      "screenshot-desktop.png",
+      "screenshot-mobile.png"
+    ],
+    "stylesheets": [
+      {
+        "url": "https://openai.com/_next/static/css/3680bfc597ec7072.css?dpl=dpl_8az8Pyn3jkFwSBDvMFT7oQVj5F8H",
+        "file": "3680bfc597ec7072.css",
+        "size": 22454
+      },
+      {
+        "url": "https://openai.com/_next/static/css/b01743e0957ad45d.css?dpl=dpl_8az8Pyn3jkFwSBDvMFT7oQVj5F8H",
+        "file": "b01743e0957ad45d.css",
+        "size": 288153
+      },
+      {
+        "url": "https://openai.com/_next/static/css/08b259154ea3ffad.css?dpl=dpl_8az8Pyn3jkFwSBDvMFT7oQVj5F8H",
+        "file": "08b259154ea3ffad.css",
+        "size": 27305
+      },
+      {
+        "url": "https://openai.com/_next/static/css/e37c3f66b8085991.css?dpl=dpl_8az8Pyn3jkFwSBDvMFT7oQVj5F8H",
+        "file": "e37c3f66b8085991.css",
+        "size": 16142
+      },
+      {
+        "url": "https://openai.com/_next/static/css/dd48c0dbbb5d0127.css?dpl=dpl_8az8Pyn3jkFwSBDvMFT7oQVj5F8H",
+        "file": "dd48c0dbbb5d0127.css",
+        "size": 18326
+      },
+      {
+        "url": "https://openai.com/_next/static/css/999038acc73360cb.css?dpl=dpl_8az8Pyn3jkFwSBDvMFT7oQVj5F8H",
+        "file": "999038acc73360cb.css",
+        "size": 1251
+      },
+      {
+        "url": "https://openai.com/_next/static/css/3e6a8afa8b7ca6ac.css?dpl=dpl_8az8Pyn3jkFwSBDvMFT7oQVj5F8H",
+        "file": "3e6a8afa8b7ca6ac.css",
+        "size": 814
+      },
+      {
+        "url": "https://openai.com/_next/static/css/877938fdea4e370b.css?dpl=dpl_8az8Pyn3jkFwSBDvMFT7oQVj5F8H",
+        "file": "877938fdea4e370b.css",
+        "size": 494
+      },
+      {
+        "url": "https://openai.com/_next/static/css/8154015444e20430.css?dpl=dpl_8az8Pyn3jkFwSBDvMFT7oQVj5F8H",
+        "file": "8154015444e20430.css",
+        "size": 47
+      },
+      {
+        "embedded": true,
+        "file": "embedded-0.css",
+        "size": 56
+      }
+    ],
+    "domTree": {
+      "file": "dom-tree.json",
+      "nodeCount": 707
+    },
+    "extractedCss": "extracted-css.json",
+    "components": {
+      "file": "components.json",
+      "count": 14
+    },
+    "tokens": "tokens.yaml"
+  },
+  "summary": {
+    "nodeCount": 707,
+    "uniqueColors": 9,
+    "typographyVariants": 9,
+    "spacingValues": 21,
+    "shadows": 2,
+    "gradients": 0,
+    "animations": 32,
+    "mediaQueries": 13,
+    "customProperties": 380,
+    "gridLayouts": 9,
+    "flexLayouts": 50,
+    "componentTypes": 14,
+    "totalComponents": 131,
+    "stylesheetCount": 10,
+    "inlineStyles": 79
+  }
+}

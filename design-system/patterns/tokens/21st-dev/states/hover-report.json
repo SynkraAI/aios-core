@@ -1,0 +1,239 @@
+{
+  "url": "https://21st.dev",
+  "name": "21st-dev",
+  "captured_at": "2026-04-01T15:40:23.488Z",
+  "elements": [
+    {
+      "type": "button",
+      "index": 0,
+      "text": "21st",
+      "tag": "button",
+      "classes": "inline-flex items-center whitespace-nowrap text-sm font-medium transition-colors outline-offset-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary/70 disabled:opacity-50 disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:text-accent-foreground h-6 px-1.5 justify-start hover:bg-foreground/10 rounded-md group/team-button max-w-full",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(9, 9, 11)",
+        "borderColor": "rgb(228, 228, 231)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "6px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(9, 9, 11, 0.1)",
+        "color": "rgb(24, 24, 27)",
+        "borderColor": "rgb(228, 228, 231)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "6px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgba(0, 0, 0, 0)",
+          "to": "rgba(9, 9, 11, 0.1)"
+        },
+        "color": {
+          "from": "rgb(9, 9, 11)",
+          "to": "rgb(24, 24, 27)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-0-default.png",
+        "hover": "btn-0-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 1,
+      "text": "",
+      "tag": "button",
+      "classes": "inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors outline-offset-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary/70 disabled:opacity-50 disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:text-accent-foreground h-6 w-6 p-0 hover:bg-foreground/10 active:scale-[0.97] text-foreground flex-shrink-0 rounded-md",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(9, 9, 11)",
+        "borderColor": "rgb(228, 228, 231)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "6px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(9, 9, 11, 0.1)",
+        "color": "rgb(24, 24, 27)",
+        "borderColor": "rgb(228, 228, 231)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "6px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgba(0, 0, 0, 0)",
+          "to": "rgba(9, 9, 11, 0.1)"
+        },
+        "color": {
+          "from": "rgb(9, 9, 11)",
+          "to": "rgb(24, 24, 27)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-1-default.png",
+        "hover": "btn-1-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 2,
+      "text": "Components",
+      "tag": "button",
+      "classes": "group flex items-center gap-2.5 w-full pl-2 pr-1.5 py-1.5 rounded-md text-sm text-muted-foreground hover:bg-foreground/5 hover:text-foreground transition-colors",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(113, 113, 122)",
+        "borderColor": "rgb(228, 228, 231)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "6px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(9, 9, 11, 0.05)",
+        "color": "rgb(9, 9, 11)",
+        "borderColor": "rgb(228, 228, 231)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "6px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgba(0, 0, 0, 0)",
+          "to": "rgba(9, 9, 11, 0.05)"
+        },
+        "color": {
+          "from": "rgb(113, 113, 122)",
+          "to": "rgb(9, 9, 11)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-2-default.png",
+        "hover": "btn-2-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 3,
+      "text": "Agents",
+      "tag": "button",
+      "classes": "group flex items-center gap-2.5 w-full pl-2 pr-1.5 py-1.5 rounded-md text-sm text-muted-foreground hover:bg-foreground/5 hover:text-foreground transition-colors",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(113, 113, 122)",
+        "borderColor": "rgb(228, 228, 231)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "6px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(9, 9, 11, 0.05)",
+        "color": "rgb(9, 9, 11)",
+        "borderColor": "rgb(228, 228, 231)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "6px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgba(0, 0, 0, 0)",
+          "to": "rgba(9, 9, 11, 0.05)"
+        },
+        "color": {
+          "from": "rgb(113, 113, 122)",
+          "to": "rgb(9, 9, 11)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-3-default.png",
+        "hover": "btn-3-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 7,
+      "text": "",
+      "tag": "button",
+      "classes": "inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors outline-offset-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary/70 disabled:opacity-50 disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 h-7 w-7 p-0 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/50 active:scale-[0.97]",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(113, 113, 122)",
+        "borderColor": "rgb(228, 228, 231)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "6px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(235, 235, 235, 0.5)",
+        "color": "rgb(9, 9, 11)",
+        "borderColor": "rgb(228, 228, 231)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "6px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgba(0, 0, 0, 0)",
+          "to": "rgba(235, 235, 235, 0.5)"
+        },
+        "color": {
+          "from": "rgb(113, 113, 122)",
+          "to": "rgb(9, 9, 11)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-7-default.png",
+        "hover": "btn-7-hover.png"
+      }
+    },
+    {
+      "type": "card",
+      "index": 1,
+      "defaultStyles": {
+        "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 1px 2px 0px",
+        "transform": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "background": "rgb(255, 255, 255)"
+      },
+      "hoverStyles": {
+        "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 1px 2px 0px",
+        "transform": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "background": "rgb(255, 255, 255)"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "card-1-default.png",
+        "hover": "card-1-hover.png"
+      }
+    }
+  ]
+}

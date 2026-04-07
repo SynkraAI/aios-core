@@ -1,0 +1,309 @@
+# Design Tokens - 21st-dev
+# Extracted by dissect-artifact.js v1.0.0
+# Source: https://21st.dev
+# Date: 2026-04-01T15:37:45.494Z
+
+metadata:
+  version: "1.0.0"
+  source: "https://21st.dev"
+  generated_at: "2026-04-01T15:37:45.494Z"
+  node_count: 551
+
+colors:
+  "rgb_9_9_11_":
+    value: "rgb(9, 9, 11)"
+    occurrences: 371
+  "rgb_115_115_115_":
+    value: "rgb(115, 115, 115)"
+    occurrences: 51
+  "rgb_113_113_122_":
+    value: "rgb(113, 113, 122)"
+    occurrences: 28
+  "rgba_255_255_255_0_8_":
+    value: "rgba(255, 255, 255, 0.8)"
+    occurrences: 27
+  "rgba_115_115_115_0_5_":
+    value: "rgba(115, 115, 115, 0.5)"
+    occurrences: 21
+  "rgba_9_9_11_0_05_":
+    value: "rgba(9, 9, 11, 0.05)"
+    occurrences: 13
+  "rgba_235_235_235_0_5_":
+    value: "rgba(235, 235, 235, 0.5)"
+    occurrences: 12
+  "rgb_255_255_255_":
+    value: "rgb(255, 255, 255)"
+    occurrences: 11
+  "rgba_9_9_11_0_8_":
+    value: "rgba(9, 9, 11, 0.8)"
+    occurrences: 10
+  "rgb_235_235_235_":
+    value: "rgb(235, 235, 235)"
+    occurrences: 7
+  "rgb_244_244_244_":
+    value: "rgb(244, 244, 244)"
+    occurrences: 6
+  "rgb_228_228_231_":
+    value: "rgb(228, 228, 231)"
+    occurrences: 4
+  "rgba_113_113_122_0_6_":
+    value: "rgba(113, 113, 122, 0.6)"
+    occurrences: 2
+  "rgba_115_115_115_0_6_":
+    value: "rgba(115, 115, 115, 0.6)"
+    occurrences: 2
+  "rgba_255_255_255_0_05_":
+    value: "rgba(255, 255, 255, 0.05)"
+    occurrences: 1
+  "rgba_245_246_249_0_8_":
+    value: "rgba(245, 246, 249, 0.8)"
+    occurrences: 1
+  "rgba_0_0_0_0_5_":
+    value: "rgba(0, 0, 0, 0.5)"
+    occurrences: 1
+
+typography:
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: ""ABC Diatype", system-ui, -apple-system, sans-serif"
+    occurrences: 240
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: "GeistSans, "GeistSans Fallback", Geist, "Geist Fallback", Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 46
+  "12px_400":
+    font-size: "12px"
+    font-weight: "400"
+    font-family: "GeistSans, "GeistSans Fallback", Geist, "Geist Fallback", Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 40
+  "10px_400":
+    font-size: "10px"
+    font-weight: "400"
+    font-family: ""ABC Diatype", system-ui, -apple-system, sans-serif"
+    occurrences: 26
+  "11px_400":
+    font-size: "11px"
+    font-weight: "400"
+    font-family: ""ABC Diatype", system-ui, -apple-system, sans-serif"
+    occurrences: 24
+  "14px_500":
+    font-size: "14px"
+    font-weight: "500"
+    font-family: ""ABC Diatype", system-ui, -apple-system, sans-serif"
+    occurrences: 23
+  "14px_400":
+    font-size: "14px"
+    font-weight: "400"
+    font-family: "GeistSans, "GeistSans Fallback", Geist, "Geist Fallback", Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 20
+  "13px_400":
+    font-size: "13px"
+    font-weight: "400"
+    font-family: "GeistSans, "GeistSans Fallback", Geist, "Geist Fallback", Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 20
+  "12px_400":
+    font-size: "12px"
+    font-weight: "400"
+    font-family: ""ABC Diatype", system-ui, -apple-system, sans-serif"
+    occurrences: 14
+  "13px_500":
+    font-size: "13px"
+    font-weight: "500"
+    font-family: ""ABC Diatype", system-ui, -apple-system, sans-serif"
+    occurrences: 13
+  "14px_500":
+    font-size: "14px"
+    font-weight: "500"
+    font-family: "GeistSans, "GeistSans Fallback", Geist, "Geist Fallback", Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 10
+  "14px_400":
+    font-size: "14px"
+    font-weight: "400"
+    font-family: ""ABC Diatype", system-ui, -apple-system, sans-serif"
+    occurrences: 10
+  "12px_500":
+    font-size: "12px"
+    font-weight: "500"
+    font-family: "GeistSans, "GeistSans Fallback", Geist, "Geist Fallback", Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 6
+  "12px_500":
+    font-size: "12px"
+    font-weight: "500"
+    font-family: "GeistMono, ui-monospace, SFMono-Regular, "Roboto Mono", Menlo, Monaco, "Liberation Mono", "DejaVu Sans Mono", "Courier New", monospace"
+    occurrences: 4
+  "12px_500":
+    font-size: "12px"
+    font-weight: "500"
+    font-family: ""ABC Diatype", system-ui, -apple-system, sans-serif"
+    occurrences: 4
+  "13px_500":
+    font-size: "13px"
+    font-weight: "500"
+    font-family: "GeistSans, "GeistSans Fallback", Geist, "Geist Fallback", Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 3
+  "15px_600":
+    font-size: "15px"
+    font-weight: "600"
+    font-family: ""ABC Diatype", system-ui, -apple-system, sans-serif"
+    occurrences: 1
+  "13px_400":
+    font-size: "13px"
+    font-weight: "400"
+    font-family: ""ABC Diatype", system-ui, -apple-system, sans-serif"
+    occurrences: 1
+  "10px_500":
+    font-size: "10px"
+    font-weight: "500"
+    font-family: ""ABC Diatype", system-ui, -apple-system, sans-serif"
+    occurrences: 1
+
+spacing:
+  "2px":
+    value: "2px"
+    occurrences: 87
+  "20px":
+    value: "20px"
+    occurrences: 69
+  "6px":
+    value: "6px"
+    occurrences: 39
+  "4px":
+    value: "4px"
+    occurrences: 34
+  "8px":
+    value: "8px"
+    occurrences: 27
+  "12px":
+    value: "12px"
+    occurrences: 26
+  "10px":
+    value: "10px"
+    occurrences: 15
+  "32px":
+    value: "32px"
+    occurrences: 8
+  "16px":
+    value: "16px"
+    occurrences: 2
+  "24px":
+    value: "24px"
+    occurrences: 1
+  "58px":
+    value: "58px"
+    occurrences: 1
+  "40px":
+    value: "40px"
+    occurrences: 1
+  "72px":
+    value: "72px"
+    occurrences: 1
+
+shadows:
+  shadow_1:
+    value: "rgba(0, 0, 0, 0.04) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.07) 0px 1px 3px 0px"
+    occurrences: 22
+  shadow_2:
+    value: "rgba(0, 0, 0, 0.25) 0px 0.5px 1px 0px, rgba(0, 0, 0, 0.02) 0px -3px 4px 0px inset"
+    occurrences: 10
+  shadow_3:
+    value: "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 4px 6px -1px, rgba(0, 0, 0, 0.05) 0px 2px 4px -2px"
+    occurrences: 4
+  shadow_4:
+    value: "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 1px 2px 0px"
+    occurrences: 3
+  shadow_5:
+    value: "rgba(0, 0, 0, 0.1) 0px 17px 17px 0px"
+    occurrences: 1
+  shadow_6:
+    value: "rgba(0, 0, 0, 0.15) 0px 5px 42px 0px"
+    occurrences: 1
+  shadow_7:
+    value: "rgba(0, 0, 0, 0.16) 0px 5px 40px 0px"
+    occurrences: 1
+
+borders:
+  border_1:
+    value: "1px solid rgba(228, 228, 231, 0.5)"
+    occurrences: 26
+  border_2:
+    value: "0px 1px 1px 0px solid rgb(228, 228, 231)"
+    occurrences: 22
+  border_3:
+    value: "1px solid rgb(228, 228, 231)"
+    occurrences: 12
+  border_4:
+    value: "1px solid rgb(212, 212, 216)"
+    occurrences: 4
+  border_5:
+    value: "0px 1px 0px 0px solid rgb(228, 228, 231)"
+    occurrences: 2
+  border_6:
+    value: "1px 0px 0px solid rgb(228, 228, 231)"
+    occurrences: 2
+  border_7:
+    value: "0px 0px 1px solid rgb(228, 228, 231)"
+    occurrences: 1
+  border_8:
+    value: "1px solid rgba(228, 228, 231, 0.4)"
+    occurrences: 1
+  border_9:
+    value: "1px solid rgb(222, 225, 234)"
+    occurrences: 1
+
+gradients:
+  gradient_1: "linear-gradient(rgb(244, 244, 244), rgba(244, 244, 244, 0.5), rgba(0, 0, 0, 0))"
+  gradient_2: "linear-gradient(to top, rgb(244, 244, 244), rgba(244, 244, 244, 0.5), rgba(0, 0, 0, 0))"
+
+custom_properties:
+  "--border": "240 5.9% 90%"
+  "--green-900": "#14532d"
+  "--cyan-800": "#155e75"
+  "--sky-800": "#075985"
+  "--blue-400": "#60a5fa"
+  "--slate-950": "#020617"
+  "--pink-600": "#db2777"
+  "--purple-200": "#e9d5ff"
+  "--sidebar-primary-foreground": "0 0% 98%"
+  "--stone-400": "#a8a29e"
+  "--card": "0 0% 100%"
+  "--amber-600": "#d97706"
+  "--rose-950": "#4c0519"
+  "--neutral-800": "#262626"
+  "--neutral-300": "#d4d4d4"
+  "--primary-foreground": "0 0% 100%"
+  "--amber-200": "#fde68a"
+  "--neutral-500": "#737373"
+  "--featurebase-survey-widget-wrapper-right": "20px"
+  "--zinc-200": "#e4e4e7"
+  "--neutral-100": "#f5f5f5"
+  "--safe-area-right": "0px"
+  "--featurebase-widget-border-radius": "22px"
+  "--canvas-border-highlight": "rgba(0,0,0,0.15)"
+  "--gray-950": "#030712"
+  "--card-shadow-hover": "0 56px 72px 0 rgba(0,0,0,0.06),0 32px 48px -14px rgba(0,0,0,0.06)"
+  "--orange-700": "#c2410c"
+  "--blue-100": "#dbeafe"
+  "--muted": "0 0% 92%"
+  "--fuchsia-700": "#a21caf"
+  "--border-gradient-start": "rgba(255,255,255,0.01)"
+  "--lime-900": "#365314"
+  "--yellow-950": "#422006"
+  "--safe-area-bottom": "0px"
+  "--fuchsia-900": "#701a75"
+  "--tw-ring-color": "rgb(59 130 246/0.5)"
+  "--blue-600": "#2563eb"
+  "--slate-800": "#1e293b"
+  "--orange-200": "#fed7aa"
+  "--gray-600": "#4b5563"
+  "--blue-900": "#1e3a8a"
+  "--featurebase-survey-widget-wrapper-left": "auto"
+  "--popover": "0 0% 100%"
+  "--yellow-200": "#fef08a"
+  "--purple-500": "#a855f7"
+  "--fuchsia-300": "#f0abfc"
+  "--blue-200": "#bfdbfe"
+  "--purple-400": "#c084fc"
+  "--neutral-50": "#fafafa"
+  "--yellow-700": "#a16207"

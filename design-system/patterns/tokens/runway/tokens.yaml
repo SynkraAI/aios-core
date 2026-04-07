@@ -1,0 +1,270 @@
+# Design Tokens - runway
+# Extracted by dissect-artifact.js v1.0.0
+# Source: https://runwayml.com
+# Date: 2026-04-01T11:53:21.074Z
+
+metadata:
+  version: "1.0.0"
+  source: "https://runwayml.com"
+  generated_at: "2026-04-01T11:53:21.074Z"
+  node_count: 533
+
+colors:
+  "rgb_255_255_255_":
+    value: "rgb(255, 255, 255)"
+    occurrences: 216
+  "rgb_64_64_64_":
+    value: "rgb(64, 64, 64)"
+    occurrences: 138
+  "rgb_0_0_0_":
+    value: "rgb(0, 0, 0)"
+    occurrences: 42
+  "rgb_12_12_12_":
+    value: "rgb(12, 12, 12)"
+    occurrences: 23
+  "rgb_26_26_26_":
+    value: "rgb(26, 26, 26)"
+    occurrences: 14
+  "rgb_107_114_128_":
+    value: "rgb(107, 114, 128)"
+    occurrences: 8
+  "rgb_153_153_153_":
+    value: "rgb(153, 153, 153)"
+    occurrences: 8
+  "rgba_9_9_11_0_7_":
+    value: "rgba(9, 9, 11, 0.7)"
+    occurrences: 7
+  "rgba_0_0_0_0_3_":
+    value: "rgba(0, 0, 0, 0.3)"
+    occurrences: 7
+  "rgb_42_42_42_":
+    value: "rgb(42, 42, 42)"
+    occurrences: 7
+  "rgba_255_255_255_0_9_":
+    value: "rgba(255, 255, 255, 0.9)"
+    occurrences: 6
+  "rgb_38_38_38_":
+    value: "rgb(38, 38, 38)"
+    occurrences: 5
+  "rgb_102_110_122_":
+    value: "rgb(102, 110, 122)"
+    occurrences: 5
+  "rgba_255_255_255_0_6_":
+    value: "rgba(255, 255, 255, 0.6)"
+    occurrences: 3
+  "rgb_238_241_245_":
+    value: "rgb(238, 241, 245)"
+    occurrences: 2
+  "rgba_247_247_247_0_05_":
+    value: "rgba(247, 247, 247, 0.05)"
+    occurrences: 2
+  "rgba_255_255_255_0_85_":
+    value: "rgba(255, 255, 255, 0.85)"
+    occurrences: 2
+  "rgb_247_247_247_":
+    value: "rgb(247, 247, 247)"
+    occurrences: 1
+  "rgba_0_0_0_0_2_":
+    value: "rgba(0, 0, 0, 0.2)"
+    occurrences: 1
+
+typography:
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: "abcNormal, "abcNormal Fallback""
+    occurrences: 341
+  "14px_600":
+    font-size: "14px"
+    font-weight: "600"
+    font-family: "abcNormal, "abcNormal Fallback""
+    occurrences: 34
+  "14px_400":
+    font-size: "14px"
+    font-weight: "400"
+    font-family: "abcNormal, "abcNormal Fallback""
+    occurrences: 19
+  "13px_400":
+    font-size: "13px"
+    font-weight: "400"
+    font-family: "abcNormal, "abcNormal Fallback""
+    occurrences: 15
+  "11px_450":
+    font-size: "11px"
+    font-weight: "450"
+    font-family: "abcNormal, "abcNormal Fallback""
+    occurrences: 13
+  "14px_500":
+    font-size: "14px"
+    font-weight: "500"
+    font-family: "abcNormal, "abcNormal Fallback""
+    occurrences: 12
+  "24px_400":
+    font-size: "24px"
+    font-weight: "400"
+    font-family: "abcNormal, "abcNormal Fallback""
+    occurrences: 9
+  "16px_500":
+    font-size: "16px"
+    font-weight: "500"
+    font-family: "abcNormal, "abcNormal Fallback""
+    occurrences: 7
+  "40px_400":
+    font-size: "40px"
+    font-weight: "400"
+    font-family: "abcNormal, "abcNormal Fallback""
+    occurrences: 6
+  "48px_400":
+    font-size: "48px"
+    font-weight: "400"
+    font-family: "abcNormal, "abcNormal Fallback""
+    occurrences: 4
+  "16px_600":
+    font-size: "16px"
+    font-weight: "600"
+    font-family: "abcNormal, "abcNormal Fallback""
+    occurrences: 3
+  "20px_400":
+    font-size: "20px"
+    font-weight: "400"
+    font-family: "abcNormal, "abcNormal Fallback""
+    occurrences: 3
+  "36px_400":
+    font-size: "36px"
+    font-weight: "400"
+    font-family: "abcNormal, "abcNormal Fallback""
+    occurrences: 3
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: ""Times New Roman""
+    occurrences: 2
+
+spacing:
+  "4px":
+    value: "4px"
+    occurrences: 78
+  "8px":
+    value: "8px"
+    occurrences: 61
+  "16px":
+    value: "16px"
+    occurrences: 27
+  "6px":
+    value: "6px"
+    occurrences: 15
+  "20px":
+    value: "20px"
+    occurrences: 14
+  "12px":
+    value: "12px"
+    occurrences: 14
+  "24px":
+    value: "24px"
+    occurrences: 11
+  "28px":
+    value: "28px"
+    occurrences: 10
+  "80px":
+    value: "80px"
+    occurrences: 6
+  "64px":
+    value: "64px"
+    occurrences: 5
+  "160px":
+    value: "160px"
+    occurrences: 4
+  "176px":
+    value: "176px"
+    occurrences: 3
+  "48px":
+    value: "48px"
+    occurrences: 2
+  "96px":
+    value: "96px"
+    occurrences: 2
+  "14_7031px":
+    value: "14.7031px"
+    occurrences: 2
+  "29_4219px":
+    value: "29.4219px"
+    occurrences: 2
+  "70px":
+    value: "70px"
+    occurrences: 2
+  "140px":
+    value: "140px"
+    occurrences: 2
+  "40px":
+    value: "40px"
+    occurrences: 2
+  "28_625px":
+    value: "28.625px"
+    occurrences: 2
+
+borders:
+  border_1:
+    value: "1px solid rgb(39, 39, 42)"
+    occurrences: 7
+  border_2:
+    value: "1px 0px 0px solid rgb(229, 231, 235)"
+    occurrences: 2
+  border_3:
+    value: "1px 0px solid rgba(255, 255, 255, 0.95)"
+    occurrences: 1
+
+gradients:
+  gradient_1: "linear-gradient(to right, rgb(255, 255, 255), rgba(0, 0, 0, 0))"
+  gradient_2: "linear-gradient(to left, rgb(255, 255, 255), rgba(0, 0, 0, 0))"
+
+custom_properties:
+  "--tw-ring-offset-shadow": "0 0 #0000"
+  "--tw-contain-size": ""
+  "--tw-contrast": ""
+  "--tw-backdrop-sepia": ""
+  "--tw-ring-shadow": "0 0 #0000"
+  "--tw-sepia": ""
+  "--tw-skew-x": "0"
+  "--tw-ordinal": ""
+  "--tw-backdrop-saturate": ""
+  "--tw-backdrop-blur": ""
+  "--tw-contain-style": ""
+  "--tw-shadow": "0 0 #0000"
+  "--tw-bg-opacity": "1"
+  "--tw-translate-x": "0"
+  "--tw-ring-offset-width": "0px"
+  "--tw-ring-inset": ""
+  "--tw-gradient-via-position": ""
+  "--tw-backdrop-invert": ""
+  "--tw-text-opacity": "1"
+  "--tw-saturate": ""
+  "--tw-scroll-snap-strictness": "proximity"
+  "--tw-numeric-spacing": ""
+  "--tw-grayscale": ""
+  "--tw-scale-x": "1"
+  "--tw-border-spacing-x": "0"
+  "--tw-backdrop-hue-rotate": ""
+  "--tw-shadow-colored": "0 0 #0000"
+  "--tw-gradient-to-position": ""
+  "--tw-brightness": ""
+  "--tw-border-spacing-y": "0"
+  "--tw-numeric-fraction": ""
+  "--tw-backdrop-grayscale": ""
+  "--tw-hue-rotate": ""
+  "--tw-scale-y": "1"
+  "--tw-pan-y": ""
+  "--tw-backdrop-contrast": ""
+  "--tw-drop-shadow": ""
+  "--tw-skew-y": "0"
+  "--tw-ring-color": "#3b82f680"
+  "--tw-backdrop-brightness": ""
+  "--tw-slashed-zero": ""
+  "--tw-blur": ""
+  "--tw-invert": ""
+  "--tw-pan-x": ""
+  "--tw-translate-y": "0"
+  "--tw-backdrop-opacity": ""
+  "--tw-gradient-from-position": ""
+  "--tw-numeric-figure": ""
+  "--tw-rotate": "0"
+  "--tw-pinch-zoom": ""

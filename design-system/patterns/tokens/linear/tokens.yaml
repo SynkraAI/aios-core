@@ -1,0 +1,424 @@
+# Design Tokens - linear
+# Extracted by dissect-artifact.js v1.0.0
+# Source: https://linear.app
+# Date: 2026-04-01T11:39:14.137Z
+
+metadata:
+  version: "1.0.0"
+  source: "https://linear.app"
+  generated_at: "2026-04-01T11:39:14.137Z"
+  node_count: 1981
+
+colors:
+  "rgb_247_248_248_":
+    value: "rgb(247, 248, 248)"
+    occurrences: 883
+  "rgb_98_102_109_":
+    value: "rgb(98, 102, 109)"
+    occurrences: 220
+  "rgb_208_214_224_":
+    value: "rgb(208, 214, 224)"
+    occurrences: 180
+  "rgb_226_228_231_":
+    value: "rgb(226, 228, 231)"
+    occurrences: 139
+  "rgb_138_143_152_":
+    value: "rgb(138, 143, 152)"
+    occurrences: 138
+  "rgb_255_255_255_":
+    value: "rgb(255, 255, 255)"
+    occurrences: 92
+  "rgba_255_255_255_0_05_":
+    value: "rgba(255, 255, 255, 0.05)"
+    occurrences: 81
+  "rgb_247_156_224_":
+    value: "rgb(247, 156, 224)"
+    occurrences: 45
+  "rgb_8_9_10_":
+    value: "rgb(8, 9, 10)"
+    occurrences: 26
+  "rgb_85_205_255_":
+    value: "rgb(85, 205, 255)"
+    occurrences: 22
+  "rgba_255_255_255_0_02_":
+    value: "rgba(255, 255, 255, 0.02)"
+    occurrences: 20
+  "rgba_0_255_5_0_1_":
+    value: "rgba(0, 255, 5, 0.1)"
+    occurrences: 19
+  "rgb_137_209_150_":
+    value: "rgb(137, 209, 150)"
+    occurrences: 16
+  "rgb_255_196_124_":
+    value: "rgb(255, 196, 124)"
+    occurrences: 10
+  "rgb_143_164_255_":
+    value: "rgb(143, 164, 255)"
+    occurrences: 10
+  "rgb_15_16_17_":
+    value: "rgb(15, 16, 17)"
+    occurrences: 9
+  "rgba_255_255_255_0_03_":
+    value: "rgba(255, 255, 255, 0.03)"
+    occurrences: 8
+  "rgba_255_255_255_0_08_":
+    value: "rgba(255, 255, 255, 0.08)"
+    occurrences: 8
+  "rgba_255_0_0_0_1_":
+    value: "rgba(255, 0, 0, 0.1)"
+    occurrences: 7
+  "rgba_0_255_5_0_07_":
+    value: "rgba(0, 255, 5, 0.07)"
+    occurrences: 7
+  "rgb_0_0_0_":
+    value: "rgb(0, 0, 0)"
+    occurrences: 6
+  "rgba_255_0_0_0_12_":
+    value: "rgba(255, 0, 0, 0.12)"
+    occurrences: 6
+  "rgb_99_102_241_":
+    value: "rgb(99, 102, 241)"
+    occurrences: 5
+  "rgb_35_37_42_":
+    value: "rgb(35, 37, 42)"
+    occurrences: 4
+  "rgb_230_230_230_":
+    value: "rgb(230, 230, 230)"
+    occurrences: 4
+  "rgb_235_87_87_":
+    value: "rgb(235, 87, 87)"
+    occurrences: 4
+  "rgb_139_92_246_":
+    value: "rgb(139, 92, 246)"
+    occurrences: 3
+  "rgb_85_204_255_":
+    value: "rgb(85, 204, 255)"
+    occurrences: 3
+  "rgb_2_184_204_":
+    value: "rgb(2, 184, 204)"
+    occurrences: 3
+  "rgb_94_106_210_":
+    value: "rgb(94, 106, 210)"
+    occurrences: 2
+  "rgba_255_255_255_0_01_":
+    value: "rgba(255, 255, 255, 0.01)"
+    occurrences: 2
+  "rgb_228_242_34_":
+    value: "rgb(228, 242, 34)"
+    occurrences: 2
+  "rgb_40_40_44_":
+    value: "rgb(40, 40, 44)"
+    occurrences: 2
+  "rgba_94_106_210_0_15_":
+    value: "rgba(94, 106, 210, 0.15)"
+    occurrences: 1
+  "rgb_9_10_11_":
+    value: "rgb(9, 10, 11)"
+    occurrences: 1
+  "rgb_16_17_18_":
+    value: "rgb(16, 17, 18)"
+    occurrences: 1
+  "rgb_18_20_20_":
+    value: "rgb(18, 20, 20)"
+    occurrences: 1
+  "rgba_255_255_255_0_04_":
+    value: "rgba(255, 255, 255, 0.04)"
+    occurrences: 1
+  "rgb_18_19_20_":
+    value: "rgb(18, 19, 20)"
+    occurrences: 1
+  "rgb_22_23_24_":
+    value: "rgb(22, 23, 24)"
+    occurrences: 1
+
+typography:
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: ""Inter Variable", "SF Pro Display", -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif"
+    occurrences: 842
+  "14px_400":
+    font-size: "14px"
+    font-weight: "400"
+    font-family: ""Berkeley Mono", ui-monospace, "SF Mono", Menlo, monospace"
+    occurrences: 303
+  "13px_400":
+    font-size: "13px"
+    font-weight: "400"
+    font-family: ""Inter Variable", "SF Pro Display", -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif"
+    occurrences: 127
+  "13_3333px_400":
+    font-size: "13.3333px"
+    font-weight: "400"
+    font-family: ""Inter Variable", "SF Pro Display", -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif"
+    occurrences: 103
+  "12px_400":
+    font-size: "12px"
+    font-weight: "400"
+    font-family: ""Inter Variable", "SF Pro Display", -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif"
+    occurrences: 90
+  "15px_400":
+    font-size: "15px"
+    font-weight: "400"
+    font-family: ""Inter Variable", "SF Pro Display", -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif"
+    occurrences: 78
+  "12px_510":
+    font-size: "12px"
+    font-weight: "510"
+    font-family: ""Inter Variable", "SF Pro Display", -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif"
+    occurrences: 48
+  "13px_510":
+    font-size: "13px"
+    font-weight: "510"
+    font-family: ""Inter Variable", "SF Pro Display", -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif"
+    occurrences: 35
+  "10px_510":
+    font-size: "10px"
+    font-weight: "510"
+    font-family: ""Inter Variable", "SF Pro Display", -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif"
+    occurrences: 28
+  "10px_400":
+    font-size: "10px"
+    font-weight: "400"
+    font-family: ""Inter Variable", "SF Pro Display", -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif"
+    occurrences: 22
+  "15px_510":
+    font-size: "15px"
+    font-weight: "510"
+    font-family: ""Inter Variable", "SF Pro Display", -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif"
+    occurrences: 18
+  "18px_400":
+    font-size: "18px"
+    font-weight: "400"
+    font-family: ""Inter Variable", "SF Pro Display", -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif"
+    occurrences: 16
+  "14px_510":
+    font-size: "14px"
+    font-weight: "510"
+    font-family: ""Inter Variable", "SF Pro Display", -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif"
+    occurrences: 11
+  "64px_510":
+    font-size: "64px"
+    font-weight: "510"
+    font-family: ""Inter Variable", "SF Pro Display", -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif"
+    occurrences: 11
+  "14px_400":
+    font-size: "14px"
+    font-weight: "400"
+    font-family: ""Inter Variable", "SF Pro Display", -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif"
+    occurrences: 11
+  "12px_400":
+    font-size: "12px"
+    font-weight: "400"
+    font-family: ""Berkeley Mono", ui-monospace, "SF Mono", Menlo, monospace"
+    occurrences: 11
+  "12px_590":
+    font-size: "12px"
+    font-weight: "590"
+    font-family: ""Inter Variable", "SF Pro Display", -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif"
+    occurrences: 9
+  "48px_510":
+    font-size: "48px"
+    font-weight: "510"
+    font-family: ""Inter Variable", "SF Pro Display", -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif"
+    occurrences: 8
+  "24px_400":
+    font-size: "24px"
+    font-weight: "400"
+    font-family: ""Inter Variable", "SF Pro Display", -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif"
+    occurrences: 8
+  "16px_510":
+    font-size: "16px"
+    font-weight: "510"
+    font-family: ""Inter Variable", "SF Pro Display", -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif"
+    occurrences: 6
+
+spacing:
+  "8px":
+    value: "8px"
+    occurrences: 140
+  "12px":
+    value: "12px"
+    occurrences: 58
+  "4px":
+    value: "4px"
+    occurrences: 34
+  "24px":
+    value: "24px"
+    occurrences: 22
+  "22px":
+    value: "22px"
+    occurrences: 21
+  "3px":
+    value: "3px"
+    occurrences: 16
+  "19_2031px":
+    value: "19.2031px"
+    occurrences: 16
+  "2px":
+    value: "2px"
+    occurrences: 14
+  "1px":
+    value: "1px"
+    occurrences: 13
+  "48px":
+    value: "48px"
+    occurrences: 12
+  "11px":
+    value: "11px"
+    occurrences: 12
+  "6px":
+    value: "6px"
+    occurrences: 11
+  "16px":
+    value: "16px"
+    occurrences: 10
+  "28px":
+    value: "28px"
+    occurrences: 10
+  "96px":
+    value: "96px"
+    occurrences: 10
+  "_16px":
+    value: "-16px"
+    occurrences: 10
+  "20px":
+    value: "20px"
+    occurrences: 9
+  "19px":
+    value: "19px"
+    occurrences: 8
+  "32px":
+    value: "32px"
+    occurrences: 8
+  "7px":
+    value: "7px"
+    occurrences: 8
+
+shadows:
+  shadow_1:
+    value: "rgba(0, 0, 0, 0.03) 0px 1.2px 0px 0px"
+    occurrences: 31
+  shadow_2:
+    value: "rgba(0, 0, 0, 0.4) 0px 2px 4px 0px"
+    occurrences: 16
+  shadow_3:
+    value: "rgba(0, 0, 0, 0.2) 0px 0px 12px 0px inset"
+    occurrences: 7
+  shadow_4:
+    value: "rgb(35, 37, 42) 0px 0px 0px 1px inset"
+    occurrences: 5
+  shadow_5:
+    value: "rgba(0, 0, 0, 0) 0px 8px 2px 0px, rgba(0, 0, 0, 0.01) 0px 5px 2px 0px, rgba(0, 0, 0, 0.04) 0px 3px 2px 0px, rgba(0, 0, 0, 0.07) 0px 1px 1px 0px, rgba(0, 0, 0, 0.08) 0px 0px 1px 0px"
+    occurrences: 4
+  shadow_6:
+    value: "rgba(0, 0, 0, 0.2) 0px 0px 0px 1px"
+    occurrences: 3
+  shadow_7:
+    value: "rgba(8, 9, 10, 0.6) 0px 4px 32px 0px"
+    occurrences: 2
+  shadow_8:
+    value: "rgba(94, 106, 210, 0.09) 0px 0px 0px 1.24749px"
+    occurrences: 1
+  shadow_9:
+    value: "rgba(0, 0, 0, 0.1) 0px 0px 0px 2px"
+    occurrences: 1
+  shadow_10:
+    value: "rgba(0, 0, 0, 0.4) 0px 1px 0px 0px"
+    occurrences: 1
+
+borders:
+  border_1:
+    value: "1px solid rgba(255, 255, 255, 0.05)"
+    occurrences: 52
+  border_2:
+    value: "0px 0px 0px 1px none none none solid rgb(208, 214, 224) rgb(208, 214, 224) rgb(208, 214, 224) rgba(0, 0, 0, 0)"
+    occurrences: 28
+  border_3:
+    value: "1px solid rgba(255, 255, 255, 0.08)"
+    occurrences: 16
+  border_4:
+    value: "0px 0px 1px none none solid rgb(247, 248, 248) rgb(247, 248, 248) rgba(255, 255, 255, 0.05)"
+    occurrences: 7
+  border_5:
+    value: "0px 0px 1px none none solid rgb(247, 248, 248) rgb(247, 248, 248) rgba(255, 255, 255, 0.08)"
+    occurrences: 4
+  border_6:
+    value: "1px solid rgb(230, 230, 230)"
+    occurrences: 4
+  border_7:
+    value: "1px solid rgb(35, 37, 42)"
+    occurrences: 4
+  border_8:
+    value: "0px 0px 0px 1px none none none solid rgb(208, 214, 224) rgb(208, 214, 224) rgb(208, 214, 224) rgb(214, 48, 61)"
+    occurrences: 4
+  border_9:
+    value: "0px 0px 0px 1px none none none solid rgb(208, 214, 224) rgb(208, 214, 224) rgb(208, 214, 224) rgb(0, 141, 44)"
+    occurrences: 4
+  border_10:
+    value: "0px 0px 0px 2px none none none solid rgb(208, 214, 224) rgb(208, 214, 224) rgb(208, 214, 224) rgba(0, 0, 0, 0)"
+    occurrences: 4
+
+gradients:
+  gradient_1: "linear-gradient(rgba(11, 11, 11, 0.8) 0px, oklab(0.149576 0.00000680983 0.00000298768 / 0.761905) 100%)"
+  gradient_2: "radial-gradient(52.53% 57.5% at 50% 100%, rgba(8, 9, 10, 0) 0px, rgba(8, 9, 10, 0.5) 100%), linear-gradient(rgb(8, 9, 10) 10%, rgb(208, 214, 224) 100%)"
+  gradient_3: "radial-gradient(50% 50%, rgba(255, 255, 255, 0.04) 0px, rgba(255, 255, 255, 0) 90%)"
+  gradient_4: "radial-gradient(50% 50%, rgba(255, 255, 255, 0.04) 0px, rgba(255, 255, 255, 0) 100%)"
+  gradient_5: "radial-gradient(50% 50%, rgb(255, 255, 255) 0px, rgba(255, 255, 255, 0) 90%)"
+  gradient_6: "linear-gradient(90deg, color(srgb 0 0 0 / 0) 0px, color(srgb 0.6 0.231373 0.231373 / 0.2) 100%), none"
+  gradient_7: "linear-gradient(90deg, color(srgb 0 0 0 / 0) 0px, color(srgb 0.129412 0.701961 1 / 0.2) 100%), none"
+  gradient_8: "radial-gradient(circle, rgba(255, 255, 255, 0.03) 0px, rgba(0, 0, 0, 0) 50%)"
+  gradient_9: "radial-gradient(circle, rgba(255, 255, 255, 0.04) 0px, rgba(0, 0, 0, 0) 50%)"
+  gradient_10: "repeating-linear-gradient(to right, rgb(35, 37, 42) 0px, rgb(35, 37, 42) 3px, rgba(0, 0, 0, 0) 3px, rgba(0, 0, 0, 0) 7px)"
+
+custom_properties:
+  "--x1cxqmhc": ""
+  "--sx-nwdiqt": "#ffffff2d"
+  "--font-variations": "\"opsz\" auto"
+  "--title-1-line-height": "1.4"
+  "--xd1bcc1": ""
+  "--text-micro-size": "0.75rem"
+  "--font-size-title1": "2.25rem"
+  "--sx-1ijrdvx": "#ff8849"
+  "--sx-1uv3w6h": "#2c2d32"
+  "--title-3-letter-spacing": "-0.012em"
+  "--speed-highlightFadeOut": "0.15s"
+  "--xkthb5v": ""
+  "--sx-138kmyo": "#424449"
+  "--xaxo4ug": ""
+  "--scrollbar-size-active": "10px"
+  "--sx-1mc3c6y": "#1e2022"
+  "--color-text-tertiary": "#8a8f98"
+  "--cursor-disabled": "not-allowed"
+  "--x1fphd1n": ""
+  "--layer-tooltip": "1100"
+  "--font-emoji": "\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\",\"Segoe UI\",\"Twemoji Mozilla\",\"Noto Color Emoji\",\"Android Emoji\""
+  "--ease-in-out-quart": "cubic-bezier(0.77,0,0.175,1)"
+  "--x5igtf4": ""
+  "--x7ide1": ""
+  "--text-regular-size": "0.9375rem"
+  "--font-size-miniPlus": "0.75rem"
+  "--text-regular-letter-spacing": "-0.011em"
+  "--sx-vatjr0": "#34353a"
+  "--x1mc3c6y": ""
+  "--x1ikf7kw": ""
+  "--sx-tw6awd": "#ffe7de"
+  "--x1gm0lru": ""
+  "--shadow-low": "0px 2px 4px rgba(0,0,0,0.1)"
+  "--font-size-microPlus": "0.6875rem"
+  "--x1jffjrl": ""
+  "--color-white": "#fff"
+  "--sx-kthb5v": "#6c76e0"
+  "--sx-183dfpr": "#ff9958"
+  "--text-tiny": "0.625rem /1.5 \"Inter Variable\",\"SF Pro Display\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",\"Roboto\",\"Oxygen\",\"Ubuntu\",\"Cantarell\",\"Open Sans\",\"Helvetica Neue\",sans-serif"
+  "--text-small-line-height": "calc(21 / 14)"
+  "--x35jz1e": ""
+  "--sx-11o6u2e": "0.25s"
+  "--title-7": "590 3.5rem /1.1 \"Inter Variable\",\"SF Pro Display\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",\"Roboto\",\"Oxygen\",\"Ubuntu\",\"Cantarell\",\"Open Sans\",\"Helvetica Neue\",sans-serif"
+  "--x8gevfv": ""
+  "--ease-in-out-circ": "cubic-bezier(0.785,0.135,0.15,0.86)"
+  "--speed-quickTransition": "0.1s"
+  "--sx-jw5zf4": "#39b350"
+  "--text-large": "1.0625rem /1.6 \"Inter Variable\",\"SF Pro Display\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",\"Roboto\",\"Oxygen\",\"Ubuntu\",\"Cantarell\",\"Open Sans\",\"Helvetica Neue\",sans-serif"
+  "--title-7-size": "3.5rem"
+  "--sx-pqiwo2": "#373a56"

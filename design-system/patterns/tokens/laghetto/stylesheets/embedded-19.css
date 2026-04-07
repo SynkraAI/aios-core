@@ -1,0 +1,24 @@
+
+  
+    #rd-close_button-lv12iglp {
+      position: absolute;
+      top: 25px;
+      right: 22px;
+      border: none;
+      background: transparent;
+      z-index: 9999;
+      cursor: pointer;
+      width: 26px;
+      height:26px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #rd-close_button-lv12iglp svg {
+      width: 14px;
+      height: 14px;
+      fill: #ffffff;
+    }
+  

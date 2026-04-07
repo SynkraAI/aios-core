@@ -1,0 +1,77 @@
+
+
+@media (hover: hover) and (pointer: fine){
+.navbar_link:hover .navbar {
+ background-color: var(--brand--off-white);
+}
+
+.dropdown-navbar-content:has(.dropdown-gastronomia-link:hover) .dropdown-gastronomia-link:not(:hover) {
+    opacity: 0.7;
+}
+
+.navbar:has(.navbar_link:hover) .navbar_link:not(:hover) {
+    opacity: 0.3;
+}
+
+.navbar:has(.navbar_link:hover) .icon-dropdown:not(:hover) {
+    opacity: 0.3;
+}
+
+.navbar:has(.link-language:hover) .link-language:not(:hover) {
+    opacity: 0.1;
+}
+
+.navbar:hover {
+    background-color: var(--brand--off-white);
+}
+
+.navbar:hover .navbar_link{
+    color: var(--brand--black);
+}
+
+.navbar:hover .logo-navbar{
+    color: var(--brand--black);
+}
+
+.navbar:hover .link-language{
+    color: var(--brand--black);
+}
+
+.navbar:hover .icon-dropdown{
+    color: var(--brand--black);
+}
+
+.nav-wrap:hover .navbar{
+transform: translateY(0%)
+}
+
+.w-dropdown-list {
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.w-dropdown-list.w--open {
+    opacity: 1;
+    pointer-events: auto;
+    animation: dropdownSlide 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes dropdownSlide {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.w-dropdown-list.w--open ~ .icon-dropdown,
+.w-dropdown.w--open .icon-dropdown,
+.w--open .icon-dropdown {
+    transform: rotate(0deg);
+    color: var(--_color-palette---ed793b);
+    
+}
+
+}

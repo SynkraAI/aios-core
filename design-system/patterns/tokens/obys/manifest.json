@@ -1,0 +1,110 @@
+{
+  "version": "1.0.0",
+  "name": "obys",
+  "source": "https://obys.agency",
+  "timestamp": "2026-04-01T13:50:28.219Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "output": "/Users/luizfosc/aios-core/design-system/patterns/tokens/obys",
+  "files": {
+    "html": {
+      "file": "source.html",
+      "size": 111692
+    },
+    "screenshots": [
+      "screenshot-desktop.png",
+      "screenshot-mobile.png"
+    ],
+    "stylesheets": [
+      {
+        "url": "https://obys.agency/wp-includes/css/dist/block-library/style.min.css",
+        "file": "style.min.css",
+        "size": 114703
+      },
+      {
+        "url": "https://obys.agency/wp-content/plugins/contact-form-7/includes/css/styles.css",
+        "file": "styles.css",
+        "size": 2894
+      },
+      {
+        "url": "https://obys.agency/wp-content/themes/obys/style.css",
+        "file": "style.css",
+        "size": 498
+      },
+      {
+        "url": "https://obys.agency/wp-content/themes/obys/vendors~app~7d359b94.css",
+        "file": "vendors_app_7d359b94.css",
+        "size": 2961
+      },
+      {
+        "url": "https://obys.agency/wp-content/themes/obys/app~d0ae3f07.css",
+        "file": "app_d0ae3f07.css",
+        "size": 130677
+      },
+      {
+        "embedded": true,
+        "file": "embedded-0.css",
+        "size": 86
+      },
+      {
+        "embedded": true,
+        "file": "embedded-1.css",
+        "size": 296
+      },
+      {
+        "embedded": true,
+        "file": "embedded-2.css",
+        "size": 180
+      },
+      {
+        "embedded": true,
+        "file": "embedded-3.css",
+        "size": 293
+      },
+      {
+        "embedded": true,
+        "file": "embedded-4.css",
+        "size": 9152
+      },
+      {
+        "embedded": true,
+        "file": "embedded-5.css",
+        "size": 48
+      },
+      {
+        "embedded": true,
+        "file": "embedded-6.css",
+        "size": 53
+      }
+    ],
+    "domTree": {
+      "file": "dom-tree.json",
+      "nodeCount": 782
+    },
+    "extractedCss": "extracted-css.json",
+    "components": {
+      "file": "components.json",
+      "count": 12
+    },
+    "tokens": "tokens.yaml"
+  },
+  "summary": {
+    "nodeCount": 782,
+    "uniqueColors": 6,
+    "typographyVariants": 14,
+    "spacingValues": 45,
+    "shadows": 1,
+    "gradients": 0,
+    "animations": 10,
+    "mediaQueries": 326,
+    "customProperties": 50,
+    "gridLayouts": 13,
+    "flexLayouts": 50,
+    "componentTypes": 12,
+    "totalComponents": 26,
+    "stylesheetCount": 12,
+    "inlineStyles": 284
+  }
+}

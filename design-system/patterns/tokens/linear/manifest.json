@@ -1,0 +1,135 @@
+{
+  "version": "1.0.0",
+  "name": "linear",
+  "source": "https://linear.app",
+  "timestamp": "2026-04-01T11:39:14.137Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "output": "/Users/luizfosc/aios-core/design-system/patterns/tokens/linear",
+  "files": {
+    "html": {
+      "file": "source.html",
+      "size": 1984881
+    },
+    "screenshots": [
+      "screenshot-desktop.png",
+      "screenshot-mobile.png"
+    ],
+    "stylesheets": [
+      {
+        "url": "https://static.linear.app/web/_next/static/css/99022f91ec9407f4.css",
+        "file": "99022f91ec9407f4.css",
+        "size": 76851
+      },
+      {
+        "url": "https://static.linear.app/web/_next/static/css/76a10bb7083ca64e.css",
+        "file": "76a10bb7083ca64e.css",
+        "size": 15421
+      },
+      {
+        "url": "https://static.linear.app/web/_next/static/css/b06fffb47b015a3a.css",
+        "file": "b06fffb47b015a3a.css",
+        "size": 82335
+      },
+      {
+        "url": "https://static.linear.app/web/_next/static/css/87c16a3b06428094.css",
+        "file": "87c16a3b06428094.css",
+        "size": 81808
+      },
+      {
+        "url": "https://static.linear.app/web/_next/static/css/cb268b0c62499f87.css",
+        "file": "cb268b0c62499f87.css",
+        "size": 624
+      },
+      {
+        "url": "https://static.linear.app/web/_next/static/css/b95182d48079b1d3.css",
+        "file": "b95182d48079b1d3.css",
+        "size": 2043
+      },
+      {
+        "url": "https://static.linear.app/web/_next/static/css/a38352465ddb7f47.css",
+        "file": "a38352465ddb7f47.css",
+        "size": 11299
+      },
+      {
+        "url": "https://static.linear.app/web/_next/static/css/32458b81ad8ee296.css",
+        "file": "32458b81ad8ee296.css",
+        "size": 61565
+      },
+      {
+        "url": "https://static.linear.app/web/_next/static/css/4f7bf38f177fecac.css",
+        "file": "4f7bf38f177fecac.css",
+        "size": 13857
+      },
+      {
+        "url": "https://static.linear.app/web/_next/static/css/e1731c8655b5b2e6.css",
+        "file": "e1731c8655b5b2e6.css",
+        "size": 39581
+      },
+      {
+        "url": "https://static.linear.app/web/_next/static/css/c1340137af3f54b6.css",
+        "file": "c1340137af3f54b6.css",
+        "size": 5896
+      },
+      {
+        "url": "https://static.linear.app/web/_next/static/css/d2cf7a4fbbe04442.css",
+        "file": "d2cf7a4fbbe04442.css",
+        "size": 2594
+      },
+      {
+        "url": "https://static.linear.app/web/_next/static/css/531938a0aaad0bf0.css",
+        "file": "531938a0aaad0bf0.css",
+        "size": 410
+      },
+      {
+        "url": "https://static.linear.app/web/_next/static/css/5e1b6ec72e2bebcd.css",
+        "file": "5e1b6ec72e2bebcd.css",
+        "size": 1231
+      },
+      {
+        "url": "https://static.linear.app/web/_next/static/css/03670c59e8452996.css",
+        "file": "03670c59e8452996.css",
+        "size": 11254
+      },
+      {
+        "url": "https://static.linear.app/web/_next/static/css/eca4f237b3c33041.css",
+        "file": "eca4f237b3c33041.css",
+        "size": 22947
+      },
+      {
+        "embedded": true,
+        "file": "embedded-1.css",
+        "size": 14859
+      }
+    ],
+    "domTree": {
+      "file": "dom-tree.json",
+      "nodeCount": 1981
+    },
+    "extractedCss": "extracted-css.json",
+    "components": {
+      "file": "components.json",
+      "count": 16
+    },
+    "tokens": "tokens.yaml"
+  },
+  "summary": {
+    "nodeCount": 1981,
+    "uniqueColors": 50,
+    "typographyVariants": 31,
+    "spacingValues": 64,
+    "shadows": 13,
+    "gradients": 13,
+    "animations": 207,
+    "mediaQueries": 24,
+    "customProperties": 537,
+    "gridLayouts": 20,
+    "flexLayouts": 50,
+    "componentTypes": 16,
+    "totalComponents": 405,
+    "stylesheetCount": 17,
+    "inlineStyles": 449
+  }
+}

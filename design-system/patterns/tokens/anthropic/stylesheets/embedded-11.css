@@ -1,0 +1,209 @@
+
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  html-scrollbar {
+    display: none !important;
+  }
+
+  ::-moz-selection { /* Code for Firefox */
+    background: rgba(204,120,92,.5);
+  }
+
+  ::selection {
+    background: rgba(204,120,92,.5);
+  }
+
+  h1 a {
+    text-underline-offset: 0.08em;
+  }
+
+  /* Rich text styling */
+
+
+  .mcp_directory_link,
+  .mcp_directory_link_icon,
+  .u-rich-text a,
+  .u-rich-text ul li a,
+  .u-paragraph-m a {
+    text-underline-offset: 0.2em !important;
+    text-decoration-thickness: 0.06em;
+  }
+
+  .u-rich-text strong em, .u-rich-text em strong, .u-paragraph-m strong {
+    line-height: 1;
+    vertical-align: baseline;
+  }
+
+  /* Logo marquee */
+
+  .logo_marquee_logo_component {
+    -webkit-animation: marquee 48s linear infinite;
+    -moz-animation: marquee 48s linear infinite;
+    -o-animation: marquee 48s linear infinite;
+  }
+
+  /* When hovering the marquee container, pause all logos */
+  .logo_marquee:hover .logo_marquee_logo_component {
+    -webkit-animation-play-state: paused;
+    -moz-animation-play-state: paused;
+    -o-animation-play-state: paused;
+    animation-play-state: paused;
+  }
+
+  @media (prefers-reduced-motion) {
+    .logo_marquee_logo_component {
+      -webkit-animation-play-state: paused;
+      -moz-animation-play-state: paused;
+      -o-animation-play-state: paused;
+      animation-play-state: paused;
+    }
+  }
+
+  @-webkit-keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-100%); }
+  }
+  @-moz-keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-100%); }
+  }
+  @-o-keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-100%); }
+  }
+  @keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-100%); }
+  }
+
+  /* Custom styling for slider dots */
+  .w-slider-dot {
+    background-color: var(--swatch--cloud-light) !important;
+    width: 12px !important;
+    height: 12px !important;
+    margin: 0 6px !important;
+    border-radius: 50% !important;
+    padding: 0 !important;
+  }
+
+  .w-slider-dot.w-active,
+  .w-slider-dot:hover {
+    background-color: var(--swatch--slate-light) !important;
+  }
+
+  /* Target slide wrappers that are hidden (non-active slides) */
+  .slider_slide[aria-hidden="true"] {
+    opacity: 0.3 !important;
+    transition: opacity 0.2s ease !important;
+  }
+
+  /* Target active slides (no aria-hidden or aria-hidden="false") */
+  .slider_slide:not([aria-hidden="true"]) {
+    opacity: 1 !important;
+    transition: opacity 0.2s ease !important;
+  }
+
+  /* Only apply hover effect when the card contains a link */
+  .article_card:has(a):hover .g_visual_img,
+  .card:has(a):hover .g_visual_img {
+    transform: scale(1.05);
+    transition: transform 0.2s ease;
+  }
+
+  /* Make sure the image has a smooth transition by default */
+  .g_visual_img {
+    transition: transform 0.2s ease;
+  }
+
+  /*--- TABS ---*/
+
+  /* Removes ::before and ::after from Tabs that create empty spaces when using Grid/Flex (with gaps) */
+  .tabs::before,
+  .tabs::after {
+    display: none;
+  }
+
+  /*--- TERMINAL ---*/
+
+  /* Clean, minimal scrollbar styling for terminal_content */
+  .terminal_content::-webkit-scrollbar {
+    width: 6px; /* Thin vertical scrollbar */
+    height: 6px; /* Thin horizontal scrollbar */
+  }
+
+  .terminal_content::-webkit-scrollbar-track {
+    background: transparent; /* Invisible track */
+    margin: 4px; /* Creates space from the edge */
+  }
+
+  .terminal_content::-webkit-scrollbar-thumb {
+    background: rgba(250, 249, 240, 0.3); /* Subtle cream color */
+    border-radius: 3px; /* Slightly rounded edges */
+    border-right: 6px solid transparent; /* Increased space on the right edge */
+    border-left: 4px solid transparent; /* Space on the left edge */
+    background-clip: content-box; /* Ensures background only applies to visible area */
+  }
+
+  .terminal_content::-webkit-scrollbar-thumb:hover {
+    background: rgba(250, 249, 240, 0.5); /* Brighter on hover - works in Chrome */
+    background-clip: content-box; /* Maintain the same behavior on hover */
+  }
+
+  .terminal_content::-webkit-scrollbar-thumb:horizontal {
+    border-top: 4px solid transparent;
+    border-bottom: 6px solid transparent; /* Increased space from the bottom */
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    background-clip: content-box;
+  }
+
+  .terminal_content::-webkit-scrollbar-corner {
+    background: transparent; /* For the corner where both scrollbars meet */
+  }
+
+  /* Firefox */
+  .terminal_content {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(250, 249, 240, 0.3) transparent;
+  }
+
+  /* Remove padding on Result tab */
+  .terminal_content.result-view {
+    padding: 0px;
+  }
+
+  /*--- MODAL ---*/
+
+  /* Modal mods */
+  dialog.modal_wrap[open] {
+    animation: fadein 400ms ease-out forwards;
+  }
+  dialog.modal_wrap::backdrop {
+    background: color-mix(in srgb, var(--swatch--slate-dark) 80%, transparent);
+  }
+  @keyframes fadein{
+    0%{
+      opacity:0;
+    }
+    100%{
+      opacity:1;
+    }
+  }
+
+  /*--- Hide element if child CMS collection is empty ---*/
+  [data-hide-if-empty-cms-child]:not(:has(.w-dyn-item)) {
+    display: none; 
+  }
+
+  /* In Designer only hacks 
+
+  html.wf-design-mode .g_clickable_wrap {
+  pointer-events: none;
+  }
+  html.wf-design-mode a[href="#"],
+  html.wf-design-mode a[href="#"] ~ button {
+  outline: 3px solid red;
+  }
+
+  */
+

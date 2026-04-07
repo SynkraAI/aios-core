@@ -1,0 +1,29 @@
+{
+  "url": "https://press.stripe.com",
+  "name": "stripe-press",
+  "captured_at": "2026-04-01T14:11:55.012Z",
+  "elements": [
+    {
+      "type": "card",
+      "index": 0,
+      "defaultStyles": {
+        "boxShadow": "none",
+        "transform": "none",
+        "borderColor": "rgb(32, 24, 25)",
+        "background": "rgb(255, 255, 255)"
+      },
+      "hoverStyles": {
+        "boxShadow": "none",
+        "transform": "none",
+        "borderColor": "rgb(32, 24, 25)",
+        "background": "rgb(255, 255, 255)"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "card-0-default.png",
+        "hover": "card-0-hover.png"
+      }
+    }
+  ]
+}

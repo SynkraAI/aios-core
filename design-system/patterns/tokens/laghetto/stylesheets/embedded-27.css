@@ -1,0 +1,40 @@
+
+  
+    #bricks-component-b4VX0oCEXBLFfkVfJm2ZNg {
+      display: flex;
+      flex-direction: column;
+      align-self: center;
+      max-width: 548px;
+      width: 100%;
+      margin-top: 0px;
+      margin-bottom: 30px;
+    }
+
+    #bricks-component-b4VX0oCEXBLFfkVfJm2ZNg .bricks-form {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    #bricks-component-b4VX0oCEXBLFfkVfJm2ZNg .bricks-form__fieldset {
+      align-items: flex-start;
+    }
+
+    #bricks-component-b4VX0oCEXBLFfkVfJm2ZNg .bricks-form__label.always-visible,
+    #bricks-component-b4VX0oCEXBLFfkVfJm2ZNg .bricks-form__field__option .bricks-form__label {
+      display: inline-block;
+    }
+
+    #bricks-component-b4VX0oCEXBLFfkVfJm2ZNg .bricks-form__input.select2-container {
+      padding: 0 !important;
+    }
+
+    #bricks-component-b4VX0oCEXBLFfkVfJm2ZNg .select2-container .select2-choice .select2-arrow b {
+      background-position: 0 7px !important;
+    }
+
+    #bricks-component-b4VX0oCEXBLFfkVfJm2ZNg .bricks-form__submit {
+      display: flex;
+      flex-direction: column;
+    }
+  

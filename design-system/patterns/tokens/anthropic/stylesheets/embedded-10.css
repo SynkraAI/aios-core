@@ -1,0 +1,195 @@
+
+  :root {
+    --site--max-width: min(var(--site--width), 100vw);
+    --container--main: calc(var(--site--max-width) - var(--site--margin) * 2);
+    --container--full: calc(100% - 4rem);
+    --container--small: calc(var(--column-width--plus-gutter) * (var(--site--column-count) - 4) - var(--site--gutter));
+    --site--gutter-total: calc(var(--site--gutter) * (var(--site--column-count) - 1));
+    --column-width--1: calc((var(--container--main) - var(--site--gutter-total)) / var(--site--column-count));
+    --column-width--plus-gutter: calc(var(--column-width--1) + var(--site--gutter));
+    --column-width--2: calc(var(--column-width--plus-gutter) * 2 - var(--site--gutter));
+    --column-width--3: calc(var(--column-width--plus-gutter) * 3 - var(--site--gutter));
+    --column-width--4: calc(var(--column-width--plus-gutter) * 4 - var(--site--gutter));
+    --column-width--5: calc(var(--column-width--plus-gutter) * 5 - var(--site--gutter));
+    --column-width--6: calc(var(--column-width--plus-gutter) * 6 - var(--site--gutter));
+    --column-width--7: calc(var(--column-width--plus-gutter) * 7 - var(--site--gutter));
+    --column-width--8: calc(var(--column-width--plus-gutter) * 8 - var(--site--gutter));
+    --column-width--9: calc(var(--column-width--plus-gutter) * 9 - var(--site--gutter));
+    --column-width--10: calc(var(--column-width--plus-gutter) * 10 - var(--site--gutter));
+    --column-width--11: calc(var(--column-width--plus-gutter) * 11 - var(--site--gutter));
+    --column-width--12: calc(var(--column-width--plus-gutter) * 12 - var(--site--gutter));
+    --column-margin--1: calc(var(--column-width--plus-gutter) * 1);
+    --column-margin--2: calc(var(--column-width--plus-gutter) * 2);
+    --column-margin--3: calc(var(--column-width--plus-gutter) * 3);
+    --column-margin--4: calc(var(--column-width--plus-gutter) * 4);
+    --column-margin--5: calc(var(--column-width--plus-gutter) * 5);
+    --column-margin--6: calc(var(--column-width--plus-gutter) * 6);
+    --column-margin--7: calc(var(--column-width--plus-gutter) * 7);
+    --column-margin--8: calc(var(--column-width--plus-gutter) * 8);
+    --column-margin--9: calc(var(--column-width--plus-gutter) * 9);
+    --column-margin--10: calc(var(--column-width--plus-gutter) * 10);
+    --column-margin--11: calc(var(--column-width--plus-gutter) * 11);
+    --column-margin--12: calc(var(--column-width--plus-gutter) * 12);
+    --breakout-start: [full-start] minmax(0, 1fr) [content-start];
+    --breakout-end: [content-end] minmax(0, 1fr) [full-end];
+    --grid-breakout-single: var(--breakout-start) minmax(0, var(--container--main)) var(--breakout-end);
+    --grid-breakout: var(--breakout-start) repeat(var(--site--column-count), minmax(0, var(--column-width--1))) var(--breakout-end);
+    --grid-main: repeat(var(--site--column-count), minmax(0, 1fr));
+    --grid-1: repeat(1, minmax(0, 1fr));
+    --grid-2: repeat(2, minmax(0, 1fr));
+    --grid-3: repeat(3, minmax(0, 1fr));
+    --grid-4: repeat(4, minmax(0, 1fr));
+    --grid-5: repeat(5, minmax(0, 1fr));
+    --grid-6: repeat(6, minmax(0, 1fr));
+    --grid-7: repeat(7, minmax(0, 1fr));
+    --grid-8: repeat(8, minmax(0, 1fr));
+    --grid-9: repeat(9, minmax(0, 1fr));
+    --grid-10: repeat(10, minmax(0, 1fr));
+    --grid-11: repeat(11, minmax(0, 1fr));
+    --grid-12: repeat(12, minmax(0, 1fr));
+    --_typography---text-transform--none: none;
+    --_typography---text-transform--uppercase: uppercase;
+    --_typography---text-transform--captialize: capitalize;
+    --_typography---text-transform--lowercase: lowercase;
+    --align--flex-start: flex-start;
+    --align--flex-center: center;
+    --align--flex-end: flex-end;
+    --align--text-left: left;
+    --align--text-center: center;
+    --align--text-right: right;
+  }
+
+  ::before, ::after {
+    box-sizing: border-box;
+  }
+  html {
+    background-color: var(--_theme---background);
+  }
+  button {
+    background-color: unset;
+    padding: unset;
+    text-align: inherit;
+  }
+  button:not(:disabled) {
+    cursor: pointer;
+  }
+  video {
+    width: 100%;
+    object-fit: cover;
+  }
+  video.wf-empty {
+    padding: 0;
+  }
+  svg {
+    max-width: 100%;
+  }
+  section, header, footer {
+    position: relative;
+  }
+  @media (prefers-color-scheme: light) {
+    option {
+      color: black;
+    }
+  }
+  img::selection {
+    background: transparent;
+  }
+  /* Typography */
+  body {
+    text-transform: var(--_text-style---text-transform);
+    font-smoothing: antialiased;
+    -webkit-font-smoothing: antialiased;
+  }
+  /* Clear Defaults */
+  a:not([class]) {
+    text-decoration: underline;
+  }
+  h1,h2,h3,h4,h5,h6,p,blockquote,label {
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+    text-wrap: inherit;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  /* Margin Trim */
+  :is(.u-margin-trim, .u-rich-text) > :not(:not(.w-condition-invisible) ~ :not(.w-condition-invisible)) {
+    margin-top: 0;
+  }
+  :is(.u-margin-trim, .u-rich-text) > :not(:has(~ :not(.w-condition-invisible))) {
+    margin-bottom: 0;
+  }
+  .w-richtext a {
+    position: relative;
+    z-index: 4;
+  }
+  /* Line Height Trim */
+  :is([class*="u-text-style-"],h1,h2,h3,h4,h5,h6,p):not(.w-richtext,.u-text-trim-off)::before {
+    content: "";
+    display: table;
+    margin-bottom: calc(-0.5lh + var(--_text-style---trim-top));
+  }
+  :is([class*="u-text-style-"],h1,h2,h3,h4,h5,h6,p):not(.w-richtext,.u-text-trim-off)::after {
+    content: "";
+    display: table;
+    margin-bottom: calc(-0.5lh + var(--_text-style---trim-bottom));
+  }
+  /* Line Clamp */
+  .u-line-clamp-1, .u-line-clamp-2, .u-line-clamp-3, .u-line-clamp-4 {
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+  }
+  .u-line-clamp-2 { -webkit-line-clamp: 2; }
+  .u-line-clamp-3 { -webkit-line-clamp: 3; }
+  .u-line-clamp-4 { -webkit-line-clamp: 4; }
+
+  /* Child Contain */
+  .u-child-contain > * {
+    width: 100%;
+    max-width: inherit !important;
+    margin-inline: 0 !important;
+    margin-top: 0 !important;
+  }
+
+  /* Hide */
+  .u-hide-if-empty:empty,
+  .u-hide-if-empty:not(:has(> :not(.w-condition-invisible))),
+  .u-hide-if-empty-cms:not(:has(.w-dyn-item)),
+  .u-embed-js,
+  .u-embed-css {
+    display: none !important;
+  }
+
+  /* Focus State */
+  a, button, :where([tabindex]),
+  .w-checkbox-input--inputType-custom,
+  .w-form-formradioinput--inputType-custom {
+    outline-offset: var(--focus--offset-outer);
+  }
+  a:focus-visible,
+  button:focus-visible,
+  [tabindex]:focus-visible,
+  .w-checkbox:has(:focus-visible) .w-checkbox-input--inputType-custom,
+  .w-radio:has(:focus-visible) .w-form-formradioinput--inputType-custom {
+    outline-color: var(--_color-theme---text);
+    outline-width: var(--focus--width);
+    outline-style: solid;
+  }
+  .w-checkbox-input--inputType-custom.w--redirected-focus,
+  .w-form-formradioinput--inputType-custom.w--redirected-focus {
+    box-shadow: none;
+  }
+
+  /* Global / Clickable Component */
+  .wf-design-mode .g_clickable_wrap {
+    z-index: 0;
+  }
+  .g_clickable_wrap a[href="#"] {
+    display: none;
+  }
+  .g_clickable_wrap a[href="#"] ~ button {
+    display: block;
+  }

@@ -1,0 +1,60 @@
+{
+  "version": "1.0.0",
+  "name": "stc-redesign",
+  "source": "https://stc-redesign.vercel.app",
+  "timestamp": "2026-04-01T15:37:44.450Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "output": "/Users/luizfosc/aios-core/design-system/patterns/tokens/stc-redesign",
+  "files": {
+    "html": {
+      "file": "source.html",
+      "size": 29413
+    },
+    "screenshots": [
+      "screenshot-desktop.png",
+      "screenshot-mobile.png"
+    ],
+    "stylesheets": [
+      {
+        "url": "https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&family=Playfair+Display:ital,wght@0,700;1,400&display=swap",
+        "file": "css2",
+        "size": 16819
+      },
+      {
+        "url": "https://stc-redesign.vercel.app/style.css",
+        "file": "style.css",
+        "size": 29810
+      }
+    ],
+    "domTree": {
+      "file": "dom-tree.json",
+      "nodeCount": 328
+    },
+    "extractedCss": "extracted-css.json",
+    "components": {
+      "file": "components.json",
+      "count": 12
+    },
+    "tokens": "tokens.yaml"
+  },
+  "summary": {
+    "nodeCount": 328,
+    "uniqueColors": 20,
+    "typographyVariants": 32,
+    "spacingValues": 26,
+    "shadows": 1,
+    "gradients": 8,
+    "animations": 0,
+    "mediaQueries": 6,
+    "customProperties": 28,
+    "gridLayouts": 2,
+    "flexLayouts": 50,
+    "componentTypes": 12,
+    "totalComponents": 61,
+    "stylesheetCount": 2,
+    "inlineStyles": 82
+  }
+}

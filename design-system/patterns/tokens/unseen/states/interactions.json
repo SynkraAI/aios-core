@@ -1,0 +1,181 @@
+{
+  "url": "https://unseen.co",
+  "name": "unseen",
+  "timestamp": "2026-04-01T13:53:51.944Z",
+  "totalElements": 27,
+  "elementsWithStates": 4,
+  "interactions": [
+    {
+      "tag": "a",
+      "text": "Our 2025 Wrapped",
+      "classes": "btn btn--regular btn--border btn--light js-rebrand-btn js-btn",
+      "selector": "a.btn.btn--regular.btn--border.btn--light.js-rebrand-btn.js-btn",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(0, 0, 0)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "color": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "Toggle Menu",
+      "classes": "btn btn--circle menu-btn d-flex js-menu-toggle",
+      "selector": "button.btn.btn--circle.menu-btn.d-flex.js-menu-toggle",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(0, 0, 0)",
+        "borderWidth": "0px",
+        "borderRadius": "50%",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderRadius": {
+            "from": "50%",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "Toggle Sound",
+      "classes": "btn btn--circle d-flex mute-btn js-mute mute-btn--global z-60 js-global-mute-btn",
+      "selector": "button.btn.btn--circle.d-flex.mute-btn.js-mute.mute-btn--global.z-60.js-global-mute-btn",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(0, 0, 0)",
+        "borderWidth": "0px",
+        "borderRadius": "50%",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderRadius": {
+            "from": "50%",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "div",
+      "text": "Our 2025 Wrapped",
+      "classes": "footer__cta z-50 fixed d-flex justify-center justify-start@md js-footer-cta",
+      "selector": "div.footer__cta.z-50.fixed.d-flex.justify-center.justify-start@md.js-footer-cta",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(0, 0, 0)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "auto",
+        "scale": "none",
+        "transition": "opacity 0.5s ease-out, visibility 0.5s ease-out",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "color": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgb(255, 255, 255) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "cursor": {
+            "from": "auto",
+            "to": "pointer"
+          },
+          "transition": {
+            "from": "opacity 0.5s ease-out, visibility 0.5s ease-out",
+            "to": "all"
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+.gps{--g-h1-size:46px;--g-h1-weight:400;--g-h1-lh:130%;--g-h1-ff:var(--g-font-heading,heading);--g-h2-size:41px;--g-h2-weight:400;--g-h2-lh:130%;--g-h2-ff:var(--g-font-heading,heading);--g-h3-size:52px;--g-h3-weight:400;--g-h3-lh:130%;--g-h3-ff:var(--g-font-heading,heading);--g-sh1-size:25px;--g-sh1-weight:400;--g-sh1-lh:130%;--g-sh1-ff:var(--g-font-heading,heading);--g-sh2-size:18px;--g-sh2-weight:400;--g-sh2-lh:130%;--g-sh2-ff:var(--g-font-heading,heading);--g-sh3-size:32px;--g-sh3-weight:400;--g-sh3-lh:130%;--g-sh3-ff:var(--g-font-heading,heading);--g-p1-size:16px;--g-p1-lh:180%;--g-p1-weight:400;--g-p1-ff:var(--g-font-body,body);--g-p2-size:14px;--g-p2-weight:400;--g-p2-lh:180%;--g-p2-ff:var(--g-font-body,body);--g-p3-size:10px;--g-p3-weight:400;--g-p3-lh:180%;--g-p3-ff:var(--g-font-body,body);--g-s-xxs:2px;--g-s-xs:4px;--g-s-s:8px;--g-s-m:12px;--g-s-l:16px;--g-s-xl:24px;--g-s-2xl:32px;--g-s-3xl:48px;--g-s-4xl:80px;--g-s-5xl:112px;--g-ct-w:1200px;--g-ct-p:16px;--g-font-body:"Simply-ChocolateRegular";--g-font-heading:"Simply-ChocolateBlack";--g-font-code:sans-serif;--g-theme-font:[object Object];--g-c-brand:#121212;--g-c-highlight:#4d4d4d;--g-c-text-1:#4d4d4d;--g-c-text-2:#121212;--g-c-text-3:#fff;--g-c-bg-1:#e2e2e2;--g-c-bg-2:#f3f3f3;--g-c-bg-3:#fff;--g-c-line-1:#ececec;--g-c-line-2:#7d7d7d;--g-c-line-3:#121212;--g-c-success:#428445;--g-c-error:#ea3335;--g-c-warning:#f2a73b;--g-c-info:#1890ff;--g-color-my-colors-0:#e2e2e2;--g-color-my-colors-1:#000;--g-color-my-colors-2:#121212;--g-color-my-colors-3:#4f4f4f;--g-color-my-colors-4:#e2e2e2;--g-color-my-colors-5:#fff;--g-color-my-colors-6:#334fb4;--g-color-color-index-change:0;--g-color-theme-colors-0:#e2e2e2;--g-color-theme-colors-1:#000;--g-color-theme-colors-2:#121212;--g-color-theme-colors-3:#4f4f4f;--g-color-theme-colors-4:#e2e2e2;--g-color-theme-colors-5:#fff;--g-color-theme-colors-6:#334fb4;--g-color-recent-gradient-colors-0:linear-gradient(130deg,#fff,#fff);--g-color-gradient-index-change:0;--g-radius-small:3px;--g-radius-medium:6px;--g-radius-large:16px}@media (max-width:1024px){.gps{--g-h1-size:46px;--g-h1-ff:var(--g-font-heading,heading);--g-h1-weight:400;--g-h2-size:41px;--g-h3-size:52px;--g-h3-ff:var(--g-font-heading,heading);--g-h3-weight:400;--g-sh1-size:25px;--g-sh2-size:18px;--g-sh3-size:32px;--g-p1-size:16px;--g-p1-lh:180%;--g-p2-size:14px;--g-p3-size:10px;--g-ct-w:100%;--g-ct-p:16px;--g-font-body:"Simply-ChocolateRegular";--g-font-heading:"Simply-ChocolateBlack";--g-font-code:sans-serif;--g-theme-font:[object Object]}}@media (max-width:767px){.gps{--g-h1-size:41px;--g-h1-ff:var(--g-font-heading,heading);--g-h1-weight:400;--g-h2-size:36px;--g-h3-size:46px;--g-h3-ff:var(--g-font-heading,heading);--g-h3-weight:400;--g-sh1-size:23px;--g-sh2-size:16px;--g-sh3-size:29px;--g-p1-size:14px;--g-p2-size:12px;--g-p3-size:9px;--g-ct-w:100%;--g-ct-p:16px;--g-font-body:"Simply-ChocolateRegular";--g-font-heading:"Simply-ChocolateBlack";--g-font-code:sans-serif;--g-theme-font:[object Object]}}
+        @font-face {
+          font-family: 'Simply-ChocolateIngredients';
+          src: url('https://files.gempages.net/578847762334876553-aa4a77dd-baf5-43f3-bb6b-15653b8a6898.ttf?v=1758693856185') format('truetype');
+          font-style: normal;
+          font-weight: 400;
+          font-display: swap;
+        }
+	
+
+        @font-face {
+          font-family: 'Simply-ChocolateRegular';
+          src: url('https://files.gempages.net/578847762334876553-514c9dab-a982-4777-81b8-07ea81aa8ba0.ttf?v=1758693856220') format('truetype');
+          font-style: normal;
+          font-weight: 400;
+          font-display: swap;
+        }
+	
+
+        @font-face {
+          font-family: 'Simply-ChocolateCOMP';
+          src: url('https://files.gempages.net/578847762334876553-5f4ee031-cd9f-4888-b989-fbf8a7d5d8e1.ttf?v=1758693856215') format('truetype');
+          font-style: normal;
+          font-weight: 400;
+          font-display: swap;
+        }
+	
+
+        @font-face {
+          font-family: 'Simply-ChocolateBold';
+          src: url('https://files.gempages.net/578847762334876553-9e4c32e2-a250-4b39-8eba-f97305af08d0.ttf?v=1758693856184') format('truetype');
+          font-style: normal;
+          font-weight: 400;
+          font-display: swap;
+        }
+	
+
+        @font-face {
+          font-family: 'Simply-ChocolateThin';
+          src: url('https://files.gempages.net/578847762334876553-a699eb9f-aae1-4295-815a-bf15823747e1.ttf?v=1758693856218') format('truetype');
+          font-style: normal;
+          font-weight: 400;
+          font-display: swap;
+        }
+	
+
+        @font-face {
+          font-family: 'Simply-ChocolateCOMPBold';
+          src: url('https://files.gempages.net/578847762334876553-b900ca77-932a-4bba-a62b-aea0509d583a.ttf?v=1758693856218') format('truetype');
+          font-style: normal;
+          font-weight: 400;
+          font-display: swap;
+        }
+	
+
+        @font-face {
+          font-family: 'Simply-ChocolateBlack';
+          src: url('https://files.gempages.net/578847762334876553-bb95404b-1808-4bbb-8c80-69315b422819.ttf?v=1758693856185') format('truetype');
+          font-style: normal;
+          font-weight: 400;
+          font-display: swap;
+        }
+	
+
+        @font-face {
+          font-family: 'Simply-ChocolateLight';
+          src: url('https://files.gempages.net/578847762334876553-aca3856f-1564-4ba1-9c73-d4249be8b74f.ttf?v=1758693856218') format('truetype');
+          font-style: normal;
+          font-weight: 400;
+          font-display: swap;
+        }
+	

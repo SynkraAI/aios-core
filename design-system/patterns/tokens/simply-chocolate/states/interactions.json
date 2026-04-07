@@ -1,0 +1,1486 @@
+{
+  "url": "https://simplychocolate.dk",
+  "name": "simply-chocolate",
+  "timestamp": "2026-04-01T14:02:54.698Z",
+  "totalElements": 50,
+  "elementsWithStates": 29,
+  "interactions": [
+    {
+      "tag": "a",
+      "text": "Om cookies",
+      "classes": "coi-banner__policy",
+      "selector": "a.coi-banner__policy",
+      "baseStyles": {
+        "color": "rgb(35, 73, 35)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(221, 221, 221)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline",
+        "outline": "rgb(35, 73, 35) none 0px",
+        "outlineColor": "rgb(35, 73, 35)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "outline": {
+            "from": "rgb(35, 73, 35) none 0px",
+            "to": "rgb(0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(35, 73, 35)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Googles privatlivspolitik",
+      "classes": "coi-banner__google-privacy-policy",
+      "selector": "a.coi-banner__google-privacy-policy",
+      "baseStyles": {
+        "color": "rgb(35, 73, 35)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(221, 221, 221)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline",
+        "outline": "rgb(35, 73, 35) none 0px",
+        "outlineColor": "rgb(35, 73, 35)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "outline": {
+            "from": "rgb(35, 73, 35) none 0px",
+            "to": "rgb(0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(35, 73, 35)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Spring til indhold",
+      "classes": "skip-to-content sr-only",
+      "selector": "a.skip-to-content.sr-only",
+      "baseStyles": {
+        "color": "rgb(28, 28, 28)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(221, 221, 221)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(28, 28, 28) none 0px",
+        "outlineColor": "rgb(28, 28, 28)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "color": {
+            "from": "rgb(28, 28, 28)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(28, 28, 28) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(28, 28, 28)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Påske",
+      "classes": "block h6 font-bold",
+      "selector": "a.block.h6.font-bold",
+      "baseStyles": {
+        "color": "rgb(28, 28, 28)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(221, 221, 221)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(28, 28, 28) none 0px",
+        "outlineColor": "rgb(28, 28, 28)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "outline": {
+            "from": "rgb(28, 28, 28) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(28, 28, 28)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Konfirmationschokolade",
+      "classes": "block h6 font-bold",
+      "selector": "a.block.h6.font-bold",
+      "baseStyles": {
+        "color": "rgb(28, 28, 28)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(221, 221, 221)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(28, 28, 28) none 0px",
+        "outlineColor": "rgb(28, 28, 28)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "outline": {
+            "from": "rgb(28, 28, 28) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(28, 28, 28)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Erhverv",
+      "classes": "block h6 font-bold",
+      "selector": "a.block.h6.font-bold",
+      "baseStyles": {
+        "color": "rgb(28, 28, 28)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(221, 221, 221)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(28, 28, 28) none 0px",
+        "outlineColor": "rgb(28, 28, 28)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "outline": {
+            "from": "rgb(28, 28, 28) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(28, 28, 28)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Påske",
+      "classes": "",
+      "selector": "a",
+      "baseStyles": {
+        "color": "rgb(28, 28, 28)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(221, 221, 221)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(28, 28, 28) none 0px",
+        "outlineColor": "rgb(28, 28, 28)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "outline": {
+            "from": "rgb(28, 28, 28) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(28, 28, 28)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Læs mere her",
+      "classes": "link",
+      "selector": "a.link",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "linear-gradient(to right, rgb(0, 0, 0), rgb(0, 0, 0))",
+        "borderColor": "rgb(203, 203, 203)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "background-size 0.3s ease-in-out",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Gå på opdagelse i vores gaveunivers",
+      "classes": "",
+      "selector": "a",
+      "baseStyles": {
+        "color": "rgb(28, 28, 28)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "linear-gradient(to right, rgb(28, 28, 28), rgb(28, 28, 28))",
+        "borderColor": "rgb(221, 221, 221)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(28, 28, 28) none 0px",
+        "outlineColor": "rgb(28, 28, 28)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "background-size 0.3s ease-in-out",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "outline": {
+            "from": "rgb(28, 28, 28) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(28, 28, 28)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Til værtinden",
+      "classes": "media-grid__item",
+      "selector": "a.media-grid__item",
+      "baseStyles": {
+        "color": "rgb(28, 28, 28)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(221, 221, 221)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(28, 28, 28) none 0px",
+        "outlineColor": "rgb(28, 28, 28)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "color": {
+            "from": "rgb(28, 28, 28)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "backgroundImage": {
+            "from": "none",
+            "to": "linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255))"
+          },
+          "borderColor": {
+            "from": "rgb(221, 221, 221)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderWidth": {
+            "from": "0px",
+            "to": "1px"
+          },
+          "borderRadius": {
+            "from": "0px",
+            "to": "4px"
+          },
+          "outline": {
+            "from": "rgb(28, 28, 28) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(28, 28, 28)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          },
+          "transition": {
+            "from": "all",
+            "to": "background-size 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86), background-position 0.45s steps(1), color 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86), border 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86)"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Til festen",
+      "classes": "media-grid__item",
+      "selector": "a.media-grid__item",
+      "baseStyles": {
+        "color": "rgb(28, 28, 28)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(221, 221, 221)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(28, 28, 28) none 0px",
+        "outlineColor": "rgb(28, 28, 28)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "color": {
+            "from": "rgb(28, 28, 28)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "backgroundImage": {
+            "from": "none",
+            "to": "linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255))"
+          },
+          "borderColor": {
+            "from": "rgb(221, 221, 221)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderWidth": {
+            "from": "0px",
+            "to": "1px"
+          },
+          "borderRadius": {
+            "from": "0px",
+            "to": "4px"
+          },
+          "outline": {
+            "from": "rgb(28, 28, 28) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(28, 28, 28)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          },
+          "transition": {
+            "from": "all",
+            "to": "background-size 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86), background-position 0.45s steps(1), color 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86), border 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86)"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Til Fødselsdagen",
+      "classes": "media-grid__item",
+      "selector": "a.media-grid__item",
+      "baseStyles": {
+        "color": "rgb(28, 28, 28)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(221, 221, 221)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(28, 28, 28) none 0px",
+        "outlineColor": "rgb(28, 28, 28)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "color": {
+            "from": "rgb(28, 28, 28)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "backgroundImage": {
+            "from": "none",
+            "to": "linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255))"
+          },
+          "borderColor": {
+            "from": "rgb(221, 221, 221)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "borderWidth": {
+            "from": "0px",
+            "to": "1px"
+          },
+          "borderRadius": {
+            "from": "0px",
+            "to": "4px"
+          },
+          "outline": {
+            "from": "rgb(28, 28, 28) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(28, 28, 28)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          },
+          "transition": {
+            "from": "all",
+            "to": "background-size 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86), background-position 0.45s steps(1), color 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86), border 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86)"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "product-card__media",
+      "selector": "a.product-card__media",
+      "baseStyles": {
+        "color": "rgb(28, 28, 28)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(221, 221, 221)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(28, 28, 28) none 0px",
+        "outlineColor": "rgb(28, 28, 28)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(28, 28, 28)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(221, 221, 221)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(28, 28, 28) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(28, 28, 28)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(28, 28, 28)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(221, 221, 221)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(28, 28, 28) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(28, 28, 28)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Chokolade Gaveæske 400g - The Heart Box",
+      "classes": "product-title  ",
+      "selector": "a.product-title",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(221, 221, 221)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "product-card__media",
+      "selector": "a.product-card__media",
+      "baseStyles": {
+        "color": "rgb(28, 28, 28)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(221, 221, 221)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(28, 28, 28) none 0px",
+        "outlineColor": "rgb(28, 28, 28)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(28, 28, 28)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(221, 221, 221)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(28, 28, 28) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(28, 28, 28)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(28, 28, 28)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(221, 221, 221)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(28, 28, 28) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(28, 28, 28)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Chokolade Gaveæske 270g - Yes, you can buy love",
+      "classes": "product-title  ",
+      "selector": "a.product-title",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(221, 221, 221)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "product-card__media",
+      "selector": "a.product-card__media",
+      "baseStyles": {
+        "color": "rgb(28, 28, 28)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(221, 221, 221)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(28, 28, 28) none 0px",
+        "outlineColor": "rgb(28, 28, 28)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(28, 28, 28)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(221, 221, 221)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(28, 28, 28) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(28, 28, 28)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(28, 28, 28)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(221, 221, 221)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(28, 28, 28) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(28, 28, 28)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Chokolade Gaveæske 180g - Instead of flowers",
+      "classes": "product-title  ",
+      "selector": "a.product-title",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(221, 221, 221)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "product-card__media",
+      "selector": "a.product-card__media",
+      "baseStyles": {
+        "color": "rgb(28, 28, 28)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(221, 221, 221)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(28, 28, 28) none 0px",
+        "outlineColor": "rgb(28, 28, 28)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(28, 28, 28)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(221, 221, 221)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(28, 28, 28) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(28, 28, 28)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(28, 28, 28)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(221, 221, 221)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(28, 28, 28) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(28, 28, 28)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "gaveæsker",
+      "classes": "",
+      "selector": "a",
+      "baseStyles": {
+        "color": "rgb(28, 28, 28)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "linear-gradient(to right, rgb(28, 28, 28), rgb(28, 28, 28))",
+        "borderColor": "rgb(221, 221, 221)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(28, 28, 28) none 0px",
+        "outlineColor": "rgb(28, 28, 28)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "background-size 0.3s ease-in-out",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "outline": {
+            "from": "rgb(28, 28, 28) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(28, 28, 28)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "chokoladeæsker",
+      "classes": "",
+      "selector": "a",
+      "baseStyles": {
+        "color": "rgb(28, 28, 28)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "linear-gradient(to right, rgb(28, 28, 28), rgb(28, 28, 28))",
+        "borderColor": "rgb(221, 221, 221)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(28, 28, 28) none 0px",
+        "outlineColor": "rgb(28, 28, 28)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "background-size 0.3s ease-in-out",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "outline": {
+            "from": "rgb(28, 28, 28) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(28, 28, 28)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "chokoladebarer",
+      "classes": "",
+      "selector": "a",
+      "baseStyles": {
+        "color": "rgb(28, 28, 28)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "linear-gradient(to right, rgb(28, 28, 28), rgb(28, 28, 28))",
+        "borderColor": "rgb(221, 221, 221)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(28, 28, 28) none 0px",
+        "outlineColor": "rgb(28, 28, 28)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "background-size 0.3s ease-in-out",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "outline": {
+            "from": "rgb(28, 28, 28) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(28, 28, 28)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "bites",
+      "classes": "",
+      "selector": "a",
+      "baseStyles": {
+        "color": "rgb(28, 28, 28)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "linear-gradient(to right, rgb(28, 28, 28), rgb(28, 28, 28))",
+        "borderColor": "rgb(221, 221, 221)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(28, 28, 28) none 0px",
+        "outlineColor": "rgb(28, 28, 28)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "background-size 0.3s ease-in-out",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "outline": {
+            "from": "rgb(28, 28, 28) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(28, 28, 28)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "proteinbarer med chokolade",
+      "classes": "",
+      "selector": "a",
+      "baseStyles": {
+        "color": "rgb(28, 28, 28)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "linear-gradient(to right, rgb(28, 28, 28), rgb(28, 28, 28))",
+        "borderColor": "rgb(221, 221, 221)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(28, 28, 28) none 0px",
+        "outlineColor": "rgb(28, 28, 28)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "background-size 0.3s ease-in-out",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "outline": {
+            "from": "rgb(28, 28, 28) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(28, 28, 28)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "proteinbar",
+      "classes": "",
+      "selector": "a",
+      "baseStyles": {
+        "color": "rgb(28, 28, 28)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "linear-gradient(to right, rgb(28, 28, 28), rgb(28, 28, 28))",
+        "borderColor": "rgb(221, 221, 221)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(28, 28, 28) none 0px",
+        "outlineColor": "rgb(28, 28, 28)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "background-size 0.3s ease-in-out",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "outline": {
+            "from": "rgb(28, 28, 28) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(28, 28, 28)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "limited editions",
+      "classes": "",
+      "selector": "a",
+      "baseStyles": {
+        "color": "rgb(28, 28, 28)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "linear-gradient(to right, rgb(28, 28, 28), rgb(28, 28, 28))",
+        "borderColor": "rgb(221, 221, 221)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(28, 28, 28) none 0px",
+        "outlineColor": "rgb(28, 28, 28)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "background-size 0.3s ease-in-out",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "outline": {
+            "from": "rgb(28, 28, 28) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(28, 28, 28)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "æskerne",
+      "classes": "",
+      "selector": "a",
+      "baseStyles": {
+        "color": "rgb(28, 28, 28)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "linear-gradient(to right, rgb(28, 28, 28), rgb(28, 28, 28))",
+        "borderColor": "rgb(221, 221, 221)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(28, 28, 28) none 0px",
+        "outlineColor": "rgb(28, 28, 28)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "background-size 0.3s ease-in-out",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "outline": {
+            "from": "rgb(28, 28, 28) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(28, 28, 28)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "privatlivspolitik",
+      "classes": "",
+      "selector": "a",
+      "baseStyles": {
+        "color": "rgb(0, 102, 204)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(69, 69, 69) rgb(69, 69, 69) rgb(0, 102, 204)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline",
+        "outline": "rgb(0, 102, 204) none 0px",
+        "outlineColor": "rgb(0, 102, 204)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "outline": {
+            "from": "rgb(0, 102, 204) none 0px",
+            "to": "rgb(0, 100, 205) auto 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 102, 204)",
+            "to": "rgb(0, 100, 205)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "footer__smiley",
+      "selector": "a.footer__smiley",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(69, 69, 69)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(69, 69, 69)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(69, 69, 69)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    }
+  ]
+}

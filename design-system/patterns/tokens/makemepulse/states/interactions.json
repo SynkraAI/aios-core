@@ -1,0 +1,886 @@
+{
+  "url": "https://makemepulse.com",
+  "name": "makemepulse",
+  "timestamp": "2026-04-01T13:52:08.317Z",
+  "totalElements": 47,
+  "elementsWithStates": 19,
+  "interactions": [
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "app-header__brand relative z-1 p-20 pointer-events-auto nuxt-link-exact-active nuxt-link-active",
+      "selector": "a.app-header__brand.relative.z-1.p-20.pointer-events-auto.nuxt-link-exact-active.nuxt-link-active",
+      "baseStyles": {
+        "color": "rgb(15, 15, 15)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(196, 196, 196)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(15, 15, 15) none 0px",
+        "outlineColor": "rgb(15, 15, 15)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(15, 15, 15)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(15, 15, 15) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(15, 15, 15)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(15, 15, 15)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(15, 15, 15) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(15, 15, 15)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Home",
+      "classes": "app-header__nav__menu__link block lg:p-20 lg:hover:opacity-50 nuxt-link-exact-active nuxt-link-activ",
+      "selector": "a.app-header__nav__menu__link.block.lg:p-20.lg:hover:opacity-50.nuxt-link-exact-active.nuxt-link-active",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(196, 196, 196)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s ease-in-out",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "transition": {
+            "from": "0.15s ease-in-out",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "transition": {
+            "from": "0.15s ease-in-out",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Case studies",
+      "classes": "app-header__nav__menu__link block lg:p-20 lg:hover:opacity-50",
+      "selector": "a.app-header__nav__menu__link.block.lg:p-20.lg:hover:opacity-50",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(196, 196, 196)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s ease-in-out",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "transition": {
+            "from": "0.15s ease-in-out",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "transition": {
+            "from": "0.15s ease-in-out",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "What we do",
+      "classes": "app-header__nav__menu__link block lg:p-20 lg:hover:opacity-50",
+      "selector": "a.app-header__nav__menu__link.block.lg:p-20.lg:hover:opacity-50",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(196, 196, 196)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s ease-in-out",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "transition": {
+            "from": "0.15s ease-in-out",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "transition": {
+            "from": "0.15s ease-in-out",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Who we are",
+      "classes": "app-header__nav__menu__link block lg:p-20 lg:hover:opacity-50",
+      "selector": "a.app-header__nav__menu__link.block.lg:p-20.lg:hover:opacity-50",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(196, 196, 196)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s ease-in-out",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "transition": {
+            "from": "0.15s ease-in-out",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "transition": {
+            "from": "0.15s ease-in-out",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "News",
+      "classes": "app-header__nav__menu__link block lg:p-20 lg:hover:opacity-50",
+      "selector": "a.app-header__nav__menu__link.block.lg:p-20.lg:hover:opacity-50",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(196, 196, 196)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s ease-in-out",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "transition": {
+            "from": "0.15s ease-in-out",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "transition": {
+            "from": "0.15s ease-in-out",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Contact",
+      "classes": "app-header__nav__menu__link block lg:p-20 lg:hover:opacity-50",
+      "selector": "a.app-header__nav__menu__link.block.lg:p-20.lg:hover:opacity-50",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(196, 196, 196)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s ease-in-out",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "transition": {
+            "from": "0.15s ease-in-out",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "transition": {
+            "from": "0.15s ease-in-out",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "See all our projects",
+      "classes": "see-all inline-block image-trail-text hover:none",
+      "selector": "a.see-all.inline-block.image-trail-text.hover:none",
+      "baseStyles": {
+        "color": "rgb(15, 15, 15)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(196, 196, 196)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(15, 15, 15) none 0px",
+        "outlineColor": "rgb(15, 15, 15)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s ease-in-out",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "transition": {
+            "from": "0.15s ease-in-out",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "transition": {
+            "from": "0.15s ease-in-out",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Discover makemeplay.",
+      "classes": "cta",
+      "selector": "a.cta",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(196, 196, 196)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "opacity": {
+            "from": "1",
+            "to": "0"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "❌⭕❌ is live!",
+      "classes": "inline-block items-center link-big image-trail-text hover:none split-text split-text--lines",
+      "selector": "a.inline-block.items-center.link-big.image-trail-text.hover:none.split-text.split-text--lines",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(196, 196, 196)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s ease-in-out",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "transition": {
+            "from": "0.15s ease-in-out",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "transition": {
+            "from": "0.15s ease-in-out",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Browse all articles",
+      "classes": "browse-all inline-block text-primary image-trail-text hover:none",
+      "selector": "a.browse-all.inline-block.text-primary.image-trail-text.hover:none",
+      "baseStyles": {
+        "color": "rgb(15, 15, 15)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(196, 196, 196)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(15, 15, 15) none 0px",
+        "outlineColor": "rgb(15, 15, 15)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s ease-in-out",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "transition": {
+            "from": "0.15s ease-in-out",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "transition": {
+            "from": "0.15s ease-in-out",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "contact form",
+      "classes": "app-footer__contact-link inline-block hover:none",
+      "selector": "a.app-footer__contact-link.inline-block.hover:none",
+      "baseStyles": {
+        "color": "rgb(15, 15, 15)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(196, 196, 196)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(15, 15, 15) none 0px",
+        "outlineColor": "rgb(15, 15, 15)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s ease-in-out",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "transition": {
+            "from": "0.15s ease-in-out",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "transition": {
+            "from": "0.15s ease-in-out",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "",
+      "classes": "app-header__burger relative z-1 flex justify-center items-center lg:self-start w-64 h-64 lg:w-auto l",
+      "selector": "button.app-header__burger.relative.z-1.flex.justify-center.items-center.lg:self-start.w-64.h-64.lg:w-auto.lg:h-auto.lg:-mr-20.p-20.lg:p-40.text-primary.focus:outline-none.pointer-events-auto.xl:pointer-events-none.touch:pointer-events-auto",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(196, 196, 196)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.166s linear",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "color 0.166s linear",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "color 0.166s linear",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "input",
+      "text": "",
+      "classes": "form-control",
+      "selector": "#input-EMAIL-0",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(0, 0, 0)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "text",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "borderColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(196, 196, 196)"
+          },
+          "transform": {
+            "from": "matrix(1, 0, 0, 1, 0, 0)",
+            "to": "none"
+          },
+          "cursor": {
+            "from": "text",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "borderColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(196, 196, 196)"
+          },
+          "transform": {
+            "from": "matrix(1, 0, 0, 1, 0, 0)",
+            "to": "none"
+          },
+          "cursor": {
+            "from": "text",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "input",
+      "text": "",
+      "classes": "form-control",
+      "selector": "#input-EMAIL-1",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(0, 0, 0)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "text",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "borderColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(196, 196, 196)"
+          },
+          "transform": {
+            "from": "matrix(1, 0, 0, 1, 0, 0)",
+            "to": "none"
+          },
+          "cursor": {
+            "from": "text",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "borderColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(196, 196, 196)"
+          },
+          "transform": {
+            "from": "matrix(1, 0, 0, 1, 0, 0)",
+            "to": "none"
+          },
+          "cursor": {
+            "from": "text",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "iframe",
+      "text": "",
+      "classes": "",
+      "selector": "iframe",
+      "baseStyles": {
+        "color": "rgb(15, 15, 15)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(196, 196, 196)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(15, 15, 15) none 0px",
+        "outlineColor": "rgb(15, 15, 15)",
+        "outlineWidth": "0px",
+        "cursor": "auto",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(15, 15, 15)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(15, 15, 15) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(15, 15, 15)",
+            "to": "rgb(0, 0, 0)"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(15, 15, 15)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(15, 15, 15) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(15, 15, 15)",
+            "to": "rgb(0, 0, 0)"
+          }
+        }
+      }
+    },
+    {
+      "tag": "span",
+      "text": "Discover makemeplay.",
+      "classes": "cta__label",
+      "selector": "span.cta__label",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(196, 196, 196)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "opacity 0.333333s cubic-bezier(0.26, 1, 0.48, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "transition": {
+            "from": "opacity 0.333333s cubic-bezier(0.26, 1, 0.48, 1)",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "transition": {
+            "from": "opacity 0.333333s cubic-bezier(0.26, 1, 0.48, 1)",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "span",
+      "text": "",
+      "classes": "cta__arrow text-black",
+      "selector": "span.cta__arrow.text-black",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(196, 196, 196)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "span",
+      "text": "",
+      "classes": "cta__arrow__icon lottie-container theme-inherit h-64 w-64",
+      "selector": "span.cta__arrow__icon.lottie-container.theme-inherit.h-64.w-64",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(196, 196, 196)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    }
+  ]
+}

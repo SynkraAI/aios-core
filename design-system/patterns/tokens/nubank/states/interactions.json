@@ -1,0 +1,2236 @@
+{
+  "url": "https://nubank.com.br",
+  "name": "nubank",
+  "timestamp": "2026-04-01T12:08:22.857Z",
+  "totalElements": 50,
+  "elementsWithStates": 41,
+  "interactions": [
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "chakra-link css-14tvtde",
+      "selector": "a.chakra-link.css-14tvtde",
+      "baseStyles": {
+        "color": "rgb(130, 10, 209)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(130, 10, 209)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(130, 10, 209) none 0px",
+        "outlineColor": "rgb(130, 10, 209)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(130, 10, 209) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(130, 10, 209) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Nubank",
+      "classes": "chakra-link css-1nnowax",
+      "selector": "#menu-item-XzQ74RZZRWiWoHe1pkNHlA",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(0, 0, 0)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(130, 10, 209)"
+          },
+          "borderColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(130, 10, 209)"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgb(130, 10, 209) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(130, 10, 209)"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(23, 9, 44)"
+          },
+          "borderColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(23, 9, 44)"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Nubank Ultravioleta",
+      "classes": "chakra-link css-1nnowax",
+      "selector": "#menu-item-CRyWmgP2TSiB9vvA64frHA",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(0, 0, 0)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(130, 10, 209)"
+          },
+          "borderColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(130, 10, 209)"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgb(130, 10, 209) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(130, 10, 209)"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(23, 9, 44)"
+          },
+          "borderColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(23, 9, 44)"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Nu Empresas",
+      "classes": "chakra-link css-1nnowax",
+      "selector": "#menu-item-Ty7YluYdR76t0LIX7t_Tyg",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(0, 0, 0)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(130, 10, 209)"
+          },
+          "borderColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(130, 10, 209)"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgb(130, 10, 209) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(130, 10, 209)"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(23, 9, 44)"
+          },
+          "borderColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(23, 9, 44)"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Segurança",
+      "classes": "chakra-link css-1nnowax",
+      "selector": "#menu-item-euYMQmv8Q06OO2I2FDKlAg",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(0, 0, 0)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(130, 10, 209)"
+          },
+          "borderColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(130, 10, 209)"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgb(130, 10, 209) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(130, 10, 209)"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(23, 9, 44)"
+          },
+          "borderColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(23, 9, 44)"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Login Empresas",
+      "classes": "chakra-link css-1gr3t7a",
+      "selector": "a.chakra-link.css-1gr3t7a",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(202, 202, 202, 0.3)",
+        "backgroundImage": "none",
+        "borderColor": "rgba(0, 0, 0, 0) rgb(0, 0, 0)",
+        "borderWidth": "4px 0px",
+        "borderRadius": "999px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) solid 2px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "2px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgba(202, 202, 202, 0.3)",
+            "to": "rgba(202, 202, 202, 0.5)"
+          },
+          "borderColor": {
+            "from": "rgba(0, 0, 0, 0) rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0)"
+          }
+        },
+        "focus": {
+          "borderColor": {
+            "from": "rgba(0, 0, 0, 0) rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) solid 2px",
+            "to": "rgb(130, 10, 209) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(130, 10, 209)"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Conheça o Cartão Nubank",
+      "classes": "chakra-link css-12ltou6",
+      "selector": "a.chakra-link.css-12ltou6",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(130, 10, 209)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "999px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) solid 2px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "2px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(73, 11, 117)"
+          },
+          "borderColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          }
+        },
+        "focus": {
+          "borderColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderWidth": {
+            "from": "0px",
+            "to": "4px"
+          },
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) solid 2px",
+            "to": "rgb(255, 255, 255) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Conheça as Caixinhas do Nubank",
+      "classes": "chakra-link css-1qewbo6",
+      "selector": "a.chakra-link.css-1qewbo6",
+      "baseStyles": {
+        "color": "rgb(130, 10, 209)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(130, 10, 209)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(130, 10, 209) none 0px",
+        "outlineColor": "rgb(130, 10, 209)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "color": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(23, 9, 44)"
+          },
+          "borderColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(23, 9, 44)"
+          },
+          "outline": {
+            "from": "rgb(130, 10, 209) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Me Roubaram",
+      "classes": "chakra-linkbox__overlay css-1hnz6hu",
+      "selector": "a.chakra-linkbox__overlay.css-1hnz6hu",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(0, 0, 0)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(130, 10, 209)"
+          },
+          "borderColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(130, 10, 209)"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgb(130, 10, 209) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgb(130, 10, 209)"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "chakra-link css-ulq6dt",
+      "selector": "a.chakra-link.css-ulq6dt",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(202, 202, 202, 0.3)",
+        "backgroundImage": "none",
+        "borderColor": "rgba(0, 0, 0, 0)",
+        "borderWidth": "4px",
+        "borderRadius": "999px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) solid 2px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "2px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgba(202, 202, 202, 0.3)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderWidth": {
+            "from": "4px",
+            "to": "0px"
+          },
+          "borderRadius": {
+            "from": "999px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) solid 2px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "2px",
+            "to": "0px"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "backgroundColor": {
+            "from": "rgba(202, 202, 202, 0.3)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderWidth": {
+            "from": "4px",
+            "to": "0px"
+          },
+          "borderRadius": {
+            "from": "999px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) solid 2px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "2px",
+            "to": "0px"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "chakra-link css-ulq6dt",
+      "selector": "a.chakra-link.css-ulq6dt",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(202, 202, 202, 0.3)",
+        "backgroundImage": "none",
+        "borderColor": "rgba(0, 0, 0, 0)",
+        "borderWidth": "4px",
+        "borderRadius": "999px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) solid 2px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "2px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgba(202, 202, 202, 0.3)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderWidth": {
+            "from": "4px",
+            "to": "0px"
+          },
+          "borderRadius": {
+            "from": "999px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) solid 2px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "2px",
+            "to": "0px"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "backgroundColor": {
+            "from": "rgba(202, 202, 202, 0.3)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderWidth": {
+            "from": "4px",
+            "to": "0px"
+          },
+          "borderRadius": {
+            "from": "999px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) solid 2px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "2px",
+            "to": "0px"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "chakra-link css-ulq6dt",
+      "selector": "a.chakra-link.css-ulq6dt",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(202, 202, 202, 0.3)",
+        "backgroundImage": "none",
+        "borderColor": "rgba(0, 0, 0, 0)",
+        "borderWidth": "4px",
+        "borderRadius": "999px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) solid 2px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "2px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgba(202, 202, 202, 0.3)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderWidth": {
+            "from": "4px",
+            "to": "0px"
+          },
+          "borderRadius": {
+            "from": "999px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) solid 2px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "2px",
+            "to": "0px"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "backgroundColor": {
+            "from": "rgba(202, 202, 202, 0.3)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderWidth": {
+            "from": "4px",
+            "to": "0px"
+          },
+          "borderRadius": {
+            "from": "999px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) solid 2px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "2px",
+            "to": "0px"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "chakra-link css-ulq6dt",
+      "selector": "a.chakra-link.css-ulq6dt",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(202, 202, 202, 0.3)",
+        "backgroundImage": "none",
+        "borderColor": "rgba(0, 0, 0, 0)",
+        "borderWidth": "4px",
+        "borderRadius": "999px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) solid 2px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "2px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgba(202, 202, 202, 0.3)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderWidth": {
+            "from": "4px",
+            "to": "0px"
+          },
+          "borderRadius": {
+            "from": "999px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) solid 2px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "2px",
+            "to": "0px"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "backgroundColor": {
+            "from": "rgba(202, 202, 202, 0.3)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderWidth": {
+            "from": "4px",
+            "to": "0px"
+          },
+          "borderRadius": {
+            "from": "999px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) solid 2px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "2px",
+            "to": "0px"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Conheça nossas soluções",
+      "classes": "chakra-link css-nwy9u9",
+      "selector": "a.chakra-link.css-nwy9u9",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(130, 10, 209)",
+        "backgroundImage": "none",
+        "borderColor": "rgba(0, 0, 0, 0)",
+        "borderWidth": "4px",
+        "borderRadius": "999px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) solid 2px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "2px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(73, 11, 117)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) solid 2px",
+            "to": "rgb(255, 255, 255) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Ir para o Blog do Nu",
+      "classes": "chakra-link css-hf89t",
+      "selector": "a.chakra-link.css-hf89t",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(130, 10, 209)",
+        "backgroundImage": "none",
+        "borderColor": "rgba(0, 0, 0, 0)",
+        "borderWidth": "4px",
+        "borderRadius": "999px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0) solid 2px",
+        "outlineColor": "rgba(0, 0, 0, 0)",
+        "outlineWidth": "2px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(73, 11, 117)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgba(0, 0, 0, 0) solid 2px",
+            "to": "rgb(255, 255, 255) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Leia aqui",
+      "classes": "chakra-link css-3f5w4c",
+      "selector": "a.chakra-link.css-3f5w4c",
+      "baseStyles": {
+        "color": "rgb(130, 10, 209)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(130, 10, 209)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(130, 10, 209) none 0px",
+        "outlineColor": "rgb(130, 10, 209)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(62, 24, 116)"
+          },
+          "borderColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(62, 24, 116)"
+          },
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          },
+          "outline": {
+            "from": "rgb(130, 10, 209) none 0px",
+            "to": "rgb(62, 24, 116) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(62, 24, 116)"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(23, 9, 44)"
+          },
+          "borderColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(23, 9, 44)"
+          },
+          "outline": {
+            "from": "rgb(130, 10, 209) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Leia aqui",
+      "classes": "chakra-link css-3f5w4c",
+      "selector": "a.chakra-link.css-3f5w4c",
+      "baseStyles": {
+        "color": "rgb(130, 10, 209)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(130, 10, 209)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(130, 10, 209) none 0px",
+        "outlineColor": "rgb(130, 10, 209)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(62, 24, 116)"
+          },
+          "borderColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(62, 24, 116)"
+          },
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          },
+          "outline": {
+            "from": "rgb(130, 10, 209) none 0px",
+            "to": "rgb(62, 24, 116) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(62, 24, 116)"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(23, 9, 44)"
+          },
+          "borderColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(23, 9, 44)"
+          },
+          "outline": {
+            "from": "rgb(130, 10, 209) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Leia aqui",
+      "classes": "chakra-link css-3f5w4c",
+      "selector": "a.chakra-link.css-3f5w4c",
+      "baseStyles": {
+        "color": "rgb(130, 10, 209)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(130, 10, 209)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(130, 10, 209) none 0px",
+        "outlineColor": "rgb(130, 10, 209)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(62, 24, 116)"
+          },
+          "borderColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(62, 24, 116)"
+          },
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          },
+          "outline": {
+            "from": "rgb(130, 10, 209) none 0px",
+            "to": "rgb(62, 24, 116) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(62, 24, 116)"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(23, 9, 44)"
+          },
+          "borderColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(23, 9, 44)"
+          },
+          "outline": {
+            "from": "rgb(130, 10, 209) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Leia aqui",
+      "classes": "chakra-link css-3f5w4c",
+      "selector": "a.chakra-link.css-3f5w4c",
+      "baseStyles": {
+        "color": "rgb(130, 10, 209)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(130, 10, 209)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(130, 10, 209) none 0px",
+        "outlineColor": "rgb(130, 10, 209)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(62, 24, 116)"
+          },
+          "borderColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(62, 24, 116)"
+          },
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          },
+          "outline": {
+            "from": "rgb(130, 10, 209) none 0px",
+            "to": "rgb(62, 24, 116) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(62, 24, 116)"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(23, 9, 44)"
+          },
+          "borderColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(23, 9, 44)"
+          },
+          "outline": {
+            "from": "rgb(130, 10, 209) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Leia aqui",
+      "classes": "chakra-link css-3f5w4c",
+      "selector": "a.chakra-link.css-3f5w4c",
+      "baseStyles": {
+        "color": "rgb(130, 10, 209)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(130, 10, 209)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(130, 10, 209) none 0px",
+        "outlineColor": "rgb(130, 10, 209)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(62, 24, 116)"
+          },
+          "borderColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(62, 24, 116)"
+          },
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          },
+          "outline": {
+            "from": "rgb(130, 10, 209) none 0px",
+            "to": "rgb(62, 24, 116) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(62, 24, 116)"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(23, 9, 44)"
+          },
+          "borderColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(23, 9, 44)"
+          },
+          "outline": {
+            "from": "rgb(130, 10, 209) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Leia aqui",
+      "classes": "chakra-link css-3f5w4c",
+      "selector": "a.chakra-link.css-3f5w4c",
+      "baseStyles": {
+        "color": "rgb(130, 10, 209)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(130, 10, 209)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(130, 10, 209) none 0px",
+        "outlineColor": "rgb(130, 10, 209)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(62, 24, 116)"
+          },
+          "borderColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(62, 24, 116)"
+          },
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          },
+          "outline": {
+            "from": "rgb(130, 10, 209) none 0px",
+            "to": "rgb(62, 24, 116) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(62, 24, 116)"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(23, 9, 44)"
+          },
+          "borderColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(23, 9, 44)"
+          },
+          "outline": {
+            "from": "rgb(130, 10, 209) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Leia aqui",
+      "classes": "chakra-link css-3f5w4c",
+      "selector": "a.chakra-link.css-3f5w4c",
+      "baseStyles": {
+        "color": "rgb(130, 10, 209)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(130, 10, 209)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(130, 10, 209) none 0px",
+        "outlineColor": "rgb(130, 10, 209)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(62, 24, 116)"
+          },
+          "borderColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(62, 24, 116)"
+          },
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          },
+          "outline": {
+            "from": "rgb(130, 10, 209) none 0px",
+            "to": "rgb(62, 24, 116) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(62, 24, 116)"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(23, 9, 44)"
+          },
+          "borderColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(23, 9, 44)"
+          },
+          "outline": {
+            "from": "rgb(130, 10, 209) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Política de Privacidade",
+      "classes": "chakra-link css-77ea5q",
+      "selector": "a.chakra-link.css-77ea5q",
+      "baseStyles": {
+        "color": "rgb(130, 10, 209)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(130, 10, 209)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(130, 10, 209) none 0px",
+        "outlineColor": "rgb(130, 10, 209)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "color": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(23, 9, 44)"
+          },
+          "borderColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(23, 9, 44)"
+          },
+          "outline": {
+            "from": "rgb(130, 10, 209) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(130, 10, 209)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Política de privacidade",
+      "classes": "chakra-link css-1czu6z",
+      "selector": "a.chakra-link.css-1czu6z",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Política de segurança",
+      "classes": "chakra-link css-1czu6z",
+      "selector": "a.chakra-link.css-1czu6z",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Termos de Uso",
+      "classes": "chakra-link css-1czu6z",
+      "selector": "a.chakra-link.css-1czu6z",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Ética, Compliance e ESG",
+      "classes": "chakra-link css-1czu6z",
+      "selector": "a.chakra-link.css-1czu6z",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Contratos",
+      "classes": "chakra-link css-1czu6z",
+      "selector": "a.chakra-link.css-1czu6z",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Sobre investimentos",
+      "classes": "chakra-link css-1czu6z",
+      "selector": "a.chakra-link.css-1czu6z",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Relatórios financeiros",
+      "classes": "chakra-link css-1czu6z",
+      "selector": "a.chakra-link.css-1czu6z",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Convenção de Boletos",
+      "classes": "chakra-link css-1czu6z",
+      "selector": "a.chakra-link.css-1czu6z",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "PLD/CFTP",
+      "classes": "chakra-link css-1czu6z",
+      "selector": "a.chakra-link.css-1czu6z",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Dados abertos",
+      "classes": "chakra-link css-1czu6z",
+      "selector": "a.chakra-link.css-1czu6z",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "SCR",
+      "classes": "chakra-link css-1czu6z",
+      "selector": "a.chakra-link.css-1czu6z",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "PRSAC",
+      "classes": "chakra-link css-1czu6z",
+      "selector": "a.chakra-link.css-1czu6z",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Cessão de Créditos (Desenrola)",
+      "classes": "chakra-link css-1czu6z",
+      "selector": "a.chakra-link.css-1czu6z",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Blog",
+      "classes": "chakra-link css-1czu6z",
+      "selector": "a.chakra-link.css-1czu6z",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Comunidade do Nu",
+      "classes": "chakra-link css-1czu6z",
+      "selector": "a.chakra-link.css-1czu6z",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Nu Asset",
+      "classes": "chakra-link css-1czu6z",
+      "selector": "a.chakra-link.css-1czu6z",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "InvestNews",
+      "classes": "chakra-link css-1czu6z",
+      "selector": "a.chakra-link.css-1czu6z",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Nubank México",
+      "classes": "chakra-link css-1czu6z",
+      "selector": "a.chakra-link.css-1czu6z",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "textDecoration": {
+            "from": "none",
+            "to": "underline"
+          }
+        }
+      }
+    }
+  ]
+}

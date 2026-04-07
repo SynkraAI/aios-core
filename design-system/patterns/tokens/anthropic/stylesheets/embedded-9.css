@@ -1,0 +1,29 @@
+
+    .rotating-text {
+      position: relative;
+      display: inline-block;
+      vertical-align: baseline;
+    }
+    .rotating-text-item {
+      display: inline-block;
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 500ms cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .rotating-text-item.exit {
+      opacity: 0;
+      transform: translateY(-16px);
+    }
+    .rotating-text-item.enter {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .rotating-text-item {
+        transition: none !important;
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+      }
+    }
+  

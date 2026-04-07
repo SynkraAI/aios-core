@@ -1,0 +1,58 @@
+[
+  {
+    "type": "button",
+    "count": 1,
+    "samples": [
+      {
+        "tag": "button",
+        "classes": [
+          "flex",
+          "items-center",
+          "gap-2",
+          "px-4",
+          "py-2"
+        ],
+        "rect": {
+          "x": 647,
+          "y": 625,
+          "width": 146,
+          "height": 42
+        },
+        "styles": {
+          "display": "flex",
+          "background": "rgb(247, 25, 99)",
+          "color": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "padding": "8px 16px 8px 16px",
+          "borderRadius": "16px"
+        }
+      }
+    ]
+  },
+  {
+    "type": "notification",
+    "count": 1,
+    "samples": [
+      {
+        "tag": "svg",
+        "classes": [],
+        "rect": {
+          "x": 696,
+          "y": 233,
+          "width": 48,
+          "height": 48
+        },
+        "styles": {
+          "display": "block",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(220, 38, 38)",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      }
+    ]
+  }
+]

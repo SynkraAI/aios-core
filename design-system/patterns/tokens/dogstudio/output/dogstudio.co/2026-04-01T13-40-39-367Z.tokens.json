@@ -1,0 +1,220 @@
+{
+  "$extensions": {
+    "com.dembrandt": {
+      "url": "https://dogstudio.co/",
+      "domain": "dogstudio.co",
+      "extractedAt": "2026-04-01T13:40:25.279Z"
+    }
+  },
+  "color": {
+    "palette": {
+      "palette-1": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.627,
+            0.659,
+            0.863
+          ],
+          "hex": "#a0a8dc",
+          "alpha": 0.8
+        },
+        "$description": "Count: 158, Confidence: high"
+      },
+      "palette-2": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "hex": "#000000"
+        },
+        "$description": "Count: 36, Confidence: high"
+      },
+      "palette-3": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.894,
+            0.2,
+            0.2
+          ],
+          "hex": "#e43333"
+        },
+        "$description": "Count: 9, Confidence: medium"
+      }
+    }
+  },
+  "typography": {
+    "font-family": {
+      "gt-sectra-display": {
+        "$type": "fontFamily",
+        "$value": "GT Sectra Display"
+      },
+      "heebo": {
+        "$type": "fontFamily",
+        "$value": "Heebo"
+      },
+      "calibri": {
+        "$type": "fontFamily",
+        "$value": "Calibri"
+      },
+      "times": {
+        "$type": "fontFamily",
+        "$value": "Times"
+      },
+      "arial": {
+        "$type": "fontFamily",
+        "$value": "Arial"
+      },
+      "gilroy": {
+        "$type": "fontFamily",
+        "$value": "Gilroy"
+      }
+    },
+    "style": {
+      "text-heading-1": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{typography.font-family.calibri}",
+          "fontSize": {
+            "$type": "dimension",
+            "$value": {
+              "value": 18,
+              "unit": "px"
+            }
+          },
+          "fontWeight": {
+            "$type": "fontWeight",
+            "$value": 400
+          },
+          "lineHeight": {
+            "$type": "number",
+            "$value": 1.7
+          }
+        }
+      },
+      "text-link": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{typography.font-family.heebo}",
+          "fontSize": {
+            "$type": "dimension",
+            "$value": {
+              "value": 60,
+              "unit": "px"
+            }
+          },
+          "fontWeight": {
+            "$type": "fontWeight",
+            "$value": 200
+          },
+          "lineHeight": {
+            "$type": "number",
+            "$value": 0.92
+          }
+        }
+      }
+    }
+  },
+  "spacing": {
+    "spacing-1": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "px"
+      }
+    },
+    "spacing-2": {
+      "$type": "dimension",
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      }
+    },
+    "spacing-3": {
+      "$type": "dimension",
+      "$value": {
+        "value": 3,
+        "unit": "px"
+      }
+    },
+    "spacing-4": {
+      "$type": "dimension",
+      "$value": {
+        "value": 4,
+        "unit": "px"
+      }
+    },
+    "spacing-5": {
+      "$type": "dimension",
+      "$value": {
+        "value": 5,
+        "unit": "px"
+      }
+    },
+    "spacing-6": {
+      "$type": "dimension",
+      "$value": {
+        "value": 6,
+        "unit": "px"
+      }
+    },
+    "spacing-7": {
+      "$type": "dimension",
+      "$value": {
+        "value": 7,
+        "unit": "px"
+      }
+    },
+    "spacing-8": {
+      "$type": "dimension",
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      }
+    },
+    "spacing-9": {
+      "$type": "dimension",
+      "$value": {
+        "value": 9,
+        "unit": "px"
+      }
+    },
+    "spacing-10": {
+      "$type": "dimension",
+      "$value": {
+        "value": 10,
+        "unit": "px"
+      }
+    },
+    "spacing-11": {
+      "$type": "dimension",
+      "$value": {
+        "value": 12,
+        "unit": "px"
+      }
+    },
+    "spacing-12": {
+      "$type": "dimension",
+      "$value": {
+        "value": 13,
+        "unit": "px"
+      }
+    }
+  },
+  "radius": {
+    "radius-1": {
+      "$type": "dimension",
+      "$value": {
+        "value": 3,
+        "unit": "px"
+      }
+    }
+  }
+}

@@ -1,0 +1,1 @@
+.main-container{display:grid;grid-template-columns:1fr;grid-template-rows:-webkit-max-content;grid-template-rows:max-content;grid-template-areas:"page"}.main-container>.page{grid-area:page}.module--hero-error{max-height:none}.see-all:after{content:"";display:block;position:absolute;top:0;right:0;bottom:0;left:0}

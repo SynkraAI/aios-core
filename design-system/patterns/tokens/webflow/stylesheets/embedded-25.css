@@ -1,0 +1,75 @@
+
+  @media (min-width: 768px) {
+    /* Transition */
+    [data-hover-features=arrow] {
+      transition: transform var(--transition-duration-2) var(--transition-timing-inoutcubic);
+    }
+    [data-hover-features=text] {
+      transition: color var(--transition-duration-2) var(--transition-timing-inoutquad);
+    }
+    [data-hover-features=border] {
+      transition: background var(--transition-duration-2) var(--transition-timing-inoutquad);
+    }
+    [data-hover-features=item-content] {
+      transition: opacity var(--transition-duration-3) var(--transition-timing-inoutquad);
+      pointer-events: none;  
+      opacity: 0;
+    }
+    .hover-features_visual {
+      transition: opacity var(--transition-duration-3) var(--transition-timing-inoutquad);
+      pointer-events: none;  
+      display: block;
+      opacity: 0;
+    }
+    /* Active Animation (same as hover) */
+    [data-hover-features=clickable].cc-active [data-hover-features=arrow] {
+      transform: translateX(6px);
+    }
+    [data-hover-features=clickable].cc-active [data-hover-features=text],
+    [data-hover-features=clickable].cc-active [data-hover-features=arrow] {
+      color: var(--colors--primary-accent);
+    }
+    [data-hover-features=clickable].cc-active [data-hover-features=border] {
+      background-color: var(--colors--primary-accent) !important;
+    }
+    [data-hover-features=clickable].cc-active + [data-hover-features=item-content] {
+      opacity: 1;
+      pointer-events: auto;  
+    }
+    .hover-features_visual.cc-active {
+      pointer-events: none;  
+      display: block;
+      opacity: 1;
+    }
+    /* Hover Animations */
+    @media (hover: hover) and (pointer: fine) {
+      [data-hover-features=clickable]:hover [data-hover-features=arrow] {
+        transform: translateX(6px);
+      }
+      [data-hover-features=clickable]:hover [data-hover-features=text],
+      [data-hover-features=clickable]:hover [data-hover-features=arrow] {
+        color: var(--colors--primary-accent);
+      }
+      [data-hover-features=clickable]:hover [data-hover-features=border] {
+        background-color: var(--colors--primary-accent) !important;
+      }
+      [data-hover-features=clickable]:hover + [data-hover-features=item-content] {
+        opacity: 1;
+        pointer-events: auto;  
+      }
+    }
+
+    /* Show the current group visual */
+    .hover-features_visual:has(.hover-features_link.w--current) {
+      opacity: 1 !important;
+    }
+  }
+
+  /* Hide item-content on mobile */
+  @media (max-width: 767px) {
+    [data-hover-features=item-content] {
+      visibility: hidden;
+      opacity: 0 !important; 
+      pointer-events: none;  
+    }
+  }

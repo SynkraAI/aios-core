@@ -1,0 +1,11 @@
+{
+  "name": "@aios/capability-map",
+  "version": "1.0.0",
+  "description": "Queryable capability map for the AIOS content ecosystem",
+  "type": "module",
+  "main": "index.mjs",
+  "scripts": {
+    "find": "node index.mjs find",
+    "list": "node index.mjs list"
+  }
+}

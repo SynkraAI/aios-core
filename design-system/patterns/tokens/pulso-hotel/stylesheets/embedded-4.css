@@ -1,0 +1,119 @@
+
+/* Improve text rendering and legibility across major browsers */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Accessible focus styles for keyboard users, customizable via the Variables panel */
+:focus-visible,
+[tabindex]:not([tabindex="-1"]):focus-visible,
+input:focus-visible,
+button:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+a:focus-visible,
+[role="button"]:focus-visible,
+[contenteditable="true"]:focus-visible,
+input[type="file"]:focus-visible {
+  outline: var(--focus--width, 2px) solid
+    var(--_theme---system--focus-state, #005fcc);
+  outline-offset: var(--focus--offset, 2px);
+}
+
+/* Pointer cursor for essential interactive elements */
+button,
+a[href],
+input[type="button"],
+input[type="submit"],
+input[type="checkbox"],
+input[type="radio"],
+input[type="file"],
+select,
+[role="button"] {
+  cursor: pointer;
+}
+
+/* Not-allowed cursor for disabled or aria-disabled elements
+Uncomment to enable. Keep this message for future handoff clarity. */
+/*
+button:disabled,
+input:disabled,
+select:disabled,
+textarea:disabled,
+a.disabled,
+[aria-disabled="true"],
+[role="button"][aria-disabled="true"], {
+  cursor: not-allowed;
+}
+*/
+
+/* Reset default browser styles for form elements, especially on Apple devices.
+Uncomment to enable. Keep this message for future handoff clarity. */
+/*
+input,
+textarea,
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0;
+  background-image: none;
+  background-color: transparent;
+}
+*/
+
+/* Make the following elements inherit typography styles from their parent.
+Note: This will override Webflow’s base styles (e.g. “All Links” won’t work as expected in Designer).
+Uncomment to enable. Keep this message for futurehandoff clarity. */
+/*
+a,
+.w-input,
+.w-select,
+.w-tab-link,
+.w-nav-link,
+.w-dropdown-btn,
+.w-dropdown-toggle,
+.w-dropdown-link {
+  color: inherit;
+  text-decoration: inherit;
+}
+*/
+
+/* Remove top margin from the first element inside any Rich Text block */
+.w-richtext > :not(div):first-child,
+.w-richtext > div:first-child > :first-child {
+  margin-top: 0 !important;
+}
+
+/* Remove bottom margin from the last element inside any Rich Text block */
+.w-richtext > :last-child,
+.w-richtext ul li:last-child,
+.w-richtext ol li:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* Apply "..." after 3 lines of text */
+.text-style-3lines {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+/* Apply "..." after 2 lines of text */
+.text-style-2lines {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* Apply "..." after 1 line of text */
+.text-style-1line {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+

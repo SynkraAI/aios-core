@@ -1,0 +1,63 @@
+
+                @keyframes scaleIn {
+                    0% { transform: translate3d(-50%, -50%, 0) scale(0.8); opacity: 0; }
+                    100% { transform: translate3d(-50%, -50%, 0) scale(1); opacity: 1; }
+                }
+                @keyframes fadeOut {
+                    0% { opacity: 1; transform: translate3d(-50%, -50%, 0) scale(1); }
+                    100% { opacity: 0; transform: translate3d(-50%, -50%, 0) scale(0.95); }
+                }
+
+                .animator-container { position: fixed; inset: 0; z-index: 100; pointer-events: none; transform-origin: center center; }
+                .block { 
+                    position: absolute; top: 50%; left: 50%; 
+                    transform: translate3d(-50%, -50%, 0) scale(0.8); opacity: 0; 
+                    transform-origin: center center; 
+                }
+                .block.enter-easeout {
+                    animation-name: scaleIn, fadeOut; animation-duration: 1.2s, 0.9s; 
+                    animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1), ease-out;
+                    animation-delay: var(--stagger, 0s), calc(var(--stagger, 0s) + 1.2s);
+                    animation-fill-mode: forwards, forwards;
+                }
+                .block.enter-final {
+                    animation-name: scaleIn; animation-duration: 1.2s; 
+                    animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+                    animation-delay: var(--stagger, 0s); animation-fill-mode: forwards;
+                }
+
+                .block img, .image img, .image-clone img {
+                    display: block; position: relative; width: auto; height: auto; 
+                    max-width: 90vw; max-height: 90vh; object-fit: contain; 
+                    transform: translateZ(0); backface-visibility: hidden; -webkit-font-smoothing: antialiased; 
+                }
+
+                .images { 
+                    position: fixed; inset: 0;
+                    z-index: 99; 
+                    display: block; 
+                    will-change: transform; 
+                    transform: none; 
+                    transform-origin: top left;
+                }
+
+                .image { 
+                    display: inline-block; position: absolute; 
+                    transform: translate3d(-50%, -50%, 0);
+                    will-change: transform; top: 50%; left: 50%;
+                }
+
+                .image:not(.active):not(.image-clone) { display: none; }
+
+                .images-clones {
+                    position: fixed; inset: 0; 
+                    pointer-events: none; z-index: 50; overflow: hidden;
+                }
+
+                .image-clone {
+                    position: absolute; left: 50%; top: 50%; 
+                    transform: translate3d(-50%, -50%, 0); opacity: 0.9; 
+                    transform-origin: center center; pointer-events: none; 
+                    will-change: transform, opacity;
+                }
+            

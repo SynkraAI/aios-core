@@ -1,0 +1,206 @@
+{
+  "url": "https://stc-redesign.vercel.app",
+  "name": "stc-redesign",
+  "captured_at": "2026-04-01T15:39:09.445Z",
+  "elements": [
+    {
+      "type": "button",
+      "index": 0,
+      "text": "FALE CONOSCO",
+      "tag": "a",
+      "classes": "nav-cta",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgba(255, 255, 255, 0.3)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(255, 255, 255, 0.08)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgba(255, 255, 255, 0.6)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgba(0, 0, 0, 0)",
+          "to": "rgba(255, 255, 255, 0.08)"
+        },
+        "borderColor": {
+          "from": "rgba(255, 255, 255, 0.3)",
+          "to": "rgba(255, 255, 255, 0.6)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-0-default.png",
+        "hover": "btn-0-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 3,
+      "text": "COMECE SUA JORNADA",
+      "tag": "a",
+      "classes": "contact-btn",
+      "defaultStyles": {
+        "background": "rgb(58, 98, 196)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgb(255, 255, 255)",
+        "boxShadow": "none",
+        "transform": "matrix(1, 0, 0, 1, 0, 20)",
+        "opacity": "0",
+        "borderRadius": "0px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(58, 98, 196)",
+        "color": "rgb(12, 12, 18)",
+        "borderColor": "rgb(12, 12, 18)",
+        "boxShadow": "none",
+        "transform": "matrix(1, 0, 0, 1, 0, 20)",
+        "opacity": "0",
+        "borderRadius": "0px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "color": {
+          "from": "rgb(255, 255, 255)",
+          "to": "rgb(12, 12, 18)"
+        },
+        "borderColor": {
+          "from": "rgb(255, 255, 255)",
+          "to": "rgb(12, 12, 18)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-3-default.png",
+        "hover": "btn-3-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 0,
+      "text": "STC.",
+      "defaultStyles": {
+        "color": "rgb(255, 255, 255)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(255, 255, 255)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "link-0-default.png",
+        "hover": "link-0-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 1,
+      "text": "SOBRE",
+      "defaultStyles": {
+        "color": "rgb(255, 255, 255)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(255, 255, 255)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "link-1-default.png",
+        "hover": "link-1-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 2,
+      "text": "DESTINOS",
+      "defaultStyles": {
+        "color": "rgb(255, 255, 255)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(255, 255, 255)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "link-2-default.png",
+        "hover": "link-2-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 3,
+      "text": "SERVIÇOS",
+      "defaultStyles": {
+        "color": "rgb(255, 255, 255)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(255, 255, 255)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "link-3-default.png",
+        "hover": "link-3-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 4,
+      "text": "DEPOIMENTOS",
+      "defaultStyles": {
+        "color": "rgb(255, 255, 255)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(255, 255, 255)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "link-4-default.png",
+        "hover": "link-4-hover.png"
+      }
+    }
+  ]
+}

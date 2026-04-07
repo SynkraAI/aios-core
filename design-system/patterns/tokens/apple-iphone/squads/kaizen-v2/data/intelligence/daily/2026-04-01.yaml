@@ -1,0 +1,77 @@
+# Kaizen v2 Daily Digest — 2026-04-01
+date: 2026-04-01
+capture_time: "2026-04-01T01:34:37.190Z"
+session_id: 6df11159
+session_count: 5
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings:
+  -
+    signal: "\bimportante\b.*?:"
+    snippet: "de obsessiva |  **Padrão mais importante descoberto:** 4 de 5 sites usam dark mode, todos usam no máximo 1-2 cores de destaque sobre escalas de cinza. O \"premium\" vem da **contenção** — menos é mais.  Tudo está em `design-system/p"
+    verified: false
+agents_involved: []
+
+# --- Session 6df11159 (2026-04-01T01:34:45.960Z) ---
+# Kaizen v2 Daily Digest — 2026-04-01
+date: 2026-04-01
+capture_time: "2026-04-01T01:34:45.959Z"
+session_id: 6df11159
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session 6df11159 (2026-04-01T01:45:10.776Z) ---
+# Kaizen v2 Daily Digest — 2026-04-01
+date: 2026-04-01
+capture_time: "2026-04-01T01:45:10.775Z"
+session_id: 6df11159
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session 6df11159 (2026-04-01T02:06:33.015Z) ---
+# Kaizen v2 Daily Digest — 2026-04-01
+date: 2026-04-01
+capture_time: "2026-04-01T02:06:33.013Z"
+session_id: 6df11159
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session 6df11159 (2026-04-01T02:37:22.024Z) ---
+# Kaizen v2 Daily Digest — 2026-04-01
+date: 2026-04-01
+capture_time: "2026-04-01T02:37:22.024Z"
+session_id: 6df11159
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []

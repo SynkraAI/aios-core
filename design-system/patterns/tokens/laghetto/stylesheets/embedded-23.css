@@ -1,0 +1,41 @@
+
+  
+    #rd-text-lv12jl5c {
+      display: block;
+      border-bottom-style: none;
+      border-color: #000000;
+      border-left-style: none;
+      border-radius: 0px;
+      border-right-style: none;
+      border-top-style: none;
+      border-width: 1px;
+      min-height: -1px;
+      max-width: 400px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      align-self: flex-start;
+      width: 100%;
+      word-break: break-word;
+    }
+  
+
+  
+    
+      #rd-text-lv12jl5c.mobile {
+        display: none;
+      }
+
+      @media (max-width: 480px) {
+         #rd-text-lv12jl5c {
+          display: none;
+        }
+
+        #rd-text-lv12jl5c.mobile {
+          display: block;
+          max-width: 10px;
+          margin-top: 96px;
+          margin-bottom: 250px;
+        }
+      }
+    
+  

@@ -1,0 +1,111 @@
+{
+  "url": "https://duckstudio.design",
+  "name": "duck-design",
+  "captured_at": "2026-04-01T12:44:53.017Z",
+  "elements": [
+    {
+      "type": "button",
+      "index": 4,
+      "text": "BR",
+      "tag": "div",
+      "classes": "wg-dd-1-togle w-dropdown-toggle w--open",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(34, 34, 34)",
+        "borderColor": "rgb(34, 34, 34)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px 4px 0px 0px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(34, 34, 34)",
+        "borderColor": "rgb(34, 34, 34)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px 4px 0px 0px",
+        "textDecoration": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-4-default.png",
+        "hover": "btn-4-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 5,
+      "text": "Solicite um orçamento →",
+      "tag": "a",
+      "classes": "button black hide-mobile w-button",
+      "defaultStyles": {
+        "background": "rgb(0, 0, 0)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgb(255, 255, 255)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "100px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(0, 0, 0)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgb(255, 255, 255)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "0.6",
+        "borderRadius": "100px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "opacity": {
+          "from": "1",
+          "to": "0.6"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-5-default.png",
+        "hover": "btn-5-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 6,
+      "text": "",
+      "tag": "div",
+      "classes": "_23-nav-menu-button open-modal w-nav-button",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-6-default.png",
+        "hover": "btn-6-hover.png"
+      }
+    }
+  ]
+}

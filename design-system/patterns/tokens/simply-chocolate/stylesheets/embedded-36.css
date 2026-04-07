@@ -1,0 +1,77 @@
+
+    :root {
+      --atlas-font-family: Simply-ChocolateRegular;
+      --atlas-text-primary: #000000;
+      --atlas-text-secondary: #00000080;
+      --atlas-font-weight-normal: 400;
+      --atlas-heading-font-family: Simply-ChocolateRegular;
+      --atlas-heading-text-primary: #000000;
+      --atlas-heading-text-secondary: #00000080;
+      --atlas-font-weight-heading: 400;
+      --atlas-button-primary: #000000;
+      --atlas-primary-color: #000000;
+      --atlas-button-text-transform: none;
+      --atlas-button-border-radius-small: 8px;
+      --atlas-button-border-radius-normal: 8px;
+      --atlas-button-border-radius-tiny: 8px;
+      --atlas-input-border-radius-small: 8px;
+      --atlas-input-border-radius-normal: 8px;
+      --atlas-card-border-radius-small: 12px;
+      --atlas-card-border-radius-normal: 32px;
+      --atlas-toast-border-radius: 12px;
+      --atlas-thumbnail-border-radius: 8px;
+      --atlas-tabs-border-radius: 12px;
+      --atlas-progress-bar-border-radius: 4px;
+      --atlas-text-primary-inverse: #FFFFFF;
+      --atlas-background-main: #FFFFFF;
+      --atlas-background-content: #FFFFFF;
+      --atlas-chip-border-radius: 4px;
+      --atlas-drawer-inset-border-radius: 12px;
+
+      --atlas-border-light: rgba(0, 0, 0, 0.05);
+      --atlas-border-dark: rgba(0, 0, 0, 0.5);
+      --atlas-overlay-light: rgba(0, 0, 0, 0.05);
+      --atlas-overlay-medium: rgba(0, 0, 0, 0.15);
+      --atlas-overlay-heavy: rgba(0, 0, 0, 0.5);
+
+      --atlas-loading-skeleton-color: rgba(0, 0, 0, 0.05);
+      --atlas-loading-skeleton-highlight-color: rgba(0, 0, 0, 0.02);
+
+      --atlas-favorites-font-family: undefined;
+      --atlas-favorites-font-weight: undefined;
+      --atlas-favorites-font-color: undefined;
+      --atlas-favorites-fill-color: rgba(255,255,255,0);
+      --atlas-favorites-icon-color: undefined;
+      --atlas-favorites-hub-icon-color: #000000;
+
+      --atlas-faq-font-family: inherit;
+       --atlas-faq-font-weight: 500;
+      --atlas-faq-font-color: #FFFFFF;
+      --atlas-faq-fill-color: #000000;
+      
+
+      --atlas-widget-side-spacing: 40px;
+      --atlas-widget-bottom-spacing: 40px;
+      --atlas-widget-starting-radius: 8px;
+      --atlas-widget-background-color: #FFFFFF;
+
+    }
+
+    .kl-hub-surface-content {
+      --atlas-text-primary: #000000;
+      --atlas-text-secondary: #00000080;
+      --atlas-heading-text-primary: #000000;
+      --atlas-heading-text-secondary: #00000080;
+
+      --atlas-border-light: rgba(0, 0, 0, 0.05);
+      --atlas-border-dark: rgba(0, 0, 0, 0.5);
+      --atlas-overlay-light: rgba(0, 0, 0, 0.05);
+      --atlas-overlay-medium: rgba(0, 0, 0, 0.15);
+      --atlas-overlay-heavy: rgba(0, 0, 0, 0.5);
+
+      --atlas-loading-skeleton-color: rgba(0, 0, 0, 0.05);
+      --atlas-loading-skeleton-highlight-color: rgba(0, 0, 0, 0.02);
+    }
+
+    
+  

@@ -1,0 +1,1 @@
+html.w-mod-js:not(.w-mod-ix3) :is(.artifact_container:not([aria-hidden="true"]) .artifact_metadata) {visibility: hidden !important;}

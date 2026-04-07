@@ -1,0 +1,205 @@
+{
+  "url": "https://rive.app",
+  "name": "rive",
+  "captured_at": "2026-04-01T14:04:27.298Z",
+  "elements": [
+    {
+      "type": "button",
+      "index": 0,
+      "text": "learn more",
+      "tag": "button",
+      "classes": "framer-rfSdc framer-1u5kzp4 framer-v-1u5kzp4",
+      "defaultStyles": {
+        "background": "rgb(29, 29, 29)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "8px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(34, 34, 34)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "8px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgb(29, 29, 29)",
+          "to": "rgb(34, 34, 34)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-0-default.png",
+        "hover": "btn-0-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 1,
+      "text": "Features",
+      "tag": "button",
+      "classes": "framer-rfSdc framer-1u5kzp4 framer-v-1u5kzp4",
+      "defaultStyles": {
+        "background": "rgb(29, 29, 29)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "8px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(34, 34, 34)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "8px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgb(29, 29, 29)",
+          "to": "rgb(34, 34, 34)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-1-default.png",
+        "hover": "btn-1-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 2,
+      "text": "learn more",
+      "tag": "button",
+      "classes": "framer-rfSdc framer-1u5kzp4 framer-v-1u5kzp4",
+      "defaultStyles": {
+        "background": "rgb(29, 29, 29)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "8px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(34, 34, 34)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "8px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgb(29, 29, 29)",
+          "to": "rgb(34, 34, 34)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-2-default.png",
+        "hover": "btn-2-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 3,
+      "text": "Docs",
+      "tag": "button",
+      "classes": "framer-rfSdc framer-1u5kzp4 framer-v-1u5kzp4",
+      "defaultStyles": {
+        "background": "rgb(29, 29, 29)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "8px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(34, 34, 34)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "8px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgb(29, 29, 29)",
+          "to": "rgb(34, 34, 34)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-3-default.png",
+        "hover": "btn-3-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 1,
+      "text": "Pricing",
+      "defaultStyles": {
+        "color": "rgb(0, 0, 238)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(0, 0, 238)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "link-1-default.png",
+        "hover": "link-1-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 2,
+      "text": "Downloads",
+      "defaultStyles": {
+        "color": "rgb(0, 0, 238)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(0, 0, 238)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "link-2-default.png",
+        "hover": "link-2-hover.png"
+      }
+    }
+  ]
+}

@@ -1,0 +1,259 @@
+{
+  "url": "https://vercel.com",
+  "name": "vercel",
+  "captured_at": "2026-04-01T12:31:03.267Z",
+  "elements": [
+    {
+      "type": "button",
+      "index": 0,
+      "text": "Products",
+      "tag": "button",
+      "classes": "navigation-menu-module__AENi4G__trigger",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(77, 77, 77)",
+        "borderColor": "rgb(77, 77, 77)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "9999px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(235, 235, 235)",
+        "color": "rgb(23, 23, 23)",
+        "borderColor": "rgb(23, 23, 23)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "9999px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgba(0, 0, 0, 0)",
+          "to": "rgb(235, 235, 235)"
+        },
+        "color": {
+          "from": "rgb(77, 77, 77)",
+          "to": "rgb(23, 23, 23)"
+        },
+        "borderColor": {
+          "from": "rgb(77, 77, 77)",
+          "to": "rgb(23, 23, 23)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-0-default.png",
+        "hover": "btn-0-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 1,
+      "text": "Resources",
+      "tag": "button",
+      "classes": "navigation-menu-module__AENi4G__trigger",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(77, 77, 77)",
+        "borderColor": "rgb(77, 77, 77)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "9999px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(235, 235, 235)",
+        "color": "rgb(23, 23, 23)",
+        "borderColor": "rgb(23, 23, 23)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "9999px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgba(0, 0, 0, 0)",
+          "to": "rgb(235, 235, 235)"
+        },
+        "color": {
+          "from": "rgb(77, 77, 77)",
+          "to": "rgb(23, 23, 23)"
+        },
+        "borderColor": {
+          "from": "rgb(77, 77, 77)",
+          "to": "rgb(23, 23, 23)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-1-default.png",
+        "hover": "btn-1-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 2,
+      "text": "Solutions",
+      "tag": "button",
+      "classes": "navigation-menu-module__AENi4G__trigger",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(77, 77, 77)",
+        "borderColor": "rgb(77, 77, 77)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "9999px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(235, 235, 235)",
+        "color": "rgb(23, 23, 23)",
+        "borderColor": "rgb(23, 23, 23)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "9999px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgba(0, 0, 0, 0)",
+          "to": "rgb(235, 235, 235)"
+        },
+        "color": {
+          "from": "rgb(77, 77, 77)",
+          "to": "rgb(23, 23, 23)"
+        },
+        "borderColor": {
+          "from": "rgb(77, 77, 77)",
+          "to": "rgb(23, 23, 23)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-2-default.png",
+        "hover": "btn-2-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 4,
+      "text": "Ask AI",
+      "tag": "button",
+      "classes": "button-module__QyrFCa__base reset-module__ylizOa__reset button-module__QyrFCa__button button-module__QyrFCa__secondary button-module__QyrFCa__small button-module__QyrFCa__invert",
+      "defaultStyles": {
+        "background": "rgb(255, 255, 255)",
+        "color": "rgb(23, 23, 23)",
+        "borderColor": "rgb(23, 23, 23)",
+        "boxShadow": "rgb(235, 235, 235) 0px 0px 0px 1px",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "opacity": "1",
+        "borderRadius": "6px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(242, 242, 242)",
+        "color": "rgb(23, 23, 23)",
+        "borderColor": "rgb(23, 23, 23)",
+        "boxShadow": "rgb(235, 235, 235) 0px 0px 0px 1px",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "opacity": "1",
+        "borderRadius": "6px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgb(255, 255, 255)",
+          "to": "rgb(242, 242, 242)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-4-default.png",
+        "hover": "btn-4-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 5,
+      "text": "Log In",
+      "tag": "a",
+      "classes": "button-module__QyrFCa__base reset-module__ylizOa__reset button-module__QyrFCa__button button-module__QyrFCa__secondary button-module__QyrFCa__small button-module__QyrFCa__invert",
+      "defaultStyles": {
+        "background": "rgb(255, 255, 255)",
+        "color": "rgb(23, 23, 23)",
+        "borderColor": "rgb(23, 23, 23)",
+        "boxShadow": "rgb(235, 235, 235) 0px 0px 0px 1px",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "opacity": "1",
+        "borderRadius": "6px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(242, 242, 242)",
+        "color": "rgb(23, 23, 23)",
+        "borderColor": "rgb(23, 23, 23)",
+        "boxShadow": "rgb(235, 235, 235) 0px 0px 0px 1px",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "opacity": "1",
+        "borderRadius": "6px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgb(255, 255, 255)",
+          "to": "rgb(242, 242, 242)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-5-default.png",
+        "hover": "btn-5-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 7,
+      "text": "Sign Up",
+      "tag": "a",
+      "classes": "button-module__QyrFCa__base reset-module__ylizOa__reset button-module__QyrFCa__button morphing-button-link-module__KniueW__displayCta button-module__QyrFCa__small button-module__QyrFCa__invert",
+      "defaultStyles": {
+        "background": "rgb(23, 23, 23)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgb(255, 255, 255)",
+        "boxShadow": "none",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "opacity": "1",
+        "borderRadius": "6px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(56, 56, 56)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgb(255, 255, 255)",
+        "boxShadow": "none",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "opacity": "1",
+        "borderRadius": "6px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgb(23, 23, 23)",
+          "to": "rgb(56, 56, 56)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-7-default.png",
+        "hover": "btn-7-hover.png"
+      }
+    }
+  ]
+}

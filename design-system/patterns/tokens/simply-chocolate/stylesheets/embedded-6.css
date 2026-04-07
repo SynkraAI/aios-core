@@ -1,0 +1,7 @@
+.rm-product-badge-wrap .rm-product-badge .rm-badge-tooltip{
+    padding: 3px 5px !important;
+    color: #1e1e1e !important; 
+}
+.rm-product-badge-wrap .rm-product-badge[data-position="inside_image"]{
+   z-index: 2;
+}

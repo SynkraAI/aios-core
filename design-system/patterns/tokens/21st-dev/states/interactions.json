@@ -1,0 +1,3198 @@
+{
+  "url": "https://21st.dev",
+  "name": "21st-dev",
+  "timestamp": "2026-04-01T15:39:20.222Z",
+  "totalElements": 50,
+  "elementsWithStates": 49,
+  "interactions": [
+    {
+      "tag": "a",
+      "text": "Home",
+      "classes": "flex items-center gap-2.5 w-full pl-2 pr-2 py-1.5 rounded-md text-sm bg-foreground/5 text-foreground",
+      "selector": "a.flex.items-center.gap-2.5.w-full.pl-2.pr-2.py-1.5.rounded-md.text-sm.bg-foreground/5.text-foreground",
+      "baseStyles": {
+        "color": "rgb(9, 9, 11)",
+        "backgroundColor": "rgba(9, 9, 11, 0.05)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "6px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(9, 9, 11) none 0px",
+        "outlineColor": "rgb(9, 9, 11)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgba(9, 9, 11, 0.05)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "6px",
+            "to": "0px"
+          }
+        },
+        "focus": {
+          "backgroundColor": {
+            "from": "rgba(9, 9, 11, 0.05)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "6px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Agent Templates",
+      "classes": "flex items-center gap-2.5 w-full pl-2 pr-2 py-1.5 rounded-md text-sm text-muted-foreground hover:bg-",
+      "selector": "a.flex.items-center.gap-2.5.w-full.pl-2.pr-2.py-1.5.rounded-md.text-sm.text-muted-foreground.hover:bg-foreground/5.hover:text-foreground",
+      "baseStyles": {
+        "color": "rgb(113, 113, 122)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "6px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(113, 113, 122) none 0px",
+        "outlineColor": "rgb(113, 113, 122)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(113, 113, 122)",
+            "to": "rgb(9, 9, 11)"
+          },
+          "borderRadius": {
+            "from": "6px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(113, 113, 122) none 0px",
+            "to": "rgb(9, 9, 11) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(113, 113, 122)",
+            "to": "rgb(9, 9, 11)"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "6px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "1Code",
+      "classes": "group/ext flex items-center gap-2.5 w-full pl-2 pr-2 py-1.5 rounded-md text-sm text-muted-foreground",
+      "selector": "a.group/ext.flex.items-center.gap-2.5.w-full.pl-2.pr-2.py-1.5.rounded-md.text-sm.text-muted-foreground.hover:bg-foreground/5.hover:text-foreground",
+      "baseStyles": {
+        "color": "rgb(113, 113, 122)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "6px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(113, 113, 122) none 0px",
+        "outlineColor": "rgb(113, 113, 122)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(113, 113, 122)",
+            "to": "rgb(9, 9, 11)"
+          },
+          "borderRadius": {
+            "from": "6px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(113, 113, 122) none 0px",
+            "to": "rgb(9, 9, 11) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(113, 113, 122)",
+            "to": "rgb(9, 9, 11)"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "6px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Magic Chat",
+      "classes": "group/ext flex items-center gap-2.5 w-full pl-2 pr-2 py-1.5 rounded-md text-sm text-muted-foreground",
+      "selector": "a.group/ext.flex.items-center.gap-2.5.w-full.pl-2.pr-2.py-1.5.rounded-md.text-sm.text-muted-foreground.hover:bg-foreground/5.hover:text-foreground",
+      "baseStyles": {
+        "color": "rgb(113, 113, 122)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "6px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(113, 113, 122) none 0px",
+        "outlineColor": "rgb(113, 113, 122)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(113, 113, 122)",
+            "to": "rgb(9, 9, 11)"
+          },
+          "borderRadius": {
+            "from": "6px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(113, 113, 122) none 0px",
+            "to": "rgb(9, 9, 11) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(113, 113, 122)",
+            "to": "rgb(9, 9, 11)"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "6px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "relative mt-3 aspect-[16/9] w-full shrink-0 overflow-hidden rounded border bg-muted block",
+      "selector": "a.relative.mt-3.aspect-[16/9].w-full.shrink-0.overflow-hidden.rounded.border.bg-muted.block",
+      "baseStyles": {
+        "color": "rgb(9, 9, 11)",
+        "backgroundColor": "rgb(235, 235, 235)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "1px",
+        "borderRadius": "4px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(9, 9, 11) none 0px",
+        "outlineColor": "rgb(9, 9, 11)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "backgroundColor": {
+            "from": "rgb(235, 235, 235)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderWidth": {
+            "from": "1px",
+            "to": "0px"
+          },
+          "borderRadius": {
+            "from": "4px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "backgroundColor": {
+            "from": "rgb(235, 235, 235)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderWidth": {
+            "from": "1px",
+            "to": "0px"
+          },
+          "borderRadius": {
+            "from": "4px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Read more",
+      "classes": "font-medium text-muted-foreground transition-colors duration-75 hover:text-foreground",
+      "selector": "a.font-medium.text-muted-foreground.transition-colors.duration-75.hover:text-foreground",
+      "baseStyles": {
+        "color": "rgb(113, 113, 122)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(113, 113, 122) none 0px",
+        "outlineColor": "rgb(113, 113, 122)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.075s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.075s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.075s cubic-bezier(0.4, 0, 0.2, 1), text-decoration-color 0.075s cubic-bezier(0.4, 0, 0.2, 1), fill 0.075s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.075s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "outline": {
+            "from": "rgb(113, 113, 122) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(113, 113, 122)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "relative mt-3 aspect-[16/9] w-full shrink-0 overflow-hidden rounded border bg-muted block",
+      "selector": "a.relative.mt-3.aspect-[16/9].w-full.shrink-0.overflow-hidden.rounded.border.bg-muted.block",
+      "baseStyles": {
+        "color": "rgb(9, 9, 11)",
+        "backgroundColor": "rgb(235, 235, 235)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "1px",
+        "borderRadius": "4px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(9, 9, 11) none 0px",
+        "outlineColor": "rgb(9, 9, 11)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "backgroundColor": {
+            "from": "rgb(235, 235, 235)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderWidth": {
+            "from": "1px",
+            "to": "0px"
+          },
+          "borderRadius": {
+            "from": "4px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "backgroundColor": {
+            "from": "rgb(235, 235, 235)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderWidth": {
+            "from": "1px",
+            "to": "0px"
+          },
+          "borderRadius": {
+            "from": "4px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Read more",
+      "classes": "font-medium text-muted-foreground transition-colors duration-75 hover:text-foreground",
+      "selector": "a.font-medium.text-muted-foreground.transition-colors.duration-75.hover:text-foreground",
+      "baseStyles": {
+        "color": "rgb(113, 113, 122)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(113, 113, 122) none 0px",
+        "outlineColor": "rgb(113, 113, 122)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.075s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.075s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.075s cubic-bezier(0.4, 0, 0.2, 1), text-decoration-color 0.075s cubic-bezier(0.4, 0, 0.2, 1), fill 0.075s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.075s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "outline": {
+            "from": "rgb(113, 113, 122) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(113, 113, 122)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "relative block w-full aspect-[4/3] rounded-[12px] overflow-hidden focus-visible:outline-none focus-v",
+      "selector": "a.relative.block.w-full.aspect-[4/3].rounded-[12px].overflow-hidden.focus-visible:outline-none.focus-visible:ring-2.focus-visible:ring-primary/50",
+      "baseStyles": {
+        "color": "rgb(9, 9, 11)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "12px",
+        "boxShadow": "rgba(0, 0, 0, 0.04) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.07) 0px 1px 3px 0px",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(9, 9, 11) none 0px",
+        "outlineColor": "rgb(9, 9, 11)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "12px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgba(0, 0, 0, 0.04) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.07) 0px 1px 3px 0px",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "12px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgba(0, 0, 0, 0.04) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.07) 0px 1px 3px 0px",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "no-underline rounded-full focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary",
+      "selector": "a.no-underline.rounded-full.focus-visible:outline-none.focus-visible:ring-4.focus-visible:ring-primary/50",
+      "baseStyles": {
+        "color": "rgb(9, 9, 11)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "9999px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(9, 9, 11) none 0px",
+        "outlineColor": "rgb(9, 9, 11)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "9999px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "9999px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "relative block w-full aspect-[4/3] rounded-[12px] overflow-hidden focus-visible:outline-none focus-v",
+      "selector": "a.relative.block.w-full.aspect-[4/3].rounded-[12px].overflow-hidden.focus-visible:outline-none.focus-visible:ring-2.focus-visible:ring-primary/50",
+      "baseStyles": {
+        "color": "rgb(9, 9, 11)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "12px",
+        "boxShadow": "rgba(0, 0, 0, 0.04) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.07) 0px 1px 3px 0px",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(9, 9, 11) none 0px",
+        "outlineColor": "rgb(9, 9, 11)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "12px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgba(0, 0, 0, 0.04) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.07) 0px 1px 3px 0px",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "12px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgba(0, 0, 0, 0.04) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.07) 0px 1px 3px 0px",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "no-underline rounded-full focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary",
+      "selector": "a.no-underline.rounded-full.focus-visible:outline-none.focus-visible:ring-4.focus-visible:ring-primary/50",
+      "baseStyles": {
+        "color": "rgb(9, 9, 11)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "9999px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(9, 9, 11) none 0px",
+        "outlineColor": "rgb(9, 9, 11)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "9999px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "9999px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "relative block w-full aspect-[4/3] rounded-[12px] overflow-hidden focus-visible:outline-none focus-v",
+      "selector": "a.relative.block.w-full.aspect-[4/3].rounded-[12px].overflow-hidden.focus-visible:outline-none.focus-visible:ring-2.focus-visible:ring-primary/50",
+      "baseStyles": {
+        "color": "rgb(9, 9, 11)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "12px",
+        "boxShadow": "rgba(0, 0, 0, 0.04) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.07) 0px 1px 3px 0px",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(9, 9, 11) none 0px",
+        "outlineColor": "rgb(9, 9, 11)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "12px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgba(0, 0, 0, 0.04) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.07) 0px 1px 3px 0px",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "12px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgba(0, 0, 0, 0.04) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.07) 0px 1px 3px 0px",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "JY",
+      "classes": "no-underline rounded-full focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary",
+      "selector": "a.no-underline.rounded-full.focus-visible:outline-none.focus-visible:ring-4.focus-visible:ring-primary/50",
+      "baseStyles": {
+        "color": "rgb(9, 9, 11)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "9999px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(9, 9, 11) none 0px",
+        "outlineColor": "rgb(9, 9, 11)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(235, 235, 235)"
+          }
+        },
+        "focus": {
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(235, 235, 235)"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "relative block w-full aspect-[4/3] rounded-[12px] overflow-hidden focus-visible:outline-none focus-v",
+      "selector": "a.relative.block.w-full.aspect-[4/3].rounded-[12px].overflow-hidden.focus-visible:outline-none.focus-visible:ring-2.focus-visible:ring-primary/50",
+      "baseStyles": {
+        "color": "rgb(9, 9, 11)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "12px",
+        "boxShadow": "rgba(0, 0, 0, 0.04) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.07) 0px 1px 3px 0px",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(9, 9, 11) none 0px",
+        "outlineColor": "rgb(9, 9, 11)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "12px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgba(0, 0, 0, 0.04) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.07) 0px 1px 3px 0px",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "12px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgba(0, 0, 0, 0.04) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.07) 0px 1px 3px 0px",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "I",
+      "classes": "no-underline rounded-full focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary",
+      "selector": "a.no-underline.rounded-full.focus-visible:outline-none.focus-visible:ring-4.focus-visible:ring-primary/50",
+      "baseStyles": {
+        "color": "rgb(9, 9, 11)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "9999px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(9, 9, 11) none 0px",
+        "outlineColor": "rgb(9, 9, 11)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(235, 235, 235)"
+          }
+        },
+        "focus": {
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(235, 235, 235)"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "relative block w-full aspect-[4/3] rounded-[12px] overflow-hidden focus-visible:outline-none focus-v",
+      "selector": "a.relative.block.w-full.aspect-[4/3].rounded-[12px].overflow-hidden.focus-visible:outline-none.focus-visible:ring-2.focus-visible:ring-primary/50",
+      "baseStyles": {
+        "color": "rgb(9, 9, 11)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "12px",
+        "boxShadow": "rgba(0, 0, 0, 0.04) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.07) 0px 1px 3px 0px",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(9, 9, 11) none 0px",
+        "outlineColor": "rgb(9, 9, 11)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "12px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgba(0, 0, 0, 0.04) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.07) 0px 1px 3px 0px",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "12px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgba(0, 0, 0, 0.04) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.07) 0px 1px 3px 0px",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "no-underline rounded-full focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary",
+      "selector": "a.no-underline.rounded-full.focus-visible:outline-none.focus-visible:ring-4.focus-visible:ring-primary/50",
+      "baseStyles": {
+        "color": "rgb(9, 9, 11)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "9999px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(9, 9, 11) none 0px",
+        "outlineColor": "rgb(9, 9, 11)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "9999px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "9999px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "relative block w-full aspect-[4/3] rounded-[12px] overflow-hidden focus-visible:outline-none focus-v",
+      "selector": "a.relative.block.w-full.aspect-[4/3].rounded-[12px].overflow-hidden.focus-visible:outline-none.focus-visible:ring-2.focus-visible:ring-primary/50",
+      "baseStyles": {
+        "color": "rgb(9, 9, 11)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "12px",
+        "boxShadow": "rgba(0, 0, 0, 0.04) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.07) 0px 1px 3px 0px",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(9, 9, 11) none 0px",
+        "outlineColor": "rgb(9, 9, 11)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "12px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgba(0, 0, 0, 0.04) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.07) 0px 1px 3px 0px",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "12px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgba(0, 0, 0, 0.04) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.07) 0px 1px 3px 0px",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "no-underline rounded-full focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary",
+      "selector": "a.no-underline.rounded-full.focus-visible:outline-none.focus-visible:ring-4.focus-visible:ring-primary/50",
+      "baseStyles": {
+        "color": "rgb(9, 9, 11)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "9999px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(9, 9, 11) none 0px",
+        "outlineColor": "rgb(9, 9, 11)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "9999px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "9999px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "relative block w-full aspect-[4/3] rounded-[12px] overflow-hidden focus-visible:outline-none focus-v",
+      "selector": "a.relative.block.w-full.aspect-[4/3].rounded-[12px].overflow-hidden.focus-visible:outline-none.focus-visible:ring-2.focus-visible:ring-primary/50",
+      "baseStyles": {
+        "color": "rgb(9, 9, 11)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "12px",
+        "boxShadow": "rgba(0, 0, 0, 0.04) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.07) 0px 1px 3px 0px",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(9, 9, 11) none 0px",
+        "outlineColor": "rgb(9, 9, 11)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "12px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgba(0, 0, 0, 0.04) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.07) 0px 1px 3px 0px",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "12px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgba(0, 0, 0, 0.04) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.07) 0px 1px 3px 0px",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "no-underline rounded-full focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary",
+      "selector": "a.no-underline.rounded-full.focus-visible:outline-none.focus-visible:ring-4.focus-visible:ring-primary/50",
+      "baseStyles": {
+        "color": "rgb(9, 9, 11)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "9999px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(9, 9, 11) none 0px",
+        "outlineColor": "rgb(9, 9, 11)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "9999px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "9999px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "relative block w-full aspect-[4/3] rounded-[12px] overflow-hidden focus-visible:outline-none focus-v",
+      "selector": "a.relative.block.w-full.aspect-[4/3].rounded-[12px].overflow-hidden.focus-visible:outline-none.focus-visible:ring-2.focus-visible:ring-primary/50",
+      "baseStyles": {
+        "color": "rgb(9, 9, 11)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "12px",
+        "boxShadow": "rgba(0, 0, 0, 0.04) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.07) 0px 1px 3px 0px",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(9, 9, 11) none 0px",
+        "outlineColor": "rgb(9, 9, 11)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "12px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgba(0, 0, 0, 0.04) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.07) 0px 1px 3px 0px",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "12px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgba(0, 0, 0, 0.04) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.07) 0px 1px 3px 0px",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "I",
+      "classes": "no-underline rounded-full focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary",
+      "selector": "a.no-underline.rounded-full.focus-visible:outline-none.focus-visible:ring-4.focus-visible:ring-primary/50",
+      "baseStyles": {
+        "color": "rgb(9, 9, 11)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "9999px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(9, 9, 11) none 0px",
+        "outlineColor": "rgb(9, 9, 11)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(235, 235, 235)"
+          }
+        },
+        "focus": {
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(235, 235, 235)"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "relative block w-full aspect-[4/3] rounded-[12px] overflow-hidden focus-visible:outline-none focus-v",
+      "selector": "a.relative.block.w-full.aspect-[4/3].rounded-[12px].overflow-hidden.focus-visible:outline-none.focus-visible:ring-2.focus-visible:ring-primary/50",
+      "baseStyles": {
+        "color": "rgb(9, 9, 11)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "12px",
+        "boxShadow": "rgba(0, 0, 0, 0.04) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.07) 0px 1px 3px 0px",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(9, 9, 11) none 0px",
+        "outlineColor": "rgb(9, 9, 11)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "12px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgba(0, 0, 0, 0.04) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.07) 0px 1px 3px 0px",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "12px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgba(0, 0, 0, 0.04) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.07) 0px 1px 3px 0px",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "no-underline rounded-full focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary",
+      "selector": "a.no-underline.rounded-full.focus-visible:outline-none.focus-visible:ring-4.focus-visible:ring-primary/50",
+      "baseStyles": {
+        "color": "rgb(9, 9, 11)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "9999px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(9, 9, 11) none 0px",
+        "outlineColor": "rgb(9, 9, 11)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "9999px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "9999px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "relative block w-full aspect-[4/3] rounded-[12px] overflow-hidden focus-visible:outline-none focus-v",
+      "selector": "a.relative.block.w-full.aspect-[4/3].rounded-[12px].overflow-hidden.focus-visible:outline-none.focus-visible:ring-2.focus-visible:ring-primary/50",
+      "baseStyles": {
+        "color": "rgb(9, 9, 11)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "12px",
+        "boxShadow": "rgba(0, 0, 0, 0.04) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.07) 0px 1px 3px 0px",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(9, 9, 11) none 0px",
+        "outlineColor": "rgb(9, 9, 11)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "12px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgba(0, 0, 0, 0.04) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.07) 0px 1px 3px 0px",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "12px",
+            "to": "0px"
+          },
+          "boxShadow": {
+            "from": "rgba(0, 0, 0, 0.04) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.07) 0px 1px 3px 0px",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "no-underline rounded-full focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary",
+      "selector": "a.no-underline.rounded-full.focus-visible:outline-none.focus-visible:ring-4.focus-visible:ring-primary/50",
+      "baseStyles": {
+        "color": "rgb(9, 9, 11)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "9999px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(9, 9, 11) none 0px",
+        "outlineColor": "rgb(9, 9, 11)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "9999px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "9999px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Read docs",
+      "classes": "flex items-center gap-0.5 text-sm text-muted-foreground hover:text-foreground transition-colors",
+      "selector": "a.flex.items-center.gap-0.5.text-sm.text-muted-foreground.hover:text-foreground.transition-colors",
+      "baseStyles": {
+        "color": "rgb(115, 115, 115)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(115, 115, 115) none 0px",
+        "outlineColor": "rgb(115, 115, 115)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), text-decoration-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), fill 0.15s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(115, 115, 115)",
+            "to": "rgb(9, 9, 11)"
+          },
+          "outline": {
+            "from": "rgb(115, 115, 115) none 0px",
+            "to": "rgb(9, 9, 11) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(115, 115, 115)",
+            "to": "rgb(9, 9, 11)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgb(115, 115, 115) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(115, 115, 115)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Get started",
+      "classes": "inline-flex items-center gap-1.5 rounded-md h-8 px-4 text-[13px] font-medium bg-foreground text-back",
+      "selector": "a.inline-flex.items-center.gap-1.5.rounded-md.h-8.px-4.text-[13px].font-medium.bg-foreground.text-background.hover:bg-foreground/90.transition-[background-color,color,transform].duration-150.ease-out.active:scale-[0.97]",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(9, 9, 11)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "6px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "background-color 0.15s cubic-bezier(0, 0, 0.2, 1), color 0.15s cubic-bezier(0, 0, 0.2, 1), transform 0.15s cubic-bezier(0, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgba(9, 9, 11, 0.9)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Documentation",
+      "classes": "inline-flex items-center rounded-md h-8 px-4 text-[13px] font-medium border border-border text-muted",
+      "selector": "a.inline-flex.items-center.rounded-md.h-8.px-4.text-[13px].font-medium.border.border-border.text-muted-foreground.hover:bg-accent.hover:text-foreground.transition-[background-color,color,transform].duration-150.ease-out.active:scale-[0.97]",
+      "baseStyles": {
+        "color": "rgb(115, 115, 115)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "1px",
+        "borderRadius": "6px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(115, 115, 115) none 0px",
+        "outlineColor": "rgb(115, 115, 115)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "background-color 0.15s cubic-bezier(0, 0, 0.2, 1), color 0.15s cubic-bezier(0, 0, 0.2, 1), transform 0.15s cubic-bezier(0, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(115, 115, 115)",
+            "to": "rgb(9, 9, 11)"
+          },
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(244, 244, 245)"
+          },
+          "outline": {
+            "from": "rgb(115, 115, 115) none 0px",
+            "to": "rgb(9, 9, 11) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(115, 115, 115)",
+            "to": "rgb(9, 9, 11)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgb(115, 115, 115) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(115, 115, 115)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "21st",
+      "classes": "inline-flex items-center whitespace-nowrap text-sm font-medium transition-colors outline-offset-2 fo",
+      "selector": "#radix-_R_1a6bicnquqlb_",
+      "baseStyles": {
+        "color": "rgb(9, 9, 11)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "6px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(9, 9, 11) none 0px",
+        "outlineColor": "rgb(9, 9, 11)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), text-decoration-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), fill 0.15s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "borderRadius": {
+            "from": "6px",
+            "to": "0px"
+          },
+          "transition": {
+            "from": "color 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), text-decoration-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), fill 0.15s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "6px",
+            "to": "0px"
+          },
+          "transition": {
+            "from": "color 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), text-decoration-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), fill 0.15s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "",
+      "classes": "inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors outl",
+      "selector": "button.inline-flex.items-center.justify-center.whitespace-nowrap.text-sm.font-medium.transition-colors.outline-offset-2.focus-visible:outline.focus-visible:outline-2.focus-visible:outline-primary/70.disabled:opacity-50.disabled:pointer-events-none.[&_svg]:pointer-events-none.[&_svg]:shrink-0.hover:text-accent-foreground.h-6.w-6.p-0.hover:bg-foreground/10.active:scale-[0.97].text-foreground.flex-shrink-0.rounded-md",
+      "baseStyles": {
+        "color": "rgb(9, 9, 11)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "6px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(9, 9, 11) none 0px",
+        "outlineColor": "rgb(9, 9, 11)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), text-decoration-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), fill 0.15s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "6px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "color 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), text-decoration-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), fill 0.15s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "6px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "color 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), text-decoration-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), fill 0.15s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "Components",
+      "classes": "group flex items-center gap-2.5 w-full pl-2 pr-1.5 py-1.5 rounded-md text-sm text-muted-foreground h",
+      "selector": "button.group.flex.items-center.gap-2.5.w-full.pl-2.pr-1.5.py-1.5.rounded-md.text-sm.text-muted-foreground.hover:bg-foreground/5.hover:text-foreground.transition-colors",
+      "baseStyles": {
+        "color": "rgb(113, 113, 122)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "6px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(113, 113, 122) none 0px",
+        "outlineColor": "rgb(113, 113, 122)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), text-decoration-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), fill 0.15s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(113, 113, 122)",
+            "to": "rgb(9, 9, 11)"
+          },
+          "borderRadius": {
+            "from": "6px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(113, 113, 122) none 0px",
+            "to": "rgb(9, 9, 11) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(113, 113, 122)",
+            "to": "rgb(9, 9, 11)"
+          },
+          "transition": {
+            "from": "color 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), text-decoration-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), fill 0.15s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "6px",
+            "to": "0px"
+          },
+          "transition": {
+            "from": "color 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), text-decoration-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), fill 0.15s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "Agents",
+      "classes": "group flex items-center gap-2.5 w-full pl-2 pr-1.5 py-1.5 rounded-md text-sm text-muted-foreground h",
+      "selector": "button.group.flex.items-center.gap-2.5.w-full.pl-2.pr-1.5.py-1.5.rounded-md.text-sm.text-muted-foreground.hover:bg-foreground/5.hover:text-foreground.transition-colors",
+      "baseStyles": {
+        "color": "rgb(113, 113, 122)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "6px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(113, 113, 122) none 0px",
+        "outlineColor": "rgb(113, 113, 122)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), text-decoration-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), fill 0.15s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(113, 113, 122)",
+            "to": "rgb(9, 9, 11)"
+          },
+          "borderRadius": {
+            "from": "6px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(113, 113, 122) none 0px",
+            "to": "rgb(9, 9, 11) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(113, 113, 122)",
+            "to": "rgb(9, 9, 11)"
+          },
+          "transition": {
+            "from": "color 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), text-decoration-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), fill 0.15s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "6px",
+            "to": "0px"
+          },
+          "transition": {
+            "from": "color 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), text-decoration-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), fill 0.15s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "Dismiss",
+      "classes": "text-muted-foreground transition-colors duration-75 hover:text-foreground",
+      "selector": "button.text-muted-foreground.transition-colors.duration-75.hover:text-foreground",
+      "baseStyles": {
+        "color": "rgb(113, 113, 122)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(113, 113, 122) none 0px",
+        "outlineColor": "rgb(113, 113, 122)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.075s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.075s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.075s cubic-bezier(0.4, 0, 0.2, 1), text-decoration-color 0.075s cubic-bezier(0.4, 0, 0.2, 1), fill 0.075s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.075s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "outline": {
+            "from": "rgb(113, 113, 122) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(113, 113, 122)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "Dismiss",
+      "classes": "text-muted-foreground transition-colors duration-75 hover:text-foreground",
+      "selector": "button.text-muted-foreground.transition-colors.duration-75.hover:text-foreground",
+      "baseStyles": {
+        "color": "rgb(113, 113, 122)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(113, 113, 122) none 0px",
+        "outlineColor": "rgb(113, 113, 122)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.075s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.075s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.075s cubic-bezier(0.4, 0, 0.2, 1), text-decoration-color 0.075s cubic-bezier(0.4, 0, 0.2, 1), fill 0.075s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.075s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "outline": {
+            "from": "rgb(113, 113, 122) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(113, 113, 122)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "",
+      "classes": "inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors outl",
+      "selector": "button.inline-flex.items-center.justify-center.whitespace-nowrap.text-sm.font-medium.transition-colors.outline-offset-2.focus-visible:outline.focus-visible:outline-2.focus-visible:outline-primary/70.disabled:opacity-50.disabled:pointer-events-none.[&_svg]:pointer-events-none.[&_svg]:shrink-0.h-7.w-7.p-0.rounded-md.text-muted-foreground.hover:text-foreground.hover:bg-muted/50.active:scale-[0.97]",
+      "baseStyles": {
+        "color": "rgb(113, 113, 122)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "6px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(113, 113, 122) none 0px",
+        "outlineColor": "rgb(113, 113, 122)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), text-decoration-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), fill 0.15s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(113, 113, 122)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "6px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(113, 113, 122) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(113, 113, 122)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "color 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), text-decoration-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), fill 0.15s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(113, 113, 122)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "6px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(113, 113, 122) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(113, 113, 122)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "color 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), text-decoration-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), fill 0.15s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "",
+      "classes": "inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors outl",
+      "selector": "button.inline-flex.items-center.justify-center.whitespace-nowrap.text-sm.font-medium.transition-colors.outline-offset-2.focus-visible:outline.focus-visible:outline-2.focus-visible:outline-primary/70.disabled:opacity-50.disabled:pointer-events-none.[&_svg]:pointer-events-none.[&_svg]:shrink-0.h-7.w-7.p-0.rounded-md.text-muted-foreground.hover:text-foreground.hover:bg-muted/50.active:scale-[0.97]",
+      "baseStyles": {
+        "color": "rgb(113, 113, 122)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "6px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(113, 113, 122) none 0px",
+        "outlineColor": "rgb(113, 113, 122)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), text-decoration-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), fill 0.15s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(113, 113, 122)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "6px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(113, 113, 122) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(113, 113, 122)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "color 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), text-decoration-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), fill 0.15s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(113, 113, 122)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "6px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(113, 113, 122) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(113, 113, 122)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "color 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), text-decoration-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), fill 0.15s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "Log in",
+      "classes": "inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors outl",
+      "selector": "button.inline-flex.items-center.justify-center.whitespace-nowrap.text-sm.font-medium.transition-colors.outline-offset-2.focus-visible:outline.focus-visible:outline-2.focus-visible:outline-primary/70.disabled:opacity-50.disabled:pointer-events-none.[&_svg]:pointer-events-none.[&_svg]:shrink-0.h-7.px-2.rounded-lg.text-muted-foreground.hover:text-foreground.hover:bg-muted/50",
+      "baseStyles": {
+        "color": "rgb(113, 113, 122)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "8px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(113, 113, 122) none 0px",
+        "outlineColor": "rgb(113, 113, 122)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), text-decoration-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), fill 0.15s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(113, 113, 122)",
+            "to": "rgb(9, 9, 11)"
+          },
+          "borderRadius": {
+            "from": "8px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(113, 113, 122) none 0px",
+            "to": "rgb(9, 9, 11) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(113, 113, 122)",
+            "to": "rgb(9, 9, 11)"
+          },
+          "transition": {
+            "from": "color 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), text-decoration-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), fill 0.15s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "8px",
+            "to": "0px"
+          },
+          "transition": {
+            "from": "color 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), text-decoration-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), fill 0.15s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "",
+      "classes": "absolute inset-y-0 z-20 hidden w-4 -translate-x-1/2 transition-all ease-linear after:absolute after:",
+      "selector": "button.absolute.inset-y-0.z-20.hidden.w-4.-translate-x-1/2.transition-all.ease-linear.after:absolute.after:inset-y-0.after:left-1/2.after:w-[2px].hover:after:bg-sidebar-border.group-data-[side=right]:left-0.sm:flex.[[data-side=left]_&]:cursor-w-resize.[[data-side=right]_&]:cursor-e-resize.[[data-side=left][data-state=collapsed]_&]:cursor-e-resize.[[data-side=right][data-state=collapsed]_&]:cursor-w-resize.group-data-[collapsible=offcanvas]:translate-x-0.group-data-[collapsible=offcanvas]:after:left-full.group-data-[collapsible=offcanvas]:hover:bg-sidebar.[[data-side=left][data-collapsible=offcanvas]_&]:-right-2.[[data-side=right][data-collapsible=offcanvas]_&]:-left-2.group-data-[side=left]:-right-6.my-8.before:absolute.before:inset-y-0.before:left-1/2.before:-translate-x-1/2.before:w-[1px].before:bg-gradient-to-b.before:from-transparent.before:from-[10px].before:via-foreground/70.before:to-transparent.before:to-[calc(100%-10px)].before:opacity-0.before:transition-opacity.before:duration-300.before:delay-100.hover:before:opacity-100",
+      "baseStyles": {
+        "color": "rgb(9, 9, 11)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "matrix(1, 0, 0, 1, -8, 0)",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(9, 9, 11) none 0px",
+        "outlineColor": "rgb(9, 9, 11)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s linear",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "transform": {
+            "from": "matrix(1, 0, 0, 1, -8, 0)",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "0.15s linear",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "transform": {
+            "from": "matrix(1, 0, 0, 1, -8, 0)",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(9, 9, 11) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(9, 9, 11)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "0.15s linear",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "View all",
+      "classes": "justify-center whitespace-nowrap font-medium outline-offset-2 focus-visible:outline focus-visible:ou",
+      "selector": "button.justify-center.whitespace-nowrap.font-medium.outline-offset-2.focus-visible:outline.focus-visible:outline-2.focus-visible:outline-primary/70.disabled:opacity-50.disabled:pointer-events-none.[&_svg]:pointer-events-none.[&_svg]:shrink-0.underline-offset-4.rounded-md.flex.items-center.gap-1.text-sm.text-muted-foreground.hover:text-foreground.no-underline.hover:no-underline.transition-colors.p-0.h-auto.cursor-pointer",
+      "baseStyles": {
+        "color": "rgb(115, 115, 115)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "6px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(115, 115, 115) none 0px",
+        "outlineColor": "rgb(115, 115, 115)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), text-decoration-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), fill 0.15s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(115, 115, 115)",
+            "to": "rgb(9, 9, 11)"
+          },
+          "borderRadius": {
+            "from": "6px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(115, 115, 115) none 0px",
+            "to": "rgb(9, 9, 11) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(115, 115, 115)",
+            "to": "rgb(9, 9, 11)"
+          },
+          "transition": {
+            "from": "color 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), text-decoration-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), fill 0.15s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "6px",
+            "to": "0px"
+          },
+          "transition": {
+            "from": "color 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), text-decoration-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), fill 0.15s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "275",
+      "classes": "ml-auto shrink-0 flex items-center gap-0.5 p-0.5 rounded text-[11px] transition-all active:scale-95 ",
+      "selector": "button.ml-auto.shrink-0.flex.items-center.gap-0.5.p-0.5.rounded.text-[11px].transition-all.active:scale-95.text-muted-foreground/50.hover:text-muted-foreground",
+      "baseStyles": {
+        "color": "rgba(115, 115, 115, 0.5)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "4px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(115, 115, 115, 0.5) none 0px",
+        "outlineColor": "rgba(115, 115, 115, 0.5)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "borderRadius": {
+            "from": "4px",
+            "to": "0px"
+          },
+          "transition": {
+            "from": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "4px",
+            "to": "0px"
+          },
+          "transition": {
+            "from": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "265",
+      "classes": "ml-auto shrink-0 flex items-center gap-0.5 p-0.5 rounded text-[11px] transition-all active:scale-95 ",
+      "selector": "button.ml-auto.shrink-0.flex.items-center.gap-0.5.p-0.5.rounded.text-[11px].transition-all.active:scale-95.text-muted-foreground/50.hover:text-muted-foreground",
+      "baseStyles": {
+        "color": "rgba(115, 115, 115, 0.5)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "4px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(115, 115, 115, 0.5) none 0px",
+        "outlineColor": "rgba(115, 115, 115, 0.5)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "borderRadius": {
+            "from": "4px",
+            "to": "0px"
+          },
+          "transition": {
+            "from": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "4px",
+            "to": "0px"
+          },
+          "transition": {
+            "from": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "236",
+      "classes": "ml-auto shrink-0 flex items-center gap-0.5 p-0.5 rounded text-[11px] transition-all active:scale-95 ",
+      "selector": "button.ml-auto.shrink-0.flex.items-center.gap-0.5.p-0.5.rounded.text-[11px].transition-all.active:scale-95.text-muted-foreground/50.hover:text-muted-foreground",
+      "baseStyles": {
+        "color": "rgba(115, 115, 115, 0.5)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "4px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(115, 115, 115, 0.5) none 0px",
+        "outlineColor": "rgba(115, 115, 115, 0.5)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgba(115, 115, 115, 0.5)",
+            "to": "rgba(115, 115, 115, 0.514)"
+          },
+          "borderRadius": {
+            "from": "4px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgba(115, 115, 115, 0.5) none 0px",
+            "to": "rgba(115, 115, 115, 0.514) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgba(115, 115, 115, 0.5)",
+            "to": "rgba(115, 115, 115, 0.514)"
+          },
+          "transition": {
+            "from": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "4px",
+            "to": "0px"
+          },
+          "transition": {
+            "from": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "215",
+      "classes": "ml-auto shrink-0 flex items-center gap-0.5 p-0.5 rounded text-[11px] transition-all active:scale-95 ",
+      "selector": "button.ml-auto.shrink-0.flex.items-center.gap-0.5.p-0.5.rounded.text-[11px].transition-all.active:scale-95.text-muted-foreground/50.hover:text-muted-foreground",
+      "baseStyles": {
+        "color": "rgba(115, 115, 115, 0.5)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "4px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(115, 115, 115, 0.5) none 0px",
+        "outlineColor": "rgba(115, 115, 115, 0.5)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgba(115, 115, 115, 0.5)",
+            "to": "rgba(115, 115, 115, 0.518)"
+          },
+          "borderRadius": {
+            "from": "4px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgba(115, 115, 115, 0.5) none 0px",
+            "to": "rgba(115, 115, 115, 0.518) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgba(115, 115, 115, 0.5)",
+            "to": "rgba(115, 115, 115, 0.518)"
+          },
+          "transition": {
+            "from": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "4px",
+            "to": "0px"
+          },
+          "transition": {
+            "from": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "141",
+      "classes": "ml-auto shrink-0 flex items-center gap-0.5 p-0.5 rounded text-[11px] transition-all active:scale-95 ",
+      "selector": "button.ml-auto.shrink-0.flex.items-center.gap-0.5.p-0.5.rounded.text-[11px].transition-all.active:scale-95.text-muted-foreground/50.hover:text-muted-foreground",
+      "baseStyles": {
+        "color": "rgba(115, 115, 115, 0.5)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "4px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(115, 115, 115, 0.5) none 0px",
+        "outlineColor": "rgba(115, 115, 115, 0.5)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgba(115, 115, 115, 0.5)",
+            "to": "rgba(115, 115, 115, 0.514)"
+          },
+          "borderRadius": {
+            "from": "4px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgba(115, 115, 115, 0.5) none 0px",
+            "to": "rgba(115, 115, 115, 0.514) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgba(115, 115, 115, 0.5)",
+            "to": "rgba(115, 115, 115, 0.514)"
+          },
+          "transition": {
+            "from": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "4px",
+            "to": "0px"
+          },
+          "transition": {
+            "from": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "101",
+      "classes": "ml-auto shrink-0 flex items-center gap-0.5 p-0.5 rounded text-[11px] transition-all active:scale-95 ",
+      "selector": "button.ml-auto.shrink-0.flex.items-center.gap-0.5.p-0.5.rounded.text-[11px].transition-all.active:scale-95.text-muted-foreground/50.hover:text-muted-foreground",
+      "baseStyles": {
+        "color": "rgba(115, 115, 115, 0.5)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "4px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(115, 115, 115, 0.5) none 0px",
+        "outlineColor": "rgba(115, 115, 115, 0.5)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgba(115, 115, 115, 0.5)",
+            "to": "rgba(115, 115, 115, 0.77)"
+          },
+          "borderRadius": {
+            "from": "4px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgba(115, 115, 115, 0.5) none 0px",
+            "to": "rgba(115, 115, 115, 0.77) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgba(115, 115, 115, 0.5)",
+            "to": "rgba(115, 115, 115, 0.77)"
+          },
+          "transition": {
+            "from": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "4px",
+            "to": "0px"
+          },
+          "transition": {
+            "from": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "96",
+      "classes": "ml-auto shrink-0 flex items-center gap-0.5 p-0.5 rounded text-[11px] transition-all active:scale-95 ",
+      "selector": "button.ml-auto.shrink-0.flex.items-center.gap-0.5.p-0.5.rounded.text-[11px].transition-all.active:scale-95.text-muted-foreground/50.hover:text-muted-foreground",
+      "baseStyles": {
+        "color": "rgba(115, 115, 115, 0.5)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(228, 228, 231)",
+        "borderWidth": "0px",
+        "borderRadius": "4px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(115, 115, 115, 0.5) none 0px",
+        "outlineColor": "rgba(115, 115, 115, 0.5)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgba(115, 115, 115, 0.5)",
+            "to": "rgba(115, 115, 115, 0.514)"
+          },
+          "borderRadius": {
+            "from": "4px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgba(115, 115, 115, 0.5) none 0px",
+            "to": "rgba(115, 115, 115, 0.514) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgba(115, 115, 115, 0.5)",
+            "to": "rgba(115, 115, 115, 0.514)"
+          },
+          "transition": {
+            "from": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "borderRadius": {
+            "from": "4px",
+            "to": "0px"
+          },
+          "transition": {
+            "from": "0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          }
+        }
+      }
+    }
+  ]
+}

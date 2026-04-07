@@ -1,0 +1,165 @@
+{
+  "version": "1.0.0",
+  "name": "runway",
+  "source": "https://runwayml.com",
+  "timestamp": "2026-04-01T11:53:21.074Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "output": "/Users/luizfosc/aios-core/design-system/patterns/tokens/runway",
+  "files": {
+    "html": {
+      "file": "source.html",
+      "size": 687920
+    },
+    "screenshots": [
+      "screenshot-desktop.png",
+      "screenshot-mobile.png"
+    ],
+    "stylesheets": [
+      {
+        "url": "https://runwayml.com/_next/static/chunks/0z~u2aztr0n8u.css",
+        "file": "0z_u2aztr0n8u.css",
+        "size": 113795
+      },
+      {
+        "url": "https://runwayml.com/_next/static/chunks/17hwcv4bs_9kw.css",
+        "file": "17hwcv4bs_9kw.css",
+        "size": 2341
+      },
+      {
+        "embedded": true,
+        "file": "embedded-0.css",
+        "size": 626
+      },
+      {
+        "embedded": true,
+        "file": "embedded-1.css",
+        "size": 781
+      },
+      {
+        "embedded": true,
+        "file": "embedded-2.css",
+        "size": 1005
+      },
+      {
+        "embedded": true,
+        "file": "embedded-3.css",
+        "size": 626
+      },
+      {
+        "embedded": true,
+        "file": "embedded-4.css",
+        "size": 781
+      },
+      {
+        "embedded": true,
+        "file": "embedded-5.css",
+        "size": 1005
+      },
+      {
+        "embedded": true,
+        "file": "embedded-6.css",
+        "size": 626
+      },
+      {
+        "embedded": true,
+        "file": "embedded-7.css",
+        "size": 781
+      },
+      {
+        "embedded": true,
+        "file": "embedded-8.css",
+        "size": 1005
+      },
+      {
+        "embedded": true,
+        "file": "embedded-9.css",
+        "size": 626
+      },
+      {
+        "embedded": true,
+        "file": "embedded-10.css",
+        "size": 781
+      },
+      {
+        "embedded": true,
+        "file": "embedded-11.css",
+        "size": 1005
+      },
+      {
+        "embedded": true,
+        "file": "embedded-12.css",
+        "size": 626
+      },
+      {
+        "embedded": true,
+        "file": "embedded-13.css",
+        "size": 781
+      },
+      {
+        "embedded": true,
+        "file": "embedded-14.css",
+        "size": 1005
+      },
+      {
+        "embedded": true,
+        "file": "embedded-15.css",
+        "size": 626
+      },
+      {
+        "embedded": true,
+        "file": "embedded-16.css",
+        "size": 781
+      },
+      {
+        "embedded": true,
+        "file": "embedded-17.css",
+        "size": 1005
+      },
+      {
+        "embedded": true,
+        "file": "embedded-18.css",
+        "size": 626
+      },
+      {
+        "embedded": true,
+        "file": "embedded-19.css",
+        "size": 781
+      },
+      {
+        "embedded": true,
+        "file": "embedded-20.css",
+        "size": 1005
+      }
+    ],
+    "domTree": {
+      "file": "dom-tree.json",
+      "nodeCount": 533
+    },
+    "extractedCss": "extracted-css.json",
+    "components": {
+      "file": "components.json",
+      "count": 11
+    },
+    "tokens": "tokens.yaml"
+  },
+  "summary": {
+    "nodeCount": 533,
+    "uniqueColors": 19,
+    "typographyVariants": 14,
+    "spacingValues": 36,
+    "shadows": 0,
+    "gradients": 2,
+    "animations": 3,
+    "mediaQueries": 26,
+    "customProperties": 53,
+    "gridLayouts": 20,
+    "flexLayouts": 50,
+    "componentTypes": 11,
+    "totalComponents": 83,
+    "stylesheetCount": 23,
+    "inlineStyles": 13
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "url": "https://simplychocolate.dk",
+  "name": "simply-chocolate",
+  "captured_at": "2026-04-01T14:05:03.765Z",
+  "elements": [
+    {
+      "type": "button",
+      "index": 1,
+      "text": "Vis detaljer",
+      "tag": "button",
+      "classes": "",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(28, 28, 28)",
+        "borderColor": "rgb(28, 28, 28)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "underline"
+      },
+      "hoverStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(28, 28, 28)",
+        "borderColor": "rgb(28, 28, 28)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "underline"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-1-default.png",
+        "hover": "btn-1-hover.png"
+      }
+    }
+  ]
+}

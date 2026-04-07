@@ -1,0 +1,27 @@
+
+    .animate-word {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .animate-space {
+      display: inline;
+      opacity: 0;
+    }
+    span.animate-word {
+      text-decoration: inherit;
+    }
+    .word-animation-processed {
+      opacity: 1 !important;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .animate-word {
+        transition: none !important;
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+      }
+    }
+    

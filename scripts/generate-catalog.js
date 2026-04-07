@@ -763,6 +763,70 @@ function syncGlobalSkillCommands(skills) {
 }
 
 /**
+ * Sync top-level skill shortcuts to global ~/.claude/commands/
+ *
+ * Project-level commands in .claude/commands/*.md that reference a skill
+ * (contain "skills/" in their content) get mirrored to the global commands
+ * directory so they work from ANY project, not just aios-core.
+ */
+function syncTopLevelShortcuts() {
+  log('🔗 Syncing top-level shortcuts to global...', 'cyan');
+
+  const homeDir = require('os').homedir();
+  const globalCmdsDir = path.join(homeDir, '.claude', 'commands');
+  const projectCmdsDir = path.join(ROOT, '.claude', 'commands');
+  let created = 0;
+  let updated = 0;
+
+  if (!fs.existsSync(globalCmdsDir)) {
+    fs.mkdirSync(globalCmdsDir, { recursive: true });
+  }
+
+  // Read all .md files in project commands (top-level only, not subdirs)
+  const projectCmds = fs.readdirSync(projectCmdsDir)
+    .filter(f => f.endsWith('.md') && !f.startsWith('.'));
+
+  projectCmds.forEach(cmdFile => {
+    const projectPath = path.join(projectCmdsDir, cmdFile);
+    const globalPath = path.join(globalCmdsDir, cmdFile);
+
+    try {
+      const content = fs.readFileSync(projectPath, 'utf8');
+
+      // Only sync commands that reference skills/ or SKILL.md (skill shortcuts)
+      if (!content.includes('skills/') && !content.includes('SKILL.md')) {
+        return;
+      }
+
+      // If content uses relative paths like ~/aios-core, convert to absolute
+      const absContent = content.replace(/~\/aios-core/g, path.join(homeDir, 'aios-core'));
+
+      if (!fs.existsSync(globalPath)) {
+        fs.writeFileSync(globalPath, absContent, 'utf8');
+        created++;
+        log(`  + ${cmdFile}`, 'green');
+      } else {
+        // Update if content differs
+        const existingContent = fs.readFileSync(globalPath, 'utf8');
+        if (existingContent !== absContent) {
+          fs.writeFileSync(globalPath, absContent, 'utf8');
+          updated++;
+          log(`  ~ ${cmdFile} (updated)`, 'cyan');
+        }
+      }
+    } catch (e) {
+      // Skip files that can't be read
+    }
+  });
+
+  if (created > 0 || updated > 0) {
+    log(`✓ Global shortcuts: ${created} created, ${updated} updated`, 'green');
+  } else {
+    log('✓ Global shortcuts: all in sync', 'green');
+  }
+}
+
+/**
  * Main execution
  */
 function main() {
@@ -782,6 +846,9 @@ function main() {
 
     // Sync global commands (user-level — available in ALL projects)
     syncGlobalSkillCommands(skills);
+
+    // Sync top-level shortcuts (project → global for skill commands)
+    syncTopLevelShortcuts();
 
     // Generate markdown
     log('\n📝 Generating markdown...', 'cyan');

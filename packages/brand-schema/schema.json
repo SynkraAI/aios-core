@@ -1,0 +1,156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AIOS Brand Schema",
+  "description": "Canonical brand token format for the AIOS content ecosystem",
+  "type": "object",
+  "required": ["meta", "colors", "typography"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["name", "slug", "theme"],
+      "properties": {
+        "name": { "type": "string", "description": "Brand display name" },
+        "slug": { "type": "string", "pattern": "^[a-z0-9-]+$", "description": "kebab-case identifier" },
+        "version": { "type": "number" },
+        "theme": { "type": "string", "enum": ["dark", "light"] },
+        "source": { "type": "string", "description": "Origin URL or 'manual'" },
+        "tags": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "colors": {
+      "type": "object",
+      "required": ["semantic"],
+      "properties": {
+        "primitives": {
+          "type": "object",
+          "description": "Raw color ramps (optional)",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" }
+          }
+        },
+        "semantic": {
+          "type": "object",
+          "required": ["background", "surface", "text", "primary", "accent"],
+          "properties": {
+            "background": { "type": "string" },
+            "surface": { "type": "string" },
+            "surface_elevated": { "type": "string" },
+            "border": { "type": "string" },
+            "border_hover": { "type": "string" },
+            "text": { "type": "string" },
+            "text_secondary": { "type": "string" },
+            "text_muted": { "type": "string" },
+            "primary": { "type": "string" },
+            "primary_hover": { "type": "string" },
+            "accent": { "type": "string" },
+            "accent_hover": { "type": "string" },
+            "success": { "type": "string" },
+            "warning": { "type": "string" },
+            "error": { "type": "string" },
+            "info": { "type": "string" }
+          }
+        }
+      }
+    },
+    "typography": {
+      "type": "object",
+      "required": ["family"],
+      "properties": {
+        "family": {
+          "type": "object",
+          "required": ["display", "body"],
+          "properties": {
+            "display": { "type": "string" },
+            "body": { "type": "string" },
+            "mono": { "type": "string" },
+            "fallback": { "type": "string" },
+            "cdn": { "type": "string" },
+            "cdn_display": { "type": "string" },
+            "cdn_body": { "type": "string" }
+          }
+        },
+        "scale": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "size": { "type": "string" },
+              "weight": { "type": ["number", "string"] },
+              "line_height": { "type": ["number", "string"] },
+              "letter_spacing": { "type": "string" },
+              "text_transform": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "spacing": {
+      "type": "object",
+      "properties": {
+        "scale": { "type": "array", "items": { "type": "number" } },
+        "named": { "type": "object", "additionalProperties": { "type": "string" } },
+        "section_padding": { "type": "string" },
+        "card_padding": { "type": "string" },
+        "button_padding_x": { "type": "string" },
+        "button_padding_y": { "type": "string" }
+      }
+    },
+    "radii": { "type": "object", "additionalProperties": { "type": ["string", "number"] } },
+    "shadows": { "type": "object", "additionalProperties": { "type": "string" } },
+    "animation": {
+      "type": "object",
+      "properties": {
+        "duration": { "type": "object", "additionalProperties": { "type": ["string", "number"] } },
+        "easing": { "type": "string" },
+        "hover_scale": { "type": "number" }
+      }
+    },
+    "motion": {
+      "type": "object",
+      "description": "Video/Remotion specific tokens",
+      "properties": {
+        "fps": { "type": "number", "default": 30 },
+        "spring": {
+          "type": "object",
+          "properties": {
+            "damping": { "type": "number" },
+            "stiffness": { "type": "number" }
+          }
+        },
+        "presets": { "type": "object", "additionalProperties": { "type": "object" } }
+      }
+    },
+    "effects": { "type": "object", "additionalProperties": { "type": "string" } },
+    "components": {
+      "type": "object",
+      "properties": {
+        "button": { "type": "object" },
+        "card": { "type": "object" },
+        "input": { "type": "object" }
+      }
+    },
+    "carousel": {
+      "type": "object",
+      "properties": {
+        "dimensions": {
+          "type": "object",
+          "properties": {
+            "width": { "type": "number", "default": 1080 },
+            "height": { "type": "number", "default": 1350 }
+          }
+        },
+        "font_preset": { "type": "string" }
+      }
+    },
+    "cover": { "type": "object" },
+    "logos": {
+      "type": "object",
+      "properties": {
+        "main": { "type": "string" },
+        "icon": { "type": "string" }
+      }
+    },
+    "anti_slop": { "type": "array", "items": { "type": "string" } }
+  }
+}

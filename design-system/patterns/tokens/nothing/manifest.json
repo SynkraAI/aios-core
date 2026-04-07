@@ -1,0 +1,75 @@
+{
+  "version": "1.0.0",
+  "name": "nothing",
+  "source": "https://nothing.tech",
+  "timestamp": "2026-04-01T13:50:31.130Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "output": "/Users/luizfosc/aios-core/design-system/patterns/tokens/nothing",
+  "files": {
+    "html": {
+      "file": "source.html",
+      "size": 188329
+    },
+    "screenshots": [
+      "screenshot-desktop.png",
+      "screenshot-mobile.png"
+    ],
+    "stylesheets": [
+      {
+        "url": "https://cdn.shopify.com/oxygen-v2/43495/38485/80939/3285351/assets/tailwind-dsQ92RzX.css",
+        "file": "tailwind-dsQ92RzX.css",
+        "size": 53992
+      },
+      {
+        "url": "https://cdn.shopify.com/oxygen-v2/43495/38485/80939/3285351/assets/app-D6o14BgC.css",
+        "file": "app-D6o14BgC.css",
+        "size": 5455
+      },
+      {
+        "embedded": true,
+        "file": "embedded-0.css",
+        "size": 85418
+      },
+      {
+        "embedded": true,
+        "file": "embedded-1.css",
+        "size": 405
+      },
+      {
+        "embedded": true,
+        "file": "embedded-2.css",
+        "size": 194
+      }
+    ],
+    "domTree": {
+      "file": "dom-tree.json",
+      "nodeCount": 752
+    },
+    "extractedCss": "extracted-css.json",
+    "components": {
+      "file": "components.json",
+      "count": 10
+    },
+    "tokens": "tokens.yaml"
+  },
+  "summary": {
+    "nodeCount": 752,
+    "uniqueColors": 14,
+    "typographyVariants": 12,
+    "spacingValues": 23,
+    "shadows": 1,
+    "gradients": 0,
+    "animations": 3,
+    "mediaQueries": 5,
+    "customProperties": 66,
+    "gridLayouts": 9,
+    "flexLayouts": 50,
+    "componentTypes": 10,
+    "totalComponents": 62,
+    "stylesheetCount": 5,
+    "inlineStyles": 55
+  }
+}

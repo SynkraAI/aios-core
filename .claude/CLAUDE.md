@@ -81,13 +81,17 @@ npm test              # Testes
 npm run lint          # ESLint
 npm run typecheck     # TypeScript
 npm run build         # Build produção
-npm run dev           # Desenvolvimento
+
+# Dev server — SEMPRE usar port-manager (NUNCA hardcode porta)
+eval $(node ~/aios-core/tools/port-manager.js auto <project>) && PORT=$PORT npm run dev
 
 # Ecosystem Index
 node scripts/generate-ecosystem-index.js    # Regenerar índice de minds/agentes
 /ecosystem-index                            # Ver índice completo
 /ecosystem-index minds                      # Ver só minds
 ```
+
+**⚠️ Port Management:** NUNCA iniciar dev server sem alocar porta. Detalhes: `.claude/rules/port-management.md`
 
 ---
 

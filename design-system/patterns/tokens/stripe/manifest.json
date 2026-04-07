@@ -1,0 +1,90 @@
+{
+  "version": "1.0.0",
+  "name": "stripe",
+  "source": "https://stripe.com",
+  "timestamp": "2026-04-01T11:37:12.146Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "output": "/Users/luizfosc/aios-core/design-system/patterns/tokens/stripe",
+  "files": {
+    "html": {
+      "file": "source.html",
+      "size": 721242
+    },
+    "screenshots": [
+      "screenshot-desktop.png",
+      "screenshot-mobile.png"
+    ],
+    "stylesheets": [
+      {
+        "url": "https://b.stripecdn.com/mkt-ssr-statics/assets/_next/static/css/fef86a199a9ef83c.css",
+        "file": "fef86a199a9ef83c.css",
+        "size": 1262
+      },
+      {
+        "url": "https://b.stripecdn.com/mkt-ssr-statics/assets/_next/static/css/0e5d1f65843e1b1b.css",
+        "file": "0e5d1f65843e1b1b.css",
+        "size": 27605
+      },
+      {
+        "url": "https://b.stripecdn.com/mkt-ssr-statics/assets/_next/static/css/809879324e43ce29.css",
+        "file": "809879324e43ce29.css",
+        "size": 20224
+      },
+      {
+        "url": "https://b.stripecdn.com/mkt-ssr-statics/assets/_next/static/css/a685f551d385aa44.css",
+        "file": "a685f551d385aa44.css",
+        "size": 15986
+      },
+      {
+        "url": "https://b.stripecdn.com/mkt-ssr-statics/assets/_next/static/css/0368ffe46d7624bf.css",
+        "file": "0368ffe46d7624bf.css",
+        "size": 247832
+      },
+      {
+        "url": "https://b.stripecdn.com/mkt-ssr-statics/assets/_next/static/css/cca8f950c2eae796.css",
+        "file": "cca8f950c2eae796.css",
+        "size": 72081
+      },
+      {
+        "url": "https://b.stripecdn.com/mkt-ssr-statics/assets/_next/static/css/febc3f7fafd6a9b5.css",
+        "file": "febc3f7fafd6a9b5.css",
+        "size": 30261
+      },
+      {
+        "url": "https://b.stripecdn.com/mkt-ssr-statics/assets/_next/static/css/f73a927287a9f564.css",
+        "file": "f73a927287a9f564.css",
+        "size": 3499
+      }
+    ],
+    "domTree": {
+      "file": "dom-tree.json",
+      "nodeCount": 1699
+    },
+    "extractedCss": "extracted-css.json",
+    "components": {
+      "file": "components.json",
+      "count": 15
+    },
+    "tokens": "tokens.yaml"
+  },
+  "summary": {
+    "nodeCount": 1699,
+    "uniqueColors": 37,
+    "typographyVariants": 25,
+    "spacingValues": 51,
+    "shadows": 6,
+    "gradients": 19,
+    "animations": 0,
+    "mediaQueries": 0,
+    "customProperties": 650,
+    "gridLayouts": 20,
+    "flexLayouts": 50,
+    "componentTypes": 15,
+    "totalComponents": 795,
+    "stylesheetCount": 8,
+    "inlineStyles": 177
+  }
+}

@@ -1,0 +1,213 @@
+# Design Tokens - openai
+# Extracted by dissect-artifact.js v1.0.0
+# Source: https://openai.com
+# Date: 2026-04-01T11:54:49.238Z
+
+metadata:
+  version: "1.0.0"
+  source: "https://openai.com"
+  generated_at: "2026-04-01T11:54:49.238Z"
+  node_count: 707
+
+colors:
+  "rgb_0_0_0_":
+    value: "rgb(0, 0, 0)"
+    occurrences: 561
+  "rgba_0_0_0_0_6_":
+    value: "rgba(0, 0, 0, 0.6)"
+    occurrences: 95
+  "rgba_0_0_0_0_12_":
+    value: "rgba(0, 0, 0, 0.12)"
+    occurrences: 19
+  "rgba_0_0_0_0_04_":
+    value: "rgba(0, 0, 0, 0.04)"
+    occurrences: 8
+  "rgb_255_255_255_":
+    value: "rgb(255, 255, 255)"
+    occurrences: 6
+  "rgb_241_241_241_":
+    value: "rgb(241, 241, 241)"
+    occurrences: 2
+  "rgba_255_255_255_0_6_":
+    value: "rgba(255, 255, 255, 0.6)"
+    occurrences: 1
+  "rgba_0_0_0_0_44_":
+    value: "rgba(0, 0, 0, 0.44)"
+    occurrences: 1
+  "rgba_241_241_241_0_8_":
+    value: "rgba(241, 241, 241, 0.8)"
+    occurrences: 1
+
+typography:
+  "17px_400":
+    font-size: "17px"
+    font-weight: "400"
+    font-family: ""OpenAI Sans", sans-serif"
+    occurrences: 345
+  "14px_500":
+    font-size: "14px"
+    font-weight: "500"
+    font-family: ""OpenAI Sans", sans-serif"
+    occurrences: 217
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: ""OpenAI Sans", sans-serif"
+    occurrences: 59
+  "18px_500":
+    font-size: "18px"
+    font-weight: "500"
+    font-family: ""OpenAI Sans", sans-serif"
+    occurrences: 21
+  "13px_500":
+    font-size: "13px"
+    font-weight: "500"
+    font-family: ""OpenAI Sans", sans-serif"
+    occurrences: 15
+  "48px_500":
+    font-size: "48px"
+    font-weight: "500"
+    font-family: ""OpenAI Sans", sans-serif"
+    occurrences: 11
+  "22px_500":
+    font-size: "22px"
+    font-weight: "500"
+    font-family: ""OpenAI Sans", sans-serif"
+    occurrences: 4
+  "14px_400":
+    font-size: "14px"
+    font-weight: "400"
+    font-family: ""OpenAI Sans", sans-serif"
+    occurrences: 3
+  "28px_600":
+    font-size: "28px"
+    font-weight: "600"
+    font-family: ""OpenAI Sans", sans-serif"
+    occurrences: 1
+
+spacing:
+  "16px":
+    value: "16px"
+    occurrences: 55
+  "_1px":
+    value: "-1px"
+    occurrences: 42
+  "8px_12px":
+    value: "8px 12px"
+    occurrences: 28
+  "12px":
+    value: "12px"
+    occurrences: 14
+  "24px":
+    value: "24px"
+    occurrences: 14
+  "8px":
+    value: "8px"
+    occurrences: 10
+  "32px":
+    value: "32px"
+    occurrences: 10
+  "4_2px":
+    value: "4.2px"
+    occurrences: 10
+  "normal_4_2px":
+    value: "normal 4.2px"
+    occurrences: 9
+  "20px":
+    value: "20px"
+    occurrences: 4
+  "120px":
+    value: "120px"
+    occurrences: 4
+  "40px":
+    value: "40px"
+    occurrences: 4
+  "3_9px":
+    value: "3.9px"
+    occurrences: 2
+  "10px":
+    value: "10px"
+    occurrences: 2
+  "normal_14_4px":
+    value: "normal 14.4px"
+    occurrences: 1
+  "112px":
+    value: "112px"
+    occurrences: 1
+  "_120px":
+    value: "-120px"
+    occurrences: 1
+  "64px_16px":
+    value: "64px 16px"
+    occurrences: 1
+  "31_9219px":
+    value: "31.9219px"
+    occurrences: 1
+  "80px":
+    value: "80px"
+    occurrences: 1
+
+shadows:
+  shadow_1:
+    value: "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.02) 0px 4px 6px 0px, rgba(0, 0, 0, 0.05) 0px 0px 2px 0px"
+    occurrences: 5
+  shadow_2:
+    value: "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.06) 0px 2px 5px 0px, rgba(0, 0, 0, 0.01) 0px 4px 4px 0px"
+    occurrences: 1
+
+borders:
+  border_1:
+    value: "1px solid rgba(0, 0, 0, 0.12)"
+    occurrences: 6
+
+custom_properties:
+  "--color-purple-200": "oklch(90.2% .063 306.703)"
+  "--type-h1-track": "-.03em"
+  "--default-font-feature-settings": "\"liga\" on,\"calt\" on"
+  "--tw-inset-shadow-alpha": "100%"
+  "--color-yellow-40": "#ffea8f"
+  "--transition-timing-function-curve-a": "cubic-bezier(0,0,1,1)"
+  "--aspect-video": "16/9"
+  "--color-syntax-copy": "#000"
+  "--blur-lg": "16px"
+  "--color-syntax-operator": "#c93b00"
+  "--color-sky-500": "oklch(68.5% .169 237.323)"
+  "--color-orange-60": "#ff9365"
+  "--color-primary-solid-12": "#e0e0e0"
+  "--color-yellow-60": "#ffe15b"
+  "--color-primary-solid-4": "#f5f5f5"
+  "--type-nav-track": "0em"
+  "--spacing-4xl": "10rem"
+  "--type-nav-header-track": "0em"
+  "--tw-outline-style": "solid"
+  "--ease-in": "cubic-bezier(.4,0,1,1)"
+  "--type-2xs-track": "clamp(-.01em,calc(-.01em + .01 * ((90rem - 100vw) / 66.5625)),0em)"
+  "--type-xl-line": "clamp(4rem,calc(4rem + 3 * ((100vw - 23.4375rem) / 66.5625)),7rem)"
+  "--type-nav-header-weight": "500"
+  "--tw-inset-ring-shadow": "0 0 #0000"
+  "--text-base--line-height": "calc(1.5 / 1)"
+  "--type-h5-track": "-.01em"
+  "--type-h5-line": "clamp(1.25rem,calc(1.25rem + .235 * ((100vw - 23.4375rem) / 66.5625)),1.485rem)"
+  "--spacing-2xl": "5rem"
+  "--color-gray-300": "oklch(87.2% .01 258.338)"
+  "--radius-none": "0"
+  "--type-meta-line": "1.225rem"
+  "--font-mono": "\"SF Mono\",Consolas,\"Liberation Mono\",ui-monospace,monospace"
+  "--tracking-wider": ".05em"
+  "--type-2xs-weight": "400"
+  "--spacing-sm": "1.5rem"
+  "--color-primary-solid-inactive": "#707070"
+  "--tw-ring-color": "#3b82f680"
+  "--transition-timing-function-curve-d": "cubic-bezier(.6,0,.4,1)"
+  "--type-h6-weight": "500"
+  "--tw-inset-shadow": "0 0 #0000"
+  "--type-h2-5-line": "clamp(1.725rem,calc(1.725rem + 1.012 * ((100vw - 23.4375rem) / 66.5625)),2.737rem)"
+  "--tw-gradient-from": "rgba(0, 0, 0, 0)"
+  "--color-white": "#fff"
+  "--color-tertiary-80": "#f1f1f1cc"
+  "--color-gray-80": "#767881"
+  "--scrollable-mask-start": "rgb(0, 0, 0)"
+  "--color-gray-400": "oklch(70.7% .022 261.325)"
+  "--color-gray-20": "#f0f1f2"
+  "--type-p1-line": "1.74994rem"
+  "--tw-shadow-alpha": "100%"

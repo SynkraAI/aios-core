@@ -1,0 +1,345 @@
+{
+  "url": "https://raycast.com",
+  "name": "raycast",
+  "captured_at": "2026-04-01T12:33:01.338Z",
+  "elements": [
+    {
+      "type": "button",
+      "index": 0,
+      "text": "Download",
+      "tag": "a",
+      "classes": "Button_button__JJiqJ Button_light__KdYEB Navbar_downloadButton__yQ3j6",
+      "defaultStyles": {
+        "background": "rgb(230, 230, 230)",
+        "color": "rgb(47, 48, 49)",
+        "borderColor": "rgb(47, 48, 49)",
+        "boxShadow": "rgba(0, 0, 0, 0.5) 0px 0px 0px 2px, rgba(255, 255, 255, 0.19) 0px 0px 14px 0px, rgba(0, 0, 0, 0.2) 0px -1px 0.4px 0px inset, rgb(255, 255, 255) 0px 1px 0.4px 0px inset",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "8px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(255, 255, 255)",
+        "color": "rgb(47, 48, 49)",
+        "borderColor": "rgb(47, 48, 49)",
+        "boxShadow": "rgba(0, 0, 0, 0.2) 0px -1px 0.4px 0px inset, rgb(255, 255, 255) 0px 1px 0.4px 0px inset, rgba(0, 0, 0, 0.5) 0px 0px 0px 2px, rgba(255, 255, 255, 0.19) 0px 0px 14px 0px",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "8px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgb(230, 230, 230)",
+          "to": "rgb(255, 255, 255)"
+        },
+        "boxShadow": {
+          "from": "rgba(0, 0, 0, 0.5) 0px 0px 0px 2px, rgba(255, 255, 255, 0.19) 0px 0px 14px 0px, rgba(0, 0, 0, 0.2) 0px -1px 0.4px 0px inset, rgb(255, 255, 255) 0px 1px 0.4px 0px inset",
+          "to": "rgba(0, 0, 0, 0.2) 0px -1px 0.4px 0px inset, rgb(255, 255, 255) 0px 1px 0.4px 0px inset, rgba(0, 0, 0, 0.5) 0px 0px 0px 2px, rgba(255, 255, 255, 0.19) 0px 0px 14px 0px"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-0-default.png",
+        "hover": "btn-0-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 2,
+      "text": "Download for Mac",
+      "tag": "a",
+      "classes": "Button_button__JJiqJ Button_light__KdYEB",
+      "defaultStyles": {
+        "background": "rgb(230, 230, 230)",
+        "color": "rgb(47, 48, 49)",
+        "borderColor": "rgb(47, 48, 49)",
+        "boxShadow": "rgba(0, 0, 0, 0.5) 0px 0px 0px 2px, rgba(255, 255, 255, 0.19) 0px 0px 14px 0px, rgba(0, 0, 0, 0.2) 0px -1px 0.4px 0px inset, rgb(255, 255, 255) 0px 1px 0.4px 0px inset",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "8px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(255, 255, 255)",
+        "color": "rgb(47, 48, 49)",
+        "borderColor": "rgb(47, 48, 49)",
+        "boxShadow": "rgba(0, 0, 0, 0.2) 0px -1px 0.4px 0px inset, rgb(255, 255, 255) 0px 1px 0.4px 0px inset, rgba(0, 0, 0, 0.5) 0px 0px 0px 2px, rgba(255, 255, 255, 0.19) 0px 0px 14px 0px",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "8px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgb(230, 230, 230)",
+          "to": "rgb(255, 255, 255)"
+        },
+        "boxShadow": {
+          "from": "rgba(0, 0, 0, 0.5) 0px 0px 0px 2px, rgba(255, 255, 255, 0.19) 0px 0px 14px 0px, rgba(0, 0, 0, 0.2) 0px -1px 0.4px 0px inset, rgb(255, 255, 255) 0px 1px 0.4px 0px inset",
+          "to": "rgba(0, 0, 0, 0.2) 0px -1px 0.4px 0px inset, rgb(255, 255, 255) 0px 1px 0.4px 0px inset, rgba(0, 0, 0, 0.5) 0px 0px 0px 2px, rgba(255, 255, 255, 0.19) 0px 0px 14px 0px"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-2-default.png",
+        "hover": "btn-2-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 3,
+      "text": "Download for Windows (beta)",
+      "tag": "a",
+      "classes": "Button_button__JJiqJ Button_light__KdYEB",
+      "defaultStyles": {
+        "background": "rgb(230, 230, 230)",
+        "color": "rgb(47, 48, 49)",
+        "borderColor": "rgb(47, 48, 49)",
+        "boxShadow": "rgba(0, 0, 0, 0.5) 0px 0px 0px 2px, rgba(255, 255, 255, 0.19) 0px 0px 14px 0px, rgba(0, 0, 0, 0.2) 0px -1px 0.4px 0px inset, rgb(255, 255, 255) 0px 1px 0.4px 0px inset",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "8px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(255, 255, 255)",
+        "color": "rgb(47, 48, 49)",
+        "borderColor": "rgb(47, 48, 49)",
+        "boxShadow": "rgba(0, 0, 0, 0.2) 0px -1px 0.4px 0px inset, rgb(255, 255, 255) 0px 1px 0.4px 0px inset, rgba(0, 0, 0, 0.5) 0px 0px 0px 2px, rgba(255, 255, 255, 0.19) 0px 0px 14px 0px",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "8px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgb(230, 230, 230)",
+          "to": "rgb(255, 255, 255)"
+        },
+        "boxShadow": {
+          "from": "rgba(0, 0, 0, 0.5) 0px 0px 0px 2px, rgba(255, 255, 255, 0.19) 0px 0px 14px 0px, rgba(0, 0, 0, 0.2) 0px -1px 0.4px 0px inset, rgb(255, 255, 255) 0px 1px 0.4px 0px inset",
+          "to": "rgba(0, 0, 0, 0.2) 0px -1px 0.4px 0px inset, rgb(255, 255, 255) 0px 1px 0.4px 0px inset, rgba(0, 0, 0, 0.5) 0px 0px 0px 2px, rgba(255, 255, 255, 0.19) 0px 0px 14px 0px"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-3-default.png",
+        "hover": "btn-3-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 4,
+      "text": "Install via homebrew",
+      "tag": "button",
+      "classes": "",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(156, 156, 157)",
+        "borderColor": "rgb(156, 156, 157)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(156, 156, 157)",
+        "borderColor": "rgb(156, 156, 157)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-4-default.png",
+        "hover": "btn-4-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 5,
+      "text": "Download",
+      "tag": "a",
+      "classes": "Button_button__JJiqJ Button_light__KdYEB GetYourTimeBack_downloadButton__aaxb1",
+      "defaultStyles": {
+        "background": "rgb(230, 230, 230)",
+        "color": "rgb(47, 48, 49)",
+        "borderColor": "rgb(47, 48, 49)",
+        "boxShadow": "rgba(0, 0, 0, 0.5) 0px 0px 0px 2px, rgba(255, 255, 255, 0.19) 0px 0px 14px 0px, rgba(0, 0, 0, 0.2) 0px -1px 0.4px 0px inset, rgb(255, 255, 255) 0px 1px 0.4px 0px inset",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "8px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(255, 255, 255)",
+        "color": "rgb(47, 48, 49)",
+        "borderColor": "rgb(47, 48, 49)",
+        "boxShadow": "rgba(0, 0, 0, 0.2) 0px -1px 0.4px 0px inset, rgb(255, 255, 255) 0px 1px 0.4px 0px inset, rgba(0, 0, 0, 0.5) 0px 0px 0px 2px, rgba(255, 255, 255, 0.19) 0px 0px 14px 0px",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "8px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgb(230, 230, 230)",
+          "to": "rgb(255, 255, 255)"
+        },
+        "boxShadow": {
+          "from": "rgba(0, 0, 0, 0.5) 0px 0px 0px 2px, rgba(255, 255, 255, 0.19) 0px 0px 14px 0px, rgba(0, 0, 0, 0.2) 0px -1px 0.4px 0px inset, rgb(255, 255, 255) 0px 1px 0.4px 0px inset",
+          "to": "rgba(0, 0, 0, 0.2) 0px -1px 0.4px 0px inset, rgb(255, 255, 255) 0px 1px 0.4px 0px inset, rgba(0, 0, 0, 0.5) 0px 0px 0px 2px, rgba(255, 255, 255, 0.19) 0px 0px 14px 0px"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-5-default.png",
+        "hover": "btn-5-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 6,
+      "text": "",
+      "tag": "button",
+      "classes": "ExtensionHighlight_previous__vaBCj",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(106, 107, 108)",
+        "borderColor": "rgba(255, 255, 255, 0.06) rgba(255, 255, 255, 0.06) rgb(106, 107, 108)",
+        "boxShadow": "rgba(255, 255, 255, 0.1) 0px 1px 0px 0px inset",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "86px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(106, 107, 108)",
+        "borderColor": "rgba(255, 255, 255, 0.06) rgba(255, 255, 255, 0.06) rgb(106, 107, 108)",
+        "boxShadow": "rgba(255, 255, 255, 0.1) 0px 1px 0px 0px inset",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "86px",
+        "textDecoration": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-6-default.png",
+        "hover": "btn-6-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 7,
+      "text": "",
+      "tag": "button",
+      "classes": "ExtensionHighlight_next__yGcNX",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgba(255, 255, 255, 0.06) rgba(255, 255, 255, 0.06) rgb(255, 255, 255)",
+        "boxShadow": "rgba(255, 255, 255, 0.1) 0px 1px 0px 0px inset",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "86px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgba(255, 255, 255, 0.06) rgba(255, 255, 255, 0.06) rgb(255, 255, 255)",
+        "boxShadow": "rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(154, 170, 255, 0.05) 0px 2px 40px 10px, rgba(154, 170, 255, 0.05) 0px 0px 16px -7px",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "86px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "boxShadow": {
+          "from": "rgba(255, 255, 255, 0.1) 0px 1px 0px 0px inset",
+          "to": "rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(154, 170, 255, 0.05) 0px 2px 40px 10px, rgba(154, 170, 255, 0.05) 0px 0px 16px -7px"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-7-default.png",
+        "hover": "btn-7-hover.png"
+      }
+    },
+    {
+      "type": "card",
+      "index": 0,
+      "defaultStyles": {
+        "boxShadow": "none",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "borderColor": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "hoverStyles": {
+        "boxShadow": "none",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "borderColor": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "card-0-default.png",
+        "hover": "card-0-hover.png"
+      }
+    },
+    {
+      "type": "card",
+      "index": 1,
+      "defaultStyles": {
+        "boxShadow": "none",
+        "transform": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "hoverStyles": {
+        "boxShadow": "none",
+        "transform": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "card-1-default.png",
+        "hover": "card-1-hover.png"
+      }
+    },
+    {
+      "type": "card",
+      "index": 2,
+      "defaultStyles": {
+        "boxShadow": "rgba(255, 255, 255, 0.1) 0px 1px 0px 0px inset, rgba(7, 13, 79, 0.05) 0px 0px 20px 3px, rgba(7, 13, 79, 0.05) 0px 0px 40px 20px, rgba(255, 255, 255, 0.06) 0px 0px 0px 1px inset",
+        "transform": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "hoverStyles": {
+        "boxShadow": "rgba(255, 255, 255, 0.1) 0px 1px 0px 0px inset, rgba(7, 13, 79, 0.05) 0px 0px 20px 3px, rgba(7, 13, 79, 0.05) 0px 0px 40px 20px, rgba(255, 255, 255, 0.06) 0px 0px 0px 1px inset",
+        "transform": "none",
+        "borderColor": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "card-2-default.png",
+        "hover": "card-2-hover.png"
+      }
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+.team-cards{padding-left:5%;padding-right:5%}@media (min-width:1024px){.team-cards{-webkit-mask-image:linear-gradient(180deg,transparent 8px,red 224px,red calc(100% - 224px),transparent calc(100% - 8px));mask-image:linear-gradient(180deg,transparent 8px,red 224px,red calc(100% - 224px),transparent calc(100% - 8px))}}

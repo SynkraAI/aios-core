@@ -10,18 +10,22 @@
 | 22 | **update-squads** | 📦 | **4/10 ações feitas — merge + 3 DNA enrichments. Próximo: ai-reels workflows** | **Claude Opus 4.6** | **2026-03-26** | [INDEX](update-squads/INDEX.md) |
 | 21 | **renan-vieira** | 📦 | **✅ DNA extraído 91.5% + Agent criado — squad integration pendente** | **squad-creator + mind-cloning** | **2026-03-17** | [INDEX](renan-vieira/INDEX.md) |
 | 6 | **designcode-ui** | 📦 | **32/32 componentes + 29/29 Storybook stories (100%)** | **design-chief** | **2026-03-11** | [INDEX](designcode-ui/INDEX.md) |
-| 7 | **meta-ads-prospector** | 🏠 | 🔄 **5 stories revisadas e aprovadas — pronto para @dev** | **@pm/@architect/@po/@sm → @dev** | **2026-03-12** | [INDEX](~/CODE/Projects/meta-ads-prospector/.aios/INDEX.md) |
+| ~~7~~ | ~~meta-ads-prospector~~ | — | ~~Deletado~~ | — | — | — |
 | 8 | **🏆 EPIC: Squad Ecosystem Quality** | 📦 | **🟡 Ready for Commitment — 7 stories, 17-24.5h, 3 P0 + 4 P1** | **@squad-chief → @dev** | **2026-03-12** | [INDEX](.aios-core/development/epics/2026-03-squad-ecosystem-quality/) |
 | 9 | **naval-ravikant-mind** | 📦 | **Mind Clone Elite 95% — falta smoke test** | **mind-cloning** | **2026-03-11** | [INDEX](naval-ravikant-mind/INDEX.md) |
 | 10 | **tabgroup-vault** | 🏠 | 🔄 **Extensão Brave/Chrome — backup de tab groups** | **—** | **2026-03-12** | [INDEX](~/CODE/Projects/tabgroup-vault/.aios/INDEX.md) |
-| 11 | **garimpoai** | 🏠 | 🔄 **Assistente IA para licitações públicas brasileiras (PNCP)** | **—** | **2026-03-12** | [INDEX](~/CODE/Projects/garimpoai/.aios/INDEX.md) |
+| ~~11~~ | ~~garimpoai~~ | — | ~~Deletado~~ | — | — | — |
 | 12 | **evolution-api** | 📦 | **WhatsApp conectado via pairing code (Hetzner VPS v2.3.7)** | **—** | **2026-03-13** | [INDEX](evolution-api/INDEX.md) |
 | 13 | **advisory-board** | 📦 | **11/11 minds clonados (2.6M words) — montar squad pendente** | **squad-chief** | **2026-03-13** | [INDEX](advisor-board/INDEX.md) |
 | 14 | **zeroaudio** | 🏠 | **Wave 1 done (2/9 stories), Wave 4 Dashboard aprovada — próximo: Story 2.1 transcrição** | **@dev** | **2026-03-13** | [INDEX](~/CODE/Projects/zeroaudio/.aios/INDEX.md) |
 | 15 | **god-mode** | 📦 | **v2.0 funcional, 6 refs de criação pendentes (44/60)** | **—** | **2026-03-14** | [INDEX](god-mode/INDEX.md) |
 | 16 | **aios-core (framework)** | 📦 | **✅ Memory System v2.0 COMPLETO — 5/5 phases, 17/17 checks, 31 projetos + 11 agentes + 18 HYBRID** | **Claude Code (Opus)** | **2026-03-19** | [Plan](docs/plans/memory-system-v2.md) |
 | 19 | **whatsapp-prospector** | 🏠 | 🔄 **EM PRODUÇÃO** — Pipeline `mentoria-50k` Phase 5 (4/11) — @leandro-ladeira Big Ideas ✅, próximo: @copy-chief | **@dev + copy squad** | **2026-03-18** | [INDEX](~/CODE/Projects/whatsapp-prospector/.aios/INDEX.md) |
-| 20 | **luiz-fosc-palestras-negocio** | 🏠 | **🎯 EPIC-001: 12 stories prontas (12/12 validadas ✅) — próximo: S1.0 Benchmarking (@analyst)** | **@pm + @sm + @po** | **2026-03-17 15:05** | [INDEX](/Users/luizfosc/CODE/Projects/luiz-fosc-palestras-negocio/.aios/INDEX.md) |
+| ~~20~~ | ~~luiz-fosc-palestras-negocio~~ | — | ~~Deletado~~ | — | — | — |
+
+| 23 | **pattern-library** | 📦 | **40 sites extraídos, effects library, workflows lp+clone criados** | **Claude Opus 4.6** | **2026-04-01** | [INDEX](pattern-library/INDEX.md) |
+| 24 | **forge-evolution** | 📦 | **✅ Plugin system + 9 features implementadas + auditoria Codex OK — próximo: smoke test** | **Claude Opus 4.6** | **2026-04-04** | [INDEX](forge-evolution/INDEX.md) |
+| 25 | **luizfosc-brand** | 📦 | **🟡 Sessões 1-2 OK (auditoria + estratégia). Sessão 3 pendente (visual + brand book)** | **branding squad** | **2026-04-07** | [INDEX](luizfosc-brand/INDEX.md) |
 
 ## Backlog (Futuros Projetos)
 

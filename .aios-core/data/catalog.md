@@ -1,6 +1,6 @@
 # AIOX Catalog
 
-> Gerado automaticamente em 31/03/2026
+> Gerado automaticamente em 07/04/2026
 
 ---
 
@@ -79,7 +79,7 @@
 
 ---
 
-## Skills (68)
+## Skills (71)
 
 | Skill | Descrição | Ativação |
 |-------|-----------|----------|
@@ -99,6 +99,7 @@
 | cloud-penetration-testing | Cloud Penetration Testing | `/AIOS:skills:cloud-penetration-testing` |
 | code-refactoring-refactor-clean | Refactor & Clean Code v2.0 | `/AIOS:skills:code-refactoring-refactor-clean` |
 | code-review-ping-pong | Code Review Ping-Pong v3.1 — Cross-AI Review Protocol | `/AIOS:skills:code-review-ping-pong` |
+| content-forge | Content Forge — Orquestrador Inteligente de Conteúdo | `/AIOS:skills:content-forge` |
 | context-surgeon | Context Surgeon v1.1.0 | `/AIOS:skills:context-surgeon` |
 | dashboard-generator | Dashboard Generator - Interactive Web Dashboards | `/AIOS:skills:dashboard-generator` |
 | decision-tree-generator | Decision Tree Documentation Generator | `/AIOS:skills:decision-tree-generator` |
@@ -112,6 +113,7 @@
 | design-system-storybook | Component Factory (Bootstrap Mode) | `/AIOS:skills:design-system-storybook` |
 | ecosystem-audit | Ecosystem Audit Skill | `/AIOS:skills:ecosystem-audit` |
 | forge | Forge — Da ideia ao deploy, sem atalho raso. | `/AIOS:skills:forge` |
+| forge-quick | Forge Quick — Atalho direto | `/AIOS:skills:forge-quick` |
 | game-development | Game Development | `/AIOS:skills:game-development` |
 | god-mode | God Mode v3.1 — Supreme Operator AIOX | `/AIOS:skills:god-mode` |
 | godot-gdscript-patterns | Godot GDScript Patterns | `/AIOS:skills:godot-gdscript-patterns` |
@@ -139,6 +141,7 @@
 | ram-doctor | RAM Doctor — Diagnóstico e Limpeza de Memória no macOS | `/AIOS:skills:ram-doctor` |
 | sherlock-investigator | Sherlock Investigator | `/AIOS:skills:sherlock-investigator` |
 | skill-creator | Skill Creator | `/AIOS:skills:skill-creator` |
+| skill-stress-test | Skill Stress Test v1.0 | `/AIOS:skills:skill-stress-test` |
 | smart-browser-playwright | Smart Browser Playwright | `/AIOS:skills:smart-browser-playwright` |
 | superpowers | Superpowers | `/AIOS:skills:superpowers` |
 | synapse | SYNAPSE Context Engine | `/AIOS:skills:synapse` |
@@ -228,7 +231,7 @@
 | Categoria | Total | Coverage |
 |-----------|-------|----------|
 | Squads | 68 | 100% |
-| Skills | 68 | 100% |
+| Skills | 71 | 100% |
 | Tools | 17 | 100% |
 | Agents | 12 | 100% |
 

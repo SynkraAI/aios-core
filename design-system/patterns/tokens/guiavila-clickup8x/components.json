@@ -1,0 +1,142 @@
+[
+  {
+    "type": "button",
+    "count": 1,
+    "samples": [
+      {
+        "tag": "button",
+        "classes": [],
+        "rect": {
+          "x": 686,
+          "y": 979,
+          "width": 68,
+          "height": 48
+        },
+        "styles": {
+          "display": "block",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "12px",
+          "fontWeight": "400",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      }
+    ]
+  },
+  {
+    "type": "badge",
+    "count": 1,
+    "samples": [
+      {
+        "tag": "div",
+        "classes": [
+          "framer-11ytagx"
+        ],
+        "rect": {
+          "x": 295,
+          "y": 4381,
+          "width": 251,
+          "height": 84
+        },
+        "styles": {
+          "display": "flex",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "12px",
+          "fontWeight": "400",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      }
+    ]
+  },
+  {
+    "type": "image",
+    "count": 38,
+    "samples": [
+      {
+        "tag": "img",
+        "classes": [],
+        "rect": {
+          "x": 556,
+          "y": 100,
+          "width": 328,
+          "height": 131
+        },
+        "styles": {
+          "display": "block",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "12px",
+          "fontWeight": "400",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      },
+      {
+        "tag": "img",
+        "classes": [],
+        "rect": {
+          "x": 295,
+          "y": 764,
+          "width": 850,
+          "height": 479
+        },
+        "styles": {
+          "display": "block",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "12px",
+          "fontWeight": "400",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      },
+      {
+        "tag": "img",
+        "classes": [],
+        "rect": {
+          "x": 311,
+          "y": 1423,
+          "width": 32,
+          "height": 32
+        },
+        "styles": {
+          "display": "block",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "12px",
+          "fontWeight": "400",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "800px"
+        }
+      }
+    ]
+  },
+  {
+    "type": "video",
+    "count": 1,
+    "samples": [
+      {
+        "tag": "video",
+        "classes": [],
+        "rect": {
+          "x": 0,
+          "y": 4804,
+          "width": 1440,
+          "height": 806
+        },
+        "styles": {
+          "display": "block",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "12px",
+          "fontWeight": "400",
+          "padding": "0px 0px 0px 0px",
+          "borderRadius": "0px"
+        }
+      }
+    ]
+  }
+]

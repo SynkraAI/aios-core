@@ -1,0 +1,40 @@
+
+        .next-video-alert {
+          position: absolute;
+          inset: 1em;
+          bottom: auto;
+          padding: .75rem 1rem;
+          border-radius: 1rem;
+          color: hsl(0, 0%, 100%);
+          background-color: hsl(240 10% 3.9% / .7);
+          border: 1px solid hsl(240 3.7% 15.9%);
+          transition: visibility 0s, opacity .25s;
+          visibility: visible;
+          opacity: 1;
+        }
+
+        .next-video-alert[hidden] {
+          display: block;
+          transition: visibility 1s, opacity 1s;
+          visibility: hidden;
+          opacity: 0;
+        }
+
+        .next-video-alert svg {
+          position: absolute;
+        }
+
+        .next-video-alert h5 {
+          line-height: 1;
+          font-weight: 500;
+          margin-bottom: 0.25rem;
+          padding-left: 1.75rem;
+          font-size: inherit;
+        }
+
+        .next-video-alert div {
+          padding-left: 1.75rem;
+          font-size: 0.875rem;
+          line-height: 1.25rem;
+        }
+        

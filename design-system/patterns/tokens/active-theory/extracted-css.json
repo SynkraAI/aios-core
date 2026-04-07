@@ -1,0 +1,44 @@
+{
+  "colors": [
+    {
+      "value": "rgb(255, 255, 255)",
+      "count": 2
+    },
+    {
+      "value": "rgb(0, 0, 0)",
+      "count": 1
+    }
+  ],
+  "typography": [
+    {
+      "value": "16px/400/nbarchitekt, Helvetica, Arial, sans-serif",
+      "count": 1
+    },
+    {
+      "value": "18px/700/nbarchitekt, Helvetica, Arial, sans-serif",
+      "count": 1
+    }
+  ],
+  "spacing": [
+    {
+      "value": "225px",
+      "count": 1
+    }
+  ],
+  "borders": [],
+  "shadows": [],
+  "gradients": [],
+  "animations": [
+    {
+      "name": "fadeInOpacity",
+      "cssText": "@keyframes fadeInOpacity { \n  0% { opacity: 0; }\n  100% { opacity: 1; }\n}"
+    }
+  ],
+  "transitions": [
+    "all"
+  ],
+  "mediaQueries": [],
+  "customProperties": {},
+  "gridLayouts": [],
+  "flexLayouts": []
+}

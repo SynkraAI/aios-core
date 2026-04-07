@@ -1,0 +1,100 @@
+{
+  "version": "1.0.0",
+  "name": "framer",
+  "source": "https://framer.com",
+  "timestamp": "2026-04-01T11:47:40.544Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "output": "/Users/luizfosc/aios-core/design-system/patterns/tokens/framer",
+  "files": {
+    "html": {
+      "file": "source.html",
+      "size": 1636455
+    },
+    "screenshots": [
+      "screenshot-desktop.png",
+      "screenshot-mobile.png"
+    ],
+    "stylesheets": [
+      {
+        "url": "https://accounts.google.com/gsi/style",
+        "file": "style",
+        "size": 696
+      },
+      {
+        "embedded": true,
+        "file": "embedded-0.css",
+        "size": 101080
+      },
+      {
+        "embedded": true,
+        "file": "embedded-1.css",
+        "size": 370809
+      },
+      {
+        "embedded": true,
+        "file": "embedded-3.css",
+        "size": 276
+      },
+      {
+        "embedded": true,
+        "file": "embedded-4.css",
+        "size": 3660
+      },
+      {
+        "embedded": true,
+        "file": "embedded-5.css",
+        "size": 703
+      },
+      {
+        "embedded": true,
+        "file": "embedded-6.css",
+        "size": 9219
+      },
+      {
+        "embedded": true,
+        "file": "embedded-7.css",
+        "size": 91
+      },
+      {
+        "embedded": true,
+        "file": "embedded-8.css",
+        "size": 90
+      },
+      {
+        "embedded": true,
+        "file": "embedded-9.css",
+        "size": 750
+      }
+    ],
+    "domTree": {
+      "file": "dom-tree.json",
+      "nodeCount": 3896
+    },
+    "extractedCss": "extracted-css.json",
+    "components": {
+      "file": "components.json",
+      "count": 8
+    },
+    "tokens": "tokens.yaml"
+  },
+  "summary": {
+    "nodeCount": 3896,
+    "uniqueColors": 54,
+    "typographyVariants": 35,
+    "spacingValues": 33,
+    "shadows": 19,
+    "gradients": 5,
+    "animations": 4,
+    "mediaQueries": 25,
+    "customProperties": 1,
+    "gridLayouts": 4,
+    "flexLayouts": 50,
+    "componentTypes": 8,
+    "totalComponents": 366,
+    "stylesheetCount": 10,
+    "inlineStyles": 3260
+  }
+}

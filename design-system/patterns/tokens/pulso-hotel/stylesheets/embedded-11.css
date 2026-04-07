@@ -1,0 +1,37 @@
+
+.slide-2-pagination-item {
+ opacity: 0.3; /* ou qualquer opacidade menor que você queira */
+  transition: opacity 0.3s ease;
+}
+
+.slide-2-pagination-item .progress-bar-tab-wrap {
+  opacity: 0.3; /* ou qualquer opacidade menor que você queira */
+  transition: opacity 0.3s ease;
+}
+
+.slide-2-pagination-item .dot-slide-2 {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Estados ativos */
+.slide-2-pagination-item.w--current .progress-bar-tab-wrap,
+.slide-2-pagination-item.w-tab-active .progress-bar-tab-wrap {
+  opacity: 1; /* 100% opacidade quando ativo */
+}
+
+.slide-2-pagination-item.w--current .dot-slide-2,
+.slide-2-pagination-item.w-tab-active .dot-slide-2 {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Fallback para diferentes estados de ativo do Webflow */
+.slide-2-pagination-item:hover .progress-bar-tab-wrap {
+  opacity: 0.7; /* opacidade no hover */
+}
+
+.slide-2-pagination-item:hover .dot-slide-2 {
+  opacity: 0.5; /* leve aparição no hover */
+}

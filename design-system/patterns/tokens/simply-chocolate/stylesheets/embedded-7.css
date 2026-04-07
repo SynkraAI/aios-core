@@ -1,0 +1,27 @@
+
+@font-face {
+  font-family: 'GTStandard-M';
+  src: url('https://cdn.shopify.com/shop-assets/static_uploads/shoplift/GTStandard-MRegular.woff2')
+    format('woff2');
+  font-style: normal;
+  font-weight: 450;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GTStandard-M';
+  src: url('https://cdn.shopify.com/shop-assets/static_uploads/shoplift/GTStandard-MMedium.woff2')
+    format('woff2');
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GTStandard-M';
+  src: url('https://cdn.shopify.com/shop-assets/static_uploads/shoplift/GTStandard-MSemibold.woff2')
+    format('woff2');
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}

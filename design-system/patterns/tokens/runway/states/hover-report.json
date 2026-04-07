@@ -1,0 +1,299 @@
+{
+  "url": "https://runwayml.com",
+  "name": "runway",
+  "captured_at": "2026-04-01T12:40:22.462Z",
+  "elements": [
+    {
+      "type": "button",
+      "index": 0,
+      "text": "Learn more",
+      "tag": "button",
+      "classes": "font-semibold transition-all duration-150 inline-flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 py-1 px-2 text-sm leading-5 rounded-[4px] bg-transparent text-white outline outline-transparent hover:outline-[#3A3A3A] -outline-offset-1 hover:bg-[#1A1A1A] active:bg-[#262626]",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgb(229, 231, 235)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(26, 26, 26)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgb(229, 231, 235)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgba(0, 0, 0, 0)",
+          "to": "rgb(26, 26, 26)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-0-default.png",
+        "hover": "btn-0-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 1,
+      "text": "Learn more",
+      "tag": "button",
+      "classes": "font-semibold transition-all duration-150 inline-flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 py-1 px-2 text-sm leading-5 rounded-[4px] bg-transparent text-white outline outline-transparent hover:outline-[#3A3A3A] -outline-offset-1 hover:bg-[#1A1A1A] active:bg-[#262626]",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgb(229, 231, 235)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(26, 26, 26)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgb(229, 231, 235)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgba(0, 0, 0, 0)",
+          "to": "rgb(26, 26, 26)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-1-default.png",
+        "hover": "btn-1-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 2,
+      "text": "Learn more",
+      "tag": "button",
+      "classes": "font-semibold transition-all duration-150 inline-flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 py-1 px-2 text-sm leading-5 rounded-[4px] bg-transparent text-white outline outline-transparent hover:outline-[#3A3A3A] -outline-offset-1 hover:bg-[#1A1A1A] active:bg-[#262626]",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgb(229, 231, 235)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(26, 26, 26)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgb(229, 231, 235)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgba(0, 0, 0, 0)",
+          "to": "rgb(26, 26, 26)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-2-default.png",
+        "hover": "btn-2-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 3,
+      "text": "Learn more",
+      "tag": "button",
+      "classes": "font-semibold transition-all duration-150 inline-flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 py-1 px-2 text-sm leading-5 rounded-[4px] bg-transparent text-white outline outline-transparent hover:outline-[#3A3A3A] -outline-offset-1 hover:bg-[#1A1A1A] active:bg-[#262626]",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgb(229, 231, 235)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(26, 26, 26)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgb(229, 231, 235)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgba(0, 0, 0, 0)",
+          "to": "rgb(26, 26, 26)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-3-default.png",
+        "hover": "btn-3-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 4,
+      "text": "Your Privacy Choices",
+      "tag": "button",
+      "classes": "rw-eyebrow inline-flex items-center gap-1.5 cursor-pointer hover:underline",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(153, 153, 153)",
+        "borderColor": "rgb(229, 231, 235)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(153, 153, 153)",
+        "borderColor": "rgb(229, 231, 235)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "underline"
+      },
+      "diffs": {
+        "textDecoration": {
+          "from": "none",
+          "to": "underline"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-4-default.png",
+        "hover": "btn-4-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 1,
+      "text": "Research",
+      "defaultStyles": {
+        "color": "rgb(255, 255, 255)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(255, 255, 255)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "link-1-default.png",
+        "hover": "link-1-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 2,
+      "text": "Product",
+      "defaultStyles": {
+        "color": "rgb(238, 239, 240)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(255, 255, 255)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "diffs": {
+        "color": {
+          "from": "rgb(238, 239, 240)",
+          "to": "rgb(255, 255, 255)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "link-2-default.png",
+        "hover": "link-2-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 3,
+      "text": "Resources",
+      "defaultStyles": {
+        "color": "rgb(252, 253, 253)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(255, 255, 255)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "diffs": {
+        "color": {
+          "from": "rgb(252, 253, 253)",
+          "to": "rgb(255, 255, 255)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "link-3-default.png",
+        "hover": "link-3-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 4,
+      "text": "Solutions",
+      "defaultStyles": {
+        "color": "rgb(255, 255, 255)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(255, 255, 255)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "link-4-default.png",
+        "hover": "link-4-hover.png"
+      }
+    }
+  ]
+}

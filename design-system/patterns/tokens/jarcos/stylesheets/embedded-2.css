@@ -1,0 +1,161 @@
+
+#__framer-editorbar-button,
+.framer-13yxzio, framer-6jWyo framer-n0ccwk framer-v-n0ccwk framer-bmpgw8 __framer-badge{
+  display: none !important;
+  visibility: hidden !important;
+}
+.framer-6jWyo.framer-n0ccwk {
+display: none !important;
+visibility: hidden !important;
+}
+    
+img {
+    -webkit-user-drag: none;
+    user-drag: none;
+    -webkit-user-select: none;
+    user-select: none;
+    pointer-events: auto;
+}
+
+img::selection {
+    background: transparent; /* Prevent highlight background */
+}
+
+img:active {
+    cursor: default;
+}
+
+html, body {
+    -webkit-touch-callout: none; /* Prevent long-press image save on iOS Safari */
+}
+
+/* Target all links */
+a {
+    position: relative;
+    display: inline-block;
+}
+
+/* Remove default browser link colors */
+a:link,
+a:visited {
+    color: inherit;
+}
+
+/* Jarcologo Margin Bottom */
+.mb-logo {
+    margin-bottom: 48px
+}
+
+/* Create the underline element */
+a::after {
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    right: auto;
+    width: 0;
+    height: 1px;
+    background-color: currentColor;
+    transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Animate in: left to right */
+a:hover::after {
+    width: 100%;
+    left: 0;
+    right: auto;
+}
+
+/* Animate out: left to right (exits to the right) */
+a:not(:hover)::after {
+    width: 0;
+    left: auto;
+    right: 0;
+}
+
+/* Exclude links inside #button container */
+#button a::after {
+    display: none;
+}
+
+/* Exclude multiple button containers if needed */
+#logo-nav,
+#button a,
+#button-1 a,
+#button-2 a {
+border: 1px solid rgb(255 255 255 / 15%);
+}
+
+#logo-nav a::after,
+#button-2 a::after,
+#button-1 a::after,
+#button a::after,
+#cta a::after,
+.button-wrapper a::after {
+    display: none;
+}
+
+/* Remove autofill styling */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px #111 inset !important;
+    -webkit-text-fill-color: #fff !important;
+    box-shadow: 0 0 0 1000px #111 inset !important;
+}
+
+/* For other browsers */
+input:-moz-autofill,
+input:-moz-autofill-preview {
+    background-color: #111 !important;
+    color: #fff !important;
+}
+
+/* Mobile adjustments */
+
+@media (max-width: 810px) {
+    .mb-logo {
+        margin-bottom: 16px;
+    }
+
+    .block img,
+    .image img,
+    .image-clone img {
+        width: 50vw!important;
+        height: auto;
+        max-width: none;
+        max-height: none;
+    }
+      a::after {
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    right: auto;
+    width: 0;
+    height: 1px;
+    background-color: currentColor;
+    transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  /* Animate in: left to right */
+  a:hover::after {
+    width: 100%;
+    left: 0;
+    right: auto;
+  }
+
+  /* Animate out: left to right (exits to the right) */
+  a:not(:hover)::after {
+    width: 0;
+    left: auto;
+    right: 0;
+  }
+
+   .masonry:has(.item:hover) .item {
+     opacity:1!important;
+    }
+}
+
+

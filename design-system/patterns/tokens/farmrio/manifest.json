@@ -1,0 +1,90 @@
+{
+  "version": "1.0.0",
+  "name": "farmrio",
+  "source": "https://farmrio.com.br",
+  "timestamp": "2026-04-01T12:18:09.213Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "output": "/Users/luizfosc/aios-core/design-system/patterns/tokens/farmrio",
+  "files": {
+    "html": {
+      "file": "source.html",
+      "size": 1209304
+    },
+    "screenshots": [
+      "screenshot-desktop.png",
+      "screenshot-mobile.png"
+    ],
+    "stylesheets": [
+      {
+        "url": "https://www.farmrio.com.br/styles.css?revision=3813230535&__frsh_c=74c0995f06b9b42bf6ce77e1d3da892289e29a42",
+        "file": "styles.css",
+        "size": 314578
+      },
+      {
+        "url": "https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap",
+        "file": "css2",
+        "size": 1936
+      },
+      {
+        "url": "https://s3.amazonaws.com/raichu-beta/selos/styles.css",
+        "file": "styles.css",
+        "size": 7411
+      },
+      {
+        "embedded": true,
+        "file": "embedded-0.css",
+        "size": 38
+      },
+      {
+        "embedded": true,
+        "file": "embedded-1.css",
+        "size": 1184
+      },
+      {
+        "embedded": true,
+        "file": "embedded-2.css",
+        "size": 30667
+      },
+      {
+        "embedded": true,
+        "file": "embedded-3.css",
+        "size": 110783
+      },
+      {
+        "embedded": true,
+        "file": "embedded-4.css",
+        "size": 263
+      }
+    ],
+    "domTree": {
+      "file": "dom-tree.json",
+      "nodeCount": 2779
+    },
+    "extractedCss": "extracted-css.json",
+    "components": {
+      "file": "components.json",
+      "count": 17
+    },
+    "tokens": "tokens.yaml"
+  },
+  "summary": {
+    "nodeCount": 2779,
+    "uniqueColors": 27,
+    "typographyVariants": 36,
+    "spacingValues": 36,
+    "shadows": 7,
+    "gradients": 5,
+    "animations": 42,
+    "mediaQueries": 60,
+    "customProperties": 168,
+    "gridLayouts": 18,
+    "flexLayouts": 50,
+    "componentTypes": 17,
+    "totalComponents": 225,
+    "stylesheetCount": 8,
+    "inlineStyles": 53
+  }
+}

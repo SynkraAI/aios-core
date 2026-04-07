@@ -1,0 +1,5 @@
+
+  .nav-cta-wrapper:has([data-wf-variation-617143893]:not([data-wf-hidden-variation])) .nav-cta-btn-wrapper.cc-primary .btn {
+    background-color: var(--colors--secondary-background);
+    color: var(--colors--text);
+  }

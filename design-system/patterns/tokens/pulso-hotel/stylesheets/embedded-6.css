@@ -1,0 +1,11 @@
+
+
+.cta-item .image-cta-item {
+  transition: transform 1s ease; 
+}
+
+
+.cta-item:hover .image-cta-item {
+  transform: scale(1.05) !important;
+  
+}

@@ -1,0 +1,243 @@
+{
+  "url": "https://obys.agency",
+  "name": "obys",
+  "captured_at": "2026-04-01T13:53:20.425Z",
+  "elements": [
+    {
+      "type": "button",
+      "index": 2,
+      "text": "",
+      "tag": "button",
+      "classes": "button button-outline--light button--large",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgb(255, 255, 255)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "50%",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(21, 21, 21)",
+        "borderColor": "rgb(255, 255, 255)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "50%",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "color": {
+          "from": "rgb(255, 255, 255)",
+          "to": "rgb(21, 21, 21)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-2-default.png",
+        "hover": "btn-2-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 3,
+      "text": "",
+      "tag": "button",
+      "classes": "button button-outline--light button--large",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgb(255, 255, 255)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "50%",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(21, 21, 21)",
+        "borderColor": "rgb(255, 255, 255)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "50%",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "color": {
+          "from": "rgb(255, 255, 255)",
+          "to": "rgb(21, 21, 21)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-3-default.png",
+        "hover": "btn-3-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 4,
+      "text": "",
+      "tag": "button",
+      "classes": "button button-outline--light button--large",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgb(255, 255, 255)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "50%",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(21, 21, 21)",
+        "borderColor": "rgb(255, 255, 255)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "50%",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "color": {
+          "from": "rgb(255, 255, 255)",
+          "to": "rgb(21, 21, 21)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-4-default.png",
+        "hover": "btn-4-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 5,
+      "text": "All Projects (19)",
+      "tag": "a",
+      "classes": "button button--large button--primary",
+      "defaultStyles": {
+        "background": "rgb(255, 166, 61)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgb(255, 166, 61)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "50%",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(255, 166, 61)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgb(255, 166, 61)",
+        "boxShadow": "none",
+        "transform": "matrix(0.9, 0, 0, 0.9, 0, 0)",
+        "opacity": "1",
+        "borderRadius": "50%",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "transform": {
+          "from": "none",
+          "to": "matrix(0.9, 0, 0, 0.9, 0, 0)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-5-default.png",
+        "hover": "btn-5-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 2,
+      "text": "Works",
+      "defaultStyles": {
+        "color": "rgb(255, 255, 255)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(255, 255, 255)",
+        "textDecoration": "none",
+        "opacity": "0.8",
+        "transform": "none"
+      },
+      "diffs": {
+        "opacity": {
+          "from": "1",
+          "to": "0.8"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "link-2-default.png",
+        "hover": "link-2-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 3,
+      "text": "About",
+      "defaultStyles": {
+        "color": "rgb(255, 255, 255)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(255, 255, 255)",
+        "textDecoration": "none",
+        "opacity": "0.800005",
+        "transform": "none"
+      },
+      "diffs": {
+        "opacity": {
+          "from": "1",
+          "to": "0.800005"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "link-3-default.png",
+        "hover": "link-3-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 4,
+      "text": "Contacts",
+      "defaultStyles": {
+        "color": "rgb(255, 255, 255)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(255, 255, 255)",
+        "textDecoration": "none",
+        "opacity": "0.80078",
+        "transform": "none"
+      },
+      "diffs": {
+        "opacity": {
+          "from": "1",
+          "to": "0.80078"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "link-4-default.png",
+        "hover": "link-4-hover.png"
+      }
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "version": "1.0.0",
+  "name": "locomotive",
+  "source": "https://locomotive.ca",
+  "timestamp": "2026-04-01T13:36:55.256Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "output": "/Users/luizfosc/aios-core/design-system/patterns/tokens/locomotive",
+  "files": {
+    "html": {
+      "file": "source.html",
+      "size": 61063
+    },
+    "screenshots": [
+      "screenshot-desktop.png",
+      "screenshot-mobile.png"
+    ],
+    "stylesheets": [
+      {
+        "url": "https://locomotive.ca/assets/styles/main.css?v=1773158732955",
+        "file": "main.css",
+        "size": 199909
+      },
+      {
+        "embedded": true,
+        "file": "embedded-0.css",
+        "size": 6197
+      }
+    ],
+    "domTree": {
+      "file": "dom-tree.json",
+      "nodeCount": 326
+    },
+    "extractedCss": "extracted-css.json",
+    "components": {
+      "file": "components.json",
+      "count": 15
+    },
+    "tokens": "tokens.yaml"
+  },
+  "summary": {
+    "nodeCount": 326,
+    "uniqueColors": 3,
+    "typographyVariants": 7,
+    "spacingValues": 18,
+    "shadows": 0,
+    "gradients": 1,
+    "animations": 10,
+    "mediaQueries": 337,
+    "customProperties": 82,
+    "gridLayouts": 20,
+    "flexLayouts": 24,
+    "componentTypes": 15,
+    "totalComponents": 151,
+    "stylesheetCount": 2,
+    "inlineStyles": 12
+  }
+}

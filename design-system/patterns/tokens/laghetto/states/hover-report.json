@@ -1,0 +1,122 @@
+{
+  "url": "https://laghetto.com.br",
+  "name": "laghetto",
+  "captured_at": "2026-04-01T12:51:50.609Z",
+  "elements": [
+    {
+      "type": "button",
+      "index": 2,
+      "text": "",
+      "tag": "button",
+      "classes": "bricks--floating--button rdstation-popup-js-floating-button shake",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(51, 51, 51)",
+        "borderColor": "rgb(51, 51, 51)",
+        "boxShadow": "none",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(51, 51, 51)",
+        "borderColor": "rgb(51, 51, 51)",
+        "boxShadow": "none",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "opacity": "1",
+        "borderRadius": "0px",
+        "textDecoration": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-2-default.png",
+        "hover": "btn-2-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 6,
+      "text": "Menu",
+      "tag": "a",
+      "classes": "menu-button w-inline-block",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(0, 0, 238)",
+        "borderColor": "rgb(240, 245, 250)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "100px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(0, 0, 238)",
+        "borderColor": "rgb(240, 245, 250)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "0.6",
+        "borderRadius": "100px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "opacity": {
+          "from": "1",
+          "to": "0.6"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-6-default.png",
+        "hover": "btn-6-hover.png"
+      }
+    },
+    {
+      "type": "card",
+      "index": 0,
+      "defaultStyles": {
+        "boxShadow": "none",
+        "transform": "none",
+        "borderColor": "rgb(240, 245, 250)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "hoverStyles": {
+        "boxShadow": "none",
+        "transform": "none",
+        "borderColor": "rgb(240, 245, 250)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "card-0-default.png",
+        "hover": "card-0-hover.png"
+      }
+    },
+    {
+      "type": "card",
+      "index": 1,
+      "defaultStyles": {
+        "boxShadow": "none",
+        "transform": "none",
+        "borderColor": "rgb(240, 245, 250)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "hoverStyles": {
+        "boxShadow": "none",
+        "transform": "none",
+        "borderColor": "rgb(240, 245, 250)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "card-1-default.png",
+        "hover": "card-1-hover.png"
+      }
+    }
+  ]
+}

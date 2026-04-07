@@ -1,0 +1,14 @@
+
+  [data-video-trigger] .inline-video_playback {
+    transition: opacity var(--transition-duration-1) var(--transition-timing-inoutcubic);
+    opacity: 0;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    [data-video-trigger]:hover .inline-video_playback {
+      opacity: 1;
+    }
+  }
+  [data-customer-stories="card"] .inline-video_video {
+    height: 100%;
+    object-fit: cover;
+  }

@@ -1,0 +1,205 @@
+# Design Tokens - rive
+# Extracted by dissect-artifact.js v1.0.0
+# Source: https://rive.app
+# Date: 2026-04-01T13:59:13.276Z
+
+metadata:
+  version: "1.0.0"
+  source: "https://rive.app"
+  generated_at: "2026-04-01T13:59:13.276Z"
+  node_count: 890
+
+colors:
+  "rgb_0_0_238_":
+    value: "rgb(0, 0, 238)"
+    occurrences: 369
+  "rgb_0_0_0_":
+    value: "rgb(0, 0, 0)"
+    occurrences: 343
+  "rgb_153_153_153_":
+    value: "rgb(153, 153, 153)"
+    occurrences: 40
+  "rgb_241_241_241_":
+    value: "rgb(241, 241, 241)"
+    occurrences: 36
+  "rgb_255_255_255_":
+    value: "rgb(255, 255, 255)"
+    occurrences: 32
+  "rgb_242_240_240_":
+    value: "rgb(242, 240, 240)"
+    occurrences: 24
+  "rgba_255_255_255_0_6_":
+    value: "rgba(255, 255, 255, 0.6)"
+    occurrences: 22
+  "rgb_18_18_18_":
+    value: "rgb(18, 18, 18)"
+    occurrences: 18
+  "rgb_170_170_170_":
+    value: "rgb(170, 170, 170)"
+    occurrences: 18
+  "rgb_38_38_38_":
+    value: "rgb(38, 38, 38)"
+    occurrences: 11
+  "rgb_29_29_29_":
+    value: "rgb(29, 29, 29)"
+    occurrences: 5
+  "rgb_17_17_17_":
+    value: "rgb(17, 17, 17)"
+    occurrences: 2
+  "rgb_255_164_28_":
+    value: "rgb(255, 164, 28)"
+    occurrences: 2
+  "rgba_255_255_255_0_9_":
+    value: "rgba(255, 255, 255, 0.9)"
+    occurrences: 1
+  "rgb_235_235_235_":
+    value: "rgb(235, 235, 235)"
+    occurrences: 1
+  "rgba_255_255_255_0_1_":
+    value: "rgba(255, 255, 255, 0.1)"
+    occurrences: 1
+
+typography:
+  "12px_400":
+    font-size: "12px"
+    font-weight: "400"
+    font-family: "sans-serif"
+    occurrences: 699
+  "16px_500":
+    font-size: "16px"
+    font-weight: "500"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 66
+  "11px_400":
+    font-size: "11px"
+    font-weight: "400"
+    font-family: "Tomorrow, "Tomorrow Placeholder", sans-serif"
+    occurrences: 36
+  "14px_400":
+    font-size: "14px"
+    font-weight: "400"
+    font-family: ""Inter Display", "Inter Display Placeholder", sans-serif"
+    occurrences: 18
+  "14px_500":
+    font-size: "14px"
+    font-weight: "500"
+    font-family: "Tomorrow, "Tomorrow Placeholder", sans-serif"
+    occurrences: 14
+  "13px_500":
+    font-size: "13px"
+    font-weight: "500"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 14
+  "12px_500":
+    font-size: "12px"
+    font-weight: "500"
+    font-family: "Tomorrow, "Tomorrow Placeholder", sans-serif"
+    occurrences: 13
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: "Inter, sans-serif"
+    occurrences: 8
+  "24px_500":
+    font-size: "24px"
+    font-weight: "500"
+    font-family: "Tomorrow, "Tomorrow Placeholder", sans-serif"
+    occurrences: 3
+  "40px_500":
+    font-size: "40px"
+    font-weight: "500"
+    font-family: "Tomorrow, "Tomorrow Placeholder", sans-serif"
+    occurrences: 1
+  "20px_500":
+    font-size: "20px"
+    font-weight: "500"
+    font-family: "Tomorrow, "Tomorrow Placeholder", sans-serif"
+    occurrences: 1
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: ""Inter Regular", Inter, Inter, system-ui, -apple-system, "system-ui", "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 1
+  "16px_600":
+    font-size: "16px"
+    font-weight: "600"
+    font-family: ""Inter Regular", Inter, Inter, system-ui, -apple-system, "system-ui", "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol""
+    occurrences: 1
+
+spacing:
+  "10px":
+    value: "10px"
+    occurrences: 90
+  "12px":
+    value: "12px"
+    occurrences: 54
+  "1px":
+    value: "1px"
+    occurrences: 20
+  "5px":
+    value: "5px"
+    occurrences: 18
+  "16px":
+    value: "16px"
+    occurrences: 18
+  "60px":
+    value: "60px"
+    occurrences: 13
+  "30px":
+    value: "30px"
+    occurrences: 11
+  "2px":
+    value: "2px"
+    occurrences: 10
+  "8px":
+    value: "8px"
+    occurrences: 8
+  "15px":
+    value: "15px"
+    occurrences: 5
+  "20px":
+    value: "20px"
+    occurrences: 4
+  "40px":
+    value: "40px"
+    occurrences: 2
+  "3_6px":
+    value: "3.6px"
+    occurrences: 2
+  "32px":
+    value: "32px"
+    occurrences: 2
+  "24px":
+    value: "24px"
+    occurrences: 1
+  "38px":
+    value: "38px"
+    occurrences: 1
+  "27px":
+    value: "27px"
+    occurrences: 1
+  "14px":
+    value: "14px"
+    occurrences: 1
+  "39px":
+    value: "39px"
+    occurrences: 1
+  "50px":
+    value: "50px"
+    occurrences: 1
+
+shadows:
+  shadow_1:
+    value: "rgba(0, 0, 0, 0) 0px 0px 0px 1px inset"
+    occurrences: 1
+
+borders:
+  border_1:
+    value: "2px inset rgb(118, 118, 118)"
+    occurrences: 1
+
+gradients:
+  gradient_1: "linear-gradient(90deg in oklch, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 30%, rgb(48, 132, 255) 35%, rgb(25, 242, 255) 45%, rgb(255, 164, 28) 50%, rgb(243, 0, 88) 55%, rgb(255, 72, 60) 60%, rgb(243, 0, 88) 65%, rgb(0, 0, 0) 70%, rgb(0, 0, 0) 100%)"
+
+custom_properties:
+  "--one-if-corner-shape-supported": "1"

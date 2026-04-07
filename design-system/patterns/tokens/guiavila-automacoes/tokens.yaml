@@ -1,0 +1,295 @@
+# Design Tokens - guiavila-automacoes
+# Extracted by dissect-artifact.js v1.0.0
+# Source: https://lp.guiavila.com/automacoes
+# Date: 2026-04-01T14:53:12.538Z
+
+metadata:
+  version: "1.0.0"
+  source: "https://lp.guiavila.com/automacoes"
+  generated_at: "2026-04-01T14:53:12.538Z"
+  node_count: 1299
+
+colors:
+  "rgb_0_0_0_":
+    value: "rgb(0, 0, 0)"
+    occurrences: 1036
+  "rgb_255_255_255_":
+    value: "rgb(255, 255, 255)"
+    occurrences: 75
+  "rgba_255_255_255_0_9_":
+    value: "rgba(255, 255, 255, 0.9)"
+    occurrences: 58
+  "rgba_255_255_255_0_7_":
+    value: "rgba(255, 255, 255, 0.7)"
+    occurrences: 42
+  "rgb_0_0_238_":
+    value: "rgb(0, 0, 238)"
+    occurrences: 27
+  "rgba_0_0_0_0_9_":
+    value: "rgba(0, 0, 0, 0.9)"
+    occurrences: 20
+  "rgba_0_0_0_0_7_":
+    value: "rgba(0, 0, 0, 0.7)"
+    occurrences: 18
+  "rgba_41_52_255_0_16_":
+    value: "rgba(41, 52, 255, 0.16)"
+    occurrences: 17
+  "rgb_86_86_86_":
+    value: "rgb(86, 86, 86)"
+    occurrences: 8
+  "rgb_200_200_201_":
+    value: "rgb(200, 200, 201)"
+    occurrences: 6
+  "rgb_0_153_255_":
+    value: "rgb(0, 153, 255)"
+    occurrences: 6
+  "rgb_41_52_255_":
+    value: "rgb(41, 52, 255)"
+    occurrences: 5
+  "rgba_95_95_113_0_":
+    value: "rgba(95, 95, 113, 0)"
+    occurrences: 5
+  "rgb_242_242_242_":
+    value: "rgb(242, 242, 242)"
+    occurrences: 5
+  "rgba_255_255_255_0_02_":
+    value: "rgba(255, 255, 255, 0.02)"
+    occurrences: 2
+  "rgb_250_250_250_":
+    value: "rgb(250, 250, 250)"
+    occurrences: 2
+  "rgb_43_174_255_":
+    value: "rgb(43, 174, 255)"
+    occurrences: 2
+  "rgb_3_3_3_":
+    value: "rgb(3, 3, 3)"
+    occurrences: 2
+  "rgb_0_162_255_":
+    value: "rgb(0, 162, 255)"
+    occurrences: 1
+  "rgb_5_5_5_":
+    value: "rgb(5, 5, 5)"
+    occurrences: 1
+  "rgba_255_255_255_0_04_":
+    value: "rgba(255, 255, 255, 0.04)"
+    occurrences: 1
+  "rgba_255_255_255_0_08_":
+    value: "rgba(255, 255, 255, 0.08)"
+    occurrences: 1
+  "rgba_255_255_255_0_24_":
+    value: "rgba(255, 255, 255, 0.24)"
+    occurrences: 1
+  "rgba_115_183_255_0_08_":
+    value: "rgba(115, 183, 255, 0.08)"
+    occurrences: 1
+  "rgb_194_226_255_":
+    value: "rgb(194, 226, 255)"
+    occurrences: 1
+  "rgb_255_192_33_":
+    value: "rgb(255, 192, 33)"
+    occurrences: 1
+  "rgba_117_254_114_0_08_":
+    value: "rgba(117, 254, 114, 0.08)"
+    occurrences: 1
+  "rgb_117_254_114_":
+    value: "rgb(117, 254, 114)"
+    occurrences: 1
+  "rgb_97_255_94_":
+    value: "rgb(97, 255, 94)"
+    occurrences: 1
+  "rgba_0_0_0_0_25_":
+    value: "rgba(0, 0, 0, 0.25)"
+    occurrences: 1
+  "rgb_37_211_102_":
+    value: "rgb(37, 211, 102)"
+    occurrences: 1
+
+typography:
+  "12px_400":
+    font-size: "12px"
+    font-weight: "400"
+    font-family: "sans-serif"
+    occurrences: 1044
+  "16px_700":
+    font-size: "16px"
+    font-weight: "700"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 46
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 45
+  "14px_400":
+    font-size: "14px"
+    font-weight: "400"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 24
+  "12px_400":
+    font-size: "12px"
+    font-weight: "400"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 24
+  "14px_700":
+    font-size: "14px"
+    font-weight: "700"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 19
+  "14px_600":
+    font-size: "14px"
+    font-weight: "600"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 19
+  "40px_600":
+    font-size: "40px"
+    font-weight: "600"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 16
+  "16px_600":
+    font-size: "16px"
+    font-weight: "600"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 12
+  "13px_400":
+    font-size: "13px"
+    font-weight: "400"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 8
+  "12px_700":
+    font-size: "12px"
+    font-weight: "700"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 7
+  "12px_500":
+    font-size: "12px"
+    font-weight: "500"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 5
+  "18px_500":
+    font-size: "18px"
+    font-weight: "500"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 5
+  "38px_600":
+    font-size: "38px"
+    font-weight: "600"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 4
+  "78px_700":
+    font-size: "78px"
+    font-weight: "700"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 2
+  "50px_600":
+    font-size: "50px"
+    font-weight: "600"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 2
+  "29px_600":
+    font-size: "29px"
+    font-weight: "600"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 2
+  "38px_700":
+    font-size: "38px"
+    font-weight: "700"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 2
+  "12px_600":
+    font-size: "12px"
+    font-weight: "600"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 1
+  "18px_600":
+    font-size: "18px"
+    font-weight: "600"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 1
+
+spacing:
+  "16px":
+    value: "16px"
+    occurrences: 128
+  "10px":
+    value: "10px"
+    occurrences: 103
+  "24px":
+    value: "24px"
+    occurrences: 58
+  "8px":
+    value: "8px"
+    occurrences: 38
+  "80px":
+    value: "80px"
+    occurrences: 20
+  "2px":
+    value: "2px"
+    occurrences: 13
+  "4px":
+    value: "4px"
+    occurrences: 11
+  "20px":
+    value: "20px"
+    occurrences: 10
+  "48px":
+    value: "48px"
+    occurrences: 9
+  "32px":
+    value: "32px"
+    occurrences: 6
+  "40px":
+    value: "40px"
+    occurrences: 6
+  "60px":
+    value: "60px"
+    occurrences: 4
+  "100px":
+    value: "100px"
+    occurrences: 3
+  "180px":
+    value: "180px"
+    occurrences: 2
+  "56px":
+    value: "56px"
+    occurrences: 2
+  "7px":
+    value: "7px"
+    occurrences: 1
+  "9px":
+    value: "9px"
+    occurrences: 1
+
+shadows:
+  shadow_1:
+    value: "rgba(17, 0, 255, 0.5) 0px 8px 40px 0px, rgba(255, 255, 255, 0) 0px 0px 10px 1px inset, rgba(0, 85, 255, 0.12) 0px 0px 0px 1px"
+    occurrences: 17
+  shadow_2:
+    value: "rgba(17, 0, 255, 0.5) 0px 8px 40px 0px"
+    occurrences: 5
+  shadow_3:
+    value: "rgba(255, 255, 255, 0) 0px 0px 46px 0px inset"
+    occurrences: 5
+  shadow_4:
+    value: "rgba(0, 85, 255, 0.7) 0px 8px 40px 0px, rgba(0, 85, 255, 0.2) 0px 0px 0px 5px"
+    occurrences: 1
+  shadow_5:
+    value: "rgba(0, 0, 0, 0.2) 0px 2px 10px 0px"
+    occurrences: 1
+
+gradients:
+  gradient_1: "linear-gradient(291deg, rgb(186, 195, 255) 0%, rgb(255, 255, 255) 100%)"
+  gradient_2: "linear-gradient(rgb(255, 255, 255) 0%, rgb(217, 228, 255) 100%)"
+  gradient_3: "linear-gradient(rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 100%)"
+  gradient_4: "linear-gradient(0deg, rgb(227, 227, 227) 0%, rgb(255, 255, 255) 133%)"
+  gradient_5: "linear-gradient(90deg, rgba(0, 89, 255, 0) 0%, rgb(0, 76, 255) 100%)"
+  gradient_6: "linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgb(255, 255, 255) 50%, rgba(255, 255, 255, 0) 100%)"
+  gradient_7: "radial-gradient(50% 50%, rgb(0, 115, 255) 0%, rgba(0, 44, 201, 0.4) 100%)"
+  gradient_8: "radial-gradient(50% 50%, rgb(0, 115, 255) 0%, rgba(0, 54, 201, 0.4) 100%)"
+  gradient_9: "radial-gradient(50% 50%, rgb(255, 255, 255) 0%, rgba(255, 255, 255, 0.4) 100%)"
+  gradient_10: "radial-gradient(50% 50%, rgb(255, 255, 255) 0%, rgba(199, 255, 238, 0) 100%)"
+
+custom_properties:
+  "--one-if-corner-shape-supported": "1"
+  "--animate-duration": "1s"
+  "--animate-delay": "1s"
+  "--animate-repeat": "1"

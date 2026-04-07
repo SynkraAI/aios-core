@@ -1,0 +1,1170 @@
+{
+  "colors": [
+    {
+      "value": "rgb(0, 0, 0)",
+      "count": 561
+    },
+    {
+      "value": "rgba(0, 0, 0, 0.6)",
+      "count": 95
+    },
+    {
+      "value": "rgba(0, 0, 0, 0.12)",
+      "count": 19
+    },
+    {
+      "value": "rgba(0, 0, 0, 0.04)",
+      "count": 8
+    },
+    {
+      "value": "rgb(255, 255, 255)",
+      "count": 6
+    },
+    {
+      "value": "rgb(241, 241, 241)",
+      "count": 2
+    },
+    {
+      "value": "rgba(255, 255, 255, 0.6)",
+      "count": 1
+    },
+    {
+      "value": "rgba(0, 0, 0, 0.44)",
+      "count": 1
+    },
+    {
+      "value": "rgba(241, 241, 241, 0.8)",
+      "count": 1
+    }
+  ],
+  "typography": [
+    {
+      "value": "17px/400/\"OpenAI Sans\", sans-serif",
+      "count": 345
+    },
+    {
+      "value": "14px/500/\"OpenAI Sans\", sans-serif",
+      "count": 217
+    },
+    {
+      "value": "16px/400/\"OpenAI Sans\", sans-serif",
+      "count": 59
+    },
+    {
+      "value": "18px/500/\"OpenAI Sans\", sans-serif",
+      "count": 21
+    },
+    {
+      "value": "13px/500/\"OpenAI Sans\", sans-serif",
+      "count": 15
+    },
+    {
+      "value": "48px/500/\"OpenAI Sans\", sans-serif",
+      "count": 11
+    },
+    {
+      "value": "22px/500/\"OpenAI Sans\", sans-serif",
+      "count": 4
+    },
+    {
+      "value": "14px/400/\"OpenAI Sans\", sans-serif",
+      "count": 3
+    },
+    {
+      "value": "28px/600/\"OpenAI Sans\", sans-serif",
+      "count": 1
+    }
+  ],
+  "spacing": [
+    {
+      "value": "16px",
+      "count": 55
+    },
+    {
+      "value": "-1px",
+      "count": 42
+    },
+    {
+      "value": "8px 12px",
+      "count": 28
+    },
+    {
+      "value": "12px",
+      "count": 14
+    },
+    {
+      "value": "24px",
+      "count": 14
+    },
+    {
+      "value": "8px",
+      "count": 10
+    },
+    {
+      "value": "32px",
+      "count": 10
+    },
+    {
+      "value": "4.2px",
+      "count": 10
+    },
+    {
+      "value": "normal 4.2px",
+      "count": 9
+    },
+    {
+      "value": "20px",
+      "count": 4
+    },
+    {
+      "value": "120px",
+      "count": 4
+    },
+    {
+      "value": "40px",
+      "count": 4
+    },
+    {
+      "value": "3.9px",
+      "count": 2
+    },
+    {
+      "value": "10px",
+      "count": 2
+    },
+    {
+      "value": "normal 14.4px",
+      "count": 1
+    },
+    {
+      "value": "112px",
+      "count": 1
+    },
+    {
+      "value": "-120px",
+      "count": 1
+    },
+    {
+      "value": "64px 16px",
+      "count": 1
+    },
+    {
+      "value": "31.9219px",
+      "count": 1
+    },
+    {
+      "value": "80px",
+      "count": 1
+    },
+    {
+      "value": "48px",
+      "count": 1
+    }
+  ],
+  "borders": [
+    {
+      "value": "1px solid rgba(0, 0, 0, 0.12)",
+      "count": 6
+    }
+  ],
+  "shadows": [
+    {
+      "value": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.02) 0px 4px 6px 0px, rgba(0, 0, 0, 0.05) 0px 0px 2px 0px",
+      "count": 5
+    },
+    {
+      "value": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.06) 0px 2px 5px 0px, rgba(0, 0, 0, 0.01) 0px 4px 4px 0px",
+      "count": 1
+    }
+  ],
+  "gradients": [],
+  "animations": [
+    {
+      "name": "CRTScreen_crt-flicker__MPh0U",
+      "cssText": "@keyframes CRTScreen_crt-flicker__MPh0U { \n  0%, 100% { opacity: var(--crt-overlay-before); }\n  25% { opacity: var(--crt-overlay-before-low); }\n  50% { opacity: var(--crt-overlay-before-mid); }\n  75% { opacity: var(--crt-overlay-before-high); }\n}"
+    },
+    {
+      "name": "CRTScreen_crt-pulse__mSVbY",
+      "cssText": "@keyframes CRTScreen_crt-pulse__mSVbY { \n  0%, 100% { opacity: calc(.1 * var(--crt-overlay-intensity)); }\n  50% { opacity: var(--crt-overlay-after-pulse); }\n}"
+    },
+    {
+      "name": "CRTScreen_crt-typewriter__g19ZG",
+      "cssText": "@keyframes CRTScreen_crt-typewriter__g19ZG { \n  0% { clip-path: inset(0px 100% 0px 0px); }\n  100% { clip-path: inset(0px); }\n}"
+    },
+    {
+      "name": "CRTScreen_crt-blink-cursor__5TNjU",
+      "cssText": "@keyframes CRTScreen_crt-blink-cursor__5TNjU { \n  0% { opacity: 0; }\n  100% { opacity: 1; }\n}"
+    },
+    {
+      "name": "CRTScreen_crt-content-glitch__xC2JZ",
+      "cssText": "@keyframes CRTScreen_crt-content-glitch__xC2JZ { \n  0%, 16.8%, 18.3%, 48.8%, 50.4%, 83.2%, 84.9%, 100% { filter: none; transform: translateZ(0px); }\n  17.1% { filter: blur(calc(var(--crt-glitch-blur) * .55)); transform: translate3d(calc(var(--crt-glitch-offset) * -.5),calc(var(--crt-glitch-offset) * .15),0); }\n  17.5% { filter: blur(var(--crt-glitch-blur)); transform: translate3d(var(--crt-glitch-offset),calc(var(--crt-glitch-offset) * -.3),0); }\n  17.9% { filter: blur(calc(var(--crt-glitch-blur) * 1.1)); transform: translate3d(calc(var(--crt-glitch-offset) * -.8),calc(var(--crt-glitch-offset) * .35),0); }\n  49.1% { filter: blur(calc(var(--crt-glitch-blur) * .5)); transform: translate3d(calc(var(--crt-glitch-offset) * .4),calc(var(--crt-glitch-offset) * -.2),0); }\n  49.6% { filter: blur(calc(var(--crt-glitch-blur) * 1.25)); transform: translate3d(calc(var(--crt-glitch-offset) * -1),calc(var(--crt-glitch-offset) * .4),0); }\n  50% { filter: blur(calc(var(--crt-glitch-blur) * .8)); transform: translate3d(calc(var(--crt-glitch-offset) * .6),calc(var(--crt-glitch-offset) * -.35),0); }\n  83.5% { filter: blur(calc(var(--crt-glitch-blur) * .7)); transform: translate3d(calc(var(--crt-glitch-offset) * -.4),calc(var(--crt-glitch-offset) * .2),0); }\n  84% { filter: blur(calc(var(--crt-glitch-blur) * 1.3)); transform: translate3d(calc(var(--crt-glitch-offset) * 1.1),calc(var(--crt-glitch-offset) * -.45),0); }\n  84.4% { filter: blur(calc(var(--crt-glitch-blur) * .9)); transform: translate3d(calc(var(--crt-glitch-offset) * -.7),calc(var(--crt-glitch-offset) * .3),0); }\n}"
+    },
+    {
+      "name": "CRTScreen_crt-text-shadow-glitch__vOJ8O",
+      "cssText": "@keyframes CRTScreen_crt-text-shadow-glitch__vOJ8O { \n  0%, 16.8%, 18.3%, 48.8%, 50.4%, 83.2%, 84.9%, 100% { --crt-text-shadow: var(--crt-text-shadow-base); }\n  17.1%, 49.1%, 83.5% { --crt-text-shadow: var(--crt-text-shadow-glitch); }\n  17.5%, 49.6%, 84% { --crt-text-shadow: var(--crt-text-shadow-glitch-strong); }\n  17.9%, 50%, 84.4% { --crt-text-shadow: var(--crt-text-shadow-glitch-splay); }\n}"
+    },
+    {
+      "name": "CRTScreen_crt-overlay-glitch__QHr8s",
+      "cssText": "@keyframes CRTScreen_crt-overlay-glitch__QHr8s { \n  0%, 16.7%, 18.5%, 48.7%, 50.5%, 83.1%, 85%, 100% { transform: translateZ(0px); }\n  17% { transform: translate3d(calc(var(--crt-glitch-offset) * .8),0,0); }\n  17.4% { transform: translate3d(calc(var(--crt-glitch-offset) * -1.2),1px,0); }\n  17.8% { transform: translate3d(calc(var(--crt-glitch-offset) * 1.1),-1px,0); }\n  49.2% { transform: translate3d(calc(var(--crt-glitch-offset) * -.9),0,0); }\n  49.8% { transform: translate3d(calc(var(--crt-glitch-offset) * 1.3),-1px,0); }\n  50.2% { transform: translate3d(calc(var(--crt-glitch-offset) * -.8),1px,0); }\n  83.6% { transform: translate3d(calc(var(--crt-glitch-offset) * 1),0,0); }\n  84.2% { transform: translate3d(calc(var(--crt-glitch-offset) * -1.4),-1px,0); }\n  84.6% { transform: translate3d(calc(var(--crt-glitch-offset) * .9),1px,0); }\n}"
+    },
+    {
+      "name": "CarouselNavProgressIndicator_carousel-nav-progress-fill__N_cAF",
+      "cssText": "@keyframes CarouselNavProgressIndicator_carousel-nav-progress-fill__N_cAF { \n  100% { stroke-dashoffset: 0; }\n}"
+    },
+    {
+      "name": "CarouselNavProgressIndicator_carousel-nav-progress-fade__El0WZ",
+      "cssText": "@keyframes CarouselNavProgressIndicator_carousel-nav-progress-fade__El0WZ { \n  100% { opacity: 0; }\n}"
+    },
+    {
+      "name": "ComputerScreen_adjustment-toast-fade__EBVNv",
+      "cssText": "@keyframes ComputerScreen_adjustment-toast-fade__EBVNv { \n  0% { opacity: 0; transform: translateY(4px); }\n  12% { opacity: 1; transform: translateY(0px); }\n  70% { opacity: 1; transform: translateY(0px); }\n  100% { opacity: 0; transform: translateY(-2px); }\n}"
+    },
+    {
+      "name": "Float_float-x__H_eP_",
+      "cssText": "@keyframes Float_float-x__H_eP_ { \n  0% { transform: translateX(calc(var(--float-x) * -1)); }\n  50% { transform: translateX(0px); }\n  100% { transform: translateX(var(--float-x)); }\n}"
+    },
+    {
+      "name": "Float_float-y-rotate__2kX8Y",
+      "cssText": "@keyframes Float_float-y-rotate__2kX8Y { \n  0% { transform: translateY(calc(var(--float-y) * -1)) rotate(calc(var(--float-rot) * -1)); }\n  50% { transform: translateY(0px) rotate(0deg); }\n  100% { transform: translateY(var(--float-y)) rotate(var(--float-rot)); }\n}"
+    },
+    {
+      "name": "fade-in",
+      "cssText": "@keyframes fade-in { \n  0% { opacity: 0; }\n  100% { opacity: 1; }\n}"
+    },
+    {
+      "name": "fade-out",
+      "cssText": "@keyframes fade-out { \n  0% { opacity: 1; }\n  100% { opacity: 0; }\n}"
+    },
+    {
+      "name": "content-show",
+      "cssText": "@keyframes content-show { \n  0% { opacity: 0; translate: -50% -48%; scale: 0.96; }\n  100% { opacity: 1; translate: -50% -50%; scale: 1; }\n}"
+    },
+    {
+      "name": "safety-diagram-arrow-left",
+      "cssText": "@keyframes safety-diagram-arrow-left { \n  0% { transform: translate(0px); }\n  40% { opacity: 1; transform: translate(-40px); }\n  41% { opacity: 0; transform: translate(-40px); }\n  59% { opacity: 0; transform: translate(40px); }\n  60% { opacity: 1; transform: translate(40px); }\n  100% { transform: translate(0px); }\n}"
+    },
+    {
+      "name": "safety-diagram-arrow-right",
+      "cssText": "@keyframes safety-diagram-arrow-right { \n  0% { transform: translate(0px); }\n  40% { opacity: 1; transform: translate(40px); }\n  41% { opacity: 0; transform: translate(40px); }\n  59% { opacity: 0; transform: translate(-40px); }\n  60% { opacity: 1; transform: translate(-40px); }\n  100% { transform: translate(0px); }\n}"
+    },
+    {
+      "name": "search-loading-gradient",
+      "cssText": "@keyframes search-loading-gradient { \n  0% { background-position: 100% center; }\n  100% { background-position: 0px center; }\n}"
+    },
+    {
+      "name": "slide-in-start",
+      "cssText": "@keyframes slide-in-start { \n  0% { transform: translateX(calc(-100% * var(--dir,1))); }\n  100% { transform: translate(0px); }\n}"
+    },
+    {
+      "name": "slide-in-end",
+      "cssText": "@keyframes slide-in-end { \n  0% { transform: translateX(calc(100% * var(--dir,1))); }\n  100% { transform: translate(0px); }\n}"
+    },
+    {
+      "name": "slide-anim",
+      "cssText": "@keyframes slide-anim { \n  0% { transform: translate(0px); }\n  50% { left: 0px; }\n  100% { transform: translate(-100%); }\n}"
+    },
+    {
+      "name": "type",
+      "cssText": "@keyframes type { \n  0% { background-size: 0px 200%; }\n}"
+    },
+    {
+      "name": "scale-up",
+      "cssText": "@keyframes scale-up { \n  100% { grid-template-rows: 1fr; }\n}"
+    },
+    {
+      "name": "show-content",
+      "cssText": "@keyframes show-content { \n  100% { opacity: 1; }\n}"
+    },
+    {
+      "name": "shrink-out",
+      "cssText": "@keyframes shrink-out { \n  100% { transform: translate(24px) scale(0); }\n}"
+    },
+    {
+      "name": "enter",
+      "cssText": "@keyframes enter { \n  0% { opacity: var(--tw-enter-opacity,1); transform: translate3d(var(--tw-enter-translate-x,0),var(--tw-enter-translate-y,0),0) scale3d(var(--tw-enter-scale,1),var(--tw-enter-scale,1),var(--tw-enter-scale,1)) rotate(var(--tw-enter-rotate,0)); }\n}"
+    },
+    {
+      "name": "exit",
+      "cssText": "@keyframes exit { \n  100% { opacity: var(--tw-exit-opacity,1); transform: translate3d(var(--tw-exit-translate-x,0),var(--tw-exit-translate-y,0),0) scale3d(var(--tw-exit-scale,1),var(--tw-exit-scale,1),var(--tw-exit-scale,1)) rotate(var(--tw-exit-rotate,0)); }\n}"
+    },
+    {
+      "name": "spin",
+      "cssText": "@keyframes spin { \n  100% { transform: rotate(1turn); }\n}"
+    },
+    {
+      "name": "pulse",
+      "cssText": "@keyframes pulse { \n  50% { opacity: 0.5; }\n}"
+    },
+    {
+      "name": "skeleton_loading__OisT3",
+      "cssText": "@keyframes skeleton_loading__OisT3 { \n  0% { background-position: 200% 0px; }\n  100% { background-position: -200% 0px; }\n}"
+    },
+    {
+      "name": "TerminalSequencedTypewriterText_terminal-sequenced-cursor-flicker__RNAiE",
+      "cssText": "@keyframes TerminalSequencedTypewriterText_terminal-sequenced-cursor-flicker__RNAiE { \n  0%, 100% { opacity: 1; }\n  50% { opacity: 0.2; }\n}"
+    },
+    {
+      "name": "TerminalTypewriterText_terminal-typewriter-cursor-flicker__7BE1L",
+      "cssText": "@keyframes TerminalTypewriterText_terminal-typewriter-cursor-flicker__7BE1L { \n  0%, 100% { opacity: 1; }\n  50% { opacity: 0.2; }\n}"
+    }
+  ],
+  "transitions": [
+    "all",
+    "translate 0.3s cubic-bezier(0.4, 0, 0.2, 1), height 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+    "color 0.2s cubic-bezier(0, 0, 1, 1), background-color 0.2s cubic-bezier(0, 0, 1, 1), border-color 0.2s cubic-bezier(0, 0, 1, 1), outline-color 0.2s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.2s cubic-bezier(0, 0, 1, 1), fill 0.2s cubic-bezier(0, 0, 1, 1), stroke 0.2s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.2s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.2s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.2s cubic-bezier(0, 0, 1, 1), opacity 0.2s cubic-bezier(0, 0, 1, 1), box-shadow 0.2s cubic-bezier(0, 0, 1, 1), transform 0.2s cubic-bezier(0, 0, 1, 1), translate 0.2s cubic-bezier(0, 0, 1, 1), scale 0.2s cubic-bezier(0, 0, 1, 1), rotate 0.2s cubic-bezier(0, 0, 1, 1), filter 0.2s cubic-bezier(0, 0, 1, 1), backdrop-filter 0.2s cubic-bezier(0, 0, 1, 1), display 0.2s cubic-bezier(0, 0, 1, 1), content-visibility 0.2s cubic-bezier(0, 0, 1, 1), overlay 0.2s cubic-bezier(0, 0, 1, 1), pointer-events 0.2s cubic-bezier(0, 0, 1, 1)",
+    "color 0.1s cubic-bezier(0, 0, 1, 1), background-color 0.1s cubic-bezier(0, 0, 1, 1), border-color 0.1s cubic-bezier(0, 0, 1, 1), outline-color 0.1s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.1s cubic-bezier(0, 0, 1, 1), fill 0.1s cubic-bezier(0, 0, 1, 1), stroke 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.1s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.1s cubic-bezier(0, 0, 1, 1)",
+    "color 0.1s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.1s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.1s cubic-bezier(0.4, 0, 0.2, 1), outline-color 0.1s cubic-bezier(0.4, 0, 0.2, 1), text-decoration-color 0.1s cubic-bezier(0.4, 0, 0.2, 1), fill 0.1s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.1s cubic-bezier(0.4, 0, 0.2, 1), --tw-gradient-from 0.1s cubic-bezier(0.4, 0, 0.2, 1), --tw-gradient-via 0.1s cubic-bezier(0.4, 0, 0.2, 1), --tw-gradient-to 0.1s cubic-bezier(0.4, 0, 0.2, 1)",
+    "color 0.2s cubic-bezier(0.17, 0.17, 0.3, 1) 0.2s, background-color 0.2s cubic-bezier(0.17, 0.17, 0.3, 1) 0.2s, border-color 0.2s cubic-bezier(0.17, 0.17, 0.3, 1) 0.2s, outline-color 0.2s cubic-bezier(0.17, 0.17, 0.3, 1) 0.2s, text-decoration-color 0.2s cubic-bezier(0.17, 0.17, 0.3, 1) 0.2s, fill 0.2s cubic-bezier(0.17, 0.17, 0.3, 1) 0.2s, stroke 0.2s cubic-bezier(0.17, 0.17, 0.3, 1) 0.2s, --tw-gradient-from 0.2s cubic-bezier(0.17, 0.17, 0.3, 1) 0.2s, --tw-gradient-via 0.2s cubic-bezier(0.17, 0.17, 0.3, 1) 0.2s, --tw-gradient-to 0.2s cubic-bezier(0.17, 0.17, 0.3, 1) 0.2s, opacity 0.2s cubic-bezier(0.17, 0.17, 0.3, 1) 0.2s, box-shadow 0.2s cubic-bezier(0.17, 0.17, 0.3, 1) 0.2s, transform 0.2s cubic-bezier(0.17, 0.17, 0.3, 1) 0.2s, translate 0.2s cubic-bezier(0.17, 0.17, 0.3, 1) 0.2s, scale 0.2s cubic-bezier(0.17, 0.17, 0.3, 1) 0.2s, rotate 0.2s cubic-bezier(0.17, 0.17, 0.3, 1) 0.2s, filter 0.2s cubic-bezier(0.17, 0.17, 0.3, 1) 0.2s, backdrop-filter 0.2s cubic-bezier(0.17, 0.17, 0.3, 1) 0.2s, display 0.2s cubic-bezier(0.17, 0.17, 0.3, 1) 0.2s, content-visibility 0.2s cubic-bezier(0.17, 0.17, 0.3, 1) 0.2s, overlay 0.2s cubic-bezier(0.17, 0.17, 0.3, 1) 0.2s, pointer-events 0.2s cubic-bezier(0.17, 0.17, 0.3, 1) 0.2s",
+    "0.2s cubic-bezier(0.17, 0.17, 0.3, 1)",
+    "color 0.25s cubic-bezier(0, 0, 1, 1), background-color 0.25s cubic-bezier(0, 0, 1, 1), border-color 0.25s cubic-bezier(0, 0, 1, 1), outline-color 0.25s cubic-bezier(0, 0, 1, 1), text-decoration-color 0.25s cubic-bezier(0, 0, 1, 1), fill 0.25s cubic-bezier(0, 0, 1, 1), stroke 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-from 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-via 0.25s cubic-bezier(0, 0, 1, 1), --tw-gradient-to 0.25s cubic-bezier(0, 0, 1, 1), opacity 0.25s cubic-bezier(0, 0, 1, 1), box-shadow 0.25s cubic-bezier(0, 0, 1, 1), transform 0.25s cubic-bezier(0, 0, 1, 1), translate 0.25s cubic-bezier(0, 0, 1, 1), scale 0.25s cubic-bezier(0, 0, 1, 1), rotate 0.25s cubic-bezier(0, 0, 1, 1), filter 0.25s cubic-bezier(0, 0, 1, 1), backdrop-filter 0.25s cubic-bezier(0, 0, 1, 1), display 0.25s cubic-bezier(0, 0, 1, 1), content-visibility 0.25s cubic-bezier(0, 0, 1, 1), overlay 0.25s cubic-bezier(0, 0, 1, 1), pointer-events 0.25s cubic-bezier(0, 0, 1, 1)",
+    "opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+    "height 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+    "opacity 0.15s cubic-bezier(0.33, 1, 0.68, 1), transform 0.15s cubic-bezier(0.33, 1, 0.68, 1), filter 0.15s cubic-bezier(0.33, 1, 0.68, 1)",
+    "opacity 0.8s cubic-bezier(0.33, 1, 0.68, 1), transform 0.8s cubic-bezier(0.33, 1, 0.68, 1), filter 0.8s cubic-bezier(0.33, 1, 0.68, 1), visibility 0.8s cubic-bezier(0.33, 1, 0.68, 1)",
+    "opacity 0.2s cubic-bezier(0, 0, 1, 1)",
+    "transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), translate 0.5s cubic-bezier(0.4, 0, 0.2, 1), scale 0.5s cubic-bezier(0.4, 0, 0.2, 1), rotate 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+    "opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+    "color 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), outline-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), text-decoration-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), fill 0.15s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.15s cubic-bezier(0.4, 0, 0.2, 1), --tw-gradient-from 0.15s cubic-bezier(0.4, 0, 0.2, 1), --tw-gradient-via 0.15s cubic-bezier(0.4, 0, 0.2, 1), --tw-gradient-to 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
+    "top 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+    "opacity 0.3s cubic-bezier(0, 0.56, 0.46, 1)",
+    "background 0.3s cubic-bezier(0.6, 0, 0.4, 1)",
+    "transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), translate 0.3s cubic-bezier(0.4, 0, 0.2, 1), scale 0.3s cubic-bezier(0.4, 0, 0.2, 1), rotate 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+    "opacity 0.3s cubic-bezier(0.6, 0, 0.4, 1), background 0.3s cubic-bezier(0.6, 0, 0.4, 1)",
+    "opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+    "width 0.1s, opacity 0s 0.1s",
+    "opacity cubic-bezier(0.4, 0, 0.2, 1)",
+    "height 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+    "background-color 0.64s cubic-bezier(0.22, 1, 0.36, 1), backdrop-filter 0.64s cubic-bezier(0.22, 1, 0.36, 1), inset-inline-start 0.64s cubic-bezier(0.22, 1, 0.36, 1)"
+  ],
+  "mediaQueries": [
+    {
+      "condition": "(prefers-reduced-motion: reduce)",
+      "ruleCount": 3,
+      "rules": [
+        {
+          "selector": ".CRTScreen_content__oPf6K .anim-typewriter, .CRTScreen_content__oPf6K .crt-cursor, .CRTScreen_content__oPf6K .crt-typewriter, .CRTScreen_content__oPf6K .cursor, .CRTScreen_content__oPf6K .typewriter, .CRTScreen_crtScreen___AsAg::after, .CRTScreen_crtScreen___AsAg::before, .CRTScreen_glitch__Coq0d, .CRTScreen_glitch__Coq0d .CRTScreen_content__oPf6K",
+          "cssText": ".CRTScreen_content__oPf6K .anim-typewriter, .CRTScreen_content__oPf6K .crt-cursor, .CRTScreen_content__oPf6K .crt-typewriter, .CRTScreen_content__oPf6K .cursor, .CRTScreen_content__oPf6K .typewriter, .CRTScreen_crtScreen___AsAg::after, .CRTScreen_crtScreen___AsAg::before, .CRTScreen_glitch__Coq0d, .CRTScreen_glitch__Coq0d .CRTScreen_content__oPf6K { animation: auto ease 0s 1 normal none running none; }"
+        },
+        {
+          "selector": ".CRTScreen_content__oPf6K .anim-typewriter, .CRTScreen_content__oPf6K .crt-typewriter, .CRTScreen_content__oPf6K .typewriter",
+          "cssText": ".CRTScreen_content__oPf6K .anim-typewriter, .CRTScreen_content__oPf6K .crt-typewriter, .CRTScreen_content__oPf6K .typewriter { clip-path: inset(0px); }"
+        },
+        {
+          "selector": ".CRTScreen_crtScreen___AsAg",
+          "cssText": ".CRTScreen_crtScreen___AsAg { --crt-text-shadow-base: none; text-shadow: none; }"
+        }
+      ]
+    },
+    {
+      "condition": "(prefers-reduced-motion: reduce)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".Float_floatInner__ztWJN, .Float_float__GW7Dy",
+          "cssText": ".Float_floatInner__ztWJN, .Float_float__GW7Dy { animation: auto ease 0s 1 normal none running none; transform: none; }"
+        }
+      ]
+    },
+    {
+      "condition": "(prefers-color-scheme: dark)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ":root:not(:where(.light))",
+          "cssText": ":root:not(:where(.light)) { --color-background: #000; --color-primary-2: #ffffff14; --color-primary-4: #ffffff1f; --color-primary-12: #fff3; --color-primary-44: #ffffff70; --color-primary-60: #fff9; --color-primary-80: #fffc; --color-primary-100: #fff; --color-primary-nav: #ffffff70; --color-primary-inactive: #ffffff70; --color-primary-solid-4: #1f1f1f; --color-primary-solid-12: #333; --color-primary-solid-44: #707070; --color-primary-solid-60: #999; --color-primary-solid-80: #ccc; --color-primary-solid-100: #fff; --color-primary-solid-nav: #707070; --color-primary-solid-inactive: #707070; --color-secondary-4: #0000000a; --color-secondary-12: #0000001f; --color-secondary-44: #00000070; --color-secondary-60: #0009; --color-secondary-80: #000c; --color-secondary-100: #000; --color-secondary-solid-4: #f5f5f5; --color-secondary-solid-12: #e0e0e0; --color-secondary-solid-44: #8f8f8f; --color-secondary-solid-60: #666; --color-secondary-solid-80: #333; --color-secondary-solid-100: #000; --color-tertiary-60: #505050ad; --color-tertiary-80: #333c; --color-tertiary-100: #1f1f1f; --color-tertiary-hint: #ffffff70; --color-tertiary-solid-60: #888; --color-tertiary-solid-80: #5c5c5c; --color-tertiary-solid-100: #1f1f1f; --color-tertiary-solid-hint: #707070; --color-hue-lime: #8fac39; --color-hue-magenta: #c759ab; --color-hue-blue: #36a6d7; --color-hue-yellow: #e2a727; --color-syntax-copy: #fff; --color-syntax-comment: #ffffff70; --color-syntax-highlight: #fff; --color-syntax-error: #e80d2f; --color-syntax-operator: #ed4b00; --color-syntax-variable: #ac8601; --color-syntax-string: #03a354; --color-syntax-data: #2392ba; --color-syntax-keyword: #4080ff; --color-syntax-function: #916bff; --color-syntax-const: #ff00a8; --color-diff-add-content: #14261f; --color-diff-del-content: #311b1f; --color-blue-20: #2e4780; --color-blue-40: #5477c4; --color-blue-60: #a3befa; --color-blue-80: #cedffe; --color-blue-100: #eaf1fe; --color-yellow-20: #736422; --color-yellow-40: #b8a037; --color-yellow-60: #ffe15b; --color-yellow-80: #ffea8f; --color-yellow-100: #fff4c2; --color-orange-20: #804126; --color-orange-40: #cc6f47; --color-orange-60: #ff9365; --color-orange-80: #ffbda1; --color-orange-100: #ffedde; --color-green-20: #386411; --color-green-40: #71b436; --color-green-60: #a3d576; --color-green-80: #beeb96; --color-green-100: #d8ecbd; --color-pink-20: #8a3a6f; --color-pink-40: #bd569b; --color-pink-60: #f390ca; --color-pink-80: #f5bacc; --color-pink-100: #fcdad6; --color-gray-20: #47484f; --color-gray-40: #767881; --color-gray-60: #bcbec4; --color-gray-80: #dddee1; --color-gray-100: #f0f1f2; --color-syntax-highlight-alpha: 7.8%; }"
+        }
+      ]
+    },
+    {
+      "condition": "(prefers-color-scheme: dark)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".instruction-following, .instruction-following tspan",
+          "cssText": ".instruction-following, .instruction-following tspan { color: rgb(180, 180, 180); }"
+        }
+      ]
+    },
+    {
+      "condition": "(min-width: 48rem)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ":root",
+          "cssText": ":root { --header-h: 4rem; }"
+        }
+      ]
+    },
+    {
+      "condition": "(prefers-color-scheme: dark)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ":root",
+          "cssText": ":root { color-scheme: dark; }"
+        }
+      ]
+    },
+    {
+      "condition": "(prefers-color-scheme: dark)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ":where(.react-tweet-theme)",
+          "cssText": ":where(.react-tweet-theme) { --tweet-skeleton-gradient: linear-gradient(270deg,#15202b,rgb(30,39,50),rgb(30,39,50),rgb(21,32,43)); --tweet-border: 1px solid rgb(66,83,100); --tweet-font-family: -apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif; --tweet-font-color: rgb(247,249,249); --tweet-font-color-secondary: rgb(139,152,165); --tweet-bg-color: rgb(21,32,43); --tweet-bg-color-hover: rgb(30,39,50); --tweet-color-blue-primary: rgb(29,155,240); --tweet-color-blue-primary-hover: rgb(26,140,216); --tweet-color-blue-secondary: rgb(107,201,251); --tweet-color-blue-secondary-hover: rgba(107,201,251,0.1); --tweet-color-red-primary: rgb(249,24,128); --tweet-color-red-primary-hover: rgba(249,24,128,0.1); --tweet-color-green-primary: rgb(0,186,124); --tweet-color-green-primary-hover: rgba(0,186,124,0.1); --tweet-twitter-icon-color: var(--tweet-font-color); --tweet-verified-old-color: rgb(130,154,171); --tweet-verified-blue-color: #fff; }"
+        }
+      ]
+    },
+    {
+      "condition": "(prefers-reduced-motion: reduce)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".skeleton_skeleton__5_TO3",
+          "cssText": ".skeleton_skeleton__5_TO3 { animation: auto ease 0s 1 normal none running none; background-position: 200% 0px; }"
+        }
+      ]
+    },
+    {
+      "condition": "(min-width: 640px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".diff-tailwindcss-wrapper .container",
+          "cssText": ".diff-tailwindcss-wrapper .container { max-width: 640px; }"
+        }
+      ]
+    },
+    {
+      "condition": "(min-width: 768px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".diff-tailwindcss-wrapper .container",
+          "cssText": ".diff-tailwindcss-wrapper .container { max-width: 768px; }"
+        }
+      ]
+    },
+    {
+      "condition": "(min-width: 1024px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".diff-tailwindcss-wrapper .container",
+          "cssText": ".diff-tailwindcss-wrapper .container { max-width: 1024px; }"
+        }
+      ]
+    },
+    {
+      "condition": "(min-width: 1280px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".diff-tailwindcss-wrapper .container",
+          "cssText": ".diff-tailwindcss-wrapper .container { max-width: 1280px; }"
+        }
+      ]
+    },
+    {
+      "condition": "(min-width: 1536px)",
+      "ruleCount": 1,
+      "rules": [
+        {
+          "selector": ".diff-tailwindcss-wrapper .container",
+          "cssText": ".diff-tailwindcss-wrapper .container { max-width: 1536px; }"
+        }
+      ]
+    }
+  ],
+  "customProperties": {
+    "--color-purple-200": "oklch(90.2% .063 306.703)",
+    "--type-h1-track": "-.03em",
+    "--default-font-feature-settings": "\"liga\" on,\"calt\" on",
+    "--tw-inset-shadow-alpha": "100%",
+    "--color-yellow-40": "#ffea8f",
+    "--transition-timing-function-curve-a": "cubic-bezier(0,0,1,1)",
+    "--aspect-video": "16/9",
+    "--color-syntax-copy": "#000",
+    "--blur-lg": "16px",
+    "--color-syntax-operator": "#c93b00",
+    "--color-sky-500": "oklch(68.5% .169 237.323)",
+    "--color-orange-60": "#ff9365",
+    "--color-primary-solid-12": "#e0e0e0",
+    "--color-yellow-60": "#ffe15b",
+    "--color-primary-solid-4": "#f5f5f5",
+    "--type-nav-track": "0em",
+    "--spacing-4xl": "10rem",
+    "--type-nav-header-track": "0em",
+    "--tw-outline-style": "solid",
+    "--ease-in": "cubic-bezier(.4,0,1,1)",
+    "--type-2xs-track": "clamp(-.01em,calc(-.01em + .01 * ((90rem - 100vw) / 66.5625)),0em)",
+    "--type-xl-line": "clamp(4rem,calc(4rem + 3 * ((100vw - 23.4375rem) / 66.5625)),7rem)",
+    "--type-nav-header-weight": "500",
+    "--tw-inset-ring-shadow": "0 0 #0000",
+    "--text-base--line-height": "calc(1.5 / 1)",
+    "--type-h5-track": "-.01em",
+    "--type-h5-line": "clamp(1.25rem,calc(1.25rem + .235 * ((100vw - 23.4375rem) / 66.5625)),1.485rem)",
+    "--spacing-2xl": "5rem",
+    "--color-gray-300": "oklch(87.2% .01 258.338)",
+    "--radius-none": "0",
+    "--type-meta-line": "1.225rem",
+    "--font-mono": "\"SF Mono\",Consolas,\"Liberation Mono\",ui-monospace,monospace",
+    "--tracking-wider": ".05em",
+    "--type-2xs-weight": "400",
+    "--spacing-sm": "1.5rem",
+    "--color-primary-solid-inactive": "#707070",
+    "--tw-ring-color": "#3b82f680",
+    "--transition-timing-function-curve-d": "cubic-bezier(.6,0,.4,1)",
+    "--type-h6-weight": "500",
+    "--tw-inset-shadow": "0 0 #0000",
+    "--type-h2-5-line": "clamp(1.725rem,calc(1.725rem + 1.012 * ((100vw - 23.4375rem) / 66.5625)),2.737rem)",
+    "--tw-gradient-from": "rgba(0, 0, 0, 0)",
+    "--color-white": "#fff",
+    "--color-tertiary-80": "#f1f1f1cc",
+    "--color-gray-80": "#767881",
+    "--scrollable-mask-start": "rgb(0, 0, 0)",
+    "--color-gray-400": "oklch(70.7% .022 261.325)",
+    "--color-gray-20": "#f0f1f2",
+    "--type-p1-line": "1.74994rem",
+    "--tw-shadow-alpha": "100%",
+    "--tw-gradient-to": "rgba(0, 0, 0, 0)",
+    "--color-secondary-solid-100": "#fff",
+    "--radius-sm": ".25rem",
+    "--font-weight-bold": "700",
+    "--color-primary-solid-80": "#333",
+    "--color-gray-100": "#47484f",
+    "--blur-2xl": "40px",
+    "--tw-gradient-via-position": "50%",
+    "--spacing-nav-width-mobile": "calc(100vw - 3.5rem)",
+    "--tw-saturate": "",
+    "--text-xs--line-height": "calc(1 / .75)",
+    "--tw-grayscale": "",
+    "--type-h2-5-track": "-.02em",
+    "--color-primary-44": "#00000070",
+    "--color-primary-12": "#0000001f",
+    "--spacing-4xs": ".5rem",
+    "--transition-duration-short": ".2s",
+    "--type-h6-size": "clamp(1rem,calc(1rem + .125 * ((100vw - 23.4375rem) / 66.5625)),1.125rem)",
+    "--type-h4-weight": "500",
+    "--tw-gradient-to-position": "100%",
+    "--type-nav-mobile-size": "1rem",
+    "--content-width": "calc(1440px - 200px)",
+    "--color-lime-200": "oklch(93.8% .127 124.321)",
+    "--default-transition-duration": ".15s",
+    "--scrollable-mask-end": "rgb(0, 0, 0)",
+    "--type-p1-weight": "400",
+    "--animate-pulse": "pulse 2s cubic-bezier(.4,0,.6,1) infinite",
+    "--radius-2xl": "1rem",
+    "--radius-md": ".38rem",
+    "--type-nav-header-secondary-size": ".8125rem",
+    "--color-pink-100": "#8a3a6f",
+    "--radius-lg": "1rem",
+    "--type-code-snippet-line": "clamp(1.3325rem,calc(1.3325rem + .1025 * ((100vw - 23.4375rem) / 66.5625)),1.435rem)",
+    "--nav-width": "200px",
+    "--text-xl": "1.25rem",
+    "--type-xs-weight": "400",
+    "--gutter-size": "max(20px, calc((1440px - 68rem) / 2))",
+    "--type-nav-desktop-size": ".875rem",
+    "--tw-pinch-zoom": "",
+    "--color-blue-100": "#2e4780",
+    "--type-cta-weight": "500",
+    "--type-h1-size": "clamp(2rem,calc(2rem + 2 * ((100vw - 23.4375rem) / 66.5625)),4rem)",
+    "--type-nav-header-size": ".8125rem",
+    "--color-secondary-4": "#ffffff0a",
+    "--type-h1-line": "clamp(2.28rem,calc(2.28rem + 1.72 * ((100vw - 23.4375rem) / 66.5625)),4rem)",
+    "--leading-snug": "1.375",
+    "--type-caption-line": "1.435rem",
+    "--color-hue-blue": "#29bdfd",
+    "--type-h1-weight": "500",
+    "--default-transition-timing-function": "cubic-bezier(.4,0,.2,1)",
+    "--color-tertiary-60": "#f1f1f1ad",
+    "--color-orange-500": "oklch(70.5% .213 47.604)",
+    "--color-tertiary-hint": "#ffffff70",
+    "--dir": "1",
+    "--transition-delay-normal": ".3s",
+    "--color-green-40": "#beeb96",
+    "--type-cta-size": ".875rem",
+    "--color-yellow-20": "#fff4c2",
+    "--max-width-container-mobile": "100%",
+    "--spacing-lg": "3rem",
+    "--color-secondary-solid-44": "#707070",
+    "--color-tertiary-100": "#f1f1f1",
+    "--text-2xl--line-height": "calc(2 / 1.5)",
+    "--tw-numeric-spacing": "",
+    "--type-cta-line": ".875rem",
+    "--color-pink-80": "#bd569b",
+    "--spacing": ".25rem",
+    "--spacing-header-h": "4rem",
+    "--type-h2-5-size": "clamp(1.5rem,calc(1.5rem + .88 * ((100vw - 23.4375rem) / 66.5625)),2.38rem)",
+    "--color-hue-magenta": "#eb56c5",
+    "--tw-translate-z": "0",
+    "--color-primary-60": "#0009",
+    "--tw-gradient-via": "rgba(0, 0, 0, 0)",
+    "--tw-scale-y": "1",
+    "--animate-overlay-show": "fade-in .2s cubic-bezier(.17,.17,.3,1)",
+    "--color-tertiary-solid-60": "#a4a4a4",
+    "--type-cta-track": "0em",
+    "--color-syntax-data": "#1d7899",
+    "--tw-backdrop-contrast": "",
+    "--tw-drop-shadow": "",
+    "--text-xl--line-height": "calc(1.75 / 1.25)",
+    "--color-primary-solid-100": "#000",
+    "--text-sm": ".875rem",
+    "--tw-pan-x": "",
+    "--tw-translate-y": "0",
+    "--font-sans--font-feature-settings": "\"liga\" on,\"calt\" on",
+    "--transition-duration-800": ".8s",
+    "--ease-out": "cubic-bezier(0,0,.2,1)",
+    "--color-gray-950": "oklch(13% .028 261.692)",
+    "--tw-content": "\"\"",
+    "--color-gray-40": "#dddee1",
+    "--drop-shadow-sm": "0 1px 2px #00000026",
+    "--color-primary-solid-44": "#8f8f8f",
+    "--color-gray-600": "oklch(44.6% .03 256.802)",
+    "--color-hue-yellow": "#ffaf00",
+    "--color-orange-100": "#804126",
+    "--color-tertiary-solid-100": "#f1f1f1",
+    "--color-yellow-200": "oklch(94.5% .129 101.54)",
+    "--type-h2-line": "clamp(2.28rem,calc(2.28rem + 1.2 * ((100vw - 23.4375rem) / 66.5625)),3.48rem)",
+    "--type-p2-size": ".875rem",
+    "--type-2xs-size": ".5rem",
+    "--transition-duration-long": ".4s",
+    "--transition-timing-function-curve-sidebar": "cubic-bezier(.22,1,.36,1)",
+    "--animate-safety-diagram-arrow-right": "safety-diagram-arrow-right 6s infinite",
+    "--tw-border-style": "solid",
+    "--transition-delay-slow": ".8s",
+    "--spacing-5xl": "12.5rem",
+    "--color-syntax-highlight-alpha": "3.9%",
+    "--type-xs-line": ".825rem",
+    "--color-red-600": "oklch(57.7% .245 27.325)",
+    "--leading-tight": "1.25",
+    "--animate-safety-diagram-arrow-left": "safety-diagram-arrow-left 6s infinite 3s",
+    "--tw-translate-x": "0",
+    "--spacing-v": "1.6875rem",
+    "--type-xl-track": "-.02em",
+    "--color-primary-inactive": "#ffffff70",
+    "--color-black": "#000",
+    "--type-h3-line": "clamp(1.98rem,calc(1.98rem + .495 * ((100vw - 23.4375rem) / 66.5625)),2.475rem)",
+    "--transition-timing-function-curve-f": "cubic-bezier(.6,.01,.49,1)",
+    "--color-diff-del-content": "#ffebe9",
+    "--animate-safety-diagram-arrow-right-alt": "safety-diagram-arrow-right 6s infinite 3s",
+    "--type-nav-header-line": "1.23rem",
+    "--tw-border-spacing-y": "0px",
+    "--color-diff-add-content": "#e6ffec",
+    "--type-nav-header-secondary-line": "1.05rem",
+    "--transition-duration-fast": ".1s",
+    "--animate-safety-diagram-arrow-left-alt": "safety-diagram-arrow-left 6s infinite",
+    "--type-nav-mobile-weight": "500",
+    "--tw-space-y-reverse": "0",
+    "--color-yellow-80": "#b8a037",
+    "--color-syntax-function": "#7a4ff5",
+    "--tw-blur": "",
+    "--text-4xl--line-height": "calc(2.5 / 2.25)",
+    "--tw-invert": "",
+    "--type-xs-track": "clamp(-.01em,calc(-.01em + .01 * ((90rem - 100vw) / 66.5625)),0em)",
+    "--transition-duration-2000": "2s",
+    "--type-2xs-line": ".66rem",
+    "--type-nav-mobile-line": "1.25rem",
+    "--toc-button-h": "3rem",
+    "--transition-duration-sidebar": ".64s",
+    "--transition-duration-medium": ".3s",
+    "--font-lf": "\"LF Serif\",serif",
+    "--tracking-tight": "-.025em",
+    "--type-nav-line": "clamp(1.25rem,calc(1.25rem + .185 * ((100vw - 23.4375rem) / 66.5625)),1.435rem)",
+    "--color-orange-200": "oklch(90.1% .076 70.697)",
+    "--tw-backdrop-sepia": "",
+    "--type-p2-weight": "400",
+    "--tw-ring-shadow": "0 0 #0000",
+    "--text-2xl": "1.5rem",
+    "--color-primary-4": "#0000000a",
+    "--animate-search-loading-gradient": "search-loading-gradient 4s ease infinite",
+    "--color-hue-lime": "#9dca1c",
+    "--type-nav-mobile-track": "0em",
+    "--spacing-toc-button-h": "3rem",
+    "--type-h3-track": "-.01em",
+    "--type-caption-size": ".875rem",
+    "--color-purple-500": "oklch(62.7% .265 303.9)",
+    "--tw-sepia": "",
+    "--color-pink-20": "#fcdad6",
+    "--color-blue-80": "#5477c4",
+    "--tw-drop-shadow-alpha": "100%",
+    "--tw-ordinal": "",
+    "--color-primary-2": "#00000005",
+    "--text-lg": "1.125rem",
+    "--color-syntax-highlight": "#000",
+    "--color-secondary-44": "#ffffff70",
+    "--type-code-snippet-weight": "400",
+    "--color-primary-nav": "#ffffff70",
+    "--color-secondary-100": "#fff",
+    "--tw-backdrop-invert": "",
+    "--transition-timing-function-primary": "cubic-bezier(.17,.17,.3,1)",
+    "--color-green-100": "#386411",
+    "--leading-normal": "1.5",
+    "--type-caption-weight": "400",
+    "--transition-timing-function-parameter-golf": "cubic-bezier(.39,.575,.565,1)",
+    "--color-green-60": "#a3d576",
+    "--tw-border-spacing-x": "0px",
+    "--color-pink-60": "#f390ca",
+    "--spacing-md": "2rem",
+    "--type-nav-desktop-track": "0em",
+    "--color-blue-20": "#eaf1fe",
+    "--tw-backdrop-grayscale": "",
+    "--tw-hue-rotate": "",
+    "--spacing-xl": "4rem",
+    "--type-p2-track": "-.01em",
+    "--tw-pan-y": "",
+    "--color-primary-solid-nav": "#707070",
+    "--spacing-3xs": ".75rem",
+    "--type-h4-size": "clamp(1.25rem,calc(1.25rem + .125 * ((100vw - 23.4375rem) / 66.5625)),1.375rem)",
+    "--type-h2-weight": "500",
+    "--type-nav-size": "clamp(.875rem,calc(.875rem + .125 * ((90rem - 100vw) / 66.5625)),1rem)",
+    "--color-gray-50": "oklch(98.5% .002 247.839)",
+    "--color-green-80": "#71b436",
+    "--tw-rotate": "0",
+    "--blur-xl": "24px",
+    "--color-purple-100": "oklch(94.6% .033 307.174)",
+    "--type-nav-desktop-weight": "500",
+    "--tw-ring-offset-color": "#fff",
+    "--color-primary-80": "#000c",
+    "--type-h5-weight": "500",
+    "--text-lg--line-height": "calc(1.75 / 1.125)",
+    "--spacing-3xl": "7.5rem",
+    "--type-xl-size": "clamp(4rem,calc(4rem + 3 * ((100vw - 23.4375rem) / 66.5625)),7rem)",
+    "--spacing-nav-l2-width": "15.625rem",
+    "--color-orange-80": "#cc6f47",
+    "--blur-3xl": "64px",
+    "--font-sans": "\"OpenAI Sans\",sans-serif",
+    "--tw-scale-z": "1",
+    "--type-xs-size": ".625rem",
+    "--animate-content-show": "content-show .2s cubic-bezier(.17,.17,.3,1)",
+    "--color-secondary-80": "#fffc",
+    "--type-h3-size": "clamp(1.5rem,calc(1.5rem + .375 * ((100vw - 23.4375rem) / 66.5625)),1.875rem)",
+    "--type-p1-size": "1.0625rem",
+    "--color-red-800": "oklch(44.4% .177 26.899)",
+    "--spacing-xs": "1.25rem",
+    "--color-background": "#fff",
+    "--animate-dialog-hide": "fade-out .2s cubic-bezier(.17,.17,.3,1)",
+    "--tw-ring-offset-width": "0px",
+    "--tw-scroll-snap-strictness": "proximity",
+    "--default-font-family": "\"OpenAI Sans\",sans-serif",
+    "--color-tertiary-solid-hint": "#707070",
+    "--type-nav-header-secondary-track": "-.01em",
+    "--tw-backdrop-hue-rotate": "",
+    "--tw-shadow-colored": "0 0 #0000",
+    "--tw-numeric-fraction": "",
+    "--type-h2-size": "clamp(2rem,calc(2rem + 1 * ((100vw - 23.4375rem) / 66.5625)),3rem)",
+    "--font-lf--font-feature-settings": "\"liga\" on,\"calt\" on",
+    "--tw-skew-y": "0",
+    "--color-lime-500": "oklch(76.8% .233 130.85)",
+    "--document-width": "1440px",
+    "--tw-slashed-zero": "",
+    "--color-syntax-variable": "#8a6e07",
+    "--tw-backdrop-opacity": "",
+    "--tw-gradient-from-position": "0px",
+    "--type-caption-track": "0em",
+    "--color-orange-20": "#ffedde",
+    "--color-yellow-100": "#736422",
+    "--ease-in-out": "cubic-bezier(.4,0,.2,1)",
+    "--color-secondary-solid-12": "#1f1f1f",
+    "--tw-ring-offset-shadow": "0 0 #0000",
+    "--spacing-2xs": "1rem",
+    "--transition-duration-600": ".6s",
+    "--color-gray-800": "oklch(27.8% .033 256.848)",
+    "--media-gutter-size": "max(20px, calc((1440px - 1728px) / 2))",
+    "--color-syntax-comment": "#00000070",
+    "--color-orange-40": "#ffbda1",
+    "--tw-backdrop-saturate": "",
+    "--color-orange-700": "oklch(55.3% .195 38.402)",
+    "--type-nav-desktop-line": "1.435rem",
+    "--color-syntax-string": "#027f41",
+    "--tw-ring-inset": "",
+    "--radius-3xl": "1.5rem",
+    "--type-meta-weight": "500",
+    "--type-h2-5-weight": "500",
+    "--type-h4-line": "clamp(1.5rem,calc(1.5rem + .2325 * ((100vw - 23.4375rem) / 66.5625)),1.7325rem)",
+    "--type-xl-weight": "500",
+    "--color-blue-40": "#cedffe",
+    "--transition-duration-625": ".625s",
+    "--color-pink-40": "#f5bacc",
+    "--color-gray-60": "#bcbec4",
+    "--color-yellow-700": "oklch(55.4% .135 66.442)",
+    "--tw-brightness": "",
+    "--type-nav-header-secondary-weight": "600",
+    "--color-primary-solid-60": "#666",
+    "--spacing-5xs": ".25rem",
+    "--tracking-wide": ".025em",
+    "--font-weight-semibold": "600",
+    "--tw-backdrop-brightness": "",
+    "--color-syntax-error": "#f22f4d",
+    "--type-h4-track": "-.01em",
+    "--type-h2-track": "clamp(-.03em,calc(-.03em + .02 * ((90rem - 100vw) / 66.5625)),-.01em)",
+    "--type-p1-track": "-.01em",
+    "--blur-md": "12px",
+    "--color-primary-100": "#000",
+    "--color-blue-500": "oklch(62.3% .214 259.815)",
+    "--animate-spin": "spin 1s linear infinite",
+    "--color-secondary-60": "#fff9",
+    "--color-blue-900": "oklch(37.9% .146 265.522)",
+    "--spacing-nav-width": "12.5rem",
+    "--tw-contrast": "",
+    "--type-h5-size": "clamp(1rem,calc(1rem + .125 * ((100vw - 23.4375rem) / 66.5625)),1.125rem)",
+    "--type-meta-size": ".875rem",
+    "--color-gray-700": "oklch(37.3% .034 259.733)",
+    "--type-h6-track": "-.01em",
+    "--header-h": "4rem",
+    "--tw-skew-x": "0",
+    "--text-4xl": "2.25rem",
+    "--radius-full": "9999px",
+    "--color-syntax-keyword": "#1e60e4",
+    "--transition-timing-function-curve-b": "cubic-bezier(.25,0,.75,1)",
+    "--tw-backdrop-blur": "",
+    "--breakpoint-md": "48rem",
+    "--tw-shadow": "0 0 #0000",
+    "--text-sm--line-height": "calc(1.25 / .875)",
+    "--color-blue-200": "oklch(88.2% .059 254.128)",
+    "--type-nav-weight": "500",
+    "--color-secondary-solid-60": "#999",
+    "--color-gray-200": "oklch(92.8% .006 264.531)",
+    "--type-code-snippet-size": "clamp(.8125rem,calc(.8125rem + .0625 * ((100vw - 23.4375rem) / 66.5625)),.875rem)",
+    "--type-code-snippet-track": "0em",
+    "--color-tertiary-solid-80": "#c1c1c1",
+    "--color-secondary-solid-4": "#0a0a0a",
+    "--transition-timing-function-curve-c": "cubic-bezier(0,.56,.46,1)",
+    "--text-xs": ".75rem",
+    "--tracking-widest": ".1em",
+    "--font-weight-medium": "500",
+    "--transition-delay-fast": ".1s",
+    "--tw-scale-x": "1",
+    "--font-weight-normal": "400",
+    "--max-width-container-desktop": "90rem",
+    "--color-green-700": "oklch(52.7% .154 150.069)",
+    "--radius-xs": ".125rem",
+    "--color-syntax-const": "#d6008d",
+    "--transition-timing-function-out-cubic": "cubic-bezier(.33,1,.68,1)",
+    "--radius-xl": "2rem",
+    "--color-blue-60": "#a3befa",
+    "--type-h3-weight": "500",
+    "--transition-timing-function-curve-e": "cubic-bezier(.5,1.25,0,1)",
+    "--color-yellow-500": "oklch(79.5% .184 86.047)",
+    "--color-green-20": "#d8ecbd",
+    "--type-meta-track": "0em",
+    "--color-sky-200": "oklch(90.1% .058 230.902)",
+    "--color-secondary-solid-80": "#ccc",
+    "--text-base": "1rem",
+    "--type-p2-line": "1.435rem",
+    "--type-h6-line": "clamp(1.25rem,calc(1.25rem + .235 * ((100vw - 23.4375rem) / 66.5625)),1.485rem)",
+    "--blur-sm": "8px",
+    "--color-secondary-12": "#ffffff1f",
+    "--tw-numeric-figure": "",
+    "--default-mono-font-family": "\"SF Mono\",Consolas,\"Liberation Mono\",ui-monospace,monospace"
+  },
+  "gridLayouts": [
+    {},
+    {
+      "columns": "1376px"
+    },
+    {
+      "columns": "326px 326px 326px 326px",
+      "rows": "1387.77px",
+      "gap": "24px"
+    },
+    {
+      "columns": "326px",
+      "rows": "401.359px 425.125px 433.281px",
+      "gap": "64px 16px"
+    },
+    {
+      "columns": "676px 676px",
+      "rows": "185px 185px 185px",
+      "gap": "24px"
+    },
+    {
+      "columns": "442.656px 442.672px 442.656px",
+      "rows": "498.438px",
+      "gap": "24px"
+    },
+    {
+      "columns": "442.656px 442.672px 442.656px",
+      "rows": "541.797px",
+      "gap": "24px"
+    },
+    {
+      "columns": "442.656px 442.672px 442.656px",
+      "rows": "541.781px",
+      "gap": "24px"
+    },
+    {
+      "columns": "114.656px 114.656px 114.656px 114.656px 114.656px 114.656px 114.656px 114.656px 114.656px 114.656px 114.656px 114.656px",
+      "rows": "127.688px"
+    }
+  ],
+  "flexLayouts": [
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "flex-start"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "justify": "center",
+      "align": "center",
+      "gap": "3.9px"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center",
+      "gap": "16px"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center",
+      "gap": "20px"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center",
+      "gap": "12px"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "baseline"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "justify": "center",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "justify": "center",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "justify": "center",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "justify": "center",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "justify": "center",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "justify": "center",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "justify": "center",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center",
+      "gap": "16px"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center",
+      "gap": "8px"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "justify": "center",
+      "align": "center",
+      "gap": "3.9px"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center",
+      "gap": "normal 14.4px"
+    },
+    {
+      "direction": "column",
+      "wrap": "nowrap"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "justify": "flex-end"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "justify": "center",
+      "align": "center"
+    },
+    {
+      "direction": "row",
+      "wrap": "nowrap",
+      "align": "center"
+    },
+    {
+      "direction": "column",
+      "wrap": "nowrap",
+      "gap": "120px"
+    }
+  ]
+}

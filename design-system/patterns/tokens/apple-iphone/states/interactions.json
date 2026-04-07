@@ -1,0 +1,172 @@
+{
+  "url": "https://apple.com/iphone",
+  "name": "apple-iphone",
+  "timestamp": "2026-04-01T11:47:12.515Z",
+  "totalElements": 50,
+  "elementsWithStates": 3,
+  "interactions": [
+    {
+      "tag": "a",
+      "text": "Continuar",
+      "classes": "ac-ls-button ac-ls-actions-item ac-ls-continue",
+      "selector": "#ac-ls-continue",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(29, 29, 31)",
+        "backgroundImage": "none",
+        "borderColor": "rgba(0, 0, 0, 0)",
+        "borderWidth": "1px",
+        "borderRadius": "8px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgb(29, 29, 31)",
+            "to": "rgb(39, 39, 41)"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgb(0, 113, 227) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(0, 113, 227)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Apple",
+      "classes": "globalnav-link globalnav-link-apple",
+      "selector": "a.globalnav-link.globalnav-link-apple",
+      "baseStyles": {
+        "color": "rgba(0, 0, 0, 0.8)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgba(0, 0, 0, 0.8)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0.8) none 0px",
+        "outlineColor": "rgba(0, 0, 0, 0.8)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.32s cubic-bezier(0.4, 0, 0.6, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgba(0, 0, 0, 0.8)",
+            "to": "rgba(0, 0, 0, 1)"
+          },
+          "borderColor": {
+            "from": "rgba(0, 0, 0, 0.8)",
+            "to": "rgba(0, 0, 0, 1)"
+          },
+          "outline": {
+            "from": "rgba(0, 0, 0, 0.8) none 0px",
+            "to": "rgba(0, 0, 0, 1) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0.8)",
+            "to": "rgba(0, 0, 0, 1)"
+          },
+          "transition": {
+            "from": "color 0.32s cubic-bezier(0.4, 0, 0.6, 1)",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "transition": {
+            "from": "color 0.32s cubic-bezier(0.4, 0, 0.6, 1)",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Store",
+      "classes": "globalnav-link globalnav-submenu-trigger-link globalnav-link-store",
+      "selector": "a.globalnav-link.globalnav-submenu-trigger-link.globalnav-link-store",
+      "baseStyles": {
+        "color": "rgba(0, 0, 0, 0.8)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgba(0, 0, 0, 0.8)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgba(0, 0, 0, 0.8) none 0px",
+        "outlineColor": "rgba(0, 0, 0, 0.8)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.32s cubic-bezier(0.4, 0, 0.6, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgba(0, 0, 0, 0.8)",
+            "to": "rgba(0, 0, 0, 1)"
+          },
+          "borderColor": {
+            "from": "rgba(0, 0, 0, 0.8)",
+            "to": "rgba(0, 0, 0, 1)"
+          },
+          "outline": {
+            "from": "rgba(0, 0, 0, 0.8) none 0px",
+            "to": "rgba(0, 0, 0, 1) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgba(0, 0, 0, 0.8)",
+            "to": "rgba(0, 0, 0, 1)"
+          },
+          "transition": {
+            "from": "color 0.32s cubic-bezier(0.4, 0, 0.6, 1)",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "transition": {
+            "from": "color 0.32s cubic-bezier(0.4, 0, 0.6, 1)",
+            "to": "all"
+          }
+        }
+      }
+    }
+  ]
+}

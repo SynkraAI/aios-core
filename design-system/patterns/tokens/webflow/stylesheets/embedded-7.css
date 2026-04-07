@@ -1,0 +1,95 @@
+
+
+  /* Modify content behind link overlay */
+  html.wf-design-mode .u-link-cover {
+    pointer-events: none;
+  }
+  html.wf-design-mode .btn-text {
+    pointer-events: auto;
+  }
+
+  /* Make accordion content selectable */  
+  html.wf-design-mode .accordion-title_label,
+  html.wf-design-mode .accordion-title-icon-wrap{
+    pointer-events: auto;
+  }
+
+  /* Col pad design mode indicator */
+  html.wf-design-mode .row .col:has( .slot)::before,
+  html.wf-design-mode .row .col:has( .slot)::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: calc(var(--_layout---grid--gap-main) / 2);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3' height='3' viewBox='0 0 3 3' fill='none'%3E%3Cg clip-path='url(%23clip0_481_2070)'%3E%3Cpath d='M2.99997 0.970703L0.969971 3.0007H2.02997L2.99997 2.0307V0.970703Z' fill='%23259d4d'/%3E%3Cpath d='M0.97 0L0 0.97V2.03L2.03 0H0.97Z' fill='%23259d4d'/%3E%3C/g%3E%3Cdefs%3E%3CclipPath id='clip0_481_2070'%3E%3Crect width='3' height='3' fill='white'/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 4px;
+    opacity: 0;
+    pointer-events: none;
+  }
+  html.wf-design-mode .row.row-gap-md .col:has(>.slot)::before,
+  html.wf-design-mode .row.row-gap-md .col:has(>.slot)::after {
+    width: calc(var(--_layout---grid--gap-md) / 2);
+  }
+  html.wf-design-mode .row.row-gap-sm .col:has(>.slot)::before,
+  html.wf-design-mode .row.row-gap-sm .col:has(>.slot)::after {
+    width: calc(var(--_layout---grid--gap-md) / 2);
+  }
+  html.wf-design-mode .row.row-gap-0 .col:has(>.slot)::before,
+  html.wf-design-mode .row.row-gap-0 .col:has(>.slot)::after {
+    width: 0;
+  }
+  html.wf-design-mode .col:has(>.slot)::before {
+    left: 0;
+  }
+  html.wf-design-mode .col:has(>.slot)::after {
+    right: 0;
+  }
+  html.wf-design-mode .col:has(>.slot):hover::before,
+  html.wf-design-mode .col:has(>.slot):hover::after {
+    opacity: 1;
+  }
+
+  /* Allow for horizontal scrolling for overflowing items in the WF designer */
+  html.wf-design-mode .u-horiz-scroll {
+    overflow-x: auto;
+  }
+
+  html.wf-design-mode .tooltip-expand_pane {height: auto;}
+
+  html.wf-design-mode .sticky-img_link_wrap:has(.w--current) .u-img-cover {pointer-events: auto;}
+
+  html.wf-design-mode [data-section="hide-empty"]:has(.w-dyn-empty) {display: block;}
+
+  /* Highlight empty links and buttons */
+  html.wf-design-mode [href="#"]:not(.w-lightbox):not(.pricing-grid-tooltip_button) {
+    outline: 3px solid yellow !important;
+  }
+  /* Highlight bolded headlines */
+  html.wf-design-mode h1 strong,
+  html.wf-design-mode h2 strong,
+  html.wf-design-mode h3 strong,
+  html.wf-design-mode h4 strong,
+  html.wf-design-mode h5 strong,
+  html.wf-design-mode h6 strong {
+    outline: 3px solid yellow !important;
+  }
+  /* Show autoplay tabs content in the designer */
+  html.wf-design-mode .autoplay-tabs_interactive-content {
+    display: block;
+    height: auto;
+  }
+  /* Make Swiper slides scrollable in the designer */  
+  html.wf-design-mode .mif-slider_wrap {overflow-x: auto;}
+  html.wf-design-mode .mif-bg_image {visibility: hidden;}
+  html.wf-design-mode .module-slider_list {overflow-x: auto;}
+  html.wf-design-mode .section:has(.slider_list) {overflow-x: auto;}
+  html.wf-design-mode .sotw-bars {overflow-x: auto;}
+
+
+  /* Show background on nav dropdown when open */
+  html.wf-design-mode .nav-dropdown_content.cc-open-mode {
+    background-color: var(--colors--background);
+  }
+

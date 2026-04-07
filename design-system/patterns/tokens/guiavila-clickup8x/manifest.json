@@ -1,0 +1,115 @@
+{
+  "version": "1.0.0",
+  "name": "guiavila-clickup8x",
+  "source": "https://lp.guiavila.com/clickup8x",
+  "timestamp": "2026-04-01T14:53:11.622Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "output": "/Users/luizfosc/aios-core/design-system/patterns/tokens/guiavila-clickup8x",
+  "files": {
+    "html": {
+      "file": "source.html",
+      "size": 512468
+    },
+    "screenshots": [
+      "screenshot-desktop.png",
+      "screenshot-mobile.png"
+    ],
+    "stylesheets": [
+      {
+        "url": "https://cdn.convertbox.com//static/css/bars-preview.css?id=160301bca992a17e8cd1",
+        "file": "bars-preview.css",
+        "size": 116391
+      },
+      {
+        "embedded": true,
+        "file": "embedded-0.css",
+        "size": 19815
+      },
+      {
+        "embedded": true,
+        "file": "embedded-1.css",
+        "size": 133902
+      },
+      {
+        "embedded": true,
+        "file": "embedded-3.css",
+        "size": 3660
+      },
+      {
+        "embedded": true,
+        "file": "embedded-4.css",
+        "size": 703
+      },
+      {
+        "embedded": true,
+        "file": "embedded-5.css",
+        "size": 204
+      },
+      {
+        "embedded": true,
+        "file": "embedded-6.css",
+        "size": 204
+      },
+      {
+        "embedded": true,
+        "file": "embedded-7.css",
+        "size": 526
+      },
+      {
+        "embedded": true,
+        "file": "embedded-8.css",
+        "size": 204
+      },
+      {
+        "embedded": true,
+        "file": "embedded-9.css",
+        "size": 467
+      },
+      {
+        "embedded": true,
+        "file": "embedded-10.css",
+        "size": 862
+      },
+      {
+        "embedded": true,
+        "file": "embedded-11.css",
+        "size": 95374
+      },
+      {
+        "embedded": true,
+        "file": "embedded-12.css",
+        "size": 39
+      }
+    ],
+    "domTree": {
+      "file": "dom-tree.json",
+      "nodeCount": 1171
+    },
+    "extractedCss": "extracted-css.json",
+    "components": {
+      "file": "components.json",
+      "count": 4
+    },
+    "tokens": "tokens.yaml"
+  },
+  "summary": {
+    "nodeCount": 1171,
+    "uniqueColors": 20,
+    "typographyVariants": 24,
+    "spacingValues": 19,
+    "shadows": 1,
+    "gradients": 23,
+    "animations": 195,
+    "mediaQueries": 3,
+    "customProperties": 4,
+    "gridLayouts": 0,
+    "flexLayouts": 50,
+    "componentTypes": 4,
+    "totalComponents": 41,
+    "stylesheetCount": 13,
+    "inlineStyles": 675
+  }
+}

@@ -13,6 +13,17 @@ agent:
     {{CUSTOMIZATION}}
   {{/IF_CUSTOMIZATION}}
 
+# Mind Clone Metadata (optional)
+# Use ONLY for agents based on real people with extracted DNA.
+# Requires completed mind-cloning pipeline (collect-sources → extract-voice-dna → extract-thinking-dna).
+# Omit this entire section for functional/process agents.
+{{#IF_MIND_SOURCE}}
+metadata:
+  mind_source: "squads/mind-cloning/minds/{{SLUG}}/outputs/mind_dna_complete.yaml"
+  extraction_date: "{{EXTRACTION_DATE}}"
+  fidelity: "{{FIDELITY}}"
+{{/IF_MIND_SOURCE}}
+
 persona:
   role: "{{PERSONA_ROLE}}"
   style: "{{PERSONA_STYLE}}"

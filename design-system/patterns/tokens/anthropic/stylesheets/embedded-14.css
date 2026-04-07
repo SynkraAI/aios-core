@@ -1,0 +1,250 @@
+
+  /* ── GSAP animations initial state ── */
+  html:not(.wf-design-mode) [data-scroll="title"],
+  html:not(.wf-design-mode) [data-scroll="subtitle"],
+  html:not(.wf-design-mode) [data-scroll="button"] {
+    opacity: 0;
+    transform: translateY(10%);
+  }
+  html:not(.wf-design-mode) [data-scroll="embed"] {
+    opacity: 0;
+  }
+
+  /* ── Viewport ── */
+  #viewport {
+    width: 100%;
+    height: 110%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e8e6dc;
+    overflow: hidden;
+  }
+
+  /* ── Globe SVG ── */
+  .globe-svg {
+    width: 100%;
+    height: 100%;
+    cursor: default;
+  }
+  .globe-svg.dragging {
+    cursor: grabbing;
+  }
+
+  .globe-deg-label {
+    font-family: var(--serif);
+    font-size: 11px;
+    font-weight: 400;
+    fill: rgba(20, 20, 19, 0.5);
+    text-anchor: middle;
+    dominant-baseline: middle;
+    font-variant-numeric: oldstyle-nums;
+    user-select: none;
+  }
+
+  /* ── Intro frame ── */
+  #intro-frame {
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    pointer-events: none;
+    z-index: 10;
+  }
+  #globe-title {
+    font-family: var(--serif);
+    font-size: 61px;
+    line-height: 1.2;
+    font-weight: 400;
+    color: #141413;
+    text-align: center;
+    white-space: nowrap;
+    user-select: none;
+  }
+  #globe-subtext {
+    width: 412px;
+    max-width: 412px;
+    font-family: var(--sans);
+    font-size: 13px;
+    line-height: 1.5;
+    font-weight: 400;
+    color: #30302e;
+    text-align: left;
+    text-wrap: pretty;
+    user-select: none;
+  }
+  #globe-subtext a {
+    pointer-events: auto;
+  }
+
+  /* ── Quote overlay ── */
+  #quote-overlay {
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 520px;
+    z-index: 8;
+    background: radial-gradient(ellipse at center, rgba(232, 230, 220, 0.95) 0%, rgba(232, 230, 220, 0.95) 50%, rgba(232, 230, 220, 0) 100%);
+    padding: 24px 28px;
+    border-radius: 4px;
+  }
+  #step-dots {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .step-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    border: 1px solid rgba(20, 20, 19, 0.3);
+    background: transparent;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .step-dot:hover {
+    background: rgba(20, 20, 19, 0.15);
+  }
+  .step-dot.active {
+    background: rgba(20, 20, 19, 0.3);
+  }
+
+  #country-label {
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.13px;
+    text-transform: uppercase;
+    color: #141413;
+    margin-bottom: 6px;
+    line-height: 1;
+    text-align: left;
+  }
+  .hl-yellow {
+    display: inline;
+    padding: 0.02em 0.22em 0.08em;
+    border-radius: 4px;
+    color: #141413;
+    background: color-mix(in srgb, #eda100 60%, transparent);
+    font-family: var(--_typography---font--display-sans);
+  }
+  #quote-text {
+    font-family: var(--serif);
+    font-size: 26px;
+    line-height: 1.4;
+    font-weight: 400;
+    color: #141413;
+    min-height: 3em;
+    text-align: left;
+    text-indent: -0.5em;
+    padding-left: 0.5em;
+  }
+
+  /* ── Typewriter cursor ── */
+  .sf-tw-cursor {
+    display: inline-block;
+    width: 1.5px;
+    height: 0.85em;
+    background: currentcolor;
+    margin-left: 1px;
+    vertical-align: -0.1em;
+  }
+  .sf-tw-cursor.sf-blinking {
+    animation: sf-tw-blink 0.9s step-end infinite;
+  }
+  @keyframes sf-tw-blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+
+  /* ── Dot legend ── */
+  #dot-legend {
+    position: absolute;
+    bottom: 28px;
+    right: 28px;
+    font-family: var(--sans);
+    font-size: 11px;
+    line-height: 1.4;
+    color: rgba(20, 20, 19, 0.45);
+    pointer-events: none;
+    z-index: 10;
+    text-align: right;
+  }
+
+  /* ── Skip button ── */
+  #skip-btn {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 400;
+    color: #30302e;
+    background: rgba(245, 244, 237, 0.4);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(194, 192, 182, 0.3);
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    z-index: 20;
+    transition: background 0.2s;
+  }
+  #skip-btn:hover {
+    background: rgba(245, 244, 237, 0.8);
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 600px) {
+    #viewport {
+    	top: -28%;
+    	left: -35%;
+      width: 170%;
+      height: 170%;
+    }
+    #globe-title {
+      font-size: 32px;
+      white-space: normal;
+    }
+    #intro-frame {
+      top: 32px;
+      width: calc(100% - 32px);
+    }
+    #globe-subtext {
+      font-size: 10px;
+      width: 100%;
+      max-width: 100%;
+    }
+    #quote-overlay {
+      width: 280px;
+      padding: 16px 20px;
+      top: 60%;
+    }
+    #quote-text {
+      font-size: 14px;
+      min-height: 2.5em;
+    }
+    #dot-legend {
+      bottom: 72px;
+      right: 16px;
+      font-size: 10px;
+      max-width: 120px;
+    }
+    #country-label {
+      font-size: 11px;
+    }
+    .hl-yellow {
+      border-radius: 2px;
+    }
+  }

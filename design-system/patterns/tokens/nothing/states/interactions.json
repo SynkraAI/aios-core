@@ -1,0 +1,1653 @@
+{
+  "url": "https://nothing.tech",
+  "name": "nothing",
+  "timestamp": "2026-04-01T13:52:49.551Z",
+  "totalElements": 50,
+  "elementsWithStates": 34,
+  "interactions": [
+    {
+      "tag": "a",
+      "text": "our 30 partners",
+      "classes": "didomi-notice-view-partners-link-in-text",
+      "selector": "a.didomi-notice-view-partners-link-in-text",
+      "baseStyles": {
+        "color": "rgb(38, 89, 116)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline",
+        "outline": "rgb(38, 89, 116) none 0px",
+        "outlineColor": "rgb(38, 89, 116)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "opacity": {
+            "from": "1",
+            "to": "0.7"
+          }
+        },
+        "focus": {
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(59, 130, 246, 0.5) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(38, 89, 116) none 0px",
+            "to": "rgb(77, 144, 254) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(38, 89, 116)",
+            "to": "rgb(77, 144, 254)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "T&Cs apply.",
+      "classes": "underline",
+      "selector": "a.underline",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(59, 130, 246, 0.5) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Offers",
+      "classes": "transition-opacity duration-100 hover:opacity-80",
+      "selector": "a.transition-opacity.duration-100.hover:opacity-80",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "opacity 0.1s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(59, 130, 246, 0.5) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Shop All",
+      "classes": "transition-opacity duration-100 hover:opacity-80",
+      "selector": "a.transition-opacity.duration-100.hover:opacity-80",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "opacity 0.1s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(59, 130, 246, 0.5) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Phones",
+      "classes": "transition-opacity duration-100 hover:opacity-80",
+      "selector": "a.transition-opacity.duration-100.hover:opacity-80",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "opacity 0.1s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(59, 130, 246, 0.5) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Audio",
+      "classes": "transition-opacity duration-100 hover:opacity-80",
+      "selector": "a.transition-opacity.duration-100.hover:opacity-80",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "opacity 0.1s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(59, 130, 246, 0.5) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Watches",
+      "classes": "transition-opacity duration-100 hover:opacity-80",
+      "selector": "a.transition-opacity.duration-100.hover:opacity-80",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "opacity 0.1s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(59, 130, 246, 0.5) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Accessories",
+      "classes": "transition-opacity duration-100 hover:opacity-80",
+      "selector": "a.transition-opacity.duration-100.hover:opacity-80",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "opacity 0.1s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(59, 130, 246, 0.5) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "CMF",
+      "classes": "transition-opacity duration-100 hover:opacity-80",
+      "selector": "a.transition-opacity.duration-100.hover:opacity-80",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "opacity 0.1s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(59, 130, 246, 0.5) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Playground",
+      "classes": "py-2 transition-opacity duration-100 hover:opacity-80 md:px-2 md:pb-0 pl-0 md:pl-0",
+      "selector": "a.py-2.transition-opacity.duration-100.hover:opacity-80.md:px-2.md:pb-0.pl-0.md:pl-0",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "opacity 0.1s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(59, 130, 246, 0.5) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Contact",
+      "classes": "py-2 transition-opacity duration-100 hover:opacity-80 md:px-2 md:pb-0",
+      "selector": "a.py-2.transition-opacity.duration-100.hover:opacity-80.md:px-2.md:pb-0",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "opacity 0.1s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(59, 130, 246, 0.5) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Careers",
+      "classes": "py-2 transition-opacity duration-100 hover:opacity-80 md:px-2 md:pb-0",
+      "selector": "a.py-2.transition-opacity.duration-100.hover:opacity-80.md:px-2.md:pb-0",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "opacity 0.1s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(59, 130, 246, 0.5) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Legal",
+      "classes": "py-2 transition-opacity duration-100 hover:opacity-80 md:px-2 md:pb-0 pb-0",
+      "selector": "a.py-2.transition-opacity.duration-100.hover:opacity-80.md:px-2.md:pb-0.pb-0",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "opacity 0.1s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(59, 130, 246, 0.5) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Community",
+      "classes": "py-2 transition-opacity duration-100 hover:opacity-80 md:px-2 md:pb-0",
+      "selector": "a.py-2.transition-opacity.duration-100.hover:opacity-80.md:px-2.md:pb-0",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "opacity 0.1s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(59, 130, 246, 0.5) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Instagram",
+      "classes": "py-2 transition-opacity duration-100 hover:opacity-80 md:px-2 md:pb-0",
+      "selector": "a.py-2.transition-opacity.duration-100.hover:opacity-80.md:px-2.md:pb-0",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "opacity 0.1s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(59, 130, 246, 0.5) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "YouTube",
+      "classes": "py-2 transition-opacity duration-100 hover:opacity-80 md:px-2 md:pb-0",
+      "selector": "a.py-2.transition-opacity.duration-100.hover:opacity-80.md:px-2.md:pb-0",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "opacity 0.1s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(59, 130, 246, 0.5) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "X",
+      "classes": "py-2 transition-opacity duration-100 hover:opacity-80 md:px-2 md:pb-0",
+      "selector": "a.py-2.transition-opacity.duration-100.hover:opacity-80.md:px-2.md:pb-0",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "opacity 0.1s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(59, 130, 246, 0.5) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "TikTok",
+      "classes": "py-2 transition-opacity duration-100 hover:opacity-80 md:px-2 md:pb-0 pb-0 pr-0 md:pr-0",
+      "selector": "a.py-2.transition-opacity.duration-100.hover:opacity-80.md:px-2.md:pb-0.pb-0.pr-0.md:pr-0",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "opacity 0.1s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(59, 130, 246, 0.5) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "Learn More →",
+      "classes": "didomi-components-button didomi-button didomi-learn-more-button didomi-button-standard standard-butt",
+      "selector": "#didomi-notice-learn-more-button",
+      "baseStyles": {
+        "color": "rgb(68, 68, 68)",
+        "backgroundColor": "rgb(238, 238, 238)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(68, 68, 68)",
+        "borderWidth": "0px",
+        "borderRadius": "8px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(68, 68, 68) none 0px",
+        "outlineColor": "rgb(68, 68, 68)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgb(238, 238, 238)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(68, 68, 68)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderRadius": {
+            "from": "8px",
+            "to": "0px"
+          }
+        },
+        "focus": {
+          "backgroundColor": {
+            "from": "rgb(238, 238, 238)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(68, 68, 68)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderRadius": {
+            "from": "8px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "Agree and close",
+      "classes": "didomi-components-button didomi-button didomi-dismiss-button didomi-components-button--color didomi-",
+      "selector": "#didomi-notice-agree-button",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgba(0, 0, 0, 0.3)",
+        "borderWidth": "1px",
+        "borderRadius": "8px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "backgroundColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgba(0, 0, 0, 0.3)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "1px",
+            "to": "0px"
+          },
+          "borderRadius": {
+            "from": "8px",
+            "to": "0px"
+          }
+        },
+        "focus": {
+          "backgroundColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgba(0, 0, 0, 0.3)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "1px",
+            "to": "0px"
+          },
+          "borderRadius": {
+            "from": "8px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "",
+      "classes": "size-12 p-4 focus:outline-none",
+      "selector": "button.size-12.p-4.focus:outline-none",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "",
+      "classes": "absolute right-0 top-0 size-fit w-12 translate-y-[7px] px-3 focus:outline-none",
+      "selector": "button.absolute.right-0.top-0.size-fit.w-12.translate-y-[7px].px-3.focus:outline-none",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "matrix(1, 0, 0, 1, 0, 7)",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "transform": {
+            "from": "matrix(1, 0, 0, 1, 0, 7)",
+            "to": "none"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "transform": {
+            "from": "matrix(1, 0, 0, 1, 0, 7)",
+            "to": "none"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "Discover",
+      "classes": "type-product-name type-callout frost-grey-low dark:frost-grey-intense absolute bottom-6 right-2 mr-6",
+      "selector": "button.type-product-name.type-callout.frost-grey-low.dark:frost-grey-intense.absolute.bottom-6.right-2.mr-6.rounded-lg.px-2.py-1.rtl:hidden",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(88, 90, 90, 0.05)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "8px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "blur(45px)"
+      },
+      "states": {
+        "focus": {
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(59, 130, 246, 0.5) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "Discover",
+      "classes": "type-product-name type-callout frost-grey-low dark:frost-grey-intense absolute bottom-6 right-2 mr-6",
+      "selector": "button.type-product-name.type-callout.frost-grey-low.dark:frost-grey-intense.absolute.bottom-6.right-2.mr-6.rounded-lg.px-2.py-1.rtl:hidden",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(88, 90, 90, 0.05)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "8px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "blur(45px)"
+      },
+      "states": {
+        "focus": {
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(59, 130, 246, 0.5) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "Discover",
+      "classes": "type-product-name type-callout frost-grey-low dark:frost-grey-intense absolute bottom-6 right-2 mr-6",
+      "selector": "button.type-product-name.type-callout.frost-grey-low.dark:frost-grey-intense.absolute.bottom-6.right-2.mr-6.rounded-lg.px-2.py-1.rtl:hidden",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(88, 90, 90, 0.05)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "8px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "blur(45px)"
+      },
+      "states": {
+        "focus": {
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(59, 130, 246, 0.5) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "Discover",
+      "classes": "type-product-name type-callout frost-grey-low dark:frost-grey-intense absolute bottom-6 right-2 mr-6",
+      "selector": "button.type-product-name.type-callout.frost-grey-low.dark:frost-grey-intense.absolute.bottom-6.right-2.mr-6.rounded-lg.px-2.py-1.rtl:hidden",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(88, 90, 90, 0.6)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "8px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "blur(45px)"
+      },
+      "states": {
+        "focus": {
+          "color": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "backgroundColor": {
+            "from": "rgba(88, 90, 90, 0.6)",
+            "to": "rgba(88, 90, 90, 0.05)"
+          },
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(59, 130, 246, 0.5) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "Discover",
+      "classes": "type-product-name type-callout frost-grey-low dark:frost-grey-intense absolute bottom-6 right-2 mr-6",
+      "selector": "button.type-product-name.type-callout.frost-grey-low.dark:frost-grey-intense.absolute.bottom-6.right-2.mr-6.rounded-lg.px-2.py-1.rtl:hidden",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(88, 90, 90, 0.05)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "8px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "blur(45px)"
+      },
+      "states": {
+        "focus": {
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(59, 130, 246, 0.5) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "Discover",
+      "classes": "type-product-name type-callout frost-grey-low dark:frost-grey-intense absolute bottom-6 right-2 mr-6",
+      "selector": "button.type-product-name.type-callout.frost-grey-low.dark:frost-grey-intense.absolute.bottom-6.right-2.mr-6.rounded-lg.px-2.py-1.rtl:hidden",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(88, 90, 90, 0.6)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "8px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "blur(45px)"
+      },
+      "states": {
+        "focus": {
+          "color": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "backgroundColor": {
+            "from": "rgba(88, 90, 90, 0.6)",
+            "to": "rgba(88, 90, 90, 0.05)"
+          },
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(59, 130, 246, 0.5) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "Discover",
+      "classes": "type-product-name type-callout frost-grey-low dark:frost-grey-intense absolute bottom-6 right-2 mr-6",
+      "selector": "button.type-product-name.type-callout.frost-grey-low.dark:frost-grey-intense.absolute.bottom-6.right-2.mr-6.rounded-lg.px-2.py-1.rtl:hidden",
+      "baseStyles": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(88, 90, 90, 0.05)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "8px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(0, 0, 0) none 0px",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "blur(45px)"
+      },
+      "states": {
+        "focus": {
+          "boxShadow": {
+            "from": "none",
+            "to": "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(59, 130, 246, 0.5) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "outline": {
+            "from": "rgb(0, 0, 0) none 0px",
+            "to": "rgba(0, 0, 0, 0) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(0, 0, 0)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "Support",
+      "classes": "type-callout cursor-pointer rounded-lg transition-all duration-200 h-12 p-4 frost-white-low hover:bg",
+      "selector": "button.type-callout.cursor-pointer.rounded-lg.transition-all.duration-200.h-12.p-4.frost-white-low.hover:bg-pure-white/0.flex.w-full.items-center.justify-between",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(255, 255, 255, 0.05)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "8px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "blur(45px)"
+      },
+      "states": {
+        "focus": {
+          "backgroundColor": {
+            "from": "rgba(255, 255, 255, 0.05)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "8px",
+            "to": "0px"
+          },
+          "transition": {
+            "from": "0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          },
+          "backdropFilter": {
+            "from": "blur(45px)",
+            "to": "none"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "Newsletter",
+      "classes": "type-callout cursor-pointer rounded-lg transition-all duration-200 h-12 p-4 frost-white-low hover:bg",
+      "selector": "button.type-callout.cursor-pointer.rounded-lg.transition-all.duration-200.h-12.p-4.frost-white-low.hover:bg-pure-white/0.flex.w-full.items-center.justify-between",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(255, 255, 255, 0.05)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "8px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "blur(45px)"
+      },
+      "states": {
+        "focus": {
+          "backgroundColor": {
+            "from": "rgba(255, 255, 255, 0.05)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "8px",
+            "to": "0px"
+          },
+          "transition": {
+            "from": "0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          },
+          "backdropFilter": {
+            "from": "blur(45px)",
+            "to": "none"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "Store: United Kingdom",
+      "classes": "type-callout cursor-pointer rounded-lg transition-all duration-200 h-12 p-4 frost-white-low hover:bg",
+      "selector": "button.type-callout.cursor-pointer.rounded-lg.transition-all.duration-200.h-12.p-4.frost-white-low.hover:bg-pure-white/0.flex.w-full.items-center.justify-between",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(255, 255, 255, 0.05)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "8px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "blur(45px)"
+      },
+      "states": {
+        "focus": {
+          "backgroundColor": {
+            "from": "rgba(255, 255, 255, 0.05)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "8px",
+            "to": "0px"
+          },
+          "transition": {
+            "from": "0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          },
+          "backdropFilter": {
+            "from": "blur(45px)",
+            "to": "none"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "Languages: EN",
+      "classes": "type-callout cursor-pointer rounded-lg transition-all duration-200 h-12 p-4 frost-white-low hover:bg",
+      "selector": "button.type-callout.cursor-pointer.rounded-lg.transition-all.duration-200.h-12.p-4.frost-white-low.hover:bg-pure-white/0.flex.w-full.items-center.justify-between",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(255, 255, 255, 0.05)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "8px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "blur(45px)"
+      },
+      "states": {
+        "focus": {
+          "backgroundColor": {
+            "from": "rgba(255, 255, 255, 0.05)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "8px",
+            "to": "0px"
+          },
+          "transition": {
+            "from": "0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          },
+          "backdropFilter": {
+            "from": "blur(45px)",
+            "to": "none"
+          }
+        }
+      }
+    },
+    {
+      "tag": "button",
+      "text": "Consent Preferences",
+      "classes": "type-callout cursor-pointer rounded-lg transition-all duration-200 h-12 p-4 frost-white-low hover:bg",
+      "selector": "button.type-callout.cursor-pointer.rounded-lg.transition-all.duration-200.h-12.p-4.frost-white-low.hover:bg-pure-white/0.flex.w-full.items-center.justify-between",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(255, 255, 255, 0.05)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "8px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "blur(45px)"
+      },
+      "states": {
+        "focus": {
+          "backgroundColor": {
+            "from": "rgba(255, 255, 255, 0.05)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderRadius": {
+            "from": "8px",
+            "to": "0px"
+          },
+          "transition": {
+            "from": "0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          },
+          "backdropFilter": {
+            "from": "blur(45px)",
+            "to": "none"
+          }
+        }
+      }
+    }
+  ]
+}

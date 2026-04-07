@@ -1,0 +1,93 @@
+
+  /* Dialog styling */
+  dialog#consent-container {
+    margin: 0;
+    padding: 8px;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+  }
+
+  dialog#consent-container.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  dialog#consent-container::backdrop {
+    background: transparent;
+  }
+
+  dialog button span {
+    display: inline !important;
+  }
+
+  /* Toggle switch styling */
+  .toggle_switch {
+    position: relative;
+    display: inline-block;
+    width: 36px;
+    height: 24px;
+  }
+
+  .toggle_switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .toggle_slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #87867f;
+    transition: .4s;
+    border-radius: 24px;
+  }
+
+  .toggle_slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+  }
+
+  input:checked + .toggle_slider {
+    background-color: #d97757;
+  }
+
+  input:checked + .toggle_slider:before {
+    transform: translateX(12px);
+  }
+
+  input:disabled + .toggle_slider {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  @media only screen and (max-width: 501px) {
+    dialog#consent-container {
+      left: 8px !important;
+      bottom: 8px !important;
+      right: 8px !important;
+    }
+    #consent-banner {
+      padding: 24px 16px 16px !important;
+    }
+    #simple-options {
+      grid-template-columns: repeat(3, 1fr) !important;
+      grid-template-rows: auto auto !important;
+    }
+    #customize-btn {
+      grid-column: span 1 !important;
+    }
+    dialog button span {
+    	display: none !important;
+    }

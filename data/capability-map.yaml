@@ -1,0 +1,182 @@
+# AIOS Content Capability Map v1.0
+# Registro de "quem faz o que de melhor" no ecossistema.
+# Consultado pelo Content Forge para montar planos de producao.
+#
+# Estrutura por capability:
+#   best: caminho do squad/skill principal
+#   agent: agente especifico (se squad)
+#   why: motivo da escolha
+#   alternatives: opcoes alternativas com condicoes
+#   requires: dependencias
+#   cost: custo estimado (se aplicavel)
+#   note: observacoes
+
+version: 1
+last_updated: "2026-04-06"
+
+capabilities:
+
+  # ===== COPY & STRATEGY =====
+
+  carousel_copy:
+    best: squads/conteudo
+    agent: carousel-creator
+    why: "9 frameworks BRANDCONTENT, Agente Imperador, Oraculo de validacao"
+    alternatives:
+      - source: squads/content-engine
+        when: "precisa de debate protocol (devil's advocate + Torriani)"
+      - source: squads/presenca-digital
+        when: "conteudo multi-plataforma (LinkedIn + IG simultaneo)"
+
+  reels_script:
+    best: squads/conteudo
+    agent: reels-creator
+    why: "DNA BLAZE completo, 6 blocos + 7 padroes virais, 500+ hooks"
+    alternatives:
+      - source: squads/content-engine
+        when: "precisa de debate com agents legendarios"
+      - source: squads/ai-reels
+        agent: hook-architect + script-director
+        when: "roteiro para talking-head com avatar"
+
+  stories_script:
+    best: squads/conteudo
+    agent: stories-strategist
+    why: "4 tipos (venda, PAS, funil, levantada de mao)"
+
+  content_calendar:
+    best: squads/conteudo
+    agent: content-planner
+    why: "5 niveis de consciencia, 25 ideias/ciclo, calendario editorial"
+    alternatives:
+      - source: squads/presenca-digital
+        when: "cadencia multi-plataforma (DREAM Framework)"
+      - source: squads/content-engine
+        workflow: weekly-sprint
+        when: "sprint semanal com debate"
+
+  content_repurposing:
+    best: squads/conteudo
+    workflow: wf-multiplicar
+    why: "1 conteudo longo -> 30+ micro-pecas (yt-dlp + Whisper)"
+    alternatives:
+      - source: squads/content-engine
+        workflow: youtube-to-everything
+        when: "repurposing com quality gates QG-001 a QG-005"
+      - source: squads/content-creator
+        when: "foco em cortar clips virais de video longo"
+
+  competitor_research:
+    best: squads/conteudo
+    agent: competitor-analyst
+    why: "Pipeline completo: scrape -> transcricao -> analise de padroes"
+
+  hook_generation:
+    best: squads/conteudo
+    data: squads/conteudo/data/hooks-bank.md
+    why: "432 linhas, banco mais completo"
+    alternatives:
+      - source: squads/hormozi
+        data: squads/hormozi/docs/frameworks/hooks-framework.md
+        when: "hooks estilo Hormozi (Hook-Retain-Reward)"
+
+  brand_strategy:
+    best: squads/branding
+    why: "Naming (SMILE/SCRATCH), brand soul canvas, visual identity brief"
+    note: "Upstream de tudo — gera Brand Book que alimenta outros squads"
+
+  brand_positioning:
+    best: squads/conteudo
+    agent: positioning-expert
+    why: "Bio Imperial, CLC, StoryAds, Sistema 21 dias"
+
+  copywriting_deep:
+    best: squads/content-engine
+    why: "20 agents legendarios (Ogilvy, Halbert, Hopkins, Schwartz)"
+    note: "Melhor para copy longa, VSL, emails. Para IG, conteudo e melhor."
+
+  strategic_advisory:
+    best: squads/marketing-board
+    why: "Board Naval/Hormozi/Thiel + Musk como execution chief"
+    note: "Para decisoes de negocio, nao para producao de conteudo"
+
+  # ===== VISUAL RENDER =====
+
+  carousel_render:
+    best: skills/carrossel-instagram
+    why: "Pipeline completo: copy -> HTML 1080x1350 -> PNG via image-creator"
+    requires: skills/image-creator
+
+  image_render:
+    best: skills/image-creator
+    why: "Generico: qualquer HTML/CSS -> PNG via Playwright + HTTP server"
+    requires: Playwright MCP
+
+  video_branded:
+    best: skills/video-generator
+    why: "Multi-formato (Reel, Story, Landscape, Square, GIF) com motion presets"
+    requires: "Remotion + FFmpeg"
+
+  reel_talking_head:
+    best: squads/ai-reels
+    why: "Pipeline unico: ElevenLabs voz clonada + HeyGen avatar + 8 camadas Remotion"
+    cost: "$51/mes para 4-5 reels/semana"
+
+  reel_kinetic_text:
+    best: squads/viral-squad
+    why: "Remotion com tipografia animada, particle system, Academia Lendaria DS"
+    note: "5 agents Remotion experts, debate para viralidade"
+
+  reel_from_audio:
+    best: squads/audio-reels
+    why: "Pipeline unico: audio WhatsApp -> Gemini transcricao -> Kling AI cenas -> Remotion"
+    cost: "$0.80-1.20/video"
+
+  brand_visual_production:
+    best: squads/brandcraft
+    why: "URL -> tokens extraidos -> PDF, PNG, PPTX, Reel branded"
+    requires: skills/design-system-extractor
+
+  landing_page:
+    best: skills/lp-generator
+    why: "8 brands curados + 46 patterns extraidos. Mode A (HTML) funciona."
+
+  # ===== DESIGN SYSTEM =====
+
+  ds_extraction:
+    best: skills/design-system-forge
+    why: "Pipeline completo: dissect-artifact.cjs + dembrandt + consolidacao"
+    pipeline: "forge -> scaffold -> storybook -> catalog"
+
+  ds_scaffold:
+    best: skills/design-system-scaffold
+    why: "tokens.yaml -> Next.js 14 + Tailwind + Shadcn + Storybook"
+
+  # ===== PUBLISH =====
+
+  publish_ig_carousel:
+    best: skills/instagram-publisher
+    why: "Graph API direto, dry-run, controle de JPEG/container"
+    alternatives:
+      - source: skills/blotato
+        when: "precisa agendar ou publicar multi-plataforma"
+
+  publish_multi_platform:
+    best: skills/blotato
+    why: "MCP HTTP: IG, LinkedIn, X, TikTok, YouTube. Agendamento."
+
+  publish_reel:
+    best: skills/blotato
+    why: "instagram-publisher so faz carrosseis, blotato faz video"
+
+  # ===== ASSETS =====
+
+  image_acquisition:
+    best: skills/image-fetcher
+    why: "Playwright + EXA search para moodboard e referencias"
+
+  trend_monitoring:
+    best: squads/marketing-board
+    script: scripts/trend_sniper.py
+    why: "Apify + Google Trends + WhatsApp alerts"
+    note: "Capacidade unica sem wrapper de skill ainda"

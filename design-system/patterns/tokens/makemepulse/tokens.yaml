@@ -1,0 +1,212 @@
+# Design Tokens - makemepulse
+# Extracted by dissect-artifact.js v1.0.0
+# Source: https://makemepulse.com
+# Date: 2026-04-01T13:50:30.403Z
+
+metadata:
+  version: "1.0.0"
+  source: "https://makemepulse.com"
+  generated_at: "2026-04-01T13:50:30.403Z"
+  node_count: 746
+
+colors:
+  "rgb_15_15_15_":
+    value: "rgb(15, 15, 15)"
+    occurrences: 455
+  "rgb_255_255_255_":
+    value: "rgb(255, 255, 255)"
+    occurrences: 263
+  "rgb_0_0_0_":
+    value: "rgb(0, 0, 0)"
+    occurrences: 20
+  "rgb_242_242_242_":
+    value: "rgb(242, 242, 242)"
+    occurrences: 9
+  "rgb_137_111_255_":
+    value: "rgb(137, 111, 255)"
+    occurrences: 5
+  "rgba_0_0_0_0_05_":
+    value: "rgba(0, 0, 0, 0.05)"
+    occurrences: 3
+  "rgb_241_237_231_":
+    value: "rgb(241, 237, 231)"
+    occurrences: 2
+  "rgb_83_35_100_":
+    value: "rgb(83, 35, 100)"
+    occurrences: 2
+  "rgb_203_141_121_":
+    value: "rgb(203, 141, 121)"
+    occurrences: 2
+  "rgba_0_0_0_0_5_":
+    value: "rgba(0, 0, 0, 0.5)"
+    occurrences: 1
+  "rgba_255_255_255_0_05_":
+    value: "rgba(255, 255, 255, 0.05)"
+    occurrences: 1
+  "rgb_188_190_192_":
+    value: "rgb(188, 190, 192)"
+    occurrences: 1
+  "rgb_68_68_68_":
+    value: "rgb(68, 68, 68)"
+    occurrences: 1
+  "rgba_0_0_0_0_85_":
+    value: "rgba(0, 0, 0, 0.85)"
+    occurrences: 1
+
+typography:
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: "Biotif, sans-serif"
+    occurrences: 501
+  "60px_300":
+    font-size: "60px"
+    font-weight: "300"
+    font-family: ""Beatrice Display", sans-serif"
+    occurrences: 77
+  "11px_300":
+    font-size: "11px"
+    font-weight: "300"
+    font-family: "Biotif, sans-serif"
+    occurrences: 32
+  "10px_700":
+    font-size: "10px"
+    font-weight: "700"
+    font-family: "Biotif, sans-serif"
+    occurrences: 31
+  "13px_500":
+    font-size: "13px"
+    font-weight: "500"
+    font-family: "Biotif, sans-serif"
+    occurrences: 18
+  "105px_300":
+    font-size: "105px"
+    font-weight: "300"
+    font-family: ""Beatrice Display", sans-serif"
+    occurrences: 9
+  "18px_300":
+    font-size: "18px"
+    font-weight: "300"
+    font-family: "Biotif, sans-serif"
+    occurrences: 9
+  "15px_400":
+    font-size: "15px"
+    font-weight: "400"
+    font-family: "Biotif, sans-serif"
+    occurrences: 8
+  "12px_400":
+    font-size: "12px"
+    font-weight: "400"
+    font-family: "Biotif, sans-serif"
+    occurrences: 7
+  "36px_400":
+    font-size: "36px"
+    font-weight: "400"
+    font-family: "Biotif, sans-serif"
+    occurrences: 7
+  "11px_400":
+    font-size: "11px"
+    font-weight: "400"
+    font-family: "Biotif, sans-serif"
+    occurrences: 7
+  "13px_400":
+    font-size: "13px"
+    font-weight: "400"
+    font-family: "Biotif, sans-serif"
+    occurrences: 6
+  "28px_400":
+    font-size: "28px"
+    font-weight: "400"
+    font-family: "Biotif, sans-serif"
+    occurrences: 6
+  "10px_400":
+    font-size: "10px"
+    font-weight: "400"
+    font-family: "Biotif, sans-serif"
+    occurrences: 5
+  "17px_400":
+    font-size: "17px"
+    font-weight: "400"
+    font-family: "Biotif, sans-serif"
+    occurrences: 3
+  "160px_700":
+    font-size: "160px"
+    font-weight: "700"
+    font-family: "Biotif, sans-serif"
+    occurrences: 1
+
+spacing:
+  "_8px":
+    value: "-8px"
+    occurrences: 59
+  "16px":
+    value: "16px"
+    occurrences: 26
+  "24px":
+    value: "24px"
+    occurrences: 25
+  "_5px":
+    value: "-5px"
+    occurrences: 20
+  "20px":
+    value: "20px"
+    occurrences: 14
+  "1_54px":
+    value: "1.54px"
+    occurrences: 14
+  "6_46px":
+    value: "6.46px"
+    occurrences: 14
+  "8px":
+    value: "8px"
+    occurrences: 13
+  "32px":
+    value: "32px"
+    occurrences: 11
+  "_1px":
+    value: "-1px"
+    occurrences: 9
+  "4_86px":
+    value: "4.86px"
+    occurrences: 9
+  "3_14px":
+    value: "3.14px"
+    occurrences: 9
+  "7_122px":
+    value: "7.122px"
+    occurrences: 9
+  "0_878px":
+    value: "0.878px"
+    occurrences: 9
+  "5_019px":
+    value: "5.019px"
+    occurrences: 9
+  "2_981px":
+    value: "2.981px"
+    occurrences: 9
+  "2px":
+    value: "2px"
+    occurrences: 8
+  "72px":
+    value: "72px"
+    occurrences: 8
+  "80px":
+    value: "80px"
+    occurrences: 7
+  "_80px":
+    value: "-80px"
+    occurrences: 6
+
+shadows:
+  shadow_1:
+    value: "rgba(0, 0, 0, 0.03) 10px 10px 20px 0px"
+    occurrences: 34
+  shadow_2:
+    value: "rgba(137, 111, 255, 0.5) 0px 0px 128px 0px, rgba(137, 111, 255, 0.5) 0px 0px 64px 0px"
+    occurrences: 1
+  shadow_3:
+    value: "rgba(255, 255, 255, 0.5) 0px 0px 128px 0px, rgba(255, 255, 255, 0.5) 0px 0px 64px 0px"
+    occurrences: 1
+
+custom_properties:
+  "--vh": "9px"

@@ -1,0 +1,8 @@
+
+	.mapboxgl-control-container {
+  	display: none !important;
+  }
+
+  .marker, .marker.mapboxgl-marker.mapboxgl-marker-anchor-center {
+  	pointer-events: none !important;
+  }

@@ -1,0 +1,145 @@
+{
+  "version": "1.0.0",
+  "name": "laghetto",
+  "source": "https://laghetto.com.br",
+  "timestamp": "2026-04-01T12:15:36.642Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "output": "/Users/luizfosc/aios-core/design-system/patterns/tokens/laghetto",
+  "files": {
+    "html": {
+      "file": "source.html",
+      "size": 212934
+    },
+    "screenshots": [
+      "screenshot-desktop.png",
+      "screenshot-mobile.png"
+    ],
+    "stylesheets": [
+      {
+        "url": "https://cdn.prod.website-files.com/653165ffb9b62901aa741efd/css/site-laghetto.webflow.shared.1df17d1b0.min.css",
+        "file": "site-laghetto.webflow.shared.1df17d1b0.min.css",
+        "size": 251956
+      },
+      {
+        "url": "https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700%7CSource+Sans+3:300,400,500,600,700",
+        "file": "css",
+        "size": 23805
+      },
+      {
+        "url": "https://cdn.weglot.com/weglot.min.css?v=11",
+        "file": "weglot.min.css",
+        "size": 28635
+      },
+      {
+        "url": "https://s3.amazonaws.com/cdn.asksuite.com/infochat.css?v=1770734024029",
+        "file": "infochat.css",
+        "size": 43732
+      },
+      {
+        "url": "https://unpkg.com/lightpick@latest/css/lightpick.css",
+        "file": "lightpick.css",
+        "size": 7256
+      },
+      {
+        "embedded": true,
+        "file": "embedded-0.css",
+        "size": 58
+      },
+      {
+        "embedded": true,
+        "file": "embedded-1.css",
+        "size": 1088
+      },
+      {
+        "embedded": true,
+        "file": "embedded-2.css",
+        "size": 3195
+      },
+      {
+        "embedded": true,
+        "file": "embedded-3.css",
+        "size": 1561
+      },
+      {
+        "embedded": true,
+        "file": "embedded-4.css",
+        "size": 86
+      },
+      {
+        "embedded": true,
+        "file": "embedded-5.css",
+        "size": 2618
+      },
+      {
+        "embedded": true,
+        "file": "embedded-6.css",
+        "size": 598
+      },
+      {
+        "embedded": true,
+        "file": "embedded-7.css",
+        "size": 92
+      },
+      {
+        "embedded": true,
+        "file": "embedded-8.css",
+        "size": 95
+      },
+      {
+        "embedded": true,
+        "file": "embedded-9.css",
+        "size": 3033
+      },
+      {
+        "embedded": true,
+        "file": "embedded-10.css",
+        "size": 7987
+      },
+      {
+        "embedded": true,
+        "file": "embedded-11.css",
+        "size": 94
+      },
+      {
+        "embedded": true,
+        "file": "embedded-12.css",
+        "size": 90
+      },
+      {
+        "embedded": true,
+        "file": "embedded-13.css",
+        "size": 180
+      }
+    ],
+    "domTree": {
+      "file": "dom-tree.json",
+      "nodeCount": 2279
+    },
+    "extractedCss": "extracted-css.json",
+    "components": {
+      "file": "components.json",
+      "count": 16
+    },
+    "tokens": "tokens.yaml"
+  },
+  "summary": {
+    "nodeCount": 2279,
+    "uniqueColors": 35,
+    "typographyVariants": 72,
+    "spacingValues": 68,
+    "shadows": 10,
+    "gradients": 5,
+    "animations": 2,
+    "mediaQueries": 52,
+    "customProperties": 31,
+    "gridLayouts": 15,
+    "flexLayouts": 50,
+    "componentTypes": 16,
+    "totalComponents": 513,
+    "stylesheetCount": 19,
+    "inlineStyles": 72
+  }
+}

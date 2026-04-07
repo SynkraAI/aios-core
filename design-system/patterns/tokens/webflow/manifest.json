@@ -1,0 +1,235 @@
+{
+  "version": "1.0.0",
+  "name": "webflow",
+  "source": "https://webflow.com",
+  "timestamp": "2026-04-01T14:07:41.267Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "output": "/Users/luizfosc/aios-core/design-system/patterns/tokens/webflow",
+  "files": {
+    "html": {
+      "file": "source.html",
+      "size": 720123
+    },
+    "screenshots": [
+      "screenshot-desktop.png",
+      "screenshot-mobile.png"
+    ],
+    "stylesheets": [
+      {
+        "url": "https://cdn.prod.website-files.com/686294e263eb7e215bd232f7/css/marketing-main.webflow.shared.04b6236ad.min.css",
+        "file": "marketing-main.webflow.shared.04b6236ad.min.css",
+        "size": 29913
+      },
+      {
+        "url": "https://cdn.prod.website-files.com/686294e263eb7e215bd232f7/css/marketing-main.webflow.686294e363eb7e215bd2334b-dd9b0d5d3.min.css",
+        "file": "marketing-main.webflow.686294e363eb7e215bd2334b-dd9b0d5d3.min.css",
+        "size": 186068
+      },
+      {
+        "url": "https://fonts.googleapis.com/css?family=Inconsolata:400,700",
+        "file": "css",
+        "size": 2678
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css",
+        "file": "swiper-bundle.min.css",
+        "size": 18454
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/gh/webflow/brand_studio@65ba06b/marketo/wow-marketo-forms.min.css",
+        "file": "wow-marketo-forms.min.css",
+        "size": 12663
+      },
+      {
+        "embedded": true,
+        "file": "embedded-0.css",
+        "size": 58
+      },
+      {
+        "embedded": true,
+        "file": "embedded-1.css",
+        "size": 564
+      },
+      {
+        "embedded": true,
+        "file": "embedded-2.css",
+        "size": 86
+      },
+      {
+        "embedded": true,
+        "file": "embedded-3.css",
+        "size": 100
+      },
+      {
+        "embedded": true,
+        "file": "embedded-4.css",
+        "size": 229
+      },
+      {
+        "embedded": true,
+        "file": "embedded-6.css",
+        "size": 1120
+      },
+      {
+        "embedded": true,
+        "file": "embedded-7.css",
+        "size": 3496
+      },
+      {
+        "embedded": true,
+        "file": "embedded-8.css",
+        "size": 4982
+      },
+      {
+        "embedded": true,
+        "file": "embedded-9.css",
+        "size": 16415
+      },
+      {
+        "embedded": true,
+        "file": "embedded-10.css",
+        "size": 29919
+      },
+      {
+        "embedded": true,
+        "file": "embedded-11.css",
+        "size": 221
+      },
+      {
+        "embedded": true,
+        "file": "embedded-12.css",
+        "size": 2370
+      },
+      {
+        "embedded": true,
+        "file": "embedded-13.css",
+        "size": 713
+      },
+      {
+        "embedded": true,
+        "file": "embedded-14.css",
+        "size": 3496
+      },
+      {
+        "embedded": true,
+        "file": "embedded-15.css",
+        "size": 4982
+      },
+      {
+        "embedded": true,
+        "file": "embedded-16.css",
+        "size": 16415
+      },
+      {
+        "embedded": true,
+        "file": "embedded-17.css",
+        "size": 29919
+      },
+      {
+        "embedded": true,
+        "file": "embedded-18.css",
+        "size": 221
+      },
+      {
+        "embedded": true,
+        "file": "embedded-19.css",
+        "size": 96
+      },
+      {
+        "embedded": true,
+        "file": "embedded-20.css",
+        "size": 96
+      },
+      {
+        "embedded": true,
+        "file": "embedded-21.css",
+        "size": 389
+      },
+      {
+        "embedded": true,
+        "file": "embedded-22.css",
+        "size": 96
+      },
+      {
+        "embedded": true,
+        "file": "embedded-23.css",
+        "size": 96
+      },
+      {
+        "embedded": true,
+        "file": "embedded-24.css",
+        "size": 96
+      },
+      {
+        "embedded": true,
+        "file": "embedded-25.css",
+        "size": 2636
+      },
+      {
+        "embedded": true,
+        "file": "embedded-26.css",
+        "size": 2636
+      },
+      {
+        "embedded": true,
+        "file": "embedded-27.css",
+        "size": 2636
+      },
+      {
+        "embedded": true,
+        "file": "embedded-28.css",
+        "size": 2636
+      },
+      {
+        "embedded": true,
+        "file": "embedded-29.css",
+        "size": 96
+      },
+      {
+        "embedded": true,
+        "file": "embedded-30.css",
+        "size": 96
+      },
+      {
+        "embedded": true,
+        "file": "embedded-31.css",
+        "size": 149
+      },
+      {
+        "embedded": true,
+        "file": "embedded-32.css",
+        "size": 357
+      }
+    ],
+    "domTree": {
+      "file": "dom-tree.json",
+      "nodeCount": 3439
+    },
+    "extractedCss": "extracted-css.json",
+    "components": {
+      "file": "components.json",
+      "count": 22
+    },
+    "tokens": "tokens.yaml"
+  },
+  "summary": {
+    "nodeCount": 3439,
+    "uniqueColors": 21,
+    "typographyVariants": 25,
+    "spacingValues": 39,
+    "shadows": 2,
+    "gradients": 13,
+    "animations": 15,
+    "mediaQueries": 65,
+    "customProperties": 232,
+    "gridLayouts": 1,
+    "flexLayouts": 50,
+    "componentTypes": 22,
+    "totalComponents": 1043,
+    "stylesheetCount": 37,
+    "inlineStyles": 117
+  }
+}

@@ -1,0 +1,30 @@
+
+  
+    #rd-image-kd8udzxl {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      align-self: center;
+      max-width: 50px;
+    }
+
+    #rd-image-kd8udzxl a,
+    #rd-image-kd8udzxl img {
+      width: 50px;
+      max-width: 100%;
+      height: auto;
+      border-bottom-style: none;
+      border-color: #033b32;
+      border-left-style: none;
+      border-radius: 100px;
+      border-right-style: none;
+      border-top-style: none;
+      border-width: 1px;
+    }
+    @media screen and (max-width: 767px) {
+      #rd-image-kd8udzxl {
+        align-self: center;
+      }
+    }
+  
+
+  

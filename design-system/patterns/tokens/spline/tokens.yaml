@@ -1,0 +1,187 @@
+# Design Tokens - spline
+# Extracted by dissect-artifact.js v1.0.0
+# Source: https://spline.design
+# Date: 2026-04-01T13:59:12.602Z
+
+metadata:
+  version: "1.0.0"
+  source: "https://spline.design"
+  generated_at: "2026-04-01T13:59:12.602Z"
+  node_count: 118
+
+colors:
+  "rgba_255_255_255_0_6_":
+    value: "rgba(255, 255, 255, 0.6)"
+    occurrences: 52
+  "rgb_255_255_255_":
+    value: "rgb(255, 255, 255)"
+    occurrences: 34
+  "rgba_255_255_255_0_7_":
+    value: "rgba(255, 255, 255, 0.7)"
+    occurrences: 10
+  "rgba_255_255_255_0_8_":
+    value: "rgba(255, 255, 255, 0.8)"
+    occurrences: 4
+  "rgb_0_0_0_":
+    value: "rgb(0, 0, 0)"
+    occurrences: 3
+  "rgba_255_255_255_0_9_":
+    value: "rgba(255, 255, 255, 0.9)"
+    occurrences: 2
+  "rgba_0_0_0_0_8_":
+    value: "rgba(0, 0, 0, 0.8)"
+    occurrences: 2
+  "rgba_255_255_255_0_05_":
+    value: "rgba(255, 255, 255, 0.05)"
+    occurrences: 2
+  "rgba_255_255_255_0_1_":
+    value: "rgba(255, 255, 255, 0.1)"
+    occurrences: 2
+  "rgba_255_255_255_0_2_":
+    value: "rgba(255, 255, 255, 0.2)"
+    occurrences: 1
+  "rgba_255_255_255_0_4_":
+    value: "rgba(255, 255, 255, 0.4)"
+    occurrences: 1
+  "rgb_0_98_255_":
+    value: "rgb(0, 98, 255)"
+    occurrences: 1
+
+typography:
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: ""Spline Sans", system-ui, -apple-system, "system-ui", "Helvetica Neue", Helvetica, Arial, sans-serif"
+    occurrences: 61
+  "14px_400":
+    font-size: "14px"
+    font-weight: "400"
+    font-family: ""Spline Sans", system-ui, -apple-system, "system-ui", "Helvetica Neue", Helvetica, Arial, sans-serif"
+    occurrences: 29
+  "12px_400":
+    font-size: "12px"
+    font-weight: "400"
+    font-family: ""Spline Sans", system-ui, -apple-system, "system-ui", "Helvetica Neue", Helvetica, Arial, sans-serif"
+    occurrences: 9
+  "14px_500":
+    font-size: "14px"
+    font-weight: "500"
+    font-family: ""Spline Sans", system-ui, -apple-system, "system-ui", "Helvetica Neue", Helvetica, Arial, sans-serif"
+    occurrences: 6
+  "16px_500":
+    font-size: "16px"
+    font-weight: "500"
+    font-family: ""Spline Sans", system-ui, -apple-system, "system-ui", "Helvetica Neue", Helvetica, Arial, sans-serif"
+    occurrences: 1
+
+spacing:
+  "12px":
+    value: "12px"
+    occurrences: 16
+  "10px":
+    value: "10px"
+    occurrences: 16
+  "8px":
+    value: "8px"
+    occurrences: 8
+  "4px":
+    value: "4px"
+    occurrences: 8
+  "16px":
+    value: "16px"
+    occurrences: 3
+  "24px":
+    value: "24px"
+    occurrences: 2
+  "_1px":
+    value: "-1px"
+    occurrences: 2
+  "30px":
+    value: "30px"
+    occurrences: 1
+  "200px":
+    value: "200px"
+    occurrences: 1
+  "100px":
+    value: "100px"
+    occurrences: 1
+  "50px":
+    value: "50px"
+    occurrences: 1
+  "40px":
+    value: "40px"
+    occurrences: 1
+  "33px":
+    value: "33px"
+    occurrences: 1
+  "25px":
+    value: "25px"
+    occurrences: 1
+  "21px":
+    value: "21px"
+    occurrences: 1
+
+shadows:
+  shadow_1:
+    value: "rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset"
+    occurrences: 1
+
+borders:
+  border_1:
+    value: "0px 0px 1px none none solid rgb(255, 255, 255) rgb(255, 255, 255) rgba(255, 255, 255, 0.1)"
+    occurrences: 1
+  border_2:
+    value: "1px solid rgba(255, 255, 255, 0.05)"
+    occurrences: 1
+  border_3:
+    value: "1px solid rgba(255, 255, 255, 0.15)"
+    occurrences: 1
+
+custom_properties:
+  "--color-white-008": "#ffffff14"
+  "--color-white": "#fff"
+  "--color-panel-bg": "rgba(255,255,255,.08)"
+  "--color-white-001": "#ffffff03"
+  "--color-team-darker": "#7448d4"
+  "--color-btn-bg": "#ffffff0d"
+  "--lightningcss-light": ""
+  "--color-text-paragraph": "#fff9"
+  "--color-free-darker": "rgba(255,255,255,calc(.08 + .03))"
+  "--color-blue-lighter": "#5797ff"
+  "--color-blue-dark": "#217ce5"
+  "--color-purple-bright": "#a770ff"
+  "--color-super-darker": "#008761"
+  "--color-green-bright": "#47b35f"
+  "--color-super": "#00a376"
+  "--color-bg": "#000"
+  "--color-red": "#fd585b"
+  "--color-text-main": "#fff"
+  "--color-super-lighter": "#38e2b3"
+  "--color-team": "#915eff"
+  "--color-white-010": "#ffffff1a"
+  "--color-team-lighter": "#d680ff"
+  "--color-green": "#49bc541a"
+  "--removed-body-scroll-bar-size": "0px"
+  "--color-white-003": "#ffffff08"
+  "--color-white-090": "#ffffffe6"
+  "--color-blue-ios": "#5966f3"
+  "--lightningcss-dark": ""
+  "--color-blue": "#0062ff"
+  "--color-white-020": "#fff3"
+  "--color-purple": "#8f66ff21"
+  "--panel-bg-alpha": ".08"
+  "--color-bg-pink": "#ffe6e6"
+  "--color-panel-bg-hover": "rgba(255,255,255,calc(.08 + .03))"
+  "--color-menu-dropdown": "#1e1e23cc"
+  "--color-text-navigation": "#ffffffb3"
+  "--color-yellow": "#ffb01f"
+  "--color-bg-greenish": "#c1f6e8"
+  "--color-white-005": "#ffffff0d"
+  "--color-btn-bg-highlight": "#ffffff0f"
+  "--color-free": "rgba(255,255,255,.08)"
+  "--color-bg-transparent": "#1110"
+  "--color-pink": "#ff5cab"
+  "--color-white-040": "#fff6"
+  "--color-white-060": "#fff9"
+  "--color-white-070": "#ffffffb3"
+  "--color-white-080": "#fffc"

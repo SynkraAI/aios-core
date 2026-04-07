@@ -1,0 +1,8 @@
+
+    #shopify-section-template--20910374060356__scrolling_content_JrXqNi {
+      --section-vertical-spacing: clamp(10px, calc(10px + (10 - 10) * ((100vw - 375px) / (1400 - 375))), 10px);
+      --scrolling-content-content-gap: clamp(80px, calc(80px + (200 - 80) * ((100vw - 375px) / (1400 - 375))), 200px);
+
+      font-size: clamp(12px, calc(12px + (12 - 12) * ((100vw - 375px) / (1400 - 375))), 12px);
+    }
+  

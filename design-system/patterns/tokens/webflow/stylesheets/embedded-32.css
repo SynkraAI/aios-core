@@ -1,0 +1,19 @@
+
+  /* Hover */
+  @media (hover: hover) and (pointer: fine) {
+    .g-footer-brand:hover .g-brand-logo_img-container {
+      opacity: 1;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .g-footer-brand:hover .g-brand-logo_img-container {
+      opacity: 0;
+    }
+  }
+
+  /* Clip SVG */
+  .svg {
+    position: absolute;
+    width: 0;
+    height: 0;
+  }

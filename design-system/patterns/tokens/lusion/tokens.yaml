@@ -1,0 +1,253 @@
+# Design Tokens - lusion
+# Extracted by dissect-artifact.js v1.0.0
+# Source: https://lusion.co
+# Date: 2026-04-01T13:36:56.328Z
+
+metadata:
+  version: "1.0.0"
+  source: "https://lusion.co"
+  generated_at: "2026-04-01T13:36:56.328Z"
+  node_count: 365
+
+colors:
+  "rgb_0_0_0_":
+    value: "rgb(0, 0, 0)"
+    occurrences: 247
+  "rgb_255_255_255_":
+    value: "rgb(255, 255, 255)"
+    occurrences: 86
+  "rgb_240_241_250_":
+    value: "rgb(240, 241, 250)"
+    occurrences: 18
+  "rgb_0_22_236_":
+    value: "rgb(0, 22, 236)"
+    occurrences: 4
+  "rgb_26_47_251_":
+    value: "rgb(26, 47, 251)"
+    occurrences: 3
+  "rgb_43_46_58_":
+    value: "rgb(43, 46, 58)"
+    occurrences: 2
+  "rgb_228_230_239_":
+    value: "rgb(228, 230, 239)"
+    occurrences: 1
+  "rgb_18_20_22_":
+    value: "rgb(18, 20, 22)"
+    occurrences: 1
+  "rgb_52_57_63_":
+    value: "rgb(52, 57, 63)"
+    occurrences: 1
+  "rgb_193_255_0_":
+    value: "rgb(193, 255, 0)"
+    occurrences: 1
+  "rgba_0_0_0_0_1_":
+    value: "rgba(0, 0, 0, 0.1)"
+    occurrences: 1
+  "rgba_255_255_255_0_2_":
+    value: "rgba(255, 255, 255, 0.2)"
+    occurrences: 1
+
+typography:
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: "Aeonik"
+    occurrences: 91
+  "14_4px_400":
+    font-size: "14.4px"
+    font-weight: "400"
+    font-family: "Aeonik"
+    occurrences: 80
+  "43_2px_400":
+    font-size: "43.2px"
+    font-weight: "400"
+    font-family: "Aeonik"
+    occurrences: 24
+  "18px_400":
+    font-size: "18px"
+    font-weight: "400"
+    font-family: "Aeonik"
+    occurrences: 20
+  "14px_500":
+    font-size: "14px"
+    font-weight: "500"
+    font-family: "Aeonik"
+    occurrences: 17
+  "115_2px_400":
+    font-size: "115.2px"
+    font-weight: "400"
+    font-family: "Aeonik"
+    occurrences: 13
+  "26px_400":
+    font-size: "26px"
+    font-weight: "400"
+    font-family: "Aeonik"
+    occurrences: 12
+  "144px_400":
+    font-size: "144px"
+    font-weight: "400"
+    font-family: "Aeonik"
+    occurrences: 10
+  "14_4px_500":
+    font-size: "14.4px"
+    font-weight: "500"
+    font-family: "Aeonik"
+    occurrences: 9
+  "12_96px_400":
+    font-size: "12.96px"
+    font-weight: "400"
+    font-family: "Aeonik"
+    occurrences: 9
+  "15_84px_400":
+    font-size: "15.84px"
+    font-weight: "400"
+    font-family: "Aeonik"
+    occurrences: 8
+  "20px_400":
+    font-size: "20px"
+    font-weight: "400"
+    font-family: "Aeonik"
+    occurrences: 5
+  "21_6px_400":
+    font-size: "21.6px"
+    font-weight: "400"
+    font-family: "Aeonik"
+    occurrences: 5
+  "86_4px_400":
+    font-size: "86.4px"
+    font-weight: "400"
+    font-family: "Aeonik"
+    occurrences: 4
+  "14px_400":
+    font-size: "14px"
+    font-weight: "400"
+    font-family: "Aeonik"
+    occurrences: 3
+  "38px_400":
+    font-size: "38px"
+    font-weight: "400"
+    font-family: "Aeonik"
+    occurrences: 3
+  "48_6px_400":
+    font-size: "48.6px"
+    font-weight: "400"
+    font-family: "Aeonik"
+    occurrences: 3
+  "11_88px_400":
+    font-size: "11.88px"
+    font-weight: "400"
+    font-family: "Aeonik"
+    occurrences: 2
+  "12px_400":
+    font-size: "12px"
+    font-weight: "400"
+    font-family: "Aeonik"
+    occurrences: 1
+  "36px_400":
+    font-size: "36px"
+    font-weight: "400"
+    font-family: "Aeonik"
+    occurrences: 1
+
+spacing:
+  "50px":
+    value: "50px"
+    occurrences: 15
+  "normal_28_8px":
+    value: "normal 28.8px"
+    occurrences: 13
+  "16px":
+    value: "16px"
+    occurrences: 10
+  "19_44px":
+    value: "19.44px"
+    occurrences: 8
+  "12_96px":
+    value: "12.96px"
+    occurrences: 8
+  "14_4px":
+    value: "14.4px"
+    occurrences: 7
+  "80px":
+    value: "80px"
+    occurrences: 6
+  "30px":
+    value: "30px"
+    occurrences: 5
+  "411_828px":
+    value: "411.828px"
+    occurrences: 4
+  "411_844px":
+    value: "411.844px"
+    occurrences: 4
+  "8_75px":
+    value: "8.75px"
+    occurrences: 3
+  "57_6px":
+    value: "57.6px"
+    occurrences: 3
+  "25px":
+    value: "25px"
+    occurrences: 2
+  "20px":
+    value: "20px"
+    occurrences: 2
+  "1px":
+    value: "1px"
+    occurrences: 2
+  "45px":
+    value: "45px"
+    occurrences: 2
+  "3_6px":
+    value: "3.6px"
+    occurrences: 2
+  "11_25px":
+    value: "11.25px"
+    occurrences: 2
+  "50_4px":
+    value: "50.4px"
+    occurrences: 2
+  "1_6px":
+    value: "1.6px"
+    occurrences: 1
+
+shadows:
+  shadow_1:
+    value: "rgba(0, 0, 0, 0.04) 0px 6px 10px 0px, rgba(0, 0, 0, 0.04) 0px 2px 4px 0px"
+    occurrences: 3
+
+gradients:
+  gradient_1: "linear-gradient(270deg, rgba(11, 11, 18, 0.5), rgba(11, 11, 18, 0))"
+
+custom_properties:
+  "--project-details-icon-bg": "#000"
+  "--color-grey-blue": "#2b2e3a"
+  "--project-details-text": "#000"
+  "--color-green": "#c1ff00"
+  "--color-white": "#fff"
+  "--header-color": "#0016ec"
+  "--project-details-btn-text": "#000"
+  "--color-blue": "#1a2ffb"
+  "--color-project-details-logo-color": "#f0f"
+  "--color-dark-white": "#e4e6ef"
+  "--color-purple": "#8832f7"
+  "--base-padding-y": "clamp(30px, 4vw, 50px)"
+  "--color-error": "#e90000"
+  "--color-dark-blue": "#071bdf"
+  "--project-details-btn-bg-hover": "#000"
+  "--grid-gap": "2vw"
+  "--base-padding-x": "max(5vw, 40px)"
+  "--project-details-icon-color": "#000"
+  "--project-details-bg": "#000"
+  "--global-border-radius": "20px"
+  "--project-details-btn-text-hover": "#fff"
+  "--header-text-color": "#000000"
+  "--project-details-highlight": "#000"
+  "--color-red": "#ff4c41"
+  "--color-off-white": "#f0f1fa"
+  "--project-details-btn-bg": "#000"
+  "--cross-size": "clamp(.875rem, 1vw, 2rem)"
+  "--grid-space": "calc((100% - 11 * 2vw) / 12)"
+  "--color-off-white-semi": "rgba(240, 241, 250, .7)"
+  "--color-black": "#000000"
+  "--header-size": "clamp(1rem, 1vw, 2rem)"

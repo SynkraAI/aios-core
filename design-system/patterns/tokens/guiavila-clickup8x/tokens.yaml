@@ -1,0 +1,256 @@
+# Design Tokens - guiavila-clickup8x
+# Extracted by dissect-artifact.js v1.0.0
+# Source: https://lp.guiavila.com/clickup8x
+# Date: 2026-04-01T14:53:11.622Z
+
+metadata:
+  version: "1.0.0"
+  source: "https://lp.guiavila.com/clickup8x"
+  generated_at: "2026-04-01T14:53:11.622Z"
+  node_count: 1171
+
+colors:
+  "rgb_0_0_0_":
+    value: "rgb(0, 0, 0)"
+    occurrences: 891
+  "rgb_255_255_255_":
+    value: "rgb(255, 255, 255)"
+    occurrences: 97
+  "rgb_0_0_238_":
+    value: "rgb(0, 0, 238)"
+    occurrences: 69
+  "rgba_255_255_255_0_9_":
+    value: "rgba(255, 255, 255, 0.9)"
+    occurrences: 65
+  "rgba_255_255_255_0_7_":
+    value: "rgba(255, 255, 255, 0.7)"
+    occurrences: 39
+  "rgba_0_0_0_0_7_":
+    value: "rgba(0, 0, 0, 0.7)"
+    occurrences: 21
+  "rgb_254_66_167_":
+    value: "rgb(254, 66, 167)"
+    occurrences: 8
+  "rgb_255_182_2_":
+    value: "rgb(255, 182, 2)"
+    occurrences: 7
+  "rgba_255_255_255_0_04_":
+    value: "rgba(255, 255, 255, 0.04)"
+    occurrences: 7
+  "rgba_0_0_0_0_9_":
+    value: "rgba(0, 0, 0, 0.9)"
+    occurrences: 7
+  "rgb_43_174_255_":
+    value: "rgb(43, 174, 255)"
+    occurrences: 6
+  "rgb_59_59_59_":
+    value: "rgb(59, 59, 59)"
+    occurrences: 4
+  "rgb_255_112_188_":
+    value: "rgb(255, 112, 188)"
+    occurrences: 4
+  "rgb_86_86_86_":
+    value: "rgb(86, 86, 86)"
+    occurrences: 3
+  "rgb_250_250_250_":
+    value: "rgb(250, 250, 250)"
+    occurrences: 2
+  "rgb_255_192_33_":
+    value: "rgb(255, 192, 33)"
+    occurrences: 2
+  "rgb_3_3_3_":
+    value: "rgb(3, 3, 3)"
+    occurrences: 1
+  "rgb_117_255_126_":
+    value: "rgb(117, 255, 126)"
+    occurrences: 1
+  "rgba_0_0_0_0_25_":
+    value: "rgba(0, 0, 0, 0.25)"
+    occurrences: 1
+  "rgb_37_211_102_":
+    value: "rgb(37, 211, 102)"
+    occurrences: 1
+
+typography:
+  "12px_400":
+    font-size: "12px"
+    font-weight: "400"
+    font-family: "sans-serif"
+    occurrences: 904
+  "14px_400":
+    font-size: "14px"
+    font-weight: "400"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 52
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 48
+  "12px_400":
+    font-size: "12px"
+    font-weight: "400"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 24
+  "12px_700":
+    font-size: "12px"
+    font-weight: "700"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 24
+  "16px_700":
+    font-size: "16px"
+    font-weight: "700"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 20
+  "40px_600":
+    font-size: "40px"
+    font-weight: "600"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 16
+  "14px_700":
+    font-size: "14px"
+    font-weight: "700"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 15
+  "13px_400":
+    font-size: "13px"
+    font-weight: "400"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 13
+  "14px_600":
+    font-size: "14px"
+    font-weight: "600"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 11
+  "14px_500":
+    font-size: "14px"
+    font-weight: "500"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 9
+  "16px_600":
+    font-size: "16px"
+    font-weight: "600"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 9
+  "12px_500":
+    font-size: "12px"
+    font-weight: "500"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 5
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: "Inter, sans-serif"
+    occurrences: 5
+  "12px_600":
+    font-size: "12px"
+    font-weight: "600"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 2
+  "50px_600":
+    font-size: "50px"
+    font-weight: "600"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 2
+  "38px_700":
+    font-size: "38px"
+    font-weight: "700"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 2
+  "20px_400":
+    font-size: "20px"
+    font-weight: "400"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 1
+  "18px_600":
+    font-size: "18px"
+    font-weight: "600"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 1
+  "20px_600":
+    font-size: "20px"
+    font-weight: "600"
+    font-family: "Inter, "Inter Placeholder", sans-serif"
+    occurrences: 1
+
+spacing:
+  "16px":
+    value: "16px"
+    occurrences: 153
+  "24px":
+    value: "24px"
+    occurrences: 69
+  "10px":
+    value: "10px"
+    occurrences: 58
+  "8px":
+    value: "8px"
+    occurrences: 57
+  "2px":
+    value: "2px"
+    occurrences: 26
+  "80px":
+    value: "80px"
+    occurrences: 17
+  "4px":
+    value: "4px"
+    occurrences: 10
+  "48px":
+    value: "48px"
+    occurrences: 9
+  "1_5px":
+    value: "1.5px"
+    occurrences: 8
+  "20px":
+    value: "20px"
+    occurrences: 7
+  "40px":
+    value: "40px"
+    occurrences: 6
+  "7px":
+    value: "7px"
+    occurrences: 5
+  "9px":
+    value: "9px"
+    occurrences: 5
+  "32px":
+    value: "32px"
+    occurrences: 5
+  "100px":
+    value: "100px"
+    occurrences: 4
+  "60px":
+    value: "60px"
+    occurrences: 3
+  "56px":
+    value: "56px"
+    occurrences: 2
+  "29px":
+    value: "29px"
+    occurrences: 1
+  "1px":
+    value: "1px"
+    occurrences: 1
+
+shadows:
+  shadow_1:
+    value: "rgba(0, 0, 0, 0.2) 0px 2px 10px 0px"
+    occurrences: 1
+
+gradients:
+  gradient_1: "linear-gradient(rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 100%)"
+  gradient_2: "linear-gradient(0deg, rgb(227, 227, 227) 0%, rgb(255, 255, 255) 133%)"
+  gradient_3: "radial-gradient(50% 50%, rgb(254, 66, 167) 0%, rgba(0, 0, 0, 0) 100%)"
+  gradient_4: "radial-gradient(50% 50%, rgb(115, 115, 115) 0%, rgba(0, 0, 0, 0) 100%)"
+  gradient_5: "radial-gradient(50% 50%, rgb(255, 255, 255) 0%, rgba(0, 0, 0, 0) 100%)"
+  gradient_6: "radial-gradient(10% 10% at 17.6% 0%, rgb(3, 150, 255) 0%, rgba(255, 255, 255, 0) 100%)"
+  gradient_7: "radial-gradient(50% 50%, rgb(0, 0, 0) 0%, rgb(18, 18, 18) 100%)"
+  gradient_8: "linear-gradient(rgb(44, 41, 56) 0%, rgb(44, 41, 56) 85.3886%, rgba(1, 1, 1, 0) 100%)"
+  gradient_9: "linear-gradient(rgb(254, 66, 167) 0%, rgba(1, 1, 1, 0) 100%)"
+  gradient_10: "linear-gradient(rgb(255, 182, 2) 0%, rgba(1, 1, 1, 0) 100%)"
+
+custom_properties:
+  "--one-if-corner-shape-supported": "1"
+  "--animate-duration": "1s"
+  "--animate-delay": "1s"
+  "--animate-repeat": "1"

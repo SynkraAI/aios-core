@@ -1,0 +1,302 @@
+# Design Tokens - pitch
+# Extracted by dissect-artifact.js v1.0.0
+# Source: https://pitch.com
+# Date: 2026-04-01T11:59:10.618Z
+
+metadata:
+  version: "1.0.0"
+  source: "https://pitch.com"
+  generated_at: "2026-04-01T11:59:10.618Z"
+  node_count: 897
+
+colors:
+  "rgb_43_42_53_":
+    value: "rgb(43, 42, 53)"
+    occurrences: 487
+  "rgb_255_255_255_":
+    value: "rgb(255, 255, 255)"
+    occurrences: 153
+  "rgb_107_83_255_":
+    value: "rgb(107, 83, 255)"
+    occurrences: 114
+  "rgb_30_29_40_":
+    value: "rgb(30, 29, 40)"
+    occurrences: 45
+  "rgb_0_0_0_":
+    value: "rgb(0, 0, 0)"
+    occurrences: 23
+  "rgb_84_84_101_":
+    value: "rgb(84, 84, 101)"
+    occurrences: 7
+  "rgb_141_73_247_":
+    value: "rgb(141, 73, 247)"
+    occurrences: 7
+  "rgb_128_128_128_":
+    value: "rgb(128, 128, 128)"
+    occurrences: 7
+  "rgba_255_255_255_0_8_":
+    value: "rgba(255, 255, 255, 0.8)"
+    occurrences: 5
+  "rgba_107_83_255_0_05_":
+    value: "rgba(107, 83, 255, 0.05)"
+    occurrences: 4
+  "rgb_111_115_135_":
+    value: "rgb(111, 115, 135)"
+    occurrences: 4
+  "rgb_255_208_44_":
+    value: "rgb(255, 208, 44)"
+    occurrences: 4
+  "rgba_255_255_255_0_6_":
+    value: "rgba(255, 255, 255, 0.6)"
+    occurrences: 3
+  "rgb_63_66_80_":
+    value: "rgb(63, 66, 80)"
+    occurrences: 3
+  "rgb_255_160_0_":
+    value: "rgb(255, 160, 0)"
+    occurrences: 2
+  "rgb_240_239_244_":
+    value: "rgb(240, 239, 244)"
+    occurrences: 1
+  "rgb_129_212_250_":
+    value: "rgb(129, 212, 250)"
+    occurrences: 1
+  "rgb_255_214_0_":
+    value: "rgb(255, 214, 0)"
+    occurrences: 1
+  "rgb_55_23_137_":
+    value: "rgb(55, 23, 137)"
+    occurrences: 1
+  "rgba_0_0_0_0_12_":
+    value: "rgba(0, 0, 0, 0.12)"
+    occurrences: 1
+
+typography:
+  "18px_400":
+    font-size: "18px"
+    font-weight: "400"
+    font-family: "Eina01, -apple-system, blinkmacsystemfont, "Segoe UI", roboto, helvetica, arial, sans-serif, "Apple  Color Emoji", "Segoe UI Emoji", "Segoe  UI Symbol""
+    occurrences: 477
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: "Eina01, -apple-system, blinkmacsystemfont, "Segoe UI", roboto, helvetica, arial, sans-serif, "Apple  Color Emoji", "Segoe UI Emoji", "Segoe  UI Symbol""
+    occurrences: 153
+  "16px_700":
+    font-size: "16px"
+    font-weight: "700"
+    font-family: "Eina01, -apple-system, blinkmacsystemfont, "Segoe UI", roboto, helvetica, arial, sans-serif, "Apple  Color Emoji", "Segoe UI Emoji", "Segoe  UI Symbol""
+    occurrences: 43
+  "24px_700":
+    font-size: "24px"
+    font-weight: "700"
+    font-family: "Eina01, -apple-system, blinkmacsystemfont, "Segoe UI", roboto, helvetica, arial, sans-serif, "Apple  Color Emoji", "Segoe UI Emoji", "Segoe  UI Symbol""
+    occurrences: 24
+  "24px_400":
+    font-size: "24px"
+    font-weight: "400"
+    font-family: "Eina01, -apple-system, blinkmacsystemfont, "Segoe UI", roboto, helvetica, arial, sans-serif, "Apple  Color Emoji", "Segoe UI Emoji", "Segoe  UI Symbol""
+    occurrences: 20
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: ""Times New Roman""
+    occurrences: 17
+  "18px_700":
+    font-size: "18px"
+    font-weight: "700"
+    font-family: "Eina01, -apple-system, blinkmacsystemfont, "Segoe UI", roboto, helvetica, arial, sans-serif, "Apple  Color Emoji", "Segoe UI Emoji", "Segoe  UI Symbol""
+    occurrences: 16
+  "80px_800":
+    font-size: "80px"
+    font-weight: "800"
+    font-family: ""Mark Pro", -apple-system, blinkmacsystemfont, "Segoe UI", roboto, helvetica, arial, sans-serif, "Apple  Color Emoji", "Segoe UI Emoji", "Segoe  UI Symbol""
+    occurrences: 9
+  "13px_700":
+    font-size: "13px"
+    font-weight: "700"
+    font-family: "Eina01, -apple-system, blinkmacsystemfont, "Segoe UI", roboto, helvetica, arial, sans-serif, "Apple  Color Emoji", "Segoe UI Emoji", "Segoe  UI Symbol""
+    occurrences: 8
+  "14px_700":
+    font-size: "14px"
+    font-weight: "700"
+    font-family: "Eina01, -apple-system, blinkmacsystemfont, "Segoe UI", roboto, helvetica, arial, sans-serif, "Apple  Color Emoji", "Segoe UI Emoji", "Segoe  UI Symbol""
+    occurrences: 8
+  "18px_600":
+    font-size: "18px"
+    font-weight: "600"
+    font-family: "Eina01, -apple-system, blinkmacsystemfont, "Segoe UI", roboto, helvetica, arial, sans-serif, "Apple  Color Emoji", "Segoe UI Emoji", "Segoe  UI Symbol""
+    occurrences: 8
+  "60px_800":
+    font-size: "60px"
+    font-weight: "800"
+    font-family: ""Mark Pro", -apple-system, blinkmacsystemfont, "Segoe UI", roboto, helvetica, arial, sans-serif, "Apple  Color Emoji", "Segoe UI Emoji", "Segoe  UI Symbol""
+    occurrences: 7
+  "16px_600":
+    font-size: "16px"
+    font-weight: "600"
+    font-family: "Eina01, -apple-system, blinkmacsystemfont, "Segoe UI", roboto, helvetica, arial, sans-serif, "Apple  Color Emoji", "Segoe UI Emoji", "Segoe  UI Symbol""
+    occurrences: 6
+  "42px_800":
+    font-size: "42px"
+    font-weight: "800"
+    font-family: ""Mark Pro", -apple-system, blinkmacsystemfont, "Segoe UI", roboto, helvetica, arial, sans-serif, "Apple  Color Emoji", "Segoe UI Emoji", "Segoe  UI Symbol""
+    occurrences: 5
+  "28px_800":
+    font-size: "28px"
+    font-weight: "800"
+    font-family: ""Mark Pro", -apple-system, blinkmacsystemfont, "Segoe UI", roboto, helvetica, arial, sans-serif, "Apple  Color Emoji", "Segoe UI Emoji", "Segoe  UI Symbol""
+    occurrences: 5
+  "12px_400":
+    font-size: "12px"
+    font-weight: "400"
+    font-family: "Eina01, -apple-system, blinkmacsystemfont, "Segoe UI", roboto, helvetica, arial, sans-serif, "Apple  Color Emoji", "Segoe UI Emoji", "Segoe  UI Symbol""
+    occurrences: 4
+  "27px_800":
+    font-size: "27px"
+    font-weight: "800"
+    font-family: ""Mark Pro", -apple-system, blinkmacsystemfont, "Segoe UI", roboto, helvetica, arial, sans-serif, "Apple  Color Emoji", "Segoe UI Emoji", "Segoe  UI Symbol""
+    occurrences: 4
+  "13_3333px_400":
+    font-size: "13.3333px"
+    font-weight: "400"
+    font-family: "Arial"
+    occurrences: 4
+  "13px_400":
+    font-size: "13px"
+    font-weight: "400"
+    font-family: "Eina01, -apple-system, blinkmacsystemfont, "Segoe UI", roboto, helvetica, arial, sans-serif, "Apple  Color Emoji", "Segoe UI Emoji", "Segoe  UI Symbol""
+    occurrences: 3
+  "15px_400":
+    font-size: "15px"
+    font-weight: "400"
+    font-family: "Eina01, -apple-system, blinkmacsystemfont, "Segoe UI", roboto, helvetica, arial, sans-serif, "Apple  Color Emoji", "Segoe UI Emoji", "Segoe  UI Symbol""
+    occurrences: 3
+
+spacing:
+  "2px":
+    value: "2px"
+    occurrences: 112
+  "12px":
+    value: "12px"
+    occurrences: 80
+  "20px":
+    value: "20px"
+    occurrences: 37
+  "_1px":
+    value: "-1px"
+    occurrences: 36
+  "24px":
+    value: "24px"
+    occurrences: 27
+  "40px":
+    value: "40px"
+    occurrences: 22
+  "120px":
+    value: "120px"
+    occurrences: 20
+  "30px":
+    value: "30px"
+    occurrences: 18
+  "6px":
+    value: "6px"
+    occurrences: 18
+  "15px":
+    value: "15px"
+    occurrences: 16
+  "16px":
+    value: "16px"
+    occurrences: 14
+  "10px":
+    value: "10px"
+    occurrences: 9
+  "60px":
+    value: "60px"
+    occurrences: 9
+  "32px":
+    value: "32px"
+    occurrences: 9
+  "_12px":
+    value: "-12px"
+    occurrences: 8
+  "4px":
+    value: "4px"
+    occurrences: 8
+  "1px":
+    value: "1px"
+    occurrences: 8
+  "3_2px":
+    value: "3.2px"
+    occurrences: 6
+  "4_8px":
+    value: "4.8px"
+    occurrences: 6
+  "90px":
+    value: "90px"
+    occurrences: 5
+
+shadows:
+  shadow_1:
+    value: "rgba(0, 0, 0, 0.15) 0px 3px 10px 0px"
+    occurrences: 24
+  shadow_2:
+    value: "rgba(0, 0, 0, 0.15) 0px 4px 30px 0px"
+    occurrences: 4
+  shadow_3:
+    value: "rgba(103, 110, 144, 0.2) 0px 8px 26px 0px"
+    occurrences: 2
+  shadow_4:
+    value: "rgba(43, 42, 53, 0.25) 0px 6px 27px 0px"
+    occurrences: 2
+  shadow_5:
+    value: "rgba(43, 42, 53, 0.5) 0px 6px 27px 0px"
+    occurrences: 2
+  shadow_6:
+    value: "rgba(0, 0, 0, 0.15) 0px 0px 0px 0px"
+    occurrences: 1
+
+borders:
+  border_1:
+    value: "1px solid rgb(221, 223, 229)"
+    occurrences: 9
+  border_2:
+    value: "0px 1px 0px 0px none solid none none rgb(43, 42, 53) rgb(221, 223, 229) rgb(43, 42, 53) rgb(43, 42, 53)"
+    occurrences: 4
+  border_3:
+    value: "1px solid undefined"
+    occurrences: 4
+  border_4:
+    value: "9px solid rgb(255, 208, 44)"
+    occurrences: 4
+  border_5:
+    value: "1px solid rgb(215, 216, 224)"
+    occurrences: 3
+  border_6:
+    value: "2px solid rgb(255, 255, 255)"
+    occurrences: 2
+  border_7:
+    value: "2px dashed rgb(255, 160, 0)"
+    occurrences: 1
+  border_8:
+    value: "0px 0px 1px none none solid rgb(43, 42, 53) rgb(43, 42, 53) rgba(13, 14, 19, 0.2)"
+    occurrences: 1
+  border_9:
+    value: "1px solid rgb(141, 73, 247)"
+    occurrences: 1
+
+gradients:
+  gradient_1: "linear-gradient(90deg, rgb(228, 207, 255), rgb(255, 255, 255))"
+  gradient_2: "linear-gradient(90deg, rgb(141, 73, 247), rgb(107, 83, 255))"
+  gradient_3: "linear-gradient(90deg, rgb(255, 255, 255), rgb(255, 255, 255), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8))"
+  gradient_4: "linear-gradient(90deg, rgb(141, 73, 247), rgb(107, 83, 255), rgb(43, 42, 53), rgb(43, 42, 53))"
+  gradient_5: "linear-gradient(90deg, rgb(83, 24, 235), rgb(171, 110, 249))"
+  gradient_6: "linear-gradient(45deg, rgb(43, 42, 53), rgb(138, 76, 249) 120%)"
+  gradient_7: "linear-gradient(90deg, rgb(141, 73, 247), rgb(107, 83, 255), rgb(141, 73, 247))"
+  gradient_8: "linear-gradient(90deg, rgb(107, 83, 255), rgb(141, 73, 247), rgb(107, 83, 255))"
+  gradient_9: "linear-gradient(rgba(53, 27, 97, 0.04), rgba(53, 27, 97, 0))"
+  gradient_10: "linear-gradient(rgb(141, 73, 247), rgb(107, 83, 255))"
+
+custom_properties:
+  "--navigation-height": "calc(2.5rem + 4.5rem)"
+  "--announcement-bar-height": "2.5rem"
+  "--navigation-bar-height": "4.5rem"

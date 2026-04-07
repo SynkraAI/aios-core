@@ -1,0 +1,22 @@
+.weglot_switcher.vertical_expand .language-option {
+    height: 35px !important;
+    padding: 0px 12px !important;
+}
+
+.weglot_switcher.vertical_expand.wg-down .language-list {
+  margin-top: 35px !important;
+}
+
+.weglot_switcher.vertical_expand.closed .active-language {
+    border-radius: 45px !important;
+    background-color: #ffffff24  !important;
+}
+
+.weglot_switcher.vertical_expand.wg-down .active-language {
+    border-radius: 45px !important;
+    background-color: #ffffff24  !important;
+}
+
+.weglot_switcher.vertical_expand .language-option a {
+    gap: 6px !important;
+}

@@ -1,0 +1,322 @@
+{
+  "url": "https://notion.so",
+  "name": "notion",
+  "captured_at": "2026-04-01T12:38:03.522Z",
+  "elements": [
+    {
+      "type": "button",
+      "index": 0,
+      "text": "Product",
+      "tag": "button",
+      "classes": "globalNavigation_link__ofzIw globalNavigation_dropdownTrigger__Vd0Te",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgba(0, 0, 0, 0.9)",
+        "borderColor": "rgba(0, 0, 0, 0.9)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(0, 0, 0, 0.05)",
+        "color": "rgba(0, 0, 0, 0.9)",
+        "borderColor": "rgba(0, 0, 0, 0.9)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgba(0, 0, 0, 0)",
+          "to": "rgba(0, 0, 0, 0.05)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-0-default.png",
+        "hover": "btn-0-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 1,
+      "text": "AI",
+      "tag": "button",
+      "classes": "globalNavigation_link__ofzIw globalNavigation_dropdownTrigger__Vd0Te",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgba(0, 0, 0, 0.9)",
+        "borderColor": "rgba(0, 0, 0, 0.9)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(0, 0, 0, 0.05)",
+        "color": "rgba(0, 0, 0, 0.9)",
+        "borderColor": "rgba(0, 0, 0, 0.9)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgba(0, 0, 0, 0)",
+          "to": "rgba(0, 0, 0, 0.05)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-1-default.png",
+        "hover": "btn-1-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 2,
+      "text": "Solutions",
+      "tag": "button",
+      "classes": "globalNavigation_link__ofzIw globalNavigation_dropdownTrigger__Vd0Te",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgba(0, 0, 0, 0.9)",
+        "borderColor": "rgba(0, 0, 0, 0.9)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(0, 0, 0, 0.05)",
+        "color": "rgba(0, 0, 0, 0.9)",
+        "borderColor": "rgba(0, 0, 0, 0.9)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgba(0, 0, 0, 0)",
+          "to": "rgba(0, 0, 0, 0.05)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-2-default.png",
+        "hover": "btn-2-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 3,
+      "text": "Resources",
+      "tag": "button",
+      "classes": "globalNavigation_link__ofzIw globalNavigation_dropdownTrigger__Vd0Te",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgba(0, 0, 0, 0.9)",
+        "borderColor": "rgba(0, 0, 0, 0.9)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(0, 0, 0, 0.05)",
+        "color": "rgba(0, 0, 0, 0.9)",
+        "borderColor": "rgba(0, 0, 0, 0.9)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgba(0, 0, 0, 0)",
+          "to": "rgba(0, 0, 0, 0.05)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-3-default.png",
+        "hover": "btn-3-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 4,
+      "text": "Get Notion free",
+      "tag": "a",
+      "classes": "button_button__atjat button_buttonVariantPrimary__mUFQZ button_buttonSizeM__NexGD",
+      "defaultStyles": {
+        "background": "rgb(0, 117, 222)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgba(255, 255, 255, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "8px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(0, 91, 171)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgba(255, 255, 255, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "8px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgb(0, 117, 222)",
+          "to": "rgb(0, 91, 171)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-4-default.png",
+        "hover": "btn-4-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 6,
+      "text": "Get Notion free",
+      "tag": "a",
+      "classes": "semanticTypography_semanticTypography__mWJkv semanticTypography_variantInteractionButtonLarge__7OLEp button_button__bge_I HeroCTA_cta__hOE_c button_primary__k0d3I button_large__JX0T2",
+      "defaultStyles": {
+        "background": "rgb(0, 117, 222)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgba(255, 255, 255, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "10px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(0, 91, 171)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgba(255, 255, 255, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "10px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgb(0, 117, 222)",
+          "to": "rgb(0, 91, 171)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-6-default.png",
+        "hover": "btn-6-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 7,
+      "text": "Request a demo",
+      "tag": "a",
+      "classes": "semanticTypography_semanticTypography__mWJkv semanticTypography_variantInteractionButtonLarge__7OLEp button_button__bge_I HeroCTA_cta__hOE_c button_secondary__0_CV3 button_large__JX0T2",
+      "defaultStyles": {
+        "background": "rgb(230, 243, 254)",
+        "color": "rgb(0, 91, 171)",
+        "borderColor": "rgba(255, 255, 255, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "10px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(242, 249, 255)",
+        "color": "rgb(0, 91, 171)",
+        "borderColor": "rgba(255, 255, 255, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "10px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgb(230, 243, 254)",
+          "to": "rgb(242, 249, 255)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-7-default.png",
+        "hover": "btn-7-hover.png"
+      }
+    },
+    {
+      "type": "card",
+      "index": 0,
+      "defaultStyles": {
+        "boxShadow": "none",
+        "transform": "none",
+        "borderColor": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "hoverStyles": {
+        "boxShadow": "none",
+        "transform": "none",
+        "borderColor": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "card-0-default.png",
+        "hover": "card-0-hover.png"
+      }
+    },
+    {
+      "type": "card",
+      "index": 1,
+      "defaultStyles": {
+        "boxShadow": "none",
+        "transform": "none",
+        "borderColor": "rgba(0, 0, 0, 0.9)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "hoverStyles": {
+        "boxShadow": "rgba(0, 0, 0, 0.04) 0px 4px 18px 0px, rgba(0, 0, 0, 0.027) 0px 2.025px 7.84688px 0px, rgba(0, 0, 0, 0.02) 0px 0.8px 2.925px 0px, rgba(0, 0, 0, 0.01) 0px 0.175px 1.04062px 0px",
+        "transform": "none",
+        "borderColor": "rgba(0, 0, 0, 0.9)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "diffs": {
+        "boxShadow": {
+          "from": "none",
+          "to": "rgba(0, 0, 0, 0.04) 0px 4px 18px 0px, rgba(0, 0, 0, 0.027) 0px 2.025px 7.84688px 0px, rgba(0, 0, 0, 0.02) 0px 0.8px 2.925px 0px, rgba(0, 0, 0, 0.01) 0px 0.175px 1.04062px 0px"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "card-1-default.png",
+        "hover": "card-1-hover.png"
+      }
+    }
+  ]
+}

@@ -1,0 +1,2055 @@
+{
+  "url": "https://farmrio.com.br",
+  "name": "farmrio",
+  "timestamp": "2026-04-01T12:21:04.330Z",
+  "totalElements": 50,
+  "elementsWithStates": 50,
+  "interactions": [
+    {
+      "tag": "a",
+      "text": "clique aqui",
+      "classes": "underline",
+      "selector": "a.underline",
+      "baseStyles": {
+        "color": "rgb(153, 153, 153)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline",
+        "outline": "rgb(153, 153, 153) none 0px",
+        "outlineColor": "rgb(153, 153, 153)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "outline": {
+            "from": "rgb(153, 153, 153) none 0px",
+            "to": "rgb(0, 95, 204) auto 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(153, 153, 153)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Devolução no site",
+      "classes": "btn btn-outline mt-6 mb-12 w-full max-w-80 lg:max-w-87 font-light border-neutral",
+      "selector": "a.btn.btn-outline.mt-6.mb-12.w-full.max-w-80.lg:max-w-87.font-light.border-neutral",
+      "baseStyles": {
+        "color": "rgb(153, 153, 153)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 229, 229)",
+        "borderWidth": "1px",
+        "borderRadius": "32px",
+        "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(153, 153, 153) none 0px",
+        "outlineColor": "rgb(153, 153, 153)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "color 0.2s cubic-bezier(0, 0, 0.2, 1), background-color 0.2s cubic-bezier(0, 0, 0.2, 1), border-color 0.2s cubic-bezier(0, 0, 0.2, 1), opacity 0.2s cubic-bezier(0, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0, 0, 0.2, 1), transform 0.2s cubic-bezier(0, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "outline": {
+            "from": "rgb(153, 153, 153) none 0px",
+            "to": "rgb(153, 153, 153) solid 2px"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "block w-[142px] [body:has(#sidemenu-drawer:checked)_&]:opacity-0 group-data-[scrolled=false]/navbar:",
+      "selector": "a.block.w-[142px].[body:has(#sidemenu-drawer:checked)_&]:opacity-0.group-data-[scrolled=false]/navbar:opacity-0.group-data-[scrolled=false]/navbar:pointer-events-none.transition-opacity.duration-300.ease-in-out",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "0",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(153, 153, 153)"
+          },
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "opacity": {
+            "from": "0",
+            "to": "1"
+          },
+          "outline": {
+            "from": "rgb(51, 51, 51) none 0px",
+            "to": "rgb(153, 153, 153) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(153, 153, 153)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(153, 153, 153)"
+          },
+          "backgroundColor": {
+            "from": "rgba(0, 0, 0, 0)",
+            "to": "rgb(255, 255, 255)"
+          },
+          "opacity": {
+            "from": "0",
+            "to": "1"
+          },
+          "outline": {
+            "from": "rgb(51, 51, 51) none 0px",
+            "to": "rgb(153, 153, 153) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(153, 153, 153)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "bg-white rounded-full h-10 px-5 flex items-center justify-center gap-2 transition-all duration-200",
+      "selector": "a.bg-white.rounded-full.h-10.px-5.flex.items-center.justify-center.gap-2.transition-all.duration-200",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(229, 231, 235)",
+        "borderWidth": "0px",
+        "borderRadius": "9999px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(153, 153, 153)"
+          },
+          "borderRadius": {
+            "from": "9999px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(51, 51, 51) none 0px",
+            "to": "rgb(153, 153, 153) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(153, 153, 153)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(153, 153, 153)"
+          },
+          "borderRadius": {
+            "from": "9999px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(51, 51, 51) none 0px",
+            "to": "rgb(153, 153, 153) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(153, 153, 153)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Ver tudo",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "adidas",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "FARM Rio + Zerezes: reposição!",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "As Cariocas",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Linha praia",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Tá na vitrine",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Estampado",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Coladinho",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Artesanal",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Ombro à mostra",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Vestido t-shirt",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Kimono",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Praia",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Até R$100",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Até R$200",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "ETC: 30% OFF",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Caixinha de som",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Camping",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Caneta",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Canga",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Carteira",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Chapéu",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Cooler",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Corda de celular",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Espelho de bolsa",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Estojo",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Fone e headphone",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Frescobol",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Guarda sol",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Lancheira",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Mala",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Meia",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Necessaire",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Óculos de sol",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Pin e patch",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Planner",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Pochete",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Porta incenso e incensário",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Porta joias",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Porta óculos",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Pra chuva",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Skate",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Sling",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Tapa olho",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Toalha",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Travesseiro",
+      "classes": "flex justify-between items-center h-full text-[17px] cursor-pointer border-b border-etc-n1-light",
+      "selector": "a.flex.justify-between.items-center.h-full.text-[17px].cursor-pointer.border-b.border-etc-n1-light",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(245, 245, 245)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "borderColor": {
+            "from": "rgb(245, 245, 245)",
+            "to": "rgb(229, 231, 235)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          }
+        }
+      }
+    }
+  ]
+}

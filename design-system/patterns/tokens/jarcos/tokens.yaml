@@ -1,0 +1,92 @@
+# Design Tokens - jarcos
+# Extracted by dissect-artifact.js v1.0.0
+# Source: https://jarcos.work
+# Date: 2026-04-01T02:58:22.822Z
+
+metadata:
+  version: "1.0.0"
+  source: "https://jarcos.work"
+  generated_at: "2026-04-01T02:58:22.822Z"
+  node_count: 481
+
+colors:
+  "rgb_0_0_0_":
+    value: "rgb(0, 0, 0)"
+    occurrences: 322
+  "rgb_128_128_128_":
+    value: "rgb(128, 128, 128)"
+    occurrences: 149
+  "rgb_255_255_255_":
+    value: "rgb(255, 255, 255)"
+    occurrences: 25
+
+typography:
+  "12px_400":
+    font-size: "12px"
+    font-weight: "400"
+    font-family: "sans-serif"
+    occurrences: 248
+  "12px_600":
+    font-size: "12px"
+    font-weight: "600"
+    font-family: ""Inter Display", "Inter Display Placeholder", sans-serif"
+    occurrences: 224
+  "24px_600":
+    font-size: "24px"
+    font-weight: "600"
+    font-family: ""Inter Display", "Inter Display Placeholder", sans-serif"
+    occurrences: 2
+  "10_8px_600":
+    font-size: "10.8px"
+    font-weight: "600"
+    font-family: ""Inter Display", "Inter Display Placeholder", sans-serif"
+    occurrences: 1
+
+spacing:
+  "10px":
+    value: "10px"
+    occurrences: 44
+  "24px":
+    value: "24px"
+    occurrences: 30
+  "2px":
+    value: "2px"
+    occurrences: 14
+  "32px":
+    value: "32px"
+    occurrences: 8
+  "8px":
+    value: "8px"
+    occurrences: 7
+  "5px":
+    value: "5px"
+    occurrences: 2
+  "16px":
+    value: "16px"
+    occurrences: 2
+  "3px":
+    value: "3px"
+    occurrences: 2
+  "48px":
+    value: "48px"
+    occurrences: 2
+  "4px":
+    value: "4px"
+    occurrences: 1
+  "148px":
+    value: "148px"
+    occurrences: 1
+  "64px":
+    value: "64px"
+    occurrences: 1
+  "12px":
+    value: "12px"
+    occurrences: 1
+
+borders:
+  border_1:
+    value: "1px solid rgba(255, 255, 255, 0.15)"
+    occurrences: 4
+
+custom_properties:
+  "--one-if-corner-shape-supported": "1"

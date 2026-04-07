@@ -1,0 +1,71 @@
+
+input[type="number"] {
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.search-desktop-quantity-input-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.search-desktop-quantity-input-wrapper,
+.search-desktop-quantity-input-wrapper * {
+  box-sizing: border-box;
+}
+
+.search-desktop-quantity-input-wrapper button {
+  outline:none;
+  -webkit-appearance: none;
+  background-color: #12443f47;
+  border-radius: 7px;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  margin: 0;
+  position: relative;
+  transition: all .368s;
+}
+
+.search-desktop-quantity-input-wrapper button:hover {
+	opacity: 0.6;
+  transition: all .368s;
+}
+
+.search-desktop-quantity-input-wrapper button:before,
+.search-desktop-quantity-input-wrapper button:after {
+  display: inline-block;
+  position: absolute;
+  content: '';
+  width: 11px;
+  height: 2px;
+  background-color: #212121;
+  transform: translate(-50%, -50%);
+}
+.search-desktop-quantity-input-wrapper button.plus:after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.search-desktop-quantity-input-wrapper input[type=number] {
+  max-width: 36px;
+  border: none;
+  font-size: 24px;
+  height: auto;
+  text-align: center;
+}
+
+@media screen and (max-width: 479px) {
+	 .search-desktop-quantity-input-wrapper input[type=number] {
+    	font-size: 22px;
+  }
+}

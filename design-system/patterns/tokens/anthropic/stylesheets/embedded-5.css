@@ -1,0 +1,12 @@
+
+        .heroes_lottie_wrap [fill="rgb(19,19,20)"],
+        .heroes_lottie_wrap [fill="rgb(19, 19, 20)"],
+        .heroes_lottie_wrap [fill="#131314"] {
+          fill: var(--_theme---foreground-primary) !important;
+        }
+        .heroes_lottie_wrap [fill="rgb(217,119,87)"],
+        .heroes_lottie_wrap [fill="rgb(217, 119, 87)"],
+        .heroes_lottie_wrap [fill="#d97757"] {
+          fill: var(--_theme---heroes-accent) !important;
+        }
+      

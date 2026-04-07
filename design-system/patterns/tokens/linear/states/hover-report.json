@@ -1,0 +1,315 @@
+{
+  "url": "https://linear.app",
+  "name": "linear",
+  "captured_at": "2026-04-01T12:30:45.724Z",
+  "elements": [
+    {
+      "type": "button",
+      "index": 1,
+      "text": "Product",
+      "tag": "a",
+      "classes": "show-hover hide-tablet Header_anchor__CTwdv Header_trigger__xKGQe reset_reset-button__5vBZ4 Link_root__cNtak",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(138, 143, 152)",
+        "borderColor": "rgb(138, 143, 152)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(255, 255, 255, 0.08)",
+        "color": "rgb(247, 248, 248)",
+        "borderColor": "rgb(247, 248, 248)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgba(0, 0, 0, 0)",
+          "to": "rgba(255, 255, 255, 0.08)"
+        },
+        "color": {
+          "from": "rgb(138, 143, 152)",
+          "to": "rgb(247, 248, 248)"
+        },
+        "borderColor": {
+          "from": "rgb(138, 143, 152)",
+          "to": "rgb(247, 248, 248)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-1-default.png",
+        "hover": "btn-1-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 3,
+      "text": "Resources",
+      "tag": "a",
+      "classes": "show-hover Header_anchor__CTwdv Header_trigger__xKGQe reset_reset-button__5vBZ4 Link_root__cNtak",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(138, 143, 152)",
+        "borderColor": "rgb(138, 143, 152)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(255, 255, 255, 0.08)",
+        "color": "rgb(247, 248, 248)",
+        "borderColor": "rgb(247, 248, 248)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgba(0, 0, 0, 0)",
+          "to": "rgba(255, 255, 255, 0.08)"
+        },
+        "color": {
+          "from": "rgb(138, 143, 152)",
+          "to": "rgb(247, 248, 248)"
+        },
+        "borderColor": {
+          "from": "rgb(138, 143, 152)",
+          "to": "rgb(247, 248, 248)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-3-default.png",
+        "hover": "btn-3-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 5,
+      "text": "Linear",
+      "tag": "button",
+      "classes": "Sidebar_switchWorkspaceButton__QuP7W",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgb(255, 255, 255)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(255, 255, 255, 0.03)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgb(255, 255, 255)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgba(0, 0, 0, 0)",
+          "to": "rgba(255, 255, 255, 0.03)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-5-default.png",
+        "hover": "btn-5-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 6,
+      "text": "",
+      "tag": "button",
+      "classes": "Sidebar_searchButton__I0_9C",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(98, 102, 109)",
+        "borderColor": "rgb(98, 102, 109)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "6px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(98, 102, 109)",
+        "borderColor": "rgb(98, 102, 109)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "6px",
+        "textDecoration": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-6-default.png",
+        "hover": "btn-6-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 7,
+      "text": "",
+      "tag": "button",
+      "classes": "Sidebar_newIssueButton__j96TX",
+      "defaultStyles": {
+        "background": "rgba(255, 255, 255, 0.02)",
+        "color": "rgb(226, 228, 231)",
+        "borderColor": "rgb(36, 40, 44)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "6px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(255, 255, 255, 0.02)",
+        "color": "rgb(226, 228, 231)",
+        "borderColor": "rgb(36, 40, 44)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "6px",
+        "textDecoration": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-7-default.png",
+        "hover": "btn-7-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 1,
+      "text": "Product",
+      "defaultStyles": {
+        "color": "rgb(138, 143, 152)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(247, 248, 248)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "diffs": {
+        "color": {
+          "from": "rgb(138, 143, 152)",
+          "to": "rgb(247, 248, 248)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "link-1-default.png",
+        "hover": "link-1-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 2,
+      "text": "Resources",
+      "defaultStyles": {
+        "color": "rgb(138, 143, 152)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(247, 248, 248)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "diffs": {
+        "color": {
+          "from": "rgb(138, 143, 152)",
+          "to": "rgb(247, 248, 248)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "link-2-default.png",
+        "hover": "link-2-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 3,
+      "text": "Customers",
+      "defaultStyles": {
+        "color": "rgb(138, 143, 152)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(247, 248, 248)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "diffs": {
+        "color": {
+          "from": "rgb(138, 143, 152)",
+          "to": "rgb(247, 248, 248)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "link-3-default.png",
+        "hover": "link-3-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 4,
+      "text": "Pricing",
+      "defaultStyles": {
+        "color": "rgb(138, 143, 152)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(247, 248, 248)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "diffs": {
+        "color": {
+          "from": "rgb(138, 143, 152)",
+          "to": "rgb(247, 248, 248)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "link-4-default.png",
+        "hover": "link-4-hover.png"
+      }
+    }
+  ]
+}

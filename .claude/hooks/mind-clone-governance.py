@@ -58,12 +58,11 @@ FUNCTIONAL_AGENT_PATTERNS = [
 ]
 
 # Local canônico ÚNICO para mind clones (centralizado em 2026-03-12)
-# Fallbacks mantidos para backward compatibility com squads que têm DNAs inline
+# Prioridade: outputs/mind_dna_complete.yaml > outputs/ dir > mind dir > legacy fallbacks
 DNA_LOCATIONS = [
-    "squads/mind-cloning/minds/{agent_id}/",          # CANÔNICO (preferido)
-    "squads/{pack}/data/minds/{agent_id}_dna.yaml",   # Fallback (squads com DNA inline)
-    "squads/{pack}/data/minds/{agent_id}_dna.md",     # Fallback
-    "squads/{pack}/data/{agent_id}-dna.yaml",         # Fallback
+    "squads/mind-cloning/minds/{agent_id}/outputs/mind_dna_complete.yaml",  # CANÔNICO (preferido)
+    "squads/mind-cloning/minds/{agent_id}/outputs/",                        # CANÔNICO (minds com DNA individual, e.g. hormozi)
+    "squads/mind-cloning/minds/{agent_id}/",                                # CANÔNICO (diretório raiz da mind)
 ]
 
 # =============================================================================
@@ -180,8 +179,8 @@ def main():
 ║  4. *create-agent → Criar agent a partir do DNA                              ║
 ║                                                                              ║
 ║  LOCAIS VERIFICADOS:                                                         ║
-║  • squads/{pack_name}/data/minds/{agent_id}_dna.yaml
-║  • squads/{pack_name}/data/minds/{agent_id}_dna.md
+║  • squads/mind-cloning/minds/{agent_id}/outputs/mind_dna_complete.yaml
+║  • squads/mind-cloning/minds/{agent_id}/outputs/
 ║  • squads/mind-cloning/minds/{agent_id}/
 ║                                                                              ║
 ║  SOLUÇÕES:                                                                   ║

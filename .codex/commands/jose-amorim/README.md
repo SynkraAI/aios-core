@@ -13,7 +13,7 @@ Clone Mental de Alta Fidelidade de José Carlos Amorim — Nexialista, educador 
 | **Carreira** | Jornalista TV (10 anos) → Nexialista/Educador IA |
 | **Certificações** | Harvard, IBM, Anthropic |
 | **Livro** | "Nexialismo: A Última Inteligência" |
-| **Source Mind** | `squads/squad-creator/data/minds/jose_amorim/` |
+| **Source Mind** | `squads/mind-cloning/minds/jose-amorim/outputs/` |
 
 ## Agente Principal
 
@@ -130,7 +130,7 @@ Resolve problema conectando domínios distintos. O meta-framework em ação.
 ## Dados de Extração
 
 ### Fonte de Conhecimento
-- **Source Mind:** `squads/squad-creator/data/minds/jose_amorim/`
+- **Source Mind:** `squads/mind-cloning/minds/jose-amorim/outputs/`
 - **Artifacts:** 35 artefatos processados
 - **Livro:** "Nexialismo: A Última Inteligência"
 - **Certificações:** Harvard, IBM, Anthropic
@@ -196,7 +196,7 @@ squads/jose-amorim/
 ├── workflows/
 │   └── wf-conteudo-educacional.yaml       # Pipeline: Tema → Espiral → Conteúdo → Validação
 ├── data/
-│   └── knowledge-base/                    # (ref: squad-creator/data/minds/jose_amorim/)
+│   └── knowledge-base/                    # (ref: mind-cloning/minds/jose-amorim/outputs/)
 ├── checklists/
 └── templates/
 ```

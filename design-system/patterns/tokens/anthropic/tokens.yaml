@@ -1,0 +1,317 @@
+# Design Tokens - anthropic
+# Extracted by dissect-artifact.js v1.0.0
+# Source: https://anthropic.com
+# Date: 2026-04-01T11:57:28.453Z
+
+metadata:
+  version: "1.0.0"
+  source: "https://anthropic.com"
+  generated_at: "2026-04-01T11:57:28.453Z"
+  node_count: 965
+
+colors:
+  "rgb_20_20_19_":
+    value: "rgb(20, 20, 19)"
+    occurrences: 527
+  "rgb_250_249_245_":
+    value: "rgb(250, 249, 245)"
+    occurrences: 191
+  "rgb_176_174_165_":
+    value: "rgb(176, 174, 165)"
+    occurrences: 163
+  "rgb_0_0_0_":
+    value: "rgb(0, 0, 0)"
+    occurrences: 23
+  "color_srgb_0_0784314_0_0784314_0_0745098_0_6_":
+    value: "color(srgb 0.0784314 0.0784314 0.0745098 / 0.6)"
+    occurrences: 19
+  "rgb_240_238_230_":
+    value: "rgb(240, 238, 230)"
+    occurrences: 9
+  "rgb_255_255_255_":
+    value: "rgb(255, 255, 255)"
+    occurrences: 8
+  "rgb_232_230_220_":
+    value: "rgb(232, 230, 220)"
+    occurrences: 5
+  "rgb_227_218_204_":
+    value: "rgb(227, 218, 204)"
+    occurrences: 3
+  "rgb_217_119_87_":
+    value: "rgb(217, 119, 87)"
+    occurrences: 3
+  "rgb_61_61_58_":
+    value: "rgb(61, 61, 58)"
+    occurrences: 3
+  "rgb_198_97_63_":
+    value: "rgb(198, 97, 63)"
+    occurrences: 2
+  "rgb_135_134_127_":
+    value: "rgb(135, 134, 127)"
+    occurrences: 2
+  "rgba_20_20_19_0_3_":
+    value: "rgba(20, 20, 19, 0.3)"
+    occurrences: 1
+  "color_srgb_0_929412_0_631373_0_0_6_":
+    value: "color(srgb 0.929412 0.631373 0 / 0.6)"
+    occurrences: 1
+  "rgb_161_160_160_":
+    value: "rgb(161, 160, 160)"
+    occurrences: 1
+
+typography:
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: ""Anthropic Sans", Arial, sans-serif"
+    occurrences: 396
+  "20px_400":
+    font-size: "20px"
+    font-weight: "400"
+    font-family: ""Anthropic Serif", Georgia, sans-serif"
+    occurrences: 205
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: ""Anthropic Serif", Georgia, sans-serif"
+    occurrences: 160
+  "16px_500":
+    font-size: "16px"
+    font-weight: "500"
+    font-family: ""Anthropic Sans", Arial, sans-serif"
+    occurrences: 45
+  "60_8653px_700":
+    font-size: "60.8653px"
+    font-weight: "700"
+    font-family: ""Anthropic Sans", Arial, sans-serif"
+    occurrences: 25
+  "15px_400":
+    font-size: "15px"
+    font-weight: "400"
+    font-family: ""Anthropic Sans", Arial, sans-serif"
+    occurrences: 16
+  "14px_500":
+    font-size: "14px"
+    font-weight: "500"
+    font-family: ""Anthropic Sans", Arial, sans-serif"
+    occurrences: 14
+  "24px_600":
+    font-size: "24px"
+    font-weight: "600"
+    font-family: ""Anthropic Sans", Arial, sans-serif"
+    occurrences: 8
+  "15px_600":
+    font-size: "15px"
+    font-weight: "600"
+    font-family: ""Anthropic Sans", Arial, sans-serif"
+    occurrences: 7
+  "24px_400":
+    font-size: "24px"
+    font-weight: "400"
+    font-family: ""Anthropic Serif", Georgia, sans-serif"
+    occurrences: 6
+  "16px_400":
+    font-size: "16px"
+    font-weight: "400"
+    font-family: ""Anthropic Mono", Arial, sans-serif"
+    occurrences: 6
+  "12px_400":
+    font-size: "12px"
+    font-weight: "400"
+    font-family: ""Anthropic Sans", Arial, sans-serif"
+    occurrences: 6
+  "16px_600":
+    font-size: "16px"
+    font-weight: "600"
+    font-family: ""Anthropic Sans", Arial, sans-serif"
+    occurrences: 5
+  "18px_600":
+    font-size: "18px"
+    font-weight: "600"
+    font-family: ""Anthropic Serif", Georgia, sans-serif"
+    occurrences: 4
+  "18px_400":
+    font-size: "18px"
+    font-weight: "400"
+    font-family: ""Anthropic Serif", Georgia, sans-serif"
+    occurrences: 4
+  "26px_400":
+    font-size: "26px"
+    font-weight: "400"
+    font-family: ""Anthropic Serif", Georgia, sans-serif"
+    occurrences: 3
+  "12px_500":
+    font-size: "12px"
+    font-weight: "500"
+    font-family: ""Anthropic Sans", Arial, sans-serif"
+    occurrences: 3
+  "14px_400":
+    font-size: "14px"
+    font-weight: "400"
+    font-family: ""Anthropic Serif", Georgia, sans-serif"
+    occurrences: 2
+  "96px_400":
+    font-size: "96px"
+    font-weight: "400"
+    font-family: ""Anthropic Serif", Georgia, sans-serif"
+    occurrences: 1
+  "20px_400":
+    font-size: "20px"
+    font-weight: "400"
+    font-family: ""Anthropic Sans", Arial, sans-serif"
+    occurrences: 1
+
+spacing:
+  "8px":
+    value: "8px"
+    occurrences: 147
+  "2px":
+    value: "2px"
+    occurrences: 96
+  "4px":
+    value: "4px"
+    occurrences: 78
+  "normal_8px":
+    value: "normal 8px"
+    occurrences: 62
+  "16px":
+    value: "16px"
+    occurrences: 38
+  "31_4776px":
+    value: "31.4776px"
+    occurrences: 31
+  "12px":
+    value: "12px"
+    occurrences: 28
+  "22_4px":
+    value: "22.4px"
+    occurrences: 24
+  "24px":
+    value: "24px"
+    occurrences: 13
+  "46_4327px":
+    value: "46.4327px"
+    occurrences: 5
+  "60_8653px":
+    value: "60.8653px"
+    occurrences: 3
+  "32px":
+    value: "32px"
+    occurrences: 3
+  "normal_12px":
+    value: "normal 12px"
+    occurrences: 2
+  "_20px":
+    value: "-20px"
+    occurrences: 2
+  "75_8204px":
+    value: "75.8204px"
+    occurrences: 2
+  "0px_28px":
+    value: "0px 28px"
+    occurrences: 1
+  "68px":
+    value: "68px"
+    occurrences: 1
+  "6_4px_normal":
+    value: "6.4px normal"
+    occurrences: 1
+  "5px":
+    value: "5px"
+    occurrences: 1
+  "90_7755px":
+    value: "90.7755px"
+    occurrences: 1
+
+shadows:
+  shadow_1:
+    value: "rgba(0, 0, 0, 0.01) 0px 2px 2px 0px, rgba(0, 0, 0, 0.02) 0px 4px 4px 0px, rgba(0, 0, 0, 0.04) 0px 16px 24px 0px"
+    occurrences: 3
+
+borders:
+  border_1:
+    value: "1px 0px 0px solid none none rgba(20, 20, 19, 0.1) rgb(20, 20, 19) rgb(20, 20, 19)"
+    occurrences: 14
+  border_2:
+    value: "1px solid rgba(20, 20, 19, 0.3)"
+    occurrences: 10
+  border_3:
+    value: "0px 0px 1px none none solid rgb(20, 20, 19) rgb(20, 20, 19) rgb(240, 238, 230)"
+    occurrences: 8
+  border_4:
+    value: "1px solid rgb(20, 20, 19)"
+    occurrences: 5
+  border_5:
+    value: "0px 0px 1px none none solid rgb(176, 174, 165) rgb(20, 20, 19) rgba(20, 20, 19, 0.2)"
+    occurrences: 5
+  border_6:
+    value: "1px solid rgb(240, 238, 230)"
+    occurrences: 3
+  border_7:
+    value: "1px solid rgba(20, 20, 19, 0.1)"
+    occurrences: 3
+  border_8:
+    value: "0px 0px 1px none none solid rgb(20, 20, 19) rgb(20, 20, 19) rgba(20, 20, 19, 0.1)"
+    occurrences: 3
+  border_9:
+    value: "1px solid rgb(135, 134, 127)"
+    occurrences: 2
+  border_10:
+    value: "1px solid rgb(20, 20, 19) rgb(20, 20, 19) rgb(20, 20, 19) rgb(61, 61, 58)"
+    occurrences: 1
+
+gradients:
+  gradient_1: "linear-gradient(rgba(232, 230, 220, 0.8), rgba(232, 230, 220, 0.59) 40%, rgba(0, 0, 0, 0))"
+  gradient_2: "radial-gradient(rgba(232, 230, 220, 0.95) 0%, rgba(232, 230, 220, 0.95) 50%, rgba(232, 230, 220, 0) 100%)"
+
+custom_properties:
+  "--_color-theme---border": "#1414131a"
+  "--site--max-width": "min(89.5rem, 100vw)"
+  "--swatch--clay": "#d97757"
+  "--size--2rem": "clamp(1.75rem, 1.6734693877551021rem + 0.326530612244898vw, 2rem)"
+  "--_spacing---space--11": "clamp(3.5rem, 2.7346938775510203rem + 3.2653061224489797vw, 6rem)"
+  "--size--10rem": "clamp(5.5rem, 4.122448979591836rem + 5.877551020408163vw, 10rem)"
+  "--size--0-25rem": ".25rem"
+  "--_color-theme---button-primary--border-hover": "#3d3d3a"
+  "--size--1-25rem": "1.25rem"
+  "--_spacing---section-space--extra-small": "clamp(1.75rem, 1.6734693877551021rem + 0.326530612244898vw, 2rem)"
+  "--_typography---letter-spacing--0em": "0em"
+  "--breakout-end": "[content-end] minmax(0, 1fr) [full-end]"
+  "--column-margin--12": "calc(calc(calc((calc(min(89.5rem, 100vw) - clamp(2rem, 1.0816326530612246rem + 3.9183673469387754vw, 5rem) * 2) - calc(clamp(1.75rem, 1.6734693877551021rem + 0.326530612244898vw, 2rem) * (12 - 1))) / 12) + clamp(1.75rem, 1.6734693877551021rem + 0.326530612244898vw, 2rem)) * 12)"
+  "--_text-style---font-weight": "400"
+  "--container--full": "calc(100% - 4rem)"
+  "--_typography---line-height--1-05": "1.05"
+  "--_color-theme---button-primary--text": "#faf9f5"
+  "--swatch--slate-light": "#5e5d59"
+  "--container--small": "calc(calc(calc((calc(min(89.5rem, 100vw) - clamp(2rem, 1.0816326530612246rem + 3.9183673469387754vw, 5rem) * 2) - calc(clamp(1.75rem, 1.6734693877551021rem + 0.326530612244898vw, 2rem) * (12 - 1))) / 12) + clamp(1.75rem, 1.6734693877551021rem + 0.326530612244898vw, 2rem)) * (12 - 4) - clamp(1.75rem, 1.6734693877551021rem + 0.326530612244898vw, 2rem))"
+  "--_color-theme---button-tertiary--border": "#1414131a"
+  "--swatch--cloud-medium": "#b0aea5"
+  "--align--text-right": "right"
+  "--_color-theme---button-primary--text-hover": "#faf9f5"
+  "--size--11rem": "clamp(5.75rem, 4.142857142857143rem + 6.857142857142858vw, 11rem)"
+  "--size--1-125rem": "1.125rem"
+  "--swatch--fig": "#c46686"
+  "--_typography---font--display-sans": "\"Anthropic Sans\",Arial,sans-serif"
+  "--_button-style---text": "#faf9f5"
+  "--column-margin--10": "calc(calc(calc((calc(min(89.5rem, 100vw) - clamp(2rem, 1.0816326530612246rem + 3.9183673469387754vw, 5rem) * 2) - calc(clamp(1.75rem, 1.6734693877551021rem + 0.326530612244898vw, 2rem) * (12 - 1))) / 12) + clamp(1.75rem, 1.6734693877551021rem + 0.326530612244898vw, 2rem)) * 10)"
+  "--focus--width": ".125rem"
+  "--_text-style---font-size": "1.25rem"
+  "--column-margin--11": "calc(calc(calc((calc(min(89.5rem, 100vw) - clamp(2rem, 1.0816326530612246rem + 3.9183673469387754vw, 5rem) * 2) - calc(clamp(1.75rem, 1.6734693877551021rem + 0.326530612244898vw, 2rem) * (12 - 1))) / 12) + clamp(1.75rem, 1.6734693877551021rem + 0.326530612244898vw, 2rem)) * 11)"
+  "---font-size--paragraph-m": "clamp(1.125rem, 1.086734693877551rem + 0.163265306122449vw, 1.25rem)"
+  "--_spacing---section-space--medium": "clamp(3.5rem, 2.7346938775510203rem + 3.2653061224489797vw, 6rem)"
+  "--_button-style---text-hover": "#faf9f5"
+  "--grid-7": "repeat(7, minmax(0, 1fr))"
+  "--swatch--slate-faded-20": "#14141333"
+  "--_typography---font--paragraph-trim-top": ".44em"
+  "--_typography---font-size--paragraph-xs": "1rem"
+  "--column-margin--9": "calc(calc(calc((calc(min(89.5rem, 100vw) - clamp(2rem, 1.0816326530612246rem + 3.9183673469387754vw, 5rem) * 2) - calc(clamp(1.75rem, 1.6734693877551021rem + 0.326530612244898vw, 2rem) * (12 - 1))) / 12) + clamp(1.75rem, 1.6734693877551021rem + 0.326530612244898vw, 2rem)) * 9)"
+  "--column-width--5": "calc(calc(calc((calc(min(89.5rem, 100vw) - clamp(2rem, 1.0816326530612246rem + 3.9183673469387754vw, 5rem) * 2) - calc(clamp(1.75rem, 1.6734693877551021rem + 0.326530612244898vw, 2rem) * (12 - 1))) / 12) + clamp(1.75rem, 1.6734693877551021rem + 0.326530612244898vw, 2rem)) * 5 - clamp(1.75rem, 1.6734693877551021rem + 0.326530612244898vw, 2rem))"
+  "--align--text-left": "left"
+  "--_spacing---gap--gap-s": "1rem"
+  "---font-size--paragraph-s": "clamp(1rem, 0.9617346938775511rem + 0.163265306122449vw, 1.125rem)"
+  "--_text-style---trim-top": ".44em"
+  "--swatch--brand-text": "#141413"
+  "--align--text-center": "center"
+  "--swatch--cactus": "#bcd1ca"
+  "--size--0rem": "0rem"
+  "--size--2-5rem": "clamp(2rem, 1.846938775510204rem + 0.653061224489796vw, 2.5rem)"

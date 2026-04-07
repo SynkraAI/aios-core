@@ -1,0 +1,160 @@
+{
+  "version": "1.0.0",
+  "name": "spline",
+  "source": "https://spline.design",
+  "timestamp": "2026-04-01T13:59:12.602Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "output": "/Users/luizfosc/aios-core/design-system/patterns/tokens/spline",
+  "files": {
+    "html": {
+      "file": "source.html",
+      "size": 37485
+    },
+    "screenshots": [
+      "screenshot-desktop.png",
+      "screenshot-mobile.png"
+    ],
+    "stylesheets": [
+      {
+        "url": "https://spline.design/_next/static/chunks/74ea2d9db7f8f526.css",
+        "file": "74ea2d9db7f8f526.css",
+        "size": 25534
+      },
+      {
+        "url": "https://spline.design/_next/static/chunks/2121a42fbaaf44e9.css",
+        "file": "2121a42fbaaf44e9.css",
+        "size": 119478
+      },
+      {
+        "url": "https://spline.design/_next/static/chunks/03809489d6e85536.css",
+        "file": "03809489d6e85536.css",
+        "size": 5870
+      },
+      {
+        "url": "https://spline.design/_next/static/chunks/6bd54904e93ce395.css",
+        "file": "6bd54904e93ce395.css",
+        "size": 18410
+      },
+      {
+        "url": "https://spline.design/_next/static/chunks/283051f7a9ae4473.css",
+        "file": "283051f7a9ae4473.css",
+        "size": 5733
+      },
+      {
+        "url": "https://spline.design/_next/static/chunks/4ae7088bcd14395d.css",
+        "file": "4ae7088bcd14395d.css",
+        "size": 12322
+      },
+      {
+        "url": "https://spline.design/_next/static/chunks/9d25777d19163004.css",
+        "file": "9d25777d19163004.css",
+        "size": 6452
+      },
+      {
+        "url": "https://spline.design/_next/static/chunks/15449298c9ed3b2a.css",
+        "file": "15449298c9ed3b2a.css",
+        "size": 9495
+      },
+      {
+        "url": "https://spline.design/_next/static/chunks/f05e759ceec55ecf.css",
+        "file": "f05e759ceec55ecf.css",
+        "size": 14707
+      },
+      {
+        "url": "https://spline.design/_next/static/chunks/a020cb514d083fe2.css",
+        "file": "a020cb514d083fe2.css",
+        "size": 3783
+      },
+      {
+        "url": "https://spline.design/_next/static/chunks/7b81540589b7ae81.css",
+        "file": "7b81540589b7ae81.css",
+        "size": 1749
+      },
+      {
+        "url": "https://spline.design/_next/static/chunks/c2a25849ed765256.css",
+        "file": "c2a25849ed765256.css",
+        "size": 5294
+      },
+      {
+        "url": "https://spline.design/_next/static/chunks/6d4cdddd26692735.css",
+        "file": "6d4cdddd26692735.css",
+        "size": 2300
+      },
+      {
+        "url": "https://spline.design/_next/static/chunks/f89aade9aec493be.css",
+        "file": "f89aade9aec493be.css",
+        "size": 2066
+      },
+      {
+        "url": "https://spline.design/_next/static/chunks/b69d514f433666e4.css",
+        "file": "b69d514f433666e4.css",
+        "size": 1774
+      },
+      {
+        "url": "https://spline.design/_next/static/chunks/8352c80a61d9e730.css",
+        "file": "8352c80a61d9e730.css",
+        "size": 12763
+      },
+      {
+        "url": "https://spline.design/_next/static/chunks/dfade01d0342be0b.css",
+        "file": "dfade01d0342be0b.css",
+        "size": 5905
+      },
+      {
+        "url": "https://spline.design/_next/static/chunks/6fef04144d26d78a.css",
+        "file": "6fef04144d26d78a.css",
+        "size": 9740
+      },
+      {
+        "url": "https://spline.design/_next/static/chunks/82d91a023af7aae3.css",
+        "file": "82d91a023af7aae3.css",
+        "size": 4946
+      },
+      {
+        "url": "https://spline.design/_next/static/chunks/72075020930811b1.css",
+        "file": "72075020930811b1.css",
+        "size": 963
+      },
+      {
+        "url": "https://spline.design/_next/static/chunks/de2c7436a512adf1.css",
+        "file": "de2c7436a512adf1.css",
+        "size": 8675
+      },
+      {
+        "embedded": true,
+        "file": "embedded-0.css",
+        "size": 819
+      }
+    ],
+    "domTree": {
+      "file": "dom-tree.json",
+      "nodeCount": 118
+    },
+    "extractedCss": "extracted-css.json",
+    "components": {
+      "file": "components.json",
+      "count": 7
+    },
+    "tokens": "tokens.yaml"
+  },
+  "summary": {
+    "nodeCount": 118,
+    "uniqueColors": 12,
+    "typographyVariants": 5,
+    "spacingValues": 15,
+    "shadows": 1,
+    "gradients": 0,
+    "animations": 17,
+    "mediaQueries": 330,
+    "customProperties": 47,
+    "gridLayouts": 1,
+    "flexLayouts": 25,
+    "componentTypes": 7,
+    "totalComponents": 22,
+    "stylesheetCount": 22,
+    "inlineStyles": 7
+  }
+}

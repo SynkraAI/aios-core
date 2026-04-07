@@ -1,0 +1,22 @@
+
+  
+    #rd-row-k8hluoen {
+      min-height: 50px;
+    }
+
+    #rd-row-k8hluoen .bricks--column > div {
+      min-height: 50px;
+    }
+
+    @media (max-width: 480px) {
+      #rd-row-k8hluoen.bricks--row {
+        min-height: auto;
+      }
+    }
+
+    @media screen and (max-width: 767px) {
+      #rd-row-k8hluoen.bricks--row.rd-row {
+        min-height: auto;
+      }
+    }
+  

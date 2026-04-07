@@ -1,0 +1,92 @@
+  
+  /* Mobile menu button animation */
+  [class*="nav-menu_btn"].w--open [class*="cc-top"] {
+    transform: translateY(0.375rem) rotate(45deg);
+  }
+  [class*="nav-menu_btn"].w--open [class*="cc-middle"] {
+    opacity: 0;
+    transform: translateY(0rem);
+  }
+  [class*="nav-menu_btn"].w--open [class*="cc-bottom"] {
+    transform: translateY(-0.375rem) rotate(-45deg);
+  }
+
+  /* Dropdown mods */
+  /* ..Show overlay on desktop */
+  @media (min-width: 992px) {
+    [class*="nav-menu"]:has([class*="nav-link"].w--open)
+    [class*="nav-dropdown_overlay"] {
+      display: block;
+    }
+  }
+  @media (max-width: 991px) {
+    [class*="nav"] .nav-dropdown {
+      position: relative;
+      z-index: inherit;
+    }
+  }
+
+  /* Lock body scroll when mobile nav is open */
+  body:has(.nav-dropdown.cc-open-mode),
+  body:has(.w-nav-button.w--open) {
+    overflow: hidden;
+  }
+
+  /* Nav CTA wrapper mode when nav menu hidden */
+  @media (min-width: 992px) {
+    [class*="nav-menu"] + [class*="nav-cta-wrapper"] {
+      margin-left: 0;
+    }
+  }
+
+  /* Nav Scroll */
+  @media screen and (max-width: 991px) {
+    [class*="nav-menu"]::-webkit-scrollbar {
+      width: 3px;
+      height: 3px;
+      background: var(--colors--secondary-background);
+    }
+    [class*="nav-menu"]::-webkit-scrollbar-track {
+      background: var(--colors--background);
+      box-shadow: inset 0 0 0 0 var(--colors--background);
+    }
+    [class*="nav-menu"]::-webkit-scrollbar-thumb {
+      background: var(--colors--primary-accent);
+      border-radius: 10px;
+    }  
+  }
+  [class*="nav-menu_container"]::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+    background: var(--colors--secondary-background);
+  }
+  [class*="nav-menu_container"]::-webkit-scrollbar-track {
+    background: var(--colors--background);
+    box-shadow: inset 0 0 0 0 var(--colors--background);
+  }
+  [class*="nav-menu_container"]::-webkit-scrollbar-thumb {
+    background: var(--colors--primary-accent);
+    border-radius: 10px;
+  }  
+
+  [aria-expanded="true"][data-dropdown="toggle"] {
+    border-color: var(--colors--primary-accent);
+  }
+
+  /* Locale Remove Current */
+  .nav-setting_dropdown-item:has(.w--current) {
+    display: none;
+  }
+
+  /* Default Dropdown Fix */
+  .nav .w-dropdown {
+    z-index: auto;
+  }
+  /*
+  .nav .w-dropdown:has(.w--open) {
+  z-index: 900;
+  }
+  */
+  .w-dropdown-link {
+    color: inherit;
+  }

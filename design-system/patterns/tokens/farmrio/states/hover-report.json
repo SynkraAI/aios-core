@@ -1,0 +1,30 @@
+{
+  "url": "https://farmrio.com.br",
+  "name": "farmrio",
+  "captured_at": "2026-04-01T12:52:47.609Z",
+  "elements": [
+    {
+      "type": "nav-link",
+      "index": 1,
+      "text": "Entrar",
+      "defaultStyles": {
+        "color": "rgb(51, 51, 51)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(51, 51, 51)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "link-1-default.png",
+        "hover": "link-1-hover.png"
+      }
+    }
+  ]
+}

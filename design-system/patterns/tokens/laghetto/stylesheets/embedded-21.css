@@ -1,0 +1,22 @@
+
+  
+    #rd-row-lv12igls {
+      min-height: 523px;
+    }
+
+    #rd-row-lv12igls .bricks--column > div {
+      min-height: 523px;
+    }
+
+    @media (max-width: 480px) {
+      #rd-row-lv12igls.bricks--row {
+        min-height: auto;
+      }
+    }
+
+    @media screen and (max-width: 767px) {
+      #rd-row-lv12igls.bricks--row.rd-row {
+        min-height: auto;
+      }
+    }
+  

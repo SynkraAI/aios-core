@@ -1,0 +1,76 @@
+
+  
+    .rdstation-popup-position-center {
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .rdstation-popup-position-top_left {
+      top: 0;
+      left: 0;
+    }
+
+    .rdstation-popup-position-top_right {
+      top: 0;
+      right: 0;
+    }
+
+    .rdstation-popup-position-bottom_left {
+      bottom: 0;
+      left: 0;
+    }
+
+    .rdstation-popup-position-bottom_right {
+      bottom: 0;
+      right: 0;
+    }
+
+    @media screen and (max-width: 767px) {
+      .rdstation-popup-position-center {
+        width: 100%;
+        box-sizing: border-box;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        padding: 24px;
+        transform: none;
+      }
+
+      .rdstation-popup-position-top_left {
+        width: 100%;
+        box-sizing: border-box;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        padding: 24px;
+      }
+
+      .rdstation-popup-position-top_right {
+        width: 100%;
+        box-sizing: border-box;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        padding: 24px;
+      }
+
+      .rdstation-popup-position-bottom_left {
+        width: 100%;
+        box-sizing: border-box;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        padding: 24px;
+      }
+
+      .rdstation-popup-position-bottom_right {
+        width: 100%;
+        box-sizing: border-box;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        padding: 24px;
+      }
+    }
+  

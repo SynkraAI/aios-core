@@ -1,0 +1,95 @@
+{
+  "version": "1.0.0",
+  "name": "21st-dev",
+  "source": "https://21st.dev",
+  "timestamp": "2026-04-01T15:37:45.494Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "output": "/Users/luizfosc/aios-core/design-system/patterns/tokens/21st-dev",
+  "files": {
+    "html": {
+      "file": "source.html",
+      "size": 169422
+    },
+    "screenshots": [
+      "screenshot-desktop.png",
+      "screenshot-mobile.png"
+    ],
+    "stylesheets": [
+      {
+        "url": "https://21st.dev/_next/static/css/d4e3fea5a56911cb.css",
+        "file": "d4e3fea5a56911cb.css",
+        "size": 427762
+      },
+      {
+        "url": "https://21st.dev/_next/static/css/6d7e56fbbf71be23.css",
+        "file": "6d7e56fbbf71be23.css",
+        "size": 3421
+      },
+      {
+        "url": "https://21st.dev/_next/static/css/2ccc5c9de9175916.css",
+        "file": "2ccc5c9de9175916.css",
+        "size": 28943
+      },
+      {
+        "url": "https://do.featurebase.app/js/sdk.css",
+        "file": "sdk.css",
+        "size": 30246
+      },
+      {
+        "embedded": true,
+        "file": "embedded-0.css",
+        "size": 14625
+      },
+      {
+        "embedded": true,
+        "file": "embedded-1.css",
+        "size": 5117
+      },
+      {
+        "embedded": true,
+        "file": "embedded-2.css",
+        "size": 274
+      },
+      {
+        "embedded": true,
+        "file": "embedded-3.css",
+        "size": 179
+      },
+      {
+        "embedded": true,
+        "file": "embedded-4.css",
+        "size": 179
+      }
+    ],
+    "domTree": {
+      "file": "dom-tree.json",
+      "nodeCount": 551
+    },
+    "extractedCss": "extracted-css.json",
+    "components": {
+      "file": "components.json",
+      "count": 13
+    },
+    "tokens": "tokens.yaml"
+  },
+  "summary": {
+    "nodeCount": 551,
+    "uniqueColors": 17,
+    "typographyVariants": 19,
+    "spacingValues": 13,
+    "shadows": 7,
+    "gradients": 2,
+    "animations": 47,
+    "mediaQueries": 28,
+    "customProperties": 382,
+    "gridLayouts": 3,
+    "flexLayouts": 50,
+    "componentTypes": 13,
+    "totalComponents": 149,
+    "stylesheetCount": 9,
+    "inlineStyles": 82
+  }
+}

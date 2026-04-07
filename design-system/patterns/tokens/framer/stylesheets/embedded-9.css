@@ -1,0 +1,33 @@
+
+    #__framer-flap-wrapper {
+        position: fixed;
+        top: 64px;
+        padding: 0px 20px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 99;
+        pointer-events: none;
+    }
+  
+    #__framer-flap-container {
+        max-width: 1400px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+  
+    #__framer-flap {
+        transform: translateY(8px) translateX(8px);
+        opacity: 0;
+        transition: all 0.3s ease-in-out;
+        transition-delay: 0.5;
+    }
+  
+    #__framer-flap.show {
+        transform: translateY(0px) translateX(8px);
+        opacity: 1;
+        pointer-events: all;
+    }

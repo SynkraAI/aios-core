@@ -1,0 +1,55 @@
+{
+  "version": "1.0.0",
+  "name": "active-theory",
+  "source": "https://activetheory.net",
+  "timestamp": "2026-04-01T13:36:57.108Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "output": "/Users/luizfosc/aios-core/design-system/patterns/tokens/active-theory",
+  "files": {
+    "html": {
+      "file": "source.html",
+      "size": 1835
+    },
+    "screenshots": [
+      "screenshot-desktop.png",
+      "screenshot-mobile.png"
+    ],
+    "stylesheets": [
+      {
+        "embedded": true,
+        "file": "embedded-0.css",
+        "size": 1182
+      }
+    ],
+    "domTree": {
+      "file": "dom-tree.json",
+      "nodeCount": 2
+    },
+    "extractedCss": "extracted-css.json",
+    "components": {
+      "file": "components.json",
+      "count": 0
+    },
+    "tokens": "tokens.yaml"
+  },
+  "summary": {
+    "nodeCount": 2,
+    "uniqueColors": 2,
+    "typographyVariants": 2,
+    "spacingValues": 1,
+    "shadows": 0,
+    "gradients": 0,
+    "animations": 1,
+    "mediaQueries": 0,
+    "customProperties": 0,
+    "gridLayouts": 0,
+    "flexLayouts": 0,
+    "componentTypes": 0,
+    "totalComponents": 0,
+    "stylesheetCount": 1,
+    "inlineStyles": 0
+  }
+}

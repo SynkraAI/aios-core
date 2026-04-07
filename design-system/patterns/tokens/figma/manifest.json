@@ -1,0 +1,70 @@
+{
+  "version": "1.0.0",
+  "name": "figma",
+  "source": "https://figma.com",
+  "timestamp": "2026-04-01T13:59:11.249Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "output": "/Users/luizfosc/aios-core/design-system/patterns/tokens/figma",
+  "files": {
+    "html": {
+      "file": "source.html",
+      "size": 1490433
+    },
+    "screenshots": [
+      "screenshot-desktop.png",
+      "screenshot-mobile.png"
+    ],
+    "stylesheets": [
+      {
+        "url": "https://www.figma.com/_netlify/_next/static/css/f03300ce0c70ed64.css",
+        "file": "f03300ce0c70ed64.css",
+        "size": 1024
+      },
+      {
+        "url": "https://www.figma.com/_netlify/_next/static/css/f564ddd3fbf8f7e4.css",
+        "file": "f564ddd3fbf8f7e4.css",
+        "size": 407
+      },
+      {
+        "embedded": true,
+        "file": "embedded-0.css",
+        "size": 39
+      },
+      {
+        "embedded": true,
+        "file": "embedded-2.css",
+        "size": 208202
+      }
+    ],
+    "domTree": {
+      "file": "dom-tree.json",
+      "nodeCount": 1239
+    },
+    "extractedCss": "extracted-css.json",
+    "components": {
+      "file": "components.json",
+      "count": 9
+    },
+    "tokens": "tokens.yaml"
+  },
+  "summary": {
+    "nodeCount": 1239,
+    "uniqueColors": 25,
+    "typographyVariants": 17,
+    "spacingValues": 28,
+    "shadows": 5,
+    "gradients": 3,
+    "animations": 8,
+    "mediaQueries": 482,
+    "customProperties": 16,
+    "gridLayouts": 20,
+    "flexLayouts": 50,
+    "componentTypes": 9,
+    "totalComponents": 156,
+    "stylesheetCount": 4,
+    "inlineStyles": 63
+  }
+}

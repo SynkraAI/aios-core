@@ -1,0 +1,36 @@
+
+/* Esconder a barra de progresso original completamente */
+.swiper-pagination.is-slider-agenda {
+  display: none !important;
+}
+
+/* Nossa barra de progresso customizada - APENAS NO DESKTOP */
+.custom-progress-bar {
+  width: 100%;
+  height: 2px;
+  background-color: rgba(51, 51, 51, 0.2);
+  position: relative;
+  margin-top: 48px;
+  grid-area: 2 / 2 / 3 / 2;
+  /* Esconder em dispositivos móveis e tablets */
+  display: none;
+}
+
+/* Mostrar apenas em desktop (1024px ou mais) */
+@media (min-width: 1024px) {
+  .custom-progress-bar {
+    display: block;
+  }
+}
+
+.custom-progress-fill {
+  position: absolute;
+  height: 2px;
+  background-color: var(--_theme---text-color--primary);
+  width: 0%;
+  transition: width 0.75s ease;
+}
+
+.slider-wrap:hover .swiper-navigation-wrap.is-slider-agenda {
+  opacity: 1 !important;
+}

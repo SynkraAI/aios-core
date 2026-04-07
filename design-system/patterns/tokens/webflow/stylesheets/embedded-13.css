@@ -1,0 +1,35 @@
+
+  .home-hero_fluted-overlay {
+    background-image: linear-gradient(
+      to bottom,
+      var(--colors--background) 0%,
+      color-mix(
+        in hsl,
+        var(--colors--background) 85%,
+        transparent 15%
+      ) 30%,
+      color-mix(
+        in hsl,
+        var(--colors--background) 40%,
+        transparent 60%
+      ) 65%,
+      color-mix(
+        in hsl,
+        var(--colors--background) 10%,
+        transparent 90%
+      ) 90%,
+      transparent 100%
+    );
+  }
+
+  .home-ui {
+    opacity: 0;
+  }
+
+  @media screen and (max-width: 992px) {
+    .home-hero_section .inline-video_playback, 
+    .home-hero_section .inline-video_playback-btn {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }

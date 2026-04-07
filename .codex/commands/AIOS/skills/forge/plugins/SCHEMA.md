@@ -1,0 +1,1 @@
+../../../../../skills/forge/plugins/SCHEMA.md

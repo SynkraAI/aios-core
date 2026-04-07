@@ -1,0 +1,39 @@
+@font-face {
+  font-family: "Super Sans VF";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('https://superhumanstatic.com/s/fonts/v1/SuperSans-VF-Upright.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: "Super Sans VF";
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('https://superhumanstatic.com/s/fonts/v1/SuperSans-VF-Italic.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: "Super Serif VF";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('https://superhumanstatic.com/s/fonts/v1/SuperSerif-VF-Upright.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: "Super Serif VF";
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('https://superhumanstatic.com/s/fonts/v1/SuperSerif-VF-Italic.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: "Super Sans Mono VF";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('https://superhumanstatic.com/s/fonts/v1/SuperSansMono-VF.woff2') format('woff2');
+}

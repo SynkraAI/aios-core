@@ -1,0 +1,271 @@
+{
+  "url": "https://site.guiavila.com/reverso",
+  "name": "guiavila-reverso",
+  "captured_at": "2026-04-01T14:55:56.417Z",
+  "elements": [
+    {
+      "type": "button",
+      "index": 0,
+      "text": "Quero o acesso antecipado!com 68% off",
+      "tag": "button",
+      "classes": "cbutton-HyAGDDZKJy custom btn-vp btn-hp noBorder radius4 none",
+      "defaultStyles": {
+        "background": "rgb(231, 210, 182)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(231, 210, 182)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-0-default.png",
+        "hover": "btn-0-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 1,
+      "text": "Quero o acesso antecipado!",
+      "tag": "button",
+      "classes": "cbutton-PHzTzU0Cen custom btn-vp btn-hp noBorder radius4 none",
+      "defaultStyles": {
+        "background": "rgb(231, 210, 182)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(231, 210, 182)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-1-default.png",
+        "hover": "btn-1-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 2,
+      "text": "Quero acesso aos sistemas",
+      "tag": "button",
+      "classes": "cbutton-MnLT_hCTQl custom btn-vp btn-hp noBorder radius4 none",
+      "defaultStyles": {
+        "background": "rgb(231, 210, 182)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(231, 210, 182)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-2-default.png",
+        "hover": "btn-2-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 3,
+      "text": "Quero o acesso antecipado!",
+      "tag": "button",
+      "classes": "cbutton-UcLP-br-Ev custom btn-vp btn-hp noBorder radius4 none",
+      "defaultStyles": {
+        "background": "rgb(231, 210, 182)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(231, 210, 182)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-3-default.png",
+        "hover": "btn-3-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 4,
+      "text": "Quero acesso aos sistemas",
+      "tag": "button",
+      "classes": "cbutton-jhIlUxDKOL custom btn-vp btn-hp noBorder radius4 none",
+      "defaultStyles": {
+        "background": "rgb(231, 210, 182)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(231, 210, 182)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-4-default.png",
+        "hover": "btn-4-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 5,
+      "text": "Aproveitar agora",
+      "tag": "button",
+      "classes": "cbutton-2KcVQ79ghI custom btn-vp btn-hp noBorder radius4 none",
+      "defaultStyles": {
+        "background": "rgb(231, 210, 182)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(231, 210, 182)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-5-default.png",
+        "hover": "btn-5-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 6,
+      "text": "Quero o acesso antecipado!",
+      "tag": "button",
+      "classes": "cbutton-x--fs0ExQ0 custom btn-vp btn-hp noBorder radius4 none",
+      "defaultStyles": {
+        "background": "rgb(231, 210, 182)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(231, 210, 182)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-6-default.png",
+        "hover": "btn-6-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 7,
+      "text": "Quero o acesso antecipado!",
+      "tag": "button",
+      "classes": "cbutton-gkmQ2DB1Eu custom btn-vp btn-hp noBorder radius4 none",
+      "defaultStyles": {
+        "background": "rgb(231, 210, 182)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(231, 210, 182)",
+        "color": "rgb(0, 0, 0)",
+        "borderColor": "rgb(0, 0, 0)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "4px",
+        "textDecoration": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-7-default.png",
+        "hover": "btn-7-hover.png"
+      }
+    }
+  ]
+}

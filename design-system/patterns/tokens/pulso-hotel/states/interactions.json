@@ -1,0 +1,3085 @@
+{
+  "url": "https://pulsohotel.com",
+  "name": "pulso-hotel",
+  "timestamp": "2026-04-01T12:14:39.360Z",
+  "totalElements": 50,
+  "elementsWithStates": 42,
+  "interactions": [
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "navbar_logo-link w-nav-brand w--current",
+      "selector": "#w-node-_44eb66ec-bd2f-b991-eeda-e3e2b34024b9-b34024b7",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(51, 51, 51)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(51, 51, 51) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(51, 51, 51) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Hotel",
+      "classes": "navbar_link w-nav-link",
+      "selector": "a.navbar_link.w-nav-link",
+      "baseStyles": {
+        "color": "rgb(247, 247, 242)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(247, 247, 242)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(247, 247, 242) none 0px",
+        "outlineColor": "rgb(247, 247, 242)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.5s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(51, 51, 51)"
+          },
+          "borderColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(51, 51, 51)"
+          },
+          "outline": {
+            "from": "rgb(247, 247, 242) none 0px",
+            "to": "rgb(51, 51, 51) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(51, 51, 51)"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(51, 51, 51)"
+          },
+          "borderColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(51, 51, 51)"
+          },
+          "outline": {
+            "from": "rgb(247, 247, 242) none 0px",
+            "to": "rgb(16, 81, 155) solid 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(16, 81, 155)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Acomodações",
+      "classes": "navbar_link w-nav-link",
+      "selector": "a.navbar_link.w-nav-link",
+      "baseStyles": {
+        "color": "rgb(247, 247, 242)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(247, 247, 242)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(247, 247, 242) none 0px",
+        "outlineColor": "rgb(247, 247, 242)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.5s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(51, 51, 51)"
+          },
+          "borderColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(51, 51, 51)"
+          },
+          "outline": {
+            "from": "rgb(247, 247, 242) none 0px",
+            "to": "rgb(51, 51, 51) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(51, 51, 51)"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(51, 51, 51)"
+          },
+          "borderColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(51, 51, 51)"
+          },
+          "outline": {
+            "from": "rgb(247, 247, 242) none 0px",
+            "to": "rgb(19, 79, 148) solid 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(19, 79, 148)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Sarau Bar",
+      "classes": "navbar_link w-nav-link",
+      "selector": "a.navbar_link.w-nav-link",
+      "baseStyles": {
+        "color": "rgb(247, 247, 242)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(247, 247, 242)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(247, 247, 242) none 0px",
+        "outlineColor": "rgb(247, 247, 242)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.5s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(51, 51, 51)"
+          },
+          "borderColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(51, 51, 51)"
+          },
+          "outline": {
+            "from": "rgb(247, 247, 242) none 0px",
+            "to": "rgb(51, 51, 51) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(51, 51, 51)"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(51, 51, 51)"
+          },
+          "borderColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(51, 51, 51)"
+          },
+          "outline": {
+            "from": "rgb(247, 247, 242) none 0px",
+            "to": "rgb(19, 79, 148) solid 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(19, 79, 148)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Wellness & Spa",
+      "classes": "navbar_link w-nav-link",
+      "selector": "a.navbar_link.w-nav-link",
+      "baseStyles": {
+        "color": "rgb(247, 247, 242)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(247, 247, 242)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(247, 247, 242) none 0px",
+        "outlineColor": "rgb(247, 247, 242)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.5s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(51, 51, 51)"
+          },
+          "borderColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(51, 51, 51)"
+          },
+          "outline": {
+            "from": "rgb(247, 247, 242) none 0px",
+            "to": "rgb(51, 51, 51) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(51, 51, 51)"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(51, 51, 51)"
+          },
+          "borderColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(51, 51, 51)"
+          },
+          "outline": {
+            "from": "rgb(247, 247, 242) none 0px",
+            "to": "rgb(16, 81, 156) solid 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(16, 81, 156)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Eventos",
+      "classes": "navbar_link w-nav-link",
+      "selector": "a.navbar_link.w-nav-link",
+      "baseStyles": {
+        "color": "rgb(247, 247, 242)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(247, 247, 242)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(247, 247, 242) none 0px",
+        "outlineColor": "rgb(247, 247, 242)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.5s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(51, 51, 51)"
+          },
+          "borderColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(51, 51, 51)"
+          },
+          "outline": {
+            "from": "rgb(247, 247, 242) none 0px",
+            "to": "rgb(51, 51, 51) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(51, 51, 51)"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(51, 51, 51)"
+          },
+          "borderColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(51, 51, 51)"
+          },
+          "outline": {
+            "from": "rgb(247, 247, 242) none 0px",
+            "to": "rgb(19, 79, 147) solid 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(19, 79, 147)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Experiências",
+      "classes": "navbar_link w-nav-link",
+      "selector": "a.navbar_link.w-nav-link",
+      "baseStyles": {
+        "color": "rgb(247, 247, 242)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(247, 247, 242)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(247, 247, 242) none 0px",
+        "outlineColor": "rgb(247, 247, 242)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.5s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(51, 51, 51)"
+          },
+          "borderColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(51, 51, 51)"
+          },
+          "outline": {
+            "from": "rgb(247, 247, 242) none 0px",
+            "to": "rgb(51, 51, 51) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(51, 51, 51)"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(51, 51, 51)"
+          },
+          "borderColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(51, 51, 51)"
+          },
+          "outline": {
+            "from": "rgb(247, 247, 242) none 0px",
+            "to": "rgb(16, 81, 155) solid 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(16, 81, 155)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Contato",
+      "classes": "navbar_link w-nav-link",
+      "selector": "a.navbar_link.w-nav-link",
+      "baseStyles": {
+        "color": "rgb(247, 247, 242)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(247, 247, 242)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(247, 247, 242) none 0px",
+        "outlineColor": "rgb(247, 247, 242)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.5s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(51, 51, 51)"
+          },
+          "borderColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(51, 51, 51)"
+          },
+          "outline": {
+            "from": "rgb(247, 247, 242) none 0px",
+            "to": "rgb(51, 51, 51) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(51, 51, 51)"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(51, 51, 51)"
+          },
+          "borderColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(51, 51, 51)"
+          },
+          "outline": {
+            "from": "rgb(247, 247, 242) none 0px",
+            "to": "rgb(19, 79, 148) solid 1px"
+          },
+          "outlineColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(19, 79, 148)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "1px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "swiper-btn-prev is-slider-1 w-inline-block",
+      "selector": "a.swiper-btn-prev.is-slider-1.w-inline-block",
+      "baseStyles": {
+        "color": "rgb(247, 247, 242)",
+        "backgroundColor": "rgba(51, 51, 51, 0.5)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(247, 247, 242)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline",
+        "outline": "rgb(247, 247, 242) none 0px",
+        "outlineColor": "rgb(247, 247, 242)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.5s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "backgroundColor": {
+            "from": "rgba(51, 51, 51, 0.5)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "textDecoration": {
+            "from": "underline",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(247, 247, 242) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "0.5s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "backgroundColor": {
+            "from": "rgba(51, 51, 51, 0.5)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "textDecoration": {
+            "from": "underline",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(247, 247, 242) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "0.5s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "swiper-btn-next is-slider-1 w-inline-block",
+      "selector": "a.swiper-btn-next.is-slider-1.w-inline-block",
+      "baseStyles": {
+        "color": "rgb(247, 247, 242)",
+        "backgroundColor": "rgba(51, 51, 51, 0.5)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(247, 247, 242)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline",
+        "outline": "rgb(247, 247, 242) none 0px",
+        "outlineColor": "rgb(247, 247, 242)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.5s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "backgroundColor": {
+            "from": "rgba(51, 51, 51, 0.5)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "textDecoration": {
+            "from": "underline",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(247, 247, 242) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "0.5s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "backgroundColor": {
+            "from": "rgba(51, 51, 51, 0.5)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "textDecoration": {
+            "from": "underline",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(247, 247, 242) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "0.5s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Saiba mais",
+      "classes": "button w-inline-block",
+      "selector": "a.button.w-inline-block",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgb(247, 247, 242)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(51, 51, 51)",
+        "borderWidth": "1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.5s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(214, 214, 210)"
+          },
+          "backgroundColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(214, 214, 210)"
+          },
+          "borderWidth": {
+            "from": "1px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(51, 51, 51) none 0px",
+            "to": "rgb(214, 214, 210) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(214, 214, 210)"
+          },
+          "transition": {
+            "from": "0.5s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "backgroundColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderWidth": {
+            "from": "1px",
+            "to": "0px"
+          },
+          "transition": {
+            "from": "0.5s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "swiper-btn-prev w-inline-block",
+      "selector": "a.swiper-btn-prev.w-inline-block",
+      "baseStyles": {
+        "color": "rgb(247, 247, 242)",
+        "backgroundColor": "rgba(51, 51, 51, 0.5)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(247, 247, 242)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline",
+        "outline": "rgb(247, 247, 242) none 0px",
+        "outlineColor": "rgb(247, 247, 242)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.5s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "backgroundColor": {
+            "from": "rgba(51, 51, 51, 0.5)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "textDecoration": {
+            "from": "underline",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(247, 247, 242) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "0.5s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "backgroundColor": {
+            "from": "rgba(51, 51, 51, 0.5)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "textDecoration": {
+            "from": "underline",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(247, 247, 242) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "0.5s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "swiper-btn-next w-inline-block",
+      "selector": "a.swiper-btn-next.w-inline-block",
+      "baseStyles": {
+        "color": "rgb(247, 247, 242)",
+        "backgroundColor": "rgba(51, 51, 51, 0.8)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(247, 247, 242)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline",
+        "outline": "rgb(247, 247, 242) none 0px",
+        "outlineColor": "rgb(247, 247, 242)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.5s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "backgroundColor": {
+            "from": "rgba(51, 51, 51, 0.8)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "textDecoration": {
+            "from": "underline",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(247, 247, 242) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "0.5s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "backgroundColor": {
+            "from": "rgba(51, 51, 51, 0.8)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "textDecoration": {
+            "from": "underline",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(247, 247, 242) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "0.5s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Saiba mais",
+      "classes": "text-style-link",
+      "selector": "a.text-style-link",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(51, 51, 51)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline 0.959998px",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "opacity 0.3s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(224, 224, 220)"
+          },
+          "borderColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(224, 224, 220)"
+          },
+          "textDecoration": {
+            "from": "underline 0.959998px",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(51, 51, 51) none 0px",
+            "to": "rgb(224, 224, 220) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(224, 224, 220)"
+          },
+          "transition": {
+            "from": "opacity 0.3s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(52, 52, 52)"
+          },
+          "borderColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(52, 52, 52)"
+          },
+          "textDecoration": {
+            "from": "underline 0.959998px",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(51, 51, 51) none 0px",
+            "to": "rgb(52, 52, 52) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(52, 52, 52)"
+          },
+          "transition": {
+            "from": "opacity 0.3s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Saiba mais",
+      "classes": "text-style-link",
+      "selector": "a.text-style-link",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(51, 51, 51)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline 0.959998px",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "opacity 0.3s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(224, 224, 220)"
+          },
+          "borderColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(224, 224, 220)"
+          },
+          "textDecoration": {
+            "from": "underline 0.959998px",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(51, 51, 51) none 0px",
+            "to": "rgb(224, 224, 220) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(224, 224, 220)"
+          },
+          "transition": {
+            "from": "opacity 0.3s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(52, 52, 52)"
+          },
+          "borderColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(52, 52, 52)"
+          },
+          "textDecoration": {
+            "from": "underline 0.959998px",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(51, 51, 51) none 0px",
+            "to": "rgb(52, 52, 52) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(52, 52, 52)"
+          },
+          "transition": {
+            "from": "opacity 0.3s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Saiba mais",
+      "classes": "text-style-link",
+      "selector": "a.text-style-link",
+      "baseStyles": {
+        "color": "rgb(247, 247, 242)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(247, 247, 242)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline 0.959998px",
+        "outline": "rgb(247, 247, 242) none 0px",
+        "outlineColor": "rgb(247, 247, 242)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "opacity 0.3s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(225, 225, 220)"
+          },
+          "borderColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(225, 225, 220)"
+          },
+          "textDecoration": {
+            "from": "underline 0.959998px",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(247, 247, 242) none 0px",
+            "to": "rgb(225, 225, 220) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(225, 225, 220)"
+          },
+          "transition": {
+            "from": "opacity 0.3s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(52, 52, 52)"
+          },
+          "borderColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(52, 52, 52)"
+          },
+          "textDecoration": {
+            "from": "underline 0.959998px",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(247, 247, 242) none 0px",
+            "to": "rgb(52, 52, 52) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(52, 52, 52)"
+          },
+          "transition": {
+            "from": "opacity 0.3s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "swiper-btn-prev is-slider-agenda w-inline-block",
+      "selector": "a.swiper-btn-prev.is-slider-agenda.w-inline-block",
+      "baseStyles": {
+        "color": "rgb(247, 247, 242)",
+        "backgroundColor": "rgba(51, 51, 51, 0.5)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(247, 247, 242)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline",
+        "outline": "rgb(247, 247, 242) none 0px",
+        "outlineColor": "rgb(247, 247, 242)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.5s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "backgroundColor": {
+            "from": "rgba(51, 51, 51, 0.5)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "textDecoration": {
+            "from": "underline",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(247, 247, 242) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "0.5s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "backgroundColor": {
+            "from": "rgba(51, 51, 51, 0.5)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "textDecoration": {
+            "from": "underline",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(247, 247, 242) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "0.5s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "swiper-btn-next is-slider-agenda w-inline-block",
+      "selector": "a.swiper-btn-next.is-slider-agenda.w-inline-block",
+      "baseStyles": {
+        "color": "rgb(247, 247, 242)",
+        "backgroundColor": "rgba(51, 51, 51, 0.8)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(247, 247, 242)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline",
+        "outline": "rgb(247, 247, 242) none 0px",
+        "outlineColor": "rgb(247, 247, 242)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.5s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "backgroundColor": {
+            "from": "rgba(51, 51, 51, 0.8)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "textDecoration": {
+            "from": "underline",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(247, 247, 242) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "0.5s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "backgroundColor": {
+            "from": "rgba(51, 51, 51, 0.8)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "textDecoration": {
+            "from": "underline",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(247, 247, 242) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "0.5s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Saiba mais",
+      "classes": "text-style-link",
+      "selector": "a.text-style-link",
+      "baseStyles": {
+        "color": "rgb(247, 247, 242)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(247, 247, 242)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline 0.959998px",
+        "outline": "rgb(247, 247, 242) none 0px",
+        "outlineColor": "rgb(247, 247, 242)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "opacity 0.3s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(224, 224, 220)"
+          },
+          "borderColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(224, 224, 220)"
+          },
+          "textDecoration": {
+            "from": "underline 0.959998px",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(247, 247, 242) none 0px",
+            "to": "rgb(224, 224, 220) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(224, 224, 220)"
+          },
+          "transition": {
+            "from": "opacity 0.3s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(52, 52, 52)"
+          },
+          "borderColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(52, 52, 52)"
+          },
+          "textDecoration": {
+            "from": "underline 0.959998px",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(247, 247, 242) none 0px",
+            "to": "rgb(52, 52, 52) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(52, 52, 52)"
+          },
+          "transition": {
+            "from": "opacity 0.3s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "swiper-btn-prev w-inline-block",
+      "selector": "a.swiper-btn-prev.w-inline-block",
+      "baseStyles": {
+        "color": "rgb(247, 247, 242)",
+        "backgroundColor": "rgba(51, 51, 51, 0.5)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(247, 247, 242)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline",
+        "outline": "rgb(247, 247, 242) none 0px",
+        "outlineColor": "rgb(247, 247, 242)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.5s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "backgroundColor": {
+            "from": "rgba(51, 51, 51, 0.5)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "textDecoration": {
+            "from": "underline",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(247, 247, 242) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "0.5s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "backgroundColor": {
+            "from": "rgba(51, 51, 51, 0.5)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "textDecoration": {
+            "from": "underline",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(247, 247, 242) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "0.5s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "swiper-btn-next w-inline-block",
+      "selector": "a.swiper-btn-next.w-inline-block",
+      "baseStyles": {
+        "color": "rgb(247, 247, 242)",
+        "backgroundColor": "rgba(51, 51, 51, 0.8)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(247, 247, 242)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline",
+        "outline": "rgb(247, 247, 242) none 0px",
+        "outlineColor": "rgb(247, 247, 242)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.5s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "backgroundColor": {
+            "from": "rgba(51, 51, 51, 0.8)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "textDecoration": {
+            "from": "underline",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(247, 247, 242) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "0.5s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "backgroundColor": {
+            "from": "rgba(51, 51, 51, 0.8)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "textDecoration": {
+            "from": "underline",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(247, 247, 242) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "0.5s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Conheça nossos espaços",
+      "classes": "text-style-link",
+      "selector": "a.text-style-link",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(51, 51, 51)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline 0.959998px",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "opacity 0.3s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "opacity": {
+            "from": "1",
+            "to": "0.776867"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgb(51, 51, 51) none 0px",
+            "to": "rgb(0, 95, 204) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "swiper-btn-prev is-slider-1 w-inline-block",
+      "selector": "a.swiper-btn-prev.is-slider-1.w-inline-block",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(51, 51, 51, 0.5)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(51, 51, 51)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.5s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "backgroundColor": {
+            "from": "rgba(51, 51, 51, 0.5)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "textDecoration": {
+            "from": "underline",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(51, 51, 51) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "0.5s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "backgroundColor": {
+            "from": "rgba(51, 51, 51, 0.5)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "textDecoration": {
+            "from": "underline",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(51, 51, 51) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "0.5s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "swiper-btn-next is-slider-1 w-inline-block",
+      "selector": "a.swiper-btn-next.is-slider-1.w-inline-block",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(51, 51, 51, 0.5)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(51, 51, 51)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.5s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "backgroundColor": {
+            "from": "rgba(51, 51, 51, 0.5)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "textDecoration": {
+            "from": "underline",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(51, 51, 51) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "0.5s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "backgroundColor": {
+            "from": "rgba(51, 51, 51, 0.5)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "textDecoration": {
+            "from": "underline",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(51, 51, 51) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "0.5s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Ver no Google Maps",
+      "classes": "text-style-link",
+      "selector": "a.text-style-link",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(51, 51, 51)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline 0.959998px",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "opacity 0.3s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "opacity": {
+            "from": "1",
+            "to": "0.75"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgb(51, 51, 51) none 0px",
+            "to": "rgb(0, 95, 204) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Quem somos",
+      "classes": "link-footer",
+      "selector": "a.link-footer",
+      "baseStyles": {
+        "color": "rgb(217, 181, 125)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(217, 181, 125)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline 0.839998px",
+        "outline": "rgb(217, 181, 125) none 0px",
+        "outlineColor": "rgb(217, 181, 125)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "outline": {
+            "from": "rgb(217, 181, 125) none 0px",
+            "to": "rgb(0, 95, 204) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(217, 181, 125)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Perguntas Frequentes",
+      "classes": "link-footer",
+      "selector": "a.link-footer",
+      "baseStyles": {
+        "color": "rgb(217, 181, 125)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(217, 181, 125)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline 0.839998px",
+        "outline": "rgb(217, 181, 125) none 0px",
+        "outlineColor": "rgb(217, 181, 125)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "outline": {
+            "from": "rgb(217, 181, 125) none 0px",
+            "to": "rgb(0, 95, 204) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(217, 181, 125)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Acessibilidade",
+      "classes": "link-footer",
+      "selector": "a.link-footer",
+      "baseStyles": {
+        "color": "rgb(217, 181, 125)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(217, 181, 125)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline 0.839998px",
+        "outline": "rgb(217, 181, 125) none 0px",
+        "outlineColor": "rgb(217, 181, 125)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "outline": {
+            "from": "rgb(217, 181, 125) none 0px",
+            "to": "rgb(0, 95, 204) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(217, 181, 125)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Política de Privacidade",
+      "classes": "link-footer",
+      "selector": "a.link-footer",
+      "baseStyles": {
+        "color": "rgb(217, 181, 125)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(217, 181, 125)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline 0.839998px",
+        "outline": "rgb(217, 181, 125) none 0px",
+        "outlineColor": "rgb(217, 181, 125)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "outline": {
+            "from": "rgb(217, 181, 125) none 0px",
+            "to": "rgb(0, 95, 204) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(217, 181, 125)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Ver no Google Maps",
+      "classes": "link-footer",
+      "selector": "a.link-footer",
+      "baseStyles": {
+        "color": "rgb(217, 181, 125)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(217, 181, 125)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline 0.839998px",
+        "outline": "rgb(217, 181, 125) none 0px",
+        "outlineColor": "rgb(217, 181, 125)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(217, 181, 125)",
+            "to": "rgb(51, 51, 51)"
+          },
+          "borderColor": {
+            "from": "rgb(217, 181, 125)",
+            "to": "rgb(51, 51, 51)"
+          },
+          "opacity": {
+            "from": "1",
+            "to": "0.75"
+          },
+          "textDecoration": {
+            "from": "underline 0.839998px",
+            "to": "underline 0.959998px"
+          },
+          "outline": {
+            "from": "rgb(217, 181, 125) none 0px",
+            "to": "rgb(51, 51, 51) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(217, 181, 125)",
+            "to": "rgb(51, 51, 51)"
+          },
+          "transition": {
+            "from": "all",
+            "to": "opacity 0.3s"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(217, 181, 125)",
+            "to": "rgb(51, 51, 51)"
+          },
+          "borderColor": {
+            "from": "rgb(217, 181, 125)",
+            "to": "rgb(51, 51, 51)"
+          },
+          "textDecoration": {
+            "from": "underline 0.839998px",
+            "to": "underline 0.959998px"
+          },
+          "outline": {
+            "from": "rgb(217, 181, 125) none 0px",
+            "to": "rgb(0, 95, 204) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(217, 181, 125)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          },
+          "transition": {
+            "from": "all",
+            "to": "opacity 0.3s"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "reservas.fl@pulsohotel.com.br",
+      "classes": "text-style-link is-footer",
+      "selector": "a.text-style-link.is-footer",
+      "baseStyles": {
+        "color": "rgb(217, 181, 125)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(217, 181, 125)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline",
+        "outline": "rgb(217, 181, 125) none 0px",
+        "outlineColor": "rgb(217, 181, 125)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "opacity 0.3s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "opacity": {
+            "from": "1",
+            "to": "0.75"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgb(217, 181, 125) none 0px",
+            "to": "rgb(0, 95, 204) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(217, 181, 125)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "eventos@pulsohotel.com.br",
+      "classes": "text-style-link is-footer",
+      "selector": "a.text-style-link.is-footer",
+      "baseStyles": {
+        "color": "rgb(217, 181, 125)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(217, 181, 125)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline",
+        "outline": "rgb(217, 181, 125) none 0px",
+        "outlineColor": "rgb(217, 181, 125)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "opacity 0.3s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "opacity": {
+            "from": "1",
+            "to": "0.75"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgb(217, 181, 125) none 0px",
+            "to": "rgb(0, 95, 204) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(217, 181, 125)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "recepcao.fl@pulsohotel.com.br",
+      "classes": "text-style-link is-footer",
+      "selector": "a.text-style-link.is-footer",
+      "baseStyles": {
+        "color": "rgb(217, 181, 125)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(217, 181, 125)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline",
+        "outline": "rgb(217, 181, 125) none 0px",
+        "outlineColor": "rgb(217, 181, 125)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "opacity 0.3s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "opacity": {
+            "from": "1",
+            "to": "0.75"
+          }
+        },
+        "focus": {
+          "outline": {
+            "from": "rgb(217, 181, 125) none 0px",
+            "to": "rgb(0, 95, 204) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(217, 181, 125)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Whatsapp",
+      "classes": "link-footer",
+      "selector": "a.link-footer",
+      "baseStyles": {
+        "color": "rgb(217, 181, 125)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(217, 181, 125)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline 0.839998px",
+        "outline": "rgb(217, 181, 125) none 0px",
+        "outlineColor": "rgb(217, 181, 125)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "outline": {
+            "from": "rgb(217, 181, 125) none 0px",
+            "to": "rgb(0, 95, 204) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(217, 181, 125)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "Instagram",
+      "classes": "link-footer",
+      "selector": "a.link-footer",
+      "baseStyles": {
+        "color": "rgb(217, 181, 125)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(217, 181, 125)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline 0.839998px",
+        "outline": "rgb(217, 181, 125) none 0px",
+        "outlineColor": "rgb(217, 181, 125)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "outline": {
+            "from": "rgb(217, 181, 125) none 0px",
+            "to": "rgb(0, 95, 204) solid 2px"
+          },
+          "outlineColor": {
+            "from": "rgb(217, 181, 125)",
+            "to": "rgb(0, 95, 204)"
+          },
+          "outlineWidth": {
+            "from": "0px",
+            "to": "2px"
+          }
+        }
+      }
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "classes": "w-inline-block",
+      "selector": "a.w-inline-block",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(51, 51, 51)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "underline",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "textDecoration": {
+            "from": "underline",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(51, 51, 51) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "textDecoration": {
+            "from": "underline",
+            "to": "none"
+          },
+          "outline": {
+            "from": "rgb(51, 51, 51) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "input",
+      "text": "",
+      "classes": "input w-input",
+      "selector": "#Email",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgba(255, 255, 255, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(0, 0, 0) rgb(0, 0, 0) rgb(217, 181, 125)",
+        "borderWidth": "0px 0px 1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "text",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "backgroundColor": {
+            "from": "rgba(255, 255, 255, 0)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(0, 0, 0) rgb(0, 0, 0) rgb(217, 181, 125)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(51, 51, 51) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "text",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "backgroundColor": {
+            "from": "rgba(255, 255, 255, 0)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(0, 0, 0) rgb(0, 0, 0) rgb(217, 181, 125)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderWidth": {
+            "from": "0px 0px 1px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(51, 51, 51) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "text",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "input",
+      "text": "",
+      "classes": "button-footer-forms w-button",
+      "selector": "input.button-footer-forms.w-button",
+      "baseStyles": {
+        "color": "rgb(217, 181, 125)",
+        "backgroundColor": "rgba(255, 255, 255, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(217, 181, 125)",
+        "borderWidth": "1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(217, 181, 125) none 0px",
+        "outlineColor": "rgb(217, 181, 125)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.5s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(217, 181, 125)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "backgroundColor": {
+            "from": "rgba(255, 255, 255, 0)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(217, 181, 125)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderWidth": {
+            "from": "1px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(217, 181, 125) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(217, 181, 125)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "0.5s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(217, 181, 125)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "backgroundColor": {
+            "from": "rgba(255, 255, 255, 0)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(217, 181, 125)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderWidth": {
+            "from": "1px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(217, 181, 125) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(217, 181, 125)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "0.5s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "input",
+      "text": "",
+      "classes": "input is-reservation is-1",
+      "selector": "#checkin",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(255, 255, 255, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(0, 0, 0) rgb(0, 0, 0) rgb(217, 181, 125)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "backgroundColor": {
+            "from": "rgba(255, 255, 255, 0)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(0, 0, 0) rgb(0, 0, 0) rgb(217, 181, 125)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "backgroundColor": {
+            "from": "rgba(255, 255, 255, 0)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(0, 0, 0) rgb(0, 0, 0) rgb(217, 181, 125)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "input",
+      "text": "",
+      "classes": "input is-reservation is-2",
+      "selector": "#checkout",
+      "baseStyles": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(255, 255, 255, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(0, 0, 0) rgb(0, 0, 0) rgb(217, 181, 125)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(255, 255, 255) none 0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "backgroundColor": {
+            "from": "rgba(255, 255, 255, 0)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(0, 0, 0) rgb(0, 0, 0) rgb(217, 181, 125)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "backgroundColor": {
+            "from": "rgba(255, 255, 255, 0)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(0, 0, 0) rgb(0, 0, 0) rgb(217, 181, 125)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "outline": {
+            "from": "rgb(255, 255, 255) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(255, 255, 255)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          }
+        }
+      }
+    },
+    {
+      "tag": "input",
+      "text": "",
+      "classes": "button is-small w-button",
+      "selector": "#reservar",
+      "baseStyles": {
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgb(247, 247, 242)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(51, 51, 51)",
+        "borderWidth": "1px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(51, 51, 51) none 0px",
+        "outlineColor": "rgb(51, 51, 51)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "0.5s",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "hover": {
+          "color": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "backgroundColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderWidth": {
+            "from": "1px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(51, 51, 51) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "0.5s",
+            "to": "all"
+          }
+        },
+        "focus": {
+          "color": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "backgroundColor": {
+            "from": "rgb(247, 247, 242)",
+            "to": "rgba(0, 0, 0, 0)"
+          },
+          "borderColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "borderWidth": {
+            "from": "1px",
+            "to": "0px"
+          },
+          "outline": {
+            "from": "rgb(51, 51, 51) none 0px",
+            "to": "rgb(0, 0, 0) none 0px"
+          },
+          "outlineColor": {
+            "from": "rgb(51, 51, 51)",
+            "to": "rgb(0, 0, 0)"
+          },
+          "cursor": {
+            "from": "pointer",
+            "to": "auto"
+          },
+          "transition": {
+            "from": "0.5s",
+            "to": "all"
+          }
+        }
+      }
+    },
+    {
+      "tag": "div",
+      "text": "Gastronomia",
+      "classes": "dropdown-toogle w-dropdown-toggle",
+      "selector": "#w-dropdown-toggle-0",
+      "baseStyles": {
+        "color": "rgb(247, 247, 242)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderColor": "rgb(247, 247, 242)",
+        "borderWidth": "0px",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "textShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "textDecoration": "none",
+        "outline": "rgb(247, 247, 242) none 0px",
+        "outlineColor": "rgb(247, 247, 242)",
+        "outlineWidth": "0px",
+        "cursor": "pointer",
+        "scale": "none",
+        "transition": "all",
+        "filter": "none",
+        "backdropFilter": "none"
+      },
+      "states": {
+        "focus": {
+          "transition": {
+            "from": "all",
+            "to": "0.5s"
+          }
+        }
+      }
+    }
+  ]
+}

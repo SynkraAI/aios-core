@@ -1,0 +1,11 @@
+
+
+.gastronomia-navbar-item .gastronomia-navbar-item-image {
+  transition: transform 1s ease; 
+}
+
+
+.gastronomia-navbar-item:hover .gastronomia-navbar-item-image {
+  transform: scale(1.05) !important;
+  
+}

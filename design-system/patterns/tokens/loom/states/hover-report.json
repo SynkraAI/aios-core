@@ -1,0 +1,373 @@
+{
+  "url": "https://loom.com",
+  "name": "loom",
+  "captured_at": "2026-04-01T12:42:40.442Z",
+  "elements": [
+    {
+      "type": "button",
+      "index": 0,
+      "text": "",
+      "tag": "button",
+      "classes": "css-1vfng2u",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(41, 42, 46)",
+        "borderColor": "rgb(41, 42, 46)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "8px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(5, 21, 36, 0.08)",
+        "color": "rgb(41, 42, 46)",
+        "borderColor": "rgb(41, 42, 46)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "8px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "background": {
+          "from": "rgba(0, 0, 0, 0)",
+          "to": "rgba(5, 21, 36, 0.08)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-0-default.png",
+        "hover": "btn-0-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 1,
+      "text": "Apps",
+      "tag": "button",
+      "classes": "thd-button-xs xl:thd-button-sm thd-focus-thick thd-focus-bg after:content-['▼'] after:text-[8px] after:pl-6",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(41, 42, 46)",
+        "borderColor": "rgb(41, 42, 46)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "9999px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(41, 42, 46)",
+        "borderColor": "rgb(41, 42, 46)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "9999px",
+        "textDecoration": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-1-default.png",
+        "hover": "btn-1-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 2,
+      "text": "Solutions",
+      "tag": "button",
+      "classes": "thd-button-xs xl:thd-button-sm thd-focus-thick thd-focus-bg after:content-['▼'] after:text-[8px] after:pl-6",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(41, 42, 46)",
+        "borderColor": "rgb(41, 42, 46)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "9999px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(41, 42, 46)",
+        "borderColor": "rgb(41, 42, 46)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "9999px",
+        "textDecoration": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-2-default.png",
+        "hover": "btn-2-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 3,
+      "text": "Resources",
+      "tag": "button",
+      "classes": "thd-button-xs xl:thd-button-sm thd-focus-thick thd-focus-bg after:content-['▼'] after:text-[8px] after:pl-6",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(41, 42, 46)",
+        "borderColor": "rgb(41, 42, 46)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "9999px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(41, 42, 46)",
+        "borderColor": "rgb(41, 42, 46)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "9999px",
+        "textDecoration": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-3-default.png",
+        "hover": "btn-3-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 4,
+      "text": "Enterprise",
+      "tag": "a",
+      "classes": "thd-button-xs xl:thd-button-sm thd-focus-thick thd-focus-bg",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(41, 42, 46)",
+        "borderColor": "rgb(41, 42, 46)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "9999px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(41, 42, 46)",
+        "borderColor": "rgb(41, 42, 46)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "9999px",
+        "textDecoration": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-4-default.png",
+        "hover": "btn-4-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 5,
+      "text": "Pricing",
+      "tag": "a",
+      "classes": "thd-button-xs xl:thd-button-sm thd-focus-thick thd-focus-bg",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(41, 42, 46)",
+        "borderColor": "rgb(41, 42, 46)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "9999px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(41, 42, 46)",
+        "borderColor": "rgb(41, 42, 46)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "9999px",
+        "textDecoration": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-5-default.png",
+        "hover": "btn-5-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 6,
+      "text": "Sign In",
+      "tag": "a",
+      "classes": "thd-button-xs xl:thd-button-sm thd-focus-thick thd-focus-bg",
+      "defaultStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(41, 42, 46)",
+        "borderColor": "rgb(41, 42, 46)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "9999px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(41, 42, 46)",
+        "borderColor": "rgb(41, 42, 46)",
+        "boxShadow": "none",
+        "transform": "none",
+        "opacity": "1",
+        "borderRadius": "9999px",
+        "textDecoration": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "btn-6-default.png",
+        "hover": "btn-6-hover.png"
+      }
+    },
+    {
+      "type": "button",
+      "index": 7,
+      "text": "Get Loom for freeOpen in new window",
+      "tag": "a",
+      "classes": "ml-16 thd-button-nav thd-button-secondary w-content thd-button-md thd-body-sm gap-[1em] flex items-center whitespace-nowrap",
+      "defaultStyles": {
+        "background": "rgb(24, 104, 219)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgb(255, 255, 255)",
+        "boxShadow": "none",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "opacity": "1",
+        "borderRadius": "9999px",
+        "textDecoration": "none"
+      },
+      "hoverStyles": {
+        "background": "rgb(24, 104, 219)",
+        "color": "rgb(255, 255, 255)",
+        "borderColor": "rgb(255, 255, 255)",
+        "boxShadow": "none",
+        "transform": "matrix(1.01, 0, 0, 1.01, 0, -1.56154)",
+        "opacity": "1",
+        "borderRadius": "9999px",
+        "textDecoration": "none"
+      },
+      "diffs": {
+        "transform": {
+          "from": "matrix(1, 0, 0, 1, 0, 0)",
+          "to": "matrix(1.01, 0, 0, 1.01, 0, -1.56154)"
+        }
+      },
+      "hasVisualChange": true,
+      "screenshots": {
+        "default": "btn-7-default.png",
+        "hover": "btn-7-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 0,
+      "text": "Live webinar 🧑‍💻Join us on April 22nd to learn h",
+      "defaultStyles": {
+        "color": "rgb(41, 42, 46)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(41, 42, 46)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "link-0-default.png",
+        "hover": "link-0-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 2,
+      "text": "Enterprise",
+      "defaultStyles": {
+        "color": "rgb(41, 42, 46)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(41, 42, 46)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "link-2-default.png",
+        "hover": "link-2-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 3,
+      "text": "Pricing",
+      "defaultStyles": {
+        "color": "rgb(41, 42, 46)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(41, 42, 46)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "link-3-default.png",
+        "hover": "link-3-hover.png"
+      }
+    },
+    {
+      "type": "nav-link",
+      "index": 4,
+      "text": "Sign In",
+      "defaultStyles": {
+        "color": "rgb(41, 42, 46)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "hoverStyles": {
+        "color": "rgb(41, 42, 46)",
+        "textDecoration": "none",
+        "opacity": "1",
+        "transform": "none"
+      },
+      "diffs": {},
+      "hasVisualChange": false,
+      "screenshots": {
+        "default": "link-4-default.png",
+        "hover": "link-4-hover.png"
+      }
+    }
+  ]
+}

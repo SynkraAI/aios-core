@@ -1,0 +1,17 @@
+
+          @media (max-width: 480px) {
+                .bg-fixed::before {
+                  background: url(https://images.leadconnectorhq.com/image/f_webp/q_80/r_768/u_https://storage.googleapis.com/msgsndr/CsiBUbUirVZnXWpyDivf/media/697175336fb1511a3ffbd9cc.png) !important;
+                }
+            }
+            @media (min-width: 481px) and (max-width: 1024px) {
+                .bg-fixed::before {
+                  background: url(https://images.leadconnectorhq.com/image/f_webp/q_80/r_900/u_https://storage.googleapis.com/msgsndr/CsiBUbUirVZnXWpyDivf/media/697175336fb1511a3ffbd9cc.png) !important;
+                }
+            }
+            @media (min-width: 1025px) {
+                .bg-fixed::before {
+                  background: url(https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://storage.googleapis.com/msgsndr/CsiBUbUirVZnXWpyDivf/media/697175336fb1511a3ffbd9cc.png) !important;
+                }
+            }
+          

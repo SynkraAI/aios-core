@@ -1,0 +1,372 @@
+<!DOCTYPE html><html lang="pt-BR" class="lenis"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STC Intercâmbio — Explore o Mundo</title>
+  <meta name="description" content="Estude, explore e conquiste o mundo com a STC. Seu futuro começa aqui. Intercâmbio nos melhores destinos do mundo.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400&amp;family=Playfair+Display:ital,wght@0,700;1,400&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- GRAIN -->
+  <svg class="grain" aria-hidden="true" preserveAspectRatio="none">
+    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="4" stitchTiles="stitch"></feTurbulence><feColorMatrix type="saturate" values="0"></feColorMatrix></filter>
+    <rect width="100%" height="100%" filter="url(#grain)"></rect>
+  </svg>
+
+  <!-- GRID LINES -->
+  <div class="grid-lines visible" id="gridLines">
+    <div class="gl"></div><div class="gl"></div><div class="gl"></div>
+    <div class="gl"></div><div class="gl"></div><div class="gl"></div>
+    <div class="gl"></div><div class="gl"></div>
+  </div>
+
+  <!-- CUSTOM CURSOR -->
+  <div class="cursor-ring" id="cursorRing"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
+
+  <!-- LOADER -->
+  <div class="loader" id="loader" style="pointer-events: none; opacity: 0; visibility: hidden;">
+    <div class="loader-cols">
+      <div class="loader-col" style="translate: none; rotate: none; scale: none; transform: scale(1, 0);"></div><div class="loader-col" style="translate: none; rotate: none; scale: none; transform: scale(1, 0);"></div>
+      <div class="loader-col" style="translate: none; rotate: none; scale: none; transform: scale(1, 0);"></div><div class="loader-col" style="translate: none; rotate: none; scale: none; transform: scale(1, 0);"></div>
+      <div class="loader-col" style="translate: none; rotate: none; scale: none; transform: scale(1, 0);"></div><div class="loader-col" style="translate: none; rotate: none; scale: none; transform: scale(1, 0);"></div>
+    </div>
+    <div class="loader-center">
+      <span class="loader-brand display" style="opacity: 0; translate: none; rotate: none; scale: none; transform: translate(0px, -30px);">STC</span>
+      <span class="loader-sub" style="opacity: 0; translate: none; rotate: none; scale: none; transform: translate(0px, -30px);">SHARING TO CONNECT</span>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav" style="opacity: 1;">
+    <a href="#" class="nav-logo">STC<span class="nav-dot">.</span></a>
+    <div class="nav-links">
+      <a href="#about" class="nav-link" data-hover="">SOBRE</a>
+      <a href="#destinations" class="nav-link" data-hover="">DESTINOS</a>
+      <a href="#services" class="nav-link" data-hover="">SERVIÇOS</a>
+      <a href="#testimonials" class="nav-link" data-hover="">DEPOIMENTOS</a>
+      <a href="#contact" class="nav-link" data-hover="">CONTATO</a>
+    </div>
+    <a href="#contact" class="nav-cta" data-hover="">FALE CONOSCO</a>
+    <button class="nav-burger" id="navBurger" aria-label="Menu">
+      <span class="burger-line"></span>
+      <span class="burger-line"></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-inner">
+      <a href="#about" class="mobile-link display">SOBRE</a>
+      <a href="#destinations" class="mobile-link display">DESTINOS</a>
+      <a href="#services" class="mobile-link display">SERVIÇOS</a>
+      <a href="#testimonials" class="mobile-link display">DEPOIMENTOS</a>
+      <a href="#contact" class="mobile-link display">CONTATO</a>
+      <a href="https://wa.me/5519982607927" class="mobile-cta" target="_blank" rel="noopener">COMECE SUA JORNADA</a>
+    </div>
+  </div>
+
+  <!-- SCROLL PROGRESS -->
+  <div class="scroll-progress" id="scrollProgress" style="translate: none; rotate: none; scale: none; transform: scale(0, 1);"></div>
+
+  <main>
+
+    <!-- 1. HERO -->
+    <section class="section s-hero" id="hero">
+      <canvas id="heroGL"></canvas>
+      <div class="hero-content" style="translate: none; rotate: none; scale: none; opacity: 1; transform: translate(0px, 0px);">
+        <h1 class="hero-title">
+          <span class="hero-line hero-line--display display" data-char-swap="" aria-label="DESCUBRA" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px);"><span class="char-wrap"><span class="char-inner">D</span></span><span class="char-wrap"><span class="char-inner">E</span></span><span class="char-wrap"><span class="char-inner">S</span></span><span class="char-wrap"><span class="char-inner">C</span></span><span class="char-wrap"><span class="char-inner" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px);">U</span></span><span class="char-wrap"><span class="char-inner">B</span></span><span class="char-wrap"><span class="char-inner">R</span></span><span class="char-wrap"><span class="char-inner">A</span></span></span>
+          <span class="hero-line hero-line--serif serif italic" style="translate: none; rotate: none; scale: none; opacity: 1; transform: translate(0px, 0px);">o mundo</span>
+        </h1>
+        <p class="hero-sub" style="translate: none; rotate: none; scale: none; opacity: 1; transform: translate(0px, 0px);">ESTUDE • EXPLORE • CONQUISTE — STC INTERCÂMBIO</p>
+      </div>
+      <div class="scroll-cue" style="opacity: 0.999;">
+        <span>SCROLL</span>
+        <div class="scroll-arrow"></div>
+      </div>
+    </section>
+
+    <!-- 2. MISSION — Zoom -->
+    <div class="pin-spacer" style="order: 0; place-self: auto; grid-area: auto; z-index: auto; float: none; flex-shrink: 1; display: flex; margin: 0px; inset: 0px; position: relative; flex-basis: auto; overflow: visible; box-sizing: border-box; width: 1440px; height: 3150px; padding: 0px 0px 2250px;"><section class="section s-zoom" id="mission" style="translate: none; rotate: none; scale: none; background-color: rgb(12, 12, 18); inset: 0px auto auto 0px; margin: 0px; max-width: 1440px; width: 1440px; max-height: 900px; height: 900px; padding: 0px; transform: translate(0px, 0px);">
+      <div class="zoom-content" style="translate: none; rotate: none; scale: none; opacity: 0.15; transform: scale(0.3, 0.3);">
+        <p class="zoom-text display" style="color: rgb(237, 232, 224);">
+          <span class="zoom-word" style="opacity: 0.08; color: rgb(237, 232, 224);">Intercâmbio</span>
+          <span class="zoom-word" style="opacity: 0.08; color: rgb(237, 232, 224);">não</span>
+          <span class="zoom-word" style="opacity: 0.08; color: rgb(237, 232, 224);">é</span>
+          <span class="zoom-word" style="opacity: 0.08; color: rgb(237, 232, 224);">viagem.</span>
+          <span class="zoom-break"></span>
+          <span class="zoom-word" style="opacity: 0.08; color: rgb(237, 232, 224);">É</span>
+          <span class="zoom-word" style="opacity: 0.08; color: rgb(237, 232, 224);">quem</span>
+          <span class="zoom-word" style="opacity: 0.08; color: rgb(237, 232, 224);">você</span>
+          <span class="zoom-word" style="opacity: 0.08; color: rgb(237, 232, 224);">se</span>
+          <span class="zoom-word" style="opacity: 0.08; color: rgb(237, 232, 224);">torna.</span>
+        </p>
+      </div>
+    </section></div>
+
+    <!-- 3. ABOUT -->
+    <section class="section s-about" id="about">
+      <div class="about-grid">
+        <div class="about-left" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-40px, 0px);">
+          <span class="about-label">SOBRE A STC</span>
+          <h2 class="about-heading display">SHARING<br>TO<br>CONNECT</h2>
+        </div>
+        <div class="about-right" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(40px, 0px);">
+          <p class="about-lead">Mais do que um intercâmbio, uma experiência que te conecta com seu futuro.</p>
+          <p class="about-body">Na STC, acreditamos que estudar no exterior vai muito além de aprender um novo idioma — é sobre crescer, se reinventar e criar conexões para a vida toda. Nossa missão é transformar sonhos em realidade, guiando você em cada etapa do seu intercâmbio com suporte especializado, parcerias de excelência e experiências personalizadas.</p>
+          <div class="about-values">
+            <div class="about-value" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 20px);">
+              <span class="about-value-num">01</span>
+              <span class="about-value-name">Comprometimento</span>
+            </div>
+            <div class="about-value" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 20px);">
+              <span class="about-value-num">02</span>
+              <span class="about-value-name">Qualidade</span>
+            </div>
+            <div class="about-value" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 20px);">
+              <span class="about-value-num">03</span>
+              <span class="about-value-name">Transparência</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. DESTINATIONS — Horizontal Scroll -->
+    <div class="pin-spacer" style="order: 0; place-self: auto; grid-area: auto; z-index: auto; float: none; flex-shrink: 1; display: block; margin: 0px; inset: 0px; position: relative; flex-basis: auto; overflow: visible; box-sizing: border-box; width: 1440px; height: 3281px; padding: 0px 0px 2381px;"><section class="section s-horizontal" id="destinations" style="translate: none; rotate: none; scale: none; inset: 0px auto auto 0px; margin: 0px; max-width: 1440px; width: 1440px; max-height: 900px; height: 900px; padding: 0px; transform: translate(0px, 0px);">
+      <div class="section-label">DESTINOS</div>
+      <div class="h-counter"><span id="hCurrent">01</span><span class="h-sep">/</span><span id="hTotal">06</span></div>
+      <div class="h-label-track" style="translate: none; rotate: none; scale: none; transform: translate(-5.21%, 0%) translate3d(0px, 0px, 0px);">
+        <div class="h-label">SEU PRÓXIMO DESTINO — EXPLORE O MUNDO — STC INTERCÂMBIO —&nbsp;</div>
+        <div class="h-label">SEU PRÓXIMO DESTINO — EXPLORE O MUNDO — STC INTERCÂMBIO —&nbsp;</div>
+      </div>
+      <div class="h-track" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px);">
+        <div class="h-item" style="translate: none; rotate: none; scale: none; opacity: 1; transform: translate(0px, 0px);">
+          <div class="h-item-bg" style="background-image: url(&quot;https://images.pexels.com/photos/771881/pexels-photo-771881.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800&amp;h=1200&amp;fit=crop&quot;); translate: none; rotate: none; scale: none; transform: translate(3.4118%, 0%) translate3d(0px, 0px, 0px);"></div>
+          <div class="h-item-deco display">US</div>
+          <div class="h-item-content">
+            <span class="h-item-num">01</span>
+            <h3 class="h-item-title display">ESTADOS<br>UNIDOS</h3>
+            <p class="h-item-desc">Da Broadway ao Silicon Valley. O país onde cada esquina conta uma história diferente.</p>
+          </div>
+        </div>
+        <div class="h-item" style="translate: none; rotate: none; scale: none; opacity: 1; transform: translate(0px, 0px);">
+          <div class="h-item-bg" style="background-image: url(&quot;https://images.pexels.com/photos/29476956/pexels-photo-29476956.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800&amp;h=1200&amp;fit=crop&quot;); translate: none; rotate: none; scale: none; transform: translate(-2.8235%, 0%) translate3d(0px, 0px, 0px);"></div>
+          <div class="h-item-deco display">CA</div>
+          <div class="h-item-content">
+            <span class="h-item-num">02</span>
+            <h3 class="h-item-title display">CANADÁ</h3>
+            <p class="h-item-desc">Qualidade de vida, diversidade e oportunidades. O destino que acolhe de braços abertos.</p>
+          </div>
+        </div>
+        <div class="h-item" style="translate: none; rotate: none; scale: none; opacity: 0; transform: rotateY(5deg) scale(0.9, 0.9);">
+          <div class="h-item-bg" style="background-image: url(&quot;https://images.pexels.com/photos/23644344/pexels-photo-23644344.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800&amp;h=1200&amp;fit=crop&quot;); translate: none; rotate: none; scale: none; transform: translate(-9.343%, 0%) translate3d(0px, 0px, 0px);"></div>
+          <div class="h-item-deco display">IE</div>
+          <div class="h-item-content">
+            <span class="h-item-num">03</span>
+            <h3 class="h-item-title display">IRLANDA</h3>
+            <p class="h-item-desc">Tradição e inovação. Pubs centenários e startups de ponta, lado a lado.</p>
+          </div>
+        </div>
+        <div class="h-item" style="translate: none; rotate: none; scale: none; opacity: 0; transform: rotateY(5deg) scale(0.9, 0.9);">
+          <div class="h-item-bg" style="background-image: url(&quot;https://images.pexels.com/photos/15571948/pexels-photo-15571948.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800&amp;h=1200&amp;fit=crop&quot;); translate: none; rotate: none; scale: none; transform: translate(-10%, 0%);"></div>
+          <div class="h-item-deco display">AU</div>
+          <div class="h-item-content">
+            <span class="h-item-num">04</span>
+            <h3 class="h-item-title display">AUSTRÁLIA</h3>
+            <p class="h-item-desc">Praias infinitas, aventura e educação de classe mundial. Mais perto do que você imagina.</p>
+          </div>
+        </div>
+        <div class="h-item" style="translate: none; rotate: none; scale: none; opacity: 0; transform: rotateY(5deg) scale(0.9, 0.9);">
+          <div class="h-item-bg" style="background-image: url(&quot;https://images.pexels.com/photos/635611/pexels-photo-635611.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800&amp;h=1200&amp;fit=crop&quot;); translate: none; rotate: none; scale: none; transform: translate(-10%, 0%);"></div>
+          <div class="h-item-deco display">UK</div>
+          <div class="h-item-content">
+            <span class="h-item-num">05</span>
+            <h3 class="h-item-title display">INGLATERRA</h3>
+            <p class="h-item-desc">Berço da língua inglesa. De Oxford a Shoreditch, história e cultura em cada passo.</p>
+          </div>
+        </div>
+        <div class="h-item" style="translate: none; rotate: none; scale: none; opacity: 0; transform: rotateY(5deg) scale(0.9, 0.9);">
+          <div class="h-item-bg" style="background-image: url(&quot;https://images.pexels.com/photos/69320/pexels-photo-69320.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800&amp;h=1200&amp;fit=crop&quot;); translate: none; rotate: none; scale: none; transform: translate(-10%, 0%);"></div>
+          <div class="h-item-deco display">ES</div>
+          <div class="h-item-content">
+            <span class="h-item-num">06</span>
+            <h3 class="h-item-title display">ESPANHA</h3>
+            <p class="h-item-desc">Arte, gastronomia e sol o ano inteiro. Aprenda espanhol vivendo a vida espanhola.</p>
+          </div>
+        </div>
+      </div>
+    </section></div>
+
+    <!-- 5. SERVICES — Stacking Cards -->
+    <div class="pin-spacer" style="order: 0; place-self: auto; grid-area: auto; z-index: auto; float: none; flex-shrink: 1; display: block; margin: 0px; inset: 0px; position: relative; flex-basis: auto; overflow: visible; box-sizing: border-box; width: 1440px; height: 6300px; padding: 0px 0px 5400px;"><section class="section s-stack" id="services" style="translate: none; rotate: none; scale: none; inset: 0px auto auto 0px; margin: 0px; max-width: 1440px; width: 1440px; max-height: 900px; height: 900px; padding: 0px; transform: translate(0px, 0px);">
+      <div class="section-label">SERVIÇOS</div>
+      <div class="stack-stage">
+        <div class="stack-card" style="--card-accent: #5A7ED6; z-index: 1; translate: none; rotate: none; scale: none; --brightness: 1; transform: translate(0px, 0px);">
+          <span class="card-num">01</span>
+          <h3 class="card-title display">INTERCÂMBIO</h3>
+          <p class="card-desc">Imersão total no idioma e na cultura. Para adultos e adolescentes que querem ir além do básico — viver, não apenas visitar.</p>
+          <div class="card-accent-line"></div>
+          <div class="card-number-bg display">01</div>
+        </div>
+        <div class="stack-card" style="--card-accent: #EA9374; translate: none; rotate: none; scale: none; z-index: 2; transform: translate(0%, 100%); --brightness: 1;">
+          <span class="card-num">02</span>
+          <h3 class="card-title display">HIGH SCHOOL</h3>
+          <p class="card-desc">Um ano que muda uma vida. Estudar no exterior durante o ensino médio é a experiência que nenhuma sala de aula substitui.</p>
+          <div class="card-accent-line"></div>
+          <div class="card-number-bg display">02</div>
+        </div>
+        <div class="stack-card" style="--card-accent: #FFB547; translate: none; rotate: none; scale: none; z-index: 3; transform: translate(0%, 100%); --brightness: 1;">
+          <span class="card-num">03</span>
+          <h3 class="card-title display">UNIVERSIDADES</h3>
+          <p class="card-desc">Diploma global, futuro sem fronteiras. Conectamos você às melhores universidades do mundo com orientação completa.</p>
+          <div class="card-accent-line"></div>
+          <div class="card-number-bg display">03</div>
+        </div>
+        <div class="stack-card" style="--card-accent: #FF6B6B; translate: none; rotate: none; scale: none; z-index: 4; transform: translate(0%, 100%); --brightness: 1;">
+          <span class="card-num">04</span>
+          <h3 class="card-title display">ESTUDAR E TRABALHAR</h3>
+          <p class="card-desc">A experiência que une aprendizado, crescimento profissional e independência financeira no exterior.</p>
+          <div class="card-accent-line"></div>
+          <div class="card-number-bg display">04</div>
+        </div>
+        <div class="stack-card" style="--card-accent: #C8A2FF; translate: none; rotate: none; scale: none; z-index: 5; transform: translate(0%, 100%); --brightness: 1;">
+          <span class="card-num">05</span>
+          <h3 class="card-title display">ACOMODAÇÃO</h3>
+          <p class="card-desc">Seu lar longe de casa. Famílias anfitriãs, residências estudantis ou apartamentos — encontramos o espaço perfeito.</p>
+          <div class="card-accent-line"></div>
+          <div class="card-number-bg display">05</div>
+        </div>
+        <div class="stack-card" style="--card-accent: #EDE8E0; translate: none; rotate: none; scale: none; z-index: 6; transform: translate(0%, 100%);">
+          <span class="card-num">06</span>
+          <h3 class="card-title display">SEGURO VIAGEM</h3>
+          <p class="card-desc">Explore sem preocupação. Cobertura completa com a melhor seguradora da América Latina para você viajar tranquilo.</p>
+          <div class="card-accent-line"></div>
+          <div class="card-number-bg display">06</div>
+        </div>
+      </div>
+    </section></div>
+
+    <!-- 6. TESTIMONIALS — Clip-Path Reveals -->
+    <section class="section s-testimonials" id="testimonials">
+      <div class="section-label">DEPOIMENTOS</div>
+      <div class="testimonials-intro">
+        <h2 class="testimonials-title serif italic" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 30px);">O que nossos intercambistas dizem</h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card" data-clip="ellipse" style="--t-accent: #5A7ED6">
+          <div class="testimonial-surface" style="clip-path: ellipse(0% 0% at 50% 50%);">
+            <div class="testimonial-quote">“Tivemos todo o suporte para planejarmos nosso intercâmbio de 60 dias em Vancouver. A Mariana é a pessoa certa.”</div>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar" style="background: var(--t-accent)">GC</div>
+              <div>
+                <span class="testimonial-name">Geovani Candido</span>
+                <span class="testimonial-dest">Vancouver, Canadá</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card" data-clip="wipe-right" style="--t-accent: #EA9374">
+          <div class="testimonial-surface" style="clip-path: polygon(0px 0px, 0px 0px, 0px 100%, 0px 100%);">
+            <div class="testimonial-quote">“Nunca mede esforços para fazer além do combinado. Conforto, confiança e a melhor experiência possível.”</div>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar" style="background: var(--t-accent)">MH</div>
+              <div>
+                <span class="testimonial-name">Mario Henrique</span>
+                <span class="testimonial-dest">Cliente STC</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card" data-clip="circle" style="--t-accent: #FFB547">
+          <div class="testimonial-surface" style="clip-path: circle(0% at 50% 50%);">
+            <div class="testimonial-quote">“Foi uma viagem incrível, nunca vou esquecer. Momentos de muita aprendizagem e novas culturas. Muito bom!”</div>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar" style="background: var(--t-accent)">GM</div>
+              <div>
+                <span class="testimonial-name">Guilherme Mói</span>
+                <span class="testimonial-dest">Cliente STC</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. MARQUEE -->
+    <section class="section s-marquee">
+      <div class="marquee-row marquee-left">
+        <div class="marquee-content display"><span>EXPLORAR</span><span class="dot">•</span><span>CONECTAR</span><span class="dot">•</span><span>CRESCER</span><span class="dot">•</span><span>TRANSFORMAR</span><span class="dot">•</span><span>VIVER</span><span class="dot">•</span><span>DESCOBRIR</span><span class="dot">•</span></div>
+        <div class="marquee-content display" aria-hidden="true"><span>EXPLORAR</span><span class="dot">•</span><span>CONECTAR</span><span class="dot">•</span><span>CRESCER</span><span class="dot">•</span><span>TRANSFORMAR</span><span class="dot">•</span><span>VIVER</span><span class="dot">•</span><span>DESCOBRIR</span><span class="dot">•</span></div>
+      </div>
+      <div class="marquee-row marquee-right">
+        <div class="marquee-content serif italic"><span>explorar</span><span class="star">✶</span><span>conectar</span><span class="star">✶</span><span>crescer</span><span class="star">✶</span><span>transformar</span><span class="star">✶</span><span>viver</span><span class="star">✶</span><span>descobrir</span><span class="star">✶</span></div>
+        <div class="marquee-content serif italic" aria-hidden="true"><span>explorar</span><span class="star">✶</span><span>conectar</span><span class="star">✶</span><span>crescer</span><span class="star">✶</span><span>transformar</span><span class="star">✶</span><span>viver</span><span class="star">✶</span><span>descobrir</span><span class="star">✶</span></div>
+      </div>
+    </section>
+
+    <!-- 8. CTA + CONTACT -->
+    <section class="section s-contact" id="contact">
+      <div class="contact-content">
+        <h2 class="contact-title display" data-char-swap="" aria-label="VAMOS?" style="translate: none; rotate: none; scale: none; opacity: 0; transform: scale(0.5, 0.5);"><span class="char-wrap"><span class="char-inner" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px);">V</span></span><span class="char-wrap"><span class="char-inner">A</span></span><span class="char-wrap"><span class="char-inner">M</span></span><span class="char-wrap"><span class="char-inner">O</span></span><span class="char-wrap"><span class="char-inner">S</span></span><span class="char-wrap"><span class="char-inner">?</span></span></h2>
+        <p class="contact-sub serif italic" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 30px);">o que está esperando?</p>
+        <a href="https://wa.me/5519982607927" class="contact-btn" data-hover="" target="_blank" rel="noopener" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 20px);">
+          <span class="contact-btn-text">COMECE SUA JORNADA</span>
+          <span class="contact-btn-bg"></span>
+        </a>
+        <div class="contact-info" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 20px);">
+          <div class="contact-item">
+            <span class="contact-label">TELEFONE</span>
+            <a href="tel:+5519982607927" data-hover="">+55 (19) 98260-7927</a>
+          </div>
+          <div class="contact-item">
+            <span class="contact-label">EMAIL</span>
+            <a href="mailto:suporte@stcgroup.com.br" data-hover="">suporte@stcgroup.com.br</a>
+          </div>
+          <div class="contact-item">
+            <span class="contact-label">ENDEREÇO</span>
+            <span>Av. 2, 1368 — Jardim Claret, Rio Claro — SP</span>
+          </div>
+        </div>
+        <div class="contact-social" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 20px);">
+          <a href="https://www.instagram.com/stcintercambio/" class="social-link" data-hover="" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"></rect><circle cx="12" cy="12" r="5"></circle><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"></circle></svg>
+          </a>
+          <a href="https://www.youtube.com/@stc.intercambio" class="social-link" data-hover="" aria-label="YouTube" target="_blank" rel="noopener">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.94 2C5.12 20 12 20 12 20s6.88 0 8.6-.46a2.78 2.78 0 001.94-2A29 29 0 0023 12a29 29 0 00-.46-5.58z"></path><polygon points="9.75 15.02 15.5 12 9.75 8.98" fill="currentColor" stroke="none"></polygon></svg>
+          </a>
+          <a href="https://www.linkedin.com/company/stc-intercambio/" class="social-link" data-hover="" aria-label="LinkedIn" target="_blank" rel="noopener">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- WHATSAPP FLOAT -->
+  <a href="https://wa.me/5519982607927" class="whatsapp-float" target="_blank" rel="noopener" aria-label="WhatsApp" data-hover="">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>
+  </a>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <span class="footer-brand display">STC</span>
+      <span class="footer-tagline serif italic">Sharing to Connect</span>
+      <span class="footer-copy">© 2026 STC Intercâmbio. Todos os direitos reservados.</span>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.min.js"></script>
+  <script src="app.js"></script>
+
+
+</body></html>
