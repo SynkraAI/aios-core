@@ -4,7 +4,8 @@ Multi-Mind Orchestration Squad — manages and orchestrates multiple mind clones
 
 ## Structure
 
-- **Minds:** 2 (alex_hormozi, thiago_finch)
+- **Minds:** 2 (thiago_finch, tim-ferriss)
+- **Note:** alex_hormozi was removed (duplicate). Canonical: `squads/mind-cloning/minds/hormozi/`
 
 ## Key Capabilities
 
