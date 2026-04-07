@@ -43,7 +43,7 @@ O conteúdo de `pedagogical/` é a **fonte canônica** para **KB20_MATERIAL_PEDA
 
 **Path do KB20:**
 ```
-squads/squad-creator/data/minds/renner_silva/05_clone_final/knowledge_base/KB20_MATERIAL_PEDAGOGICO.md
+squads/mind-cloning/minds/renner-silva/outputs/clone_final/knowledge_base/KB20_MATERIAL_PEDAGOGICO.md
 ```
 
 **Sincronização:**

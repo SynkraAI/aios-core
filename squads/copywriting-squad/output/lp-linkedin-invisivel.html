@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinkedIn Invisível — Sejá Encontrado por Recrutadores</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0f;
+      --bg-card: #12121a;
+      --bg-card-hover: #1a1a25;
+      --text: #e8e8ed;
+      --text-muted: #9898a8;
+      --accent: #4f7cff;
+      --accent-glow: rgba(79, 124, 255, 0.15);
+      --accent-hover: #6b93ff;
+      --gold: #f0c850;
+      --gold-muted: rgba(240, 200, 80, 0.12);
+      --red: #ff5c5c;
+      --green: #4ade80;
+      --border: rgba(255,255,255,0.06);
+      --radius: 12px;
+      --max-w: 720px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 17px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* --- LAYOUT --- */
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+    section { padding: 72px 0; }
+    section + section { border-top: 1px solid var(--border); }
+
+    /* --- TYPOGRAPHY --- */
+    h1 { font-family: 'Playfair Display', serif; font-size: clamp(28px, 5vw, 44px); line-height: 1.2; font-weight: 700; }
+    h2 { font-size: clamp(22px, 4vw, 32px); font-weight: 800; line-height: 1.25; margin-bottom: 24px; }
+    h3 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+    p { margin-bottom: 16px; }
+    strong { color: #fff; font-weight: 600; }
+    em { font-style: italic; color: var(--gold); }
+
+    .pre-headline {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      background: var(--accent-glow);
+      padding: 6px 16px;
+      border-radius: 100px;
+    }
+
+    .subheadline {
+      font-size: clamp(16px, 2.5vw, 19px);
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-top: 24px;
+    }
+
+    .highlight { color: var(--gold); }
+    .highlight-box {
+      background: var(--gold-muted);
+      border-left: 3px solid var(--gold);
+      padding: 16px 20px;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      margin: 24px 0;
+      font-weight: 500;
+    }
+
+    /* --- CTA --- */
+    .cta-wrap { text-align: center; margin: 40px 0; }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--accent), #3b5ef0);
+      color: #fff;
+      font-size: 18px;
+      font-weight: 700;
+      padding: 18px 48px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: all 0.25s;
+      box-shadow: 0 4px 24px rgba(79, 124, 255, 0.3);
+      letter-spacing: 0.3px;
+    }
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(79, 124, 255, 0.45);
+      background: linear-gradient(135deg, var(--accent-hover), #4f6ef5);
+    }
+    .cta-sub {
+      display: block;
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* --- PAIN CARDS --- */
+    .pain-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 16px;
+      transition: border-color 0.2s;
+    }
+    .pain-card:hover { border-color: rgba(255,92,92,0.25); }
+    .pain-card p { margin: 0; }
+    .pain-card p:first-child { font-weight: 600; color: #fff; margin-bottom: 8px; }
+    .pain-card p:last-child { color: var(--text-muted); font-size: 15px; }
+
+    /* --- PROOF GRID --- */
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin: 32px 0;
+    }
+    .proof-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .proof-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 14px;
+      text-align: center;
+      padding: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .proof-caption {
+      padding: 16px;
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* --- VALUE STACK --- */
+    .stack-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      gap: 16px;
+    }
+    .stack-item:last-child { border-bottom: none; }
+    .stack-name { flex: 1; }
+    .stack-name strong { display: block; color: #fff; margin-bottom: 4px; }
+    .stack-name span { font-size: 14px; color: var(--text-muted); }
+    .stack-value {
+      font-size: 14px;
+      color: var(--text-muted);
+      text-decoration: line-through;
+      white-space: nowrap;
+      padding-top: 2px;
+    }
+
+    .stack-total {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 0 0;
+      margin-top: 8px;
+      border-top: 2px solid var(--border);
+      font-weight: 700;
+    }
+    .stack-total .old { text-decoration: line-through; color: var(--red); font-size: 20px; }
+
+    /* --- PRICE --- */
+    .price-section { text-align: center; padding: 48px 0; }
+    .price-label { font-size: 14px; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 8px; }
+    .price-value {
+      font-size: clamp(48px, 10vw, 72px);
+      font-weight: 900;
+      color: var(--green);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .price-installment { color: var(--text-muted); font-size: 16px; margin-bottom: 8px; }
+    .price-daily { font-size: 14px; color: var(--gold); font-weight: 500; }
+
+    /* --- GUARANTEE --- */
+    .guarantee-box {
+      background: linear-gradient(135deg, rgba(74, 222, 128, 0.06), rgba(74, 222, 128, 0.02));
+      border: 1px solid rgba(74, 222, 128, 0.15);
+      border-radius: var(--radius);
+      padding: 32px;
+      text-align: center;
+      margin: 32px 0;
+    }
+    .guarantee-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(74, 222, 128, 0.1);
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 8px 20px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+
+    /* --- AUTHOR --- */
+    .author-box {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+    }
+    .author-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #3b5ef0);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: 800;
+      color: #fff;
+    }
+    .author-info h3 { margin-bottom: 8px; }
+    .author-info ul { list-style: none; }
+    .author-info li {
+      font-size: 14px;
+      color: var(--text-muted);
+      padding: 3px 0;
+      padding-left: 20px;
+      position: relative;
+    }
+    .author-info li::before {
+      content: '>';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* --- FAQ --- */
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+    .faq-q {
+      padding: 20px 24px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.2s;
+    }
+    .faq-q:hover { background: var(--bg-card-hover); }
+    .faq-q::after { content: '+'; font-size: 22px; color: var(--accent); font-weight: 400; transition: transform 0.2s; }
+    .faq-item.open .faq-q::after { transform: rotate(45deg); }
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .faq-a-inner {
+      padding: 0 24px 20px;
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+    .faq-item.open .faq-a { max-height: 300px; }
+
+    /* --- BLOCKQUOTE --- */
+    blockquote {
+      border-left: 3px solid var(--accent);
+      padding-left: 20px;
+      margin: 24px 0;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* --- BULLETS --- */
+    .bullet-list { list-style: none; margin: 24px 0; }
+    .bullet-list li {
+      padding: 8px 0 8px 28px;
+      position: relative;
+      font-size: 15px;
+    }
+    .bullet-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 16px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    /* --- TOOLS --- */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin: 20px 0;
+    }
+    .tool-tag {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+      font-weight: 500;
+    }
+
+    /* --- STICKY CTA MOBILE --- */
+    .sticky-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(10, 10, 15, 0.95);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border);
+      padding: 12px 24px;
+      z-index: 100;
+      display: none;
+      text-align: center;
+    }
+    .sticky-cta .cta-btn { width: 100%; padding: 14px 24px; font-size: 16px; }
+
+    /* --- PS --- */
+    .ps-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      margin-top: 32px;
+    }
+    .ps-section p { font-size: 15px; color: var(--text-muted); margin-bottom: 12px; }
+    .ps-section p:last-child { margin-bottom: 0; }
+    .ps-section strong { color: var(--text); }
+
+    /* --- FOOTER --- */
+    footer {
+      text-align: center;
+      padding: 40px 24px;
+      font-size: 13px;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+    }
+
+    /* --- SEPARATOR --- */
+    .sep {
+      width: 48px;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin: 0 auto 32px;
+    }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 640px) {
+      section { padding: 48px 0; }
+      .author-box { flex-direction: column; align-items: center; text-align: center; }
+      .author-info li { text-align: left; }
+      .tools-grid { grid-template-columns: repeat(2, 1fr); }
+      .sticky-cta { display: block; }
+      body { padding-bottom: 72px; }
+      .proof-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HERO ===== -->
+  <section style="padding-top: 100px; padding-bottom: 56px; border: none;">
+    <div class="container">
+      <span class="pre-headline">Para profissionais com 10+ anos de experiência</span>
+      <h1>Você tem 18 anos de experiência e certificações impecáveis. <span class="highlight">Então por que os recrutadores encontram seu colega menos qualificado... e não você?</span></h1>
+      <p class="subheadline">A resposta não tem nada a ver com sua competência. Tem a ver com <strong>11 campos invisíveis</strong> do seu perfil que os algoritmos de busca dos recrutadores usam para decidir quem aparece &mdash; e quem desaparece. Este ebook revela exatamente quais são e como preenchê-los em um fim de semana.</p>
+      <div class="cta-wrap">
+        <a href="#comprar" class="cta-btn">QUERO SER ENCONTRADO POR RECRUTADORES &rarr;</a>
+        <span class="cta-sub">R$ 59,90 &bull; Acessó imediato &bull; Garantia de 7 dias</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== DOR ===== -->
+  <section>
+    <div class="container">
+      <h2>Confere se alguma dessas situações é sua:</h2>
+
+      <div class="pain-card">
+        <p>Você abre o LinkedIn é ve colegas com metade da sua experiência postando que acabaram de ser contratados.</p>
+        <p>Você olha o perfil deles, olha o seu, e não entende. Você trabalhou em projetos maiores, liderou equipes maiores, resolveu problemas mais complexos. Mas eles estão recebendo propostas e você está enviando currículos que ninguém responde. Não é inveja. É uma injustiça que ninguém explica.</p>
+      </div>
+
+      <div class="pain-card">
+        <p>Você recebe aquele e-mail: "Agradecemos seu interesse, porém optamos por seguir com outros candidatos."</p>
+        <p>E tudo bem, faz parte. Mas depois é o segundo. O terceiro. O setimo. E em algum momento você para de abrir os e-mails porque já sabe o que vai encontrar. Então começa a dúvidar de tudo: do seu currículo, da sua experiência, de si mesmo.</p>
+      </div>
+
+      <div class="pain-card">
+        <p>Você atualiza seu perfil do LinkedIn num domingo a noite.</p>
+        <p>Muda a foto, reescreve o resumo, adiciona habilidades. Fica até satisfeito com o resultado. Mas na segunda, na terça, na quarta &mdash; nada muda. Nenhuma visualização nova. Nenhum contato. E você pensa: "Então nem issó resolve?"</p>
+      </div>
+
+      <div class="pain-card">
+        <p>Você ouve que precisa "criar conteúdo" é "construir marca pessoal".</p>
+        <p>Mas você é engenheiro, não influenciador. Você não quer fazer dancinha, não quer postar frase motivacional, não quer virar coach. Você só quer que as empresas certas saibam que você existe.</p>
+      </div>
+
+      <div class="pain-card">
+        <p>Você já pensou em ligar para um antigo chefe para pedir indicação.</p>
+        <p>E ficou com vergonha. Porque você deveria estar numa fase da carreira em que as oportunidades chegam até você &mdash; não numa fase em que precisa pedir favor. Mas elas não chegam. E o silêncio pesa mais a cada semana.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== VERDADE ===== -->
+  <section>
+    <div class="container">
+      <h2>A verdade que ninguém te conta sobre o LinkedIn</h2>
+
+      <div class="highlight-box">
+        <strong>O LinkedIn não mostra o seu perfil para recrutadores.</strong><br>
+        Não porque você seja ruim. Mas porque o sistema de busca funciona como um Google interno &mdash; e se você não tem as palavras que os recrutadores digitam, você simplesmente não existe.
+      </div>
+
+      <p>Pense assim: imagine que você é o <strong>melhor restaurante japones da cidade</strong>. Comida incrível. Atendimento impecável. Mas o seu nome não está no Google Maps. Ninguem digitando "restaurante japones perto de mim" vai te encontrar. Não importa quao boa é a sua comida. Se você não aparece na busca, você não existe para quem está procurando.</p>
+
+      <p>E exatamente issó que acontece com o seu perfil no LinkedIn.</p>
+
+      <p>Quando um recrutador precisa de um <strong>"Engenheiro de Protecao Senior com experiência em subestacoes 230kV"</strong>, ele abre o LinkedIn Recruiter (ferramenta que custa US$ 10.000/ano), digita palavras-chave específicas é aplica filtros cirúrgicos. O algoritmo retorna uma lista ranqueada.</p>
+
+      <p><strong>Se as palavras-chave não estão no seu perfil &mdash; nos campos certos, na densidade certa &mdash; você NÃO EXISTE para aquele recrutador.</strong></p>
+
+      <p style="color: var(--text-muted); font-size: 15px;">Ferramentas que funcionam com a mesma lógica:</p>
+
+      <div class="tools-grid">
+        <div class="tool-tag">LinkedIn Recruiter</div>
+        <div class="tool-tag">Workable</div>
+        <div class="tool-tag">Greenhouse</div>
+        <div class="tool-tag">SeekOut</div>
+        <div class="tool-tag">HireEZ</div>
+        <div class="tool-tag">X-Ray Search</div>
+      </div>
+
+      <blockquote>
+        Você otimizou seu perfil para HUMANOS lerem (bonito, narrativo, elegante). Recrutadores usam MÁQUINAS para filtrar (técnico, específico, escaneável). É como escrever uma carta linda à mão... e mandar por fax para alguém que só usa email.
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- ===== ORIGIN STORY ===== -->
+  <section>
+    <div class="container">
+      <h2>Como eu descobri isso</h2>
+
+      <p>Era uma terça-feira de manhã em Pittsburgh, e eu estava sentado no escritório da GE com o celular debaixo da mesa.</p>
+
+      <p>Não estava fazendo nada errado. Estava fazendo algo pior: <strong>procurando emprego escondido</strong>, como se fosse um crime. Eu &mdash; um engenheiro eletricista com 18 anos de experiência, que já havia comissionado subestacoes na China, coordenado projetos multimilionários no Mexico é liderado equipes em quatro países diferentes &mdash; estava ali, digitando "electrical engineer senior" na barra de busca do LinkedIn, como um recém-formado desesperado.</p>
+
+      <p>Candidatura enviada. Candidatura enviada. Candidatura enviada.</p>
+
+      <p>Treze em uma semana. Sabe quantas respostas? <strong>Zero.</strong> Nenhuma. Nem aquele e-mail automático de "Agradecemos seu interesse, mas..." Nada. Como se eu não existisse.</p>
+
+      <p>Naquela terça-feira, olhando para a tela do celular que não tinha nenhuma notificação, eu pensei algo que nunca tinha pensado antes:</p>
+
+      <div class="highlight-box">
+        <em>"Talvez o problema sou eu."</em>
+      </div>
+
+      <p>Mas eu estava errado. E você também está.</p>
+
+      <p>O problema nunca foi a minha competência. O problema era que eu era <strong>invisível</strong>.</p>
+
+      <p>Descobri isso por acidente. Um recrutador de uma empresa canadense me mandou uma mensagem &mdash; a primeira em meses &mdash; e eu tive a coragem de perguntar: "Por que você me encontrou agora e não antes?" A resposta dele mudou tudo:</p>
+
+      <blockquote>"Seu perfil apareceu porque você usou as palavras certas no título. A maioria dos engenheiros do seu nivel nem aparece nas minhas buscas."</blockquote>
+
+      <p>Naquela noite, passei quatro horas estudando como o algoritmo de busca do LinkedIn realmente funciona. Mudei meu perfil. Não foi uma reformulação bonita. Foi uma <strong>reengenharia de palavras-chave</strong> baseada em como recrutadores buscam.</p>
+
+      <p>Em 14 dias, recebi a primeira mensagem. Em 30 dias, eram sete. Em 90 dias, eu tinha recebido mais contatos de recrutadores do que nos <strong>dois anos anteriores somados</strong>.</p>
+
+      <div class="cta-wrap">
+        <a href="#comprar" class="cta-btn">QUERO TRANSFORMAR MEU LINKEDIN &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FUTURE PACING ===== -->
+  <section style="background: linear-gradient(180deg, rgba(79,124,255,0.04) 0%, transparent 100%);">
+    <div class="container">
+      <h2>Imagine daqui a 30 dias</h2>
+      <p>Você abre o LinkedIn numa terça-feira de manhã. Tem <strong>3 novas mensagens de recrutadores</strong>. Uma delas é de uma multinacional que você admirava ha anos. O cargo é exatamente o que você queria. O salário é 40% acima do que você ganha hoje.</p>
+      <p>Você não se candidatou. Não pediu indicação. Não fez nada "extra."</p>
+      <p><strong>Seu perfil fez o trabalho.</strong></p>
+      <p>Você le a mensagem, toma um café, é responde com calma &mdash; porque agora você tem opções. Você escolhe, não implora.</p>
+    </div>
+  </section>
+
+  <!-- ===== PROVA SOCIAL ===== -->
+  <section>
+    <div class="container">
+      <h2>Eu poderia te pedir para acreditar na minha palavra. Mas não preciso.</h2>
+      <p style="color: var(--text-muted);">Prints reais de mensagens de recrutadores. Sem edição, sem filtro, sem montagem.</p>
+
+      <div class="proof-grid">
+        <div class="proof-card">
+          <div class="proof-img">[Screenshot 1 — Mensagem de recrutadora]</div>
+          <div class="proof-caption">Está mensagem chegou <strong>11 dias</strong> depois que ajustei meu perfil. Recrutadora de multinacional buscando Engenheiro Senior. Eu não me candidatei. Ela me encontrou.</div>
+        </div>
+        <div class="proof-card">
+          <div class="proof-img">[Screenshot 2 — Headhunter internacional]</div>
+          <div class="proof-caption">Duas semanas depois, outro recrutador. Headhunter internacional. Ele menciona ter me encontrado <strong>pela busca</strong> &mdash; não por indicação.</div>
+        </div>
+        <div class="proof-card">
+          <div class="proof-img">[Screenshot 3 — Plataforma de recrutamento]</div>
+          <div class="proof-caption">E essas continuam chegando. Toda semana. Não porque faco posts virais. Porque meu perfil <strong>fala a lingua que recrutadores entendem</strong>.</div>
+        </div>
+      </div>
+
+      <div class="cta-wrap">
+        <a href="#comprar" class="cta-btn">EU QUERO ESSES RESULTADOS &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STACK DE VALOR ===== -->
+  <section>
+    <div class="container">
+      <h2>O que você recebe</h2>
+      <p style="color: var(--text-muted); margin-bottom: 32px;">6 capítulos completos + bonus com plano de acao</p>
+
+      <div class="stack-item">
+        <div class="stack-name">
+          <strong>Cap. 1: Fundamentos de Indexação</strong>
+          <span>Os 11 campos críticos que algoritmos escaneiam. Headline, Sobre, palavras-chave estratégicas.</span>
+        </div>
+        <div class="stack-value">R$ 97</div>
+      </div>
+
+      <div class="stack-item">
+        <div class="stack-name">
+          <strong>Cap. 2: Engenharia de Experiência</strong>
+          <span>Como reescrever cada cargo para maximizar matching com buscas de recrutadores.</span>
+        </div>
+        <div class="stack-value">R$ 97</div>
+      </div>
+
+      <div class="stack-item">
+        <div class="stack-name">
+          <strong>Cap. 3: Habilidades é Prova Social</strong>
+          <span>Sistema de recomendações é endossos que constroi credibilidade automática.</span>
+        </div>
+        <div class="stack-value">R$ 97</div>
+      </div>
+
+      <div class="stack-item">
+        <div class="stack-name">
+          <strong>Cap. 4: Conteúdo e Visibilidade</strong>
+          <span>Estratégia de 15 min/dia que ativa o score de relevância. Sem virar influencer.</span>
+        </div>
+        <div class="stack-value">R$ 97</div>
+      </div>
+
+      <div class="stack-item">
+        <div class="stack-name">
+          <strong>Cap. 5: Networking Estratégico</strong>
+          <span>A rede que abre portas. Conexões que viram indicações reais.</span>
+        </div>
+        <div class="stack-value">R$ 97</div>
+      </div>
+
+      <div class="stack-item">
+        <div class="stack-name">
+          <strong>Cap. 6: Resultados na Prática</strong>
+          <span>Casos reais, métricas antes/depois, como medir se está funcionando.</span>
+        </div>
+        <div class="stack-value">R$ 97</div>
+      </div>
+
+      <div class="stack-item" style="background: var(--gold-muted); border-radius: var(--radius); padding: 16px; margin-top: 8px;">
+        <div class="stack-name">
+          <strong style="color: var(--gold);">BONUS: Plano de Acao de 7 Dias</strong>
+          <span>Checklist dia-a-dia com tarefas de no maximo 45 minutos. Ao final da semana, perfil completamente otimizado.</span>
+        </div>
+        <div class="stack-value">R$ 147</div>
+      </div>
+
+      <div class="stack-total">
+        <span>Valor total</span>
+        <span class="old">R$ 729</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== AUTOR ===== -->
+  <section>
+    <div class="container">
+      <h2>Quem é Gustavo André Silva Pereira?</h2>
+      <div class="author-box">
+        <div class="author-avatar">GP</div>
+        <div class="author-info">
+          <h3>Gustavo Pereira</h3>
+          <ul>
+            <li>Engenheiro Eletricista, 18+ anos em projetos EPC de grande escala</li>
+            <li>GE Vernova, ABB, Hatch, Vale, SNC-Lavalin</li>
+            <li>Experiência internacional: Pittsburgh, China, Mexico, Inglaterra</li>
+            <li>Criador do Engenharia Detalhada (milhares de seguidores)</li>
+            <li>De zero mensagens para dezenas de recrutadores por semana</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRECO + GARANTIA ===== -->
+  <section id="comprar" style="background: linear-gradient(180deg, transparent, rgba(74,222,128,0.03) 50%, transparent);">
+    <div class="container">
+      <div class="price-section">
+        <div class="price-label">Seu investimento hoje</div>
+        <div class="price-value">R$ 59,90</div>
+        <div class="price-installment">ou 3x de R$ 19,97 sem juros</div>
+        <div class="price-daily">Menos de R$ 0,17 por dia para transformar sua carreira</div>
+      </div>
+
+      <div style="text-align: center; margin-bottom: 32px;">
+        <p style="color: var(--text-muted); font-size: 15px; max-width: 520px; margin: 0 auto;">Um coach de LinkedIn cobra R$ 500-2.000. Uma consultoria de currículo custa R$ 300-800. Uma única entrevista perdida pode custar R$ 10.000+ em salário anual que você deixou de ganhar.</p>
+      </div>
+
+      <div class="cta-wrap" style="margin: 32px 0;">
+        <a href="#" class="cta-btn" style="font-size: 20px; padding: 22px 56px;">QUERO SER ENCONTRADO POR RECRUTADORES &rarr;</a>
+        <span class="cta-sub">Acessó imediato apos a compra &bull; Pagamento 100% seguro</span>
+      </div>
+
+      <div class="guarantee-box">
+        <div class="guarantee-badge">&#x1f6e1; Garantia de 7 dias &mdash; Risco zero</div>
+        <p>Compre o ebook, aplique o método, e se dentro de 7 dias você sentir que não valeu cada centavo &mdash; por QUALQUER motivo &mdash; mande um email e eu devolvo <strong>100% do seu investimento</strong>. Sem perguntas. Sem burocracia.</p>
+        <p style="margin-top: 12px; font-size: 15px; color: var(--text-muted);">E vou além: <strong>mesmo que peca reembolso, pode ficar com o ebook.</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section>
+    <div class="container">
+      <h2>Perguntas frequentes</h2>
+
+      <div class="faq-item">
+        <div class="faq-q">Funciona para minha área ou só para engenharia?</div>
+        <div class="faq-a"><div class="faq-a-inner">O método funciona para qualquer profissional buscado por recrutadores via palavras-chave &mdash; engenheiros, desenvolvedores, gestores, TI, finanças, RH, marketing. A lógica de indexação é a mesma. O que muda sao as palavras-chave específicas, é o ebook ensina como descobri-las.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Já tentei otimizar meu perfil e não funcionou.</div>
+        <div class="faq-a"><div class="faq-a-inner">Provavel que você otimizou para humanos. Este ebook otimiza para algoritmos. Sao coisas completamente diferentes. E como a diferença entre decorar uma vitrine é aparecer na primeira página do Google. Os dois importam, mas se ninguém te encontra, ninguém ve a vitrine.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Não tenho tempo para ficar postando conteúdo.</div>
+        <div class="faq-a"><div class="faq-a-inner">Ótimo, porque esse não é um ebook sobre virar influencer. A estratégia de visibilidade exige 15 minutos por dia de interações estratégicas. Sem criar posts longos, sem fazer vídeos, sem dancinhas.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">R$ 59,90 é caro para um ebook.</div>
+        <div class="faq-a"><div class="faq-a-inner">Faz essa conta: se este ebook te ajudar a receber UMA oferta com salário 10% maior, num cargo de R$ 10.000/mes, você ganha R$ 1.000 a mais POR MES. R$ 59,90 seria o retorno de 1,4 horas do seu aumento. E você tem garantia de 7 dias.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Funciona para quem está desempregado?</div>
+        <div class="faq-a"><div class="faq-a-inner">Na verdade, a estratégia é ainda mais poderosa para quem está em transição. Quando você está ativo no mercado, cada dia invisível é um dia perdido. O método permite que recrutadores te encontrem enquanto você dorme.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Como sei que não é mais do mesmo conselho genérico?</div>
+        <div class="faq-a"><div class="faq-a-inner">Porque eu não ensino a decorar perfil. Eu ensino como os recrutadores TECNICAMENTE buscam candidatos usando LinkedIn Recruiter, boolean search é ATS. Você vai entender a mecânica por tras da busca é construir seu perfil como resposta a ela.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PS ===== -->
+  <section style="padding: 48px 0;">
+    <div class="container">
+      <div class="ps-section">
+        <p><strong>PS.</strong> Lembra daquele colega menos qualificado que recebe ofertas de recrutadores? Ele não é melhor que você. Ele só entendeu como aparecer nas buscas. Este ebook te dá exatamente isso. R$ 59,90, garantia de 7 dias, acesso imediato. A única coisa que pode dar errado é você não tentar.</p>
+        <p><strong>PPS.</strong> Cada dia que seu perfil continua "invisível" é um dia em que recrutadores estão encontrando &mdash; e contratando &mdash; profissionais menos qualificados que você. O método leva um fim de semana para aplicar. Daqui a 7 dias, você pode estar recebendo as primeiras mensagens... ou pode estar lendo esta página de novo, pensando <em>"eu deveria ter comprado."</em></p>
+      </div>
+
+      <div class="cta-wrap" style="margin-top: 32px;">
+        <a href="#comprar" class="cta-btn">QUERO SER ENCONTRADO &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 Engenharia Detalhada &mdash; Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- STICKY CTA MOBILE -->
+  <div class="sticky-cta" id="stickyCta">
+    <a href="#comprar" class="cta-btn">QUERO SER ENCONTRADO &rarr;</a>
+  </div>
+
+  <script>
+    // FAQ toggle
+    document.querySelectorAll('.faq-q').forEach(function(q) {
+      q.addEventListener('click', function() {
+        this.parentElement.classList.toggle('open');
+      });
+    });
+
+    // Sticky CTA on mobile (show after scrolling past hero)
+    if (window.innerWidth <= 640) {
+      var sticky = document.getElementById('stickyCta');
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 600) {
+          sticky.style.display = 'block';
+        } else {
+          sticky.style.display = 'none';
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>

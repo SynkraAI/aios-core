@@ -1,0 +1,84 @@
+# Kaizen v2 Daily Digest — 2026-04-05
+date: 2026-04-05
+capture_time: "2026-04-05T02:09:17.404Z"
+session_id: 8af68e02
+session_count: 5
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session 48fdb91c (2026-04-05T02:13:09.648Z) ---
+# Kaizen v2 Daily Digest — 2026-04-05
+date: 2026-04-05
+capture_time: "2026-04-05T02:13:09.648Z"
+session_id: 48fdb91c
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings:
+  -
+    signal: \bdescobri\b
+    snippet: "ma fecha o círculo.  ## O que descobri (resumo)  **Camada 1 — AI Headshot SaaS (Aragon, HeadshotPro, BetterPic, PhotoAI)** Têm galerias de estilos (PhotoAI tem **900+** ideias), mas são **jardins murados** — prompts lockados, temp"
+    verified: false
+agents_involved:
+  - "@pm"
+  - "@ux-design-expert"
+  - "@architect"
+
+# --- Session 8af68e02 (2026-04-05T02:30:26.169Z) ---
+# Kaizen v2 Daily Digest — 2026-04-05
+date: 2026-04-05
+capture_time: "2026-04-05T02:30:26.168Z"
+session_id: 8af68e02
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session 48fdb91c (2026-04-05T02:35:44.779Z) ---
+# Kaizen v2 Daily Digest — 2026-04-05
+date: 2026-04-05
+capture_time: "2026-04-05T02:35:44.778Z"
+session_id: 48fdb91c
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings:
+  -
+    signal: "\bimportante\b.*?:"
+    snippet: "eria/revshare depois).  **Gap importante que se mantém:** mesmo os pacotes Tier 1 são **PDFs/Notion estáticos**. Nenhum tem face upload + geração + preview. **Isso reforça a tese do seu produto** — o problema nunca foi falta de pr"
+    verified: false
+agents_involved: []
+
+# --- Session 8af68e02 (2026-04-05T02:58:56.962Z) ---
+# Kaizen v2 Daily Digest — 2026-04-05
+date: 2026-04-05
+capture_time: "2026-04-05T02:58:56.961Z"
+session_id: 8af68e02
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []

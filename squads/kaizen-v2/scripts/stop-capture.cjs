@@ -314,7 +314,6 @@ async function main() {
     // Avoid infinite loop: if hook already triggered continuation, skip
     if (stop_hook_active) {
       log('INFO', 'stop_hook_active=true, skipping to avoid loop');
-      console.log(JSON.stringify({ continue: false }));
       return;
     }
 
@@ -342,16 +341,14 @@ async function main() {
       log('INFO', `Daily saved: ${path.basename(dailyPath)}`);
     }
 
-    // Output hook result — don't request continuation
-    console.log(JSON.stringify({ continue: false }));
+    // No stdout output — avoid Claude Code interpreting it as hook control
 
   } catch (err) {
     if (!CONFIG.fail_silent) {
       console.error('Stop hook error:', err);
     }
     log('ERROR', `Uncaught error: ${err.message}`);
-    // Fail-silent: output minimal response
-    console.log(JSON.stringify({ continue: false }));
+    // Fail-silent: no output
   }
 }
 

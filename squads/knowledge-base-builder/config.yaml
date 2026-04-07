@@ -62,6 +62,7 @@ architecture:
       - id: "taxonomy-architect"
         framework: "Hierarchical Taxonomy & Ontology Design"
         description: "Designs category hierarchy, tags, and organizational structure"
+        mind_source: "squads/mind-cloning/minds/tiago-forte/outputs/mind_dna_complete.yaml"
       - id: "knowledge-linker"
         framework: "Source Traceability & Cross-Reference System"
         description: "Links every concept back to source (file, page, timestamp) and builds cross-references"

@@ -299,3 +299,13 @@ No orphan concepts. Every concept must be assigned to at least one category and 
 | Unbalanced tree | One area has much more content | Add sub-categories to large areas, merge small areas |
 | Circular categorization | Category A contains B which contains A | Detect cycles, break by choosing most logical parent |
 | Tag proliferation | Too many unique tags | Consolidate synonymous tags, enforce controlled vocabulary |
+
+---
+
+## Mind Source
+
+```yaml
+mind_source: "squads/mind-cloning/minds/tiago-forte/outputs/mind_dna_complete.yaml"
+domain_match: "PKM, PARA method, progressive summarization, knowledge organization"
+integration_note: "Tiago Forte's Building a Second Brain methodology directly informs taxonomy design, category hierarchy, and knowledge organization patterns."
+```

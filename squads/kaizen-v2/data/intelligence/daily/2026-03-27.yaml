@@ -2,7 +2,7 @@
 date: 2026-03-27
 capture_time: "2026-03-27T02:15:02.803Z"
 session_id: 47b58ce6
-session_count: 41
+session_count: 43
 providers_active:
   - "claude-sonnet-4-6"
 activity_summary: Session completed (no commits)
@@ -666,4 +666,38 @@ highlights: []
 decisions: []
 stories_touched: []
 learnings: []
+agents_involved: []
+
+# --- Session 9c74e327 (2026-03-27T22:54:26.246Z) ---
+# Kaizen v2 Daily Digest — 2026-03-27
+date: 2026-03-27
+capture_time: "2026-03-27T22:54:26.244Z"
+session_id: 9c74e327
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session 9c74e327 (2026-03-27T22:54:34.515Z) ---
+# Kaizen v2 Daily Digest — 2026-03-27
+date: 2026-03-27
+capture_time: "2026-03-27T22:54:34.514Z"
+session_id: 9c74e327
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings:
+  -
+    signal: \bresolvido\b.*?\bcom\b
+    snippet: u por causa dos .wav — já foi resolvido. O push limpo (após `filter-repo`) já foi concluído com sucesso. Está tudo no remote.
+    verified: false
 agents_involved: []

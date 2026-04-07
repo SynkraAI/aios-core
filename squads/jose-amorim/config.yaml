@@ -40,7 +40,7 @@ squad:
     knowledge_base:
       - data/knowledge-base/
     source_mind:
-      - squads/squad-creator/data/minds/jose_amorim/
+      - squads/mind-cloning/minds/jose-amorim/outputs/
 
   metadata:
     source_mind: jose_amorim
