@@ -2,20 +2,13 @@
 
 ## Objetivo
 
-Criar vídeo viral do zero com discussão colaborativa entre agentes, supervisionado por @oalanicolas e @pedro-valerio.
+Criar vídeo viral do zero com discussão colaborativa entre agentes.
 
 ## Quando Usar
 
 - Criar vídeo viral completo (greenfield)
 - Precisa de estratégia + design + implementação
 - Tempo: 3-5 dias
-
-## Supervisores (Autoridade Máxima)
-
-- 🧠 **@oalanicolas** — Mind Cloning Architect (`.claude/agents/oalanicolas.md`)
-  - Aprova/veta autenticidade, DNA Mental, curadoria de fontes
-- 🔍 **@pedro-valerio** — Process Absolutist (`.claude/agents/pedro-valerio.md`)
-  - Aprova/veta integridade de processo, quality gates, debate rules
 
 ## Agentes do Squad
 

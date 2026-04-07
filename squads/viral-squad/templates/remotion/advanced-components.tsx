@@ -1,4 +1,4 @@
-// Advanced Remotion Components - Academia Lendaria v4.1
+// Advanced Remotion Components - Design System configurado
 // Collection of viral-optimized components for Instagram Reels
 // TEMPLATE REFERENCE - Import paths assume Remotion project context
 

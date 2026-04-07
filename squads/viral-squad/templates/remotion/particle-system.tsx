@@ -40,7 +40,7 @@ interface FloatingParticlesProps {
 
 export const FloatingParticles: React.FC<FloatingParticlesProps> = ({
   count = 50,
-  color = colors.primary, // Academia Lendaria Gold
+  color = colors.primary, // Design System configurado Gold
   minSize = 2,
   maxSize = 6,
   speed = 1,
@@ -348,7 +348,7 @@ export const DustParticles: React.FC<DustParticlesProps> = ({
 // ============================================
 
 /*
-// Floating gold particles (Academia Lendária style)
+// Floating gold particles (Design System configurado style)
 <FloatingParticles
   count={40}
   color="#C9B298"

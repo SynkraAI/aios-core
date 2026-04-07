@@ -2,9 +2,9 @@ name: viral-squad
 version: 1.0.0
 short-title: "🔥 Viral Video Creators - Super Squad Elite"
 description: |
-  Squad definitivo de 28 agentes especializados em criar vídeos virais para Instagram usando Remotion.
+  Squad de 30 agentes especializados em criar vídeos virais para Instagram usando Remotion.
   Focado em viralização, engajamento e crescimento através de estratégia baseada em dados e psicologia.
-  Utiliza Design System Academia Lendária v4.1 (Minimalismo Lendário) e sistema de debate entre agentes.
+  Design system configurável (edite data/design-system.md). Sistema de debate entre agentes.
   Integração com 21st.dev MCP para criação de componentes UI de alta qualidade.
 
 author: Creators IA
@@ -28,20 +28,19 @@ objectives:
     - "Retention @3s: >75%"
     - "Crescimento: 10K-100K followers/mês"
 
-# Design System
+# Design System (configurável — edite data/design-system.md ou importe seu DS)
 design_system:
-  name: "Academia Lendária v4.1"
-  aesthetic: "Minimalismo Lendário"
-  colors:
-    background: "#000000" # ~70% da tela
-    foreground: "#FFFFFF" # ~22% da tela
-    primary: "#C9B298" # Gold - MAX 8% (SACRED RULE)
-    muted: "#A8A8A8"
-  rule: "8% Gold Rule - NUNCA exceder 8% de ouro na tela"
-  typography:
-    ui: "Inter (SemiBold 600)"
-    body: "Source Serif 4 (Regular 400)"
-  icons: "Flaticon Regular Rounded"
+  source: "data/design-system.md" # Tokens padrão editáveis
+  # Override individual tokens aqui se preferir:
+  # colors:
+  #   background: "#000000"
+  #   foreground: "#FFFFFF"
+  #   primary: "#C9B298"
+  #   muted: "#A8A8A8"
+  # typography:
+  #   ui: "Inter (SemiBold 600)"
+  #   body: "Source Serif 4 (Regular 400)"
+  accent_rule: "Cor primary NUNCA excede 8% da área visível da tela"
 
 # Regras Globais de Enforcement
 rules:
@@ -69,16 +68,13 @@ rules:
       REGRA OBRIGATORIA: Qualquer componente visual (.tsx) gerado por agentes das divisoes
       viral-design e remotion-experts DEVE obrigatoriamente:
 
-      1. IMPORTAR tokens: import { colors, typography, spacing, animation } from '@/styles/tokens'
-      2. USAR tokens para cores: colors.background, colors.foreground, colors.primary, colors.muted
-      3. USAR tokens para fontes: typography.ui, typography.body, typography.weights.*, typography.sizes.*
-      4. USAR tokens para spacing: spacing.xs/sm/md/lg/xl/xxl
-      5. USAR tokens para animacao: animation.fast/normal/slow, animation.easing.*
-      6. NUNCA hardcodar: #000000, #FFFFFF, #C9B298, "Inter", "Source Serif 4", "Space Grotesk"
-      7. VALIDAR 8% Gold Rule: colors.primary nunca excede 8% da area da tela
+      1. IMPORTAR tokens do Design System configurado (ver data/design-system.md)
+      2. USAR tokens para cores, fontes, spacing e animação
+      3. NUNCA hardcodar valores de cor, fonte ou espaçamento
+      4. VALIDAR accent rule: cor primary nunca excede 8% da área da tela
 
       ZERO EXCECOES. Se um agente gerar codigo com valores hardcoded, o output DEVE ser rejeitado.
-    token_source: "academia-lendaria-ds/src/tokens/remotion.ts"
+    token_source: "data/design-system.md"
     reference_template: "templates/remotion/ds-integrated-component.tsx"
 
   # Rule 2: Quality Gate - Checklist Obrigatoria
@@ -321,13 +317,13 @@ dependencies:
         - mcp__magic__logo_search
       description: "MCP para criar componentes UI de alta qualidade"
       integration_policy:
-        hierarchy: "Academia Lendária v4.1 = LEI | 21st.dev = FERRAMENTA"
-        rule: "21st.dev é fonte de componentes e inspiração. Academia Lendária tem prioridade ABSOLUTA."
+        hierarchy: "Design System configurado = LEI | 21st.dev = FERRAMENTA"
+        rule: "21st.dev é fonte de componentes e inspiração. O DS do projeto tem prioridade ABSOLUTA."
         mandatory_adaptation:
-          - "Cores: Substituir por paleta Academia Lendária (#000 70%, #FFF 22%, #C9B298 max 8%)"
-          - "Tipografia: Inter SemiBold 600 (UI) / Source Serif 4 Regular 400 (body)"
-          - "Icons: Flaticon Regular Rounded"
-          - "8% Gold Rule: SAGRADA - validar sempre"
+          - "Cores: Substituir por paleta do DS configurado (ver data/design-system.md)"
+          - "Tipografia: Usar fontes do DS configurado"
+          - "Icons: Usar icon set do DS configurado"
+          - "Accent rule: Cor primary nunca excede 8% da área"
           - "Mobile-first: Validar em 1080x1920"
         agents_with_access:
           - "@visual-impact - Buscar inspiração visual e pattern interrupts"

@@ -478,7 +478,7 @@ Speed:
 
 ## Design System Enforcement (Auto-Rule)
 
-> **REGRA OBRIGATORIA** (squad.yaml `rules.design_system_tokens`): Todo output visual deste agente DEVE seguir o Design System Academia Lendaria v4.1.
+> **REGRA OBRIGATORIA** (squad.yaml `rules.design_system_tokens`): Todo output visual deste agente DEVE seguir o Design System Design System configurado.
 
 ### Token Import Obrigatorio
 

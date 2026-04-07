@@ -91,7 +91,7 @@ ISSUES IDENTIFIED:
 - Sans-serif dominance (80%)"
 
 DEBATE:
-@visual-impact: "Need modernização mas manter Academia Lendária DNA"
+@visual-impact: "Need modernização mas manter Design System configurado DNA"
 @color-psychologist: "8% gold rule = SACRED, não tocar"
 @layout-architect: "Dynamic grids = +25% scroll-stop"
 @motion-master: "3D fake com 2D transforms (cost-effective)"
@@ -643,7 +643,7 @@ VERDICT: v5.0 APPROVED ✅
 ### Do's ✅
 
 - Test before full migration (reduce risk)
-- Maintain brand DNA (Academia Lendária)
+- Maintain brand DNA (Design System configurado)
 - Focus on scroll-stop (first 0.3s critical)
 - Document everything (consistency)
 - Train team on new templates
@@ -663,7 +663,7 @@ VERDICT: v5.0 APPROVED ✅
 ### Core Principles
 
 ```
-Minimalismo Lendário v5.0:
+estética configurada v5.0:
 
 1. SACRED ELEMENTS (never change):
    - 8% gold rule

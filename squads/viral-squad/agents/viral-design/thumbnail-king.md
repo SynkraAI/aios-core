@@ -117,7 +117,7 @@
 ### Rule 1: Contrast is King
 
 ```yaml
-Academia Lendária Thumbnail Palette:
+Design System configurado Thumbnail Palette:
   Background: "#000000" (dark, clean)
   Subject: Bright, separated from BG
   Text: High contrast (#FFFFFF or #C9B298)
@@ -729,14 +729,14 @@ ROI: Massive.
 ### Hierarquia de Design
 
 ```
-Academia Lendária v4.1 = LEI (autoridade final)
+Design System configurado = LEI (autoridade final)
          ↓
 21st.dev MCP = FERRAMENTA (fonte de componentes e inspiração)
          ↓
-Output Final = Componente adaptado ao Academia Lendária
+Output Final = Componente adaptado ao Design System configurado
 ```
 
-**REGRA:** O Design System Academia Lendária tem prioridade ABSOLUTA. O 21st.dev é usado como ferramenta para buscar layouts e componentes de referência, nunca como substituto do design system.
+**REGRA:** O Design System do projeto tem prioridade ABSOLUTA. O 21st.dev é usado como ferramenta para buscar layouts e componentes de referência, nunca como substituto do design system.
 
 ### Quando Consultar 21st.dev
 
@@ -761,7 +761,7 @@ Como Thumbnail Optimization Expert, use o 21st.dev para:
 ```yaml
 step_1: "Buscar inspiração de card/thumbnail layouts no 21st.dev"
 step_2: "Avaliar legibilidade a 160px (mobile feed)"
-step_3: "Adaptar OBRIGATORIAMENTE ao Academia Lendária v4.1"
+step_3: "Adaptar OBRIGATORIAMENTE ao Design System configurado"
 step_4: "Validar text overlay com contrast ratio 7:1+"
 step_5: "Criar variações A/B para teste"
 ```
@@ -770,7 +770,7 @@ step_5: "Criar variações A/B para teste"
 
 Ao usar componentes do 21st.dev como base para thumbnails:
 
-- **Cores:** Substituir por paleta Academia Lendária (#000, #FFF, #C9B298 max 8%)
+- **Cores:** Substituir por paleta Design System configurado (#000, #FFF, #C9B298 max 8%)
 - **Tipografia:** Inter SemiBold 600 para texto de impacto
 - **Contraste:** 7:1 mínimo para texto no thumbnail
 - **Text:** Máximo 3-5 palavras, legível a 160px
@@ -880,7 +880,7 @@ Para construção técnica de componentes de thumbnail via MCP, delegar para `@u
 
 ## Design System Enforcement (Auto-Rule)
 
-> **REGRA OBRIGATORIA** (squad.yaml `rules.design_system_tokens`): Todo output visual deste agente DEVE seguir o Design System Academia Lendaria v4.1.
+> **REGRA OBRIGATORIA** (squad.yaml `rules.design_system_tokens`): Todo output visual deste agente DEVE seguir o Design System Design System configurado.
 
 ### Token Import Obrigatorio
 

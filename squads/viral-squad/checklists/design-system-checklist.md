@@ -1,6 +1,6 @@
 # Design System Compliance Checklist
 
-## Academia Lendaria v4.1 - Minimalismo Lendario
+## Design System configurado - Minimalismo Lendario
 
 Checklist obrigatoria para validar componentes Remotion contra o Design System.
 Usar ANTES de cada merge/commit de componente visual.

@@ -9,7 +9,7 @@ Squad definitivo de 30 agentes especializados em criar vídeos virais para Insta
 
 **Integração:** 21st.dev MCP para componentes UI profissionais
 
-**Design System:** Academia Lendária v4.1 (Minimalismo Lendário)
+**Design System:** Configurável (edite `data/design-system.md`)
 
 **Supervisão:** @oalanicolas + @pedro-valerio (agentes externos com autoridade máxima)
 
@@ -53,7 +53,7 @@ Use este squad quando precisar:
 - Implementar hooks que param o scroll
 - Analisar performance e métricas de engajamento
 - Crescer de forma exponencial através de vídeo
-- Aplicar Design System Academia Lendária
+- Aplicar Design System configurado
 - Sistema de debate entre agentes para melhor resultado
 
 ---
@@ -229,9 +229,9 @@ PROPOSTA → DEBATE → VOTAÇÃO PONDERADA → CONSENSO
 
 ---
 
-## 🎨 Design System Academia Lendária v4.1
+## 🎨 Design System
 
-### Minimalismo Lendário
+### Tokens Padrão (configuráveis em `data/design-system.md`)
 
 ```yaml
 Colors:

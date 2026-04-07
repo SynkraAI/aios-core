@@ -698,14 +698,14 @@ Let me provide a "professional motion kit" for this project.
 ### Hierarquia de Design
 
 ```
-Academia Lendária v4.1 = LEI (autoridade final)
+Design System configurado = LEI (autoridade final)
          ↓
 21st.dev MCP = FERRAMENTA (fonte de componentes e inspiração)
          ↓
-Output Final = Componente adaptado ao Academia Lendária
+Output Final = Componente adaptado ao Design System configurado
 ```
 
-**REGRA:** O Design System Academia Lendária tem prioridade ABSOLUTA. O 21st.dev é usado como ferramenta para acelerar criação e buscar inspiração, nunca como substituto do design system.
+**REGRA:** O Design System do projeto tem prioridade ABSOLUTA. O 21st.dev é usado como ferramenta para acelerar criação e buscar inspiração, nunca como substituto do design system.
 
 ### Quando Consultar 21st.dev
 
@@ -730,7 +730,7 @@ Como Motion Design Specialist, use o 21st.dev para:
 ```yaml
 step_1: "Buscar inspiração de motion no 21st.dev (component_inspiration)"
 step_2: "Avaliar timing, easing e padrão de animação"
-step_3: "Adaptar OBRIGATORIAMENTE ao Academia Lendária v4.1"
+step_3: "Adaptar OBRIGATORIAMENTE ao Design System configurado"
 step_4: "Converter para Remotion (spring, interpolate, useCurrentFrame)"
 step_5: "Validar 60fps e performance mobile"
 ```
@@ -739,7 +739,7 @@ step_5: "Validar 60fps e performance mobile"
 
 Ao usar componentes animados do 21st.dev, SEMPRE aplicar:
 
-- **Cores:** Substituir por paleta Academia Lendária (#000, #FFF, #C9B298 max 8%)
+- **Cores:** Substituir por paleta Design System configurado (#000, #FFF, #C9B298 max 8%)
 - **Tipografia:** Inter SemiBold 600 / Source Serif 4 Regular 400
 - **Easing:** Converter CSS transitions para Remotion spring() ou interpolate()
 - **Performance:** Garantir 60fps - usar transform/opacity, evitar layout triggers
@@ -849,7 +849,7 @@ Para criação técnica de componentes via MCP, delegar para `@ui-magic`. O @mot
 
 ## Design System Enforcement (Auto-Rule)
 
-> **REGRA OBRIGATORIA** (squad.yaml `rules.design_system_tokens`): Todo output visual deste agente DEVE seguir o Design System Academia Lendaria v4.1.
+> **REGRA OBRIGATORIA** (squad.yaml `rules.design_system_tokens`): Todo output visual deste agente DEVE seguir o Design System Design System configurado.
 
 ### Token Import Obrigatorio
 

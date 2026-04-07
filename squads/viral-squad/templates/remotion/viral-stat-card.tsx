@@ -1,7 +1,7 @@
 /**
  * ViralStatCard - Componente Remotion
  * Adaptado do 21st.dev para videos virais
- * Design System: Academia Lendaria v4.1
+ * Design System: Design System configurado
  *
  * TEMPLATE REFERENCE - Import paths assume Remotion project context
  *

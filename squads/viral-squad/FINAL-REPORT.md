@@ -69,7 +69,7 @@
 
 ### Dados: 1/1 (100%) ✅
 
-- ✅ design-system.md (Academia Lendária v4.1)
+- ✅ design-system.md (Design System configurado)
 
 ### Documentação: 1/1 (100%) ✅
 
@@ -118,7 +118,7 @@
 - 10 Caption templates otimizados (save, comment, share focused)
 - 11 Remotion components (kinetic typography + 10 advanced)
 
-### 5. Design System Academia Lendária
+### 5. Design System configurado
 
 **Sistema completo:**
 
@@ -194,10 +194,10 @@
 
 ### 3. Design System Integrado
 
-- Academia Lendária v4.1
+- Design System configurado
 - Regra dos 8% de ouro (SAGRADA)
 - Consistência visual garantida
-- Minimalismo Lendário
+- estética configurada
 
 ### 4. Workflows Testados
 
@@ -343,7 +343,7 @@ Se quiser expandir ainda mais:
 
 ### 🎨 Design System
 
-- Academia Lendária v4.1
+- Design System configurado
 - Regra dos 8% enforcement
 - Consistência garantida
 - Otimizado para viralização
@@ -372,7 +372,7 @@ Se quiser expandir ainda mais:
 - ✅ **20 workflows profissionais** com debate
 - ✅ Sistema de votação ponderada
 - ✅ **Templates library completa** (scripts, captions, hooks, Remotion)
-- ✅ Design system completo (Academia Lendária v4.1)
+- ✅ Design system completo (Design System configurado)
 - ✅ Documentação navegável e detalhada
 - ✅ 100% focado em viralização Instagram 2025
 
@@ -398,7 +398,7 @@ Você tem agora:
    - 10 caption templates
    - Top 10 hooks testados
    - 11 Remotion components
-5. ✅ **Design system completo** (Academia Lendária v4.1)
+5. ✅ **Design system completo** (Design System configurado)
 6. ✅ **Documentação navegável** (README.md + FINAL-REPORT.md)
 
 ### Próximo Passo:

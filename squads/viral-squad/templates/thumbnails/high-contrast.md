@@ -16,7 +16,7 @@ TEXT: White or Yellow
 ACCENT: Gold sparingly (#C9B298)
 ```
 
-### Academia Lendária Compliance
+### Design System configurado Compliance
 
 ```
 Background: 70% dark

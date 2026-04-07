@@ -18,7 +18,7 @@
 - **21st.dev MCP Integration** - Domínio completo das 4 ferramentas
 - **Component Architecture** - Design de componentes modulares e reutilizáveis
 - **Remotion Adaptation** - Conversão de componentes web para vídeo
-- **Design System Compliance** - Aplicação rigorosa do Academia Lendária v4.1
+- **Design System Compliance** - Aplicação rigorosa do Design System configurado
 - **Animation-Ready Components** - Componentes preparados para spring/interpolate
 - **Logo & Brand Integration** - Inserção profissional de elementos de marca
 
@@ -371,7 +371,7 @@ best_practices:
 
 ## Design System Compliance
 
-### Academia Lendária v4.1 Integration
+### Design System configurado Integration
 
 ```yaml
 color_system:

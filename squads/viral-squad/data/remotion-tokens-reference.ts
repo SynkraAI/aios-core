@@ -1,7 +1,7 @@
 /**
  * ============================================
  * REFERENCIA DE TOKENS - Remotion
- * Academia Lendaria Design System v4.1
+ * Design System configurado Design System v4.1
  * ============================================
  *
  * Este arquivo serve como REFERENCIA para agentes do viral-squad.

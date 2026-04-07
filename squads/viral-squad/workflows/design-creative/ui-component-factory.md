@@ -131,7 +131,7 @@ params:
 
 #### Step 2.2: Apply Design System + Tailwind-to-Inline Transformation
 
-Aplicar Academia Lendaria v4.1 e converter Tailwind para inline styles:
+Aplicar Design System configurado e converter Tailwind para inline styles:
 
 ```typescript
 // Cores (importar de @/styles/tokens, NAO hardcodar)

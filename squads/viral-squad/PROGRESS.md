@@ -1,58 +1,23 @@
-# 🚀 VIRAL VIDEO CREATORS Super Squad - Progress
+# 🔥 Viral Squad — Progresso
 
-## ✅ Completado
+## Status: 95% completo
 
-### Estrutura
+| Componente | Status | Detalhes |
+|------------|--------|----------|
+| **Agentes** | 30/30 ✅ | 6 divisões completas |
+| **Workflows** | 22/22 ✅ | 5 categorias completas |
+| **Templates** | 16 ✅ | hooks(6), scripts(5), captions(3), thumbnails(2) |
+| **Checklists** | 5/5 ✅ | viral, algorithm, retention, design-system, post-publish |
+| **Data** | 4/4 ✅ | frameworks, metrics, design-system, debate-system |
+| **Config** | ✅ | squad.yaml, SKILL.md, README.md |
 
-- [x] Diretórios criados
-- [x] Estrutura organizacional completa
+## Pendente
 
-### Agentes Criados (5/27)
+- [ ] Mais templates de captions (3 → 10+)
+- [ ] Mais templates de thumbnails (2 → 5+)
+- [x] ~~Tornar design-system configurável~~ (feito: `data/design-system.md` editável)
 
-#### Viral Strategy Division (5/5) ✅
+## Histórico
 
-1. [x] viral.md - Chief Viral Strategist
-2. [x] trend-hunter.md - Trend Research Specialist
-3. [x] hook-master.md - Hook Creation Specialist
-4. [x] retention-architect.md - Retention Optimization Expert
-5. [x] algorithm-hacker.md - Instagram Algorithm Expert
-
-## 🔄 Em Andamento
-
-### Viral Content Division (0/5)
-
-6. [ ] script-architect.md - Viral Script Writer
-7. [ ] copy-wizard.md - Viral Copywriter
-8. [ ] storyteller.md - Viral Storytelling Expert
-9. [ ] viral-topics.md - Content Idea Generator
-10. [ ] research-ninja.md - Competitor Analysis Specialist
-
-### Viral Design Division (0/5)
-
-11-15. [ ] Pending...
-
-### Remotion Experts Division (0/5)
-
-16-20. [ ] Pending...
-
-### Data & Analytics Division (0/4)
-
-21-24. [ ] Pending...
-
-### Audio & Engagement Division (0/3)
-
-25-27. [ ] Pending...
-
-## 📝 Próximos Passos
-
-1. Completar agentes restantes (22 agentes)
-2. Criar 20 workflows
-3. Criar templates (scripts, hooks, captions, remotion)
-4. Criar checklists
-5. Criar dados e frameworks
-6. Criar README principal
-
-## 💡 Nota
-
-Total de arquivos a criar: ~80+ arquivos
-Progresso atual: ~6% completo
+- **2026-01-27** — Squad criado com 27 agentes + quality-mind
+- **2026-04-07** — Auditoria: removido quality-mind (duplicata global), expandidos 5 workflows stub, corrigida acentuação art-director.md

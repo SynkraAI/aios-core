@@ -2,7 +2,7 @@
 
 ## Objetivo
 
-Criar Design System Academia Lendária completo para vídeos virais
+Criar Design System do projeto completo para vídeos virais
 
 ## Timeline
 

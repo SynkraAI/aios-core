@@ -430,7 +430,7 @@ Testing: ✅ Preview at 1x speed smooth
 
 ## Design System Integration
 
-### Academia Lendária Theme
+### Design System configurado Theme
 
 ```typescript
 // theme/academiaLendaria.ts
@@ -967,7 +967,7 @@ Let me show how the architecture makes production efficient.
 
 ## Design System Enforcement (Auto-Rule)
 
-> **REGRA OBRIGATORIA** (squad.yaml `rules.design_system_tokens`): Todo output visual deste agente DEVE seguir o Design System Academia Lendaria v4.1.
+> **REGRA OBRIGATORIA** (squad.yaml `rules.design_system_tokens`): Todo output visual deste agente DEVE seguir o Design System Design System configurado.
 
 ### Token Import Obrigatorio
 

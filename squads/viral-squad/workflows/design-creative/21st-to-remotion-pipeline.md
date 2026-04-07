@@ -1,6 +1,6 @@
 # Pipeline: 21st.dev -> Design System -> Remotion
 
-Guia completo do pipeline de conversao de componentes UI do 21st.dev MCP para componentes Remotion prontos para video, passando pelo Design System Academia Lendaria.
+Guia completo do pipeline de conversao de componentes UI do 21st.dev MCP para componentes Remotion prontos para video, passando pelo Design System Design System configurado.
 
 ## Metadata
 
@@ -38,7 +38,7 @@ O 21st.dev gera componentes React com **Tailwind CSS** e animacoes CSS padrao. E
 
 **Problema:** Remotion NAO processa Tailwind. Classes CSS sao ignoradas na renderizacao de video.
 
-### Mundo 2: Academia Lendaria Design System (Design Tokens)
+### Mundo 2: Design System configurado Design System (Design Tokens)
 
 O Design System "Minimalismo Lendario" v4.1 define os tokens visuais da marca. E a **ponte** entre o mundo web e o mundo video.
 
@@ -68,7 +68,7 @@ Remotion renderiza video frame a frame em React. Todo estilo DEVE ser **inline**
 ### Diagrama do Fluxo
 
 ```
-21st.dev MCP                Academia Lendaria DS           Remotion
+21st.dev MCP                Design System configurado DS           Remotion
 -----------                ------------------              -------
 className="bg-black"   --> colors.background (#000000) --> style={{ backgroundColor: '#000000' }}
 className="text-7xl"   --> typography.sizes.headline    --> style={{ fontSize: 72 }}

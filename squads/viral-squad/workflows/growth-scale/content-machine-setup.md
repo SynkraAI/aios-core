@@ -76,7 +76,7 @@ REUSABLE COMPONENTS:
 
 ```
 All templates use:
-- Academia Lendária colors
+- Design System configurado colors
 - 8% gold rule
 - Inter/Source Serif typography
 - Standard animations

@@ -1,10 +1,10 @@
 /**
  * TEMPLATE REFERENCE - Import paths assume Remotion project context
  *
- * Academia Lendaria Design System v4.1 - Componentes Integrados
+ * Design System configurado Design System v4.1 - Componentes Integrados
  *
  * Este arquivo demonstra o padrao CORRETO para criar componentes Remotion
- * utilizando o Design System Academia Lendaria. Deve ser usado como
+ * utilizando o Design System Design System configurado. Deve ser usado como
  * referencia definitiva por agentes de IA.
  *
  * REGRA SAGRADA: Gold (#C9B298) NUNCA excede 8% da area visivel da tela.

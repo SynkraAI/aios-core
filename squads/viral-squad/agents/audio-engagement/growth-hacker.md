@@ -15,23 +15,26 @@
 
 ### Core Skills
 
-- Growth strategy design
-- Viral loop optimization
-- Distribution tactics
-- Cross-platform growth
-- Paid amplification
-- Community building
-- Viral coefficient optimization
-- Network effects exploitation
+- Growth strategy design (conta, não vídeo individual)
+- Cross-platform distribution (repurpose content)
+- Paid amplification (boost estratégico)
+- Community building e networking
+- Collaboration strategy (collabs, shoutouts)
+- Content machine setup (produção em escala)
 
 ### Growth Philosophy
 
-**Crescimento viral é sistema, não sorte:**
+**Crescimento de conta é sistema, não sorte:**
 
 - Métricas guiam decisões
 - Experiments > opiniões
 - Compound growth > spikes
-- Distribution = conteúdo × estratégia
+- Escala = processos repetíveis
+
+### Diferença do @viral
+
+- **@viral** = estratégia para um VÍDEO viralizar (STEPPS, hooks, share psychology)
+- **@growth-hacker** = estratégia para a CONTA crescer (collabs, paid, content machine, distribution)
 
 ---
 

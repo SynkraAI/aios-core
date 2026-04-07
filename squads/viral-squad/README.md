@@ -2,7 +2,7 @@
 
 Squad definitivo de 30 agentes especializados em criar vídeos virais para Instagram usando Remotion.
 
-**Design System:** Academia Lendária v4.1 (Minimalismo Lendário)
+**Design System:** Configurável (edite `data/design-system.md`)
 
 ---
 
@@ -103,13 +103,12 @@ Output: Vídeo com +20-30% retenção
 26. **@engagement-engineer** - Engagement Optimization Expert
 27. **@growth-hacker** - Viral Growth Specialist
 
-### 🧠 Quality & Mind Division (2 agentes)
+### 🧠 Supervisores Externos (referenciados, não locais)
 
-28. **@oalanicolas** - Mind Cloning Architect (DNA Mental)
-    - Comandos: `*extract-creator-dna`, `*clone-viral-voice`, `*viral-creator-analysis`, `*curate-sources`
+- **@oalanicolas** — Mind Cloning Architect — `squads/mind-cloning/minds/oalanicolas/`
+- **@pedro-valerio** — Process Absolutist — `.claude/agents/pedro-valerio.md`
 
-29. **@pedro-valerio** - Process Absolutist (Workflow Guardian)
-    - Comandos: `*audit-workflow`, `*audit-debate`, `*validate-quality-gate`, `*process-health-check`
+> Supervisores do sistema de debate. Não são agentes locais do squad — são referências globais do ecossistema AIOS.
 
 ---
 
@@ -235,9 +234,9 @@ CONSENSO: ✅ Hook 1 aprovado
 
 ---
 
-## 🎨 Design System Academia Lendária v4.1
+## 🎨 Design System
 
-### Minimalismo Lendário
+### Tokens Padrão (configuráveis em `data/design-system.md`)
 
 **Colors:**
 
@@ -321,18 +320,17 @@ Flaticon Regular Rounded
 
 ```
 .aios-core/viral-squad/
-├── agents/                 # 28 agentes especializados
+├── agents/                 # 30 agentes especializados
 │   ├── viral-strategy/    # 5 agentes
 │   ├── viral-content/     # 5 agentes
-│   ├── viral-design/      # 5 agentes
-│   ├── remotion-experts/  # 5 agentes
+│   ├── viral-design/      # 7 agentes
+│   ├── remotion-experts/  # 6 agentes
 │   ├── data-analytics/    # 4 agentes
-│   ├── audio-engagement/  # 3 agentes
-│   └── quality-mind/      # 2 agentes (@oalanicolas + @pedro-valerio)
-├── workflows/             # 20 workflows
+│   └── audio-engagement/  # 3 agentes
+├── workflows/             # 22 workflows
 │   ├── viral-creation/    # 6 workflows
 │   ├── optimization/      # 5 workflows
-│   ├── design-creative/   # 4 workflows
+│   ├── design-creative/   # 6 workflows
 │   ├── growth-scale/      # 3 workflows
 │   └── research-innovation/ # 2 workflows
 ├── templates/             # Templates prontos
@@ -497,7 +495,7 @@ Ver `workflows/viral-creation/viral-factory.md` para workflow completo com siste
 - **20 Workflows Profissionais**
 - **80+ Templates Prontos**
 - **Sistema de Debate Integrado**
-- **Design System Academia Lendária**
+- **Design System configurado**
 - **100% Focado em Viralização**
 
 ---
@@ -515,8 +513,7 @@ Com uso correto deste squad:
 
 ## 📝 Licença & Uso
 
-Este squad foi criado para a **Academia Lendária**.
-Design System: **Minimalismo Lendário v4.1**
+Design System configurável — edite `data/design-system.md` para usar seus tokens.
 
 ---
 

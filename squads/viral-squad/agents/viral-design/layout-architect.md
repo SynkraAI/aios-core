@@ -732,14 +732,14 @@ Let me analyze your current hierarchy quantitatively.
 ### Hierarquia de Design
 
 ```
-Academia Lendária v4.1 = LEI (autoridade final)
+Design System configurado = LEI (autoridade final)
          ↓
 21st.dev MCP = FERRAMENTA (fonte de componentes e inspiração)
          ↓
-Output Final = Componente adaptado ao Academia Lendária
+Output Final = Componente adaptado ao Design System configurado
 ```
 
-**REGRA:** O Design System Academia Lendária tem prioridade ABSOLUTA. O 21st.dev é usado como ferramenta para buscar padrões de layout e composição, nunca como substituto do design system.
+**REGRA:** O Design System do projeto tem prioridade ABSOLUTA. O 21st.dev é usado como ferramenta para buscar padrões de layout e composição, nunca como substituto do design system.
 
 ### Quando Consultar 21st.dev
 
@@ -763,7 +763,7 @@ Como Composition Expert, use o 21st.dev para:
 ```yaml
 step_1: "Buscar inspiração de layout/composição no 21st.dev"
 step_2: "Avaliar hierarquia visual e eye flow"
-step_3: "Adaptar OBRIGATORIAMENTE ao Academia Lendária v4.1"
+step_3: "Adaptar OBRIGATORIAMENTE ao Design System configurado"
 step_4: "Validar safe zones (9:16 mobile)"
 step_5: "Testar text sizes e touch targets"
 ```
@@ -772,7 +772,7 @@ step_5: "Testar text sizes e touch targets"
 
 Ao usar componentes do 21st.dev como referência de layout:
 
-- **Cores:** Mapear para paleta Academia Lendária (#000 70%, #FFF 22%, #C9B298 max 8%)
+- **Cores:** Mapear para paleta Design System configurado (#000 70%, #FFF 22%, #C9B298 max 8%)
 - **Tipografia:** Inter SemiBold 600 (UI) / Source Serif 4 Regular 400 (body)
 - **Grid:** Adaptar para 1080x1920 (Reels) com safe zones
 - **Spacing:** Respeitar thumb zone e safe areas do Instagram
@@ -882,7 +882,7 @@ Para criação técnica de componentes de layout via MCP, delegar para `@ui-magi
 
 ## Design System Enforcement (Auto-Rule)
 
-> **REGRA OBRIGATORIA** (squad.yaml `rules.design_system_tokens`): Todo output visual deste agente DEVE seguir o Design System Academia Lendaria v4.1.
+> **REGRA OBRIGATORIA** (squad.yaml `rules.design_system_tokens`): Todo output visual deste agente DEVE seguir o Design System Design System configurado.
 
 ### Token Import Obrigatorio
 

@@ -1,111 +1,120 @@
-# 🎨 Academia Lendária Design System v4.1
+# 🎨 Design System — Viral Squad
 
-## Minimalismo Lendário
+## Configuração
+
+O squad aceita qualquer design system. Defina os tokens abaixo ou importe de um DS existente.
+
+### Como usar
+
+**Opção 1: DS customizado** — edite os tokens abaixo diretamente.
+
+**Opção 2: DS existente** — referencie no `squad.yaml`:
+
+```yaml
+design_system:
+  source: "path/to/your-ds/tokens.ts"  # ou tokens.json
+```
+
+Se nenhum DS for configurado, os tokens padrão abaixo serão usados.
+
+---
+
+## Tokens Padrão (editáveis)
 
 ### Color Palette
 
+```yaml
+colors:
+  background: "#000000"    # Cor dominante (~70% da tela)
+  foreground: "#FFFFFF"    # Texto principal (~22% da tela)
+  primary: "#C9B298"       # Cor de destaque (MAX 8% da tela)
+  muted: "#A8A8A8"         # Textos secundários
 ```
-Background: #000000 (~70% da tela)
-Foreground: #FFFFFF (~22% da tela)
-Primary (Gold): #C9B298 (MAX 8% da tela) ⚠️
-Muted: #A8A8A8 (subtextos)
-```
 
-### 8% Gold Rule (SACRED)
+### Accent Rule
 
-**CRÍTICO:** Ouro usado em >8% = perde impacto
+**Regra:** A cor `primary` (accent) NUNCA deve exceder **8% da área visível da tela**.
 
-**Use ONLY para:**
+Accent em excesso perde impacto — é como grifar uma página inteira: se tudo é destaque, nada é destaque.
 
+**Use accent para:**
 - CTAs principais
-- Key highlights
-- Important numbers
-- Accent borders
+- Key highlights e números importantes
+- Accent borders e separadores
 
-**NEVER para:**
-
+**Nunca para:**
 - Backgrounds grandes
 - Body text
 - Decoração excessiva
 
 ### Typography
 
-```
-UI/Títulos: Inter SemiBold 600
-Corpo: Source Serif 4 Regular 400
-
-Sizes (Mobile 1080x1920):
-Hero: 72-96px
-Title: 48-64px
-Body: 32-40px
-Caption: 24-28px
+```yaml
+typography:
+  ui: "Inter"               # Títulos e UI elements
+  ui_weight: 600             # SemiBold
+  body: "Source Serif 4"     # Corpo de texto
+  body_weight: 400           # Regular
+  sizes:                     # Mobile 1080x1920
+    hero: "72-96px"
+    title: "48-64px"
+    body: "32-40px"
+    caption: "24-28px"
 ```
 
 ### Icons
 
-**Style:** Flaticon Regular Rounded
-**Color:** White primary, Gold accents
-**Size:** 48-64px standard
+```yaml
+icons:
+  style: "Flaticon Regular Rounded"  # ou qualquer icon set
+  color: "foreground"                 # Herda do token
+  accent_color: "primary"             # Para ícones de destaque
+  size: "48-64px"
+```
 
 ### Layout Grid
 
-```
-Safe zones:
-Top: 0-200px (avoid UI)
-Content: 200-1720px
-Bottom: 1720-1920px (avoid UI)
-
-Margins: 40px sides
-Padding: 8px base unit
-```
-
-### Formats
-
-```
-Instagram Reels: 1080x1920, 15-90s
-Instagram Feed: 1080x1080, 3-60s
-Instagram Stories: 1080x1920, até 15s
+```yaml
+layout:
+  format: "1080x1920"        # Instagram Reels/Stories
+  safe_zones:
+    top: "0-200px"            # Evitar (UI do Instagram)
+    content: "200-1720px"     # Área segura
+    bottom: "1720-1920px"     # Evitar (UI do Instagram)
+  margins: "40px"
+  base_unit: "8px"            # Espaçamento múltiplo de 8
 ```
 
 ---
 
-## Token Import Pattern (Remotion)
+## Para Agentes Visuais
 
-```typescript
-// SEMPRE importar tokens - NUNCA hardcodar valores
-import { colors, typography, spacing, animation } from '@/styles/tokens';
+Todos os agentes das divisões `viral-design` e `remotion-experts` DEVEM:
 
-// Usar assim:
-style={{
-  backgroundColor: colors.background,
-  color: colors.foreground,
-  fontFamily: typography.ui,
-  fontSize: typography.sizes.title,
-  padding: spacing.xl,
-}}
+1. **Importar tokens** — nunca hardcodar valores de cor, fonte ou espaçamento
+2. **Respeitar a accent rule** — validar que a cor de destaque não excede 8%
+3. **Usar o grid** — respeitar safe zones e base unit
+4. **Validar mobile** — todo output deve funcionar em 1080x1920
 
-// Para animacoes spring:
-const scale = spring({
-  frame: frame - delay,
-  fps,
-  config: animation.easing.smooth,
-});
-```
-
-## Bridge Architecture
+### Checklist Rápido
 
 ```
-academia-lendaria-ds/src/tokens/remotion.ts   <-- FONTE DE VERDADE
-        |
-        v
-viral-automacao-video/src/styles/tokens.ts     <-- Re-export
-        |
-        v
-Todos os componentes Remotion                  <-- import { colors, ... } from '@/styles/tokens'
+DS Compliance: PASS/FAIL
+Token Import: YES/NO
+Hardcoded Values: 0
+Accent Usage: X.XX% (< 8%)
+Safe Zones: Respected
 ```
-
-**Referencia completa de tokens:** `data/remotion-tokens-reference.ts`
 
 ---
 
-**Este design system é otimizado para viralização no Instagram.**
+## Migração de DS Existente
+
+Se você já tem um design system (ex: Tailwind config, Figma tokens, Style Dictionary):
+
+1. Extraia os tokens (cores, fonts, spacing)
+2. Substitua os valores acima
+3. Atualize o `squad.yaml` com o path do source
+4. Os agentes automaticamente usarão os novos tokens
+
+Ferramentas úteis: `/design-system-extractor` (skill AIOS)
