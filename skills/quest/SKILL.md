@@ -52,32 +52,77 @@ The user has been here before. Show a quick status and the next mission. This sh
 1. Read `.aios/quest-log.yaml`
 2. **Auto-Reconciliation (MANDATORY — runs EVERY resumption, silently)**
    Reconcile Quest state with Forge state before showing anything to the user.
+   
+   **Reference:** The canonical phase-to-items mapping is in `engine/forge-bridge.md §11`.
+   
    ```
    1. Glob ".aios/forge-runs/*/state.json"
+      If no files found → skip reconciliation entirely.
+
    2. For each state.json found:
       a. Read state.json
-      b. Check if run belongs to current pack (match pack id or workflow)
-      c. For each phase marked "completed" in state.json:
-         - Identify which quest-log items map to that phase
-           (use Quest Integration table from the workflow, or infer from phase number)
-         - For each mapped item:
-           - If quest-log already has item as "done" → skip (already synced)
-           - If quest-log has item as "pending" or "detected" → reconcile it directly:
-             set items[{id}].status = "done"
-             set items[{id}].completed_at = <current datetime ISO 8601 UTC>
-             set items[{id}].checked_by = "forge"
-             (remove detected_at if present)
-             Do NOT call `check` from checklist.md §4 — that path enforces
-             `is_phase_unlocked()` which triggers the interactive Integration Gate.
-             Reconciliation trusts Forge's persisted completion state directly.
-      d. Log reconciliation: "{N} items synced from Forge run {run_id}"
-   3. If any items were synced, recalculate stats (XP, level) before proceeding
+      b. Match to current pack:
+         - If state.mode == "FULL_APP" or "SINGLE_FEATURE" → pack "app-development"
+         - If state.mode == "DESIGN_SYSTEM" → pack "design-system-forge"
+         - If pack doesn't match quest-log meta.pack → skip this run
+      c. Match to current project:
+         - state.project.path must match quest-log meta.project_path
+           OR basename(state.project.path) == basename(meta.project_path)
+         - If no match → skip this run
+
+   3. Load phase-to-items mapping:
+      - Read `forge_phase_map` from the pack YAML (SINGLE SOURCE OF TRUTH)
+      - If pack has no `forge_phase_map` → skip reconciliation for this pack
+        (do NOT use hardcoded fallbacks — that creates drift)
+
+   4. For each phase in state.phases:
+      IF phase.status == "completed":
+        items_to_sync = forge_phase_map[phase_number]
+        For each item_id in items_to_sync:
+          current = quest_log.items[item_id]
+
+          // GUARD: never promote conditional items that haven't been evaluated
+          IF current.condition_state == "unresolved":
+            SKIP — condition not yet evaluated, cannot auto-promote
+          IF current.condition_state == "not_applicable":
+            SKIP — user already said this item doesn't apply
+
+          IF current.status in ["pending", "detected"]
+             AND current.condition_state in [absent, "applicable"]:
+            SET items[item_id] = {
+              status: "done",
+              completed_at: phase.completed_at OR <now ISO 8601 UTC>,
+              checked_by: "forge"
+            }
+            // preserve condition_state if it was "applicable"
+            IF current.condition_state == "applicable":
+              KEEP condition_state: "applicable"
+            synced_count += 1
+
+   5. Partial Phase 3 reconciliation (Build still running):
+      IF state.phases.3.status != "completed"
+         AND state.phases.3.stories_completed > 0:
+        - Reconcile "4.1" and "4.2" if pending/detected
+        - If test files exist in project (Glob "**/*.test.*" OR "**/test_*.py"):
+          also reconcile "4.3"
+
+   6. If synced_count > 0:
+      - Recalculate stats: sum XP of all done items from pack YAML
+      - Update level based on XP thresholds from pack levels
+      - Update quest-log.yaml with new items + stats + last_updated
+      - Show ONE line: "⚡ Sincronizei {synced_count} itens do Forge run {run_id}."
+
+   7. If synced_count == 0:
+      - No output, no file write — completely silent
    ```
    **Rules:**
    - This runs SILENTLY — no output to user unless items were synced
-   - If items were synced, show ONE line: "Sincronizei {N} itens do último Forge run."
    - NEVER ask for confirmation — auto-sync is NON-NEGOTIABLE
-   - If state.json is corrupted or unreadable → skip silently, log warning
+   - If state.json is corrupted or unreadable → skip silently, do not error
+   - Reconciliation writes directly to quest-log items — do NOT call `check`
+     from checklist.md §4 (that path enforces `is_phase_unlocked()` which
+     triggers the interactive Integration Gate, breaking the silent flow)
+   - Reconciliation trusts Forge's persisted completion state directly
 3. Determine the active pack:
    - If the user passed `--pack <id>` (i.e., `args.pack` is set), route through
      `engine/scanner.md` §5 (Pack Override) and §6.5 (Post-selection Gates) to
@@ -104,7 +149,75 @@ The user has been here before. Show a quick status and the next mission. This sh
 
 Everything below is ONLY for when there is NO quest-log.yaml.
 
-### Step 0 — Silent Scan
+### Step 0 — Forge Bootstrap Check
+
+Before running the normal first invocation flow, check if Quest can bootstrap from a Forge run:
+
+```
+1. Glob(".aios/forge-runs/*/state.json")
+2. For each file, read and check:
+
+   EXPLICIT BRIDGE (preferred):
+   - state.quest_enabled == true
+   - state.quest_bootstrap exists
+   → set bootstrap.hero_name = state.quest_bootstrap.hero_name
+   → set bootstrap.project_name = state.quest_bootstrap.project_name
+   → set bootstrap.workflow = state.quest_bootstrap.workflow
+
+   PERSISTED-RUN FALLBACK (when quest_enabled was never set):
+   - state.project.path == cwd  OR  basename(state.project.path) == basename(cwd)
+   - state.mode exists AND state.project.name exists
+   → set bootstrap.hero_name = state.discovery.user_name if present, else $USER, else "Aventureiro"
+   → set bootstrap.project_name = state.project.name
+   → set bootstrap.workflow = state.mode
+   → set bootstrap_source = "forge_state_fallback"
+```
+
+**If Forge bootstrap detected, execute this fast-path:**
+
+```
+Step 0a — Map workflow to pack
+  WORKFLOW_TO_PACK = {
+    "FULL_APP": "app-development",
+    "SINGLE_FEATURE": "app-development",
+    "DESIGN_SYSTEM": "design-system-forge",
+    "LANDING_PAGE": "app-development",
+    "BUG_FIX": "app-development",
+    "SQUAD_UPGRADE": "app-development"
+  }
+  pack_id = WORKFLOW_TO_PACK[bootstrap.workflow] || "app-development"
+
+Step 0b — Load pack YAML
+  Read: skills/quest/packs/{pack_id}.yaml
+  If not found: fallback to skills/quest/packs/app-development.yaml
+  Parse phases, items, levels from the pack.
+
+Step 0c — Set hero identity
+  hero_name = bootstrap.hero_name
+  hero_title = ""  (can be set later via /quest set-title)
+
+Step 0d — Skip to Step 5 (Registry)
+  → Then Step 6 (Dashboard)
+  → Then Step 7 (Create quest-log) — see Forge variant below
+```
+
+If `bootstrap_source == "forge_state_fallback"`, show ONE line before continuing:
+`Forge já deixou estado persistido neste projeto. Inicializando Quest a partir dele.`
+
+**Step 7 — Forge Bootstrap variant:**
+
+When the origin is Forge bootstrap (not ceremony), create quest-log via `checklist.md §2` with:
+- `hero_name` and `hero_title` from Step 0c (not from ceremony)
+- Pack loaded in Step 0b
+- `project` = `bootstrap.project_name`
+- `project_path` = cwd
+- No migration check needed (new project, no legacy files)
+
+After quest-log is created, proceed to Step 8 (first mission) as normal.
+
+**If NO Forge bootstrap detected:** proceed with normal flow below (Step 0b → Step 1 → ...).
+
+### Step 0b — Silent Scan
 
 Run ALL Glob/Grep/Bash calls to gather context BEFORE outputting anything.
 

@@ -348,7 +348,72 @@ Valid values: `"user"` (default/absent), `"forge"`, `"scan"`
 
 ---
 
-## 9. Rules
+## 9. Forge-Initiated Quest Bootstrap
+
+When the user enables Quest from within `/forge` (Phase 0, Step 5.5), the Forge sets `quest_enabled: true` and `quest_bootstrap` in its `state.json`. The Quest Engine is responsible for detecting this and creating `quest-log.yaml`.
+
+### Detection: `detect_forge_quest_bootstrap()`
+
+```
+function detect_forge_quest_bootstrap():
+  // Check for active Forge runs with quest_enabled
+  runs = glob(".aios/forge-runs/*/state.json")
+  for run in runs:
+    state = read_json(run)
+    if state.quest_enabled == true AND state.status == "running":
+      if NOT exists(".aios/quest-log.yaml"):
+        return state.quest_bootstrap  // bootstrap data
+  return null
+```
+
+### Bootstrap Protocol
+
+When `detect_forge_quest_bootstrap()` returns data, the Quest Engine creates `quest-log.yaml` using the **canonical schema from checklist.md §1** — never a custom format.
+
+```
+1. Read bootstrap data from state.json:
+   - hero_name: quest_bootstrap.hero_name
+   - project_name: quest_bootstrap.project_name
+   - workflow: quest_bootstrap.workflow
+
+2. Map workflow → pack:
+   - FULL_APP → "app-development"
+   - SINGLE_FEATURE → "app-development"
+   - DESIGN_SYSTEM → "design-system-forge"
+   - Other → "app-development" (default)
+
+3. Delegate to checklist.md §2 (Create) with these inputs:
+   - hero_name from quest_bootstrap
+   - hero_title: "" (can be set later)
+   - pack: selected pack from step 2
+   - project: project_name
+   - project_path: cwd
+
+   This creates .aios/quest-log.yaml with the CANONICAL schema:
+   meta (project, project_path, pack, pack_version, hero_name, hero_title, created, last_updated),
+   stats, achievements, integration_results, items.
+
+   NEVER create quest-log.yaml with a custom/simplified schema.
+
+4. Log: "Quest inicializado via Forge bootstrap"
+```
+
+### When This Fires
+
+The forge-bridge bootstrap is triggered by the quest-sync plugin's `after:phase:*` hook. When quest-sync detects `quest_enabled` and no `quest-log.yaml` exists, it writes a note in `state.json → plugins.quest_sync.needs_bootstrap = true`. The Quest Engine checks this on its next read cycle.
+
+**Alternatively**, if the Forge run is the first interaction and Quest hasn't been invoked yet, the bootstrap happens lazily — the first time any Quest module reads the project state and finds `quest_enabled` without a `quest-log.yaml`.
+
+### Ownership Boundary (NON-NEGOTIABLE)
+
+- **Forge writes:** `state.json` → `quest_enabled`, `quest_bootstrap`, `plugins.quest_sync.*`
+- **Quest writes:** `quest-log.yaml` → hero, pack, items, XP, everything else
+- **Forge NEVER creates or modifies** `quest-log.yaml`
+- **Quest NEVER creates or modifies** `state.json` (it only reads)
+
+---
+
+## 10. Rules
 
 1. **Forge is the default executor** for any mission with an AIOS agent or squad in `who`
 2. **Never bypass Forge** for agent/squad-based missions — even if the user says "just do it", route through Forge (it handles agent dispatch correctly)
@@ -358,3 +423,66 @@ Valid values: `"user"` (default/absent), `"forge"`, `"scan"`
 6. **Auto-check on success** — when Forge completes, immediately check the item. Don't ask "Completou?" — Forge already confirmed completion.
 7. **Failure is recoverable** — always offer retry or skip
 8. **Pack workflow overrides item inference** — if `pack.forge_workflow` is set, use it for ALL forge-routed items in that pack
+9. **Forge-initiated Quest respects ownership** — when `quest_enabled` is detected, Quest creates `quest-log.yaml` (not Forge). Forge only signals intent via `state.json`.
+
+---
+
+## 11. Phase-to-Items Mapping (Reconciliation Table)
+
+This is the CANONICAL mapping used by auto-reconciliation (SKILL.md Step 2). When a Forge phase is marked "completed" in state.json, these Quest items are eligible for automatic promotion to "done".
+
+### Pack: app-development
+
+**IMPORTANT:** The canonical source of truth for this mapping is `pack.forge_phase_map` in the pack YAML file (`packs/app-development.yaml`). This table is a REFERENCE COPY for documentation purposes only. If they diverge, the pack YAML wins.
+
+Only `required: true` items (no `condition` field) are listed. Conditional/optional items are NEVER auto-promoted — they require user evaluation via `/quest check`.
+
+| Forge Phase | Forge Name | Quest Items (auto-reconcile) | Evidence Required |
+|---|---|---|---|
+| 0 | Discovery | 1.1 | `state.phases.0.status == "completed"` |
+| 1 | Spec | 2.2, 2.7, 2.8 | `state.phases.1.status == "completed"` |
+| 2 | Stories | 3.1, 3.2, 3.3 | `state.phases.2.status == "completed"` |
+| 3 | Build | 4.1, 4.2, 4.3, 4.6 | `state.phases.3.status == "completed"` |
+| 4 | Integration | 5.1, 5.8 | `state.phases.4.status == "completed"` |
+| 5 | Deploy | 6.5, 7.1, 7.2, 7.3, 7.4 | `state.phases.5.status == "completed"` |
+
+### Partial Phase Reconciliation (Phase 3 only)
+
+Phase 3 (Build) tracks individual stories. When `state.phases.3.stories_completed > 0` but the phase is NOT completed:
+
+| Stories Completed | Quest Items to Reconcile |
+|---|---|
+| >= 1 | 4.1 (story prioritizada), 4.2 (implementação) |
+| >= 1 AND tests exist | 4.3 (lint + typecheck + tests) |
+
+This handles the common case where the Build phase is still "running" or "pending" but real work has been done.
+
+### Items NOT auto-reconciled
+
+These items require explicit evidence beyond Forge phase completion:
+
+| Quest Item | Why Not Auto | How to Complete |
+|---|---|---|
+| 0.3 (GitHub) | Needs git remote | scan_rule or manual check |
+| 0.5 (README) | Needs files to exist | scan_rule |
+| 1.3-1.5 (optional research) | Conditional items | user evaluation |
+| 2.4-2.5 (wireframes, DS) | Conditional items | user evaluation |
+| 4.4-4.5 (bulletproof tests, TDD) | Conditional, quality extras | user evaluation |
+| 5.3-5.7 (security, refactoring, perf) | Conditional quality items | explicit check |
+| 6.1-6.4 (seals) | Conditional quality items | explicit check |
+| 8.1-8.6 (monitoring) | Post-deploy, manual | user evaluation |
+
+### Adding mappings for new packs
+
+When creating a new pack with Forge integration, add a section here following this pattern:
+
+```yaml
+# In the pack YAML, add a forge_phase_map (optional but recommended):
+pack:
+  forge_phase_map:
+    0: ["1.1", "1.2"]    # Discovery → Research items
+    1: ["2.1", "2.2"]    # Spec → Architecture items
+    # ...
+```
+
+If `forge_phase_map` exists in the pack, the reconciliator uses it directly. If the pack has NO `forge_phase_map`, reconciliation is SKIPPED entirely for that pack — there is no hardcoded fallback. This ensures the pack YAML remains the single source of truth.
