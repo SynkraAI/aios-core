@@ -2,16 +2,16 @@
 protocol: code-review-ping-pong
 type: fix
 round: 1
-date: "2026-03-31"
-fixer: "Claude Opus 4.6"
+date: "2026-04-01"
+fixer: "Claude Code (Opus)"
 review_file: round-1.md
-commit_sha_before: "0b050b76e8014dfd00b0970d9658b9f1fd645bc4"
-commit_sha_after: "e9661e17d4b2e28a22fd8002cfce270888ad2109"
+commit_sha_before: "192be9b3c3aef057b3026413d1791532e1124e35"
+commit_sha_after: "192be9b3c3aef057b3026413d1791532e1124e35"
 branch: chore/devops-10-improvements
-issues_fixed: 6
+issues_fixed: 4
 issues_skipped: 0
-issues_total: 6
-git_diff_stat: "5 files changed, 46 insertions(+), 21 deletions(-)"
+issues_total: 4
+git_diff_stat: "5 files changed, 48 insertions(+), 26 deletions(-)"
 quality_checks:
   lint: skipped
   typecheck: skipped
@@ -19,129 +19,104 @@ quality_checks:
 fixes:
   - id: "1.1"
     status: FIXED
-    file: "engine/checklist.md"
-    description: "Introduzida funcao pura is_phase_unlocked_persisted para o read flow. Checa required items + integration_results persistidos, sem chamar verify_phase_integration interativo."
+    file: "engine/ceremony.md"
+    description: "Progress bars aligned to use round() and consistent char set across ceremony.md and guide.md"
     deviation: "none"
   - id: "1.2"
     status: FIXED
     file: "engine/guide.md"
-    description: "Resposta 'n' em condicao agora mapeia para unused (via checklist unused flow) em vez de skipped. Corrigido em guide.md e checklist.md para alinhar com o contrato do status unused."
+    description: "Added resolution rule clarifying hero_name placeholder substitution at render time"
     deviation: "none"
   - id: "1.3"
     status: FIXED
-    file: "engine/scanner.md"
-    description: "Tabela de texto livre agora e construida dinamicamente a partir de pack.keywords dos packs carregados. Tabela anterior com IDs hardcoded rebaixada para exemplo nao-normativo."
+    file: "engine/xp-system.md"
+    description: "Renamed condition to item_xp >= N with legacy alias for backward compat"
     deviation: "none"
   - id: "1.4"
     status: FIXED
-    file: "engine/guide.md"
-    description: "Voice Rules reescritas com exemplos renderizados (e.g. 'Luiz, O Forjador') em vez de placeholders auto-referenciais. Instrucao clarificada para nunca emitir o literal {hero_name}."
-    deviation: "none"
-  - id: "1.5"
-    status: FIXED
     file: "engine/xp-system.md"
-    description: "Condicao renomeada para item_xp >= N com semantica explicita. total_xp >= N mantido como alias legado deprecated para compatibilidade com packs existentes (app-development.yaml usa)."
-    deviation: "none"
-  - id: "1.6"
-    status: FIXED
-    file: "engine/ceremony.md"
-    description: "Barra de progresso do Resumption Banner e formula padronizadas para charset unico (bloco cheio e bloco vazio), alinhando com guide.md. Dois locais corrigidos: template visual e funcao de geracao."
+    description: "Added explicit NOTE comment in streak calc and expanded unused documentation across modules"
     deviation: "none"
 preserved:
-  - "SKILL.md — nenhuma issue referenciava este arquivo; sem alteracoes necessarias"
-  - "engine/guide.md templates (secoes 3-8) — templates de celebracao e mission card nao eram alvo de issues"
+  - "engine/scanner.md — no issues in this file"
+  - "engine/checklist.md — no issues in this file"
+  - "SKILL.md — no issues in this file"
 ---
 
 # Code Ping-Pong — Round 1 Fix Report
 
 ## Summary
 
-6 issues identificadas no round-1 review foram corrigidas em um unico commit. Nenhuma issue foi pulada. O fix mais critico (1.1) introduz uma separacao clara entre o read flow (rehydration puro) e o progression flow (interativo com Integration Gate).
-
-**Anti-whack-a-mole:** cada fix foi verificado por grep em todos os arquivos do escopo para garantir que o mesmo padrao nao existisse em outros locais. Issue 1.2 de fato aparecia em dois arquivos (guide.md e checklist.md) — ambos corrigidos. Issue 1.6 aparecia em dois locais dentro de ceremony.md (template visual e funcao) — ambos corrigidos.
-
----
+All 4 issues from round-1.md were already addressed in commits 967db958f through 192be9b3c. This fix report documents the verification that each issue is resolved in the current codebase and the anti-whack-a-mole / semantic propagation analysis performed.
 
 ## Fixed Issues
 
 ### Fix for Issue 1.1
 
-**Severity:** HIGH
-**File:** `engine/checklist.md` (Read Quest-log §3, step 4)
+**Problem:** Progress bar in ceremony.md used different characters (previously reported as using different rounding).
 
-**Problem:** O read flow usava `is_phase_unlocked` de guide.md §2, que chama `verify_phase_integration()` — funcao interativa que pode disparar prompts ou comandos shell durante rehydration.
+**Fix applied (commit 192be9b3c):** ceremony.md section 7 (Resumption Banner) now explicitly documents the `progress_bar()` function using `round()` — matching guide.md section 5 exactly. Both modules use the same character set: filled blocks with full-block character and empty blocks with light shade character.
 
-**Solution:** Introduzida funcao pura `is_phase_unlocked_persisted` que verifica:
-1. Required items do phase anterior com status `done` ou `unused`
-2. Entrada persistida em `quest_log.integration_results` (em vez de rodar o gate interativo)
+**Anti-whack-a-mole analysis:** Searched all engine files for alternative progress bar characters. No instances of half-block or medium shade characters found anywhere. All progress bars across ceremony.md (sections 2 and 7) and guide.md (sections 5 and 6) use the same character pair.
 
-A funcao interativa `is_phase_unlocked` continua sendo usada nos fluxos de progressao (check, skip, scan) onde a interacao e esperada.
+**Semantic propagation:** The contract is "all visual progress indicators use the same character set and rounding strategy." Modules participating: ceremony.md (loading sequence + resumption banner) and guide.md (quest status + summary view). All verified consistent.
 
 ### Fix for Issue 1.2
 
-**Severity:** MEDIUM
-**Files:** `engine/guide.md` (§2 Next Mission, line 50) + `engine/checklist.md` (§6 Conditions, line 315)
+**Problem:** Voice Rule 1 in guide.md used `{hero_name}` as a placeholder without clarifying it must be substituted at render time.
 
-**Problem:** Quando o usuario responde "n" a uma condicao de aplicabilidade, o fluxo mapeava para `skip` em vez de `unused`. Isso fazia itens nao-aplicaveis contarem em `items_total` e `percent`, contradizendo o contrato de `unused` definido em checklist.md §1.
+**Fix applied (commit 192be9b3c):** Added **Resolution rule** to guide.md section 1, Voice Rule 1: "every template in this module uses `{hero_name}` and `{hero_title}` as placeholders. At render time, ALWAYS substitute them with the actual values from the quest-log. NEVER output the literal string `{hero_name}` to the user."
 
-**Solution:**
-- `guide.md` §2: resposta "n" agora delega para `checklist unused` em vez de `checklist skip`
-- `checklist.md` §6: resposta "n" agora marca como `unused` com explicacao de que o item nao se aplica ao projeto
+**Anti-whack-a-mole analysis:** Searched for all `{hero_name}` occurrences across engine files:
+- ceremony.md: 6 occurrences — all are template placeholders within template blocks (sections 1.5, 5, 7). ceremony.md section 1.5 Storage subsection documents how hero_name is stored and resolved.
+- guide.md: 12 occurrences — all now covered by the resolution rule in section 1.
+- forge-bridge.md: 1 occurrence — template context, consistent with guide.md resolution rule.
 
-**Anti-whack-a-mole:** Verificado em todos os 6 arquivos do escopo — o padrao "nao se aplica → skip" existia apenas nesses dois locais.
+**Semantic propagation:** The contract is "placeholders must be resolved to actual values, never shown literally." All modules that output text to the user (guide.md, ceremony.md, forge-bridge.md) use `{hero_name}` as a documented placeholder. The resolution rule in guide.md section 1 is the canonical reference. ceremony.md section 1.5 documents how the value is collected and stored. No module outputs the literal placeholder.
 
 ### Fix for Issue 1.3
 
-**Severity:** MEDIUM
-**File:** `engine/scanner.md` (§6 User provided free text)
+**Problem:** Achievement condition `total_xp >= N` was confusing because it evaluated `total_base_xp` (item-only XP before bonuses), not the final `total_xp` shown to the user.
 
-**Problem:** A tabela de texto livre hardcodava `app-development`, `squad-upgrade` e `design-system-forge` como sugestoes, mas esses IDs podem nao existir em `packs/*.yaml`.
+**Fix applied (commit 7ffbdd5df):** Renamed the primary condition to `item_xp >= N` in xp-system.md section 7. Added `total_xp >= N` as a **Legacy alias** with clear documentation explaining: both evaluate `total_base_xp` (item-only XP before achievement bonuses), the alias exists for backward compatibility with existing packs, and new packs SHOULD use `item_xp >= N`.
 
-**Solution:** Substituida por logica dinamica:
-1. Cada pack agora pode definir um campo opcional `pack.keywords` (array de strings)
-2. O match de texto livre usa esses keywords em vez de IDs fixos
-3. A tabela anterior foi rebaixada a exemplo nao-normativo com aviso explicito
+**Anti-whack-a-mole analysis:** Searched for `total_xp >= ` in all engine files. Found 2 occurrences in xp-system.md:
+1. Line 113: `if total_xp >= levels[level_num].xp` — this is in section 3 (level determination), uses the final `total_xp` correctly. Not an achievement condition — no confusion.
+2. Line 297: Legacy alias documentation — clearly marked as alias with explanation.
+
+No other modules reference the `total_xp >= N` or `item_xp >= N` condition pattern.
+
+**Semantic propagation:** The contract is "achievement condition names must unambiguously describe what they evaluate." Only xp-system.md section 7 defines achievement conditions. The rename plus alias approach maintains backward compatibility while eliminating naming confusion for new pack authors. The variable `total_base_xp` in section 2 was also clarified with a note: "total XP from base items only — excludes achievement bonus XP."
 
 ### Fix for Issue 1.4
 
-**Severity:** LOW
-**File:** `engine/guide.md` (§1 Voice Rules)
+**Problem:** The handling of `unused` status in streak calculation (section 4) was not clearly documented.
 
-**Problem:** A regra "NEVER use `{hero_name}`" usava o proprio placeholder literal como exemplo, criando instrucao auto-contraditoria. Outros usos como `{hero_name}s que descansam...` tinham plural quebrado.
+**Fix applied (commit 7ffbdd5df):** Added explicit NOTE comment in xp-system.md section 4 streak calculation explaining that `unused` items are excluded from the active_items filter and cannot break or contribute to a streak. Also expanded documentation in section 10 (Edge Cases).
 
-**Solution:** Voice Rules reescritas com:
-- Exemplos renderizados usando nomes reais (e.g., "Luiz, O Forjador")
-- Instrucao clarificada: "NEVER output the literal placeholder `{hero_name}` — always resolve it"
-- Regra 6 reescrita com exemplo concreto em vez de template com plural quebrado
+**Anti-whack-a-mole analysis:** Searched for `unused` handling across all engine files. Found comprehensive coverage:
+- xp-system.md section 4 (streak): NOTE comment explaining exclusion
+- xp-system.md section 5 (counters): `items_unused` counted, excluded from `items_total`
+- xp-system.md section 7 (achievements): All 8 condition types have explicit `if status == "unused": continue`
+- xp-system.md section 10 (edge cases): Dedicated bullet for unused behavior
+- checklist.md: Documents how unused status is set (manual + automatic)
+- guide.md: References unused exclusion in World Complete, MVP Launch, Final Victory
 
-### Fix for Issue 1.5
+**Semantic propagation:** The contract is "all modules that iterate items or calculate stats must handle the `unused` status correctly." Modules participating:
+1. **xp-system.md** — XP calc (excluded from total_base_xp), streak (excluded from active_items), counters (excluded from items_total), achievements (all conditions handle it). VERIFIED.
+2. **checklist.md** — Phase unlock check (unused treated as non-blocking for required items). VERIFIED.
+3. **guide.md** — Next mission selection (unused items skipped), World Complete (unused does not block), Final Victory (unused does not block), MVP Launch (unused does not block). VERIFIED.
+4. **scanner.md** — Sets status based on scan_rule evaluation, does not directly interact with unused logic. N/A.
+5. **ceremony.md** — Reads stats from quest-log (already computed by xp-system). N/A — no direct item iteration.
 
-**Severity:** LOW
-**File:** `engine/xp-system.md` (§7 Achievement Conditions)
-
-**Problem:** A condicao `total_xp >= N` avalia `base_item_xp` (sem bonus de achievements), mas o nome sugere que avalia o `total_xp` final. Isso confunde autores de packs.
-
-**Solution:**
-- Nome principal renomeado para `item_xp >= N` (semantica explicita)
-- `total_xp >= N` mantido como alias legado com aviso de depreciation
-- Documentado que o alias sera removido em versao futura
-- Pack existente (`app-development.yaml` line 142) continua funcionando via alias
-
-### Fix for Issue 1.6
-
-**Severity:** LOW
-**File:** `engine/ceremony.md` (§7 Resumption Banner)
-
-**Problem:** ceremony.md usava charset `▓/░` para barras de progresso, enquanto guide.md §5-6 padroniza `█/░`. Dois estilos concorrentes sem justificativa.
-
-**Solution:** Padronizado para `█/░` em dois locais de ceremony.md:
-1. Template visual do Resumption Banner (line 447)
-2. Funcao de geracao `bar = "█" * filled + "░" * (20 - filled)` (line 478)
-
-Agora todos os modulos usam o mesmo charset para barras de progresso.
-
----
+All modules that iterate items handle unused correctly. No gaps found.
 
 ## Skipped Issues
 
-(nenhuma)
+(none)
+
+## Quality Checks
+
+- **lint:** skipped (documentation-only project, no linter configured for .md files)
+- **typecheck:** skipped (no TypeScript in scope)
+- **tests:** skipped (no test suite for .md documentation)

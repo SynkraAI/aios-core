@@ -337,6 +337,17 @@
       background: var(--progress-gradient, linear-gradient(90deg, var(--accent-primary), var(--accent-secondary)));
       transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
+      overflow: hidden;
+    }
+    .xp-bar-fill::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%);
+      animation: xp-shimmer 2s ease-in-out infinite;
+    }
+    @keyframes xp-shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
     }
     .xp-text {
       display: flex;
@@ -399,6 +410,14 @@
       border-radius: 999px;
       background: var(--progress-gradient, linear-gradient(90deg, var(--accent-primary), var(--accent-secondary)));
       transition: width 0.8s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .world-progress-fill::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%);
+      animation: xp-shimmer 2.5s ease-in-out infinite;
     }
 
     /* --- Missions (expanded world) --- */
@@ -413,25 +432,163 @@
     .world-card.expanded .missions-list { max-height: 2000px; }
     .mission {
       display: grid;
-      grid-template-columns: 24px 1fr auto;
+      grid-template-columns: 28px 1fr auto;
       grid-template-rows: auto auto;
       gap: 0.2rem 0.75rem;
       align-items: center;
-      padding: 0.5rem 0.75rem;
+      padding: 0.6rem 0.75rem;
       border-radius: 8px;
       font-size: 0.85rem;
-      transition: background 0.2s ease;
+      transition: all 0.3s ease;
+      border: 1px solid transparent;
     }
-    .mission:hover { background: var(--bg-secondary, #0d0d24); }
+    .mission:hover { background: var(--bg-secondary, #0d0d24); transform: translateX(3px); }
     .mission-icon {
-      width: 20px; height: 20px; border-radius: 4px;
+      width: 24px; height: 24px; border-radius: 6px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 0.75rem; grid-row: 1;
+      font-size: 0.85rem; grid-row: 1;
+      transition: all 0.3s ease;
     }
-    .mission-icon.done { background: #22c55e; color: white; }
+    .mission-icon.done { background: #22c55e; color: white; font-size: 0.7rem; }
     .mission-icon.pending { background: var(--bg-secondary, #0d0d24); border: 2px solid var(--border-color, #334155); }
     .mission-icon.skipped { background: #64748b; color: white; }
     .mission-icon.unused { background: transparent; border: 2px dashed #475569; color: #475569; }
+    .mission-icon.current {
+      background: var(--accent-primary, #00fff2);
+      color: var(--bg-primary, #0a0a1a);
+      animation: current-pulse 2s ease-in-out infinite;
+      font-size: 0.65rem;
+    }
+    .mission.current {
+      background: rgba(0, 255, 242, 0.06);
+      border: 1px solid rgba(0, 255, 242, 0.25);
+    }
+    .mission.current .mission-label {
+      color: var(--accent-primary, #00fff2);
+      font-weight: 600;
+    }
+    .current-marker {
+      color: var(--accent-primary, #00fff2) !important;
+      font-weight: 600;
+      font-style: normal !important;
+      opacity: 0.8;
+      animation: marker-blink 2s ease-in-out infinite;
+    }
+    @keyframes current-pulse {
+      0%, 100% { box-shadow: 0 0 4px var(--accent-primary, #00fff2); }
+      50% { box-shadow: 0 0 14px var(--accent-primary, #00fff2); }
+    }
+    @keyframes marker-blink {
+      0%, 100% { opacity: 0.8; }
+      50% { opacity: 0.4; }
+    }
+    /* Who badge next to label */
+    .mission-who {
+      display: inline-block;
+      font-size: 0.6rem;
+      padding: 0.1rem 0.4rem;
+      border-radius: 3px;
+      margin-left: 0.4rem;
+      vertical-align: middle;
+      font-family: var(--font-mono, monospace);
+      letter-spacing: 0.3px;
+    }
+    .mission-who.agent { background: rgba(139,92,246,0.2); color: #a78bfa; }
+    .mission-who.skill { background: rgba(0,255,242,0.15); color: #00fff2; }
+    .mission-who.user { background: rgba(251,191,36,0.15); color: #fbbf24; }
+    /* XP with animation on hover */
+    .mission-xp {
+      font-family: var(--font-mono, monospace);
+      font-size: 0.7rem;
+      color: var(--accent-primary, #00fff2);
+      font-weight: 600;
+      grid-row: 1;
+      transition: all 0.2s ease;
+    }
+    .mission:hover .mission-xp { transform: scale(1.15); }
+    /* Floating XP toast */
+    .xp-toast {
+      position: fixed;
+      z-index: 100;
+      font-family: var(--font-mono, monospace);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--accent-primary, #00fff2);
+      pointer-events: none;
+      animation: xp-float 1.5s ease-out forwards;
+      text-shadow: 0 0 12px rgba(0,255,242,0.5);
+    }
+    @keyframes xp-float {
+      0% { opacity: 1; transform: translateY(0) scale(1); }
+      50% { opacity: 1; transform: translateY(-30px) scale(1.3); }
+      100% { opacity: 0; transform: translateY(-60px) scale(0.8); }
+    }
+    /* Streak fire animation */
+    .streak-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(251,146,60,0.15);
+      color: #fb923c;
+      font-size: 0.75rem;
+      font-weight: 600;
+      font-family: var(--font-mono, monospace);
+    }
+    .streak-fire { animation: fire-flicker 0.8s ease-in-out infinite alternate; }
+    @keyframes fire-flicker {
+      0% { transform: scale(1) rotate(-3deg); }
+      100% { transform: scale(1.15) rotate(3deg); }
+    }
+    .mission { cursor: pointer; }
+    .mission-details {
+      display: none;
+      grid-column: 1 / -1;
+      padding: 0.75rem 1rem;
+      margin-top: 0.25rem;
+      background: rgba(255,255,255,0.03);
+      border-radius: 6px;
+      border-left: 3px solid var(--accent-primary, #00fff2);
+      font-size: 0.8rem;
+      line-height: 1.6;
+    }
+    .mission.expanded .mission-details { display: block; }
+    .mission-details-row {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.2rem 0;
+    }
+    .mission-details-key {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      min-width: 80px;
+      flex-shrink: 0;
+    }
+    .mission-details-val {
+      color: rgba(255,255,255,0.85);
+      font-family: var(--font-mono, monospace);
+      font-size: 0.75rem;
+    }
+    .mission-details-val.command {
+      color: var(--accent-primary, #00fff2);
+      font-weight: 500;
+    }
+    .mission-details-val.tip {
+      color: #fbbf24;
+      font-style: italic;
+    }
+    .mission-details-req {
+      display: inline-block;
+      font-size: 0.65rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      margin-top: 0.25rem;
+    }
+    .mission-details-req.yes { background: rgba(239,68,68,0.15); color: #ef4444; }
+    .mission-details-req.no { background: rgba(100,116,139,0.15); color: #94a3b8; }
     .mission-label { color: var(--text-primary, #e2e8f0); grid-row: 1; }
     .mission.done .mission-label { opacity: 0.6; text-decoration: line-through; }
     .mission.skipped .mission-label { opacity: 0.5; }
@@ -479,8 +636,15 @@
       transition: all 0.3s ease;
       border: 1px solid transparent;
     }
-    .achievement.unlocked { border-color: var(--accent-primary, #00fff2); }
+    .achievement.unlocked {
+      border-color: var(--accent-primary, #00fff2);
+      animation: achievement-glow 3s ease-in-out infinite;
+    }
     .achievement.locked { opacity: 0.3; filter: grayscale(1); }
+    @keyframes achievement-glow {
+      0%, 100% { box-shadow: 0 0 0 rgba(0,255,242,0); }
+      50% { box-shadow: 0 0 8px rgba(0,255,242,0.15); }
+    }
     .achievement-icon { font-size: 1.5rem; margin-bottom: 0.25rem; }
     .achievement-name {
       font-size: 0.7rem;
@@ -535,25 +699,35 @@
       position: fixed; inset: 0;
       display: flex; align-items: center; justify-content: center;
       z-index: 1000; pointer-events: none; opacity: 0;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
       transition: opacity 0.5s ease;
     }
     .celebration-overlay.active { opacity: 1; pointer-events: auto; }
     .celebration-card {
-      padding: 2.5rem 3rem;
-      border-radius: var(--radius-card, 12px);
-      background: var(--bg-card, #1e293b);
+      padding: 3rem 4rem;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--bg-card, #1e293b) 0%, rgba(0,255,242,0.05) 100%);
       border: 2px solid var(--accent-primary, #00fff2);
       text-align: center;
-      transform: scale(0.8);
-      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform: scale(0.5) rotate(-5deg);
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 0 40px rgba(0,255,242,0.2), 0 20px 60px rgba(0,0,0,0.5);
+      max-width: 90vw;
     }
-    .celebration-overlay.active .celebration-card { transform: scale(1); }
+    .celebration-overlay.active .celebration-card { transform: scale(1) rotate(0deg); }
     .celebration-title {
-      font-size: 1.5rem; font-weight: 700;
+      font-size: 1.6rem; font-weight: 700;
       color: var(--accent-primary, #00fff2);
       margin-bottom: 0.5rem;
+      letter-spacing: 3px;
+      text-shadow: 0 0 20px rgba(0,255,242,0.4);
     }
-    .celebration-desc { color: var(--text-secondary, #64748b); font-size: 0.9rem; }
+    .celebration-desc {
+      color: var(--text-secondary, #64748b);
+      font-size: 0.9rem;
+      font-style: italic;
+    }
     .celebration-xp {
       font-family: var(--font-mono, monospace);
       font-size: 2rem; font-weight: 700;
@@ -1012,6 +1186,49 @@
     return { name: level.name, quote: level.quote, min: level.min, index: idx + 1, nextMin: next.min, nextName: next.name };
   }
 
+  // Enrich quest-log items with labels/xp/who/command from pack YAML
+  function enrichWithPackData(parsed, packData) {
+    if (!parsed || !packData || !packData.phases) return;
+
+    // Build a lookup: itemId -> pack item data
+    var lookup = {};
+    for (var worldId in packData.phases) {
+      var world = packData.phases[worldId];
+      if (world.items) {
+        for (var i = 0; i < world.items.length; i++) {
+          var pi = world.items[i];
+          if (pi.id) lookup[pi.id] = pi;
+        }
+      }
+    }
+
+    // Enrich items in parsed data
+    if (parsed.items) {
+      for (var itemId in parsed.items) {
+        var packItem = lookup[itemId];
+        if (packItem) {
+          if (!parsed.items[itemId].label) parsed.items[itemId].label = packItem.label;
+          if (!parsed.items[itemId].xp && packItem.xp) parsed.items[itemId].xp = packItem.xp;
+          if (!parsed.items[itemId].who && packItem.who) parsed.items[itemId].who = packItem.who;
+          if (!parsed.items[itemId].command && packItem.command) parsed.items[itemId].command = packItem.command;
+          if (!parsed.items[itemId].tip && packItem.tip) parsed.items[itemId].tip = packItem.tip;
+          if (packItem.required !== undefined && parsed.items[itemId].required === undefined) parsed.items[itemId].required = packItem.required;
+        }
+      }
+    }
+
+    // Also store world names/descriptions for rendering
+    if (!parsed._worlds) parsed._worlds = {};
+    for (var wId in packData.phases) {
+      parsed._worlds[wId] = {
+        name: packData.phases[wId].name,
+        description: packData.phases[wId].description,
+        unlock_message: packData.phases[wId].unlock_message,
+        complete_message: packData.phases[wId].complete_message,
+      };
+    }
+  }
+
   function calculateStats(data) {
     if (!data) return { total: 0, done: 0, skipped: 0, xp: 0, phases: {} };
 
@@ -1194,7 +1411,21 @@
     document.getElementById('celeb-desc').textContent = desc;
     overlay.classList.add('active');
     if (confettiFn) confettiFn();
+    // Show floating XP toast if xpText contains XP
+    if (xpText && xpText.indexOf('XP') >= 0) {
+      showXpToast(xpText);
+    }
     setTimeout(function() { overlay.classList.remove('active'); }, 4000);
+  }
+
+  function showXpToast(text) {
+    var toast = document.createElement('div');
+    toast.className = 'xp-toast';
+    toast.textContent = text;
+    toast.style.left = (window.innerWidth / 2 - 60) + 'px';
+    toast.style.top = (window.innerHeight / 2 + 40) + 'px';
+    document.body.appendChild(toast);
+    setTimeout(function() { toast.remove(); }, 1600);
   }
 
   // ============================================================
@@ -1354,12 +1585,28 @@
       }
     }
 
+    // Find first pending mission (current position)
+    var currentMissionId = null;
+    for (var ci = 0; ci < sortedPhaseKeys.length; ci++) {
+      var cPhase = stats.phases[sortedPhaseKeys[ci]];
+      var cKeys = Object.keys(cPhase.items).sort();
+      for (var cj = 0; cj < cKeys.length; cj++) {
+        var cItem = cPhase.items[cKeys[cj]];
+        if (cItem.status === 'pending' || (!cItem.status && cItem.status !== 'done' && cItem.status !== 'skipped' && cItem.status !== 'unused')) {
+          currentMissionId = cKeys[cj];
+          break;
+        }
+      }
+      if (currentMissionId) break;
+    }
+
     // Render worlds
     var worldsHtml = '';
     for (var wi = 0; wi < sortedPhaseKeys.length; wi++) {
       var id = sortedPhaseKeys[wi];
       var phase = stats.phases[id];
-      var world = WORLDS[id] || { name: 'World ' + id, tagline: '' };
+      var packWorld = data._worlds && data._worlds[id];
+      var world = packWorld ? { name: packWorld.name, tagline: packWorld.description || '' } : (WORLDS[id] || { name: 'World ' + id, tagline: '' });
       var reqDone = phase.requiredDone || 0;
       var reqTotal = phase.requiredTotal || phase.total;
       var isRequiredComplete = reqDone >= reqTotal;
@@ -1379,16 +1626,48 @@
         var isDone = item.status === 'done';
         var isSkipped = item.status === 'skipped';
         var isUnused = item.status === 'unused';
-        var statusCls = isDone ? 'done' : isSkipped ? 'skipped' : isUnused ? 'unused' : 'pending';
-        var iconCls = isDone ? 'done' : isSkipped ? 'skipped' : isUnused ? 'unused' : 'pending';
-        var iconText = isDone ? '\u2713' : isSkipped ? '\u2013' : isUnused ? '\u00B7' : '';
+        var isCurrent = itemId === currentMissionId;
+        var statusCls = isDone ? 'done' : isSkipped ? 'skipped' : isUnused ? 'unused' : isCurrent ? 'current' : 'pending';
+        var iconCls = isDone ? 'done' : isSkipped ? 'skipped' : isUnused ? 'unused' : isCurrent ? 'current' : 'pending';
+        var iconText = isDone ? '\u2713' : isSkipped ? '\u2013' : isUnused ? '\u00B7' : isCurrent ? '\u25B6' : '';
         var missionLabel = item.label || itemId;
 
-        missionsHtml += '<div class="mission ' + statusCls + '">' +
+        // Build details panel
+        var detailsHtml = '<div class="mission-details">';
+        if (item.command) {
+          detailsHtml += '<div class="mission-details-row"><span class="mission-details-key">O que fazer</span><span class="mission-details-val command">' + escapeHtml(item.command) + '</span></div>';
+        }
+        if (item.who) {
+          detailsHtml += '<div class="mission-details-row"><span class="mission-details-key">Quem faz</span><span class="mission-details-val">' + escapeHtml(item.who) + '</span></div>';
+        }
+        if (item.tip) {
+          detailsHtml += '<div class="mission-details-row"><span class="mission-details-key">Dica</span><span class="mission-details-val tip">' + escapeHtml(item.tip) + '</span></div>';
+        }
+        if (item.required !== undefined) {
+          var reqLabel = item.required ? 'Obrigatório' : 'Opcional';
+          var reqCls = item.required ? 'yes' : 'no';
+          detailsHtml += '<div class="mission-details-row"><span class="mission-details-key">Tipo</span><span class="mission-details-req ' + reqCls + '">' + reqLabel + '</span></div>';
+        }
+        detailsHtml += '</div>';
+
+        var hasDetails = item.command || item.who || item.tip || item.required !== undefined;
+
+        // Who badge
+        var whoBadge = '';
+        if (item.who) {
+          var whoType = item.who.startsWith('@') ? 'agent' : item.who === 'user' ? 'user' : 'skill';
+          var whoEmoji = item.who.startsWith('@') ? '\uD83E\uDD16' : item.who === 'user' ? '\uD83D\uDC64' : '\u2728';
+          whoBadge = '<span class="mission-who ' + whoType + '">' + whoEmoji + ' ' + escapeHtml(item.who) + '</span>';
+        }
+
+        var autoExpand = isCurrent && hasDetails;
+        missionsHtml += '<div class="mission ' + statusCls + (autoExpand ? ' expanded' : '') + '"' + (hasDetails ? ' onclick="event.stopPropagation();this.classList.toggle(\'expanded\')"' : '') + '>' +
           '<div class="mission-icon ' + iconCls + '">' + iconText + '</div>' +
-          '<div class="mission-label">' + escapeHtml(itemId) + ' ' + escapeHtml(missionLabel) + '</div>' +
+          '<div class="mission-label">' + escapeHtml(itemId) + ' ' + escapeHtml(missionLabel) + whoBadge + '</div>' +
           '<div class="mission-xp">+' + (item.xp || 0) + '</div>' +
+          (isCurrent ? '<div class="mission-note current-marker">\u25B6 Você está aqui</div>' : '') +
           (item.note ? '<div class="mission-note">' + escapeHtml(item.note) + '</div>' : '') +
+          (hasDetails ? detailsHtml : '') +
         '</div>';
       }
 
@@ -1436,17 +1715,23 @@
       '</div>';
     }
 
+    var streak = (data.stats && data.stats.streak) || 0;
+    var streakHtml = streak >= 3
+      ? '<span class="streak-badge"><span class="streak-fire">\uD83D\uDD25</span> Streak ' + streak + '</span>'
+      : '';
+
     app.innerHTML = renderHeader(displayName, packName ? 'Pack: ' + packName : 'Quest', true) +
       victoryHtml +
       '<div class="stats-row view-enter">' +
-        '<div class="stat-card"><div class="stat-value">' + stats.xp + '</div><div class="stat-label">XP Total</div></div>' +
-        '<div class="stat-card"><div class="stat-value">' + stats.done + '/' + stats.total + '</div><div class="stat-label">Miss\u00F5es</div></div>' +
-        '<div class="stat-card"><div class="stat-value">' + percent + '%</div><div class="stat-label">Progresso</div></div>' +
-        '<div class="stat-card"><div class="stat-value">' + achievements.length + '/' + achKeys.length + '</div><div class="stat-label">Achievements</div></div>' +
+        '<div class="stat-card"><div class="stat-value">\u2B50 ' + stats.xp + '</div><div class="stat-label">XP Total</div></div>' +
+        '<div class="stat-card"><div class="stat-value">\u2694\uFE0F ' + stats.done + '/' + stats.total + '</div><div class="stat-label">Miss\u00F5es</div></div>' +
+        '<div class="stat-card"><div class="stat-value">\uD83D\uDCCA ' + percent + '%</div><div class="stat-label">Progresso</div></div>' +
+        '<div class="stat-card"><div class="stat-value">\uD83C\uDFC6 ' + achievements.length + '/' + achKeys.length + '</div><div class="stat-label">Achievements</div></div>' +
       '</div>' +
       '<div class="level-section view-enter">' +
         '<div class="level-header">' +
-          '<span class="level-badge">Lv.' + level.index + ' ' + escapeHtml(level.name) + '</span>' +
+          '<span class="level-badge">\u2B50 Lv.' + level.index + ' ' + escapeHtml(level.name) + '</span>' +
+          streakHtml +
           '<span class="level-quote">"' + escapeHtml(level.quote) + '"</span>' +
         '</div>' +
         '<div class="xp-bar-container"><div class="xp-bar-fill" style="width:' + xpPercent + '%"></div></div>' +
@@ -1602,10 +1887,14 @@
 
         if (msg.type === 'project_update') {
           var parsed = parseChecklist(msg.data);
+          // Preserve pack_data from previous load
+          var prevPack = projectsData[msg.project] && projectsData[msg.project].pack_data;
+          if (prevPack) enrichWithPackData(parsed, prevPack);
           projectsData[msg.project] = {
             raw: msg.data,
             parsed: parsed,
             format: msg.format,
+            pack_data: prevPack,
           };
 
           // Re-render current view
@@ -1661,7 +1950,8 @@
           var p = result.projects[i];
           if (p.data) {
             var parsed = parseChecklist(p.data);
-            projectsData[p.name] = { raw: p.data, parsed: parsed, format: p.format };
+            if (p.pack_data) enrichWithPackData(parsed, p.pack_data);
+            projectsData[p.name] = { raw: p.data, parsed: parsed, format: p.format, pack_data: p.pack_data };
           }
         }
 
@@ -1688,6 +1978,34 @@
 
     // Also load via API (fallback and initial data)
     loadProjectsViaAPI();
+
+    // Debug: Shift+1..7 to test celebrations
+    document.addEventListener('keydown', function(e) {
+      if (!e.shiftKey) return;
+      switch(e.key) {
+        case '!': // Shift+1: small XP
+          showCelebration('MISS\u00C3O COMPLETA!', '+25 XP', 'Total: 335 XP', confettiSmall);
+          break;
+        case '@': // Shift+2: medium XP
+          showCelebration('MISS\u00C3O \u00C9PICA!', '+50 XP', 'Total: 385 XP', confettiMedium);
+          break;
+        case '#': // Shift+3: big XP
+          showCelebration('COMBO \u00C9PICO!', '+100 XP', 'Total: 485 XP', confettiBig);
+          break;
+        case '$': // Shift+4: level up
+          showCelebration('L E V E L   U P !', 'Level 3', 'Quality Guardian', confettiLevelUp);
+          break;
+        case '%': // Shift+5: achievement
+          showCelebration('ACHIEVEMENT!', '\uD83C\uDFC6', 'O Construtor', confettiAchievement);
+          break;
+        case '^': // Shift+6: world complete
+          showCelebration('MUNDO COMPLETO!', '\u2B50\u2B50\u2B50', 'A Forja do C\u00F3digo', confettiWorldComplete);
+          break;
+        case '&': // Shift+7: legendary (quest complete)
+          showCelebration('L E N D A !', '1000 XP', 'Do zero ao deploy. Sem atalho. Sem medo.', confettiLegendary);
+          break;
+      }
+    });
   })();
   </script>
 </body>

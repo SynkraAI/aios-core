@@ -1,0 +1,29 @@
+{
+  "outcome": "MAX_ROUNDS",
+  "lastRound": 15,
+  "reviews": 1,
+  "fixes": 1,
+  "audits": 0,
+  "elapsed": 138,
+  "avgReviewMs": 0,
+  "avgFixMs": 0,
+  "rounds": [
+    {
+      "round": 15,
+      "mode": "review",
+      "agent": "claude",
+      "duration_ms": 0,
+      "success": true
+    },
+    {
+      "round": 15,
+      "mode": "fix",
+      "agent": "claude",
+      "duration_ms": 0,
+      "success": true
+    }
+  ],
+  "scoreHistory": [],
+  "topicHistory": {},
+  "date": "2026-04-01T17:34:04.976Z"
+}

@@ -557,7 +557,7 @@ async function loadData() {
       if (!item.command && packItem.command) item.command = packItem.command;
       if (!item.who && packItem.who) item.who = packItem.who;
       if (!item.tip && packItem.tip) item.tip = packItem.tip;
-      if (!item.label || item.label === id) item.label = packItem.label || item.label;
+      if (!item.label || item.label === id || item.label === `Item ${id}`) item.label = packItem.label || item.label;
       if (!item.xp && packItem.xp) item.xp = packItem.xp;
     }
   }

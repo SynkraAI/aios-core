@@ -1,0 +1,366 @@
+{
+  "topicHistory": {
+    "inconsistent progress bar styles": {
+      "firstSeen": 1,
+      "lastSeen": 1,
+      "timesSeen": 1
+    },
+    "template error in voice rule 1": {
+      "firstSeen": 1,
+      "lastSeen": 1,
+      "timesSeen": 1
+    },
+    "confusing condition name": {
+      "firstSeen": 1,
+      "lastSeen": 1,
+      "timesSeen": 1
+    },
+    "unused logic visibility": {
+      "firstSeen": 1,
+      "lastSeen": 1,
+      "timesSeen": 1
+    },
+    "resumption banner progress bar contract not fully explicit": {
+      "firstSeen": 2,
+      "lastSeen": 2,
+      "timesSeen": 1
+    },
+    "condition evaluation fallback not fully documented for missing fields": {
+      "firstSeen": 2,
+      "lastSeen": 2,
+      "timesSeen": 1
+    },
+    "achievement condition alias note could be clearer for pack authors": {
+      "firstSeen": 2,
+      "lastSeen": 2,
+      "timesSeen": 1
+    },
+    "free-text pack keyword table generation lacks explicit fallback": {
+      "firstSeen": 2,
+      "lastSeen": 2,
+      "timesSeen": 1
+    },
+    "progress bar character set inconsistency in ceremony.md loading sequence": {
+      "firstSeen": 3,
+      "lastSeen": 3,
+      "timesSeen": 1
+    },
+    "voice rule 1 template fallback not fully enforced in guide.md": {
+      "firstSeen": 3,
+      "lastSeen": 3,
+      "timesSeen": 1
+    },
+    "legacy alias for xp achievement condition still risks confusion": {
+      "firstSeen": 3,
+      "lastSeen": 3,
+      "timesSeen": 1
+    },
+    "checklist.md unused item exclusion logic not cross-referenced in all modules": {
+      "firstSeen": 3,
+      "lastSeen": 3,
+      "timesSeen": 1
+    },
+    "resumption banner progress bar contract reference missing in ceremony.md §7": {
+      "firstSeen": 4,
+      "lastSeen": 4,
+      "timesSeen": 1
+    },
+    "inconsistent unused item icon in guide.md quest log view": {
+      "firstSeen": 4,
+      "lastSeen": 4,
+      "timesSeen": 1
+    },
+    "missing fallback documentation for absent optional fields in scanner.md": {
+      "firstSeen": 4,
+      "lastSeen": 4,
+      "timesSeen": 1
+    },
+    "achievement condition naming warning not cross-referenced in checklist.md": {
+      "firstSeen": 4,
+      "lastSeen": 4,
+      "timesSeen": 1
+    },
+    "voice rule 1 fallback for hero_name not documented in skill.md": {
+      "firstSeen": 5,
+      "lastSeen": 5,
+      "timesSeen": 1
+    },
+    "resumption banner contract propagation incomplete in checklist.md": {
+      "firstSeen": 5,
+      "lastSeen": 5,
+      "timesSeen": 1
+    },
+    "sub-item xp calculation not referenced in ceremony.md project card": {
+      "firstSeen": 5,
+      "lastSeen": 5,
+      "timesSeen": 1
+    },
+    "pack schema validation error message not referenced in skill.md command routing": {
+      "firstSeen": 5,
+      "lastSeen": 5,
+      "timesSeen": 1
+    },
+    "progress bar character inconsistency in ceremony.md and guide.md": {
+      "firstSeen": 6,
+      "lastSeen": 6,
+      "timesSeen": 1
+    },
+    "voice rule 1 template error not fully resolved in guide.md": {
+      "firstSeen": 6,
+      "lastSeen": 6,
+      "timesSeen": 1
+    },
+    "deprecated xp achievement condition naming not clearly cross-referenced": {
+      "firstSeen": 6,
+      "lastSeen": 6,
+      "timesSeen": 1
+    },
+    "streak unused logic only clarified in xp-system.md §10": {
+      "firstSeen": 6,
+      "lastSeen": 6,
+      "timesSeen": 1
+    },
+    "ambiguous fallback contract propagation for hero_name": {
+      "firstSeen": 7,
+      "lastSeen": 7,
+      "timesSeen": 1
+    },
+    "progress bar contract not referenced in resumption banner": {
+      "firstSeen": 7,
+      "lastSeen": 7,
+      "timesSeen": 1
+    },
+    "condition fallback handling not cross-referenced in guide.md": {
+      "firstSeen": 7,
+      "lastSeen": 7,
+      "timesSeen": 1
+    },
+    "edge case for unused items in phase unlock not re-stated": {
+      "firstSeen": 7,
+      "lastSeen": 7,
+      "timesSeen": 1
+    },
+    "resumption banner fallback for hero_name not fully cross-referenced": {
+      "firstSeen": 8,
+      "lastSeen": 8,
+      "timesSeen": 1
+    },
+    "progress bar contract reference missing in guide.md §5 and §6": {
+      "firstSeen": 8,
+      "lastSeen": 8,
+      "timesSeen": 1
+    },
+    "deprecation warning for total_xp >= n not surfaced in checklist.md": {
+      "firstSeen": 8,
+      "lastSeen": 8,
+      "timesSeen": 1
+    },
+    "edge case for unused items in streak calculation not cross-referenced": {
+      "firstSeen": 8,
+      "lastSeen": 8,
+      "timesSeen": 1
+    },
+    "voice rule 1 template error fallback contract is not fully explicit": {
+      "firstSeen": 9,
+      "lastSeen": 9,
+      "timesSeen": 1
+    },
+    "progress bar contract reference missing in ceremony.md §7 resumption banner": {
+      "firstSeen": 9,
+      "lastSeen": 9,
+      "timesSeen": 1
+    },
+    "edge case for unused items in streak calculation not cross-referenced in checklist.md": {
+      "firstSeen": 9,
+      "lastSeen": 9,
+      "timesSeen": 1
+    },
+    "free-text table in scanner.md §6 uses hardcoded ids, not schema-driven": {
+      "firstSeen": 9,
+      "lastSeen": 9,
+      "timesSeen": 1
+    },
+    "missing explicit cross-reference for hero_title fallback contract": {
+      "firstSeen": 10,
+      "lastSeen": 10,
+      "timesSeen": 1
+    },
+    "progress bar contract reference missing in checklist.md for stats display": {
+      "firstSeen": 10,
+      "lastSeen": 10,
+      "timesSeen": 1
+    },
+    "edge case for unused items in achievement evaluation not cross-referenced in guide.md": {
+      "firstSeen": 10,
+      "lastSeen": 10,
+      "timesSeen": 1
+    },
+    "free-text table in scanner.md §6 lacks explicit reference to canonical item id rules": {
+      "firstSeen": 10,
+      "lastSeen": 10,
+      "timesSeen": 1
+    },
+    "progress bar contract reference missing in guide.md §5 and §6 summary templates": {
+      "firstSeen": 11,
+      "lastSeen": 11,
+      "timesSeen": 1
+    },
+    "deprecation warning for 'total_xp >= n' not present in guide.md achievement references": {
+      "firstSeen": 11,
+      "lastSeen": 11,
+      "timesSeen": 1
+    },
+    "edge case for fallback behavior on missing hero_title not referenced in ceremony.md §7": {
+      "firstSeen": 11,
+      "lastSeen": 11,
+      "timesSeen": 1
+    },
+    "checklist.md §1 unused items contract does not reference guide.md §5 log view icon": {
+      "firstSeen": 11,
+      "lastSeen": 11,
+      "timesSeen": 1
+    },
+    "progress bar contract reference not fully propagated in guide.md §5": {
+      "firstSeen": 12,
+      "lastSeen": 12,
+      "timesSeen": 1
+    },
+    "achievement condition deprecation warning not cross-referenced in skill.md": {
+      "firstSeen": 12,
+      "lastSeen": 12,
+      "timesSeen": 1
+    },
+    "edge case for unused items in phase unlock not cross-referenced in guide.md §2": {
+      "firstSeen": 12,
+      "lastSeen": 12,
+      "timesSeen": 1
+    },
+    "fallback for missing or malformed 'condition' field not referenced in guide.md": {
+      "firstSeen": 12,
+      "lastSeen": 12,
+      "timesSeen": 1
+    },
+    "progress bar contract drift risk in ceremony.md §7 and guide.md §5/§6": {
+      "firstSeen": 13,
+      "lastSeen": 13,
+      "timesSeen": 1
+    },
+    "voice rule 1 fallback contract for hero_name and hero_title missing explicit cross-references": {
+      "firstSeen": 13,
+      "lastSeen": 13,
+      "timesSeen": 1
+    },
+    "unused items exclusion contract in checklist.md could be more explicit": {
+      "firstSeen": 13,
+      "lastSeen": 13,
+      "timesSeen": 1
+    },
+    "free-text table in scanner.md §6 uses illustrative ids without schema-driven warning": {
+      "firstSeen": 13,
+      "lastSeen": 13,
+      "timesSeen": 1
+    },
+    "progress bar visual contract drift in ceremony.md §7": {
+      "firstSeen": 14,
+      "lastSeen": 14,
+      "timesSeen": 1
+    },
+    "voice rule 1 fallback contract reference incomplete in guide.md": {
+      "firstSeen": 14,
+      "lastSeen": 14,
+      "timesSeen": 1
+    },
+    "deprecated achievement condition naming not cross-referenced in xp-system.md §7": {
+      "firstSeen": 14,
+      "lastSeen": 14,
+      "timesSeen": 1
+    },
+    "edge case fallback for malformed or missing hero_title not referenced in all modules": {
+      "firstSeen": 14,
+      "lastSeen": 14,
+      "timesSeen": 1
+    },
+    "xp achievement condition naming and deprecation warning are still potentially confusing for pack authors": {
+      "firstSeen": 15,
+      "lastSeen": 15,
+      "timesSeen": 1
+    },
+    "progress bar contract reference missing in guide.md §6 summary view": {
+      "firstSeen": 15,
+      "lastSeen": 15,
+      "timesSeen": 1
+    },
+    "edge case for unused items in achievement conditions not cross-referenced in xp-system.md §7": {
+      "firstSeen": 15,
+      "lastSeen": 15,
+      "timesSeen": 1
+    },
+    "free-text table in scanner.md §6 could be misread as hardcoded—clarify dynamic id derivation": {
+      "firstSeen": 15,
+      "lastSeen": 15,
+      "timesSeen": 1
+    }
+  },
+  "scoreHistory": [
+    {
+      "round": 1,
+      "score": 8
+    },
+    {
+      "round": 2,
+      "score": 8
+    },
+    {
+      "round": 3,
+      "score": 8
+    },
+    {
+      "round": 4,
+      "score": 8
+    },
+    {
+      "round": 5,
+      "score": 8
+    },
+    {
+      "round": 6,
+      "score": 8
+    },
+    {
+      "round": 7,
+      "score": 8
+    },
+    {
+      "round": 8,
+      "score": 8
+    },
+    {
+      "round": 9,
+      "score": 8
+    },
+    {
+      "round": 10,
+      "score": 8
+    },
+    {
+      "round": 11,
+      "score": 8
+    },
+    {
+      "round": 12,
+      "score": 8
+    },
+    {
+      "round": 13,
+      "score": 8
+    },
+    {
+      "round": 14,
+      "score": 8
+    },
+    {
+      "round": 15,
+      "score": 8
+    }
+  ]
+}
