@@ -246,15 +246,30 @@ After writing scenario-{N}.md, display the handoff block for the user.
 The block must be self-contained — the Terminal 2 agent should understand
 everything without prior context.
 
-Adapt the block based on runtime:
+Adapt the block based on runtime AND skill type:
 
-### Claude Code handoff
+### Self-Test Mode (for orchestrator/Skill-tool-based skills)
+
+If the skill profile has `skill_type: orchestrator` or `category: orchestration`, the skill depends on the Skill tool and CANNOT be executed via bash in Terminal 2. In this case:
+
+1. **Do NOT emit a ping-pong handoff block**
+2. Execute the scenario in the SAME terminal using the Skill tool: `Skill(skill="{skill_name}", args="{args}")`
+3. Capture the output directly
+4. Write `result-{N}.md` yourself
+5. Proceed to analysis immediately (no waiting for Terminal 2)
+
+This mode is required for skills like: forge, quest, content-forge, god-mode, and any skill that dispatches agents via Agent tool or uses Skill tool internally.
+
+### Claude Code handoff (for non-orchestrator skills)
 ```
 Voce e um executor de stress test para a skill "{skill_name}".
 
 1. Leia o cenario em {fixture_path}/.stress-test/scenario-{N}.md
 2. Execute a secao "Setup" (comandos bash se houver)
 3. Execute EXATAMENTE o comando da secao "Acao"
+   IMPORTANTE: Se o comando comecar com "/" (slash command), use a Skill tool
+   do Claude Code ao inves de rodar como bash. Exemplo:
+   /forge help → Skill(skill="forge", args="help")
 4. Capture o output completo
 5. Liste arquivos criados/modificados
 6. Escreva resultado em {fixture_path}/.stress-test/result-{N}.md

@@ -26,9 +26,11 @@ INIT -> PHASE_0 -> PHASE_1 -> PHASE_2 -> PHASE_3 -> PHASE_4 -> PHASE_5 -> COMPLE
 
 ## 1.1 State Validation (runs once before Phase 1)
 
-Antes de entrar na primeira fase de execução (Phase 1 para FULL_APP, Phase 3 para SINGLE_FEATURE/BUG_FIX), validar que o state.json tem os campos mínimos obrigatórios:
+Antes de entrar na primeira fase de execução (Phase 1 para FULL_APP, Phase 3 para SINGLE_FEATURE/BUG_FIX), validar que o state.json tem os campos mínimos obrigatórios.
 
-**Campos obrigatórios (HALT se ausente):**
+**Exceção: QUICK mode** — skip state validation inteiramente. QUICK mode não gera `discovery` nem `tech_decisions` (Phase 0 é Context Snap automático, sem perguntas). Campos obrigatórios para QUICK são apenas: `run_id`, `mode`, `status`. O runner DEVE detectar `mode == "QUICK"` e pular esta seção.
+
+**Campos obrigatórios para modos não-QUICK (HALT se ausente):**
 - `run_id` — identificador do run
 - `mode` — modo de execução (FULL_APP, SINGLE_FEATURE, etc.)
 - `status` — deve ser "running"

@@ -178,12 +178,22 @@ To build the help output:
 | **REPLAY** | Prefix `replay`, or words like "refazer", "replay", "de novo", "from phase" | `{FORGE_HOME}/workflows/replay.md` (load previous run, apply changes, re-execute) |
 | **TEMPLATE** | Prefix `template`, or words like "template", "scaffold", "boilerplate", "starter" | `{FORGE_HOME}/workflows/template.md` (pre-configured project, skip Phase 0+1) |
 
-### Smart Detection (automatic)
+### Intent Resolution Order (MANDATORY)
+
+Resolva o intent nesta ordem. Pare na primeira match:
+
+1. **Prefixo explícito** (`feature`, `fix`, `quick`, `scan`, `clone`, etc.) → match direto na tabela acima
+2. **Smart Detection** (se `package.json`/`Cargo.toml`/`go.mod` existe no cwd E input não tem prefixo) → perguntar ao usuário (ver abaixo)
+3. **Keyword matching** (sem prefixo, sem projeto existente) → tabela de triggers acima
+4. **Default** → FULL_APP
+
+### Smart Detection (automatic — Step 2 da resolução acima)
 
 If running inside an existing project (package.json exists) and user runs `/forge` without prefix:
 - Phase 0 detects the existing project automatically (Project Awareness)
 - Asks: "Detectei que esse projeto já tem código. Quer adicionar algo ou começar do zero?"
 - Routes to the correct workflow based on answer
+- **Precedência:** Smart Detection SEMPRE ganha sobre keyword matching e default FULL_APP. Isso evita iniciar um app novo sobre código existente.
 
 ---
 
@@ -200,7 +210,9 @@ If running inside an existing project (package.json exists) and user runs `/forg
    - Fire hook: `before:run`
    - If no plugins found: proceed with legacy behavior (backwards compatible)
 4. **Check for interrupted runs** — Glob `.aios/forge-runs/*/state.json`, filter ONLY `status == "running"` (ignore `completed`, `converted`, `saved`, `cancelled` — see runner.md Section 6.0):
-   - If found: "Encontrei um run interrompido: `{slug}` (parado na Fase {N}). Continuar ou começar novo?"
+   - **Error handling:** Wrap JSON.parse em try/catch. Se state.json estiver corrompido: log warning `"State corrompido para run {folder}. Ignorando."` e skip esse run (não crashar).
+   - **Múltiplos runs:** Se 2+ runs têm status "running", listar todos com fase e timestamp, e perguntar qual retomar: "Encontrei {N} runs interrompidos: 1. `{slug-a}` (Fase {X}), 2. `{slug-b}` (Fase {Y}). Qual retomar, ou começar novo?"
+   - **Single run:** If found: "Encontrei um run interrompido: `{slug}` (parado na Fase {N}). Continuar ou começar novo?"
    - If user wants to resume: load state.json + context-pack.json, jump to last phase
 5. **Read memory protocol** — Check for project-context.md (HYBRID or CENTRALIZED mode)
 6. **Dispatch to workflow** — Based on intent classification, read the matching workflow file and execute

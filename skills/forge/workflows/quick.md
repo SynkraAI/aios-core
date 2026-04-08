@@ -35,7 +35,7 @@ DO NOT read `phase-0-discovery.md`. Quick mode replaces Phase 0 entirely.
 2. **Project detection** (MANDATORY — quick mode ONLY works in existing projects):
    - Read `package.json` (or `Cargo.toml`, `go.mod`, `requirements.txt`) → stack, scripts
    - Run `ls` top-level → folder structure
-   - Run `git log -3 --oneline` → recent context
+   - Run `git log -3 --oneline` → recent context (se `.git/` existir; senão skip com nota "sem histórico git")
    - Read `.aios/memory/project-context.md` if exists → known context
 3. If NO existing project detected:
    - BLOCK: "⚡ Quick mode precisa de um projeto existente. Quer rodar `/forge feature` ao invés?"
