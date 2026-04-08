@@ -32,8 +32,8 @@ Antes de entrar na primeira fase de execução (Phase 1 para FULL_APP, Phase 3 p
 
 **Campos obrigatórios para modos não-QUICK (HALT se ausente):**
 - `run_id` — identificador do run
-- `mode` — modo de execução (FULL_APP, SINGLE_FEATURE, etc.)
-- `status` — deve ser "running"
+- `mode` — modo de execução. **Valores válidos:** FULL_APP, SINGLE_FEATURE, BUG_FIX, QUICK, BROWNFIELD, DESIGN_SYSTEM, LANDING_PAGE, CLONE_SITE, SQUAD_UPGRADE, DRY_RUN, REPLAY, TEMPLATE. Se o valor não estiver nesta lista: HALT com `"Mode inválido: '{mode}'. Valores válidos: {lista}."`.
+- `status` — deve ser "running". **Valores válidos:** running, completed, converted, saved, cancelled. Se o valor não estiver nesta lista: HALT.
 - `discovery` — respostas do Phase 0
 - `tech_decisions` — stack técnica (deve incluir `architecture` e `repo_structure`)
 
@@ -101,6 +101,7 @@ The Forge Plugin System loads and fires plugins automatically. Plugins are YAML 
 ### Boot Sequence (runs once at start of every Forge run)
 
 1. **Discover:** Glob `{FORGE_HOME}/plugins/*.yaml`
+1.5. **Parse with guard:** Para cada arquivo YAML, tentar parsear. Se o parse falhar (YAML inválido): log warning `"⚠️ Plugin '{filename}' com YAML inválido — ignorando."` e skip esse plugin. NUNCA crashar por causa de um plugin corrompido.
 2. **Filter:** Remove plugins where `activation.enabled = false`
 3. **Filter by mode:** Remove plugins where current Forge mode is not in `activation.modes` (skip this filter if `modes` is omitted — plugin is active for all modes)
 4. **Sort:** Order remaining plugins by `priority` ascending (lower = first). Same priority → alphabetical by name.

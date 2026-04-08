@@ -78,8 +78,8 @@ function buildPlan(params) {
 
   return {
     brand: {
-      name: brand.meta.name,
-      theme: brand.meta.theme,
+      name: brand?.meta?.name ?? 'Marca desconhecida',
+      theme: brand?.meta?.theme ?? 'light',
       primary: brand.colors?.semantic?.primary,
       fonts: `${brand.typography?.family?.display} / ${brand.typography?.family?.body}`,
     },

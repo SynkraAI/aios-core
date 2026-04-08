@@ -50,7 +50,8 @@ The user has been here before. Show a quick status and the next mission. This sh
 
 **Steps:**
 1. Read `.aios/quest-log.yaml`
-   - **Parse guard:** Se o YAML estiver corrompido (parse error), ir DIRETAMENTE para o módulo `checklist.md §3` (recuperação de corrupção). NÃO tentar usar `meta.pack` ou qualquer campo antes de confirmar que o parse foi bem-sucedido.
+   - **Parse guard:** Se o YAML estiver corrompido (parse error) OU se o resultado do parse for `null`/vazio (arquivo de 0 bytes), ir DIRETAMENTE para o módulo `checklist.md §3` (recuperação de corrupção). NÃO tentar usar `meta.pack` ou qualquer campo antes de confirmar que o parse foi bem-sucedido.
+   - **Schema guard:** Após parse bem-sucedido, verificar campos mínimos: `meta`, `meta.project`, `meta.pack`, `stats`, `items`. Se qualquer um for `undefined` ou `null`: tratar como corrupção → ir para `checklist.md §3`.
 2. **Auto-Reconciliation (MANDATORY — runs EVERY resumption, silently)**
    Reconcile Quest state with Forge state before showing anything to the user.
    

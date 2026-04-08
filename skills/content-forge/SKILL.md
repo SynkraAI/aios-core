@@ -38,7 +38,9 @@ Ele NUNCA cria conteúdo diretamente — sempre delega para o squad/skill que fa
 **NUNCA** assumir uma marca padrão. SEMPRE apresentar as opções com preview visual.
 
 1. Listar todos os arquivos `.yaml` em `packages/brand-schema/brands/`
-2. Ler o cabeçalho de CADA brand YAML (primeiras ~10 linhas) para extrair: `name`, `theme`, fontes (`display` + `body`), e cor primária principal
+   - **Guard:** Se o diretório não existir ou estiver vazio (0 arquivos `.yaml`): mostrar `"Nenhuma marca encontrada em packages/brand-schema/brands/. Crie pelo menos uma marca antes de usar o Content Forge."` e PARAR.
+   - **Guard por marca:** Para cada arquivo, tentar parsear o YAML. Se corrompido: marcar com `⚠️ [YAML inválido]` no catálogo e NÃO oferecer como opção selecionável.
+2. Ler o cabeçalho de CADA brand YAML válida (primeiras ~10 linhas) para extrair: `name`, `theme`, fontes (`display` + `body`), e cor primária principal
 3. Ler `data/active-brand.yaml` para saber qual estava ativa por último (apenas para indicar com ★)
 4. Apresentar catálogo visual com AskUserQuestion, usando este formato:
 
@@ -174,7 +176,8 @@ Para cada etapa do plano aprovado:
 2. Passar brand tokens como contexto
 3. Pausar em checkpoints para revisão do usuário
 4. **Verificar artefatos** antes de prosseguir para publicação: confirmar que os arquivos esperados (PNGs, vídeos, HTML) existem e têm tamanho > 0. Se ausentes, abortar publicação e avisar o usuário.
-5. Após conclusão, registrar em `data/content-log.jsonl` (se o arquivo não existir, criar vazio antes do append):
+5. **Validar executor** antes de invocar: verificar que o squad/skill referenciado no plano existe (Glob do path). Se ausente: marcar etapa com `⚠️ [Executor indisponível: {path}]`, pular essa etapa e avisar o usuário. Se mais de 50% das etapas não têm executor: ABORTAR o plano inteiro antes de executar qualquer etapa.
+6. Após conclusão, registrar em `data/content-log.jsonl` (se o arquivo não existir, criar vazio antes do append):
 
 ```jsonl
 {"ts":"ISO8601","type":"carousel","brand":"specta","topic":"hooks","pieces":3,"published":false,"executor":"squads/conteudo","skill":"content-forge"}
