@@ -216,6 +216,22 @@ function buildBriefing(patterns, recentDailies) {
     sections.push(activitySection);
   }
 
+  // Section 3: Frontmatter health (from cache)
+  try {
+    const fmCachePath = path.join(CONFIG.project_root, 'squads/kaizen-v2/data/intelligence/frontmatter-health.json');
+    if (fs.existsSync(fmCachePath)) {
+      const fmData = JSON.parse(fs.readFileSync(fmCachePath, 'utf-8'));
+      const score = fmData.health_score;
+      const icon = score >= 90 ? '🟢' : score >= 50 ? '🟡' : '🔴';
+      let fmSection = `\n## Frontmatter Health\n${icon} **${score}/100** (${fmData.total_files} files)`;
+      if (fmData.high_issues > 0) fmSection += ` | ${fmData.high_issues} HIGH`;
+      if (fmData.medium_issues > 0) fmSection += ` | ${fmData.medium_issues} MEDIUM`;
+      sections.push(fmSection);
+    }
+  } catch (fmErr) {
+    // Silently skip — cache may not exist yet
+  }
+
   // Footer
   sections.push(`\n---\n*kaizen-v2 | ${patterns.length} patterns | /kaizen-v2:*health para diagnóstico*`);
 

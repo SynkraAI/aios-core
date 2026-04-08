@@ -69,6 +69,15 @@ operation_modes:
       - "*self-improve — Meta-análise e auto-melhoria do squad"
       - "*audit-quality {squad} — Auditar qualidade dos outputs de um squad"
       - "*auto-heal {files} — Rodar auto-healing gate em arquivos"
+      - "*frontmatter-health — Health score do frontmatter (node tools/frontmatter-lint.js)"
+
+    # Monitored tools (health captured on session stop)
+    monitored_tools:
+      - id: "frontmatter-lint"
+        command: "node tools/frontmatter-lint.js --json"
+        cache: "data/intelligence/frontmatter-health.json"
+        threshold: 80
+        alert_on: "HIGH"
 
 # Tier Structure
 tier_structure:

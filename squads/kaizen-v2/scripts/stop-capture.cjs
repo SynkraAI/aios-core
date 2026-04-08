@@ -37,6 +37,7 @@ const CONFIG = {
   timeout_ms: 5000,
   project_root: process.cwd(),
   daily_dir: 'squads/kaizen-v2/data/intelligence/daily',
+  frontmatter_cache: 'squads/kaizen-v2/data/intelligence/frontmatter-health.json',
   log_file: '.aios/logs/kaizen-stop.log',
   fail_silent: true,
 };
@@ -339,6 +340,46 @@ async function main() {
 
     if (success) {
       log('INFO', `Daily saved: ${path.basename(dailyPath)}`);
+    }
+
+    // Capture frontmatter health score (non-blocking)
+    try {
+      const lintScript = path.join(CONFIG.project_root, 'tools', 'frontmatter-lint.js');
+      if (fs.existsSync(lintScript)) {
+        const tmpFile = path.join(require('os').tmpdir(), 'fm-lint-cache.json');
+        execSync(`node "${lintScript}" --json > "${tmpFile}" 2>/dev/null`, { timeout: 4000 });
+        const lintOutput = fs.readFileSync(tmpFile, 'utf-8');
+        const lintData = JSON.parse(lintOutput);
+        const grades = {};
+        let highCount = 0;
+        let medCount = 0;
+        for (const r of lintData) {
+          grades[r.grade] = (grades[r.grade] || 0) + 1;
+          for (const i of r.issues) {
+            if (i.severity === 'HIGH') highCount++;
+            if (i.severity === 'MEDIUM') medCount++;
+          }
+        }
+        const totalLow = lintData.reduce((sum, r) => sum + r.issues.filter(i => i.severity === 'LOW').length, 0);
+        const weightedIssues = (highCount * 10) + (medCount * 3) + (totalLow * 1);
+        const maxPossible = lintData.length * 15;
+        const healthScore = Math.max(0, Math.round(100 - (weightedIssues / Math.max(maxPossible, 1)) * 100));
+
+        const cacheData = {
+          timestamp: new Date().toISOString(),
+          total_files: lintData.length,
+          health_score: healthScore,
+          high_issues: highCount,
+          medium_issues: medCount,
+          grades,
+        };
+        const cachePath = path.join(CONFIG.project_root, CONFIG.frontmatter_cache);
+        fs.mkdirSync(path.dirname(cachePath), { recursive: true });
+        fs.writeFileSync(cachePath, JSON.stringify(cacheData, null, 2), 'utf-8');
+        log('INFO', `Frontmatter health cached: ${healthScore}/100`);
+      }
+    } catch (fmErr) {
+      log('WARN', `Frontmatter health capture failed: ${fmErr.message}`);
     }
 
     // No stdout output — avoid Claude Code interpreting it as hook control
