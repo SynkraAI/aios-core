@@ -1,0 +1,54 @@
+# YT Forge — Capability Map
+# Maps intents to executors in the AIOS ecosystem
+# Scan date: 2026-04-08
+
+capabilities:
+  transcribe:
+    description: "Converter áudio/vídeo em texto transcrito"
+    executor: "skills/groq-transcriber"
+    activation: "/AIOS:skills:groq-transcriber"
+    command: "python3 tools/aios-transcriber/aios_transcriber.py youtube {URL} -o {output_dir}"
+    why: "Grátis (Groq free tier), suporta YouTube direto sem download, qualidade excelente (Whisper Large v3)"
+    alternatives:
+      - executor: "skills/deepgram-transcriber"
+        activation: "/AIOS:skills:deepgram-transcriber"
+        when: "Batch com 50+ arquivos ou rate limits frequentes no Groq"
+
+  tutorial:
+    description: "Gerar tutorial passo a passo didático a partir de transcrição"
+    executor: "skills/tutorial-generator"
+    activation: "/AIOS:skills:tutorial-generator"
+    why: "Skill leve e focada: mapeia temas, extrai fragmentos, reordena em sequência lógica, entrega tutorial pronto"
+    prerequisites:
+      - capability: transcribe
+        when: "Fonte é áudio/vídeo (não transcrição existente)"
+
+  editorial:
+    description: "Transformar transcrição bruta em documento editorial de alta qualidade"
+    executor: "squads/transcript-sculptor"
+    agent: "sculptor-chief"
+    activation: "/transcript-sculptor:sculptor-chief"
+    command: "/transcript-sculptor:process {input_folder}"
+    why: "Squad com 5 agentes especializados: preservação de DNA do falante (98%+), OCR, quality gates automáticos, suporte a múltiplos formatos"
+    input_note: "Espera um diretório com arquivos de input. Se a fonte for arquivo único, o usuário deve apontar para uma pasta dedicada contendo a transcrição."
+    prerequisites:
+      - capability: transcribe
+        when: "Fonte é áudio/vídeo (não transcrição existente)"
+
+  frameworks:
+    description: "Extrair frameworks, mental models e heurísticas de lives/palestras"
+    executor: "squads/video-content-distillery"
+    agent: "distillery-chief"
+    activation: "@content-distillery:distillery-chief"
+    command: "@content-distillery:distillery-chief *extract {URL_ou_path}"
+    workflow: "framework-extraction"
+    why: "Squad com 9 agentes baseados em metodologias reais (Cedric Chin para conhecimento tácito, Shane Parrish para mental models, Tiago Forte para BASB). Ingestão interna — não precisa de transcrição prévia."
+
+  content_machine:
+    description: "Pipeline completo: live → frameworks → 60+ peças de conteúdo multiplataforma"
+    executor: "squads/video-content-distillery"
+    agent: "distillery-chief"
+    activation: "@content-distillery:distillery-chief"
+    command: "@content-distillery:distillery-chief *distill {URL_ou_path}"
+    workflow: "full-distillery-pipeline"
+    why: "Pipeline de 6 fases com atomização (Gary Vee), multiplicação (Cole & Bush), calendário (Dan Koe) e otimização YouTube (Paddy Galloway). Ingestão interna — não precisa de transcrição prévia."

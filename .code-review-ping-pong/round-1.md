@@ -4,87 +4,105 @@ type: review
 round: 1
 date: "2026-04-08"
 reviewer: "Codex"
-commit_sha: "f00fba9f0"
+commit_sha: "785abd348"
 branch: "chore/devops-10-improvements"
 based_on_fix: null
 files_in_scope:
-  - "scripts/generate-catalog.js"
-  - ".claude/commands/catalog.md"
-score: 6
+  - "skills/yt-forge/SKILL.md"
+  - "skills/yt-forge/capability-map.yaml"
+  - "skills/yt-forge/references/examples.md"
+score: 7
 verdict: "CONTINUE"
 issues:
   - id: "1.1"
     severity: "HIGH"
-    title: "Symlinks simples de skills são gerados com caminho relativo incorreto"
-    file: "scripts/generate-catalog.js"
-    line: 753
-    suggestion: "Suba quatro níveis a partir de `.claude/commands/AIOS/skills/*.md` (`../../../../skills/...`) antes de apontar para o arquivo da skill."
+    title: "Regra de transcrição obrigatória conflita com o roteamento de FRAMEWORKS e CONTENT_MACHINE"
+    file: "skills/yt-forge/SKILL.md"
+    line: 53
+    suggestion: "Escolha um contrato único: ou o forge sempre adiciona a etapa de transcrição antes desses intents, ou delega a ingestão ao Distillery, e reflita isso também no capability-map e nos exemplos."
   - id: "1.2"
-    severity: "MEDIUM"
-    title: "Leitura YAML reduz blocos `|` e `>-` a literais e polui o catálogo"
-    file: "scripts/generate-catalog.js"
-    line: 19
-    suggestion: "Trate block scalars no parser simples ou ignore o marcador e leia o bloco indentado antes de preencher a descrição."
+    severity: "HIGH"
+    title: "Activation paths dos squads não apontam para entrypoints executáveis documentados"
+    file: "skills/yt-forge/capability-map.yaml"
+    line: 28
+    suggestion: "Troque os valores de activation por comandos/entrypoints reais do executor, ou modele separadamente o agente/comando que o forge deve invocar."
   - id: "1.3"
     severity: "MEDIUM"
-    title: "Catálogo de agents está hardcoded com IDs fora do contrato atual do repositório"
-    file: "scripts/generate-catalog.js"
-    line: 399
-    suggestion: "Derive os agents de `.aiox-core/development/agents/` ou alinhe a lista fixa com os atalhos reais documentados em `AGENTS.md`."
+    title: "Exemplo editorial promete interface de input/output diferente da documentada pelo Transcript Sculptor"
+    file: "skills/yt-forge/references/examples.md"
+    line: 57
+    suggestion: "Atualize o exemplo para usar a interface real do Transcript Sculptor, ou explicite a etapa intermediária que adapta um arquivo único para o formato esperado pelo squad."
   - id: "1.4"
     severity: "MEDIUM"
-    title: "Slash command promete ativar tools, mas não instrui como fazer isso"
-    file: ".claude/commands/catalog.md"
-    line: 7
-    suggestion: "Adicione o fluxo de ativação de tool e mantenha o texto de ajuda consistente com os tipos listados no catálogo."
+    title: "Coverage de examples.md não cobre todos os intents declarados"
+    file: "skills/yt-forge/references/examples.md"
+    line: 1
+    suggestion: "Adicione um exemplo realista de CONTENT_MACHINE com checkpoint após frameworks e aviso de pipeline pesado."
+  - id: "1.5"
+    severity: "LOW"
+    title: "Texto user-facing ainda está parcialmente em inglês apesar do requisito explícito de pt-BR"
+    file: "skills/yt-forge/SKILL.md"
+    line: 16
+    suggestion: "Padronize headings e instruções operacionais em pt-BR, mantendo inglês só onde o nome técnico do comando exigir."
 ---
 
 # Code Ping-Pong — Round 1 Review
 
-## 🎯 Score: 6/10 — CONTINUE
+## 🎯 Score: 7/10 — CONTINUE
 
 ## Issues
 
 ### 🟠 HIGH
 
-#### 🟠 Issue 1.1 — Symlinks simples de skills são gerados com caminho relativo incorreto
-- **File:** `scripts/generate-catalog.js`
-- **Line:** 753
-- **Code:** `const relTarget = path.join('..', '..', '..', 'skills', skill.name, mainDoc);`
-- **Problem:** O symlink simples é criado dentro de `.claude/commands/AIOS/skills/`, mas o target sobe só três níveis. Na prática ele aponta para `.claude/skills/...`, não para `skills/...` no root do repo. Isso já aparece no workspace: `.claude/commands/AIOS/skills/critica.md -> ../../../skills/critica/SKILL.md` está quebrado. O comando de sync reporta sucesso, mas deixa atalhos inválidos para skills simples.
-- **Suggestion:** Use `path.join('..', '..', '..', '..', 'skills', skill.name, mainDoc)` para os symlinks simples e mantenha um teste que valide `fs.realpathSync`/`fs.existsSync` do link criado.
+#### Issue 1.1 — Regra de transcrição obrigatória conflita com o roteamento de FRAMEWORKS e CONTENT_MACHINE
+- **File:** `skills/yt-forge/SKILL.md`
+- **Line:** 53
+- **Code:** `Se a fonte for YouTube URL e intent for diferente de TRANSCRIBE: O forge automaticamente inclui a etapa de transcrição como Etapa 1`
+- **Problem:** O contrato acima diz que qualquer intent não-`TRANSCRIBE` com fonte YouTube deve começar com transcrição explícita. Mas o próprio `SKILL.md` depois descreve `FRAMEWORKS` e `CONTENT_MACHINE` como rotas diretas para `Video Content Distillery`, e o `capability-map.yaml` não declara `transcribe` como prerequisite desses intents. O resultado é uma skill com duas verdades operacionais concorrentes: uma em que o forge monta pipeline em duas etapas, outra em que o Distillery absorve a ingestão. Isso reduz clareza do plano e abre espaço para handoff inconsistente.
+- **Suggestion:** Defina um único contrato. Se o Distillery for o dono da ingestão nesses intents, remova a regra genérica de “sempre inclui transcrição” para esse caso. Se o forge quiser normalizar tudo por transcrição primeiro, adicione `prerequisites: transcribe` para `frameworks` e `content_machine` e alinhe pipelines/exemplos.
+
+#### Issue 1.2 — Activation paths dos squads não apontam para entrypoints executáveis documentados
+- **File:** `skills/yt-forge/capability-map.yaml`
+- **Line:** 28
+- **Code:** `activation: "/transcript-sculptor"`
+- **Problem:** O `capability-map.yaml` usa `"/transcript-sculptor"` e `"/video-content-distillery"` como se fossem entrypoints acionáveis, mas a documentação dos executores aponta interfaces mais específicas, como `/transcript-sculptor:process /path/to/input-folder/` e `@content-distillery:distillery-chief *distill ...` ou `*extract ...`. Como o próprio forge promete “Invoke the executor via slash command or Agent tool”, esse campo deveria ser operacionalmente acionável. Do jeito atual, o mapa perde valor prático para execução automática e pode induzir chamadas inválidas.
+- **Suggestion:** Normalize o `activation` para a interface real do executor. Se houver mais de um modo por capability, modele `activation`, `agent` e `command` explicitamente, em vez de apontar para um nome genérico de squad.
 
 ### 🟡 MEDIUM
 
-#### 🟡 Issue 1.2 — Leitura YAML reduz blocos `|` e `>-` a literais e polui o catálogo
-- **File:** `scripts/generate-catalog.js`
-- **Line:** 19
-- **Code:** `const match = content.match(new RegExp(\`^${key}:\\\\s*(.+)$\`, 'm'));`
-- **Problem:** `simpleYamlValue` só lê o valor da mesma linha. Em `description: >-` ou `description: |`, ele retorna literalmente `>-` ou `|` em vez do conteúdo do bloco. Isso já vaza para o catálogo gerado: entradas como `agent-autonomy`, `kaizen` e `design` aparecem com descrição `>-` ou quebram a tabela com `|`. O resultado é markdown inválido e perda sistemática de descrições em YAMLs reais do repositório.
-- **Suggestion:** Detecte block scalars (`|`, `>`, `>-`, `|-"`) e leia as linhas indentadas subsequentes; se não for suportar isso, descarte o marcador e faça fallback explícito para outra fonte antes de gerar markdown.
+#### Issue 1.3 — Exemplo editorial promete interface de input/output diferente da documentada pelo Transcript Sculptor
+- **File:** `skills/yt-forge/references/examples.md`
+- **Line:** 57
+- **Code:** ``/yt-forge tenho essa transcrição ~/docs/mentoria-dia-24.md, quero ela bem editada e estruturada``
+- **Problem:** O exemplo editorial sugere que o YT Forge envia um arquivo `.md` único diretamente ao `Transcript Sculptor` e recebe `masterpiece.md` como output simples. Só que a documentação do executor descreve `/transcript-sculptor:process /path/to/input-folder/` e produz um diretório `-output/` com o arquivo final nomeado a partir da fonte. Isso é relevante porque o forge promete validar inputs/outputs antes de prosseguir. Se o exemplo ensina uma interface diferente da real, a skill perde confiabilidade como orquestrador.
+- **Suggestion:** Reescreva o exemplo com a interface real do squad ou explicite a etapa adaptadora: empacotar a transcrição em uma pasta de trabalho, chamar `/transcript-sculptor:process`, e então consumir o `*-masterpiece.md` retornado.
 
-#### 🟡 Issue 1.3 — Catálogo de agents está hardcoded com IDs fora do contrato atual do repositório
-- **File:** `scripts/generate-catalog.js`
-- **Line:** 399
-- **Code:** `const agents = [ ... { id: '@aios-master', ... }, { id: '@squad-creator-pro', ... } ];`
-- **Problem:** A lista fixa diverge da fonte canônica do projeto. `AGENTS.md` e `.aiox-core/development/agents/` expõem `@aiox-master` e `@squad-creator`, não `@aios-master` e `@squad-creator-pro`. Isso faz o catálogo publicar atalhos que não batem com o contrato de ativação atual e reduz a confiabilidade do artefato justamente na parte que deveria orientar navegação.
-- **Suggestion:** Remova a duplicação manual lendo os agents reais do diretório canônico, ou pelo menos alinhe os IDs hardcoded com `AGENTS.md` e adicione um teste de consistência contra os atalhos suportados.
+#### Issue 1.4 — Coverage de examples.md não cobre todos os intents declarados
+- **File:** `skills/yt-forge/references/examples.md`
+- **Line:** 1
+- **Code:** `# YT Forge — Exemplos de Execução`
+- **Problem:** A skill declara cinco intents (`TRANSCRIBE`, `TUTORIAL`, `EDITORIAL`, `FRAMEWORKS`, `CONTENT_MACHINE`), mas `examples.md` cobre só quatro. Como o próprio escopo da sessão pede exemplos que “cubram todos os intents”, falta justamente o caso mais pesado e mais propenso a ambiguidades: `CONTENT_MACHINE`. Sem esse exemplo, fica sem validação textual o checkpoint “após frameworks” e o warning de pipeline longo.
+- **Suggestion:** Adicione um quinto exemplo para `CONTENT_MACHINE`, com uma live realista, plano em múltiplas fases, checkpoint antes da multiplicação e descrição do output multi-plataforma.
 
-#### 🟡 Issue 1.4 — Slash command promete ativar tools, mas não instrui como fazer isso
-- **File:** `.claude/commands/catalog.md`
-- **Line:** 7
-- **Code:** `o usuário pode pedir para ativar qualquer squad, skill, tool ou agent listado. Para ativar:`
-- **Problem:** O texto promete suportar `tool`, mas a lista subsequente só cobre squad, skill, agent e task de squad. Isso gera um contrato incompleto: depois de confirmar o catálogo, o comando não diz como ativar um item de tool, apesar de o catálogo listar tools explicitamente. O comportamento documentado fica inconsistente com a feature anunciada.
-- **Suggestion:** Inclua o fluxo para `Tool` com o arquivo-fonte correto e revise a ajuda para cobrir todos os tipos realmente suportados pelo catálogo.
+### 🟢 LOW
+
+#### Issue 1.5 — Texto user-facing ainda está parcialmente em inglês apesar do requisito explícito de pt-BR
+- **File:** `skills/yt-forge/SKILL.md`
+- **Line:** 16
+- **Code:** `You are the **YT Forge**. You orchestrate the processing of YouTube videos and audio content`
+- **Problem:** O artefato mistura bastante inglês em trechos que são claramente user-facing ou fazem parte do contrato operacional da skill: identity statement, golden rule, intent classification, execution flow e constitutional rules. Como a sessão pede “Texto pt-BR com acentuação completa”, isso ainda não está plenamente atendido. Não quebra o design do forge, mas reduz consistência editorial com o restante do ecossistema.
+- **Suggestion:** Traduzir headings e prose operacional para pt-BR e manter em inglês apenas nomes próprios de comandos, ferramentas e termos técnicos inevitáveis.
 
 ## ⚠️ Regressions
 - None
 
 ## ✅ What Is Good
-- A separação entre extração, sync de comandos e geração de artefatos está clara e facilita revisar cada etapa isoladamente.
-- O script preserva CommonJS e zero dependências externas, respeitando a restrição do escopo.
-- O slash command `catalog.md` mantém a interação curta e evita despejar o arquivo inteiro para o usuário.
+- A skill cumpre a anatomia mínima de um Tier 1 forge: `SKILL.md`, `capability-map.yaml` e `references/examples.md` estão presentes e bem separados por função.
+- O identity statement e a cláusula de “never implements” estão explícitos, então o posicionamento de orquestrador puro está claro.
+- A taxonomia de intents é pequena, prática e aderente ao domínio; não está inflada artificialmente.
+- O `capability-map.yaml` traz `why` úteis e suficientes para justificar roteamento transparente no plano.
+- Os checkpoints descritos mostram preocupação com revisão humana em etapas críticas, especialmente tutorial/editorial e pipelines pesados.
 
 ## 📊 Summary
-- Total: 4, 🔴 CRITICAL: 0, 🟠 HIGH: 1, 🟡 MEDIUM: 3, 🟢 LOW: 0
+- Total: 5, 🔴 CRITICAL: 0, 🟠 HIGH: 2, 🟡 MEDIUM: 2, 🟢 LOW: 1
 - Regressions: none

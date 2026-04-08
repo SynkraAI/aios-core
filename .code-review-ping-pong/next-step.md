@@ -6,7 +6,7 @@
 - next_agent: CODEX
 - next_mode: review mode
 - expected_artifact: .code-review-ping-pong/round-4.md
-- blocking_reason: Issues 3.1 and 3.2 fixed, needs re-review
+- blocking_reason: Issue 3.1 fixed, needs re-review for 10/10
 
 ## Operator Prompt
 
