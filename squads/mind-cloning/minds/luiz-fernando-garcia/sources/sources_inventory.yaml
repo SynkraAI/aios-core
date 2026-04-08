@@ -1,0 +1,403 @@
+# ═══════════════════════════════════════════════════════════════
+# SOURCES INVENTORY - LUIZ FERNANDO GARCIA
+# Domain: Alta Performance, Psicologia Comportamental, Empreendedorismo
+# Collected: 2026-04-08
+# Mode: Local materials (Tier 0 books) + YouTube research
+# ═══════════════════════════════════════════════════════════════
+
+sources_inventory:
+  metadata:
+    mind_name: "Luiz Fernando Garcia"
+    mind_slug: "luiz-fernando-garcia"
+    aka: "Nando Garcia Psi / Nando Garcia"
+    domain: "Alta Performance, Psicologia Comportamental, Empreendedorismo, Psicodinâmica em Negócios"
+    extraction_date: "2026-04-08"
+    total_sources: 15
+    tier_0_count: 2
+    tier_1_count: 9
+    tier_2_count: 2
+    tier_3_count: 2
+    quality_status: "GO"
+
+  # ─────────────────────────────────────────────────────────────
+  # TIER 0 — MATERIAIS LOCAIS (livros completos disponíveis)
+  # ─────────────────────────────────────────────────────────────
+
+  tier_0_user_materials:
+    - id: "BK01"
+      title: "O Cérebro de Alta Performance"
+      subtitle: "Como orientar seu cérebro para resultados e aproveitar todo o seu potencial de realização"
+      type: "book"
+      author: "Luiz Fernando Garcia"
+      publisher: "Editora Gente"
+      year: 2013
+      format: "PDF → Markdown (pymupdf4llm)"
+      local_path: "sources/books/cerebro-alta-performance.md"
+      word_count: 59217
+      conversion_confidence: "high"
+      key_topics:
+        - "funcionamento do cérebro"
+        - "córtex pré-frontal e conduta empreendedora"
+        - "visualização e metas"
+        - "desafios do autoconhecimento"
+        - "orientação para resultados"
+        - "treinamento cerebral"
+      chapters:
+        - "Introdução"
+        - "1. O funcionamento do cérebro"
+        - "2. O córtex na conduta empreendedora"
+        - "3. Visualização"
+        - "4. Desafios"
+      triangulates: ["framework", "methodology", "principles", "voice_dna"]
+      status: "disponível — lido e convertido"
+      notes: "Livro principal sobre neurociência aplicada a resultados. Contém exercícios práticos, questionários de autoavaliação, e frameworks de visualização/metas. Best-seller."
+
+    - id: "BK02"
+      title: "Pessoas de Resultado"
+      subtitle: "O perfil de quem se destaca sempre"
+      type: "book"
+      author: "Luiz Fernando Garcia"
+      publisher: "Editora Gente"
+      year: 2002
+      format: "EPUB → Markdown (pandoc)"
+      local_path: "sources/books/pessoas-de-resultado.md"
+      word_count: 29646
+      conversion_confidence: "high"
+      key_topics:
+        - "perfil de quem se destaca"
+        - "personalidade empreendedora vs conduta empreendedora"
+        - "7 pontos-chave da orientação para resultados"
+        - "bases motivacionais (realização, poder, afiliação)"
+        - "controle externo vs interno"
+        - "desafios geracionais"
+      chapters:
+        - "I. Um caso para analisar"
+        - "II. O que faz uma pessoa fracassar?"
+        - "III. Personalidade empreendedora ou conduta empreendedora"
+        - "IV. Orientação para resultado (7 pontos-chave)"
+        - "V. Os desafios do desenvolvimento e os 7 pontos-chave"
+        - "VI. Bases motivacionais"
+      frameworks_identified:
+        - "7 Pontos-Chave: Visualização, Superar Desafios, Foco, Mapas de Percurso, Expectância/Drive, Tolerância à Incerteza, Autorreforço"
+        - "Bases Motivacionais: Realização, Poder, Afiliação, Defesa do Fracasso"
+        - "Controle Externo vs Interno"
+      triangulates: ["framework", "methodology", "principles", "voice_dna", "episodic_memories"]
+      status: "disponível — lido e convertido"
+      notes: "Primeiro best-seller. Baseado em pesquisa com 1.200 voluntários (metodologia ONU/Empretec). Reeditado em 2024. Fonte primordial dos frameworks de resultado."
+
+  # ─────────────────────────────────────────────────────────────
+  # TIER 1 — FONTES PRIMÁRIAS (do próprio expert, não locais)
+  # ─────────────────────────────────────────────────────────────
+
+  tier_1_primary:
+    - id: "YT01"
+      title: "Entrevista Edgar Ueda — Luiz Fernando Garcia (YouTube)"
+      type: "interview"
+      url: "https://youtu.be/7ugFpR1jiFY"
+      estimated_volume: "~60 min (estimado)"
+      key_topics: ["trajetória pessoal", "Pessoas de Resultado", "psicodinâmica em negócios"]
+      triangulates: ["voice_dna", "episodic_memories", "framework"]
+      status: "disponível — transcrição pendente"
+      priority: "ALTA"
+
+    - id: "YT02"
+      title: "Programa do Jô Soares — 30/09/2014 (TV Globo)"
+      type: "tv_interview"
+      url: "https://tv.apple.com/br/episode/programa-de-ter%C3%A7a-feira-dia-30-09-2014-na-%C3%ADntegra/umc.cmc.5fv3i05dgfocy50iaiws06781"
+      year: 2014
+      estimated_volume: "~20 min (segmento)"
+      key_topics: ["psicopatia corporativa", "empresários e sociopatas", "personalidade"]
+      triangulates: ["voice_dna", "episodic_memories"]
+      status: "disponível via Globoplay/Apple TV — transcrição pendente"
+      priority: "ALTA"
+
+    - id: "INT01"
+      title: "Raul Candeloro / VendaMais — Entrevista Exclusiva"
+      type: "interview_text"
+      url: "https://vendamais.com.br/raul-candeloro-entrevista-luiz-fernando-garcia-como-ter-mais-resultados/"
+      year: 2017
+      estimated_volume: "~5.000 words (estimado)"
+      key_topics: ["liderança", "vendas", "delegação efetiva", "córtex pré-frontal", "metodologias"]
+      triangulates: ["framework", "methodology", "voice_dna"]
+      status: "disponível online — scraping pendente"
+      priority: "ALTA"
+
+    - id: "POD01"
+      title: "Podcast Nando Garcia Psi (Spotify)"
+      type: "podcast"
+      url: "https://open.spotify.com/show/73i3a0zbWxFzvl0q1rweyn"
+      estimated_volume: "episódios semanais, múltiplas horas"
+      key_topics: ["psicologia para pessoas e negócios", "temas variados"]
+      triangulates: ["voice_dna", "framework", "principles"]
+      status: "disponível — transcrição pendente"
+      priority: "ALTÍSSIMA (linguagem natural, recorrente)"
+
+    - id: "WEB01"
+      title: "Site Oficial — nandogarciapsi.com.br"
+      type: "website"
+      url: "https://nandogarciapsi.com.br"
+      estimated_volume: "~10 páginas"
+      key_topics: ["posicionamento", "biografia", "método", "serviços"]
+      triangulates: ["biography", "methodology"]
+      status: "disponível — scraping pendente"
+
+    - id: "WEB02"
+      title: "Site Institucional — luizfernandogarciaoficial.com.br"
+      type: "website"
+      url: "https://luizfernandogarciaoficial.com.br"
+      estimated_volume: "~5 páginas"
+      key_topics: ["posicionamento institucional", "credenciais"]
+      triangulates: ["biography"]
+      status: "disponível — scraping pendente"
+
+    - id: "LI01"
+      title: "LinkedIn — Dr. Nando Garcia"
+      type: "social_media"
+      url: "https://www.linkedin.com/in/nando-garcia-psi/"
+      estimated_volume: "~50 posts"
+      key_topics: ["thought leadership", "posicionamento B2B"]
+      triangulates: ["voice_dna"]
+      status: "parcial"
+
+    - id: "IG01"
+      title: "Instagram @nandogarciapsi"
+      type: "social_media"
+      url: "https://www.instagram.com/nandogarciapsi/"
+      followers: "273K+"
+      estimated_volume: "centenas de posts/reels"
+      key_topics: ["psicologia aplicada", "comunicação rápida", "estilo direto"]
+      triangulates: ["voice_dna"]
+      status: "disponível — curadoria manual pendente"
+
+    - id: "VID01"
+      title: "Webiórico — Lives YouTube"
+      type: "youtube_live"
+      estimated_volume: "aulas semanais (terças, 20h)"
+      key_topics: ["ansiedade", "gestão", "resiliência", "interação com público"]
+      triangulates: ["voice_dna", "framework"]
+      status: "sem replay — captura ao vivo necessária"
+      priority: "ALTA"
+
+  # ─────────────────────────────────────────────────────────────
+  # TIER 2 — FONTES SECUNDÁRIAS (sobre o expert)
+  # ─────────────────────────────────────────────────────────────
+
+  tier_2_secondary:
+    - id: "ART01"
+      title: "Diário do Negócio — Comportamentos que impedem o sucesso"
+      type: "article"
+      url: "https://diariodonegocio.com.br/terapeuta-de-empresas-e-empresarios-luiz-fernando-garcia-aponta-comportamentos-que-podem-retardar-e-ate-impedir-o-sucesso-de-um-negocio/"
+      key_topics: ["comportamentos limitantes", "posicionamento como terapeuta de empresas"]
+      status: "disponível"
+
+    - id: "ART02"
+      title: "Jornal de Brasília — Livro best-seller em menos de 1 mês"
+      type: "article"
+      url: "https://jornaldebrasilia.com.br/blogs-e-colunas/analice-nicolau/livro-de-nando-garcia-conquista-o-topo-das-vendas-em-menos-de-um-mes/"
+      key_topics: ["Negócios à Prova do Amanhã", "trajetória", "credenciais"]
+      status: "disponível"
+
+  # ─────────────────────────────────────────────────────────────
+  # TIER 3 — FONTES TERCIÁRIAS
+  # ─────────────────────────────────────────────────────────────
+
+  tier_3_tertiary:
+    - id: "REF01"
+      title: "Polo Palestrantes — Nando Garcia"
+      type: "directory_profile"
+      url: "https://polopalestrantes.com.br/palestrantes/nando-garcia"
+      status: "disponível"
+
+    - id: "REF02"
+      title: "Newronio ESPM — Entrevista"
+      type: "academic_interview"
+      url: "https://newronio.espm.br/newronio-entrevista-luiz-fernando-garcia/"
+      status: "disponível — pode ser outro Luiz Fernando Garcia"
+      notes: "Requer verificação de autoria"
+
+  # ─────────────────────────────────────────────────────────────
+  # LIVROS NÃO DISPONÍVEIS LOCALMENTE
+  # ─────────────────────────────────────────────────────────────
+
+  books_not_available:
+    note: "7 livros adicionais publicados pela Editora Gente, não disponíveis localmente"
+    items:
+      - title: "Gente que Faz"
+        year: 2006
+        status: "best-seller — não disponível"
+        relevance: "ALTA (complementa Pessoas de Resultado)"
+      - title: "O Inconsciente na sua Vida Profissional"
+        year: 2008
+        status: "não disponível"
+        relevance: "MÉDIA"
+      - title: "Empresários no Divã"
+        year: 2012
+        status: "não disponível"
+        relevance: "ALTA (psicanálise aplicada a negócios)"
+      - title: "Mente, Gestão e Resultados"
+        year: 2013
+        status: "não disponível"
+        relevance: "ALTA (nome da empresa/metodologia)"
+      - title: "A Psicologia da Gestão"
+        year: ~2020
+        status: "não disponível"
+        relevance: "MÉDIA"
+      - title: "Pessoas de Resultado (reedição ampliada)"
+        year: 2024
+        status: "não disponível (temos edição original 2002)"
+        relevance: "BAIXA (temos a base)"
+      - title: "Negócios à Prova do Amanhã"
+        year: 2023
+        status: "best-seller — não disponível"
+        relevance: "ALTA (livro mais recente)"
+
+  # ─────────────────────────────────────────────────────────────
+  # DADOS BIOGRÁFICOS
+  # ─────────────────────────────────────────────────────────────
+
+  biographical_data:
+    nome_completo: "Luiz Fernando Garcia"
+    nome_artistico: "Nando Garcia / Nando Garcia Psi"
+    formacao:
+      - "Administração"
+      - "Psicologia"
+      - "Psicanálise"
+      - "Doutorado em Neurociência (admitido)"
+    titulo_especial: "Notório Saber em Empreendedorismo (único na América Latina)"
+    empresa: "Cogni-MGR (Mente, Gestão e Resultados) — 25+ anos"
+    socio: "BFL Finance (fundo de investimentos)"
+    numeros:
+      horas_treinamento: "50.000+"
+      clientes: "3.000+"
+      empresas: "6.000+"
+      livros: 9
+      best_sellers: 5
+      edicoes_grupo_dirigido: 73
+      instrutores_empretec: "1.000+"
+    seguidores_instagram: "273K+"
+    metodologia_principal: "Grupo Dirigido de Psicodinâmica em Negócios"
+    envolvimento_empretec: "Responsável pela metodologia no Brasil, formou 1.000+ instrutores para a ONU"
+    clientes_notaveis:
+      - "Faber-Castell, Kimberly-Clark, Votorantim, Itaú, Xiaomi"
+      - "Dudalina, Novo Nordisk, Azul, Sanofi, HSBC/Bradesco"
+      - "Ministério Público de Contas, Justiça Federal da Região Sul"
+      - "Reestruturação Lava-Jato (Deltan Dallagnol)"
+
+  # ─────────────────────────────────────────────────────────────
+  # FRAMEWORKS IDENTIFICADOS (pré-extração)
+  # ─────────────────────────────────────────────────────────────
+
+  frameworks_identified:
+    confirmed_in_books:
+      - name: "7 Pontos-Chave da Orientação para Resultados"
+        source: "BK02 (Pessoas de Resultado)"
+        documentation_level: "completo — capítulo inteiro"
+      - name: "Bases Motivacionais (Realização, Poder, Afiliação, Defesa do Fracasso)"
+        source: "BK02 (Pessoas de Resultado)"
+        documentation_level: "completo — capítulo inteiro com questionário"
+      - name: "Controle Externo vs Interno"
+        source: "BK02 (Pessoas de Resultado)"
+        documentation_level: "completo"
+      - name: "Treinamento do Córtex Pré-Frontal"
+        source: "BK01 (Cérebro de Alta Performance)"
+        documentation_level: "completo — livro inteiro"
+      - name: "Visualização Orientada para Resultados"
+        source: "BK01 (Cérebro de Alta Performance)"
+        documentation_level: "completo — capítulo + exercícios"
+    confirmed_in_research:
+      - name: "Grupo Dirigido de Psicodinâmica em Negócios"
+        documentation_level: "mencionado — 73 edições, 9 meses, 5 imersões"
+      - name: "Triângulo da Funcionalidade (PTF)"
+        documentation_level: "mencionado — metodologia proprietária"
+      - name: "Delegação Efetiva (Recorte Cerebral)"
+        documentation_level: "parcial — descrito em entrevistas"
+      - name: "Fases da Empresa (Criança/Adolescente/Adulta)"
+        documentation_level: "parcial — mencionado em entrevistas"
+
+  # ─────────────────────────────────────────────────────────────
+  # VALIDAÇÃO & QUALITY GATE
+  # ─────────────────────────────────────────────────────────────
+
+  validation:
+    total_sources: 15
+    tier_0_count: 2
+    tier_1_count: 9
+    tier_2_count: 2
+    tier_3_count: 2
+    type_diversity: 7  # book, interview, podcast, website, social_media, article, directory
+    content_volume:
+      tier_0_words: 88863  # 59.217 + 29.646
+      tier_0_books: 2
+      youtube_research_words: "~3.000 (análise, não transcrição)"
+      total_available_for_extraction: "~89K words (Tier 0 apenas)"
+    temporal_periods: ["2002 (Pessoas de Resultado)", "2013 (Cérebro)", "2014 (Jô)", "2017 (VendaMais)", "2023-2026 (ativo)"]
+    triangulation:
+      orientacao_resultados: "2+ fontes (BK01 + BK02 + research) ✅"
+      bases_motivacionais: "1 fonte detalhada (BK02) + menções ✅"
+      cortex_pre_frontal: "2+ fontes (BK01 + entrevistas) ✅"
+      grupo_dirigido: "1 fonte parcial (research) ⚠️"
+      voice_dna: "2 livros + research com observações de estilo ✅"
+
+  go_no_go:
+    checks:
+      - check: "10+ fontes totais"
+        result: "15 ✅"
+        blocking: true
+      - check: "5+ fontes Tier 0/1"
+        result: "11 (2 Tier 0 + 9 Tier 1) ✅"
+        blocking: true
+      - check: "3+ tipos diferentes"
+        result: "7 tipos ✅"
+        blocking: true
+      - check: "50K+ words Tier 0 OU 200+ páginas"
+        result: "~89K words em 2 livros completos ✅"
+        blocking: true
+      - check: "Framework principal em 3+ fontes"
+        result: "Orientação para Resultados: 3+ fontes ✅"
+        blocking: true
+
+    blocking_passed: "5/5"
+    status: "GO"
+    ready_for_extraction: true
+
+    strengths:
+      - "2 livros completos Tier 0 com ~89K words — volume excelente"
+      - "Livros cobrem os dois pilares centrais: neurociência (Cérebro) + perfil empreendedor (Pessoas de Resultado)"
+      - "Frameworks claramente estruturados em capítulos dedicados (7 Pontos-Chave, Bases Motivacionais)"
+      - "YouTube research fornece observações de estilo e voz para triangulação"
+      - "Expert com 50K+ horas de prática e 9 livros — pensamento altamente cristalizado"
+
+    estimated_fidelity: "87-90%"
+    fidelity_rationale: "2 livros Tier 0 de alta qualidade cobrem os frameworks core. Gap principal é ausência de transcrições long-form (podcast/entrevistas) para calibrar voice DNA falada vs escrita. Livros são excelente proxy porque Garcia escreve de forma direta e pessoal, quase conversacional."
+
+  # ─────────────────────────────────────────────────────────────
+  # GAPS & ENRIQUECIMENTO FUTURO
+  # ─────────────────────────────────────────────────────────────
+
+  gaps:
+    minor:
+      - gap: "Sem transcrições de vídeo/podcast (voice DNA falada)"
+        risk: "baixo — livros são conversacionais"
+        mitigation: "Transcrever entrevista Edgar Ueda + 3-5 episódios podcast via yt-forge"
+      - gap: "Grupo Dirigido (metodologia flagship) pouco documentado"
+        risk: "médio — é proprietário/presencial"
+        mitigation: "Extrair menções dos livros + entrevistas"
+      - gap: "7 livros adicionais não disponíveis"
+        risk: "baixo para v1.0 — os 2 disponíveis são os mais fundamentais"
+        mitigation: "Adquirir 'Gente que Faz' e 'Empresários no Divã' para v2.0"
+
+  # ─────────────────────────────────────────────────────────────
+  # DECISÃO FINAL
+  # ─────────────────────────────────────────────────────────────
+
+  decision:
+    status: "GO"
+    ready_for_extraction: true
+    extraction_strategy: "Full extraction from 2 Tier 0 books (~89K words). Strategic sampling: read both books completely. Supplement with YouTube research observations for voice calibration."
+    estimated_extraction_time: "Phase 2 (Voice DNA) + Phase 3 (Thinking DNA) + Phase 4 (Assembly)"
+    priority_order:
+      - "BK02: Pessoas de Resultado — frameworks core (7 pontos-chave, bases motivacionais)"
+      - "BK01: Cérebro de Alta Performance — neurociência aplicada, exercícios práticos"
+      - "YouTube Research — calibração de voz e estilo"
+
+# ═══════════════════════════════════════════════════════════════

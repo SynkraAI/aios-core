@@ -1,14 +1,14 @@
 ---
 name: advisor-board
 description: |
-  Personal advisory board with 13 elite minds spanning strategy, execution, thinking, and vision. Each advisor is cloned from documented frameworks with high-fidelity DNA extraction.
+  Personal advisory board with 15 elite minds spanning strategy, execution, thinking, vision, and human performance. Each advisor is cloned from documented frameworks with high-fidelity DNA extraction.
 version: 1.0.0
 category: business
 ---
 
 # Advisory Board Squad
 
-Personal advisory board with 13 elite minds spanning strategy, execution, thinking, and vision. Each advisor is cloned from documented frameworks with high-fidelity DNA extraction.
+Personal advisory board with 15 elite minds spanning strategy, execution, thinking, vision, and human performance. Each advisor is cloned from documented frameworks with high-fidelity DNA extraction.
 
 ## Quick Start
 
@@ -56,6 +56,12 @@ Personal advisory board with 13 elite minds spanning strategy, execution, thinki
 |---------|-----------|----------|-----------------|
 | Steve Jobs | Simplicity + Product | 8.9/10 | Product vision, brand, simplicity |
 | Walt Disney | Creative Strategy | 8.8/10 | Long-term vision, creativity, experience |
+
+### Human Performance Tier
+| Advisor | Framework | Fidelity | When to Consult |
+|---------|-----------|----------|-----------------|
+| Paulo Vieira | CIS + Inteligência Emocional | 9.0/10 | Emotional intelligence, self-leadership, limiting beliefs |
+| Luiz Fernando Garcia | 7 Pontos-Chave + Neurociência | 8.8/10 | Entrepreneurial behavior, neuroscience, performance diagnosis |
 
 ## How It Works
 
@@ -121,7 +127,9 @@ squads/advisor-board/
 │   ├── shane-parrish.md        # Thinking
 │   ├── naval-ravikant.md       # Thinking
 │   ├── steve-jobs.md           # Vision
-│   └── walt-disney.md          # Vision
+│   ├── walt-disney.md          # Vision
+│   ├── paulo-vieira.md         # Human Performance
+│   └── luiz-fernando-garcia.md # Human Performance
 ├── tasks/
 │   ├── board-session.md        # Advisory session task
 │   ├── decision-council.md     # Multi-advisor deliberation
@@ -142,5 +150,7 @@ All advisor DNAs live in `outputs/minds/{slug}/` (local, .gitignore). Each mind 
 Exceptions:
 - Naval Ravikant: `squads/mind-cloning/minds/naval-ravikant/outputs/`
 - Alex Hormozi: References existing `squads/hormozi/` squad
+- Paulo Vieira: `squads/mind-cloning/minds/paulo-vieira/`
+- Luiz Fernando Garcia: `squads/mind-cloning/minds/luiz-fernando-garcia/outputs/`
 
-Total material processed: **2.6M words** from 21 books + existing DNA.
+Total material processed: **2.7M words** from 23 books + existing DNA.
