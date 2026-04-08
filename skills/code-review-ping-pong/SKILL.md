@@ -166,8 +166,8 @@ Codex always initiates the cycle. This mode analyzes code and writes findings.
 7. **Write findings** — Create `.code-review-ping-pong/round-{N}.md` using the template from `references/review-template.md`. The YAML frontmatter is mandatory.
 8. **Validate** — Run `node .code-review-ping-pong/validate.cjs round-{N}.md` if the script exists. Fix any validation errors before finishing.
 9. **Verdict**:
-   - Score < 10 → verdict `CONTINUE`
-   - Score = 10 → verdict `PERFECT` (cycle ends)
+   - Score < 10 → verdict `CONTINUE` → cycle_state `WAITING_FOR_FIX`
+   - Score = 10 → verdict `PERFECT` → cycle_state **`WAITING_FOR_CRITICA`** (NOT COMPLETE — critica MUST run first, see "Critica Phase" section)
 10. **Prompt next action** — Display the appropriate handoff banner (see "Handoff Banners" section), then present numbered options:
     - If `CONTINUE`: show CLAUDE CODE banner, then:
       ```
@@ -200,19 +200,50 @@ Codex always initiates the cycle. This mode analyzes code and writes findings.
       2. Ver detalhes da review (round-{N}.md)
       3. Ajustar escopo e re-revisar
       ```
-    - If `PERFECT`: show COMPLETE banner, then:
+    - If `PERFECT`: **DO NOT set cycle_state to COMPLETE yet.** The critica phase MUST run first (see "Critica Phase" section). Show CRITICA banner:
       ```
-      🏆 Código 10/10! Ciclo completo em {N} rounds.
+      🏆 Código 10/10! Agora a crítica obrigatória antes de encerrar.
 
-      📍 Estado atual: COMPLETE
-      👤 Próximo agente: NONE
-      ⚡ Próximo comando: none
-      📄 Próximo arquivo esperado: none
+      📍 Estado atual: WAITING_FOR_CRITICA
+      👤 Próximo agente: CLAUDE CODE
+      ⚡ Próximo comando: critica mode
+      📄 Próximo arquivo esperado: critica.md
 
-      1. Encerrar (nada mais a fazer)
-      2. Ver histórico completo dos rounds
-      3. Iniciar novo ciclo com escopo diferente
+      ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+      ┃ 📋 COPIE O BLOCO ABAIXO → COLE NO CLAUDE CODE    ┃
+      ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+      ative a skill code-review-ping-pong em modo CRITICA.
+
+      Contexto:
+      - Projeto: {project_name}
+      - Diretório de rounds: {rounds_dir}
+      - Round PERFECT: round-{N}.md (10/10)
+      - Escopo: {story ativa | session.md | escopo explícito}
+      - Scope: {scope_name | root}
+      - Branch: {branch}
+
+      Leia TODOS os rounds anteriores e o código atual. Execute a crítica
+      obrigatória (5 seções: blind spots, citation verification, red team,
+      minimum scope, ripple effect) e gere critica.md.
+
+      ━━━━━━━━━━━━━━━━ FIM DO BLOCO ━━━━━━━━━━━━━━━━━━━
+
+      1. Mandar pro Claude Code rodar crítica (obrigatório)
+      2. Pular crítica e encerrar (--no-critica)
+      3. Ver histórico completo dos rounds
       ```
+
+      **next-step.md MUST be:**
+      ```yaml
+      cycle_state: WAITING_FOR_CRITICA
+      next_agent: CLAUDE CODE
+      next_mode: critica
+      expected_artifact: critica.md
+      critica_status: pending
+      ```
+
+      **NEVER set cycle_state to COMPLETE on PERFECT.** Only CRITICA (APPROVED) or user choosing `--no-critica` can set COMPLETE. This is NON-NEGOTIABLE.
 
 #### Rules for REVIEW mode
 
@@ -492,7 +523,9 @@ node multi-stage.cjs progress          # Regenerate progress.yml
 
 ---
 
-## Critica Phase (Mandatory Post-PERFECT)
+## Critica Phase (Mandatory Post-PERFECT — NON-NEGOTIABLE)
+
+**REGRA CRÍTICA (reforço):** Quando o reviewer atinge PERFECT (10/10), ele DEVE setar `cycle_state: WAITING_FOR_CRITICA` e `next_agent: CLAUDE CODE`. NUNCA setar COMPLETE diretamente. A critica é obrigatória — só `--no-critica` explícito do usuário pode pular.
 
 After reaching PERFECT (10/10), the cycle does **NOT** archive immediately.
 A mandatory critica phase runs first — a focused subset of `/critica` tailored for code review.
