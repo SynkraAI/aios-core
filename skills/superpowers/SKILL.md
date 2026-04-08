@@ -1,3 +1,13 @@
+---
+name: superpowers
+description: |
+  Coleção de workflows avançados de desenvolvimento: brainstorming, TDD,
+  code review, git worktrees, planos de implementação. Hub que delega para sub-skills.
+version: 1.0.0
+category: development
+tags: [workflow, development, best-practices]
+---
+
 # Superpowers
 
 Collection of advanced development workflow skills for Claude Code.

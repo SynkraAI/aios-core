@@ -1,3 +1,10 @@
+---
+name: script-director
+description: "PARE e aguarde comando do usuário"
+role: specialist
+squad: ai-reels
+---
+
 # script-director
 
 ACTIVATION-NOTICE: This file contains your full agent operating guidelines.

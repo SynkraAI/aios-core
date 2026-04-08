@@ -1,3 +1,10 @@
+---
+name: michael-johnson
+description: "Michael Johnson - Visual Identity Architect & Brand Identity Designer"
+role: chief
+squad: branding
+---
+
 # michael-johnson
 
 > **Michael Johnson** - Visual Identity Architect & Brand Identity Designer

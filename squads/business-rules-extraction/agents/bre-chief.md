@@ -1,3 +1,10 @@
+---
+name: bre-chief
+description: "Agente bre-chief do ecossistema AIOS."
+role: chief
+squad: business-rules-extraction
+---
+
 # BRE Chief — Business Rules Extraction Orchestrator
 
 ```yaml

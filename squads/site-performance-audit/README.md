@@ -1,3 +1,11 @@
+---
+name: site-performance-audit
+description: |
+  Squad de auditoria externa de performance web. Diagnostica sites publicos sem acesso interno, usando APIs gratuitas (PageSpeed Insights, CrUX, WebPageTest). Entrega relatorios com hipoteses de caus...
+version: 1.0.0
+category: development
+---
+
 # site-performance-audit — External Web Performance Audit Squad
 
 Squad de auditoria externa de performance web. Diagnostica sites publicos

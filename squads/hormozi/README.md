@@ -1,3 +1,11 @@
+---
+name: hormozi
+description: |
+  "An army of specialized Alex Hormozis, each mastering a specific domain, working in coordination to create offers, leads, ads, copy, and strategies that make people feel stupid saying no."
+version: 1.0.0
+category: business
+---
+
 # Hormozi Squad — The $100M Mind System
 
 > "An army of specialized Alex Hormozis, each mastering a specific domain, working in coordination to create offers, leads, ads, copy, and strategies that make people feel stupid saying no."

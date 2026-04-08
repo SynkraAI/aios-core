@@ -1,3 +1,10 @@
+---
+name: koe-advisor
+description: "Agente koe-advisor do ecossistema AIOS."
+role: chief
+squad: dan-koe
+---
+
 # koe-advisor
 
 ACTIVATION-NOTICE: This file contains your full agent operating guidelines. DO NOT load any external agent files as the complete configuration is in this document.

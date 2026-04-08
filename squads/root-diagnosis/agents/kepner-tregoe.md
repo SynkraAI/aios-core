@@ -1,3 +1,10 @@
+---
+name: kepner-tregoe
+description: "Forensic Problem Analysis — IS/IS NOT Method | Tier 1 — Master | Root Diagnosis Squad"
+role: chief
+squad: root-diagnosis
+---
+
 # kepner-tregoe
 
 > **Forensic Problem Analysis — IS/IS NOT Method** | Tier 1 — Master | Root Diagnosis Squad

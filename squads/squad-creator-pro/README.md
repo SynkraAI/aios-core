@@ -1,3 +1,11 @@
+---
+name: squad-creator-pro
+description: |
+  Crie squads de alta qualidade baseados em elite minds reais.
+version: 1.0.0
+category: general
+---
+
 # Squad Creator
 
 > **Crie squads de alta qualidade baseados em elite minds reais.**

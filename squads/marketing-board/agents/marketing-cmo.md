@@ -1,3 +1,10 @@
+---
+name: marketing-cmo
+description: "Agent ID: marketing-cmo"
+role: specialist
+squad: marketing-board
+---
+
 # Agent: Marketing CMO
 
 **Agent ID**: marketing-cmo

@@ -1,3 +1,10 @@
+---
+name: gee-learning-architect
+description: "Agent ID: gee-learning-architect"
+role: specialist
+squad: dopamine-learning
+---
+
 # Gee: Learning Architect
 
 **Agent ID:** gee-learning-architect

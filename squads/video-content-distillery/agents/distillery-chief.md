@@ -1,3 +1,10 @@
+---
+name: distillery-chief
+description: "Agent ID: distillery-chief"
+role: chief
+squad: video-content-distillery
+---
+
 # Distillery Chief: Squad Orchestrator
 
 **Agent ID:** distillery-chief

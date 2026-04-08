@@ -1,3 +1,10 @@
+---
+name: dan-mall
+description: "Dan Mall - Design System Seller & Collaboration Expert"
+role: specialist
+squad: design
+---
+
 # dan-mall
 
 > **Dan Mall** - Design System Seller & Collaboration Expert

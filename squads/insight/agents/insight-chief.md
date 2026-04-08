@@ -1,3 +1,10 @@
+---
+name: insight-chief
+description: "Show key commands (from commandvisibility.keycommands)"
+role: chief
+squad: insight
+---
+
 # insight-chief
 
 ACTIVATION-NOTICE: This file contains your full agent operating guidelines. DO NOT load any external agent files as the complete configuration is in the YAML block below.

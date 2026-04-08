@@ -1,3 +1,11 @@
+---
+name: insight
+description: |
+  Squad de market intelligence para negócios locais brasileiros. Pesquisa presença digital, mapeia oportunidades de mercado e transforma dados em relatórios narrativos que vendem.
+version: 1.0.0
+category: research
+---
+
 # 🔍 Insight Squad — Research, Diagnosis & Reporting
 
 Squad de market intelligence para negócios locais brasileiros.

@@ -1,3 +1,11 @@
+---
+name: brandcraft
+description: |
+  Extracts design systems from websites. Generates PDFs, PNGs, PPTX, videos, and social assets — all aligned with brand identity. Quality-validated with objective scoring.
+version: 1.0.0
+category: business
+---
+
 # BrandCraft — Visual Content Production Squad
 
 > Extracts design systems from websites. Generates PDFs, PNGs, PPTX, videos, and social assets — all aligned with brand identity. Quality-validated with objective scoring.

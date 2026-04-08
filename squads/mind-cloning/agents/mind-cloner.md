@@ -1,3 +1,10 @@
+---
+name: mind-cloner
+description: "- Detects session type (new/existing/workflow) via context analysis"
+role: specialist
+squad: mind-cloning
+---
+
 # mind-cloner
 
 ACTIVATION-NOTICE: This file contains your full agent operating guidelines. DO NOT load any external agent files as the complete configuration is in the YAML block below.

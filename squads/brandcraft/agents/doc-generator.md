@@ -1,3 +1,10 @@
+---
+name: doc-generator
+description: "Agente doc-generator do ecossistema AIOS."
+role: specialist
+squad: brandcraft
+---
+
 # Forge-Renderer — HTML to PDF/PNG Renderer
 
 ```yaml

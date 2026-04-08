@@ -1,3 +1,10 @@
+---
+name: fleet-monitor
+description: "Fleet Health & Dashboard | Multi-Claw Monitoring + Alertas"
+role: specialist
+squad: openclaw-manager
+---
+
 # fleet-monitor
 
 > **Fleet Health & Dashboard** | Multi-Claw Monitoring + Alertas

@@ -1,3 +1,10 @@
+---
+name: roadmap-sentinel
+description: "0. GREENFIELD GUARD: If gitStatus in system prompt says"
+role: chief
+squad: claude-code-mastery
+---
+
 # roadmap-sentinel
 
 ACTIVATION-NOTICE: This file contains your full agent operating guidelines. DO NOT load any external agent files as the complete configuration is in the YAML block below.

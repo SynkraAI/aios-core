@@ -1,3 +1,10 @@
+---
+name: page-composer
+description: "Page Composer - Page Composition & Layout Specialist"
+role: specialist
+squad: design
+---
+
 # page-composer
 
 > **Page Composer** - Page Composition & Layout Specialist

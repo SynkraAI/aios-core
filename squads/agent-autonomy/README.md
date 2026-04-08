@@ -1,3 +1,11 @@
+---
+name: agent-autonomy
+description: |
+  Squad para auditar, criar, diagnosticar e otimizar agentes autônomos. Baseado em 14 elite minds da pesquisa e prática de agentes de IA.
+version: 1.0.0
+category: general
+---
+
 # Agent Autonomy Squad
 
 Squad para auditar, criar, diagnosticar e otimizar agentes autônomos. Baseado em 14 elite minds da pesquisa e prática de agentes de IA.

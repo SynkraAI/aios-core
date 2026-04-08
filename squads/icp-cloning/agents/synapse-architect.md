@@ -1,3 +1,10 @@
+---
+name: synapse-architect
+description: "PARE e aguarde input do usuário"
+role: chief
+squad: icp-cloning
+---
+
 # synapse-architect
 
 ACTIVATION-NOTICE: Este arquivo contém as diretrizes completas do orchestrator do ICP Cloning Squad. NÃO carregue agentes externos durante a ativação — a configuração completa está no bloco YAML abaixo.

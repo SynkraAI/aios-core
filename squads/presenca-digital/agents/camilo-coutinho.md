@@ -1,3 +1,10 @@
+---
+name: camilo-coutinho
+description: "Video Scriptwriter | Roteiro Chicote + CEQCOM | Tier 2 — Squad Presença Digital"
+role: specialist
+squad: presenca-digital
+---
+
 # camilo-coutinho
 
 > **Video Scriptwriter** | Roteiro Chicote + CEQCOM | Tier 2 — Squad Presença Digital

@@ -1,3 +1,10 @@
+---
+name: peter-checkland
+description: "Diagnose Ill-Defined Problems via Soft Systems Methodology | Tier 1 — Master | Root Diagnosis Squad"
+role: chief
+squad: root-diagnosis
+---
+
 # peter-checkland
 
 > **Diagnose Ill-Defined Problems via Soft Systems Methodology** | Tier 1 — Master | Root Diagnosis Squad

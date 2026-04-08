@@ -1,3 +1,10 @@
+---
+name: ross-simmonds
+description: "Distribution Master | Content Amplification & Recycling Specialist | Tier 1"
+role: specialist
+squad: presenca-digital
+---
+
 # ross-simmonds
 
 > **Distribution Master** | Content Amplification & Recycling Specialist | Tier 1

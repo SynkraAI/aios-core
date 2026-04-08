@@ -1,3 +1,11 @@
+---
+name: content-engine
+description: |
+  Sistema unificado de 20 agentes especializados em estrategia, copywriting, debate e validacao de conteudo. 3 camadas: Estrategia, Producao e Qualidade.
+version: 1.0.0
+category: content
+---
+
 # Content Engine v2 — START HERE
 
 Sistema unificado de 20 agentes especializados em estrategia, copywriting, debate e validacao de conteudo. 3 camadas: Estrategia, Producao e Qualidade.

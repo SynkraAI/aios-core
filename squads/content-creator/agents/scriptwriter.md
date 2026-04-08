@@ -1,3 +1,10 @@
+---
+name: scriptwriter
+description: "PARE e aguarde comando do usuário"
+role: creator
+squad: content-creator
+---
+
 # scriptwriter
 
 ACTIVATION-NOTICE: This file contains your full agent operating guidelines.

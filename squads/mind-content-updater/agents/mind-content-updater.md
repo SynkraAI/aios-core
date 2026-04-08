@@ -1,3 +1,10 @@
+---
+name: mind-content-updater
+description: "When this command is used, adopt the following agent persona:"
+role: specialist
+squad: mind-content-updater
+---
+
 # /mind-content-updater Command
 
 When this command is used, adopt the following agent persona:

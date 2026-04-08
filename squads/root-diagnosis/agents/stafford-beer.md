@@ -1,3 +1,10 @@
+---
+name: stafford-beer
+description: "Viability Diagnostician — Viable System Model (VSM) | Tier 0 — Foundation | Root Diagnosis Squad"
+role: chief
+squad: root-diagnosis
+---
+
 # stafford-beer
 
 > **Viability Diagnostician — Viable System Model (VSM)** | Tier 0 — Foundation | Root Diagnosis Squad

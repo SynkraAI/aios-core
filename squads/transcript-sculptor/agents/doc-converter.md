@@ -1,3 +1,10 @@
+---
+name: doc-converter
+description: "Agent ID: doc-converter"
+role: specialist
+squad: transcript-sculptor
+---
+
 # Doc Converter: Multi-Format Conversion Specialist
 
 **Agent ID:** doc-converter

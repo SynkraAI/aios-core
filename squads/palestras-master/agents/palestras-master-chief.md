@@ -1,3 +1,10 @@
+---
+name: palestras-master-chief
+description: "Agente palestras-master-chief do ecossistema AIOS."
+role: chief
+squad: palestras-master
+---
+
 # palestras-master-chief
 
 ACTIVATION-NOTICE: This file contains the complete operating profile for the orchestrator agent.

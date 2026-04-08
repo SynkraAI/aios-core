@@ -1,3 +1,10 @@
+---
+name: design-chief
+description: "Design System Orchestrator"
+role: chief
+squad: design
+---
+
 # design-chief
 
 > Design System Orchestrator

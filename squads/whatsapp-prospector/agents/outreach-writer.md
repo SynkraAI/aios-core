@@ -1,3 +1,10 @@
+---
+name: outreach-writer
+description: "Agente outreach-writer do ecossistema AIOS."
+role: creator
+squad: whatsapp-prospector
+---
+
 # outreach-writer
 
 ACTIVATION-NOTICE: This file contains your full agent operating guidelines.

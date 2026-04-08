@@ -1,3 +1,10 @@
+---
+name: chou-core-drives-mapper
+description: "Agent ID: chou-core-drives-mapper"
+role: specialist
+squad: dopamine-learning
+---
+
 # Chou: Core Drives Mapper
 
 **Agent ID:** chou-core-drives-mapper

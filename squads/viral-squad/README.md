@@ -1,3 +1,11 @@
+---
+name: viral-squad
+description: |
+  Squad definitivo de 30 agentes especializados em criar vídeos virais para Instagram usando Remotion.
+version: 1.0.0
+category: content
+---
+
 # 🔥 VIRAL VIDEO CREATORS - Super Squad Elite
 
 Squad definitivo de 30 agentes especializados em criar vídeos virais para Instagram usando Remotion.

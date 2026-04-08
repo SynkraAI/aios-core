@@ -1,3 +1,11 @@
+---
+name: copywriting-squad
+description: |
+  A Copywriting Masters Squad e um expansion pack que organiza 15 clones de copywriters lendarios em um sistema hierarquico de 3 niveis para criar copy de alta conversao.
+version: 1.0.0
+category: content
+---
+
 # Copywriting Masters Squad
 
 ## Overview

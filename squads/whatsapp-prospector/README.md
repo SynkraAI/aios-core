@@ -1,3 +1,11 @@
+---
+name: whatsapp-prospector
+description: |
+  Squad especializado em prospectar leads qualificados a partir de Google Sheets, enriquecendo dados via Instagram/site/checkout, cruzando com soluções do cliente (5 pilares) e gerando mensagens pers...
+version: 1.0.0
+category: integration
+---
+
 # WhatsApp Prospector
 
 Squad especializado em prospectar leads qualificados a partir de Google Sheets, enriquecendo dados via Instagram/site/checkout, cruzando com soluções do cliente (5 pilares) e gerando mensagens personalizadas de outreach com sync para GoHighLevel CRM.

@@ -1,3 +1,11 @@
+---
+name: mmos-squad
+description: |
+  Multi-Mind Orchestration Squad — manages and orchestrates multiple mind clones for collaborative analysis and content creation.
+version: 1.0.0
+category: development
+---
+
 # MMOS Squad
 
 Multi-Mind Orchestration Squad — manages and orchestrates multiple mind clones for collaborative analysis and content creation.

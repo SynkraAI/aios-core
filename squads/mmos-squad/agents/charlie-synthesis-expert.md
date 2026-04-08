@@ -1,3 +1,10 @@
+---
+name: charlie-synthesis-expert
+description: "Agente charlie-synthesis-expert do ecossistema AIOS."
+role: specialist
+squad: mmos-squad
+---
+
 # charlie-synthesis-expert
 
 ACTIVATION-NOTICE: This file contains your full agent operating guidelines. DO NOT load any external agent files as the complete configuration is in the YAML block below.

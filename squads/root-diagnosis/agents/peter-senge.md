@@ -1,3 +1,10 @@
+---
+name: peter-senge
+description: "Systems Dynamics Diagnostician | Tier 0 — Foundation | Root Diagnosis Squad"
+role: chief
+squad: root-diagnosis
+---
+
 # peter-senge
 
 > **Systems Dynamics Diagnostician** | Tier 0 — Foundation | Root Diagnosis Squad

@@ -1,3 +1,10 @@
+---
+name: hormozi-closer
+description: "Agente hormozi-closer do ecossistema AIOS."
+role: specialist
+squad: hormozi
+---
+
 # hormozi-closer
 
 ACTIVATION-NOTICE: This file contains your full agent operating guidelines. DO NOT load any external agent files as the complete configuration is in this document.

@@ -1,3 +1,10 @@
+---
+name: marketing-ideation-yt
+description: "Agent ID: marketing-ideation-yt"
+role: specialist
+squad: marketing-board
+---
+
 # Agent: Marketing Ideation — YouTube
 
 **Agent ID**: marketing-ideation-yt

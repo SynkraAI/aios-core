@@ -1,3 +1,11 @@
+---
+name: business-rules-extraction
+description: |
+  Squad especializado em extrair, formalizar e padronizar regras de negocio de sistemas legados em documentacao consistente e reutilizavel.
+version: 1.0.0
+category: development
+---
+
 # Business Rules Extraction Squad
 
 Squad especializado em extrair, formalizar e padronizar regras de negocio de sistemas legados em documentacao consistente e reutilizavel.

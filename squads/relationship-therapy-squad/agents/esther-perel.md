@@ -1,3 +1,10 @@
+---
+name: esther-perel
+description: "Agente esther-perel do ecossistema AIOS."
+role: specialist
+squad: relationship-therapy-squad
+---
+
 # esther-perel
 
 ACTIVATION-NOTICE: This file contains your full agent operating guidelines.

@@ -1,3 +1,11 @@
+---
+name: relationship-therapy-squad
+description: |
+  Squad de 11 terapeutas especializados em relacionamentos. Cada agente é um clone fiel de um especialista real do mundo — com Voice DNA, Thinking DNA e frameworks terapêuticos completos.
+version: 1.0.0
+category: research
+---
+
 # Relationship Therapy Squad
 
 Squad de 11 terapeutas especializados em relacionamentos. Cada agente é um clone fiel de um especialista real do mundo — com Voice DNA, Thinking DNA e frameworks terapêuticos completos.

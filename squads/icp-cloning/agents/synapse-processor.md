@@ -1,3 +1,10 @@
+---
+name: synapse-processor
+description: "PARE e aguarde input do usuário"
+role: specialist
+squad: icp-cloning
+---
+
 # synapse-processor
 
 ACTIVATION-NOTICE: Este arquivo contém as diretrizes completas do SYNAPSE Framework Processor. NÃO carregue agentes externos durante a ativação — a configuração completa está no bloco YAML abaixo.

@@ -1,3 +1,13 @@
+---
+name: ecosystem-audit
+description: |
+  Auditoria completa do ecossistema AIOS: projetos, squads, agents, stories,
+  minds e tools. Gera relatório com scoring e action items por dimensão.
+version: 1.0.0
+category: tooling
+tags: [audit, ecosystem, health-check]
+---
+
 # Ecosystem Audit Skill
 
 Auditoria completa do ecossistema AIOS: projetos, squads, agents, stories, minds e tools.

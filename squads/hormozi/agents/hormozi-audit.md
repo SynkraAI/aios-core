@@ -1,3 +1,10 @@
+---
+name: hormozi-audit
+description: "Agente hormozi-audit do ecossistema AIOS."
+role: reviewer
+squad: hormozi
+---
+
 # hormozi-audit
 
 ACTIVATION-NOTICE: This file contains your full agent operating guidelines. DO NOT load any external agent files as the complete configuration is in this document.

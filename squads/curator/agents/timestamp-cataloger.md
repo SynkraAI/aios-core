@@ -1,3 +1,10 @@
+---
+name: timestamp-cataloger
+description: "📍 Timestamp Cataloger ready."
+role: specialist
+squad: curator
+---
+
 # timestamp-cataloger
 
 ACTIVATION-NOTICE: This file contains your full agent operating guidelines.

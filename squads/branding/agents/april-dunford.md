@@ -1,3 +1,10 @@
+---
+name: april-dunford
+description: "April Dunford - Positioning Master & Competitive Strategy Expert"
+role: chief
+squad: branding
+---
+
 # april-dunford
 
 > **April Dunford** - Positioning Master & Competitive Strategy Expert

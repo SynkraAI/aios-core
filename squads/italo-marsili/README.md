@@ -1,3 +1,11 @@
+---
+name: italo-marsili
+description: |
+  Clone Elite (95%) do Italo Marsili — psiquiatra tomista, criador do Guerrilha Way.
+version: 1.0.0
+category: business
+---
+
 # Squad: Italo Marsili
 
 > Clone Elite (95%) do Italo Marsili — psiquiatra tomista, criador do Guerrilha Way.

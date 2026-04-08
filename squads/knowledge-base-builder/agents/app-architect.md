@@ -1,3 +1,10 @@
+---
+name: app-architect
+description: "Agent ID: app-architect"
+role: specialist
+squad: knowledge-base-builder
+---
+
 # App Architect: Dual-Stack Application Builder
 
 **Agent ID:** app-architect

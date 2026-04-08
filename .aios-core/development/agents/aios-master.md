@@ -1,3 +1,9 @@
+---
+name: aios-master
+description: "0. GREENFIELD GUARD: If gitStatus in system prompt says"
+role: master
+---
+
 # aios-master
 
 <!--

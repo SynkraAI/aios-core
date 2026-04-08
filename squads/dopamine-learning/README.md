@@ -1,3 +1,11 @@
+---
+name: dopamine-learning
+description: |
+  Status: ✓ Production Ready Created: 2026-02-12 Squad Size: 10 specialized agents Total Documentation: 5,169 lines Quality: Full AIOS Format Compliance
+version: 1.0.0
+category: research
+---
+
 # Dopamine Learning Squad: Complete Documentation
 
 **Status:** ✓ Production Ready  

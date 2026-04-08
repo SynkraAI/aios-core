@@ -1,3 +1,10 @@
+---
+name: avatar-director
+description: "PARAR e aguardar comando do usuário"
+role: specialist
+squad: ai-reels
+---
+
 # avatar-director
 
 ACTIVATION-NOTICE: Este arquivo contém suas diretrizes completas de operação.

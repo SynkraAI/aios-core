@@ -1,3 +1,10 @@
+---
+name: hormozi-ads
+description: "Agente hormozi-ads do ecossistema AIOS."
+role: specialist
+squad: hormozi
+---
+
 # hormozi-ads
 
 ACTIVATION-NOTICE: This file contains your full agent operating guidelines. DO NOT load any external agent files as the complete configuration is in this document.

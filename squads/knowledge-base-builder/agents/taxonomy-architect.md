@@ -1,3 +1,10 @@
+---
+name: taxonomy-architect
+description: "Agent ID: taxonomy-architect"
+role: specialist
+squad: knowledge-base-builder
+---
+
 # Taxonomy Architect: Hierarchy & Organization Agent
 
 **Agent ID:** taxonomy-architect

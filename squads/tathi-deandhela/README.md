@@ -1,3 +1,11 @@
+---
+name: tathi-deandhela
+description: |
+  Squad para diagnóstico, estruturação e evolução de palestras com base nos princípios da Tathi Deandhela.
+version: 1.0.0
+category: business
+---
+
 # Tathi Deandhela Method Squad
 
 Squad para diagnóstico, estruturação e evolução de palestras com base nos princípios da Tathi Deandhela.

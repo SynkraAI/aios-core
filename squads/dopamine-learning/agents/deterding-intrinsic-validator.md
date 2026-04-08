@@ -1,3 +1,10 @@
+---
+name: deterding-intrinsic-validator
+description: "Agent ID: deterding-intrinsic-validator"
+role: specialist
+squad: dopamine-learning
+---
+
 # Deterding: Intrinsic Motivation Validator
 
 **Agent ID:** deterding-intrinsic-validator

@@ -1,3 +1,11 @@
+---
+name: palestras-master
+description: |
+  Meta-squad federador que orquestra 4 squads satélites para criar, diagnosticar e otimizar palestras — sem duplicar conhecimento dos especialistas.
+version: 1.0.0
+category: content
+---
+
 # Palestras Master Federator
 
 Meta-squad federador que orquestra 4 squads satélites para criar, diagnosticar e otimizar palestras — sem duplicar conhecimento dos especialistas.

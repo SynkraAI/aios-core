@@ -1,3 +1,10 @@
+---
+name: claw-provisioner
+description: "Provisioning Pipeline Manager | Credential Collector + Setup Delegator"
+role: chief
+squad: openclaw-manager
+---
+
 # claw-provisioner
 
 > **Provisioning Pipeline Manager** | Credential Collector + Setup Delegator

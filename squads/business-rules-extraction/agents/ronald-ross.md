@@ -1,3 +1,10 @@
+---
+name: ronald-ross
+description: "name: Ronald Ross"
+role: specialist
+squad: business-rules-extraction
+---
+
 # Ronald Ross — Business Vocabulary & RuleSpeak Standardization Agent
 
 ```yaml

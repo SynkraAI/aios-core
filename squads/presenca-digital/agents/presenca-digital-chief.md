@@ -1,3 +1,10 @@
+---
+name: presenca-digital-chief
+description: "agentid: presenca-digital-chief"
+role: chief
+squad: presenca-digital
+---
+
 # presenca-digital-chief
 
 ```yaml

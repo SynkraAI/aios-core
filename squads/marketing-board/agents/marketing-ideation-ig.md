@@ -1,3 +1,10 @@
+---
+name: marketing-ideation-ig
+description: "Agent ID: marketing-ideation-ig"
+role: specialist
+squad: marketing-board
+---
+
 # Agent: Marketing Ideation — Instagram
 
 **Agent ID**: marketing-ideation-ig

@@ -1,3 +1,10 @@
+---
+name: playwright-chief
+description: "Agente playwright-chief do ecossistema AIOS."
+role: chief
+squad: playwright-architect
+---
+
 # Playwright Chief
 
 ACTIVATION-NOTICE: This file contains your full agent operating guidelines.

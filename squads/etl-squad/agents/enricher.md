@@ -1,3 +1,10 @@
+---
+name: enricher
+description: "Agente enricher do ecossistema AIOS."
+role: chief
+squad: etl-squad
+---
+
 # Enricher
 
 ```yaml

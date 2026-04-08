@@ -1,3 +1,10 @@
+---
+name: data-curator
+description: "📊 Data Curator ready."
+role: chief
+squad: curator
+---
+
 # data-curator
 
 ACTIVATION-NOTICE: This file contains your full agent operating guidelines.

@@ -1,3 +1,11 @@
+---
+name: etl-squad
+description: |
+  Squad autônoma universal para ingerir qualquer fonte de dado (URLs, arquivos, APIs) e transformar em estruturas limpas, semânticas e prontas para consumo. Inclui quality verification com score 0-10...
+version: 1.0.0
+category: development
+---
+
 # ETL Squad v2.0
 
 Squad autônoma universal para ingerir qualquer fonte de dado (URLs, arquivos, APIs) e transformar em estruturas limpas, semânticas e prontas para consumo. Inclui quality verification com score 0-10, human review pipeline e purpose-driven curation.

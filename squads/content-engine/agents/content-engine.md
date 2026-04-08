@@ -1,3 +1,10 @@
+---
+name: content-engine
+description: "PARE e aguarde input do usuário"
+role: chief
+squad: content-engine
+---
+
 # content-engine
 
 ACTIVATION-NOTICE: Este arquivo contém as diretrizes completas do orchestrator unificado. NAO carregue agentes externos durante a ativação — a configuração completa está no bloco YAML abaixo.

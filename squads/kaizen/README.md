@@ -1,3 +1,11 @@
+---
+name: kaizen
+description: |
+  Meta-squad de "RH + Ferramentas" do ecossistema AIOS. Analisa continuamente squads, agentes, ferramentas e competências. Detecta gaps, monitora performance, recomenda novos recursos. O "sistema ner...
+version: 1.0.0
+category: development
+---
+
 # Kaizen Squad v1.2.0
 
 Meta-squad de "RH + Ferramentas" do ecossistema AIOS. Analisa continuamente squads, agentes, ferramentas e competências. Detecta gaps, monitora performance, recomenda novos recursos. O "sistema nervoso" do AIOS.

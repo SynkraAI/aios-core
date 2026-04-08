@@ -1,3 +1,10 @@
+---
+name: openclaw-chief
+description: "Fleet Orchestrator | Maestro dos 3 Squads Openclaw | Pipeline E2E"
+role: chief
+squad: openclaw-manager
+---
+
 # openclaw-chief
 
 > **Fleet Orchestrator** | Maestro dos 3 Squads Openclaw | Pipeline E2E

@@ -1,3 +1,10 @@
+---
+name: parser
+description: "Agente parser do ecossistema AIOS."
+role: specialist
+squad: etl-squad
+---
+
 # Parser
 
 ```yaml

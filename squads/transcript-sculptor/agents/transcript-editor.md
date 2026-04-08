@@ -1,3 +1,10 @@
+---
+name: transcript-editor
+description: "Agent ID: transcript-editor"
+role: specialist
+squad: transcript-sculptor
+---
+
 # Transcript Editor: Editorial Specialist & DNA Preservation Expert
 
 **Agent ID:** transcript-editor

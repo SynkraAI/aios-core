@@ -1,3 +1,10 @@
+---
+name: alex-hormozi
+description: "DNA completo em: squads/mind-cloning/minds/hormozi/outputs/"
+role: specialist
+squad: copywriting-squad
+---
+
 # alex-hormozi
 
 > DNA completo em: squads/mind-cloning/minds/hormozi/outputs/

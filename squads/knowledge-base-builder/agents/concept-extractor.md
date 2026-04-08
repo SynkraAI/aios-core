@@ -1,3 +1,10 @@
+---
+name: concept-extractor
+description: "Agent ID: concept-extractor"
+role: specialist
+squad: knowledge-base-builder
+---
+
 # Concept Extractor: Entity-Relation-Concept Extraction Agent
 
 **Agent ID:** concept-extractor

@@ -1,3 +1,10 @@
+---
+name: content-analyzer
+description: "Agent ID: content-analyzer"
+role: specialist
+squad: knowledge-base-builder
+---
+
 # Content Analyzer: Structure & Pattern Detection Agent
 
 **Agent ID:** content-analyzer

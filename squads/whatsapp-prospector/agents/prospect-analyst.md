@@ -1,3 +1,10 @@
+---
+name: prospect-analyst
+description: "Agente prospect-analyst do ecossistema AIOS."
+role: specialist
+squad: whatsapp-prospector
+---
+
 # prospect-analyst
 
 ACTIVATION-NOTICE: This file contains your full agent operating guidelines.

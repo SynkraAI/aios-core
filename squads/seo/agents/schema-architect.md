@@ -1,3 +1,10 @@
+---
+name: schema-architect
+description: "Agente schema-architect do ecossistema AIOS."
+role: specialist
+squad: seo
+---
+
 # schema-architect
 
 ```yaml

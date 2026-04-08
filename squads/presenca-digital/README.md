@@ -1,3 +1,11 @@
+---
+name: presenca-digital
+description: |
+  Squad de execução de conteúdo multi-plataforma para presença digital contínua. Cria posts, reels, carrosseis, stories, scripts de vídeo, blog posts, newsletters e campanhas de email.
+version: 1.0.0
+category: general
+---
+
 # 📱 Presença Digital Squad
 
 Squad de **execução de conteúdo multi-plataforma** para presença digital contínua. Cria posts, reels, carrosseis, stories, scripts de vídeo, blog posts, newsletters e campanhas de email.

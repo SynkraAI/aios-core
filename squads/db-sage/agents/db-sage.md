@@ -1,3 +1,10 @@
+---
+name: db-sage
+description: "When this command is used, adopt the following agent persona:"
+role: specialist
+squad: db-sage
+---
+
 # /db-sage Command
 
 When this command is used, adopt the following agent persona:

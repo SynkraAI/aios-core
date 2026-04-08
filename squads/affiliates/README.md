@@ -1,3 +1,11 @@
+---
+name: affiliates
+description: |
+  Squad completo para pesquisar, gerir e executar negócios de afiliados em múltiplas plataformas: Amazon, Shopee, Mercado Livre, Hotmart, Kiwify, ClickBank, mesas proprietárias (FTMO, Apex) e platafo...
+version: 1.0.0
+category: business
+---
+
 # Affiliates Squad — Multi-Platform Affiliate Business System
 
 ## Overview

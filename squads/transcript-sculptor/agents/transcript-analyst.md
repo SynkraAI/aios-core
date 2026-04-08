@@ -1,3 +1,10 @@
+---
+name: transcript-analyst
+description: "Agent ID: transcript-analyst"
+role: chief
+squad: transcript-sculptor
+---
+
 # Transcript Analyst: Semantic Analysis Specialist
 
 **Agent ID:** transcript-analyst

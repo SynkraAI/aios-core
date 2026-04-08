@@ -1,3 +1,11 @@
+---
+name: repertoire-mapper
+description: |
+  Squad dedicado ao mapeamento completo de repertórios pessoais.
+version: 1.0.0
+category: content
+---
+
 # Repertoire Mapper
 
 > Squad dedicado ao mapeamento completo de repertórios pessoais.

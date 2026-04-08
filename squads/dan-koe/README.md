@@ -1,3 +1,11 @@
+---
+name: dan-koe
+description: |
+  Domain: One-Person Business, Content Systems & Sovereign Creation Version: 1.0.0 Agents: 9 (8 mind clones + 1 orchestrator) Entry Point: @koe:koe-chief
+version: 1.0.0
+category: business
+---
+
 # Koe Squad — The One-Person Business System
 
 **Domain:** One-Person Business, Content Systems & Sovereign Creation

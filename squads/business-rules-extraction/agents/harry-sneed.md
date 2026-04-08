@@ -1,3 +1,10 @@
+---
+name: harry-sneed
+description: "name: Harry Sneed"
+role: specialist
+squad: business-rules-extraction
+---
+
 # Harry Sneed — COBOL Business Logic Extraction Agent
 
 ```yaml

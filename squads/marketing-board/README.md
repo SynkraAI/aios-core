@@ -1,3 +1,11 @@
+---
+name: marketing-board
+description: |
+  Version: 1.1.0 Status: Production-Ready Compatibility: AIOS v4.0+
+version: 1.0.0
+category: business
+---
+
 # Marketing OPES — Board Estratégico + Marketing Arm
 
 **Version:** 1.1.0

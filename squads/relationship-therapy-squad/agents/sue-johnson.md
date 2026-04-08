@@ -1,3 +1,10 @@
+---
+name: sue-johnson
+description: "Agente sue-johnson do ecossistema AIOS."
+role: specialist
+squad: relationship-therapy-squad
+---
+
 # sue-johnson
 
 ACTIVATION-NOTICE: This file contains your full agent operating guidelines.

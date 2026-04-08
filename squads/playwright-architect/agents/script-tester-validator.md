@@ -1,3 +1,10 @@
+---
+name: script-tester-validator
+description: "Agente script-tester-validator do ecossistema AIOS."
+role: specialist
+squad: playwright-architect
+---
+
 # Script Tester Validator
 
 ```yaml

@@ -1,3 +1,10 @@
+---
+name: oalanicolas
+description: "Knowledge Architect | Research + Extraction Specialist | Core + lazy-loaded knowledge"
+role: specialist
+squad: squad-creator-pro
+---
+
 # oalanicolas
 
 > **Knowledge Architect** | Research + Extraction Specialist | Core + lazy-loaded knowledge

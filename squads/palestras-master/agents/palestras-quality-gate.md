@@ -1,3 +1,10 @@
+---
+name: palestras-quality-gate
+description: "Agente palestras-quality-gate do ecossistema AIOS."
+role: specialist
+squad: palestras-master
+---
+
 # palestras-quality-gate
 
 ```yaml

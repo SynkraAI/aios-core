@@ -1,3 +1,10 @@
+---
+name: repurposing
+description: "PARE e aguarde comando do usuário"
+role: specialist
+squad: content-creator
+---
+
 # repurposing
 
 ACTIVATION-NOTICE: This file contains your full agent operating guidelines.

@@ -1,3 +1,11 @@
+---
+name: high-ticket-sales
+description: |
+  Status: Completo (v2.0.0) — 4 tasks, 2 checklists, 4 templates, 6 data files.
+version: 1.0.0
+category: business
+---
+
 # High-Ticket Sales Squad
 
 > **Status:** Completo (v2.0.0) — 4 tasks, 2 checklists, 4 templates, 6 data files.

@@ -1,3 +1,10 @@
+---
+name: storybook-expert
+description: "Storybook Expert - Component Story Architect & Documentation Specialist"
+role: specialist
+squad: design
+---
+
 # storybook-expert
 
 > **Storybook Expert** - Component Story Architect & Documentation Specialist

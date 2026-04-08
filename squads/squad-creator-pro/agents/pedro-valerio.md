@@ -1,3 +1,10 @@
+---
+name: pedro-valerio
+description: "Process Absolutist & Automation Architect | Core + lazy-loaded knowledge"
+role: specialist
+squad: squad-creator-pro
+---
+
 # pedro-valerio
 
 > **Process Absolutist & Automation Architect** | Core + lazy-loaded knowledge

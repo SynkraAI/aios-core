@@ -1,3 +1,11 @@
+---
+name: curator
+description: |
+  Content curation squad for mining, structuring, and formatting video content.
+version: 1.0.0
+category: general
+---
+
 # 🎬 Curator Squad
 
 > Content curation squad for mining, structuring, and formatting video content.

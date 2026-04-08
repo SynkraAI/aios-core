@@ -1,3 +1,10 @@
+---
+name: carousel-designer
+description: "Use marketing-designer instead."
+role: specialist
+squad: marketing-board
+---
+
 # carousel-designer — DEPRECATED
 
 Use **marketing-designer** instead.

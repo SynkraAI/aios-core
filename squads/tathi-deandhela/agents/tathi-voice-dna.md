@@ -1,3 +1,10 @@
+---
+name: tathi-voice-dna
+description: "Agente tathi-voice-dna do ecossistema AIOS."
+role: specialist
+squad: tathi-deandhela
+---
+
 # tathi-voice-dna
 
 ACTIVATION-NOTICE: This file contains the complete operating profile for the Voice DNA specialist agent.

@@ -1,3 +1,10 @@
+---
+name: content-quality-assessor
+description: "Agente content-quality-assessor do ecossistema AIOS."
+role: specialist
+squad: seo
+---
+
 # content-quality-assessor
 
 ```yaml

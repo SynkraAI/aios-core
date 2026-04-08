@@ -1,3 +1,11 @@
+---
+name: zona-genialidade
+description: |
+  Descubra sua Zona de Genialidade, encontre o Squad ideal e crie seu plano de monetizacao — tudo em 30 minutos.
+version: 1.0.0
+category: business
+---
+
 # Zona Genialidade Squad
 
 > Descubra sua Zona de Genialidade, encontre o Squad ideal e crie seu plano de monetizacao — tudo em 30 minutos.

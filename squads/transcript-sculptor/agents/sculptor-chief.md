@@ -1,3 +1,10 @@
+---
+name: sculptor-chief
+description: "Agent ID: sculptor-chief"
+role: chief
+squad: transcript-sculptor
+---
+
 # Sculptor Chief: Transcript Sculptor Orchestrator
 
 **Agent ID:** sculptor-chief

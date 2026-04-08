@@ -1,3 +1,10 @@
+---
+name: high-ticket-closer
+description: "Conhecimento derivado de 3 minds canônicas — ver knowledgesources abaixo."
+role: specialist
+squad: high-ticket-sales
+---
+
 # high-ticket-closer
 
 > Conhecimento derivado de 3 minds canônicas — ver knowledge_sources abaixo.

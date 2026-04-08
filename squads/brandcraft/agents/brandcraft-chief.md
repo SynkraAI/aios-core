@@ -1,3 +1,10 @@
+---
+name: brandcraft-chief
+description: "Agente brandcraft-chief do ecossistema AIOS."
+role: chief
+squad: brandcraft
+---
+
 # Maestro — Pipeline Orchestrator
 
 ```yaml

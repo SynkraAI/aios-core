@@ -1,3 +1,11 @@
+---
+name: root-diagnosis
+description: |
+  Diagnosticar antes de agir. O machado afiado corta melhor.
+version: 1.0.0
+category: research
+---
+
 # Root Diagnosis Squad
 
 > Diagnosticar antes de agir. O machado afiado corta melhor.

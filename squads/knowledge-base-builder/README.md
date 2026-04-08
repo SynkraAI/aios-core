@@ -1,3 +1,11 @@
+---
+name: knowledge-base-builder
+description: |
+  Transform complete libraries of course materials into structured knowledge bases and interactive learning applications.
+version: 1.0.0
+category: development
+---
+
 # Knowledge Base Builder Squad
 
 Transform complete libraries of course materials into structured knowledge bases and interactive learning applications.

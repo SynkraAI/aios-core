@@ -1,3 +1,10 @@
+---
+name: ai-reels-chief
+description: "PARE e aguarde input do usuário"
+role: chief
+squad: ai-reels
+---
+
 # ai-reels-chief
 
 ACTIVATION-NOTICE: Este arquivo contém as diretrizes completas do orchestrator do AI Reels Squad. NAO carregue agentes externos durante a ativação — a configuração completa está no bloco YAML abaixo.

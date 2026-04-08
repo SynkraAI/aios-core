@@ -1,3 +1,11 @@
+---
+name: openclaw-manager
+description: |
+  Camada de orquestração unificada que conecta os 3 squads OpenClaw (setup, skill-factory, ops) num pipeline E2E.
+version: 1.0.0
+category: development
+---
+
 # OpenClaw Manager — Fleet Orchestrator
 
 Camada de orquestração unificada que conecta os 3 squads OpenClaw (setup, skill-factory, ops) num pipeline E2E.

@@ -1,3 +1,10 @@
+---
+name: script-architect
+description: "Agente script-architect do ecossistema AIOS."
+role: specialist
+squad: playwright-architect
+---
+
 # Script Architect
 
 ```yaml

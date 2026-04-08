@@ -1,3 +1,10 @@
+---
+name: research-specialist
+description: "Agente research-specialist do ecossistema AIOS."
+role: analyst
+squad: mmos-squad
+---
+
 # research-specialist
 
 ACTIVATION-NOTICE: This file contains your full agent operating guidelines. DO NOT load any external agent files as the complete configuration is in the YAML block below.

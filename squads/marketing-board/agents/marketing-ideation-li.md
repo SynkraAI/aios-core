@@ -1,3 +1,10 @@
+---
+name: marketing-ideation-li
+description: "Agent ID: marketing-ideation-li"
+role: specialist
+squad: marketing-board
+---
+
 # Agent: Marketing Ideation — LinkedIn
 
 **Agent ID**: marketing-ideation-li

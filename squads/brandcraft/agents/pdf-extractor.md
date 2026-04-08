@@ -1,3 +1,10 @@
+---
+name: pdf-extractor
+description: "Agente pdf-extractor do ecossistema AIOS."
+role: specialist
+squad: brandcraft
+---
+
 # Scribe — PDF Reader
 
 ```yaml

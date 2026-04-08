@@ -1,3 +1,10 @@
+---
+name: ai-visibility-optimizer
+description: "Agente ai-visibility-optimizer do ecossistema AIOS."
+role: specialist
+squad: seo
+---
+
 # ai-visibility-optimizer
 
 ```yaml

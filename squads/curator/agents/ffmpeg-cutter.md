@@ -1,3 +1,10 @@
+---
+name: ffmpeg-cutter
+description: "HALT and await user command"
+role: specialist
+squad: curator
+---
+
 # ffmpeg-cutter.md
 
 ```yaml

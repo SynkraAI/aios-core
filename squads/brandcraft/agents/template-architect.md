@@ -1,3 +1,10 @@
+---
+name: template-architect
+description: "Agente template-architect do ecossistema AIOS."
+role: specialist
+squad: brandcraft
+---
+
 # Vault — Template Manager
 
 ```yaml

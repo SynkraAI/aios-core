@@ -1,3 +1,10 @@
+---
+name: marketing-metrics
+description: "Agent ID: marketing-metrics"
+role: specialist
+squad: marketing-board
+---
+
 # Agent: Marketing Metrics
 
 **Agent ID**: marketing-metrics

@@ -1,3 +1,10 @@
+---
+name: palestras-diagnostician
+description: "Agente palestras-diagnostician do ecossistema AIOS."
+role: specialist
+squad: palestras-master
+---
+
 # palestras-diagnostician
 
 ```yaml

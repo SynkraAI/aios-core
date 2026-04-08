@@ -1,3 +1,10 @@
+---
+name: instagram-researcher
+description: "Agente instagram-researcher do ecossistema AIOS."
+role: analyst
+squad: whatsapp-prospector
+---
+
 # instagram-researcher
 
 ACTIVATION-NOTICE: This file contains your full agent operating guidelines.

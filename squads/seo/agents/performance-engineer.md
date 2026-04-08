@@ -1,3 +1,10 @@
+---
+name: performance-engineer
+description: "Agente performance-engineer do ecossistema AIOS."
+role: specialist
+squad: seo
+---
+
 # performance-engineer
 
 ```yaml

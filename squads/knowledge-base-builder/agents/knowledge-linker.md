@@ -1,3 +1,10 @@
+---
+name: knowledge-linker
+description: "Agent ID: knowledge-linker"
+role: specialist
+squad: knowledge-base-builder
+---
+
 # Knowledge Linker: Source Traceability & Cross-Reference Agent
 
 **Agent ID:** knowledge-linker

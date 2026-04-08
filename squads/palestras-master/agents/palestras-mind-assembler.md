@@ -1,3 +1,10 @@
+---
+name: palestras-mind-assembler
+description: "Agente palestras-mind-assembler do ecossistema AIOS."
+role: specialist
+squad: palestras-master
+---
+
 # palestras-mind-assembler
 
 ```yaml

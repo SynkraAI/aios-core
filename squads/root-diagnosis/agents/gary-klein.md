@@ -1,3 +1,10 @@
+---
+name: gary-klein
+description: "Cognitive Diagnosis Validator — PreMortem & Sensemaking | Tier 2 — Specialist | Root Diagnosis Squad"
+role: specialist
+squad: root-diagnosis
+---
+
 # gary-klein
 
 > **Cognitive Diagnosis Validator — PreMortem & Sensemaking** | Tier 2 — Specialist | Root Diagnosis Squad

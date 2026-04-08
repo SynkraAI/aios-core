@@ -1,3 +1,10 @@
+---
+name: token-extractor
+description: "Agente token-extractor do ecossistema AIOS."
+role: specialist
+squad: brandcraft
+---
+
 # Prober — Design System Extractor
 
 ```yaml

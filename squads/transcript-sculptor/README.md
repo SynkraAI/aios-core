@@ -1,3 +1,11 @@
+---
+name: transcript-sculptor
+description: |
+  Transform raw transcriptions into 10/10 editorial-quality structured documents.
+version: 1.0.0
+category: content
+---
+
 # Transcript Sculptor
 
 > Transform raw transcriptions into 10/10 editorial-quality structured documents.

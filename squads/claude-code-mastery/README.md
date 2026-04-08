@@ -1,3 +1,11 @@
+---
+name: claude-code-mastery
+description: |
+  Full-spectrum expertise in Claude Code: hooks, skills, subagents, MCP, plugins, agent teams, customization, integration, and roadmap awareness.
+version: 1.0.0
+category: development
+---
+
 # Claude Code Mastery Squad
 
 > Full-spectrum expertise in Claude Code: hooks, skills, subagents, MCP, plugins, agent teams, customization, integration, and roadmap awareness.

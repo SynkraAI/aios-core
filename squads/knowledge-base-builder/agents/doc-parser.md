@@ -1,3 +1,10 @@
+---
+name: doc-parser
+description: "Agent ID: doc-parser"
+role: specialist
+squad: knowledge-base-builder
+---
+
 # Doc Parser: Multi-Format Document Processing Agent
 
 **Agent ID:** doc-parser

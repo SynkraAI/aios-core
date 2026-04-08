@@ -1,3 +1,11 @@
+---
+name: negotiation
+description: |
+  Squad de 8 elite minds reais para o pipeline completo de negociacao profissional. Desde a analise do perfil psicologico do comprador ate o fechamento estrategico, cada agente tem um framework docum...
+version: 1.0.0
+category: business
+---
+
 # Negotiation Squad
 
 ## Overview

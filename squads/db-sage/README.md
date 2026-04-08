@@ -1,3 +1,11 @@
+---
+name: db-sage
+description: |
+  Version: 1.1.0 Command: /db-sage Type: Specialist Agent Independence: Requires PostgreSQL/Supabase
+version: 1.0.0
+category: general
+---
+
 # 🗄️ DB Sage - Database Architect & Operations Engineer
 
 **Version:** 1.1.0

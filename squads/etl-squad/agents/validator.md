@@ -1,3 +1,10 @@
+---
+name: validator
+description: "Agente validator do ecossistema AIOS."
+role: specialist
+squad: etl-squad
+---
+
 # Validator
 
 ```yaml

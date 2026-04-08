@@ -1,3 +1,11 @@
+---
+name: video-content-distillery
+description: |
+  Transform long YouTube livestreams into structured frameworks, heuristics, mental models, and multi-platform content pieces.
+version: 1.0.0
+category: content
+---
+
 # Content Distillery Squad
 
 > Transform long YouTube livestreams into structured frameworks, heuristics, mental models, and multi-platform content pieces.

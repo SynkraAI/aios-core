@@ -1,3 +1,11 @@
+---
+name: file-research
+description: |
+  Self-contained file discovery and research pipeline for diverse file types.
+version: 1.0.0
+category: research
+---
+
 # File Research Squad
 
 **Self-contained file discovery and research pipeline for diverse file types.**

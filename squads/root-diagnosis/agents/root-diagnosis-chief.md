@@ -1,3 +1,10 @@
+---
+name: root-diagnosis-chief
+description: "Tier: Orchestrator"
+role: chief
+squad: root-diagnosis
+---
+
 # Diagnostic Orchestrator — Root Diagnosis Squad Chief
 
 > **Tier:** Orchestrator

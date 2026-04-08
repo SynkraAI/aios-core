@@ -1,3 +1,10 @@
+---
+name: espiao
+description: "PARE e aguarde comando do usuário"
+role: specialist
+squad: content-creator
+---
+
 # espiao
 
 ACTIVATION-NOTICE: This file contains your full agent operating guidelines.

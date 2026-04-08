@@ -1,3 +1,11 @@
+---
+name: legacy-rule-extractor
+description: |
+  Code Archaeology Squad que extrai, documenta e cataloga regras de negocio de sistemas legados em documentacao padronizada e consistente.
+version: 1.0.0
+category: general
+---
+
 # Legacy Rule Extractor
 
 **Code Archaeology Squad** que extrai, documenta e cataloga regras de negocio de sistemas legados em documentacao padronizada e consistente.

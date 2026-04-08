@@ -1,3 +1,11 @@
+---
+name: ensinio-mind
+description: |
+  Source of Truth centralizada sobre a plataforma Ensinio. > Alimenta todos os squads ensinio-.
+version: 1.0.0
+category: integration
+---
+
 # Ensinio Mind — Knowledge Hub
 
 > Source of Truth centralizada sobre a plataforma Ensinio.

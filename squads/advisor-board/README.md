@@ -1,3 +1,11 @@
+---
+name: advisor-board
+description: |
+  Personal advisory board with 13 elite minds spanning strategy, execution, thinking, and vision. Each advisor is cloned from documented frameworks with high-fidelity DNA extraction.
+version: 1.0.0
+category: business
+---
+
 # Advisory Board Squad
 
 Personal advisory board with 13 elite minds spanning strategy, execution, thinking, and vision. Each advisor is cloned from documented frameworks with high-fidelity DNA extraction.

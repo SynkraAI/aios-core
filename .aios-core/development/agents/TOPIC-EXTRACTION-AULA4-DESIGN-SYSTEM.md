@@ -1,3 +1,9 @@
+---
+name: TOPIC-EXTRACTION-AULA4-DESIGN-SYSTEM
+description: "Transcrita WebVTT, timestamp em linhas alternadas com conteúdo de fala."
+role: specialist
+---
+
 # Análise de Tópicos - Aula 4 (Design System) - Linhas 6000-7718
 
 ## Método de Extração

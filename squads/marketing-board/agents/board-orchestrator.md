@@ -1,3 +1,10 @@
+---
+name: board-orchestrator
+description: "Agent ID: board-orchestrator"
+role: chief
+squad: marketing-board
+---
+
 # Agent: Board Orchestrator
 
 **Agent ID**: board-orchestrator

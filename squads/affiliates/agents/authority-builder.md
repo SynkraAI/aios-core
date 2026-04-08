@@ -1,3 +1,10 @@
+---
+name: authority-builder
+description: "Show key commands (from commands section)"
+role: specialist
+squad: affiliates
+---
+
 # authority-builder
 
 ACTIVATION-NOTICE: This file contains your full agent operating guidelines. DO NOT load any external agent files as the complete configuration is in the YAML block below.

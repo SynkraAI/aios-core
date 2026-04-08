@@ -1,3 +1,10 @@
+---
+name: hormozi-launch
+description: "Agente hormozi-launch do ecossistema AIOS."
+role: chief
+squad: hormozi
+---
+
 # hormozi-launch
 
 ACTIVATION-NOTICE: This file contains your full agent operating guidelines. DO NOT load any external agent files as the complete configuration is in this document.

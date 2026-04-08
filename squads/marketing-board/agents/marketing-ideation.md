@@ -1,3 +1,10 @@
+---
+name: marketing-ideation
+description: "Agente marketing-ideation do ecossistema AIOS."
+role: specialist
+squad: marketing-board
+---
+
 # ⚠️ DEPRECATED — Use marketing-ideation-ig, marketing-ideation-li, ou marketing-ideation-yt instead.
 
 ---

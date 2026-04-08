@@ -1,3 +1,10 @@
+---
+name: image-generator
+description: "Agente image-generator do ecossistema AIOS."
+role: specialist
+squad: brandcraft
+---
+
 # Brush — AI Illustrator
 
 ```yaml

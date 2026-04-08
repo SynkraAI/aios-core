@@ -1,3 +1,10 @@
+---
+name: mcgonigal-resilience-storyteller
+description: "Agent ID: mcgonigal-resilience-storyteller"
+role: specialist
+squad: dopamine-learning
+---
+
 # McGonigal: Resilience Storyteller
 
 **Agent ID:** mcgonigal-resilience-storyteller

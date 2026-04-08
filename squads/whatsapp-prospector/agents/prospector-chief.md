@@ -1,3 +1,10 @@
+---
+name: prospector-chief
+description: "HALT and await user input"
+role: chief
+squad: whatsapp-prospector
+---
+
 # prospector-chief
 
 ACTIVATION-NOTICE: This file contains your full agent operating guidelines. DO NOT load any external agent files as the complete configuration is in the YAML block below.

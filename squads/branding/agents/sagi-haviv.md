@@ -1,3 +1,10 @@
+---
+name: sagi-haviv
+description: "Sagi Haviv - Logo Design Master & Identity Mark Strategist"
+role: chief
+squad: branding
+---
+
 # sagi-haviv
 
 > **Sagi Haviv** - Logo Design Master & Identity Mark Strategist

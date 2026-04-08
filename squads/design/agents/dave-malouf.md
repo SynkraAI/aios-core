@@ -1,3 +1,10 @@
+---
+name: dave-malouf
+description: "Dave Malouf - DesignOps Pioneer & Scaling Expert"
+role: chief
+squad: design
+---
+
 # dave-malouf
 
 > **Dave Malouf** - DesignOps Pioneer & Scaling Expert

@@ -1,3 +1,14 @@
+---
+name: memory-audit
+description: |
+  Auditoria do sistema de memória AIOS: detecta duplicatas, entradas obsoletas,
+  conflitos e problemas estruturais em memory files, MEMORY.md e feedback.
+  Modo --fix aplica correções com confirmação.
+version: 1.0.0
+category: tooling
+tags: [memory, audit, cleanup]
+---
+
 # Memory Audit Skill
 
 Auditoria completa do sistema de memória do AIOS: arquivos de memória, MEMORY.md, feedback, project context, user profiles e referências. Identifica duplicatas, entradas obsoletas, conflitos e problemas estruturais — e propõe (ou executa) correções com confirmação do usuário.

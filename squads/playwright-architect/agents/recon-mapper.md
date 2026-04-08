@@ -1,3 +1,10 @@
+---
+name: recon-mapper
+description: "Agente recon-mapper do ecossistema AIOS."
+role: specialist
+squad: playwright-architect
+---
+
 # Recon Mapper
 
 ```yaml

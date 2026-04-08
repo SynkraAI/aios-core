@@ -1,3 +1,10 @@
+---
+name: kb-chief
+description: "Agent ID: kb-chief"
+role: chief
+squad: knowledge-base-builder
+---
+
 # KB Chief: Knowledge Base Builder Orchestrator
 
 **Agent ID:** kb-chief

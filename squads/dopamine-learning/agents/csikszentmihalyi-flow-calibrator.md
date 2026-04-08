@@ -1,3 +1,10 @@
+---
+name: csikszentmihalyi-flow-calibrator
+description: "Agent ID: csikszentmihalyi-flow-calibrator"
+role: specialist
+squad: dopamine-learning
+---
+
 # Csikszentmihalyi: Flow Calibrator
 
 **Agent ID:** csikszentmihalyi-flow-calibrator

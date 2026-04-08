@@ -1,3 +1,10 @@
+---
+name: crm-syncer
+description: "Agente crm-syncer do ecossistema AIOS."
+role: specialist
+squad: whatsapp-prospector
+---
+
 # crm-syncer
 
 ACTIVATION-NOTICE: This file contains your full agent operating guidelines.

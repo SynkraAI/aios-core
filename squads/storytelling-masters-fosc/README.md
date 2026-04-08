@@ -1,3 +1,11 @@
+---
+name: storytelling-masters-fosc
+description: |
+  Squad de 11 elite minds reais de storytelling, oratória, persuasão e narrativa, extraídos de 68 livros (~31MB de source material). Satélite do palestras-master.
+version: 1.0.0
+category: content
+---
+
 # Storytelling Masters Fosc
 
 Squad de **11 elite minds reais** de storytelling, oratória, persuasão e narrativa, extraídos de 68 livros (~31MB de source material). Satélite do `palestras-master`.

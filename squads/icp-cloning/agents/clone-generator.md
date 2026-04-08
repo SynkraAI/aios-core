@@ -1,3 +1,10 @@
+---
+name: clone-generator
+description: "Agente clone-generator do ecossistema AIOS."
+role: specialist
+squad: icp-cloning
+---
+
 # clone-generator
 
 ACTIVATION-NOTICE: Agent especialista em geração de outputs finais do clone cognitivo.

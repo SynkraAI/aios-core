@@ -1,3 +1,10 @@
+---
+name: loader
+description: "Agente loader do ecossistema AIOS."
+role: specialist
+squad: etl-squad
+---
+
 # Loader
 
 ```yaml

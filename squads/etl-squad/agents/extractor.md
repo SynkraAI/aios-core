@@ -1,3 +1,10 @@
+---
+name: extractor
+description: "Agente extractor do ecossistema AIOS."
+role: specialist
+squad: etl-squad
+---
+
 # Extractor
 
 ```yaml

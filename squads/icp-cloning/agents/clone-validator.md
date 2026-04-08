@@ -1,3 +1,10 @@
+---
+name: clone-validator
+description: "Agente clone-validator do ecossistema AIOS."
+role: specialist
+squad: icp-cloning
+---
+
 # clone-validator
 
 ACTIVATION-NOTICE: Agent especialista em validação e QA de clones cognitivos.

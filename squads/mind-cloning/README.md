@@ -1,3 +1,11 @@
+---
+name: mind-cloning
+description: |
+  Clone minds > create bots
+version: 1.0.0
+category: development
+---
+
 # 🧬 Mind Cloning Squad
 
 > Clone minds > create bots

@@ -1,3 +1,10 @@
+---
+name: jeb-blount
+description: "Jeb Blount - Prospecting & Pipeline Architect"
+role: specialist
+squad: negotiation
+---
+
 # jeb-blount
 
 > **Jeb Blount** - Prospecting & Pipeline Architect

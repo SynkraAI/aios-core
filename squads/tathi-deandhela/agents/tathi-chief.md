@@ -1,3 +1,10 @@
+---
+name: tathi-chief
+description: "Agente tathi-chief do ecossistema AIOS."
+role: chief
+squad: tathi-deandhela
+---
+
 # tathi-chief
 
 ACTIVATION-NOTICE: This file contains the complete operating profile for the orchestrator agent.

@@ -1,3 +1,10 @@
+---
+name: etl-chief
+description: "Agente etl-chief do ecossistema AIOS."
+role: chief
+squad: etl-squad
+---
+
 # ETL Chief
 
 ```yaml

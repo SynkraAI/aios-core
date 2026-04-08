@@ -1,3 +1,10 @@
+---
+name: nicolas-cole
+description: "Digital Writer | Post & Essay Specialist | Tier 2"
+role: specialist
+squad: presenca-digital
+---
+
 # nicolas-cole
 
 > **Digital Writer** | Post & Essay Specialist | Tier 2

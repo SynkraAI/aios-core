@@ -1,3 +1,11 @@
+---
+name: mind-content-updater
+description: |
+  Automated source discovery, collection, and analysis for MMOS mind cloning.
+version: 1.0.0
+category: content
+---
+
 # Mind Content Updater Squad
 
 > Automated source discovery, collection, and analysis for MMOS mind cloning.

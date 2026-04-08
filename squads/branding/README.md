@@ -1,3 +1,11 @@
+---
+name: branding
+description: |
+  Elite brand building squad powered by documented frameworks from 6 of the world's greatest branding minds. Every agent is cloned from a real expert with skin in the game, documented methodology, an...
+version: 1.0.0
+category: business
+---
+
 # Brand Squad
 
 ## Overview

@@ -1,3 +1,10 @@
+---
+name: schultz-dopamine-analyst
+description: "Agent ID: schultz-dopamine-analyst"
+role: specialist
+squad: dopamine-learning
+---
+
 # Schultz: Dopamine RPE Analyst
 
 **Agent ID:** schultz-dopamine-analyst

@@ -1,3 +1,11 @@
+---
+name: money-makers-vtd
+description: |
+  Squad de monetização perpétua baseado no método Natanael Oliveira > > "Só vende quem oferece. Quem tem cronograma tem caixa."
+version: 1.0.0
+category: business
+---
+
 # Vendas Todos os Dias
 
 > Squad de monetização perpétua baseado no método **Natanael Oliveira**

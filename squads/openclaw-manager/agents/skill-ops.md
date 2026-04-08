@@ -1,3 +1,10 @@
+---
+name: skill-ops
+description: "Skill Lifecycle Manager | Delegador para Skill-Factory + Registry"
+role: chief
+squad: openclaw-manager
+---
+
 # skill-ops
 
 > **Skill Lifecycle Manager** | Delegador para Skill-Factory + Registry

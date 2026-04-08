@@ -1,3 +1,10 @@
+---
+name: code-generator
+description: "Agente code-generator do ecossistema AIOS."
+role: specialist
+squad: playwright-architect
+---
+
 # Code Generator
 
 ```yaml

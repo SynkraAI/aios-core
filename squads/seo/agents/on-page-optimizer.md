@@ -1,3 +1,10 @@
+---
+name: on-page-optimizer
+description: "Agente on-page-optimizer do ecossistema AIOS."
+role: specialist
+squad: seo
+---
+
 # on-page-optimizer
 
 ```yaml

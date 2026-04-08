@@ -1,3 +1,10 @@
+---
+name: zona-genialidade-chief
+description: "ID: zona-genialidade-chief"
+role: chief
+squad: zona-genialidade
+---
+
 # Agent: zona-genialidade-chief
 
 **ID:** zona-genialidade-chief

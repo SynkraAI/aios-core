@@ -1,3 +1,10 @@
+---
+name: eyal-engagement-designer
+description: "Agent ID: eyal-engagement-designer"
+role: specialist
+squad: dopamine-learning
+---
+
 # Eyal: Engagement Designer
 
 **Agent ID:** eyal-engagement-designer

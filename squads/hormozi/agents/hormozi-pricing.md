@@ -1,3 +1,10 @@
+---
+name: hormozi-pricing
+description: "Agente hormozi-pricing do ecossistema AIOS."
+role: specialist
+squad: hormozi
+---
+
 # hormozi-pricing
 
 ACTIVATION-NOTICE: This file contains your full agent operating guidelines. DO NOT load any external agent files as the complete configuration is in this document.

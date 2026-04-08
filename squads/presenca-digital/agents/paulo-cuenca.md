@@ -1,3 +1,10 @@
+---
+name: paulo-cuenca
+description: "agentid: paulo-cuenca"
+role: specialist
+squad: presenca-digital
+---
+
 # paulo-cuenca
 
 ```yaml

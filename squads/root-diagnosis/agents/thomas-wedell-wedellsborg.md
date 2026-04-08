@@ -1,3 +1,10 @@
+---
+name: thomas-wedell-wedellsborg
+description: "Problem Reframing Specialist | Tier 2 — Specialist | Root Diagnosis Squad"
+role: specialist
+squad: root-diagnosis
+---
+
 # thomas-wedell-wedellsborg
 
 > **Problem Reframing Specialist** | Tier 2 — Specialist | Root Diagnosis Squad

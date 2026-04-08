@@ -1,3 +1,10 @@
+---
+name: quality-guardian
+description: "Agent ID: quality-guardian"
+role: specialist
+squad: transcript-sculptor
+---
+
 # Quality Guardian: Editorial Auditor & Quality Validation Specialist
 
 **Agent ID:** quality-guardian

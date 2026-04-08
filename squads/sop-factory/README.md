@@ -1,3 +1,11 @@
+---
+name: sop-factory
+description: |
+  Elite Standard Operating Procedures squad. Creates, extracts, analyzes, grades and converts SOPs using world-class process documentation methodologies.
+version: 1.0.0
+category: development
+---
+
 # SOP Factory
 
 Elite Standard Operating Procedures squad. Creates, extracts, analyzes, grades and converts SOPs using world-class process documentation methodologies.

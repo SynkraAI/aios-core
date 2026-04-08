@@ -1,3 +1,11 @@
+---
+name: conteudo
+description: |
+  Squad de criacao de conteudo Instagram (carrosseis, Reels, Stories, campanhas, pesquisa de concorrentes, multiplicar conteudo) baseado em 3 sistemas proprietarios.
+version: 1.0.0
+category: content
+---
+
 # Squad Conteudo v2.2
 
 Squad de criacao de conteudo Instagram (carrosseis, Reels, Stories, campanhas, pesquisa de concorrentes, multiplicar conteudo) baseado em 3 sistemas proprietarios.

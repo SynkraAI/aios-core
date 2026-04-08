@@ -1,3 +1,10 @@
+---
+name: high-ticket-chief
+description: "Name: High-Ticket Chief"
+role: chief
+squad: high-ticket-mastery
+---
+
 # high-ticket-chief
 
 ## Agent Identity

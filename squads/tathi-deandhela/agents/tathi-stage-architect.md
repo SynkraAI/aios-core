@@ -1,3 +1,10 @@
+---
+name: tathi-stage-architect
+description: "Agente tathi-stage-architect do ecossistema AIOS."
+role: specialist
+squad: tathi-deandhela
+---
+
 # tathi-stage-architect
 
 ACTIVATION-NOTICE: This file contains the complete operating profile for the Stage Architect agent.

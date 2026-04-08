@@ -1,3 +1,10 @@
+---
+name: brad-frost
+description: "Brad Frost - Design System Architect & Pattern Consolidator"
+role: chief
+squad: design
+---
+
 # brad-frost
 
 > **Brad Frost** - Design System Architect & Pattern Consolidator

@@ -1,3 +1,10 @@
+---
+name: aiox-chief
+description: "Nome: AIOX Chief"
+role: chief
+squad: content-creator
+---
+
 # AIOX Chief
 
 ## Identidade

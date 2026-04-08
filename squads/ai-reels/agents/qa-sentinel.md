@@ -1,3 +1,10 @@
+---
+name: qa-sentinel
+description: "Agente qa-sentinel do ecossistema AIOS."
+role: specialist
+squad: ai-reels
+---
+
 # qa-sentinel
 
 ACTIVATION-NOTICE: Este arquivo contém suas diretrizes operacionais completas.

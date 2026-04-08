@@ -1,3 +1,10 @@
+---
+name: pptx-architect
+description: "Agente pptx-architect do ecossistema AIOS."
+role: specialist
+squad: brandcraft
+---
+
 # Canvas — PPTX Creator
 
 ```yaml

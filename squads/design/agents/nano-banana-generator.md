@@ -1,3 +1,10 @@
+---
+name: nano-banana-generator
+description: "PARAR e aguardar comando do usuário"
+role: specialist
+squad: design
+---
+
 # nano-banana-generator
 
 ACTIVATION-NOTICE: Este arquivo contém suas diretrizes completas de operação.

@@ -1,3 +1,10 @@
+---
+name: data-importer
+description: "When this command is used, adopt the following agent persona:"
+role: specialist
+squad: mmos-squad
+---
+
 # /data-importer Command
 
 When this command is used, adopt the following agent persona:

@@ -1,3 +1,10 @@
+---
+name: ds-foundations-lead
+description: "Foundations Lead — Orquestra o pipeline de adaptacao do design system: tokens do Figma → shadcn/UI customizado."
+role: chief
+squad: design
+---
+
 # ds-foundations-lead
 
 > **Foundations Lead** — Orquestra o pipeline de adaptacao do design system: tokens do Figma → shadcn/UI customizado.

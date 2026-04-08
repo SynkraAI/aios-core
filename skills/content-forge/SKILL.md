@@ -1,3 +1,14 @@
+---
+name: content-forge
+description: |
+  Orquestrador inteligente de conteúdo. Recebe demanda em texto livre,
+  classifica o tipo de conteúdo, seleciona squads/skills e entrega assets branded.
+  Use quando quiser criar carrosséis, reels, landing pages ou planejar conteúdo.
+version: 1.0.0
+category: content
+tags: [content, orchestration, branded, social-media]
+---
+
 # Content Forge — Orquestrador Inteligente de Conteúdo
 
 > Um comando. Um plano. Tudo branded.

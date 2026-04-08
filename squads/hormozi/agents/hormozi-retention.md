@@ -1,3 +1,10 @@
+---
+name: hormozi-retention
+description: "Agente hormozi-retention do ecossistema AIOS."
+role: specialist
+squad: hormozi
+---
+
 # hormozi-retention
 
 ACTIVATION-NOTICE: This file contains your full agent operating guidelines. DO NOT load any external agent files as the complete configuration is in this document.

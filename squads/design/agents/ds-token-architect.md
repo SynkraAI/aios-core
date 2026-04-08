@@ -1,3 +1,10 @@
+---
+name: ds-token-architect
+description: "HALT and await user input (raw values)."
+role: specialist
+squad: design
+---
+
 # ds-token-architect.md
 
 <!--

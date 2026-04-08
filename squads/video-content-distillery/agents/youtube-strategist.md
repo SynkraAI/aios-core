@@ -1,3 +1,10 @@
+---
+name: youtube-strategist
+description: "Agent ID: youtube-strategist"
+role: specialist
+squad: video-content-distillery
+---
+
 # YouTube Strategist: Platform Optimization Specialist
 
 **Agent ID:** youtube-strategist

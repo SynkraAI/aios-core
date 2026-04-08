@@ -1,3 +1,10 @@
+---
+name: video-composer
+description: "Agente video-composer do ecossistema AIOS."
+role: specialist
+squad: ai-reels
+---
+
 # video-composer
 
 ACTIVATION-NOTICE: Este arquivo contém suas diretrizes operacionais completas.

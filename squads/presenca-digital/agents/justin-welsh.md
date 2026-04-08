@@ -1,3 +1,10 @@
+---
+name: justin-welsh
+description: "agentid: justin-welsh"
+role: specialist
+squad: presenca-digital
+---
+
 # justin-welsh
 
 ```yaml

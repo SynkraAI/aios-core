@@ -1,3 +1,10 @@
+---
+name: dave-snowden
+description: "Classificador de Dominio de Problema via Cynefin Framework | Tier 0 — Foundation | Root Diagnosis Squad"
+role: chief
+squad: root-diagnosis
+---
+
 # dave-snowden
 
 > **Classificador de Dominio de Problema via Cynefin Framework** | Tier 0 — Foundation | Root Diagnosis Squad

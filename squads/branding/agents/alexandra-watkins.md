@@ -1,3 +1,10 @@
+---
+name: alexandra-watkins
+description: "Alexandra Watkins - Naming Alchemist & Brand Language Architect"
+role: chief
+squad: branding
+---
+
 # alexandra-watkins
 
 > **Alexandra Watkins** - Naming Alchemist & Brand Language Architect

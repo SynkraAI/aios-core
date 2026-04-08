@@ -1,3 +1,10 @@
+---
+name: brendan-kane
+description: "🎯 Brendan Kane Viral Architect ready."
+role: specialist
+squad: curator
+---
+
 # brendan-kane
 
 ACTIVATION-NOTICE: This file contains your full agent operating guidelines.

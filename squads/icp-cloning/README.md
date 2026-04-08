@@ -1,3 +1,11 @@
+---
+name: icp-cloning
+description: |
+  Sistema de clonagem cognitiva profunda de ICPs (Ideal Customer Profiles) com 100% de eficácia.
+version: 1.0.0
+category: research
+---
+
 # 🧬 ICP Cognitive Cloning Squad
 
 Sistema de clonagem cognitiva profunda de ICPs (Ideal Customer Profiles) com 100% de eficácia.

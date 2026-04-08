@@ -1,3 +1,10 @@
+---
+name: natanael-oliveira
+description: "Campaign & Copy Engine | Copy Andromeda + 7 Gatilhos + Campanhas Semanais | Tier 1 — Squad Presença Digital"
+role: specialist
+squad: presenca-digital
+---
+
 # natanael-oliveira (presenca-digital)
 
 > **Campaign & Copy Engine** | Copy Andromeda + 7 Gatilhos + Campanhas Semanais | Tier 1 — Squad Presença Digital

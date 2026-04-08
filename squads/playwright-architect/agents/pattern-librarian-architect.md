@@ -1,3 +1,10 @@
+---
+name: pattern-librarian-architect
+description: "Agente pattern-librarian-architect do ecossistema AIOS."
+role: specialist
+squad: playwright-architect
+---
+
 # Pattern Librarian Architect
 
 ```yaml

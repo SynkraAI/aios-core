@@ -1,3 +1,11 @@
+---
+name: synapse
+description: |
+  CRUD command router for managing SYNAPSE domains, rules, and star-commands. Provides structured management of Claude Code's custom command system.
+version: 1.0.0
+category: development
+---
+
 # Synapse Squad
 
 CRUD command router for managing SYNAPSE domains, rules, and star-commands. Provides structured management of Claude Code's custom command system.

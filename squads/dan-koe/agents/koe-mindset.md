@@ -1,3 +1,10 @@
+---
+name: koe-mindset
+description: "Agente koe-mindset do ecossistema AIOS."
+role: chief
+squad: dan-koe
+---
+
 # koe-mindset
 
 ACTIVATION-NOTICE: This file contains your full agent operating guidelines. DO NOT load any external agent files as the complete configuration is in this document.

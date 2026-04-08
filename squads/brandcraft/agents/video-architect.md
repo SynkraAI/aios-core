@@ -1,3 +1,10 @@
+---
+name: video-architect
+description: "Agente video-architect do ecossistema AIOS."
+role: specialist
+squad: brandcraft
+---
+
 # Director — Video Composer
 
 ```yaml

@@ -1,3 +1,11 @@
+---
+name: content-creator
+description: |
+  Squad de agentes IA para criadores de conteudo — cortes de video, espionagem de concorrentes, repurposing e roteiros.
+version: 1.0.0
+category: content
+---
+
 # Content Creator Squad
 
 Squad de agentes IA para criadores de conteudo — cortes de video, espionagem de concorrentes, repurposing e roteiros.

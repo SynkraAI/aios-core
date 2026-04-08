@@ -1,3 +1,11 @@
+---
+name: paulo-vieira
+description: |
+  Clone Mental de Alta Fidelidade do Paulo Vieira, criador do método CIS (Coaching Integral Sistêmico), palestrante e escritor best-seller.
+version: 1.0.0
+category: business
+---
+
 # Squad Paulo Vieira
 
 Clone Mental de Alta Fidelidade do Paulo Vieira, criador do método CIS (Coaching Integral Sistêmico), palestrante e escritor best-seller.

@@ -1,3 +1,11 @@
+---
+name: audio-reels
+description: |
+  Pipeline automatizado que transforma audio de WhatsApp em video cinematografico animado (9:16) pronto para Reels, TikTok e Shorts.
+version: 1.0.0
+category: general
+---
+
 # Audio Reels — AI Cinema Pipeline
 
 Pipeline automatizado que transforma audio de WhatsApp em video cinematografico animado (9:16) pronto para Reels, TikTok e Shorts.

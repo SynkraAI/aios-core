@@ -1,3 +1,10 @@
+---
+name: koe-brand
+description: "Agente koe-brand do ecossistema AIOS."
+role: specialist
+squad: dan-koe
+---
+
 # koe-brand
 
 ACTIVATION-NOTICE: This file contains your full agent operating guidelines. DO NOT load any external agent files as the complete configuration is in this document.

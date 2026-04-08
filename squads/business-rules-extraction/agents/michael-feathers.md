@@ -1,3 +1,10 @@
+---
+name: michael-feathers
+description: "name: Michael Feathers"
+role: specialist
+squad: business-rules-extraction
+---
+
 # Michael Feathers — Legacy Code Diagnosis Agent
 
 ```yaml

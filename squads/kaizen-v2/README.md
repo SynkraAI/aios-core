@@ -1,3 +1,11 @@
+---
+name: kaizen-v2
+description: |
+  Evolução do kaizen v1: squad que vigia e melhora o ecossistema, agora com Tier 0 Sensorial para captura diária de learnings, pattern learning via forgetting curve, e briefings proativos de sessão.
+version: 1.0.0
+category: general
+---
+
 # Kaizen v2 — Ecosystem Intelligence with Daily Sensing
 
 **Evolução do kaizen v1:** squad que vigia e melhora o ecossistema, agora com Tier 0 Sensorial para captura diária de learnings, pattern learning via forgetting curve, e briefings proativos de sessão.

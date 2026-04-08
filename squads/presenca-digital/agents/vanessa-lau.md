@@ -1,3 +1,10 @@
+---
+name: vanessa-lau
+description: "Repurposing Architect | Content Machine + Content Matrix | Tier 2 — Squad Presença Digital"
+role: specialist
+squad: presenca-digital
+---
+
 # vanessa-lau
 
 > **Repurposing Architect** | Content Machine + Content Matrix | Tier 2 — Squad Presença Digital

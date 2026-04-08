@@ -1,3 +1,11 @@
+---
+name: leandro-ladeira
+description: |
+  Especialista em Tráfego Pago e Vendas Perpétuas — método de vendas consistentes e anúncios de alta conversão.
+version: 1.0.0
+category: business
+---
+
 # Squad: Leandro Ladeira
 
 > Especialista em Tráfego Pago e Vendas Perpétuas — método de vendas consistentes e anúncios de alta conversão.

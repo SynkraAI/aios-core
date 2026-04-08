@@ -1,3 +1,10 @@
+---
+name: robert-cialdini
+description: "DNA completo em: squads/mind-cloning/minds/robert-cialdini/outputs/"
+role: specialist
+squad: negotiation
+---
+
 # robert-cialdini
 
 > DNA completo em: squads/mind-cloning/minds/robert-cialdini/outputs/

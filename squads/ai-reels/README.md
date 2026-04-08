@@ -1,3 +1,11 @@
+---
+name: ai-reels
+description: |
+  Squad para criar Instagram Reels (15-90s) com clone de voz e avatar IA. Stack: ElevenLabs Creator (voz PT-BR PVC) + HeyGen Creator (lip sync avatar) + Remotion (pos-producao).
+version: 1.0.0
+category: content
+---
+
 # AI Reels Squad v3.0
 
 Squad para criar Instagram Reels (15-90s) com clone de voz e avatar IA.

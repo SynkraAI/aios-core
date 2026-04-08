@@ -1,3 +1,10 @@
+---
+name: sop-creator
+description: "HALT and await user input. Do NOT auto-create any SOP"
+role: creator
+squad: sop-factory
+---
+
 # sop-creator
 
 ACTIVATION-NOTICE: This file contains your full agent operating guidelines. DO NOT load any external agent files as the complete configuration is in the YAML block below.

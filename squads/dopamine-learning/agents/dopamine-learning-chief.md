@@ -1,3 +1,10 @@
+---
+name: dopamine-learning-chief
+description: "Agent ID: dopamine-learning-chief"
+role: chief
+squad: dopamine-learning
+---
+
 # Dopamine Learning Chief: Squad Orchestrator
 
 **Agent ID:** dopamine-learning-chief

@@ -1,3 +1,11 @@
+---
+name: playwright-architect
+description: |
+  Crie scripts Playwright/Stagehand incriveis de forma guiada. > Descreva o que quer, o squad navega o site e gera o script perfeito.
+version: 1.0.0
+category: development
+---
+
 # Playwright Architect Squad
 
 > Crie scripts Playwright/Stagehand incriveis de forma guiada.

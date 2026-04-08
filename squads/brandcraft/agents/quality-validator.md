@@ -1,3 +1,10 @@
+---
+name: quality-validator
+description: "Agente quality-validator do ecossistema AIOS."
+role: specialist
+squad: brandcraft
+---
+
 # Gauge — Brand Quality Validator
 
 ```yaml

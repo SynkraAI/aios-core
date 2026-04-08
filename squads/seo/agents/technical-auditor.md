@@ -1,3 +1,10 @@
+---
+name: technical-auditor
+description: "Agente technical-auditor do ecossistema AIOS."
+role: reviewer
+squad: seo
+---
+
 # technical-auditor
 
 ```yaml

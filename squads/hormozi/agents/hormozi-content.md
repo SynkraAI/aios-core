@@ -1,3 +1,10 @@
+---
+name: hormozi-content
+description: "Agente hormozi-content do ecossistema AIOS."
+role: specialist
+squad: hormozi
+---
+
 # hormozi-content
 
 ACTIVATION-NOTICE: This file contains your full agent operating guidelines. DO NOT load any external agent files as the complete configuration is in this document.

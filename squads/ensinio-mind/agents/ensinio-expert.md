@@ -1,3 +1,10 @@
+---
+name: ensinio-expert
+description: "activation-protocol: base"
+role: specialist
+squad: ensinio-mind
+---
+
 # Ensinio Expert
 
 ```yaml

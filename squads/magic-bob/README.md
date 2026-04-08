@@ -1,3 +1,11 @@
+---
+name: magic-bob
+description: |
+  BOB = Build, Orchestrate, Balance
+version: 1.0.0
+category: general
+---
+
 # 🎩 Magic BOB - Autonomous Orchestration Squad
 
 **BOB** = **B**uild, **O**rchestrate, **B**alance

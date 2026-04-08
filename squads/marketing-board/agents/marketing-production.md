@@ -1,3 +1,10 @@
+---
+name: marketing-production
+description: "Agent ID: marketing-production"
+role: specialist
+squad: marketing-board
+---
+
 # Agent: Marketing Production
 
 **Agent ID**: marketing-production

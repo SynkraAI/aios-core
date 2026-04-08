@@ -1,3 +1,10 @@
+---
+name: leandro-ladeira-chief
+description: "Agente leandro-ladeira-chief do ecossistema AIOS."
+role: chief
+squad: leandro-ladeira
+---
+
 # leandro-ladeira-chief
 
 ```yaml

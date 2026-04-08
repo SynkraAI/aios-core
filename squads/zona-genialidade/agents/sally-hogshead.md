@@ -1,3 +1,10 @@
+---
+name: sally-hogshead
+description: "Agent ID: sally-hogshead"
+role: specialist
+squad: zona-genialidade
+---
+
 # Sally Hogshead: Estrategista de Posicionamento e Marca Pessoal
 
 **Agent ID:** sally-hogshead

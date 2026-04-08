@@ -1,3 +1,10 @@
+---
+name: seo-chief
+description: "Agente seo-chief do ecossistema AIOS."
+role: chief
+squad: seo
+---
+
 # seo-chief
 
 ```yaml

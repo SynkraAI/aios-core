@@ -1,3 +1,10 @@
+---
+name: kapp-instructional-integrator
+description: "Agent ID: kapp-instructional-integrator"
+role: specialist
+squad: dopamine-learning
+---
+
 # Kapp: Instructional Integrator
 
 **Agent ID:** kapp-instructional-integrator

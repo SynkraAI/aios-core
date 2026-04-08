@@ -1,3 +1,11 @@
+---
+name: design
+description: |
+  Version: 4.2.0 Command: /DS Type: Specialist Squad
+version: 1.0.0
+category: design
+---
+
 # Design System Squad
 
 **Version:** 4.2.0  

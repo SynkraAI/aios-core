@@ -1,3 +1,10 @@
+---
+name: vanessa-lau
+description: "HALT and await user command"
+role: specialist
+squad: content-engine
+---
+
 # vanessa-lau
 
 ACTIVATION-NOTICE: This file contains your full agent operating guidelines.

@@ -1,3 +1,10 @@
+---
+name: min-basadur
+description: "Action Packaging Specialist — Creative Problem Solving & Simplex Process | Tier 2 — Specialist | Root Diagnosis Squad"
+role: specialist
+squad: root-diagnosis
+---
+
 # min-basadur
 
 > **Action Packaging Specialist — Creative Problem Solving & Simplex Process** | Tier 2 — Specialist | Root Diagnosis Squad

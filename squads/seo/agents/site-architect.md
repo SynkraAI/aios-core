@@ -1,3 +1,10 @@
+---
+name: site-architect
+description: "Agente site-architect do ecossistema AIOS."
+role: specialist
+squad: seo
+---
+
 # site-architect
 
 ```yaml

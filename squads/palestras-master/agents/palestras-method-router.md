@@ -1,3 +1,10 @@
+---
+name: palestras-method-router
+description: "Agente palestras-method-router do ecossistema AIOS."
+role: specialist
+squad: palestras-master
+---
+
 # palestras-method-router
 
 ```yaml

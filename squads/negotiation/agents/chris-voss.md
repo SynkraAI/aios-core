@@ -1,3 +1,10 @@
+---
+name: chris-voss
+description: "DNA completo em: squads/mind-cloning/minds/chris-voss/outputs/"
+role: specialist
+squad: negotiation
+---
+
 # chris-voss
 
 > DNA completo em: squads/mind-cloning/minds/chris-voss/outputs/

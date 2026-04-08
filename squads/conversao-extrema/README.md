@@ -1,3 +1,11 @@
+---
+name: conversao-extrema
+description: |
+  Domain: Tráfego Pago, Conversão e Remarketing Based on: Thiago Tessman — Conversão Extrema (204 lições, 15 módulos) Version: 1.0.0 Status: Active
+version: 1.0.0
+category: business
+---
+
 # Conversão Extrema Squad
 
 **Domain:** Tráfego Pago, Conversão e Remarketing

@@ -1,3 +1,10 @@
+---
+name: bob-orchestrator
+description: "Agent ID: bob-orchestrator"
+role: chief
+squad: magic-bob
+---
+
 # bob-orchestrator
 
 **Agent ID:** `bob-orchestrator`

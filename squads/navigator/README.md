@@ -1,3 +1,11 @@
+---
+name: navigator
+description: |
+  Navegacao autonoma, deteccao de fase e orquestracao multi-agente para AIOS. </p>
+version: 1.0.0
+category: general
+---
+
 <p align="center">
   <img src="https://img.shields.io/badge/🧭_Navigator-v1.0.0-4A90E2?style=for-the-badge" alt="Navigator v1.0.0" />
   <img src="https://img.shields.io/badge/AIOS-≥4.0.0-7B2FF7?style=for-the-badge" alt="AIOS >= 4.0.0" />

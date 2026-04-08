@@ -1,3 +1,14 @@
+---
+name: context-surgeon
+description: |
+  Diagnóstico e otimização de contexto em projetos Claude Code.
+  Scan (mede saúde), cut (remove desnecessário), rewire (reestrutura a fundo).
+  Use quando sessões estão lentas, contexto poluído ou amnésia entre sessões.
+version: 1.1.0
+category: tooling
+tags: [context, optimization, diagnostics]
+---
+
 # Context Surgeon v1.1.0
 
 Diagnose, cut, and optimize context loading efficiency.

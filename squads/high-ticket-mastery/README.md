@@ -1,3 +1,11 @@
+---
+name: high-ticket-mastery
+description: |
+  Pipeline completo de vendas high-ticket — do posicionamento ao fechamento, orquestrando 8 componentes especializados em um sistema end-to-end.
+version: 1.0.0
+category: business
+---
+
 # High-Ticket Mastery Squad
 
 > **Pipeline completo de vendas high-ticket** — do posicionamento ao fechamento, orquestrando 8 componentes especializados em um sistema end-to-end.

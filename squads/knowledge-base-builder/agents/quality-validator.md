@@ -1,3 +1,10 @@
+---
+name: quality-validator
+description: "Agent ID: quality-validator"
+role: specialist
+squad: knowledge-base-builder
+---
+
 # Quality Validator: Knowledge Base QA Agent
 
 **Agent ID:** quality-validator

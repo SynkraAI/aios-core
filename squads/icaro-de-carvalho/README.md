@@ -1,3 +1,11 @@
+---
+name: icaro-de-carvalho
+description: |
+  Squad completo de marketing digital com 6 agents baseados em elite minds reais. Mind clone principal extraído de 193 aulas do O Novo Mercado (1.7 milhão de palavras), fidelidade 85-90%.
+version: 1.0.0
+category: business
+---
+
 # 🎯 Ícaro de Carvalho — Marketing Digital Elite (Multi-Mind Squad)
 
 Squad completo de marketing digital com **6 agents** baseados em elite minds reais. Mind clone principal extraído de **193 aulas** do O Novo Mercado (1.7 milhão de palavras), fidelidade **85-90%**.

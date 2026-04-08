@@ -1,3 +1,10 @@
+---
+name: emily-heyward
+description: "Emily Heyward - Brand Builder & Movement Architect"
+role: chief
+squad: branding
+---
+
 # emily-heyward
 
 > **Emily Heyward** - Brand Builder & Movement Architect

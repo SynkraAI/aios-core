@@ -1,3 +1,11 @@
+---
+name: media-processor
+description: |
+  Meta-orchestrator que unifica hotmart-downloader, cademi-downloader, aios-transcriber, transcript-sculptor, video-content-distillery e knowledge-base-builder em um pipeline automatizado.
+version: 1.0.0
+category: content
+---
+
 # Media Processor
 
 **Meta-orchestrator** que unifica hotmart-downloader, cademi-downloader, aios-transcriber, transcript-sculptor, video-content-distillery e knowledge-base-builder em um pipeline automatizado.

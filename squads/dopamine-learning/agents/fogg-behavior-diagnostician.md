@@ -1,3 +1,10 @@
+---
+name: fogg-behavior-diagnostician
+description: "Agent ID: fogg-behavior-diagnostician"
+role: chief
+squad: dopamine-learning
+---
+
 # Fogg: Behavior Model Diagnostician
 
 **Agent ID:** fogg-behavior-diagnostician
