@@ -36,7 +36,8 @@ const URGENCY_PATTERNS = {
  * @param {string} demand - User's text message
  * @returns {{ type: string, volume: string, urgency: string, raw: string }}
  */
-function classifyDemand(demand) {
+function classifyDemand(demand = '') {
+  demand = typeof demand === 'string' ? demand : '';
   const matchedTypes = [];
   for (const [key, pattern] of Object.entries(TYPE_PATTERNS)) {
     if (pattern.test(demand)) {

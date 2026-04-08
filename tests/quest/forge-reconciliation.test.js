@@ -53,12 +53,13 @@ function extractSection(content, headingPattern) {
 // Pre-load
 // ---------------------------------------------------------------------------
 
-let skillMd, bridgeMd, appDevPack, resumptionSection;
+let skillMd, bridgeMd, appDevPack, stressTestPack, resumptionSection;
 
 beforeAll(() => {
   skillMd = readFile(path.join(QUEST_ROOT, 'SKILL.md'));
   bridgeMd = readFile(path.join(ENGINE, 'forge-bridge.md'));
   appDevPack = readPack('app-development.yaml');
+  stressTestPack = readPack('stress-test-sprint.yaml');
   resumptionSection = extractSection(skillMd, 'RESUMPTION');
 });
 
@@ -70,6 +71,25 @@ describe('Reconciliation: forge_phase_map contract', () => {
   test('app-development pack declares forge_phase_map', () => {
     expect(appDevPack.pack.forge_phase_map).toBeDefined();
     expect(typeof appDevPack.pack.forge_phase_map).toBe('object');
+  });
+
+  test('stress-test-sprint pack declares forge_phase_map inside pack metadata', () => {
+    expect(stressTestPack.pack.forge_phase_map).toBeDefined();
+    expect(typeof stressTestPack.pack.forge_phase_map).toBe('object');
+  });
+
+  test('stress-test-sprint forge_phase_map covers required items only', () => {
+    const map = stressTestPack.pack.forge_phase_map;
+    const itemLookup = {};
+    for (const [, phase] of Object.entries(stressTestPack.phases)) {
+      for (const item of phase.items) itemLookup[item.id] = item;
+    }
+    for (const [, itemIds] of Object.entries(map)) {
+      for (const id of itemIds) {
+        expect(itemLookup[id]).toBeDefined();
+        expect(itemLookup[id].required).toBe(true);
+      }
+    }
   });
 
   test('forge_phase_map covers all 6 Forge phases (0-5)', () => {
