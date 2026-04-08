@@ -127,9 +127,13 @@ function renderPlan(plan) {
   if (plan.decisions.length > 0) {
     lines.push('## Decisões Pendentes');
     for (const d of plan.decisions) {
-      lines.push(`  Etapa ${d.step}: ${d.question}`);
-      for (const opt of d.options) {
-        lines.push(`    [${opt.label}] ${opt.value} — ${opt.description}`);
+      if (d.type === 'limit') {
+        lines.push(`  ⚠️ ${d.message}`);
+      } else if (d.options) {
+        lines.push(`  Etapa ${d.step}: ${d.question}`);
+        for (const opt of d.options) {
+          lines.push(`    [${opt.label}] ${opt.value} — ${opt.description}`);
+        }
       }
       lines.push('');
     }
@@ -165,7 +169,8 @@ function capabilityTitle(cap) {
 }
 
 function buildInput(cap, classification, brand) {
-  const theme = `tema "${classification.raw.substring(0, 60)}", brand ${brand.meta.name}`;
+  const brandName = brand?.meta?.name ?? 'Marca desconhecida';
+  const theme = `tema "${classification.raw.substring(0, 60)}", brand ${brandName}`;
   return theme;
 }
 

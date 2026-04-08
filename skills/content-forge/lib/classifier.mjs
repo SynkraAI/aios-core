@@ -90,7 +90,7 @@ function classifyDemand(demand) {
  * @param {string} type - Classified content type
  * @returns {string[]} Array of capability keys from the capability map
  */
-function typeToCapabilities(type) {
+function typeToCapabilities(type, matchedTypes = []) {
   const MAP = {
     carousel:       ['carousel_copy', 'carousel_render', 'publish_ig_carousel'],
     reel:           ['reels_script', 'publish_reel'],
@@ -103,6 +103,17 @@ function typeToCapabilities(type) {
     brand:          ['brand_strategy'],
     'design-system':['ds_extraction', 'ds_scaffold'],
   };
+
+  if (type === 'multi' && matchedTypes.length > 0) {
+    const combined = [];
+    for (const t of matchedTypes) {
+      const caps = MAP[t] || [];
+      for (const c of caps) {
+        if (!combined.includes(c)) combined.push(c);
+      }
+    }
+    return combined;
+  }
 
   return MAP[type] || [];
 }
