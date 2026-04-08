@@ -136,7 +136,7 @@ Templates with the exact format: `references/review-template.md`, `references/fi
 
 ## Modes
 
-Detect mode from user input or arguments. Three modes exist: REVIEW, FIX, and AUDIT.
+Detect mode from user input or arguments. Four modes exist: REVIEW, FIX, AUDIT, and CRITICA.
 
 ---
 
@@ -209,7 +209,7 @@ Codex always initiates the cycle. This mode analyzes code and writes findings.
 
       📍 Estado atual: WAITING_FOR_CRITICA
       👤 Próximo agente: CLAUDE CODE
-      ⚡ Próximo comando: critica mode
+      ⚡ Próximo comando: critica
       📄 Próximo arquivo esperado: critica.md
 
       ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -933,14 +933,14 @@ Every mode MUST end with a prompt presenting numbered options.
 - **Reset (whichever option number it is) requires explicit confirmation** before deleting any files. Present a second prompt: "Tem certeza? Isso apaga todo o histórico de rounds. (sim/não)"
 - Before the numbered options, every response MUST print a 4-line status block exactly in this shape:
   ```
-  📍 Estado atual: {WAITING_FOR_FIX | WAITING_FOR_REVIEW | WAITING_FOR_AUDIT | COMPLETE}
+  📍 Estado atual: {WAITING_FOR_FIX | WAITING_FOR_REVIEW | WAITING_FOR_AUDIT | WAITING_FOR_CRITICA | COMPLETE}
   👤 Próximo agente: {CLAUDE CODE | CODEX | GEMINI | NONE}
-  ⚡ Próximo comando: {fix mode | review mode | audit mode | none}
-  📄 Próximo arquivo esperado: {path | none}
+  ⚡ Próximo comando: {fix mode | review mode | audit mode | critica | none}
+  📄 Próximo arquivo esperado: {path | critica.md | none}
   ```
 - If the expected next artifact does not exist yet, say explicitly: `Artefato pendente: {path} ainda não existe.`
 - If the expected next artifact already exists, say explicitly: `Artefato encontrado: {path}.`
-- After the status block, every response MUST also include the `Cole isso no ...` block for the next agent.
+- After the status block, include the copy-paste handoff block only when `next_agent` is not `NONE`.
 
 ## Handoff Banners (MANDATORY)
 
@@ -961,12 +961,21 @@ is `NONE`, there is no one to hand off to. Show only the banner, status block, a
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 ```
 
-### When it's CLAUDE CODE's turn:
+### When it's CLAUDE CODE's turn (FIX):
 
 ```
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 ┃ 🟣 PRÓXIMO: CLAUDE CODE (FIX)        ┃
 ┃ 👉 Abra o Claude e rode: fix mode    ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+```
+
+### When it's CLAUDE CODE's turn (CRITICA):
+
+```
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ 🟣 PRÓXIMO: CLAUDE CODE (CRITICA)    ┃
+┃ 👉 Abra o Claude e rode: critica     ┃
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 ```
 
@@ -992,7 +1001,8 @@ is `NONE`, there is no one to hand off to. Show only the banner, status block, a
 - 🟢 = Codex (REVIEW)
 - 🟣 = Claude Code (FIX)
 - 🔵 = Gemini (AUDIT)
-- 🏆 = PERFECT (fim)
+- 🟣 = Claude Code (CRITICA)
+- 🏆 = COMPLETE (após crítica aprovada)
 
 ### Severity emojis (MANDATORY in all output)
 
