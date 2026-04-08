@@ -81,13 +81,13 @@ For each target skill:
 1. Sort issues by priority: P0 (CRITICAL/FAIL) → P1 (WARN importante) → P2 (WARN menor)
 2. For each issue:
    - Show: cenário, root cause, fix sugerido, arquivo, esforço estimado
-   - Apply fix (edit file with guard/validation/error handling)
+   - Dispatch fix to the appropriate executor
 3. Commit fixes with descriptive message referencing cenários
 4. Show before/after score
 
 **This phase follows Forge Constitution Art. 1:** Forge does NOT apply fixes directly. It dispatches the appropriate action:
-- Spec/markdown fixes → Forge applies (documentation-level)
-- Code fixes (.mjs, .cjs) → Forge applies (guard-level, not logic changes)
+- Spec/markdown fixes → Forge updates orchestration/spec docs
+- Code fixes (.mjs, .cjs) → dispatch @dev with the proposed diff
 - Architectural changes → CHECKPOINT, ask user
 
 ### Phase 4: Validate + Ship
@@ -105,7 +105,7 @@ For each target skill:
 |-------|-------------|---------|
 | 0 | `/skill-stress-test` (recon) | Generate skill profiles |
 | 1-2 | Self (Forge) | Execute scenarios + analyze |
-| 3 | Self (Forge) | Apply fixes to specs and code |
+| 3 | Forge + @dev | Orchestrate fixes and collect approvals |
 | 4 | `@devops` | Push + PR (if requested) |
 
 ---

@@ -100,7 +100,7 @@ Digite o número ou nome da marca:
 Ler a mensagem do usuário e classificar:
 
 ```
-Tipo: carousel | reel | story | video | landing-page | calendar | research | brand | design-system | batch
+Tipo: carousel | reel | story | video | landing-page | calendar | research | brand | design-system | repurpose
 Volume: single | batch | week
 Urgência: quick (produção direta) | quality (com debate/QA)
 ```
@@ -112,7 +112,7 @@ Urgência: quick (produção direta) | quality (com debate/QA)
 - "vídeo", "video", "mp4" → `video`
 - "landing page", "LP", "página" → `landing-page`
 - "semana", "calendário", "planejamento" → `calendar`
-- "multiplicar", "repurpose", "adaptar" → `batch` (repurposing)
+- "multiplicar", "repurpose", "adaptar" → `repurpose`
 - "concorrente", "pesquisar", "analisar" → `research`
 - "marca", "brand", "identidade" → `brand`
 - "design system", "DS", "tokens" → `design-system`

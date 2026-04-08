@@ -26,7 +26,7 @@ const { findBest, findAlternatives } = await import(resolve(__dirname, '..', '..
 const MAX_PLAN_STEPS = 15;
 
 function buildPlan(params) {
-  const { classification, brand, capabilities, options = {} } = params;
+  const { classification = {}, brand, capabilities = [], options = {} } = params;
   const steps = [];
   const decisions = [];
   let stepNum = 1;
@@ -55,7 +55,7 @@ function buildPlan(params) {
     };
 
     // If quality mode and alternatives with debate exist, present choice
-    if (classification.urgency === 'quality' && alts.length > 0) {
+    if (classification?.urgency === 'quality' && alts.length > 0) {
       const debateAlt = alts.find((a) => a.when?.includes('debate'));
       if (debateAlt) {
         decisions.push({
@@ -89,8 +89,8 @@ function buildPlan(params) {
     brand: {
       name: brand?.meta?.name ?? 'Marca desconhecida',
       theme: brand?.meta?.theme ?? 'light',
-      primary: brand.colors?.semantic?.primary,
-      fonts: `${brand.typography?.family?.display} / ${brand.typography?.family?.body}`,
+      primary: brand?.colors?.semantic?.primary,
+      fonts: `${brand?.typography?.family?.display ?? '—'} / ${brand?.typography?.family?.body ?? '—'}`,
     },
     classification,
     steps,
@@ -124,9 +124,10 @@ function renderPlan(plan) {
     lines.push('');
   }
 
-  if (plan.decisions.length > 0) {
+  if ((plan.decisions ?? []).length > 0) {
     lines.push('## Decisões Pendentes');
-    for (const d of plan.decisions) {
+    for (const d of plan.decisions ?? []) {
+      if (!d) continue;
       if (d.type === 'limit') {
         lines.push(`  ⚠️ ${d.message}`);
       } else if (d.options) {
@@ -168,9 +169,10 @@ function capabilityTitle(cap) {
   return MAP[cap] || cap.replace(/_/g, ' ');
 }
 
-function buildInput(cap, classification, brand) {
+function buildInput(cap, classification = {}, brand) {
   const brandName = brand?.meta?.name ?? 'Marca desconhecida';
-  const theme = `tema "${classification.raw.substring(0, 60)}", brand ${brandName}`;
+  const raw = classification?.raw ?? '';
+  const theme = `tema "${raw.substring(0, 60)}", brand ${brandName}`;
   return theme;
 }
 

@@ -28,7 +28,7 @@ Bash("test -f .aios/quest-log.yaml && echo 'QUEST_LOG_EXISTS' || echo 'NO_QUEST_
 
 **If any argument matches a known command AND the quest-log exists → execute that command's flow and STOP. Do NOT continue to resumption or first invocation.**
 
-**If the argument does NOT match any known command:** treat as if no argument was provided — proceed to Step B (Quest-log Detection). Do NOT show an error for unrecognized arguments silently dropped; this allows future commands to be handled gracefully.
+**If the argument does NOT match any known command:** show `"Comando desconhecido: '{arg}'. Use /quest help para ver os comandos disponíveis."` and STOP.
 
 ### Step B — Quest-log Detection (only when NO command argument)
 

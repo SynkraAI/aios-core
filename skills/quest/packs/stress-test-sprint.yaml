@@ -12,6 +12,12 @@ pack:
   tagline: "Quebre suas skills antes que seus usuários quebrem."
   keywords: ["stress-test", "quality", "audit", "resilience", "health-check"]
   forge_workflow: "stress-test"
+  forge_phase_map:
+    0: ["0.1", "0.2", "0.3", "0.4"]
+    1: ["1.1", "1.2", "1.3"]
+    2: ["2.1", "2.2", "2.3"]
+    3: ["3.1", "3.2", "3.4", "3.5"]
+    4: ["4.1", "4.2", "4.4"]
 
 # ----------------------------------------------------------------------------
 # Detection — como o scanner identifica que este pack se aplica
@@ -279,13 +285,4 @@ phases:
         required: true
         xp: 15
 
-# ----------------------------------------------------------------------------
-# Forge Phase Map — para auto-reconciliação
-# ----------------------------------------------------------------------------
-
-forge_phase_map:
-  0: ["0.1", "0.2", "0.3", "0.4"]
-  1: ["1.1", "1.2", "1.3"]
-  2: ["2.1", "2.2", "2.3"]
-  3: ["3.1", "3.2", "3.4"]
-  4: ["4.1", "4.2", "4.4"]
+# forge_phase_map moved to pack: level (see pack.forge_phase_map above)

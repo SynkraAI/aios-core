@@ -24,6 +24,7 @@ const MODE_TO_PACK = {
   'BUG_FIX': 'app-development',
   'SQUAD_UPGRADE': 'app-development',
   'DESIGN_SYSTEM': 'design-system-forge',
+  'STRESS_TEST': 'stress-test-sprint',
 };
 
 // ---------------------------------------------------------------------------

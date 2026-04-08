@@ -85,6 +85,7 @@ Parse the user's command and classify:
 /forge replay {run_id} --from phase:{N} -> REPLAY (refazer a partir da fase N)
 /forge template {name}                -> TEMPLATE (projeto pré-configurado)
 /forge template list                  -> TEMPLATE (listar templates disponíveis)
+/forge stress-test {skill|all}        -> STRESS_TEST (auditar resiliência de skills)
 ```
 
 ### `help` Command
@@ -415,7 +416,7 @@ Isso mantém o usuário informado sem interromper o fluxo.
 | `{FORGE_HOME}/workflows/bug-fix.md` | Mode = BUG_FIX |
 | `{FORGE_HOME}/workflows/quick.md` | Mode = QUICK |
 | `{FORGE_HOME}/workflows/full-app.md` | Mode = FULL_APP |
-| `{FORGE_HOME}/phases/phase-0-discovery.md` | ALL modes EXCEPT QUICK (first phase) |
+| `{FORGE_HOME}/phases/phase-0-discovery.md` | ALL modes EXCEPT QUICK and STRESS_TEST (first phase) |
 | `{FORGE_HOME}/references/tech-decisions-guide.md` | FULL_APP mode, Phase 0 Step 4 (tech decisions) |
 | `{FORGE_HOME}/phases/phase-3-build.md` | SINGLE_FEATURE, BUG_FIX, FULL_APP (NOT QUICK) |
 | `{FORGE_HOME}/phases/phase-5-deploy.md` | ALL modes (last phase) |
