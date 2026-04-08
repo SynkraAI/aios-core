@@ -47,6 +47,7 @@ squads/kaizen-v2/
 │   ├── capture-daily.md                 # Captura manual [NOVO]
 │   ├── reflect.md                       # Reflexão overnight [NOVO]
 │   ├── mine-patterns.md                 # Mine patterns com decay [NOVO]
+│   ├── extract-session-learnings.md     # Session kaizen apply flow [NOVO]
 │   ├── build-report.md                  # Report com learnings [NOVO]
 │   ├── compact-archive.md               # Archive rotation [NOVO]
 │   ├── install.md                       # Auto-install [NOVO]
@@ -122,6 +123,7 @@ squads/kaizen-v2/
 |---------|-----------|---------|
 | `*capture` | Captura daily manualmente | Fallback se Stop hook falhar |
 | `*reflect` | Reflexão overnight (capture → patterns → reflection) | Cron overnight (config) |
+| `*learn` | Extrai learnings da sessão → gera relatório para revisão antes de aplicar | Manual ou pós-reflect |
 | `*patterns` | Mine patterns com forgetting curve | Manual ou via reflect |
 
 ### Relatórios & Reports
@@ -310,6 +312,28 @@ Relatório semanal agrega:
 - Padrões reinforced esta semana (o que foi útil)
 - Padrões archivados (o que ninguém usou)
 - Tendência de decay (saúde da base de conhecimento)
+
+## Skills Integradas
+
+### /critica — Revisão Crítica
+Skill de revisão em 2 fases (Questionar + Disciplinar). Red team, pré-mortem, advogado do diabo, anti-hardcoded, escopo mínimo. Use antes de executar qualquer plano significativo.
+
+```bash
+/critica <plano ou contexto>
+```
+
+### /learning-extractor — Session Kaizen
+Análise profunda da sessão em 6 fases com quality gates. Extrai aprendizados e gera relatório de melhorias propostas. Alterações em artefatos só são aplicadas após aprovação explícita do usuário.
+
+```bash
+/learning-extractor
+# Ou via memory-keeper:
+# *learn
+```
+
+**Integração:** O comando `*learn` do memory-keeper invoca o learning-extractor. Pode rodar como pós-passo do `*reflect` para combinar extração de padrões (dados) + relatório de melhorias propostas (revisão antes de aplicar).
+
+---
 
 ## Troubleshooting
 

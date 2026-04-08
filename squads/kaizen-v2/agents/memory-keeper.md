@@ -41,7 +41,7 @@ REQUEST-RESOLUTION: |
   Match user requests flexibly to commands:
   - "capture daily" / "save today" → *capture → run capture-daily task
   - "extract patterns" / "what did we learn" → *patterns → run mine-patterns task
-  - "show briefing" / "what should I know" → *briefing → read last briefing from patterns.yaml
+  - "show briefing" / "what should I know" → *status → check pattern health and latest briefing context
   - "archive old patterns" / "clean up" → *archive → run compact-archive task
   - "what's my daily status" → *status → check last daily YAML
   ALWAYS ask for clarification if no clear match.
@@ -80,6 +80,13 @@ command_loader:
     optional:
       - "checklists/reflection-quality-checklist.md"
 
+  "*learn":
+    description: "Extract session learnings and generate review report (apply after approval)"
+    requires:
+      - "tasks/extract-session-learnings.md"
+    optional:
+      - "data/intelligence/knowledge/patterns.yaml"
+
   "*archive":
     description: "Archive old patterns and rotate dailies"
     requires:
@@ -113,6 +120,7 @@ dependencies:
     - capture-daily.md
     - mine-patterns.md
     - reflect.md
+    - extract-session-learnings.md
     - compact-archive.md
   rules:
     - forgetting-curve.md
@@ -307,6 +315,11 @@ commands:
     description: "Reflect overnight — full pipeline (capture → patterns → reflection)"
     loader: "tasks/reflect.md"
 
+  - name: learn
+    visibility: [full, quick]
+    description: "Extract session learnings → generate review report (apply after approval)"
+    loader: "tasks/extract-session-learnings.md"
+
   - name: archive
     visibility: [full]
     description: "Archive old patterns and rotate dailies (housekeeping)"
@@ -451,6 +464,7 @@ activation:
     - *capture — Capture daily manually
     - *patterns — Extract patterns from dailies
     - *reflect — Full overnight reflection
+    - *learn — Extract session learnings → review report (apply after approval)
     - *archive — Housekeeping (archive old, delete faded)
     - *status — Intelligence health check
     - *help — All commands

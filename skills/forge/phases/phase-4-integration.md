@@ -177,6 +177,7 @@ The runner executes plugins in priority order (30-35 for quality gates). Results
 ```
   🔄 Extended Quality Gates (plugin-driven)...
   ├── /bulletproof-test .......... ✅ PASS (42 scenarios, 0 failures)
+  ├── /critica ................... ⚠️ CONCERNS (1 high, 2 medium)
   ├── /vulnerability-scanner ..... ⚠️ CONCERNS (2 medium issues)
   ├── /tier-s-checklist .......... ✅ 8.5/10 (3 items to improve)
   ├── /tokenizacao ............... ⏭️ SKIPPED (no frontend detected)
@@ -237,6 +238,7 @@ If ANY gate fails:
 
   🛡️ Extended Gates:
      /bulletproof-test:     {status} {detail}
+     /critica:              {status} {detail}
      /vulnerability-scanner: {status} {detail}
      /tier-s-checklist:     {status} {detail}
      /tokenizacao:          {status} {detail}
@@ -304,6 +306,7 @@ If ANY gate fails:
       },
       "extended_gates": {
         "bulletproof_test": { "status": "PASS", "scenarios": 42, "failures": 0 },
+        "critica": { "status": "CONCERNS", "critical": 0, "high": 1, "medium": 2, "low": 3 },
         "vulnerability_scanner": { "status": "CONCERNS", "critical": 0, "medium": 2, "low": 5 },
         "tier_s_checklist": { "status": "PASS", "score": 8.5, "items_to_improve": 3 },
         "tokenizacao": { "status": "SKIPPED", "reason": "no frontend detected" },

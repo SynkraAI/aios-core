@@ -1,0 +1,37 @@
+# Critica Plugin
+# Critical review — red team, pre-mortem, devil's advocate on built code
+
+plugin:
+  name: critica
+  version: "1.0.0"
+  description: "Critical review — red team, pre-mortem, devil's advocate on built code"
+
+activation:
+  enabled: true
+  modes:
+    - FULL_APP
+    - SINGLE_FEATURE
+
+priority: 33  # Quality gates band (30-69), after bulletproof-test (30)
+
+hooks:
+  - event: "after:phase:3"
+    action: validate
+    skill: "skills/critica/SKILL.md"
+    detect: "always"
+    severity: recommended
+    model: sonnet
+    description: |
+      Apply 2-phase critical review to the built code:
+      FASE 1 (Questionar): blind spots, risks, devil's advocate,
+      alternatives, red team, pre-mortem, over-engineering check.
+      FASE 2 (Disciplinar): minimum scope, anti-hardcoded,
+      anti-duplication, deterministic-first, improvement pipeline.
+
+      Input: all files modified during Phase 3, architecture doc,
+      story files, state.json context.
+
+      Output: list of concerns with severity (CRITICAL/HIGH/MEDIUM/LOW).
+      CONCERNS if any HIGH+ issues found. INFO if only MEDIUM/LOW.
+
+state_key: "critica"

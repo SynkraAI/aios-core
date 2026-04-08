@@ -1,0 +1,35 @@
+# Learning Extractor Plugin
+# Session kaizen — extract learnings and generate review report (apply after approval)
+
+plugin:
+  name: learning-extractor
+  version: "1.0.0"
+  description: "Session kaizen — extract learnings and generate review report (apply after approval)"
+
+activation:
+  enabled: true
+  # Active for ALL modes — every run generates learnings
+
+priority: 88  # Optional/informational band (70-89), before quest-sync (90)
+
+hooks:
+  - event: "after:run"
+    action: log
+    skill: "skills/learning-extractor/SKILL.md"
+    description: |
+      Deep session analysis in 6 phases:
+      1. Collect session artifacts (state.json, stories, errors, decisions)
+      2. Classify learnings by target (rules, memory, skills, agents, docs)
+      3. Validate each learning (relevant + actionable + non-duplicate)
+      4. Save review report to squads/kaizen-v2/data/learnings/
+      5. Cross-reference with kaizen-v2 patterns.yaml
+      6. Wait for explicit user approval before any artifact edits
+
+      Report-only by default. Complements forge-memory (raw data)
+      with high-level analysis. Never blocks. Never auto-applies.
+
+state_key: "learning_extractor"
+
+config:
+  output_dir: "squads/kaizen-v2/data/learnings"
+  cross_reference_patterns: true
