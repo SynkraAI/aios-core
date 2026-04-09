@@ -1,92 +1,106 @@
 ---
-name: SKILL
+name: telegram
+description: "Manage the Telegram remote agent — auto-detect config, start/stop/restart, status, logs, test, and ping-pong review integration."
 
-description: "Manage the Telegram channel of the AIOX Message Gateway — setup, deploy, enable, disable, restart, status, and logs"
-user-invocable: true
-maxTurns: 15
-
-version: 1.0.0
+version: 2.0.0
 category: development
-tags: [SKILL]
+tags: [SKILL, telegram, remote-agent, ping-pong]
+user-invocable: true
+maxTurns: 20
 ---
 
-# Telegram Gateway
+# Telegram Gateway v2
 
-Manage the Telegram integration for the AIOX Message Gateway. Runs the full lifecycle: setup, deploy, enable/disable, status check, and log inspection.
+Manage the Telegram remote agent (claude-remote-manager). Smart auto-detection: finds existing config, validates tokens, and acts without asking unnecessary questions.
 
 ## Usage
 
 ```bash
-/telegram              # Show status (is it running?)
-/telegram setup        # Interactive channel setup (needs BotFather token)
-/telegram deploy       # Generate/update the agent runtime
-/telegram start        # Enable the agent (launchd)
+/telegram              # Smart status + auto-fix if needed
+/telegram start        # Enable the agent (auto-detects config)
 /telegram stop         # Disable the agent
 /telegram restart      # Restart the agent
 /telegram logs         # Tail recent logs
 /telegram test         # Send a test message via the bot
+/telegram setup        # Interactive setup (only if NOT configured)
+/telegram ping-pong    # Start a code review ping-pong with the remote agent
 ```
 
 ## Parameters
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `<action>` | string | `status` | One of: `setup`, `deploy`, `start`, `stop`, `restart`, `logs`, `test`, `status` |
+| `<action>` | string | `status` | One of: `status`, `start`, `stop`, `restart`, `logs`, `test`, `setup`, `ping-pong` |
 
-## Paths
+## Auto-Detection (CRITICAL — runs before every action)
 
-All scripts live under `infrastructure/message-gateway/`:
+Before ANY action, detect the environment automatically. NEVER ask the user for paths or tokens if they already exist.
 
-| Script | Purpose |
-|--------|---------|
-| `setup-channel.sh` | Interactive Telegram token + chat ID onboarding |
-| `deploy-agent.sh` | Generate agent in `.aiox/message-gateway/agents/` |
-| `enable-agent.sh` | Start agent via launchd |
-| `disable-agent.sh` | Stop agent |
-| `core/bus/send-telegram.sh` | Send a message to a chat |
-| `core/bus/check-telegram.sh` | Poll for new messages |
-| `core/scripts/fast-checker.sh` | Daemon that polls every 3s |
+### Step 0: Discover
+
+```yaml
+discovery:
+  repo_path: ~/claude-remote-manager
+  state_path: ~/.claude-remote/default
+  
+  steps:
+    - Check repo exists: test -d ~/claude-remote-manager
+    - Find configured agents: ls ~/claude-remote-manager/agents/ (exclude agent-template)
+    - For each agent, check .env for BOT_TOKEN + CHAT_ID
+    - Check enabled-agents.json: ~/.claude-remote/default/config/enabled-agents.json
+    - Pick the primary agent: first agent with enabled: true, or first with valid .env
+    - Store: AGENT_NAME, BOT_TOKEN, CHAT_ID, ALLOWED_USER
+```
+
+### Agent Resolution Priority
+
+1. Agent with `enabled: true` in enabled-agents.json
+2. Agent with valid `.env` (has BOT_TOKEN + CHAT_ID)
+3. If multiple: prefer `claudecode_fosc` > `aiox-master` > first alphabetically
+4. If none found: guide to `/telegram setup`
 
 ## Execution Protocol
 
-Read `$ARGUMENTS` to determine the action. Default to `status` if empty.
-
-### Action: status
+### Action: status (default)
 
 ```yaml
 steps:
-  - Check if agent dir exists: .aiox/message-gateway/agents/aiox-master/
+  - Run discovery (Step 0)
+  - If no agent found: report NOT_SETUP, suggest /telegram setup
+  - Check jq available: command -v jq
+    - If missing: report "jq nao instalado. Instale com: brew install jq" and skip token validation
+  - Validate bot token: curl -s https://api.telegram.org/bot$BOT_TOKEN/getMe
+    - If curl fails (exit code != 0): report "Falha de rede ao validar token. Verifique sua conexao."
+    - If jq available: parse with jq .ok
+    - If .ok == false: report "Token invalido. Atualize via /telegram setup"
+  - Check tmux: tmux has-session -t crm-default-$AGENT_NAME 2>/dev/null
+  - Check fast-checker: ps aux | grep fast-checker | grep $AGENT_NAME | grep -v grep
   - Check launchd: launchctl list | grep claude-remote
-  - Check tmux session: tmux has-session -t crm-default-aiox-master 2>/dev/null
-  - Check .env for BOT_TOKEN: ~/.claude-remote/default/config/aiox-master/.env
-  - Report: CONFIGURED / RUNNING / STOPPED / NOT_SETUP
-```
+  - Check tmux content: tmux capture-pane -t crm-default-$AGENT_NAME -p | tail -5
+    - If session shows bash prompt (no Claude running): status = DEAD_SESSION
+  - Report status table with emoji indicators
 
-### Action: setup
-
-```yaml
-steps:
-  - Run interactively: bash infrastructure/message-gateway/setup-channel.sh
-  - This is interactive — user will select [1] Telegram and paste their token
-  - After completion, report success
-```
-
-**IMPORTANT:** `setup-channel.sh` is interactive (reads from stdin). Run it directly so the user can interact.
-
-### Action: deploy
-
-```yaml
-steps:
-  - Run: bash infrastructure/message-gateway/deploy-agent.sh
-  - Report generated files
+  auto_fix:
+    - If DEAD_SESSION (tmux exists but Claude died inside):
+      - Auto-restart: cd ~/claude-remote-manager && bash enable-agent.sh $AGENT_NAME --restart
+      - Report: "Sessao morta detectada. Reiniciando automaticamente..."
+    - If tmux missing but config valid:
+      - Auto-start: cd ~/claude-remote-manager && bash enable-agent.sh $AGENT_NAME
+      - Report: "Agent parado. Iniciando automaticamente..."
+    - If fast-checker missing but tmux running:
+      - Auto-restart: cd ~/claude-remote-manager && bash enable-agent.sh $AGENT_NAME --restart
+      - Report: "fast-checker ausente. Reiniciando automaticamente..."
 ```
 
 ### Action: start
 
 ```yaml
 steps:
-  - Run: bash infrastructure/message-gateway/enable-agent.sh aiox-master
-  - Verify with: tmux has-session -t crm-default-aiox-master 2>/dev/null && echo RUNNING
+  - Run discovery (Step 0)
+  - If no agent found: error, suggest /telegram setup
+  - Run: cd ~/claude-remote-manager && bash enable-agent.sh $AGENT_NAME
+  - If "already enabled": run with --restart
+  - Verify: tmux has-session + ps aux fast-checker
   - Report status
 ```
 
@@ -94,52 +108,154 @@ steps:
 
 ```yaml
 steps:
-  - Run: bash infrastructure/message-gateway/disable-agent.sh aiox-master
+  - Run discovery (Step 0)
+  - Run: cd ~/claude-remote-manager && bash disable-agent.sh $AGENT_NAME
   - Verify stopped
+  - Report
 ```
 
 ### Action: restart
 
 ```yaml
 steps:
-  - Run: bash infrastructure/message-gateway/enable-agent.sh aiox-master --restart
-  - Report status
+  - Run discovery (Step 0)
+  - Run: cd ~/claude-remote-manager && bash enable-agent.sh $AGENT_NAME --restart
+  - Wait 3 seconds
+  - Verify: tmux + fast-checker + capture-pane
+  - Report
 ```
 
 ### Action: logs
 
 ```yaml
 steps:
-  - Tail last 50 lines: tail -50 ~/.claude-remote/default/logs/aiox-master/activity.log
-  - If crash log exists: tail -20 ~/.claude-remote/default/logs/aiox-master/crashes.log
+  - Run discovery (Step 0)
+  - Check log dir exists: test -d ~/.claude-remote/default/logs/$AGENT_NAME
+    - If missing: report "Sem logs ainda — o agent precisa rodar pelo menos uma vez."
+    - If exists:
+      - Tail: tail -50 ~/.claude-remote/default/logs/$AGENT_NAME/activity.log
+      - If crash log exists: tail -20 ~/.claude-remote/default/logs/$AGENT_NAME/crashes.log
+  - Check tmux available: command -v tmux
+    - If missing: report "tmux nao instalado. Instale com: brew install tmux"
+    - If available: tmux capture-pane -t crm-default-$AGENT_NAME -p | tail -30
+      - If session not found: report "Nenhuma sessao tmux ativa para $AGENT_NAME."
 ```
 
 ### Action: test
 
 ```yaml
 steps:
-  - Load CHAT_ID from: ~/.claude-remote/default/config/aiox-master/.env
-  - Run: bash infrastructure/message-gateway/core/bus/send-telegram.sh $CHAT_ID "Test from /telegram skill"
+  - Run discovery (Step 0)
+  - Check jq available: command -v jq
+    - If missing: report "jq nao instalado. Instale com: brew install jq"
+  - Validate token: curl -s https://api.telegram.org/bot$BOT_TOKEN/getMe
+    - If curl fails (exit code != 0): report "Falha de rede. Verifique sua conexao."
+    - If .ok == false: report "Token invalido. Crie novo bot no @BotFather e atualize .env"
+  - Send test: CRM_TEMPLATE_ROOT=~/claude-remote-manager CRM_AGENT_NAME=$AGENT_NAME bash ~/claude-remote-manager/core/bus/send-telegram.sh $CHAT_ID "Teste do /telegram skill — $(date '+%H:%M:%S')"
+    - If send fails (exit code != 0): report "Envio falhou (exit $?). Tente /telegram restart ou /telegram setup"
   - Report success/failure
+```
+
+### Action: setup
+
+```yaml
+steps:
+  - Run discovery (Step 0)
+  - If agent already configured with valid token:
+    - Show: "Agent ja configurado: @{bot_username}. Usar /telegram restart para reiniciar."
+    - Do NOT re-run setup
+  - If no valid config:
+    - Instruct user: ! cd ~/claude-remote-manager && ./setup.sh
+    - This is interactive — CANNOT be automated
+```
+
+### Action: ping-pong
+
+```yaml
+description: >
+  Start a code review ping-pong where the remote Telegram agent acts as REVIEWER
+  and the local Claude Code session acts as FIXER. Communication happens via
+  the agent-to-agent inbox system.
+
+steps:
+  - Run discovery (Step 0)
+  - Verify agent is running (tmux + fast-checker alive)
+  - If not running: auto-start first
+  
+  - Detect scope (same rules as code-review-ping-pong SKILL):
+    1. Check docs/stories/active/ for active story
+    2. Check scoped sessions: .code-review-ping-pong/scopes/*/session.md
+    3. Check root session: .code-review-ping-pong/session.md
+    4. Ask user only if none exist
+  
+  - Derive scope_dir from the resolved session location:
+    - If scoped session found: scope_dir = .code-review-ping-pong/scopes/{scope-name}/
+    - If root session found: scope_dir = .code-review-ping-pong/
+    - Store scope_name for use in message composition and round file paths
+  
+  - Detect current round in scope_dir:
+    - List round-*.md in scope_dir, excluding *-fixed.md and *-audit.md
+    - Pick the highest round number found
+    - Store NEXT_ROUND = highest + 1 (or 1 if none exist)
+  
+  - Compose review request message for the remote agent:
+    ```
+    Quero que voce faca um code review do projeto em {cwd}.
+    
+    Escopo: {scope_description}
+    Arquivos: {file_list}
+    Branch: {branch}
+    Commit: {short_sha}
+    
+    Leia os arquivos, analise o codigo, e escreva suas findings em:
+    {scope_dir}/round-{NEXT_ROUND}.md
+    
+    Use o template de review: score 1-10, issues categorizadas, verdict.
+    Se score < 10: verdict CONTINUE. Se score = 10: verdict PERFECT.
+    
+    Apos escrever o round file, me avise no Telegram com o resumo.
+    ```
+  
+  - Resolve local sender identity:
+    - Check enabled-agents.json for a local sender agent
+    - Fallback: use $AGENT_NAME as both sender and recipient context
+    - Store as LOCAL_SENDER (default: $AGENT_NAME)
+  
+  - Send via agent-to-agent bus:
+    CRM_TEMPLATE_ROOT=~/claude-remote-manager \
+    CRM_AGENT_NAME="${LOCAL_SENDER:-$AGENT_NAME}" \
+    bash ~/claude-remote-manager/core/bus/send-message.sh "$AGENT_NAME" high "$message"
+  
+  - Also notify on Telegram:
+    CRM_TEMPLATE_ROOT=~/claude-remote-manager \
+    CRM_AGENT_NAME="${LOCAL_SENDER:-$AGENT_NAME}" \
+    bash ~/claude-remote-manager/core/bus/send-telegram.sh "$CHAT_ID" "Ping-pong review iniciado. Cheque seu inbox."
+  
+  - Report to user:
+    "Review request enviado para @{bot_username}. O agente remoto vai analisar e escrever round-{NEXT_ROUND}.md.
+     Quando ele terminar, voce recebe notificacao no Telegram.
+     Depois, rode /code-review-ping-pong em modo FIX para corrigir."
 ```
 
 ## Error Handling
 
-| Error | Action |
-|-------|--------|
-| No BOT_TOKEN configured | Guide user to run `/telegram setup` first |
-| Agent dir missing | Guide user to run `/telegram deploy` first |
-| launchd not loaded | Guide user to run `/telegram start` |
-| tmux session not found | Check if launchd is loaded; may need restart |
-| send-telegram fails | Check token validity: `curl https://api.telegram.org/bot<TOKEN>/getMe` |
+| Error | Auto-Fix |
+|-------|----------|
+| Repo not found | "Clone: git clone https://github.com/grandamenium/claude-remote-manager ~/claude-remote-manager" |
+| No .env found | Guide to /telegram setup |
+| Token invalid (getMe fails) | "Token expirado. Crie novo bot no @BotFather e atualize ~/claude-remote-manager/agents/{name}/.env" |
+| tmux exists but Claude dead | Auto-restart with --restart flag |
+| fast-checker not running | Auto-restart |
+| Agent already enabled | Use --restart flag automatically |
 
 ## Prerequisites
 
-- Telegram bot token from @BotFather
-- `jq` and `curl` installed
+- `~/claude-remote-manager/` cloned and `install.sh` executed
+- At least one agent configured with `.env` (BOT_TOKEN + CHAT_ID)
+- `tmux`, `jq`, `curl` installed
 - macOS (uses launchd for persistence)
 
 ---
 
-*Skill: telegram v1.0*
-*Gateway: infrastructure/message-gateway/*
+*Skill: telegram v2.0 — Smart auto-detection, zero unnecessary questions*
+*Backend: ~/claude-remote-manager (grandamenium/claude-remote-manager)*
