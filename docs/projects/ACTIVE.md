@@ -25,7 +25,9 @@
 
 | 23 | **pattern-library** | 📦 | **40 sites extraídos, effects library, workflows lp+clone criados** | **Claude Opus 4.6** | **2026-04-01** | [INDEX](pattern-library/INDEX.md) |
 | 24 | **forge-evolution** | 📦 | **✅ Plugin system + 9 features implementadas + auditoria Codex OK — próximo: smoke test** | **Claude Opus 4.6** | **2026-04-04** | [INDEX](forge-evolution/INDEX.md) |
-| 25 | **luizfosc-brand** | 📦 | **🟡 Sessões 1-2 OK (auditoria + estratégia). Sessão 3 pendente (visual + brand book)** | **branding squad** | **2026-04-07** | [INDEX](luizfosc-brand/INDEX.md) |
+| 25 | **luizfosc-brand** | 📦 | **🟡 Sistema visual DNA Real aprovado. 24 variações. Fora da Caixa pronto. Próximo: Design System + Content Forge** | **branding + design-chief** | **2026-04-07** | [INDEX](luizfosc-brand/INDEX.md) |
+| 26 | **content-forge-ecosystem** | 📦 | **🟢 Tier 0-2 implementados + viral-squad brand-agnostic — próximo: brand YAML Luiz Fosc** | **Claude Opus 4.6** | **2026-04-07** | [INDEX](content-forge-ecosystem/INDEX.md) |
+| 27 | **mind-cloning-garcia** | 📦 | **✅ Mind Clone v2 Premium+ 92% — 173K words, 9.08/10 smoke test, Advisory Board integrado** | **mind-cloning + oalanicolas** | **2026-04-08** | [INDEX](mind-cloning-garcia/INDEX.md) |
 
 ## Backlog (Futuros Projetos)
 
