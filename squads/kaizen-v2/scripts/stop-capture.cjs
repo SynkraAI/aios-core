@@ -35,7 +35,7 @@ const { execSync } = require('child_process');
 
 const CONFIG = {
   timeout_ms: 5000,
-  project_root: process.cwd(),
+  project_root: path.resolve(__dirname, '..', '..', '..'),
   daily_dir: 'squads/kaizen-v2/data/intelligence/daily',
   frontmatter_cache: 'squads/kaizen-v2/data/intelligence/frontmatter-health.json',
   log_file: '.aios/logs/kaizen-stop.log',

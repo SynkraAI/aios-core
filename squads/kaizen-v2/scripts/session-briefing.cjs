@@ -32,7 +32,7 @@ const path = require('path');
 
 const CONFIG = {
   timeout_ms: 3000,
-  project_root: process.cwd(),
+  project_root: path.resolve(__dirname, '..', '..', '..'),
   patterns_file: 'squads/kaizen-v2/data/intelligence/knowledge/patterns.yaml',
   daily_dir: 'squads/kaizen-v2/data/intelligence/daily',
   log_file: '.aios/logs/kaizen-session-briefing.log',
