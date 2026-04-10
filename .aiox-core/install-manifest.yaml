@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.0.3
-generated_at: "2026-04-10T21:16:18.246Z"
+generated_at: "2026-04-10T22:56:42.766Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1091
 files:
@@ -101,9 +101,9 @@ files:
     type: cli
     size: 12326
   - path: cli/commands/pro/index.js
-    hash: sha256:5ec7b266fc3c88509d44196682b013541a32ab8f2bcf400f1721b59ddb16b927
+    hash: sha256:75e4746ecb188072c51fc5fa8f24a0512701f54c20ece228163486e0895eed21
     type: cli
-    size: 24975
+    size: 25765
   - path: cli/commands/qa/index.js
     hash: sha256:3a9e30419a66e56781f9b5dcddc8f4dd0ed24dabf8fe8c3005cd26f5cb02558f
     type: cli
@@ -969,9 +969,9 @@ files:
     type: core
     size: 7193
   - path: core/pro/pro-updater.js
-    hash: sha256:26eeb3e4f4e742496d15bdd989dd1c4bc5582337f8fb0e4cabe81817ef4d4204
+    hash: sha256:76d2c0cfc261fa986879969054cda72374f48c6d10033acd26d546b6dad7ffec
     type: core
-    size: 13075
+    size: 14780
   - path: core/quality-gates/base-layer.js
     hash: sha256:9a9a3921da08176b0bd44f338a59abc1f5107f3b1ee56571e840bf4e8ed233f4
     type: core

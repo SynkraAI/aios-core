@@ -47,16 +47,16 @@ const PRO_PACKAGE_FALLBACK = '@aios-fullstack/pro';
  * @returns {{ packagePath: string, packageName: string } | null}
  */
 function resolveNpmProPackage() {
-  const projectRoot = process.cwd();
-  const candidates = [
-    { name: PRO_PACKAGE_CANONICAL, dir: path.join(projectRoot, 'node_modules', '@aiox-fullstack', 'pro') },
-    { name: PRO_PACKAGE_FALLBACK, dir: path.join(projectRoot, 'node_modules', '@aios-fullstack', 'pro') },
-  ];
+  const candidates = [PRO_PACKAGE_CANONICAL, PRO_PACKAGE_FALLBACK];
 
-  for (const candidate of candidates) {
-    const pkgJson = path.join(candidate.dir, 'package.json');
-    if (fs.existsSync(pkgJson)) {
-      return { packagePath: candidate.dir, packageName: candidate.name };
+  for (const packageName of candidates) {
+    try {
+      const pkgJson = require.resolve(`${packageName}/package.json`, {
+        paths: [process.cwd()],
+      });
+      return { packagePath: path.dirname(pkgJson), packageName };
+    } catch {
+      // try next package
     }
   }
 

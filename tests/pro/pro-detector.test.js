@@ -8,7 +8,10 @@
 'use strict';
 
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
+const realFs = jest.requireActual('fs');
+const originalCwd = process.cwd();
 
 // Module under test
 const {
@@ -32,6 +35,7 @@ const originalRequire = jest.requireActual;
 describe('pro-detector', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    process.chdir(originalCwd);
     // Clear require cache for pro modules to prevent stale state
     Object.keys(require.cache).forEach((key) => {
       if (key.includes('pro-detector')) return; // Don't clear the module itself
@@ -66,10 +70,21 @@ describe('pro-detector', () => {
     });
 
     it('should return true when npm package exists (canonical or fallback)', () => {
-      // Any npm path with package.json returns true
-      fs.existsSync.mockImplementation((p) => p.includes('@aios-fullstack'));
+      const tmpDir = realFs.mkdtempSync(path.join(os.tmpdir(), 'aiox-pro-detector-'));
+      const canonicalDir = path.join(tmpDir, 'node_modules', '@aiox-fullstack', 'pro');
+      realFs.mkdirSync(canonicalDir, { recursive: true });
+      realFs.writeFileSync(
+        path.join(canonicalDir, 'package.json'),
+        JSON.stringify({ name: PRO_PACKAGE_CANONICAL, version: '0.4.0' }),
+      );
+      process.chdir(tmpDir);
 
-      expect(isProAvailable()).toBe(true);
+      try {
+        expect(isProAvailable()).toBe(true);
+      } finally {
+        process.chdir(originalCwd);
+        realFs.rmSync(tmpDir, { recursive: true, force: true });
+      }
     });
 
     it('should return false when nothing is available', () => {
@@ -91,6 +106,54 @@ describe('pro-detector', () => {
     it('should export canonical and fallback package names', () => {
       expect(PRO_PACKAGE_CANONICAL).toBe('@aiox-fullstack/pro');
       expect(PRO_PACKAGE_FALLBACK).toBe('@aios-fullstack/pro');
+    });
+
+    it('should prefer the canonical package when both scopes resolve', () => {
+      const tmpDir = realFs.mkdtempSync(path.join(os.tmpdir(), 'aiox-pro-detector-'));
+      const canonicalDir = path.join(tmpDir, 'node_modules', '@aiox-fullstack', 'pro');
+      const fallbackDir = path.join(tmpDir, 'node_modules', '@aios-fullstack', 'pro');
+      realFs.mkdirSync(canonicalDir, { recursive: true });
+      realFs.mkdirSync(fallbackDir, { recursive: true });
+      realFs.writeFileSync(
+        path.join(canonicalDir, 'package.json'),
+        JSON.stringify({ name: PRO_PACKAGE_CANONICAL, version: '0.4.0' }),
+      );
+      realFs.writeFileSync(
+        path.join(fallbackDir, 'package.json'),
+        JSON.stringify({ name: PRO_PACKAGE_FALLBACK, version: '0.3.0' }),
+      );
+      process.chdir(tmpDir);
+
+      try {
+        expect(resolveNpmProPackage()).toEqual({
+          packagePath: realFs.realpathSync(canonicalDir),
+          packageName: PRO_PACKAGE_CANONICAL,
+        });
+      } finally {
+        process.chdir(originalCwd);
+        realFs.rmSync(tmpDir, { recursive: true, force: true });
+      }
+    });
+
+    it('should fall back when the canonical package cannot be resolved', () => {
+      const tmpDir = realFs.mkdtempSync(path.join(os.tmpdir(), 'aiox-pro-detector-'));
+      const fallbackDir = path.join(tmpDir, 'node_modules', '@aios-fullstack', 'pro');
+      realFs.mkdirSync(fallbackDir, { recursive: true });
+      realFs.writeFileSync(
+        path.join(fallbackDir, 'package.json'),
+        JSON.stringify({ name: PRO_PACKAGE_FALLBACK, version: '0.3.0' }),
+      );
+      process.chdir(tmpDir);
+
+      try {
+        expect(resolveNpmProPackage()).toEqual({
+          packagePath: realFs.realpathSync(fallbackDir),
+          packageName: PRO_PACKAGE_FALLBACK,
+        });
+      } finally {
+        process.chdir(originalCwd);
+        realFs.rmSync(tmpDir, { recursive: true, force: true });
+      }
     });
   });
 
