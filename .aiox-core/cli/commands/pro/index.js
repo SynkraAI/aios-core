@@ -638,21 +638,52 @@ async function setupAction(options) {
   console.log('No special tokens or configuration needed.\n');
 
   const { execSync } = require('child_process');
-  let installed = false;
+  let installedPackage = null;
+
+  function getInstallErrorOutput(error) {
+    return [
+      error?.message,
+      error?.stderr?.toString?.(),
+      error?.stdout?.toString?.(),
+    ].filter(Boolean).join('\n');
+  }
+
+  function isPackageNotFoundError(error, pkg) {
+    const output = getInstallErrorOutput(error).toLowerCase();
+    const packageName = pkg.toLowerCase();
+
+    if (!output.includes(packageName)) {
+      return false;
+    }
+
+    return output.includes('e404')
+      || output.includes('npm err! 404')
+      || output.includes(' is not in this registry')
+      || output.includes(' not found');
+  }
 
   for (const pkg of PRO_PACKAGES) {
     try {
       console.log(`Installing ${pkg}...\n`);
       execSync(`npm install ${pkg}`, { stdio: 'inherit', timeout: 120000 });
       console.log(`\n✅ ${pkg} installed successfully!`);
-      installed = true;
+      installedPackage = pkg;
       break;
-    } catch {
-      // try next package
+    } catch (error) {
+      if (isPackageNotFoundError(error, pkg)) {
+        continue;
+      }
+
+      console.error(`\n❌ Failed to install ${pkg}.`);
+      const details = getInstallErrorOutput(error);
+      if (details) {
+        console.error(details);
+      }
+      process.exit(1);
     }
   }
 
-  if (!installed) {
+  if (!installedPackage) {
     console.error('\n❌ Installation failed.');
     console.log('\nTry manually:');
     console.log('  npm install @aios-fullstack/pro');
@@ -785,7 +816,6 @@ function createProCommand() {
     .option('--dry-run', 'Show update plan without executing')
     .option('-f, --force', 'Force reinstall even if up-to-date')
     .option('--include-core', 'Also update aiox-core')
-    .option('--no-core', 'Never update aiox-core (default)')
     .option('--skip-scaffold', 'Skip re-scaffolding assets after update')
     .action(updateAction);
 

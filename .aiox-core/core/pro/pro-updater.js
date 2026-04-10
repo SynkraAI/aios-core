@@ -17,6 +17,7 @@
 const path = require('path');
 const fs = require('fs');
 const https = require('https');
+const semver = require('semver');
 const { execSync } = require('child_process');
 
 const PRO_PACKAGES = ['@aiox-fullstack/pro', '@aios-fullstack/pro'];
@@ -92,21 +93,44 @@ function resolveInstalledPro(projectRoot) {
  * @returns {string|null}
  */
 function getCoreVersion(projectRoot) {
-  const paths = [
-    path.join(projectRoot, 'node_modules', 'aiox-core', 'package.json'),
-    path.join(projectRoot, 'package.json'),
-  ];
-
-  for (const p of paths) {
-    if (fs.existsSync(p)) {
-      try {
-        const data = JSON.parse(fs.readFileSync(p, 'utf8'));
-        if (p.endsWith('node_modules/aiox-core/package.json') || data.name === 'aiox-core') {
-          return data.version || null;
-        }
-      } catch { /* skip */ }
-    }
+  const versionJsonPath = path.join(projectRoot, '.aiox-core', 'version.json');
+  if (fs.existsSync(versionJsonPath)) {
+    try {
+      const versionInfo = JSON.parse(fs.readFileSync(versionJsonPath, 'utf8'));
+      if (versionInfo.version) {
+        return versionInfo.version;
+      }
+    } catch { /* skip */ }
   }
+
+  const packageJsonPath = path.join(projectRoot, 'node_modules', 'aiox-core', 'package.json');
+  if (fs.existsSync(packageJsonPath)) {
+    try {
+      const data = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+      return data.version || null;
+    } catch { /* skip */ }
+  }
+
+  const localPackageJsonPath = path.join(projectRoot, 'package.json');
+  if (fs.existsSync(localPackageJsonPath)) {
+    try {
+      const data = JSON.parse(fs.readFileSync(localPackageJsonPath, 'utf8'));
+      if (data.name === '@synkra/aiox-core' || data.name === 'aiox-core') {
+        return data.version || null;
+      }
+
+      for (const field of ['dependencies', 'devDependencies', 'optionalDependencies', 'peerDependencies']) {
+        const declaredVersion = data[field]?.['aiox-core'];
+        if (typeof declaredVersion === 'string') {
+          const parsed = semver.coerce(declaredVersion);
+          if (parsed) {
+            return parsed.version;
+          }
+        }
+      }
+    } catch { /* skip */ }
+  }
+
   return null;
 }
 
@@ -118,15 +142,45 @@ function getCoreVersion(projectRoot) {
  */
 function satisfiesPeer(installed, range) {
   if (!installed || !range) return true;
-  const min = range.replace(/[>=^~]/g, '').trim();
-  const iParts = installed.split('.').map(Number);
-  const mParts = min.split('.').map(Number);
 
-  for (let i = 0; i < 3; i++) {
-    if ((iParts[i] || 0) > (mParts[i] || 0)) return true;
-    if ((iParts[i] || 0) < (mParts[i] || 0)) return false;
+  const installedVersion = semver.coerce(installed);
+  if (!installedVersion) {
+    return false;
   }
-  return true;
+
+  try {
+    return semver.satisfies(installedVersion, range, { includePrerelease: true });
+  } catch {
+    return true;
+  }
+}
+
+async function applyScaffoldStep(projectRoot, proPath, result, onProgress, errorMessage) {
+  try {
+    const scaffoldResult = await runScaffold(projectRoot, proPath, onProgress);
+    result.scaffoldResult = scaffoldResult;
+    result.actions.push({ action: 'scaffold', status: scaffoldResult.success ? 'done' : 'failed' });
+
+    if (!scaffoldResult.success) {
+      result.success = false;
+      result.error = errorMessage;
+      return false;
+    }
+
+    return true;
+  } catch (error) {
+    result.scaffoldResult = {
+      success: false,
+      errors: [error.message],
+      copiedFiles: [],
+      skippedFiles: [],
+      warnings: [],
+    };
+    result.actions.push({ action: 'scaffold', status: 'failed', error: error.message });
+    result.success = false;
+    result.error = errorMessage;
+    return false;
+  }
 }
 
 /**
@@ -222,9 +276,16 @@ async function updatePro(projectRoot, options = {}) {
 
     // Even if up to date, re-scaffold if not skipped (new assets might exist)
     if (!skipScaffold && !dryRun) {
-      const scaffoldResult = await runScaffold(projectRoot, installed.packagePath, onProgress);
-      result.scaffoldResult = scaffoldResult;
-      result.actions.push({ action: 'scaffold', status: scaffoldResult.success ? 'done' : 'failed' });
+      const scaffolded = await applyScaffoldStep(
+        projectRoot,
+        installed.packagePath,
+        result,
+        onProgress,
+        'AIOX Pro is up to date, but re-scaffolding failed.',
+      );
+      if (!scaffolded) {
+        return result;
+      }
     }
 
     return result;
@@ -260,7 +321,9 @@ async function updatePro(projectRoot, options = {}) {
     if (includeCoreUpdate) {
       result.actions.push({ action: 'core_update', status: 'dry_run', command: buildInstallCmd(pm, 'aiox-core') });
     }
-    result.actions.push({ action: 'scaffold', status: 'dry_run' });
+    if (!skipScaffold) {
+      result.actions.push({ action: 'scaffold', status: 'dry_run' });
+    }
     return result;
   }
 
@@ -300,9 +363,16 @@ async function updatePro(projectRoot, options = {}) {
   // 8. Re-scaffold assets
   if (!skipScaffold) {
     const proPath = updatedPro ? updatedPro.packagePath : installed.packagePath;
-    const scaffoldResult = await runScaffold(projectRoot, proPath, onProgress);
-    result.scaffoldResult = scaffoldResult;
-    result.actions.push({ action: 'scaffold', status: scaffoldResult.success ? 'done' : 'failed' });
+    const scaffolded = await applyScaffoldStep(
+      projectRoot,
+      proPath,
+      result,
+      onProgress,
+      'AIOX Pro package updated, but re-scaffolding failed.',
+    );
+    if (!scaffolded) {
+      return result;
+    }
   }
 
   result.success = true;

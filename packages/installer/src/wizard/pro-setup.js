@@ -331,34 +331,54 @@ function showStep(current, total, label) {
  */
 function loadProModule(moduleName) {
   const path = require('path');
+  const tryRequire = (requestPath) => {
+    try {
+      return require(requestPath);
+    } catch (error) {
+      if (
+        error?.code === 'MODULE_NOT_FOUND'
+        && typeof error.message === 'string'
+        && error.message.includes(requestPath)
+      ) {
+        return null;
+      }
+      throw error;
+    }
+  };
 
   // 1. Framework-dev mode (cloned repo with pro/ submodule)
-  try {
-    return require(`../../../../pro/license/${moduleName}`);
-  } catch { /* not available */ }
+  const frameworkPath = `../../../../pro/license/${moduleName}`;
+  const frameworkModule = tryRequire(frameworkPath);
+  if (frameworkModule) {
+    return frameworkModule;
+  }
 
   // 2. npm packages — try canonical then fallback
   const npmScopes = ['@aiox-fullstack/pro', '@aios-fullstack/pro'];
   for (const scope of npmScopes) {
-    try {
-      return require(`${scope}/license/${moduleName}`);
-    } catch { /* not available */ }
+    const requestPath = `${scope}/license/${moduleName}`;
+    const loadedModule = tryRequire(requestPath);
+    if (loadedModule) {
+      return loadedModule;
+    }
   }
 
   // 3. aiox-core in node_modules (brownfield upgrade from >= v4.2.15)
-  try {
-    const absPath = path.join(process.cwd(), 'node_modules', 'aiox-core', 'pro', 'license', moduleName);
-    return require(absPath);
-  } catch { /* not available */ }
+  const aioxCorePath = path.join(process.cwd(), 'node_modules', 'aiox-core', 'pro', 'license', moduleName);
+  const aioxCoreModule = tryRequire(aioxCorePath);
+  if (aioxCoreModule) {
+    return aioxCoreModule;
+  }
 
   // 4. npm package in user project via absolute path (npx context — require resolves from
   //    temp dir, so we need absolute path to where bootstrap installed the package)
   const absScopeDirs = ['@aiox-fullstack', '@aios-fullstack'];
   for (const scopeDir of absScopeDirs) {
-    try {
-      const absPath = path.join(process.cwd(), 'node_modules', scopeDir, 'pro', 'license', moduleName);
-      return require(absPath);
-    } catch { /* not available */ }
+    const absPath = path.join(process.cwd(), 'node_modules', scopeDir, 'pro', 'license', moduleName);
+    const loadedModule = tryRequire(absPath);
+    if (loadedModule) {
+      return loadedModule;
+    }
   }
 
   return null;
