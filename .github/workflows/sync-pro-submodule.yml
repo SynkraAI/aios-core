@@ -20,24 +20,46 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
-      PRO_REPO_URL: https://github.com/SynkraAI/aios-pro.git
+      PRO_REMOTE_FALLBACK_URL: https://github.com/SynkraAI/aios-pro.git
       SYNC_BRANCH: bot/sync-pro-submodule
     steps:
       - name: Checkout aiox-core
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          # PRO_SUBMODULE_TOKEN is optional, but required if the pro remote is private.
+          token: ${{ secrets.PRO_SUBMODULE_TOKEN || github.token }}
 
       - name: Configure git identity
         run: |
           git config user.name "aiox-sync-bot"
           git config user.email "actions@github.com"
 
+      - name: Resolve pro remote
+        id: pro-remote
+        env:
+          PRO_REMOTE_FALLBACK_URL: ${{ env.PRO_REMOTE_FALLBACK_URL }}
+          PRO_SUBMODULE_TOKEN: ${{ secrets.PRO_SUBMODULE_TOKEN }}
+        run: |
+          PRO_REPO_URL=$(git config -f .gitmodules --get submodule.pro.url || true)
+          if [ -z "$PRO_REPO_URL" ]; then
+            PRO_REPO_URL="$PRO_REMOTE_FALLBACK_URL"
+          fi
+
+          AUTH_URL="$PRO_REPO_URL"
+          if [ -n "$PRO_SUBMODULE_TOKEN" ] && [[ "$PRO_REPO_URL" == https://github.com/* ]]; then
+            echo "::add-mask::$PRO_SUBMODULE_TOKEN"
+            AUTH_URL="${PRO_REPO_URL/https:\/\/github.com\//https:\/\/x-access-token:${PRO_SUBMODULE_TOKEN}@github.com\/}"
+          fi
+
+          echo "repo_url=$PRO_REPO_URL" >> "$GITHUB_OUTPUT"
+          echo "auth_url=$AUTH_URL" >> "$GITHUB_OUTPUT"
+
       - name: Resolve upstream target
         id: resolve
         env:
           INPUT_SHA: ${{ github.event.inputs.target_sha }}
-          PRO_REPO_URL: ${{ env.PRO_REPO_URL }}
+          PRO_REPO_URL: ${{ steps.pro-remote.outputs.repo_url }}
         run: |
           TARGET_SHA="$INPUT_SHA"
           if [ -z "$TARGET_SHA" ]; then
@@ -59,7 +81,7 @@ jobs:
       - name: Update pro submodule pointer
         if: steps.resolve.outputs.changed == 'true'
         env:
-          PRO_REPO_URL: ${{ env.PRO_REPO_URL }}
+          PRO_REPO_URL: ${{ steps.pro-remote.outputs.auth_url }}
           TARGET_SHA: ${{ steps.resolve.outputs.target_sha }}
         run: |
           rm -rf pro
