@@ -23,11 +23,10 @@ jobs:
       PRO_REPO_URL: https://github.com/SynkraAI/aios-pro.git
       SYNC_BRANCH: bot/sync-pro-submodule
     steps:
-      - name: Checkout aiox-core with submodules
+      - name: Checkout aiox-core
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          submodules: recursive
 
       - name: Configure git identity
         run: |
@@ -45,7 +44,7 @@ jobs:
             TARGET_SHA=$(git ls-remote "$PRO_REPO_URL" refs/heads/main | awk '{print $1}')
           fi
 
-          CURRENT_SHA=$(git -C pro rev-parse HEAD)
+          CURRENT_SHA=$(git ls-tree HEAD pro | awk '{print $3}')
 
           echo "target_sha=$TARGET_SHA" >> "$GITHUB_OUTPUT"
           echo "short_sha=${TARGET_SHA:0:7}" >> "$GITHUB_OUTPUT"
@@ -60,8 +59,11 @@ jobs:
       - name: Update pro submodule pointer
         if: steps.resolve.outputs.changed == 'true'
         env:
+          PRO_REPO_URL: ${{ env.PRO_REPO_URL }}
           TARGET_SHA: ${{ steps.resolve.outputs.target_sha }}
         run: |
+          rm -rf pro
+          git clone "$PRO_REPO_URL" pro
           git -C pro fetch origin main
           if ! git -C pro cat-file -e "$TARGET_SHA^{commit}" 2>/dev/null; then
             git -C pro fetch origin "$TARGET_SHA"
