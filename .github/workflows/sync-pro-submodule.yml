@@ -27,8 +27,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          # PRO_SUBMODULE_TOKEN is optional, but required if the pro remote is private.
-          token: ${{ secrets.PRO_SUBMODULE_TOKEN || github.token }}
+          token: ${{ github.token }}
 
       - name: Configure git identity
         run: |
@@ -59,7 +58,7 @@ jobs:
         id: resolve
         env:
           INPUT_SHA: ${{ github.event.inputs.target_sha }}
-          PRO_REPO_URL: ${{ steps.pro-remote.outputs.repo_url }}
+          PRO_REPO_URL: ${{ steps.pro-remote.outputs.auth_url }}
         run: |
           TARGET_SHA="$INPUT_SHA"
           if [ -z "$TARGET_SHA" ]; then
@@ -67,6 +66,16 @@ jobs:
           fi
 
           CURRENT_SHA=$(git ls-tree HEAD pro | awk '{print $3}')
+
+          if [ -z "$TARGET_SHA" ]; then
+            echo "::error::Unable to resolve target SHA from the pro remote."
+            exit 1
+          fi
+
+          if [ -z "$CURRENT_SHA" ]; then
+            echo "::error::Unable to resolve the current pro submodule SHA from aiox-core."
+            exit 1
+          fi
 
           echo "target_sha=$TARGET_SHA" >> "$GITHUB_OUTPUT"
           echo "short_sha=${TARGET_SHA:0:7}" >> "$GITHUB_OUTPUT"
