@@ -9,7 +9,7 @@
  *   aiox pro deactivate               Deactivate the current license
  *   aiox pro features                 List all pro features
  *   aiox pro validate                 Force online revalidation
- *   aiox pro setup                    Configure GitHub Packages access (AC-12)
+ *   aiox pro setup                    Install or verify the AIOX Pro package
  *
  * @module cli/commands/pro
  * @version 1.1.0
@@ -110,7 +110,8 @@ function loadLicenseModules() {
     };
   } catch (error) {
     console.error('AIOX Pro license module not available.');
-    console.error('Install AIOX Pro: npm install @aios-fullstack/pro');
+    console.error('Install AIOX Pro: aiox pro setup');
+    console.error('Or via wrapper: npx aiox-pro install');
     process.exit(1);
   }
 }
@@ -622,13 +623,15 @@ async function setupAction(options) {
         console.log('❌ AIOX Pro is not installed');
         console.log('');
         console.log('Install with:');
-        console.log('  npm install @aios-fullstack/pro');
+        console.log('  aiox pro setup');
+        console.log('  # or npx aiox-pro install');
       }
     } catch {
       console.log('❌ AIOX Pro is not installed');
       console.log('');
       console.log('Install with:');
-      console.log('  npm install @aios-fullstack/pro');
+      console.log('  aiox pro setup');
+      console.log('  # or npx aiox-pro install');
     }
     return;
   }
@@ -686,7 +689,8 @@ async function setupAction(options) {
   if (!installedPackage) {
     console.error('\n❌ Installation failed.');
     console.log('\nTry manually:');
-    console.log('  npm install @aios-fullstack/pro');
+    console.log('  aiox pro setup');
+    console.log('  # or npx aiox-pro install');
     process.exit(1);
   }
 

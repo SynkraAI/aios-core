@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       target_sha:
-        description: 'Optional aios-pro commit SHA to sync into the pro submodule'
+        description: 'Optional aiox-pro commit SHA to sync into the pro submodule'
         required: false
         type: string
   schedule:
@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
-      PRO_REMOTE_FALLBACK_URL: https://github.com/SynkraAI/aios-pro.git
+      PRO_REMOTE_FALLBACK_URL: https://github.com/SynkraAI/aiox-pro.git
       SYNC_BRANCH: bot/sync-pro-submodule
     steps:
       - name: Checkout aiox-core
@@ -136,7 +136,7 @@ jobs:
           - Target SHA: \`$TARGET_SHA\`
           - Trigger: \`${GITHUB_WORKFLOW}\`
 
-          This PR reconciles the \`pro\` submodule with the latest upstream state from \`SynkraAI/aios-pro\`.
+          This PR reconciles the \`pro\` submodule with the latest upstream state from \`SynkraAI/aiox-pro\`.
           EOF
           )
 

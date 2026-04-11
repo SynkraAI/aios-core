@@ -8,6 +8,7 @@
  *
  * Commands:
  *   install             Install AIOX Pro in the current project
+ *   update              Update AIOX Pro and re-sync assets
  *   activate --key X    Activate a license key
  *   deactivate          Deactivate the current license
  *   status              Show license status
@@ -139,6 +140,7 @@ Usage:
 
 Commands:
   install              Install AIOX Pro in the current project
+  update               Update AIOX Pro and re-sync assets
   install --wizard     Install and run the setup wizard
   setup, wizard        Run Pro setup wizard (license gate + scaffold + verify)
   activate --key KEY   Activate a license key
@@ -152,6 +154,7 @@ Commands:
 
 Examples:
   npx aiox-pro install
+  npx aiox-pro update
   npx aiox-pro setup
   npx aiox-pro wizard --key PRO-XXXX-XXXX-XXXX-XXXX
   npx aiox-pro activate --key PRO-XXXX-XXXX-XXXX-XXXX
@@ -234,6 +237,7 @@ switch (command) {
   case 'status':
   case 'features':
   case 'validate':
+  case 'update':
     if (!isProInstalled()) {
       console.error('AIOX Pro is not installed.');
       console.error('Run first: npx aiox-pro install\n');
