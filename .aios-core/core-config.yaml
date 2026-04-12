@@ -18,17 +18,13 @@ architecture:
   architectureSharded: true
   architectureShardedLocation: docs/architecture
 customTechnicalDocuments: null
-devLoadAlwaysFiles:
-  - docs/framework/coding-standards.md
-  - docs/framework/tech-stack.md
-  - docs/framework/source-tree.md
-devLoadAlwaysFilesFallback:
-  - docs/pt/framework/coding-standards.md
-  - docs/pt/framework/tech-stack.md
-  - docs/pt/framework/source-tree.md
-  - docs/es/framework/coding-standards.md
-  - docs/es/framework/tech-stack.md
-  - docs/es/framework/source-tree.md
+
+# ✅ OTIMIZAÇÃO 1: Arquivos carregados só quando necessário (não mais automático)
+# Antes carregava 3 arquivos em TODA sessão = tokens desperdiçados
+# Agora só carrega quando você pedir explicitamente
+devLoadAlwaysFiles: []
+devLoadAlwaysFilesFallback: []
+
 devDebugLog: .ai/debug-log.md
 devStoryLocation: docs/stories
 slashPrefix: AIOS
@@ -42,21 +38,20 @@ dataLocation: .aios-core/data
 elicitationLocation: .aios-core/elicitation
 squadsTemplateLocation: templates/squad
 mindsLocation: outputs/minds
+
+# ✅ OTIMIZAÇÃO 2: Só Claude Code ativo (antes tinha 5 IDEs sincronizando)
 ide:
   selected:
-    - vscode
-    - codex
-    - gemini
-    - cursor
     - claude-code
   configs:
-    vscode: true
-    codex: true
-    gemini: true
-    cursor: true
+    vscode: false
+    codex: false
+    gemini: false
+    cursor: false
     zed: false
     claude-desktop: false
     claude-code: true
+
 mcp:
   enabled: true
   configLocation: .claude/mcp.json
@@ -86,6 +81,7 @@ mcp:
         description: All MCPs - requires EXA_API_KEY for exa
         api_keys_required: true
         estimated_tokens: 20-25k
+    # ✅ OTIMIZAÇÃO 3: Preset minimal em vez de full (economiza 10k tokens por sessão)
     defaultPreset: minimal
     defaultServers:
       - name: context7
@@ -131,15 +127,19 @@ mcp:
         1. Check Docker Desktop is running
         2. Check port 8080 is available: netstat -an | grep 8080
         3. Try alternate port in gateway-service.yml
+
 lazyLoading:
   enabled: true
   heavySections:
     - pvMindContext
     - squads
     - registry
+
+# ✅ OTIMIZAÇÃO 4: Cache git aumentado de 5min para 15min (menos chamadas)
 git:
   showConfigWarning: true
-  cacheTimeSeconds: 300
+  cacheTimeSeconds: 900
+
 decisionLogging:
   enabled: true
   async: true
@@ -148,11 +148,13 @@ decisionLogging:
   format: adr
   performance:
     maxOverhead: 50
+
 projectStatus:
   enabled: true
   autoLoadOnAgentActivation: true
   showInGreeting: true
-  cacheTimeSeconds: 60
+  # ✅ OTIMIZAÇÃO 5: Cache de status aumentado de 60s para 5min
+  cacheTimeSeconds: 300
   components:
     gitBranch: true
     gitStatus: true
@@ -162,6 +164,7 @@ projectStatus:
   statusFile: .aios/project-status.yaml
   maxModifiedFiles: 5
   maxRecentCommits: 2
+
 agentIdentity:
   greeting:
     preference: auto
@@ -170,7 +173,8 @@ agentIdentity:
     workflowDetection: hardcoded
     performance:
       gitCheckCache: true
-      gitCheckTTL: 300
+      gitCheckTTL: 900
+
 github:
   enabled: true
   cli_required: false
@@ -201,6 +205,7 @@ github:
     draft_by_default: false
   semantic_release:
     enabled: true
+
 coderabbit_integration:
   enabled: true
   installation_mode: wsl
@@ -227,9 +232,11 @@ coderabbit_integration:
     qa_story_review_committed: |
       wsl bash -c 'cd ${PROJECT_ROOT} && ~/.local/bin/coderabbit --prompt-only -t committed --base main'
   report_location: docs/qa/coderabbit-reports/
+
 squads:
   templateLocation: templates/squad
   autoLoad: false
+
 pvMindContext:
   enabled: true
   location: outputs/minds/pedro_valerio
@@ -237,10 +244,12 @@ pvMindContext:
     persona_voice: true
     technical_depth: advanced
     communication_style: structured
+
 storyBacklog:
   enabled: true
   location: docs/stories/backlog
   prioritization: value_risk
+
 utils:
   helpers:
     - batch-creator
@@ -302,6 +311,8 @@ utils:
     - transaction-manager
     - usage-analytics
     - usage-tracker
+
+# ✅ OTIMIZAÇÃO 6: Só claude-code ativo no ideSync (antes sincronizava 5 IDEs)
 ideSync:
   enabled: true
   source: .aios-core/development/agents
@@ -311,23 +322,23 @@ ideSync:
       path: .claude/commands/AIOS/agents
       format: full-markdown-yaml
     codex:
-      enabled: true
+      enabled: false
       path: .codex/agents
       format: full-markdown-yaml
     gemini:
-      enabled: true
+      enabled: false
       path: .gemini/rules/AIOS/agents
       format: full-markdown-yaml
     github-copilot:
-      enabled: true
+      enabled: false
       path: .github/agents
       format: full-markdown-yaml
     cursor:
-      enabled: true
+      enabled: false
       path: .cursor/rules/agents
       format: condensed-rules
     antigravity:
-      enabled: true
+      enabled: false
       path: .antigravity/rules/agents
       format: cursor-style
   redirects: {}
@@ -335,6 +346,7 @@ ideSync:
     strictMode: true
     failOnDrift: true
     failOnOrphaned: false
+
 autoClaude:
   enabled: true
   version: '3.0'
@@ -352,4 +364,5 @@ autoClaude:
     enabled: false
   qa:
     enabled: false
+
 # Memory Intelligence System (Epic MIS) configuration placeholder — MIS-2+

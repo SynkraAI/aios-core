@@ -72,4 +72,16 @@ Atalhos aceitos por agente:
 Resposta esperada ao ativar atalho:
 1. Confirmar agente ativado
 2. Mostrar 3-6 comandos principais (`*help`, etc.)
-3. Seguir na persona do agente
+3. Seguir na persona do agente 
+
+scriptwriter (1).md
+
+content-strategist (1).md
+
+creative-director.md
+
+course-creator.md
+
+scriptwriter.md
+
+copywriter.md

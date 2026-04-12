@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 4.2.13
-generated_at: "2026-02-23T16:09:35.835Z"
+generated_at: "2026-04-12T16:24:29.361Z"
 generator: scripts/generate-install-manifest.js
-file_count: 1008
+file_count: 1021
 files:
   - path: cli/commands/config/index.js
     hash: sha256:ebcad2ce3807eda29dcddff76d7a95ddc9b7fa160df21fd608f94b802237e862
@@ -177,9 +177,9 @@ files:
     type: cli
     size: 5907
   - path: core-config.yaml
-    hash: sha256:c1266389772b3fcf3e4c91df085bd38dc0b01d0a5f98bdf977d134972ccaf49b
+    hash: sha256:c62b452fa073483cfdd48a44f38a97a6c5156290ac46cc5260f8b60f4c5259a6
     type: config
-    size: 9392
+    size: 9649
   - path: core/code-intel/code-intel-client.js
     hash: sha256:bd88497c8c8f312e95f746121e627c088e93d27af093d411f0521712bd17ba94
     type: core
@@ -1045,7 +1045,7 @@ files:
     type: data
     size: 34251
   - path: data/entity-registry.yaml
-    hash: sha256:6773aba0105f7061c5446383162942a7303607f71bd1881a61c7c2fbe79617b0
+    hash: sha256:deeecf08b191c6919de03a98eadfe8a5921e6fff6a49663fc2c79b21c5c5b67f
     type: data
     size: 292333
   - path: data/learned-patterns.yaml
@@ -1092,6 +1092,54 @@ files:
     hash: sha256:1a1ba8e2816d801cbcce2013a9062d16713a09f70582ea399ed10751bc5b1557
     type: development
     size: 5012
+  - path: development/agents.backup/aios-master.md
+    hash: sha256:092161d318ab523b8cd5c3dc8a2bd19accc23ab7fa731d5b4fa11c5afb8b5a08
+    type: development
+    size: 17821
+  - path: development/agents.backup/analyst.md
+    hash: sha256:470384d9ee05d1373fe7519602f135179a88a35895252277823b35339dafd2a3
+    type: development
+    size: 10175
+  - path: development/agents.backup/architect.md
+    hash: sha256:624cc2a9e8a6cb1549321614927649714a867332272faaa5861f4378206f1c34
+    type: development
+    size: 18980
+  - path: development/agents.backup/data-engineer.md
+    hash: sha256:4be2e5bff60e58d7444d39030edd1e8d34e326e6d1267ae84772871f3e76ec19
+    type: development
+    size: 20286
+  - path: development/agents.backup/dev.md
+    hash: sha256:994d1015878d4deec3ee1b0f14cfa9ff6ffcf60ee1f83abe969daaa01b95b4db
+    type: development
+    size: 22912
+  - path: development/agents.backup/devops.md
+    hash: sha256:958dd617e0c3d4fd3419102df22e6c3f3acdbab30f1333e687ce6191e41113f8
+    type: development
+    size: 20130
+  - path: development/agents.backup/pm.md
+    hash: sha256:e724b248d30c0e67e316e72d5d408c4c57b2da0bfe0cc014e48415531703e765
+    type: development
+    size: 15118
+  - path: development/agents.backup/po.md
+    hash: sha256:4b092282c4a6fab6cadb15c9a5792f851766525d152d18bc8d2f0c8d66366c7d
+    type: development
+    size: 12765
+  - path: development/agents.backup/qa.md
+    hash: sha256:0f8fb4bce7c75852937bc822547ce74735b212c16761b2d58d95356708fd0a14
+    type: development
+    size: 17391
+  - path: development/agents.backup/sm.md
+    hash: sha256:0f0a8171a68035594ef5dfc5f3e611e6a16198b3c3cc116b98c34d38ef2045ad
+    type: development
+    size: 11077
+  - path: development/agents.backup/squad-creator.md
+    hash: sha256:396afae845d9d53f510e64360dc814954f181d8832c93593e96ede0f84f41d41
+    type: development
+    size: 12076
+  - path: development/agents.backup/ux-design-expert.md
+    hash: sha256:ae3f98570fa6cbd714ecd0aa2f44c7db005f0469b5bd04191d8da3b133bc65f1
+    type: development
+    size: 18377
   - path: development/agents/aios-master.md
     hash: sha256:092161d318ab523b8cd5c3dc8a2bd19accc23ab7fa731d5b4fa11c5afb8b5a08
     type: agent
@@ -1104,6 +1152,10 @@ files:
     hash: sha256:624cc2a9e8a6cb1549321614927649714a867332272faaa5861f4378206f1c34
     type: agent
     size: 18980
+  - path: development/agents/content-strategist.md
+    hash: sha256:7b3829ed0f5ee5100e1399a8eb260ec8216b27e37af2a6f89460c9398be1ec96
+    type: agent
+    size: 4624
   - path: development/agents/data-engineer.md
     hash: sha256:4be2e5bff60e58d7444d39030edd1e8d34e326e6d1267ae84772871f3e76ec19
     type: agent

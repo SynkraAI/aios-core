@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-02-23T16:06:59.569Z'
+  lastUpdated: '2026-02-23T16:09:37.438Z'
   entityCount: 510
   checksumAlgorithm: sha256
 entities:
@@ -3945,7 +3945,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:9233f5eb32fc63759a3bb59a9ba6bc920a7cee51e1fc4b1d301bf4ce6afb3926
-      lastVerified: '2026-02-23T16:06:59.565Z'
+      lastVerified: '2026-02-23T16:09:37.434Z'
   templates:
     activation-instructions-inline-greeting:
       path: .aios-core/product/templates/activation-instructions-inline-greeting.yaml
