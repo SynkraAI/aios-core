@@ -48,8 +48,9 @@ module.exports = {
     'tests/epic-verification.test.js',
     'tests/e2e/story-creation-clickup.test.js',
     'tests/installer/v21-structure.test.js',
-    // Squad template tests use ESM imports - run separately with --experimental-vm-modules
+    // ESM import tests - run separately with --experimental-vm-modules
     '.aiox-core/development/templates/squad-template/tests/',
+    'tests/content-forge/',
     // Manifest tests need manifest data alignment (OSR-10 tech debt)
     'tests/unit/manifest/manifest-generator.test.js',
     'tests/unit/manifest/manifest-validator.test.js',

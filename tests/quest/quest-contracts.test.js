@@ -271,19 +271,19 @@ describe('AC-4: Pack Version Migration Contract', () => {
 // ===========================================================================
 
 describe('AC-5: XP System Contract', () => {
-  test('xp-system.md defines base_item_xp separately from total_xp', () => {
-    expect(xpSystemMd).toMatch(/base_item_xp/);
-    expect(xpSystemMd).toMatch(/total_xp\s*=\s*base_item_xp/);
+  test('xp-system.md defines total_base_xp separately from total_xp', () => {
+    expect(xpSystemMd).toMatch(/total_base_xp/);
+    expect(xpSystemMd).toMatch(/total_xp\s*=\s*total_base_xp/);
   });
 
-  test('total_xp >= N condition uses base_item_xp', () => {
-    // The section about total_xp >= N must reference base_item_xp
-    const section = extractSection(xpSystemMd, '`total_xp >= N`');
+  test('item_xp >= N condition uses total_base_xp', () => {
+    // The section about item_xp >= N must reference total_base_xp
+    const section = extractSection(xpSystemMd, '`item_xp >= N`');
     if (!section) {
       // Try alternate heading format
-      expect(xpSystemMd).toMatch(/total_xp\s*>=\s*N.*base_item_xp/s);
+      expect(xpSystemMd).toMatch(/total_base_xp\s*>=\s*N/s);
     } else {
-      expect(section).toMatch(/base_item_xp/);
+      expect(section).toMatch(/total_base_xp/);
     }
   });
 
@@ -296,14 +296,14 @@ describe('AC-5: XP System Contract', () => {
     expect(streakPos).toBeLessThan(achievementPos);
   });
 
-  test('execution order calculates base_item_xp before achievements', () => {
+  test('execution order calculates total_base_xp before final total_xp', () => {
     const section9 = extractSection(xpSystemMd, '9\\. Execution Order');
     expect(section9).not.toBeNull();
 
-    const basePos = section9.indexOf('base_item_xp');
-    const achievementPos = section9.indexOf('achievement');
+    const basePos = section9.indexOf('total_base_xp');
+    const totalPos = section9.indexOf('total_xp');
     expect(basePos).toBeGreaterThan(-1);
-    expect(basePos).toBeLessThan(achievementPos);
+    expect(basePos).toBeLessThan(totalPos);
   });
 });
 

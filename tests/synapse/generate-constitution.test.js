@@ -472,7 +472,7 @@ describe('main', () => {
 describe('integration: real constitution.md', () => {
   const realConstitutionPath = path.join(__dirname, '..', '..', '.aiox-core', 'constitution.md');
 
-  test('should parse real constitution.md with 6 articles', () => {
+  test('should parse real constitution.md with 8 articles', () => {
     // Skip if constitution.md doesn't exist (CI environment)
     if (!fs.existsSync(realConstitutionPath)) {
       return;
@@ -481,7 +481,7 @@ describe('integration: real constitution.md', () => {
     const content = fs.readFileSync(realConstitutionPath, 'utf8');
     const articles = parseConstitution(content);
 
-    expect(articles).toHaveLength(6);
+    expect(articles).toHaveLength(8);
     expect(articles[0].title).toBe('CLI First');
     expect(articles[5].title).toBe('Absolute Imports');
   });
@@ -499,7 +499,7 @@ describe('integration: real constitution.md', () => {
       const result = main({ constitutionPath: realConstitutionPath, outputPath });
 
       expect(result.success).toBe(true);
-      expect(result.articles).toBe(6);
+      expect(result.articles).toBe(8);
 
       // Verify output is loadable by domain-loader
       const rules = loadDomainFile(outputPath);

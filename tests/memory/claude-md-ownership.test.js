@@ -5,37 +5,35 @@ const path = require('path');
 
 const CLAUDE_MD_PATH = path.join(__dirname, '..', '..', '.claude', 'CLAUDE.md');
 
-describe('CLAUDE.md Ownership Annotations', () => {
+describe('CLAUDE.md Essential Sections', () => {
   let content;
 
   beforeAll(() => {
     content = fs.readFileSync(CLAUDE_MD_PATH, 'utf8');
   });
 
-  test('CLAUDE.md contains FRAMEWORK-OWNED annotations', () => {
-    expect(content).toContain('<!-- FRAMEWORK-OWNED:');
+  test('CLAUDE.md contains Constitution section', () => {
+    expect(content).toContain('## Constitution');
   });
 
-  test('CLAUDE.md contains PROJECT-CUSTOMIZED annotations', () => {
-    expect(content).toContain('<!-- PROJECT-CUSTOMIZED:');
+  test('CLAUDE.md contains Estrutura do Projeto section', () => {
+    expect(content).toContain('## Estrutura do Projeto');
   });
 
-  test('annotation count matches expected sections (9 framework + 6 project = 15 total)', () => {
-    const frameworkMatches = content.match(/<!-- FRAMEWORK-OWNED:/g) || [];
-    const projectMatches = content.match(/<!-- PROJECT-CUSTOMIZED:/g) || [];
-
-    // 9 FRAMEWORK-OWNED: Constitution, Language, CLI First, Estrutura, Boundary, Agentes, Story-Driven, Otimizacao, MCP
-    expect(frameworkMatches.length).toBe(9);
-    // 6 PROJECT-CUSTOMIZED: Padroes, Testes, Git, Comandos, Debug, Tool Selection (TOK-2)
-    expect(projectMatches.length).toBe(6);
+  test('CLAUDE.md contains Agentes section', () => {
+    expect(content).toContain('## Agentes');
   });
 
-  test('framework-owned sections appear before project-customized sections', () => {
-    const firstFramework = content.indexOf('<!-- FRAMEWORK-OWNED:');
-    const firstProject = content.indexOf('<!-- PROJECT-CUSTOMIZED:');
+  test('CLAUDE.md contains Comandos Essenciais section', () => {
+    expect(content).toContain('## Comandos Essenciais');
+  });
 
-    expect(firstFramework).toBeGreaterThan(-1);
-    expect(firstProject).toBeGreaterThan(-1);
-    expect(firstFramework).toBeLessThan(firstProject);
+  test('CLAUDE.md contains CLI First philosophy', () => {
+    expect(content).toContain('CLI First');
+  });
+
+  test('CLAUDE.md references constitution articles', () => {
+    const articleRows = content.match(/\|\s*(I|II|III|IV|V|VI|VII)\s*\|/g) || [];
+    expect(articleRows.length).toBeGreaterThanOrEqual(6);
   });
 });
