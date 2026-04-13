@@ -83,7 +83,7 @@ npm run typecheck     # TypeScript
 npm run build         # Build produção
 
 # Dev server — SEMPRE usar port-manager (NUNCA hardcode porta)
-eval $(node ~/aios-core/tools/port-manager.js auto <project>) && PORT=$PORT npm run dev
+eval $(node ~/aios-core/tools/monitoring/port-manager.js auto <project>) && PORT=$PORT npm run dev
 
 # Ecosystem Index
 node scripts/generate-ecosystem-index.js    # Regenerar índice de minds/agentes

@@ -19,7 +19,7 @@ describe('validate-structure.js', () => {
       const testPath = path.join(tempDir, 'new-project');
 
       const result = execSync(
-        `node tools/validate-structure.js --dry-run "${testPath}"`,
+        `node tools/automation/validate-structure.js --dry-run "${testPath}"`,
         { encoding: 'utf-8' }
       );
 
@@ -34,7 +34,7 @@ describe('validate-structure.js', () => {
 
       expect(() => {
         execSync(
-          `node tools/validate-structure.js --dry-run "${testPath}"`,
+          `node tools/automation/validate-structure.js --dry-run "${testPath}"`,
           { encoding: 'utf-8' }
         );
       }).toThrow();
@@ -45,7 +45,7 @@ describe('validate-structure.js', () => {
 
       expect(() => {
         execSync(
-          `node tools/validate-structure.js --dry-run "${testPath}"`,
+          `node tools/automation/validate-structure.js --dry-run "${testPath}"`,
           { encoding: 'utf-8' }
         );
       }).toThrow();
@@ -53,7 +53,7 @@ describe('validate-structure.js', () => {
 
     test('should validate that path is absolute', () => {
       const result = execSync(
-        `node tools/validate-structure.js --dry-run ${tempDir}/new-project`,
+        `node tools/automation/validate-structure.js --dry-run ${tempDir}/new-project`,
         { encoding: 'utf-8' }
       );
 
@@ -78,7 +78,7 @@ describe('validate-structure.js', () => {
       );
 
       const result = execSync(
-        `node tools/validate-structure.js "${tempDir}"`,
+        `node tools/automation/validate-structure.js "${tempDir}"`,
         { encoding: 'utf-8' }
       );
 
@@ -95,7 +95,7 @@ describe('validate-structure.js', () => {
 
       expect(() => {
         execSync(
-          `node tools/validate-structure.js "${tempDir}"`,
+          `node tools/automation/validate-structure.js "${tempDir}"`,
           { encoding: 'utf-8' }
         );
       }).toThrow();

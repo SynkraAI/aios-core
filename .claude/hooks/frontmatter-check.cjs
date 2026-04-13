@@ -57,7 +57,7 @@ function main() {
       console.log(
         JSON.stringify({
           result: 'warn',
-          additionalContext: `⚠️ FRONTMATTER MISSING: ${fileName} (${match.type}) has no YAML frontmatter. Standard: add --- block with ${match.required.join(', ')} fields. Run: node tools/frontmatter-lint.js --scope=${match.type}s`,
+          additionalContext: `⚠️ FRONTMATTER MISSING: ${fileName} (${match.type}) has no YAML frontmatter. Standard: add --- block with ${match.required.join(', ')} fields. Run: node tools/frontmatter/frontmatter-lint.js --scope=${match.type}s`,
         })
       );
       return;
@@ -88,7 +88,7 @@ function main() {
       console.log(
         JSON.stringify({
           result: 'warn',
-          additionalContext: `⚠️ FRONTMATTER INCOMPLETE: ${path.basename(filePath)} missing required fields: ${missing.join(', ')}. Run: node tools/frontmatter-lint.js`,
+          additionalContext: `⚠️ FRONTMATTER INCOMPLETE: ${path.basename(filePath)} missing required fields: ${missing.join(', ')}. Run: node tools/frontmatter/frontmatter-lint.js`,
         })
       );
       return;

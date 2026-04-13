@@ -26,6 +26,33 @@ npm-debug.log*
 .aios-core/
 .aios/
 
+# Removed/untracked directories
+VoiceInk/
+.agent/
+.agents/
+.pytest_cache/
+output/
+
+# IDE agent copies (synced from .aiox-core/development/agents/ via npm run sync:ide)
+.codex/agents/
+.cursor/rules/agents/
+.antigravity/rules/agents/
+.github/agents/
+.gemini/rules/AIOX/agents/
+
+# Code review ping-pong (moved to skills/code-review-ping-pong/sessions/)
+.code-review-ping-pong/
+
+# External projects (not part of core)
+Luiz-fosc-remotion/
+
+# Design system images (too large for git, code/markdown stays tracked)
+design-system/**/*.jpg
+design-system/**/*.jpeg
+design-system/**/*.png
+design-system/**/*.gif
+design-system/**/*.webp
+
 # Build output
 build/*.txt
 web-bundles/
@@ -64,6 +91,7 @@ credentials/
 # Squad artifacts (generated outputs, not source)
 squads/**/outputs/
 squads/**/.designs/
+squads/**/*.zip
 
 # Large media files (GitHub 100MB limit)
 *.wav
@@ -96,7 +124,7 @@ sync-*.sh                     # Agent sync scripts
 !.windsurf/rules/
 !.windsurf/rules/agents/
 .cursor/rules/                # Cursor IDE personal rules and configurations
-!.cursor/rules/agents/
+# agents/ synced via npm run sync:ide (see dedicated section above)
 
 # AI assistant files
 CLAUDE.md

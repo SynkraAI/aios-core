@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 5.0.3
-generated_at: "2026-04-13T21:18:30.930Z"
+generated_at: "2026-04-13T23:28:06.756Z"
 generator: scripts/generate-install-manifest.js
-file_count: 1293
+file_count: 1296
 files:
   - path: cli/commands/config/index.js
     hash: sha256:25c4b9bf4e0241abf7754b55153f49f1a214f1fb5fe904a576675634cb7b3da9
@@ -1288,6 +1288,10 @@ files:
     hash: sha256:41e3715845262c2e49f58745a773e81f4feaaa2325e54bcb0226e4bf08f709dd
     type: core
     size: 10916
+  - path: data/active-brand.yaml
+    hash: sha256:aca3e186872040561bc1266bea6c490061ff523344110f1ed8527f907965f0ab
+    type: data
+    size: 248
   - path: data/agent-config-requirements.yaml
     hash: sha256:68e87b5777d1872c4fed6644dd3c7e3c3e8fd590df7d2b58c36d541cf8e38dd3
     type: data
@@ -1300,6 +1304,10 @@ files:
     hash: sha256:317d1b51b5cda2e35ac6d468e33e05c0948e6d7f05f51d750d7ce6ff5a58535a
     type: data
     size: 9590
+  - path: data/capability-map.yaml
+    hash: sha256:a92938ad1ac044086b28cf8eb32171aef0680d989666dbdd479a087494fe6702
+    type: data
+    size: 5918
   - path: data/catalog-tags.json
     hash: sha256:f5b70c8ead9362ba7888e154c51115f377d477a84103a377bf406d35025e9ed9
     type: data
@@ -1313,9 +1321,9 @@ files:
     type: data
     size: 5566
   - path: data/entity-registry.yaml
-    hash: sha256:e26984f3df39a4fd8b663d67dafcea3ec4090ff059c1d77f31660f45ab2f078d
+    hash: sha256:7a81d0de38a4fa7e625f1472e51f4f3e771184211c9c34a5cff00062a7391949
     type: data
-    size: 594169
+    size: 595342
   - path: data/learned-patterns.yaml
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data
@@ -1336,6 +1344,10 @@ files:
     hash: sha256:0b6f8e1e3e4c711675bbe027cf66bbab52b74efb8c2d8f5c9aab63aaa12244fe
     type: data
     size: 3088
+  - path: data/project-pulse-preview.json
+    hash: sha256:83c3970241bf0120ccaa7ef39ec25ab5bc485e6137fd6c48d748eb5cc1e44bbe
+    type: data
+    size: 9261
   - path: data/shared-policies/coderabbit-base.yaml
     hash: sha256:4b1f9b4b78ffe6ce454f74da9fb8982b43f750b0c16a05543a2b7601838a7f4d
     type: data

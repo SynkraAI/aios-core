@@ -151,7 +151,7 @@
     /* === HOME VIEW — Projects Table === */
     .home-stats {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 1rem;
     }
     .home-stat {
@@ -259,6 +259,192 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+
+    /* === VIEW SWITCHER === */
+    .view-switcher {
+      display: flex;
+      gap: 0.25rem;
+      background: var(--bg-card, #1e293b);
+      border: 1px solid var(--border-color, #334155);
+      border-radius: 8px;
+      padding: 0.2rem;
+    }
+    .view-btn {
+      width: 36px;
+      height: 32px;
+      border: none;
+      background: transparent;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .view-btn:hover { background: var(--bg-card-hover, #334155); }
+    .view-btn.active {
+      background: var(--accent-primary, #00fff2);
+      color: #000;
+      box-shadow: 0 0 8px var(--accent-primary, #00fff2);
+    }
+
+    /* === KANBAN VIEW === */
+    .kanban-board {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      min-height: 400px;
+    }
+    .kanban-column {
+      background: var(--bg-card, #1e293b);
+      border: 1px solid var(--border-color, #334155);
+      border-radius: var(--radius-card, 12px);
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .kanban-column-header {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-secondary, #64748b);
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--border-color, #334155);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .kanban-column-count {
+      font-family: var(--font-mono, monospace);
+      font-size: 0.7rem;
+      background: var(--bg-card-hover, #334155);
+      padding: 0.15rem 0.5rem;
+      border-radius: 10px;
+    }
+    .kanban-card {
+      background: var(--bg-body, #0f172a);
+      border: 1px solid var(--border-color, #334155);
+      border-radius: 8px;
+      padding: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .kanban-card:hover { transform: translateY(-2px); border-color: var(--accent-primary, #00fff2); }
+    .kanban-card-name {
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--text-primary, #e2e8f0);
+      margin-bottom: 0.35rem;
+    }
+    .kanban-card-meta {
+      font-size: 0.7rem;
+      color: var(--text-secondary, #64748b);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .kanban-card-next {
+      font-size: 0.65rem;
+      color: var(--text-secondary, #64748b);
+      margin-top: 0.35rem;
+      font-style: italic;
+    }
+
+    /* === RADAR VIEW === */
+    .radar-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+    .radar-canvas {
+      max-width: 600px;
+      max-height: 600px;
+    }
+    .radar-legend {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+      width: 100%;
+      max-width: 700px;
+    }
+    .radar-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--text-secondary, #64748b);
+    }
+    .radar-legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* === TIMELINE VIEW === */
+    .timeline-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .timeline-row {
+      display: grid;
+      grid-template-columns: 180px 80px 1fr 60px;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.75rem 1rem;
+      background: var(--bg-card, #1e293b);
+      border: 1px solid var(--border-color, #334155);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .timeline-row:hover { transform: translateX(4px); border-color: var(--accent-primary, #00fff2); }
+    .timeline-name {
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--text-primary, #e2e8f0);
+    }
+    .timeline-percent {
+      font-family: var(--font-mono, monospace);
+      font-size: 0.8rem;
+      color: var(--text-accent, #00fff2);
+      text-align: right;
+    }
+    .timeline-bar-container {
+      height: 8px;
+      background: var(--bg-body, #0f172a);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .timeline-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      background: var(--progress-gradient, linear-gradient(90deg, #00fff2, #7c3aed));
+      transition: width 0.5s ease;
+    }
+    .timeline-bar-fill.complete {
+      background: linear-gradient(90deg, #ffd700, #ffaa00);
+    }
+    .timeline-activity {
+      font-size: 0.65rem;
+      color: var(--text-secondary, #64748b);
+      text-align: right;
+    }
+    .timeline-activity.recent { color: #22c55e; }
+    .timeline-activity.stale { color: #ef4444; }
+
+    @media (max-width: 768px) {
+      .kanban-board { grid-template-columns: 1fr; }
+      .timeline-row { grid-template-columns: 1fr; gap: 0.5rem; }
+      .view-switcher { display: flex; }
     }
 
     /* === PROJECT VIEW === */
@@ -1000,6 +1186,7 @@
 
   let currentView = 'home'; // 'home' | 'project'
   let currentProjectName = null;
+  var currentHomeView = localStorage.getItem('quest-hub-view') || 'table';
   const projectsData = {}; // name -> { raw, parsed, format }
   let registryProjects = []; // from server
 
@@ -1560,6 +1747,39 @@
       return;
     }
 
+    // View dispatcher
+    if (currentHomeView === 'kanban') {
+      renderHome_Kanban(app, projectRows, totalProjects, activeProjects, completedProjects, totalXP);
+    } else if (currentHomeView === 'radar') {
+      renderHome_Radar(app, projectRows, totalProjects, activeProjects, completedProjects, totalXP);
+    } else if (currentHomeView === 'timeline') {
+      renderHome_Timeline(app, projectRows, totalProjects, activeProjects, completedProjects, totalXP);
+    } else {
+      renderHome_Table(app, projectRows, totalProjects, activeProjects, completedProjects, totalXP);
+    }
+    updateThemeButtons();
+  }
+
+  // ============================================================
+  // RENDERING — HOME VIEWS (Table / Kanban / Radar / Timeline)
+  // ============================================================
+
+  function switchView(view) {
+    currentHomeView = view;
+    localStorage.setItem('quest-hub-view', view);
+    renderHome();
+  }
+
+  function renderHomeStats(totalProjects, activeProjects, completedProjects, totalXP) {
+    return '<div class="home-stats view-enter">' +
+      '<div class="home-stat"><div class="home-stat-value">' + totalProjects + '</div><div class="home-stat-label">Projetos</div></div>' +
+      '<div class="home-stat"><div class="home-stat-value">' + activeProjects + '</div><div class="home-stat-label">Ativos</div></div>' +
+      '<div class="home-stat"><div class="home-stat-value" style="color:#ffd700">' + completedProjects + '</div><div class="home-stat-label">\uD83C\uDFC6 Completos</div></div>' +
+      '<div class="home-stat"><div class="home-stat-value">' + totalXP + '</div><div class="home-stat-label">XP Total</div></div>' +
+    '</div>';
+  }
+
+  function renderHome_Table(app, projectRows, totalProjects, activeProjects, completedProjects, totalXP) {
     var tableRows = '';
     for (var j = 0; j < projectRows.length; j++) {
       var row = projectRows[j];
@@ -1578,20 +1798,194 @@
     }
 
     app.innerHTML = renderHeader('Quest Master Hub', 'Dashboard Hub', false) +
-      '<div class="home-stats view-enter">' +
-        '<div class="home-stat"><div class="home-stat-value">' + totalProjects + '</div><div class="home-stat-label">Projetos</div></div>' +
-        '<div class="home-stat"><div class="home-stat-value">' + activeProjects + '</div><div class="home-stat-label">Ativos</div></div>' +
-        '<div class="home-stat"><div class="home-stat-value" style="color:#ffd700">' + completedProjects + '</div><div class="home-stat-label">\uD83C\uDFC6 Completos</div></div>' +
-        '<div class="home-stat"><div class="home-stat-value">' + totalXP + '</div><div class="home-stat-label">XP Total</div></div>' +
-      '</div>' +
+      renderHomeStats(totalProjects, activeProjects, completedProjects, totalXP) +
       '<div class="view-enter">' +
         '<table class="projects-table">' +
           '<thead><tr><th>Projeto</th><th>Progresso</th><th>%</th><th>XP</th><th>Pr\u00F3xima Miss\u00E3o</th></tr></thead>' +
           '<tbody>' + tableRows + '</tbody>' +
         '</table>' +
       '</div>';
+  }
 
-    updateThemeButtons();
+  function renderHome_Kanban(app, projectRows, totalProjects, activeProjects, completedProjects, totalXP) {
+    var columns = { urgent: [], attention: [], calm: [], done: [] };
+
+    for (var i = 0; i < projectRows.length; i++) {
+      var row = projectRows[i];
+      if (row.percent >= 100) {
+        columns.done.push(row);
+      } else if (row.percent >= 70) {
+        columns.urgent.push(row);
+      } else if (row.percent >= 30) {
+        columns.attention.push(row);
+      } else {
+        columns.calm.push(row);
+      }
+    }
+
+    function renderColumn(title, emoji, items, colorVar) {
+      var cards = '';
+      for (var j = 0; j < items.length; j++) {
+        var r = items[j];
+        cards += '<div class="kanban-card" onclick="navigateTo(\'project\', \'' + escapeHtml(r.name) + '\')">' +
+          '<div class="kanban-card-name">' + escapeHtml(r.name) + '</div>' +
+          '<div class="kanban-card-meta"><span>' + r.done + '/' + r.total + '</span><span>' + r.percent + '%</span></div>' +
+          '<div class="progress-bar-mini" style="background:var(--bg-card);margin-top:0.35rem"><div class="progress-bar-mini-fill" style="width:' + r.percent + '%;background:' + colorVar + '"></div></div>' +
+          (r.nextMission && r.percent < 100 ? '<div class="kanban-card-next">\u27A1 ' + escapeHtml(r.nextMission) + '</div>' : '') +
+        '</div>';
+      }
+      return '<div class="kanban-column">' +
+        '<div class="kanban-column-header"><span>' + emoji + ' ' + title + '</span><span class="kanban-column-count">' + items.length + '</span></div>' +
+        cards +
+      '</div>';
+    }
+
+    app.innerHTML = renderHeader('Quest Master Hub', 'Dashboard Hub', false) +
+      renderHomeStats(totalProjects, activeProjects, completedProjects, totalXP) +
+      '<div class="kanban-board view-enter">' +
+        renderColumn('Urgente', '\uD83D\uDD34', columns.urgent, '#ef4444') +
+        renderColumn('Aten\u00E7\u00E3o', '\uD83D\uDFE1', columns.attention, '#f59e0b') +
+        renderColumn('Tranquilo', '\uD83D\uDFE2', columns.calm, '#22c55e') +
+        renderColumn('Conclu\u00EDdo', '\uD83C\uDFC6', columns.done, 'linear-gradient(90deg, #ffd700, #ffaa00)') +
+      '</div>';
+  }
+
+  function renderHome_Timeline(app, projectRows, totalProjects, activeProjects, completedProjects, totalXP) {
+    // Sort by percent descending
+    var sorted = projectRows.slice().sort(function(a, b) { return b.percent - a.percent; });
+
+    var rows = '';
+    for (var i = 0; i < sorted.length; i++) {
+      var row = sorted[i];
+      var isComplete = row.percent >= 100;
+      var reg = registryProjects.find(function(p) { return p.project_name === row.name; });
+      var lastActive = reg && reg.last_active ? reg.last_active : '';
+      var daysAgo = '';
+      var activityClass = '';
+      if (lastActive) {
+        var diff = Math.floor((Date.now() - new Date(lastActive).getTime()) / 86400000);
+        daysAgo = diff === 0 ? 'hoje' : diff + 'd';
+        activityClass = diff <= 3 ? 'recent' : (diff > 14 ? 'stale' : '');
+      }
+
+      rows += '<div class="timeline-row" onclick="navigateTo(\'project\', \'' + escapeHtml(row.name) + '\')">' +
+        '<div class="timeline-name">' + escapeHtml(row.name) + '</div>' +
+        '<div class="timeline-percent" style="color:' + (isComplete ? '#ffd700' : 'var(--text-accent)') + '">' + row.percent + '%</div>' +
+        '<div class="timeline-bar-container"><div class="timeline-bar-fill' + (isComplete ? ' complete' : '') + '" style="width:' + row.percent + '%"></div></div>' +
+        '<div class="timeline-activity ' + activityClass + '">' + daysAgo + '</div>' +
+      '</div>';
+    }
+
+    app.innerHTML = renderHeader('Quest Master Hub', 'Dashboard Hub', false) +
+      renderHomeStats(totalProjects, activeProjects, completedProjects, totalXP) +
+      '<div class="timeline-container view-enter">' + rows + '</div>';
+  }
+
+  function renderHome_Radar(app, projectRows, totalProjects, activeProjects, completedProjects, totalXP) {
+    // Filter to active projects only (not 100%)
+    var active = projectRows.filter(function(r) { return r.percent < 100; });
+    if (active.length === 0) active = projectRows.slice(0, 8);
+    if (active.length > 12) active = active.slice(0, 12);
+
+    var colors = ['#00fff2','#7c3aed','#ef4444','#f59e0b','#22c55e','#ec4899','#06b6d4','#8b5cf6','#f97316','#14b8a6','#e879f9','#fbbf24'];
+
+    app.innerHTML = renderHeader('Quest Master Hub', 'Dashboard Hub', false) +
+      renderHomeStats(totalProjects, activeProjects, completedProjects, totalXP) +
+      '<div class="radar-container view-enter"><canvas id="radar-canvas" class="radar-canvas" width="500" height="500"></canvas></div>' +
+      '<div class="radar-legend view-enter" id="radar-legend"></div>';
+
+    // Draw radar chart on canvas
+    setTimeout(function() {
+      var canvas = document.getElementById('radar-canvas');
+      if (!canvas) return;
+      var ctx = canvas.getContext('2d');
+      var w = canvas.width;
+      var h = canvas.height;
+      var cx = w / 2;
+      var cy = h / 2;
+      var maxR = Math.min(cx, cy) - 40;
+      var n = active.length;
+      var step = (2 * Math.PI) / n;
+
+      // Background circles
+      ctx.strokeStyle = 'rgba(100,116,139,0.2)';
+      ctx.lineWidth = 1;
+      for (var ring = 1; ring <= 4; ring++) {
+        var r = (maxR / 4) * ring;
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0, 2 * Math.PI);
+        ctx.stroke();
+        // Label
+        ctx.fillStyle = 'rgba(100,116,139,0.5)';
+        ctx.font = '10px monospace';
+        ctx.fillText((ring * 25) + '%', cx + 4, cy - r + 12);
+      }
+
+      // Axis lines + labels
+      ctx.strokeStyle = 'rgba(100,116,139,0.15)';
+      ctx.fillStyle = 'rgba(226,232,240,0.7)';
+      ctx.font = '11px sans-serif';
+      ctx.textAlign = 'center';
+      for (var a = 0; a < n; a++) {
+        var angle = -Math.PI / 2 + a * step;
+        var ax = cx + maxR * Math.cos(angle);
+        var ay = cy + maxR * Math.sin(angle);
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(ax, ay);
+        ctx.stroke();
+        // Label
+        var lx = cx + (maxR + 20) * Math.cos(angle);
+        var ly = cy + (maxR + 20) * Math.sin(angle);
+        var label = active[a].name.length > 12 ? active[a].name.substring(0, 12) + '..' : active[a].name;
+        ctx.fillText(label, lx, ly + 4);
+      }
+
+      // Filled polygon
+      ctx.beginPath();
+      for (var b = 0; b < n; b++) {
+        var bAngle = -Math.PI / 2 + b * step;
+        var pct = active[b].percent / 100;
+        var bx = cx + maxR * pct * Math.cos(bAngle);
+        var by = cy + maxR * pct * Math.sin(bAngle);
+        if (b === 0) ctx.moveTo(bx, by);
+        else ctx.lineTo(bx, by);
+      }
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(0, 255, 242, 0.15)';
+      ctx.strokeStyle = 'rgba(0, 255, 242, 0.6)';
+      ctx.lineWidth = 2;
+      ctx.fill();
+      ctx.stroke();
+
+      // Dots
+      for (var d = 0; d < n; d++) {
+        var dAngle = -Math.PI / 2 + d * step;
+        var dpct = active[d].percent / 100;
+        var dx = cx + maxR * dpct * Math.cos(dAngle);
+        var dy = cy + maxR * dpct * Math.sin(dAngle);
+        ctx.beginPath();
+        ctx.arc(dx, dy, 5, 0, 2 * Math.PI);
+        ctx.fillStyle = colors[d % colors.length];
+        ctx.fill();
+        ctx.strokeStyle = '#fff';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+      }
+
+      // Legend
+      var legendEl = document.getElementById('radar-legend');
+      if (legendEl) {
+        var legendHtml = '';
+        for (var l = 0; l < active.length; l++) {
+          legendHtml += '<div class="radar-legend-item">' +
+            '<div class="radar-legend-dot" style="background:' + colors[l % colors.length] + '"></div>' +
+            '<span>' + escapeHtml(active[l].name) + ' \u2014 ' + active[l].percent + '%</span>' +
+          '</div>';
+        }
+        legendEl.innerHTML = legendHtml;
+      }
+    }, 50);
   }
 
   // ============================================================
@@ -1879,6 +2273,12 @@
         '<div class="header-title">' + escapeHtml(title) + '</div>' +
       '</div>' +
       '<div class="header-controls">' +
+        (!showBack ? '<div class="view-switcher">' +
+          '<button class="view-btn' + (currentHomeView === 'table' ? ' active' : '') + '" onclick="switchView(\'table\')" title="Tabela">\uD83D\uDCCA</button>' +
+          '<button class="view-btn' + (currentHomeView === 'kanban' ? ' active' : '') + '" onclick="switchView(\'kanban\')" title="Kanban">\uD83D\uDCCB</button>' +
+          '<button class="view-btn' + (currentHomeView === 'radar' ? ' active' : '') + '" onclick="switchView(\'radar\')" title="Radar">\uD83D\uDCC8</button>' +
+          '<button class="view-btn' + (currentHomeView === 'timeline' ? ' active' : '') + '" onclick="switchView(\'timeline\')" title="Timeline">\uD83D\uDDD3\uFE0F</button>' +
+        '</div>' : '') +
         '<div class="zoom-controls">' +
           '<button class="zoom-btn" onclick="changeZoom(-10)" title="Diminuir fonte">-</button>' +
           '<span class="zoom-label" id="zoom-label">' + currentZoom + '%</span>' +

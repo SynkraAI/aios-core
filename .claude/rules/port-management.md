@@ -10,7 +10,7 @@ Antes de iniciar QUALQUER dev server (`npm run dev`, `next dev`, `vite`, `npm st
 
 ### Passo 1: Alocar porta
 ```bash
-eval $(node ~/aios-core/tools/port-manager.js auto <project-name>)
+eval $(node ~/aios-core/tools/monitoring/port-manager.js auto <project-name>)
 ```
 
 ### Passo 2: Iniciar com a porta alocada
@@ -20,12 +20,12 @@ PORT=$PORT npm run dev
 
 ### One-liner
 ```bash
-eval $(node ~/aios-core/tools/port-manager.js auto <project-name>) && PORT=$PORT npm run dev
+eval $(node ~/aios-core/tools/monitoring/port-manager.js auto <project-name>) && PORT=$PORT npm run dev
 ```
 
 ### Verificar portas ocupadas
 ```bash
-node ~/aios-core/tools/port-manager.js scan
+node ~/aios-core/tools/monitoring/port-manager.js scan
 ```
 
 ## Faixas de Portas
@@ -40,7 +40,7 @@ node ~/aios-core/tools/port-manager.js scan
 ## O Que Isto Significa na Prática
 
 - Ao criar um novo app: use o port-manager para alocar e salve a porta em `.env` ou `package.json`
-- Ao rodar `npm run dev`: sempre prefixe com `eval $(node ~/aios-core/tools/port-manager.js auto <nome>) &&`
+- Ao rodar `npm run dev`: sempre prefixe com `eval $(node ~/aios-core/tools/monitoring/port-manager.js auto <nome>) &&`
 - Ao informar uma URL ao usuário: use a porta alocada, NÃO assuma 3000
 - Ao escrever scripts em `package.json`: use `$PORT` ou a porta alocada, nunca valores fixos
 

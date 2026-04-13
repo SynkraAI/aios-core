@@ -1,6 +1,6 @@
 # AIOS Ecosystem Index
 
-*Atualizado: 2026-04-13 21:12:48*  
+*Atualizado: 2026-04-13 23:07:10*  
 *Regenerar: `node scripts/generate-ecosystem-index.js`*
 
 ---
@@ -90,7 +90,7 @@
 
 ---
 
-## 🏢 Agentes por Squad (436)
+## 🏢 Agentes por Squad (429)
 
 ### Squad: advisor-board (16)
 
@@ -414,16 +414,6 @@
 
 - **jose-amorim** — confesse a limitação com naturalidade e redirecione para o que sabe.
 
-### Squad: kaizen (7)
-
-- **TopologyAnalyst** — IDE-FILE-RESOLUTION:
-- **TechRadar** — IDE-FILE-RESOLUTION:
-- **PerformanceTracker** — IDE-FILE-RESOLUTION:
-- **KaizenChief** — IDE-FILE-RESOLUTION:
-- **CostAnalyst** — IDE-FILE-RESOLUTION:
-- **CapabilityMapper** — IDE-FILE-RESOLUTION:
-- **BottleneckHunter** — Este arquivo contém as diretrizes completas do Bottleneck Hunter.
-
 ### Squad: kaizen-v2 (8)
 
 - **TopologyAnalyst** — IDE-FILE-RESOLUTION:
@@ -731,10 +721,10 @@
 |-----------|------------|
 | **Minds** | 44 |
 | **Agentes Core** | 27 |
-| **Squads** | 65 |
-| **Agentes de Squads** | 436 |
-| **TOTAL** | 507 |
+| **Squads** | 64 |
+| **Agentes de Squads** | 429 |
+| **TOTAL** | 500 |
 
 ---
 
-*Gerado automaticamente em 2026-04-13 21:12:48*
+*Gerado automaticamente em 2026-04-13 23:07:10*

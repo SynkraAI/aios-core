@@ -31,7 +31,7 @@ function main() {
 
   try {
     // Run audit (silent mode)
-    const result = execSync('node tools/audit-project-configs.js', {
+    const result = execSync('node tools/project-ops/audit-project-configs.js', {
       cwd: AIOS_CORE,
       encoding: 'utf8',
       stdio: 'pipe'
@@ -60,7 +60,7 @@ function main() {
     if (missingCount > 0) {
       log('red', `\n❌ [Pre-Commit] BLOCKER: ${missingCount} projeto(s) sem config .claude/\n`);
       log('yellow', 'Para corrigir automaticamente:');
-      log('yellow', '  node tools/fix-project-configs.js\n');
+      log('yellow', '  node tools/automation/fix-project-configs.js\n');
       log('yellow', 'Ou use --no-verify para pular este hook (não recomendado)\n');
       return 1; // Block commit
     }
