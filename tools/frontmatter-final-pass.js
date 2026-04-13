@@ -304,7 +304,7 @@ function scanAll() {
   }
 
   // Core agents
-  const coreDir = path.join(AIOS_CORE, '.aios-core', 'development', 'agents');
+  const coreDir = path.join(AIOS_CORE, '.aiox-core', 'development', 'agents');
   if (fs.existsSync(coreDir)) {
     for (const f of fs.readdirSync(coreDir)) {
       if (!f.endsWith('.md')) continue;

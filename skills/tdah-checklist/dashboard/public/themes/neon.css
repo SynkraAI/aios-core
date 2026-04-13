@@ -1,0 +1,50 @@
+/* ============================================================
+   NEON THEME — Quest Master Dashboard
+   Magenta, orange and yellow. Infinite retro sunset.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Rajdhani:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg-primary:      #0d0221;
+  --bg-secondary:    #120530;
+  --bg-card:         #1a0a3e;
+  --bg-card-hover:   #24104e;
+
+  --text-primary:    #f0e0ff;
+  --text-secondary:  #a080cc;
+  --text-accent:     #ff2975;
+
+  --accent-primary:   #ff2975;
+  --accent-secondary: #ffd319;
+  --accent-tertiary:  #8c1eff;
+
+  --border-color: #2a1050;
+  --border-glow:  0 0 0 1px rgba(255, 41, 117, 0.3),
+                  0 0 12px rgba(255, 41, 117, 0.15);
+
+  --progress-gradient: linear-gradient(90deg, #8c1eff 0%, #ff2975 33%, #ff901f 66%, #ffd319 100%);
+  --progress-shine:    linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%);
+
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 24px rgba(255, 41, 117, 0.2),
+                 0 0 48px rgba(140, 30, 255, 0.1);
+
+  --radius-card: 12px;
+  --radius-pill: 9999px;
+
+  --font-display: 'Audiowide', sans-serif;
+  --font-mono:    'Rajdhani', sans-serif;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-display);
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: #2a1050; border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: #3a2060; }
+* { scrollbar-width: thin; scrollbar-color: #2a1050 var(--bg-primary); }

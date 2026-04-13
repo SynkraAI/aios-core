@@ -52,7 +52,7 @@
   - Auditoria completa em 6 dimensões:
     1. Projects (configs .claude/)
     2. Squads (README, agents, tasks, workflows)
-    3. Agents (definições em .aios-core/)
+    3. Agents (definições em .aiox-core/)
     4. Skills (estrutura em skills/)
     5. Minds (clones em squads/mind-cloning/)
     6. Tools (scripts em tools/)

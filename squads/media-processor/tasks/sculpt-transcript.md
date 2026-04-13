@@ -465,7 +465,7 @@ masterpiece.md (quality: 9.2, extra refinement applied)
 - Squad: `squads/transcript-sculptor/`
 - Squad manifest: `squads/transcript-sculptor/squad-manifest.yaml`
 - Slash commands: `.claude/commands/transcript-sculptor/`
-- Quality Gate: `.aios-core/core/quality-gates/QG-003-sculpting-quality.md`
+- Quality Gate: `.aiox-core/core/quality-gates/QG-003-sculpting-quality.md`
 - Sculptor README: `squads/transcript-sculptor/README.md`
 
 ---

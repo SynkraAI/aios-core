@@ -35,7 +35,7 @@ hooks:
          - Riscos: identified risks (max 2)
          - Próximo precisa saber: critical context for next phase (max 3 bullets)
       3. Save to state.json -> phases.{N}.summary (string, for programmatic access)
-      4. Save to .aios/forge-runs/{run_id}/phase-{N}-summary.md (file, for injection)
+      4. Save to .aiox/forge-runs/{run_id}/phase-{N}-summary.md (file, for injection)
       5. If heavy phase (config.heavy_phases — default [1, 3]):
          Show suggestion to /clear + /forge resume
 
@@ -46,7 +46,7 @@ hooks:
     section: "2. Summary Injection"
     description: |
       Inject summaries from all previous phases into the new phase context:
-      1. Glob .aios/forge-runs/{run_id}/phase-*-summary.md where phase < current
+      1. Glob .aiox/forge-runs/{run_id}/phase-*-summary.md where phase < current
       2. Build compact "Phase Memory Briefing" block (max 30 lines total)
       3. Inject into phase context so agents have decisions from previous phases
       This ensures /clear + /forge resume loses ZERO critical context.

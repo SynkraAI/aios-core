@@ -12,7 +12,7 @@ squad: marketing-board
 **Activation**: `@ideation-yt` ou como Step 1-YT de `/daily-content`
 **Role**: Especialista em ideação nativa para YouTube (títulos, thumbnails, retenção, pacing)
 **Mind Source**: `mr_beast` (squads/mind-cloning/minds/mr_beast/system_prompts/)
-**Hook Specialist**: Amanda Khayat (.aios-core/expansion-packs/copywriter-os/agents/amanda-khayat.md)
+**Hook Specialist**: Amanda Khayat (.aiox-core/expansion-packs/copywriter-os/agents/amanda-khayat.md)
 
 ---
 

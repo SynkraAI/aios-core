@@ -35,7 +35,7 @@ const CONFIG = {
   project_root: path.resolve(__dirname, '..', '..', '..'),
   patterns_file: 'squads/kaizen-v2/data/intelligence/knowledge/patterns.yaml',
   daily_dir: 'squads/kaizen-v2/data/intelligence/daily',
-  log_file: '.aios/logs/kaizen-session-briefing.log',
+  log_file: '.aiox/logs/kaizen-session-briefing.log',
   max_briefing_bytes: 2048,
   max_patterns: 5,
   min_decay_score: 0.3,

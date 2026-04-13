@@ -1,0 +1,49 @@
+/* ============================================================
+   SAND THEME — Quest Master Dashboard (LIGHT)
+   Sandy beige with terracotta. Warm, natural, earthy.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@400;500;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg-primary:      #faf5ef;
+  --bg-secondary:    #f0e8dd;
+  --bg-card:         #ffffff;
+  --bg-card-hover:   #f8f2ea;
+
+  --text-primary:    #2e1f14;
+  --text-secondary:  #9a8370;
+  --text-accent:     #c2540a;
+
+  --accent-primary:   #c2540a;
+  --accent-secondary: #ea8c3c;
+  --accent-tertiary:  #fbbf68;
+
+  --border-color: #e8ddd0;
+  --border-glow:  0 0 0 1px rgba(194, 84, 10, 0.12);
+
+  --progress-gradient: linear-gradient(90deg, #c2540a 0%, #ea8c3c 50%, #fbbf68 100%);
+  --progress-shine:    none;
+
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.06),
+                 0 1px 2px rgba(0, 0, 0, 0.03);
+  --shadow-glow: 0 0 0 1px rgba(194, 84, 10, 0.1);
+
+  --radius-card: 10px;
+  --radius-pill: 9999px;
+
+  --font-display: 'Karla', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-display);
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: #d4c8b8; border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: #b4a898; }
+* { scrollbar-width: thin; scrollbar-color: #d4c8b8 var(--bg-primary); }

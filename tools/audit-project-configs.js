@@ -115,7 +115,7 @@ function parseActiveProjects() {
     }
 
     let indexPath = match[1].replace('~', os.homedir());
-    const isHybrid = indexPath.includes('.aios/');
+    const isHybrid = indexPath.includes('.aiox/');
     const isCentralized = !isHybrid;
 
     // VETO_4: Mode detection — must be clearly HYBRID or CENTRALIZED
@@ -126,7 +126,7 @@ function parseActiveProjects() {
 
     let projectPath;
     if (isHybrid) {
-      // HYBRID: {path}/.aios/INDEX.md -> {path}
+      // HYBRID: {path}/.aiox/INDEX.md -> {path}
       projectPath = path.dirname(path.dirname(indexPath));
     } else {
       // CENTRALIZED: path is relative like "gui-avila-mind/INDEX.md"

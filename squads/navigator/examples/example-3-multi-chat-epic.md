@@ -214,8 +214,8 @@ Apos Wave 4, realizar merge:
 4. Criar PR de conclusao de epic
 
 ## Protocolo de Comunicacao:
-- Dev chats vao reportar conclusao via arquivos markdown em .aios/orchestration/
-- Checar .aios/orchestration/wave-{N}-status.md para updates
+- Dev chats vao reportar conclusao via arquivos markdown em .aiox/orchestration/
+- Checar .aiox/orchestration/wave-{N}-status.md para updates
 - NAO prosseguir para proxima wave ate wave atual mostrar 100% completo
 
 Pronto para comecar! Avisar Dev Chat 2 para comecar Wave 1.
@@ -284,7 +284,7 @@ Trabalhar em stories em paralelo usando git worktrees se possivel.
 ## Quando Completo:
 1. Commitar todas mudancas
 2. Rodar testes: `npm test`
-3. Criar status report em .aios/orchestration/wave-1-status.md:
+3. Criar status report em .aiox/orchestration/wave-1-status.md:
    ```markdown
    # Wave 1 Status: COMPLETE
    - Story 3.2.1: ✅ Complete
@@ -388,7 +388,7 @@ Criar branches:
 ## Quando Completo:
 1. Commitar todas mudancas
 2. Rodar testes: `npm test`
-3. Criar status report em .aios/orchestration/wave-2-status.md
+3. Criar status report em .aiox/orchestration/wave-2-status.md
 4. Notificar Chat 1 (Coordenador) que Wave 2 esta completa
 
 Aguardar aprovacao do Chat 1 antes de comecar! ⏸️
@@ -450,7 +450,7 @@ Voce e @dev executando stories da Wave 3 para Epic 3.2.
 Criar branches para cada story.
 
 ## Quando Completo:
-Criar status report em .aios/orchestration/wave-3-status.md
+Criar status report em .aiox/orchestration/wave-3-status.md
 Notificar Chat 1 (Coordenador).
 
 Aguardar aprovacao do Chat 1 antes de comecar! ⏸️
@@ -546,7 +546,7 @@ git push origin epic/epic-3.2-advanced-reporting-complete
 - Use git worktrees para desenvolvimento verdadeiramente paralelo
 - Configure CI/CD para testar cada wave independentemente
 - Coordenador deve revisar codigo entre waves
-- Documentar decisoes no diretorio .aios/orchestration/
+- Documentar decisoes no diretorio .aiox/orchestration/
 - Reutilizar prompts para futuros epics (templates)
 
 ---

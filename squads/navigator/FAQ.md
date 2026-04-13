@@ -129,7 +129,7 @@ Você pode:
 ### Onde os roadmaps sao armazenados?
 
 Dois locais (sincronizados automaticamente):
-- **Central:** `.aios/navigator/{project-name}/roadmap.md`
+- **Central:** `.aiox/navigator/{project-name}/roadmap.md`
 - **Local:** `docs/framework/roadmap.md` (para controle de versão)
 
 A sincronização bidirecional mantém eles sincronizados.
@@ -218,7 +218,7 @@ Não. Checkpoints armazenam:
 Para restaurar código, use git:
 ```bash
 # Pegar SHA do commit do checkpoint
-cat .aios/navigator/{project}/checkpoints/cp-X.json | jq .git.commit
+cat .aiox/navigator/{project}/checkpoints/cp-X.json | jq .git.commit
 
 # Restaurar código
 git checkout <commit-sha>

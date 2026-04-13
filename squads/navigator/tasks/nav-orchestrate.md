@@ -152,7 +152,7 @@ async function orchestrate(epicId) {
   displayOrchestrationPlan(prompts);
 
   // 5. Save plan
-  const planPath = `.aios/navigator/${projectName}/orchestration-${epicId}.md`;
+  const planPath = `.aiox/navigator/${projectName}/orchestration-${epicId}.md`;
   await savePlan(planPath, prompts);
 
   return {

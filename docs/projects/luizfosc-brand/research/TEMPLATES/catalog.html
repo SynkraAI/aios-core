@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FOSC AI Brand Identity Tools — Catálogo Visual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=Montserrat:wght@200;300;400;500;600;700;800;900&family=Playfair+Display:wght@600;700&family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&family=Source+Sans+3:wght@400;600&family=Libre+Baskerville:wght@400;700&family=Syne:wght@600;700&family=Outfit:wght@400;600&family=Space+Grotesk:wght@500;600;700&family=Bebas+Neue&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Luiz Fosc Brand Tokens */
+    --bg: #212121;
+    --surface: #2a2a2a;
+    --elevated: #353433;
+    --border: #4A4846;
+    --text: #FFFFFF;
+    --text-secondary: #B0AEAB;
+    --text-muted: #8A8885;
+    --accent: #B8860B;
+    --accent-glow: #D4A017;
+    --accent-light: #E8C547;
+    --accent-dim: rgba(184,134,11,0.15);
+    --ivory: #F5F0EB;
+    --teal: #1A3A3A;
+    --radius: 12px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 300;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 40px 24px;
+    max-width: 1400px;
+    margin: 0 auto;
+    /* Chevron pattern on page bg */
+    position: relative;
+  }
+  body::before {
+    content: ''; position: fixed; inset: 0; opacity: 0.03; pointer-events: none; z-index: 0;
+    background-image: repeating-linear-gradient(45deg,transparent,transparent 8px,#fff 8px,#fff 9px),repeating-linear-gradient(-45deg,transparent,transparent 8px,#fff 8px,#fff 9px);
+  }
+  body > * { position: relative; z-index: 1; }
+
+  h1 { font-family: 'Montserrat', sans-serif; font-size: 2.5rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; }
+  h1 span { color: var(--accent-glow); }
+  .subtitle { color: var(--text-secondary); font-size: 1rem; font-weight: 300; margin-bottom: 12px; }
+
+  h2 {
+    font-family: 'Montserrat', sans-serif; font-size: 1.5rem; font-weight: 700; margin: 56px 0 24px;
+    padding-bottom: 12px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 12px;
+  }
+  h2 .badge {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem; font-weight: 600; letter-spacing: 0.06em;
+    background: var(--accent-dim); color: var(--accent);
+    padding: 3px 12px; border-radius: 999px; text-transform: uppercase;
+  }
+
+  h3 { font-family: 'Montserrat', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--text-secondary); margin: 32px 0 16px; }
+
+  /* Stats bar */
+  .stats-bar {
+    display: flex; gap: 32px; padding: 24px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-top: 3px solid var(--accent);
+    border-radius: var(--radius); margin-bottom: 48px; flex-wrap: wrap;
+  }
+  .stat { display: flex; flex-direction: column; }
+  .stat-number { font-family: 'Montserrat', sans-serif; font-size: 2rem; font-weight: 200; color: var(--accent-glow); line-height: 1; }
+  .stat-label { font-family: 'Montserrat', sans-serif; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-top: 6px; }
+
+  /* Nav */
+  nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+  nav a {
+    font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.7rem;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--text-muted); text-decoration: none;
+    padding: 8px 16px; border-radius: 6px;
+    background: var(--surface); border: 1px solid var(--border); transition: all 0.2s;
+  }
+  nav a:hover { color: var(--accent-glow); border-color: var(--accent); }
+
+  .section-note {
+    font-size: 0.85rem; font-weight: 300; color: var(--text-muted); padding: 12px 16px;
+    background: var(--accent-dim); border-left: 3px solid var(--accent);
+    border-radius: 0 6px 6px 0; margin: 16px 0;
+  }
+  .section-note code {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
+    background: var(--elevated); padding: 1px 5px; border-radius: 3px;
+  }
+
+  /* Grid */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 20px; }
+
+  /* Card */
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); overflow: hidden; transition: border-color 0.2s;
+  }
+  .card:hover { border-color: var(--accent); }
+  .card-info { padding: 16px 20px; }
+  .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+  .card-title { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1rem; }
+  .card-meta { font-family: 'Montserrat', sans-serif; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+  .card-desc { font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 8px; }
+  .card-path {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
+    color: var(--text-muted); background: var(--bg);
+    padding: 4px 8px; border-radius: 6px; word-break: break-all; display: inline-block;
+  }
+  .font-preview { font-size: 0.75rem; color: var(--text-muted); margin-top: 6px; }
+  .font-preview strong { color: var(--text-secondary); font-weight: 500; }
+
+  .swatches { display: flex; gap: 4px; margin: 8px 0; }
+  .swatch {
+    width: 20px; height: 20px; border-radius: 5px; border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  /* Status */
+  .status { font-size: 0.65rem; font-weight: 500; padding: 2px 8px; border-radius: 999px; }
+  .status-ok { background: rgba(16,185,129,0.15); color: #10B981; }
+  .status-partial { background: rgba(251,191,36,0.15); color: #FBBF24; }
+  .status-pending { background: rgba(239,68,68,0.15); color: #EF4444; }
+  .status-source { background: rgba(139,139,245,0.15); color: #8B8BF5; }
+
+  /* ═══════════════ MOCKUP PREVIEWS ═══════════════ */
+
+  /* Instagram Post Mockup */
+  .mockup-post {
+    width: 100%; aspect-ratio: 1/1;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 32px 28px; text-align: center; position: relative; overflow: hidden;
+  }
+  .mockup-post .mock-eyebrow {
+    font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em;
+    opacity: 0.6; margin-bottom: 12px; font-weight: 500;
+  }
+  .mockup-post .mock-headline {
+    font-size: 22px; font-weight: 700; line-height: 1.2; margin-bottom: 12px;
+  }
+  .mockup-post .mock-body {
+    font-size: 12px; opacity: 0.7; line-height: 1.5; max-width: 85%;
+  }
+  .mockup-post .mock-cta {
+    margin-top: 20px; padding: 10px 28px; border-radius: 8px;
+    font-size: 12px; font-weight: 600; letter-spacing: 0.02em;
+    border: none; cursor: default;
+  }
+
+  /* Carousel Slide Mockup */
+  .mockup-carousel {
+    width: 100%; aspect-ratio: 4/5;
+    display: flex; flex-direction: column; padding: 28px 24px;
+    position: relative; overflow: hidden;
+  }
+  .mockup-carousel .mock-slide-num {
+    font-size: 9px; text-transform: uppercase; letter-spacing: 0.2em;
+    opacity: 0.4; margin-bottom: auto;
+  }
+  .mockup-carousel .mock-carousel-title {
+    font-size: 20px; font-weight: 700; line-height: 1.25; margin-bottom: 12px;
+  }
+  .mockup-carousel .mock-carousel-body {
+    font-size: 11px; opacity: 0.7; line-height: 1.6;
+  }
+  .mockup-carousel .mock-progress {
+    margin-top: auto; padding-top: 16px;
+    display: flex; gap: 4px;
+  }
+  .mockup-carousel .mock-progress-dot {
+    height: 3px; border-radius: 2px; flex: 1;
+  }
+  .mockup-carousel .mock-swipe {
+    position: absolute; right: 16px; bottom: 16px;
+    font-size: 18px; opacity: 0.3;
+  }
+
+  /* LP Hero Mockup */
+  .mockup-lp {
+    width: 100%; aspect-ratio: 16/9;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 24px 32px; text-align: center; position: relative; overflow: hidden;
+  }
+  .mockup-lp .mock-nav {
+    position: absolute; top: 0; left: 0; right: 0;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px 20px; font-size: 9px; opacity: 0.5;
+  }
+  .mockup-lp .mock-nav-links { display: flex; gap: 12px; }
+  .mockup-lp .mock-lp-headline {
+    font-size: 24px; font-weight: 700; line-height: 1.15; margin-bottom: 8px;
+  }
+  .mockup-lp .mock-lp-sub {
+    font-size: 11px; opacity: 0.6; line-height: 1.5; max-width: 70%; margin-bottom: 16px;
+  }
+  .mockup-lp .mock-lp-cta {
+    padding: 8px 24px; border-radius: 6px;
+    font-size: 11px; font-weight: 600; border: none; cursor: default;
+  }
+
+  /* Reel Mockup */
+  .mockup-reel {
+    width: 100%; aspect-ratio: 9/16; max-height: 400px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 40px 24px; text-align: center; position: relative; overflow: hidden;
+  }
+  .mockup-reel .mock-reel-text {
+    font-size: 28px; font-weight: 700; line-height: 1.15;
+  }
+  .mockup-reel .mock-reel-caption {
+    margin-top: 16px; font-size: 10px; opacity: 0.5; font-weight: 500;
+    padding: 4px 12px; border-radius: 4px;
+  }
+  .mockup-reel .mock-reel-bar {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 3px;
+  }
+
+  /* Format chips */
+  .formats { display: flex; flex-wrap: wrap; gap: 4px; margin: 6px 0; }
+  .chip {
+    font-size: 0.65rem; padding: 2px 6px; border-radius: 4px;
+    background: var(--elevated); color: var(--text-secondary); border: 1px solid var(--border);
+  }
+
+  /* Tabs */
+  .tabs { display: flex; gap: 0; margin-bottom: -1px; position: relative; z-index: 1; }
+  .tab {
+    padding: 8px 16px; font-size: 0.8rem; cursor: pointer;
+    background: transparent; border: 1px solid transparent;
+    border-bottom: none; border-radius: 8px 8px 0 0;
+    color: var(--text-muted); transition: all 0.2s;
+  }
+  .tab:hover { color: var(--text-secondary); }
+  .tab.active {
+    background: var(--surface); border-color: var(--border);
+    color: var(--text);
+  }
+
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.85rem; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); }
+  th { font-family: 'Montserrat', sans-serif; color: var(--accent); font-weight: 600; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.08em; }
+  td { color: var(--text-secondary); }
+
+  /* Dimension preview */
+  .dim-preview { display: flex; align-items: end; gap: 16px; margin: 12px 0; flex-wrap: wrap; }
+  .dim-box {
+    background: var(--elevated); border: 1px solid var(--border); border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.6rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace;
+  }
+
+  @media (max-width: 860px) {
+    h1 { font-size: 1.8rem; }
+    .grid { grid-template-columns: 1fr; }
+    .stats-bar { gap: 16px; }
+    .mockup-post .mock-headline { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<h1><span style="font-weight:200; letter-spacing:0.12em;">LUIZ</span> <span style="font-weight:800; letter-spacing:0.12em;">FOSC</span> <span style="color:var(--accent-glow);">·</span> Brand Identity <span>Tools</span></h1>
+<p class="subtitle">Catálogo visual — como cada tema fica aplicado em posts, carrosséis e landing pages</p>
+<div style="width:28px; height:2px; background:var(--accent); margin-bottom:32px;"></div>
+
+<div class="stats-bar">
+  <div class="stat"><span class="stat-number">12</span><span class="stat-label">Skills visuais</span></div>
+  <div class="stat"><span class="stat-number">10</span><span class="stat-label">Squads de conteúdo</span></div>
+  <div class="stat"><span class="stat-number">21</span><span class="stat-label">Brand themes</span></div>
+  <div class="stat"><span class="stat-number">46</span><span class="stat-label">Sites na Pattern Library</span></div>
+  <div class="stat"><span class="stat-number">15+</span><span class="stat-label">Formatos de output</span></div>
+  <div class="stat"><span class="stat-number">30+</span><span class="stat-label">Workflows</span></div>
+</div>
+
+<nav>
+  <a href="#brands-post">Brands → Post</a>
+  <a href="#brands-carousel">Brands → Carrossel</a>
+  <a href="#brands-lp">Brands → LP Hero</a>
+  <a href="#premium-lp">Premium LP Themes</a>
+  <a href="#personal">Marca Pessoal</a>
+  <a href="#formats">Formatos</a>
+  <a href="#tools">Ferramentas</a>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+<!-- BRANDS → INSTAGRAM POST PREVIEW -->
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+<h2 id="brands-post">Brand Themes → Post Instagram <span class="badge">9 brands canônicos</span></h2>
+<p class="section-note">Como cada brand theme fica aplicado num post 1:1 do Instagram. Fonte: <code>packages/brand-schema/brands/</code></p>
+
+<div class="grid">
+
+  <!-- Vercel Noir -->
+  <div class="card">
+    <div class="mockup-post" style="background:#09090B; color:#FAFAFA; font-family:'Inter',sans-serif;">
+      <div class="mock-eyebrow" style="color:#A1A1AA;">Frameworks modernos</div>
+      <div class="mock-headline" style="font-family:'Inter',sans-serif;">O erro que 90% dos devs cometem ao escalar</div>
+      <div class="mock-body" style="color:#A1A1AA;">A diferença entre um deploy que aguenta e um que quebra está nos primeiros 30 minutos de arquitetura.</div>
+      <div class="mock-cta" style="background:#FAFAFA; color:#09090B;">Saiba mais</div>
+    </div>
+    <div class="card-info">
+      <div class="card-header">
+        <span class="card-title">Vercel Noir</span>
+        <span class="status status-ok">Ativo</span>
+      </div>
+      <div class="card-desc">Monochrome puro. Zero cores saturadas. O clássico dark dev.</div>
+      <div class="swatches">
+        <div class="swatch" style="background:#09090B"></div>
+        <div class="swatch" style="background:#18181B"></div>
+        <div class="swatch" style="background:#FAFAFA"></div>
+        <div class="swatch" style="background:#A1A1AA"></div>
+      </div>
+      <div class="font-preview"><strong>Display:</strong> Geist &nbsp;|&nbsp; <strong>Body:</strong> Geist</div>
+      <div class="card-path">packages/brand-schema/brands/vercel-noir.yaml</div>
+    </div>
+  </div>
+
+  <!-- Ensinio -->
+  <div class="card">
+    <div class="mockup-post" style="background:#000000; color:#FFFFFF; font-family:'Outfit','Inter',sans-serif;">
+      <div class="mock-eyebrow" style="color:#3B37FF;">Educação digital</div>
+      <div class="mock-headline" style="font-family:'Outfit',sans-serif;">Sua plataforma. Sua marca. Suas regras.</div>
+      <div class="mock-body" style="color:rgba(255,255,255,0.5);">Whitelabel completo para quem leva educação a sério. Sem amarras, sem limites.</div>
+      <div class="mock-cta" style="background:#3B37FF; color:#FFFFFF; border-radius:999px;">Começar agora</div>
+    </div>
+    <div class="card-info">
+      <div class="card-header">
+        <span class="card-title">Ensinio</span>
+        <span class="status status-ok">Ativo</span>
+      </div>
+      <div class="card-desc">EdTech/SaaS dark. Indigo vibrante. Opacity system hierárquico. Pill buttons.</div>
+      <div class="swatches">
+        <div class="swatch" style="background:#000000"></div>
+        <div class="swatch" style="background:#3B37FF"></div>
+        <div class="swatch" style="background:#3b82f6"></div>
+        <div class="swatch" style="background:#FFFFFF"></div>
+      </div>
+      <div class="font-preview"><strong>Display:</strong> Outfit &nbsp;|&nbsp; <strong>Body:</strong> Inter</div>
+      <div class="card-path">packages/brand-schema/brands/ensinio.yaml</div>
+    </div>
+  </div>
+
+  <!-- Emerald Noir -->
+  <div class="card">
+    <div class="mockup-post" style="background:#0C1117; color:#F3F4F6; font-family:'Inter',sans-serif;">
+      <div class="mock-eyebrow" style="color:#059669;">Consultoria financeira</div>
+      <div class="mock-headline" style="font-family:'Inter',sans-serif;">3 decisões que separam quem constrói patrimônio de quem só poupa</div>
+      <div class="mock-body" style="color:#D1D5DB;">O problema não é quanto você ganha. É o que você faz nos primeiros 90 dias com cada aumento.</div>
+      <div class="mock-cta" style="background:#059669; color:#FFFFFF;">Descubra</div>
+    </div>
+    <div class="card-info">
+      <div class="card-header">
+        <span class="card-title">Emerald Noir</span>
+        <span class="status status-ok">Ativo</span>
+      </div>
+      <div class="card-desc">Navy dark + emerald + gold. Consulting/finance premium. Gold max 3%.</div>
+      <div class="swatches">
+        <div class="swatch" style="background:#0C1117"></div>
+        <div class="swatch" style="background:#059669"></div>
+        <div class="swatch" style="background:#F59E0B"></div>
+        <div class="swatch" style="background:#F3F4F6"></div>
+      </div>
+      <div class="font-preview"><strong>Display:</strong> Plus Jakarta Sans &nbsp;|&nbsp; <strong>Body:</strong> Plus Jakarta Sans</div>
+      <div class="card-path">packages/brand-schema/brands/emerald-noir.yaml</div>
+    </div>
+  </div>
+
+  <!-- Linear Soft -->
+  <div class="card">
+    <div class="mockup-post" style="background:#0C0C10; color:#EDEDF0; font-family:'Inter',sans-serif;">
+      <div class="mock-eyebrow" style="color:#6E6E96;">Produtividade</div>
+      <div class="mock-headline" style="font-family:'Inter',sans-serif;">Menos features. Mais foco. Resultados reais.</div>
+      <div class="mock-body" style="color:#B5B5BA;">A complexidade é o inimigo silencioso de todo time que quer entregar rápido.</div>
+      <div class="mock-cta" style="background:#8B8BF5; color:#0C0C10;">Simplificar</div>
+    </div>
+    <div class="card-info">
+      <div class="card-header">
+        <span class="card-title">Linear Soft</span>
+        <span class="status status-ok">Ativo</span>
+      </div>
+      <div class="card-desc">Purple muted. Hierarquia via opacidade. SaaS/dev tools.</div>
+      <div class="swatches">
+        <div class="swatch" style="background:#0C0C10"></div>
+        <div class="swatch" style="background:#8B8BF5"></div>
+        <div class="swatch" style="background:#6E6E96"></div>
+        <div class="swatch" style="background:#EDEDF0"></div>
+      </div>
+      <div class="font-preview"><strong>Display:</strong> Satoshi &nbsp;|&nbsp; <strong>Body:</strong> Satoshi</div>
+      <div class="card-path">packages/brand-schema/brands/linear-soft.yaml</div>
+    </div>
+  </div>
+
+  <!-- Raycast Warm -->
+  <div class="card">
+    <div class="mockup-post" style="background:#0D0B09; color:#F0ECE8; font-family:'Inter',sans-serif;">
+      <div class="mock-eyebrow" style="color:#FF6B2C;">Produtividade</div>
+      <div class="mock-headline" style="font-family:'Inter',sans-serif;">Cada atalho que você não usa é tempo que você joga fora</div>
+      <div class="mock-body" style="color:#C4BAB0;">Os melhores profissionais não trabalham mais. Eles eliminam fricção.</div>
+      <div class="mock-cta" style="background:#FF6B2C; color:#FFFFFF; border-radius:12px;">Começar</div>
+    </div>
+    <div class="card-info">
+      <div class="card-header">
+        <span class="card-title">Raycast Warm</span>
+        <span class="status status-ok">Ativo</span>
+      </div>
+      <div class="card-desc">Warm dark + orange vibrante. Produtividade/tools. macOS feel. Border-radius 12px.</div>
+      <div class="swatches">
+        <div class="swatch" style="background:#0D0B09"></div>
+        <div class="swatch" style="background:#FF6B2C"></div>
+        <div class="swatch" style="background:#8A7058"></div>
+        <div class="swatch" style="background:#F0ECE8"></div>
+      </div>
+      <div class="font-preview"><strong>Display:</strong> General Sans &nbsp;|&nbsp; <strong>Body:</strong> General Sans</div>
+      <div class="card-path">packages/brand-schema/brands/raycast-warm.yaml</div>
+    </div>
+  </div>
+
+  <!-- Rose Gold -->
+  <div class="card">
+    <div class="mockup-post" style="background:#1A0A14; color:#F0D4E4; font-family:'DM Sans',sans-serif;">
+      <div class="mock-eyebrow" style="color:#D4A574;">Beauty & Lifestyle</div>
+      <div class="mock-headline" style="font-family:'Playfair Display',serif;">Elegância não se compra. Se constrói.</div>
+      <div class="mock-body" style="color:#D4A0C0;">O verdadeiro luxo é a curadoria invisível de cada detalhe que ninguém percebe — mas todos sentem.</div>
+      <div class="mock-cta" style="background:linear-gradient(135deg,#BE185D,#D4A574); color:#FFFFFF;">Explorar</div>
+    </div>
+    <div class="card-info">
+      <div class="card-header">
+        <span class="card-title">Rose Gold</span>
+        <span class="status status-ok">Ativo</span>
+      </div>
+      <div class="card-desc">Burgundy + rose + gold. Luxo/beauty/fashion. Serif + sans pairing. Gradient CTA.</div>
+      <div class="swatches">
+        <div class="swatch" style="background:#1A0A14"></div>
+        <div class="swatch" style="background:#BE185D"></div>
+        <div class="swatch" style="background:#D4A574"></div>
+        <div class="swatch" style="background:#F0D4E4"></div>
+      </div>
+      <div class="font-preview"><strong>Display:</strong> Playfair Display &nbsp;|&nbsp; <strong>Body:</strong> DM Sans</div>
+      <div class="card-path">packages/brand-schema/brands/rose-gold.yaml</div>
+    </div>
+  </div>
+
+  <!-- Specta -->
+  <div class="card">
+    <div class="mockup-post" style="background:#0C0A1A; color:#F2F2F2; font-family:'Inter',sans-serif;">
+      <div class="mock-eyebrow" style="color:#EC4899;">Creators</div>
+      <div class="mock-headline" style="font-family:'Syne',sans-serif;">O conteúdo que viraliza não é o mais bonito. É o mais inevitável.</div>
+      <div class="mock-body" style="color:#D8B4FE;">Quando hook, ritmo e entrega se alinham, o algoritmo não tem escolha.</div>
+      <div class="mock-cta" style="background:linear-gradient(135deg,#A855F7,#EC4899); color:#FFFFFF;">Criar agora</div>
+    </div>
+    <div class="card-info">
+      <div class="card-header">
+        <span class="card-title">Specta</span>
+        <span class="status status-ok">Ativo</span>
+      </div>
+      <div class="card-desc">Navy-purple + glow effects. Creators/video. Gradient CTA purple→pink.</div>
+      <div class="swatches">
+        <div class="swatch" style="background:#0C0A1A"></div>
+        <div class="swatch" style="background:#A855F7"></div>
+        <div class="swatch" style="background:#EC4899"></div>
+        <div class="swatch" style="background:#F2F2F2"></div>
+      </div>
+      <div class="font-preview"><strong>Display:</strong> Syne &nbsp;|&nbsp; <strong>Body:</strong> Cabinet Grotesk</div>
+      <div class="card-path">packages/brand-schema/brands/specta.yaml</div>
+    </div>
+  </div>
+
+  <!-- Notion Clean (Arctic Frost) -->
+  <div class="card">
+    <div class="mockup-post" style="background:#FFFFFF; color:#37352F; font-family:'DM Sans',sans-serif;">
+      <div class="mock-eyebrow" style="color:#2EAADC;">Organização</div>
+      <div class="mock-headline" style="font-family:'DM Serif Display',serif; color:#37352F;">Tudo no lugar certo. Sem esforço.</div>
+      <div class="mock-body" style="color:#6B6966;">A produtividade real começa quando você para de procurar e começa a fazer.</div>
+      <div class="mock-cta" style="background:#000000; color:#FFFFFF;">Organizar</div>
+    </div>
+    <div class="card-info">
+      <div class="card-header">
+        <span class="card-title">Notion Clean (Arctic Frost)</span>
+        <span class="status status-ok">Ativo</span>
+      </div>
+      <div class="card-desc">Light theme. Warm neutrals. Notion-inspired. Zero hover animations.</div>
+      <div class="swatches">
+        <div class="swatch" style="background:#FFFFFF; border-color:#E3E2DF"></div>
+        <div class="swatch" style="background:#FAF9F7; border-color:#E3E2DF"></div>
+        <div class="swatch" style="background:#000000"></div>
+        <div class="swatch" style="background:#2EAADC"></div>
+      </div>
+      <div class="font-preview"><strong>Display:</strong> DM Serif Display &nbsp;|&nbsp; <strong>Body:</strong> DM Sans</div>
+      <div class="card-path">packages/brand-schema/brands/arctic-frost.yaml</div>
+    </div>
+  </div>
+
+  <!-- Minimal Sand -->
+  <div class="card">
+    <div class="mockup-post" style="background:#FAF9F6; color:#44403C; font-family:'Source Sans 3','Source Sans Pro',sans-serif;">
+      <div class="mock-eyebrow" style="color:#D97706;">Editorial</div>
+      <div class="mock-headline" style="font-family:'Libre Baskerville',serif; font-size:20px;">As melhores ideias não gritam. Elas sussurram até você não conseguir ignorar.</div>
+      <div class="mock-body" style="color:#57534E; line-height:1.8;">Escrever bem é pensar bem. E pensar bem muda tudo.</div>
+      <div class="mock-cta" style="background:#44403C; color:#FAF9F6;">Ler mais</div>
+    </div>
+    <div class="card-info">
+      <div class="card-header">
+        <span class="card-title">Minimal Sand</span>
+        <span class="status status-ok">Ativo</span>
+      </div>
+      <div class="card-desc">Light editorial. Warm stone. Magazine/portfolio. Body 17px, line-height 1.8.</div>
+      <div class="swatches">
+        <div class="swatch" style="background:#FAF9F6; border-color:#E7E5E4"></div>
+        <div class="swatch" style="background:#44403C"></div>
+        <div class="swatch" style="background:#D97706"></div>
+        <div class="swatch" style="background:#A8A29E"></div>
+      </div>
+      <div class="font-preview"><strong>Display:</strong> Libre Baskerville &nbsp;|&nbsp; <strong>Body:</strong> Source Sans 3</div>
+      <div class="card-path">packages/brand-schema/brands/minimal-sand.yaml</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+<!-- BRANDS → CAROUSEL PREVIEW -->
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+<h2 id="brands-carousel">Brand Themes → Carrossel Instagram <span class="badge">slide 4:5</span></h2>
+<p class="section-note">Preview de como cada tema fica num slide de carrossel (1080×1350). Skill: <code>skills/carrossel-instagram/</code></p>
+
+<div class="grid">
+
+  <!-- Vercel Noir Carousel -->
+  <div class="card">
+    <div class="mockup-carousel" style="background:#09090B; color:#FAFAFA; font-family:'Inter',sans-serif;">
+      <div class="mock-slide-num" style="color:#A1A1AA;">01 / 07</div>
+      <div class="mock-carousel-title">Deploy sem medo.<br>Escale sem limite.</div>
+      <div class="mock-carousel-body" style="color:#A1A1AA;">O que separa um projeto que funciona de um que aguenta é uma decisão que você toma antes da primeira linha de código.</div>
+      <div class="mock-progress">
+        <div class="mock-progress-dot" style="background:#FAFAFA"></div>
+        <div class="mock-progress-dot" style="background:#27272A"></div>
+        <div class="mock-progress-dot" style="background:#27272A"></div>
+        <div class="mock-progress-dot" style="background:#27272A"></div>
+        <div class="mock-progress-dot" style="background:#27272A"></div>
+        <div class="mock-progress-dot" style="background:#27272A"></div>
+        <div class="mock-progress-dot" style="background:#27272A"></div>
+      </div>
+      <div class="mock-swipe" style="color:#A1A1AA;">›</div>
+    </div>
+    <div class="card-info">
+      <div class="card-header"><span class="card-title">Vercel Noir</span><span class="card-meta">DARK MONO</span></div>
+    </div>
+  </div>
+
+  <!-- Rose Gold Carousel -->
+  <div class="card">
+    <div class="mockup-carousel" style="background:#1A0A14; color:#F0D4E4; font-family:'DM Sans',sans-serif;">
+      <div class="mock-slide-num" style="color:#D4A574;">01 / 07</div>
+      <div class="mock-carousel-title" style="font-family:'Playfair Display',serif;">Autoestima não é vaidade.<br>É estratégia.</div>
+      <div class="mock-carousel-body" style="color:#D4A0C0;">Quem cuida da própria imagem comunica poder antes de abrir a boca. Isso não é superficial — é intencional.</div>
+      <div class="mock-progress">
+        <div class="mock-progress-dot" style="background:linear-gradient(135deg,#BE185D,#D4A574)"></div>
+        <div class="mock-progress-dot" style="background:#33192D"></div>
+        <div class="mock-progress-dot" style="background:#33192D"></div>
+        <div class="mock-progress-dot" style="background:#33192D"></div>
+        <div class="mock-progress-dot" style="background:#33192D"></div>
+        <div class="mock-progress-dot" style="background:#33192D"></div>
+        <div class="mock-progress-dot" style="background:#33192D"></div>
+      </div>
+      <div class="mock-swipe" style="color:#D4A574;">›</div>
+    </div>
+    <div class="card-info">
+      <div class="card-header"><span class="card-title">Rose Gold</span><span class="card-meta">LUXURY</span></div>
+    </div>
+  </div>
+
+  <!-- Specta Carousel -->
+  <div class="card">
+    <div class="mockup-carousel" style="background:#0C0A1A; color:#F2F2F2; font-family:'Inter',sans-serif;">
+      <div class="mock-slide-num" style="color:#EC4899;">01 / 07</div>
+      <div class="mock-carousel-title" style="font-family:'Syne',sans-serif;">Hook forte.<br>Retenção brutal.<br>CTA inevitável.</div>
+      <div class="mock-carousel-body" style="color:#D8B4FE;">A fórmula não é secreta. É ignorada por quem acha que "conteúdo bom" é suficiente.</div>
+      <div class="mock-progress">
+        <div class="mock-progress-dot" style="background:linear-gradient(135deg,#A855F7,#EC4899)"></div>
+        <div class="mock-progress-dot" style="background:#272640"></div>
+        <div class="mock-progress-dot" style="background:#272640"></div>
+        <div class="mock-progress-dot" style="background:#272640"></div>
+        <div class="mock-progress-dot" style="background:#272640"></div>
+        <div class="mock-progress-dot" style="background:#272640"></div>
+        <div class="mock-progress-dot" style="background:#272640"></div>
+      </div>
+      <div class="mock-swipe" style="color:#A855F7;">›</div>
+    </div>
+    <div class="card-info">
+      <div class="card-header"><span class="card-title">Specta</span><span class="card-meta">CREATORS</span></div>
+    </div>
+  </div>
+
+  <!-- Minimal Sand Carousel (Light) -->
+  <div class="card">
+    <div class="mockup-carousel" style="background:#FAF9F6; color:#44403C; font-family:'Source Sans 3','Source Sans Pro',sans-serif;">
+      <div class="mock-slide-num" style="color:#D97706;">01 / 07</div>
+      <div class="mock-carousel-title" style="font-family:'Libre Baskerville',serif; font-size:18px;">O que ninguém te conta sobre escrever bem</div>
+      <div class="mock-carousel-body" style="color:#57534E; line-height:1.8;">Não é talento. É edição. Os melhores textos nascem ruins e morrem brilhantes — depois de 7 revisões que ninguém vê.</div>
+      <div class="mock-progress">
+        <div class="mock-progress-dot" style="background:#D97706"></div>
+        <div class="mock-progress-dot" style="background:#E7E5E4"></div>
+        <div class="mock-progress-dot" style="background:#E7E5E4"></div>
+        <div class="mock-progress-dot" style="background:#E7E5E4"></div>
+        <div class="mock-progress-dot" style="background:#E7E5E4"></div>
+        <div class="mock-progress-dot" style="background:#E7E5E4"></div>
+        <div class="mock-progress-dot" style="background:#E7E5E4"></div>
+      </div>
+      <div class="mock-swipe" style="color:#A8A29E;">›</div>
+    </div>
+    <div class="card-info">
+      <div class="card-header"><span class="card-title">Minimal Sand</span><span class="card-meta">LIGHT EDITORIAL</span></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+<!-- BRANDS → LP HERO PREVIEW -->
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+<h2 id="brands-lp">Brand Themes → LP Hero Section <span class="badge">16:9</span></h2>
+<p class="section-note">Preview do hero section de uma landing page. Skills: <code>skills/lp-generator/</code> + <code>.aiox-core/product/templates/premium-lp-*</code></p>
+
+<div class="grid">
+
+  <!-- Ensinio LP -->
+  <div class="card">
+    <div class="mockup-lp" style="background:#000000; color:#FFFFFF; font-family:'Inter',sans-serif;">
+      <div class="mock-nav" style="color:rgba(255,255,255,0.5);">
+        <span style="font-family:'Outfit',sans-serif; font-weight:600; color:#FFFFFF;">ensinio</span>
+        <div class="mock-nav-links"><span>Produto</span><span>Preços</span><span>Blog</span></div>
+      </div>
+      <div class="mock-lp-headline" style="font-family:'Outfit',sans-serif;">A plataforma que escala<br>com a sua ambição</div>
+      <div class="mock-lp-sub" style="color:rgba(255,255,255,0.5);">Whitelabel completo. Gamificação nativa. Comunidade integrada. Tudo o que você precisa para criar uma experiência de educação que ninguém esquece.</div>
+      <div class="mock-lp-cta" style="background:#3B37FF; color:#FFFFFF; border-radius:999px;">Começar gratuitamente</div>
+    </div>
+    <div class="card-info">
+      <div class="card-header"><span class="card-title">Ensinio</span><span class="card-meta">EDTECH DARK</span></div>
+    </div>
+  </div>
+
+  <!-- Emerald Noir LP -->
+  <div class="card">
+    <div class="mockup-lp" style="background:#0C1117; color:#F3F4F6; font-family:'Inter',sans-serif;">
+      <div class="mock-nav" style="color:#D1D5DB;">
+        <span style="font-weight:600; color:#059669;">Vertex</span>
+        <div class="mock-nav-links"><span>Serviços</span><span>Cases</span><span>Contato</span></div>
+      </div>
+      <div class="mock-lp-headline">Seu patrimônio merece<br>uma estratégia à altura</div>
+      <div class="mock-lp-sub" style="color:#D1D5DB;">Gestão de investimentos para quem construiu algo grande e quer proteger cada centavo com inteligência.</div>
+      <div class="mock-lp-cta" style="background:#059669; color:#FFFFFF;">Agendar consultoria</div>
+    </div>
+    <div class="card-info">
+      <div class="card-header"><span class="card-title">Emerald Noir</span><span class="card-meta">FINANCE</span></div>
+    </div>
+  </div>
+
+  <!-- Rose Gold LP -->
+  <div class="card">
+    <div class="mockup-lp" style="background:#1A0A14; color:#F0D4E4; font-family:'DM Sans',sans-serif;">
+      <div class="mock-nav" style="color:#D4A0C0;">
+        <span style="font-family:'Playfair Display',serif; font-weight:600; color:#D4A574;">Maison</span>
+        <div class="mock-nav-links"><span>Coleção</span><span>Sobre</span><span>Atelier</span></div>
+      </div>
+      <div class="mock-lp-headline" style="font-family:'Playfair Display',serif;">Onde elegância<br>encontra intenção</div>
+      <div class="mock-lp-sub" style="color:#D4A0C0;">Peças que não seguem tendências. Criam presença. Para mulheres que sabem que estilo é a linguagem mais poderosa.</div>
+      <div class="mock-lp-cta" style="background:linear-gradient(135deg,#BE185D,#D4A574); color:#FFFFFF;">Ver coleção</div>
+    </div>
+    <div class="card-info">
+      <div class="card-header"><span class="card-title">Rose Gold</span><span class="card-meta">LUXURY</span></div>
+    </div>
+  </div>
+
+  <!-- Minimal Sand LP -->
+  <div class="card">
+    <div class="mockup-lp" style="background:#FAF9F6; color:#44403C; font-family:'Source Sans 3',sans-serif;">
+      <div class="mock-nav" style="color:#57534E;">
+        <span style="font-family:'Libre Baskerville',serif; font-weight:700; color:#44403C;">Ateliê</span>
+        <div class="mock-nav-links"><span>Textos</span><span>Sobre</span><span>Newsletter</span></div>
+      </div>
+      <div class="mock-lp-headline" style="font-family:'Libre Baskerville',serif; font-size:22px;">Palavras que ficam<br>depois que a tela apaga</div>
+      <div class="mock-lp-sub" style="color:#57534E;">Uma newsletter semanal sobre escrita, clareza e o poder de dizer menos para significar mais.</div>
+      <div class="mock-lp-cta" style="background:#44403C; color:#FAF9F6;">Assinar gratuitamente</div>
+    </div>
+    <div class="card-info">
+      <div class="card-header"><span class="card-title">Minimal Sand</span><span class="card-meta">EDITORIAL LIGHT</span></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+<!-- PREMIUM LP THEMES -->
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+<h2 id="premium-lp">Premium LP Themes <span class="badge">8 temas Mustache</span></h2>
+<p class="section-note">Temas do Premium LP System. Localização: <code>.aiox-core/product/templates/premium-lp-tokens.yaml</code></p>
+
+<div class="grid">
+
+  <div class="card">
+    <div class="mockup-lp" style="background:#040B0B; color:#EDF8F8; font-family:'Space Grotesk','Inter',sans-serif;">
+      <div class="mock-nav" style="color:#7A9E9E;"><span style="color:#7DE8EB; font-weight:600;">Brand</span><div class="mock-nav-links"><span>Features</span><span>Preço</span></div></div>
+      <div class="mock-lp-headline" style="font-family:'Space Grotesk',sans-serif;">Tecnologia que ilumina<br>o caminho certo</div>
+      <div class="mock-lp-sub" style="color:#B8D4D4;">Soluções que simplificam o complexo e transformam dados em decisões.</div>
+      <div class="mock-lp-cta" style="background:#7DE8EB; color:#040B0B;">Começar</div>
+    </div>
+    <div class="card-info">
+      <div class="card-header"><span class="card-title">Nocturne Cian</span><span class="card-meta">DEFAULT</span></div>
+      <div class="swatches">
+        <div class="swatch" style="background:#040B0B"></div>
+        <div class="swatch" style="background:#7DE8EB"></div>
+        <div class="swatch" style="background:#5CC8CB"></div>
+        <div class="swatch" style="background:#EDF8F8"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="mockup-lp" style="background:#050505; color:#FAF5EB; font-family:'Inter',sans-serif;">
+      <div class="mock-nav" style="color:#C4B99A;"><span style="font-family:'Playfair Display',serif; color:#D4A853; font-weight:600;">Prestige</span><div class="mock-nav-links"><span>Método</span><span>Resultados</span></div></div>
+      <div class="mock-lp-headline" style="font-family:'Playfair Display',serif;">Excelência não é acidente.<br>É método.</div>
+      <div class="mock-lp-sub" style="color:#C4B99A;">Para quem entende que os maiores retornos vêm de decisões silenciosas.</div>
+      <div class="mock-lp-cta" style="background:#D4A853; color:#050505;">Conhecer o método</div>
+    </div>
+    <div class="card-info">
+      <div class="card-header"><span class="card-title">Obsidian Gold</span></div>
+      <div class="swatches">
+        <div class="swatch" style="background:#050505"></div>
+        <div class="swatch" style="background:#D4A853"></div>
+        <div class="swatch" style="background:#C49B45"></div>
+        <div class="swatch" style="background:#FAF5EB"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="mockup-lp" style="background:#060B18; color:#F1F5F9; font-family:'Space Grotesk','Inter',sans-serif;">
+      <div class="mock-nav" style="color:#94A3B8;"><span style="color:#3B82F6; font-weight:600;">SaaS.io</span><div class="mock-nav-links"><span>Docs</span><span>Pricing</span></div></div>
+      <div class="mock-lp-headline">Build faster.<br>Ship with confidence.</div>
+      <div class="mock-lp-sub" style="color:#94A3B8;">The developer platform that turns complex infrastructure into simple APIs.</div>
+      <div class="mock-lp-cta" style="background:#3B82F6; color:#FFFFFF;">Get started free</div>
+    </div>
+    <div class="card-info">
+      <div class="card-header"><span class="card-title">Carbon Blue</span></div>
+      <div class="swatches">
+        <div class="swatch" style="background:#060B18"></div>
+        <div class="swatch" style="background:#3B82F6"></div>
+        <div class="swatch" style="background:#2563EB"></div>
+        <div class="swatch" style="background:#F1F5F9"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="mockup-lp" style="background:#08061A; color:#F5F0FF; font-family:'Space Grotesk','Inter',sans-serif;">
+      <div class="mock-nav" style="color:#B8A8D4;"><span style="color:#A855F7; font-weight:600;">Cosmos</span><div class="mock-nav-links"><span>Features</span><span>Pricing</span></div></div>
+      <div class="mock-lp-headline">Crie experiências<br>que hipnotizam</div>
+      <div class="mock-lp-sub" style="color:#B8A8D4;">A plataforma de conteúdo imersivo para creators que pensam em escala.</div>
+      <div class="mock-lp-cta" style="background:#A855F7; color:#FFFFFF;">Explorar</div>
+    </div>
+    <div class="card-info">
+      <div class="card-header"><span class="card-title">Midnight Violet</span></div>
+      <div class="swatches">
+        <div class="swatch" style="background:#08061A"></div>
+        <div class="swatch" style="background:#A855F7"></div>
+        <div class="swatch" style="background:#9333EA"></div>
+        <div class="swatch" style="background:#F5F0FF"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="mockup-lp" style="background:#0A0608; color:#FFF1F2; font-family:'DM Sans','Inter',sans-serif;">
+      <div class="mock-nav" style="color:#D4A8B0;"><span style="color:#F43F5E; font-weight:600;">Pulse</span><div class="mock-nav-links"><span>Programa</span><span>Resultados</span></div></div>
+      <div class="mock-lp-headline">Transformação começa<br>quando você decide</div>
+      <div class="mock-lp-sub" style="color:#D4A8B0;">O programa que conecta corpo, mente e resultado. Sem atalhos, sem promessas vazias.</div>
+      <div class="mock-lp-cta" style="background:#F43F5E; color:#FFFFFF;">Quero começar</div>
+    </div>
+    <div class="card-info">
+      <div class="card-header"><span class="card-title">Eclipse Rose</span></div>
+      <div class="swatches">
+        <div class="swatch" style="background:#0A0608"></div>
+        <div class="swatch" style="background:#F43F5E"></div>
+        <div class="swatch" style="background:#E11D48"></div>
+        <div class="swatch" style="background:#FFF1F2"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="mockup-lp" style="background:#040A08; color:#F0FDF9; font-family:'Space Grotesk','Inter',sans-serif;">
+      <div class="mock-nav" style="color:#A8D4C4;"><span style="color:#10B981; font-weight:600;">GreenOps</span><div class="mock-nav-links"><span>Soluções</span><span>Cases</span></div></div>
+      <div class="mock-lp-headline">Sustentabilidade<br>que gera lucro</div>
+      <div class="mock-lp-sub" style="color:#A8D4C4;">Consultoria ESG para empresas que querem crescer sem destruir o que importa.</div>
+      <div class="mock-lp-cta" style="background:#10B981; color:#040A08;">Falar com consultor</div>
+    </div>
+    <div class="card-info">
+      <div class="card-header"><span class="card-title">Stealth Emerald</span></div>
+      <div class="swatches">
+        <div class="swatch" style="background:#040A08"></div>
+        <div class="swatch" style="background:#10B981"></div>
+        <div class="swatch" style="background:#059669"></div>
+        <div class="swatch" style="background:#F0FDF9"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="mockup-lp" style="background:#080505; color:#FFF5F5; font-family:'Inter',sans-serif;">
+      <div class="mock-nav" style="color:#D4A8A8;"><span style="font-family:'Bebas Neue',sans-serif; color:#EF4444; font-weight:400; font-size:14px; letter-spacing:0.05em;">IMPACT</span><div class="mock-nav-links"><span>Programa</span><span>Depoimentos</span></div></div>
+      <div class="mock-lp-headline" style="font-family:'Bebas Neue',sans-serif; font-weight:400; letter-spacing:0.02em; font-size:28px;">PARE DE SOBREVIVER.<br>COMECE A DOMINAR.</div>
+      <div class="mock-lp-sub" style="color:#D4A8A8;">O método que tirou 847 pessoas da zona de conforto e colocou no jogo que importa.</div>
+      <div class="mock-lp-cta" style="background:#EF4444; color:#FFFFFF;">Entrar agora</div>
+    </div>
+    <div class="card-info">
+      <div class="card-header"><span class="card-title">Crimson Noir</span></div>
+      <div class="swatches">
+        <div class="swatch" style="background:#080505"></div>
+        <div class="swatch" style="background:#EF4444"></div>
+        <div class="swatch" style="background:#DC2626"></div>
+        <div class="swatch" style="background:#FFF5F5"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="mockup-lp" style="background:#060A14; color:#F0F9FF; font-family:'Inter',sans-serif;">
+      <div class="mock-nav" style="color:#A8C8E0;"><span style="color:#38BDF8; font-weight:600;">Arctic</span><div class="mock-nav-links"><span>Docs</span><span>API</span></div></div>
+      <div class="mock-lp-headline" style="font-family:'Inter',sans-serif;">Infrastructure<br>that just works</div>
+      <div class="mock-lp-sub" style="color:#A8C8E0;">Zero config. Auto-scaling. Built for teams that ship fast and sleep well.</div>
+      <div class="mock-lp-cta" style="background:#38BDF8; color:#060A14;">Start building</div>
+    </div>
+    <div class="card-info">
+      <div class="card-header"><span class="card-title">Arctic Frost (LP)</span></div>
+      <div class="swatches">
+        <div class="swatch" style="background:#060A14"></div>
+        <div class="swatch" style="background:#38BDF8"></div>
+        <div class="swatch" style="background:#0EA5E9"></div>
+        <div class="swatch" style="background:#F0F9FF"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+<!-- MARCA PESSOAL — LUIZ FOSC (5 MOODS) -->
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+<h2 id="personal">Marca Pessoal — Luiz Fosc <span class="badge">5 moods · amber 5%</span></h2>
+<p class="section-note">Design system real da marca pessoal. 5 humores visuais, Montserrat + Ubuntu, chevron pattern. Tokens: <code>docs/research/2026-04-07-FOSC-ai-brand-identity-tools/design-system/tokens.yaml</code></p>
+
+<div class="grid">
+
+  <!-- MOOD 1: DRAMÁTICO -->
+  <div class="card">
+    <div class="mockup-post" style="background:#212121; color:#FFFFFF; font-family:'Ubuntu',sans-serif; position:relative; overflow:hidden;">
+      <!-- Chevron pattern -->
+      <div style="position:absolute;inset:0;opacity:0.04;pointer-events:none;background-image:repeating-linear-gradient(45deg,transparent,transparent 8px,#fff 8px,#fff 9px),repeating-linear-gradient(-45deg,transparent,transparent 8px,#fff 8px,#fff 9px);"></div>
+      <div class="mock-eyebrow" style="font-family:'Montserrat',sans-serif; color:#B8860B; font-size:9px; font-weight:600; letter-spacing:0.14em;">PALESTRA-SHOW</div>
+      <div class="mock-headline" style="font-family:'Montserrat',sans-serif; font-weight:800; letter-spacing:-0.02em;">Ninguém nasce pronto.<br>Ninguém "tem o dom".</div>
+      <div class="mock-body" style="color:#B0AEAB; font-weight:300; font-size:13px;">O que existe é estrutura. Método. Repetição até que o difícil pareça fácil, e o fácil pareça mágica.</div>
+      <div class="mock-cta" style="background:#B8860B; color:#212121; font-family:'Montserrat',sans-serif; font-weight:600; font-size:11px; letter-spacing:0.04em; border-radius:6px;">Quero no meu evento</div>
+    </div>
+    <div class="card-info">
+      <div class="card-header">
+        <span class="card-title">Mood: Dramático / Palco</span>
+        <span class="card-meta">IMPACTO</span>
+      </div>
+      <div class="card-desc">Lançamentos, media kits. Fundo #212121 + chevron branco 4% + amber accent.</div>
+      <div class="swatches">
+        <div class="swatch" style="background:#212121"></div>
+        <div class="swatch" style="background:#B8860B"></div>
+        <div class="swatch" style="background:#D4A017"></div>
+        <div class="swatch" style="background:#FFFFFF"></div>
+        <div class="swatch" style="background:#353433"></div>
+      </div>
+      <div class="font-preview"><strong>Heading:</strong> Montserrat 800 &nbsp;|&nbsp; <strong>Body:</strong> Ubuntu 300</div>
+    </div>
+  </div>
+
+  <!-- MOOD 2: EDITORIAL / TEAL -->
+  <div class="card">
+    <div class="mockup-post" style="background:radial-gradient(ellipse at 30% 30%, #1A3A3A 0%, #152E2E 60%, #212121 100%); color:#FFFFFF; font-family:'Ubuntu',sans-serif;">
+      <div class="mock-eyebrow" style="font-family:'Montserrat',sans-serif; color:#3A7A7A; font-size:9px; font-weight:600; letter-spacing:0.14em;">#PENSECOMOUMILUSIONISTA</div>
+      <div class="mock-headline" style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:19px;">"Cada truque que parece impossível foi ensaiado 200 vezes na sala de casa."</div>
+      <div style="width:24px; height:2px; background:#D4A017; margin:12px auto;"></div>
+      <div class="mock-body" style="color:#3A7A7A; font-weight:300; font-size:11px; font-family:'Montserrat',sans-serif; letter-spacing:0.08em; text-transform:uppercase;">LUIZ FOSC · ILUSIONISTA & PALESTRANTE</div>
+    </div>
+    <div class="card-info">
+      <div class="card-header">
+        <span class="card-title">Mood: Editorial / Intelectual</span>
+        <span class="card-meta">REFLEXÃO</span>
+      </div>
+      <div class="card-desc">Quotes, reflexões, conteúdo denso. Fundo teal gradient. Sem chevron.</div>
+      <div class="swatches">
+        <div class="swatch" style="background:#152E2E"></div>
+        <div class="swatch" style="background:#1A3A3A"></div>
+        <div class="swatch" style="background:#2A5A5A"></div>
+        <div class="swatch" style="background:#3A7A7A"></div>
+        <div class="swatch" style="background:#D4A017"></div>
+      </div>
+      <div class="font-preview"><strong>Quote:</strong> Montserrat 800 &nbsp;|&nbsp; <strong>Attribution:</strong> Montserrat 600 tracking wide</div>
+    </div>
+  </div>
+
+  <!-- MOOD 3: HUMANO -->
+  <div class="card">
+    <div class="mockup-post" style="background:#F5F0EB; color:#212121; font-family:'Ubuntu',sans-serif; position:relative; overflow:hidden;">
+      <!-- Chevron pattern light -->
+      <div style="position:absolute;inset:0;opacity:0.05;pointer-events:none;background-image:repeating-linear-gradient(45deg,transparent,transparent 8px,#212121 8px,#212121 9px),repeating-linear-gradient(-45deg,transparent,transparent 8px,#212121 8px,#212121 9px);"></div>
+      <div class="mock-eyebrow" style="font-family:'Montserrat',sans-serif; color:#8A6508; font-size:9px; font-weight:600; letter-spacing:0.14em;">BASTIDORES</div>
+      <div class="mock-headline" style="font-family:'Montserrat',sans-serif; font-weight:800; color:#212121; font-size:19px;">Quando as luzes apagam, sou pai. Sou marido. Sou um cara que erra.</div>
+      <div class="mock-body" style="color:#6B6966; font-weight:300;">E é exatamente por isso que funciona. Porque estrutura não é frieza. É liberdade.</div>
+      <div class="mock-cta" style="background:transparent; color:#6B6966; border:1px solid #B0AEAB; font-family:'Ubuntu',sans-serif; font-size:12px; border-radius:6px;">Ver mais</div>
+    </div>
+    <div class="card-info">
+      <div class="card-header">
+        <span class="card-title">Mood: Humano / Bastidor</span>
+        <span class="card-meta">VULNERABILIDADE</span>
+      </div>
+      <div class="card-desc">Família, vulnerabilidade, "quem sou eu". Fundo ivory #F5F0EB + chevron escuro 5%.</div>
+      <div class="swatches">
+        <div class="swatch" style="background:#F5F0EB; border-color:#E0DFDD"></div>
+        <div class="swatch" style="background:#212121"></div>
+        <div class="swatch" style="background:#8A6508"></div>
+        <div class="swatch" style="background:#6B6966"></div>
+        <div class="swatch" style="background:#B0AEAB"></div>
+      </div>
+      <div class="font-preview"><strong>Heading:</strong> Montserrat 800 &nbsp;|&nbsp; <strong>Body:</strong> Ubuntu 300 &nbsp;|&nbsp; <strong>Text:</strong> #212121</div>
+    </div>
+  </div>
+
+  <!-- MOOD 4: ENERGIA -->
+  <div class="card">
+    <div class="mockup-post" style="background:linear-gradient(180deg, rgba(184,134,11,0.12) 0%, #212121 55%); color:#FFFFFF; font-family:'Ubuntu',sans-serif; position:relative;">
+      <!-- Corner accent -->
+      <div style="position:absolute; top:16px; right:16px; width:20px; height:20px; border-right:1.5px solid rgba(184,134,11,0.4); border-top:1.5px solid rgba(184,134,11,0.4);"></div>
+      <div class="mock-eyebrow" style="font-family:'Montserrat',sans-serif; color:#D4A017; font-size:9px; font-weight:600; letter-spacing:0.14em;">AO VIVO</div>
+      <div class="mock-headline" style="font-family:'Montserrat',sans-serif; font-weight:800;">2.000 pessoas de pé. Uma decisão de palco.</div>
+      <div class="mock-body" style="color:#B0AEAB; font-weight:300;">Cobertura de evento, bastidor de palco, energia do momento.</div>
+    </div>
+    <div class="card-info">
+      <div class="card-header">
+        <span class="card-title">Mood: Energia / Evento</span>
+        <span class="card-meta">AÇÃO</span>
+      </div>
+      <div class="card-desc">Reels, cobertura, bastidor de palco. Photo overlay warm + corner accent amber.</div>
+      <div class="swatches">
+        <div class="swatch" style="background:#212121"></div>
+        <div class="swatch" style="background:#D4A017"></div>
+        <div class="swatch" style="background:#E8C547"></div>
+        <div class="swatch" style="background:#FFFFFF"></div>
+      </div>
+      <div class="font-preview"><strong>Heading:</strong> Montserrat 800 &nbsp;|&nbsp; <strong>Overlay:</strong> gradient warm-to-black</div>
+    </div>
+  </div>
+
+  <!-- MOOD 5: PREMIUM -->
+  <div class="card">
+    <div class="mockup-post" style="background:#212121; color:#FFFFFF; font-family:'Ubuntu',sans-serif; position:relative; overflow:hidden;">
+      <!-- Chevron pattern amber -->
+      <div style="position:absolute;inset:0;opacity:0.07;pointer-events:none;background-image:repeating-linear-gradient(45deg,transparent,transparent 8px,#B8860B 8px,#B8860B 9px),repeating-linear-gradient(-45deg,transparent,transparent 8px,#B8860B 8px,#B8860B 9px);"></div>
+      <!-- Top gradient line -->
+      <div style="position:absolute;top:0;left:10%;right:10%;height:3px;background:linear-gradient(90deg,transparent 10%,#D4A017,transparent 90%);"></div>
+      <div class="mock-eyebrow" style="font-family:'Montserrat',sans-serif; color:#E8C547; font-size:9px; font-weight:600; letter-spacing:0.14em;">✦ MENTORIA EXCLUSIVA</div>
+      <div class="mock-headline" style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:20px;">Estrutura que transforma qualquer palco em experiência inesquecível</div>
+      <div class="mock-body" style="color:#B0AEAB; font-weight:300; font-size:12px;">Para palestrantes, líderes e comunicadores que querem ir além do óbvio.</div>
+      <div class="mock-cta" style="background:#D4A017; color:#212121; font-family:'Montserrat',sans-serif; font-weight:700; font-size:11px; letter-spacing:0.04em; border-radius:6px;">Aplicar para a mentoria</div>
+      <!-- Bottom gradient line -->
+      <div style="position:absolute;bottom:0;left:10%;right:10%;height:3px;background:linear-gradient(90deg,transparent 10%,#D4A017,transparent 90%);"></div>
+    </div>
+    <div class="card-info">
+      <div class="card-header">
+        <span class="card-title">Mood: Premium / Venda</span>
+        <span class="card-meta">HIGH-TICKET</span>
+      </div>
+      <div class="card-desc">Mentoria, high-ticket, CTAs. Chevron amber 7% + linhas gradient + ✦ symbols.</div>
+      <div class="swatches">
+        <div class="swatch" style="background:#212121"></div>
+        <div class="swatch" style="background:#D4A017"></div>
+        <div class="swatch" style="background:#E8C547"></div>
+        <div class="swatch" style="background:#FFFFFF"></div>
+        <div class="swatch" style="background:#353433"></div>
+      </div>
+      <div class="font-preview"><strong>Heading:</strong> Montserrat 800 &nbsp;|&nbsp; <strong>CTA:</strong> Montserrat 700 &nbsp;|&nbsp; <strong>Body:</strong> Ubuntu 300</div>
+    </div>
+  </div>
+
+  <!-- CAMPAIGN COLOR EXAMPLE -->
+  <div class="card">
+    <div class="mockup-post" style="background:linear-gradient(135deg, #1a0a0a 0%, #212121 40%, #2a1515 100%); color:#FFFFFF; font-family:'Ubuntu',sans-serif; position:relative; overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#8B2F2F,#C45454);"></div>
+      <div class="mock-eyebrow" style="font-family:'Montserrat',sans-serif; color:#C45454; font-size:9px; font-weight:600; letter-spacing:0.14em;">PALESTRA ANTIFRÁGIL</div>
+      <div class="mock-headline" style="font-family:'Montserrat',sans-serif; font-weight:800;">Superação não é sobre aguentar. É sobre usar a dor como combustível.</div>
+      <div class="mock-body" style="color:#B0AEAB; font-weight:300;">Quando a campanha termina, a cor desaparece. B&W + Amber fica para sempre.</div>
+      <div class="mock-cta" style="background:#B8860B; color:#212121; font-family:'Montserrat',sans-serif; font-weight:600; font-size:11px; border-radius:6px;">Saiba mais</div>
+    </div>
+    <div class="card-info">
+      <div class="card-header">
+        <span class="card-title">Campaign Color: Deep Red</span>
+        <span class="card-meta">TEMPORÁRIO</span>
+      </div>
+      <div class="card-desc">Cores de campanha são temporárias por produto. CTA sempre amber. Máx 2 cores por peça.</div>
+      <div class="swatches">
+        <div class="swatch" style="background:#8B2F2F"></div>
+        <div class="swatch" style="background:#C45454"></div>
+        <div class="swatch" style="background:#C47A1A"></div>
+        <div class="swatch" style="background:#2B6B5A"></div>
+        <div class="swatch" style="background:#3A5A8C"></div>
+        <div class="swatch" style="background:#6B4F3A"></div>
+      </div>
+      <div class="font-preview"><strong>Regra:</strong> Cor de campanha desaparece quando produto sai. Amber permanece sempre.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- LP Hero com marca Luiz Fosc -->
+<h3>LP Hero — Marca Luiz Fosc</h3>
+<div class="grid">
+  <div class="card">
+    <div class="mockup-lp" style="background:#212121; color:#FFFFFF; font-family:'Ubuntu',sans-serif; position:relative; overflow:hidden;">
+      <!-- Chevron -->
+      <div style="position:absolute;inset:0;opacity:0.04;pointer-events:none;background-image:repeating-linear-gradient(45deg,transparent,transparent 8px,#fff 8px,#fff 9px),repeating-linear-gradient(-45deg,transparent,transparent 8px,#fff 8px,#fff 9px);"></div>
+      <div class="mock-nav" style="color:#8A8885;">
+        <span style="font-family:'Montserrat',sans-serif; letter-spacing:0.2em;"><span style="font-weight:200;">LUIZ</span> <span style="font-weight:800;">FOSC</span></span>
+        <div class="mock-nav-links"><span>Palestras</span><span>Sobre</span><span>Contato</span></div>
+      </div>
+      <div class="mock-lp-headline" style="font-family:'Montserrat',sans-serif; font-weight:800; letter-spacing:-0.02em;">Não é dom.<br><span style="color:#D4A017;">É estrutura.</span></div>
+      <div class="mock-lp-sub" style="color:#B0AEAB; font-weight:300;">Ilusionista, recordista mundial do Guinness e palestrante. Transformo palcos em experiências que ninguém esquece.</div>
+      <div class="mock-lp-cta" style="background:#B8860B; color:#212121; font-family:'Montserrat',sans-serif; font-weight:600; font-size:11px; letter-spacing:0.04em; border-radius:6px;">Quero no meu evento</div>
+    </div>
+    <div class="card-info">
+      <div class="card-header">
+        <span class="card-title">LP Hero — Luiz Fosc</span>
+        <span class="card-meta">MOOD DRAMÁTICO</span>
+      </div>
+      <div class="card-desc">Logo split-weight (LUIZ light 200 / FOSC bold 800). Tagline com amber glow. Chevron 4%.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="mockup-lp" style="background:#F5F0EB; color:#212121; font-family:'Ubuntu',sans-serif; position:relative; overflow:hidden;">
+      <!-- Chevron light -->
+      <div style="position:absolute;inset:0;opacity:0.05;pointer-events:none;background-image:repeating-linear-gradient(45deg,transparent,transparent 8px,#212121 8px,#212121 9px),repeating-linear-gradient(-45deg,transparent,transparent 8px,#212121 8px,#212121 9px);"></div>
+      <div class="mock-nav" style="color:#6B6966;">
+        <span style="font-family:'Montserrat',sans-serif; letter-spacing:0.2em;"><span style="font-weight:200;">LUIZ</span> <span style="font-weight:800;">FOSC</span></span>
+        <div class="mock-nav-links"><span>Palestras</span><span>Sobre</span><span>Contato</span></div>
+      </div>
+      <div class="mock-lp-headline" style="font-family:'Montserrat',sans-serif; font-weight:800; letter-spacing:-0.02em; color:#212121;">Não é dom.<br><span style="color:#8A6508;">É estrutura.</span></div>
+      <div class="mock-lp-sub" style="color:#6B6966; font-weight:300;">25 anos transformando o impossível em método. Dois recordes mundiais do Guinness. Zero dom — pura obsessão por processo.</div>
+      <div class="mock-lp-cta" style="background:#B8860B; color:#212121; font-family:'Montserrat',sans-serif; font-weight:600; font-size:11px; letter-spacing:0.04em; border-radius:6px;">Conhecer o método</div>
+    </div>
+    <div class="card-info">
+      <div class="card-header">
+        <span class="card-title">LP Hero — Luiz Fosc (Light)</span>
+        <span class="card-meta">MOOD HUMANO</span>
+      </div>
+      <div class="card-desc">Fundo ivory #F5F0EB. Amber dark (#8A6508) para texto accent. Chevron escuro 5%.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+<!-- FORMATOS SUPORTADOS -->
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+<h2 id="formats">Formatos Suportados <span class="badge">15+ formatos</span></h2>
+
+<h3>Dimensões por Plataforma</h3>
+<div class="dim-preview" style="flex-wrap: wrap; gap: 20px; padding: 20px; background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border);">
+  <div style="text-align:center">
+    <div class="dim-box" style="width:54px;height:54px">1:1</div>
+    <div style="font-size:0.65rem;color:var(--text-muted);margin-top:4px">IG Post<br>1080×1080</div>
+  </div>
+  <div style="text-align:center">
+    <div class="dim-box" style="width:54px;height:67px">4:5</div>
+    <div style="font-size:0.65rem;color:var(--text-muted);margin-top:4px">Carrossel<br>1080×1350</div>
+  </div>
+  <div style="text-align:center">
+    <div class="dim-box" style="width:54px;height:72px">3:4</div>
+    <div style="font-size:0.65rem;color:var(--text-muted);margin-top:4px">IG Carousel<br>1080×1440</div>
+  </div>
+  <div style="text-align:center">
+    <div class="dim-box" style="width:36px;height:64px">9:16</div>
+    <div style="font-size:0.65rem;color:var(--text-muted);margin-top:4px">Story/Reel<br>1080×1920</div>
+  </div>
+  <div style="text-align:center">
+    <div class="dim-box" style="width:76px;height:40px">16:9</div>
+    <div style="font-size:0.65rem;color:var(--text-muted);margin-top:4px">YouTube<br>1920×1080</div>
+  </div>
+  <div style="text-align:center">
+    <div class="dim-box" style="width:76px;height:40px">~2:1</div>
+    <div style="font-size:0.65rem;color:var(--text-muted);margin-top:4px">LinkedIn<br>1200×627</div>
+  </div>
+  <div style="text-align:center">
+    <div class="dim-box" style="width:76px;height:40px">~16:9</div>
+    <div style="font-size:0.65rem;color:var(--text-muted);margin-top:4px">Twitter/X<br>1200×675</div>
+  </div>
+  <div style="text-align:center">
+    <div class="dim-box" style="width:76px;height:40px">~2:1</div>
+    <div style="font-size:0.65rem;color:var(--text-muted);margin-top:4px">Facebook<br>1200×630</div>
+  </div>
+  <div style="text-align:center">
+    <div class="dim-box" style="width:76px;height:42px">16:9</div>
+    <div style="font-size:0.65rem;color:var(--text-muted);margin-top:4px">YT Thumb<br>1280×720</div>
+  </div>
+  <div style="text-align:center">
+    <div class="dim-box" style="width:40px;height:60px">2:3</div>
+    <div style="font-size:0.65rem;color:var(--text-muted);margin-top:4px">Pinterest<br>1000×1500</div>
+  </div>
+</div>
+
+<h3>Output por Ferramenta</h3>
+<table>
+  <thead><tr><th>Formato</th><th>Ferramenta</th><th>Uso</th></tr></thead>
+  <tbody>
+    <tr><td>HTML standalone</td><td>lp-generator, premium-lp</td><td>Landing pages</td></tr>
+    <tr><td>PNG</td><td>image-creator, carrossel-instagram</td><td>Posts, carrosséis, thumbnails</td></tr>
+    <tr><td>MP4 (H.264)</td><td>video-generator, viral-squad, ai-reels, audio-reels</td><td>Reels, stories, vídeos</td></tr>
+    <tr><td>GIF</td><td>video-generator</td><td>Animações curtas</td></tr>
+    <tr><td>PDF</td><td>brandcraft/forge-renderer</td><td>Documentos, relatórios</td></tr>
+    <tr><td>PPTX</td><td>pptx-generator, brandcraft/canvas</td><td>Apresentações</td></tr>
+    <tr><td>Canva</td><td>canva (MCP)</td><td>Qualquer formato Canva</td></tr>
+    <tr><td>Next.js</td><td>lp-generator Mode B, ds-scaffold</td><td>LPs premium, design systems</td></tr>
+  </tbody>
+</table>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+<!-- FERRAMENTAS -->
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+<h2 id="tools">Ferramentas <span class="badge">pipeline completa</span></h2>
+
+<div class="grid">
+  <div class="card">
+    <div class="card-info">
+      <div class="card-header"><span class="card-title">Content Forge</span><span class="status status-ok">Orquestrador</span></div>
+      <div class="card-desc">Entry point central. Classifica necessidade e roteia para skill/squad certo.</div>
+      <div class="card-path">skills/content-forge/</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-info">
+      <div class="card-header"><span class="card-title">Image Creator</span><span class="status status-ok">Renderer</span></div>
+      <div class="card-desc">HTML/CSS → PNG via Playwright. Presets para todas as plataformas. Batch rendering.</div>
+      <div class="card-path">skills/image-creator/</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-info">
+      <div class="card-header"><span class="card-title">Instagram Publisher</span><span class="status status-ok">Graph API</span></div>
+      <div class="card-desc">Publica carrosséis direto no Instagram. Upload via imgbb. 25 posts/24h.</div>
+      <div class="card-path">skills/instagram-publisher/</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-info">
+      <div class="card-header"><span class="card-title">Blotato</span><span class="status status-ok">Multi-plataforma</span></div>
+      <div class="card-desc">Instagram, LinkedIn, Twitter/X, TikTok, YouTube. Agendamento via MCP.</div>
+      <div class="card-path">skills/blotato/</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-info">
+      <div class="card-header"><span class="card-title">Canva</span><span class="status status-ok">MCP</span></div>
+      <div class="card-desc">Cria, busca, preenche templates e exporta designs Canva.</div>
+      <div class="card-path">skills/canva/</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-info">
+      <div class="card-header"><span class="card-title">PPTX Generator</span><span class="status status-ok">Apresentações</span></div>
+      <div class="card-desc">PowerPoint 16:9 via PptxGenJS. Brand tokens, 9 layouts, quality scoring.</div>
+      <div class="card-path">skills/pptx-generator/</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-info">
+      <div class="card-header"><span class="card-title">Design System Forge</span><span class="status status-ok">Extrator</span></div>
+      <div class="card-desc">Clona visual DNA de qualquer site via Playwright. Pipeline: forge → scaffold → storybook → catalog.</div>
+      <div class="card-path">skills/design-system-forge/</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-info">
+      <div class="card-header"><span class="card-title">Brand Schema</span><span class="status status-ok">Fonte de verdade</span></div>
+      <div class="card-desc">9 brands canônicos + adapters (CSS vars, Tailwind, Remotion theme). JSON Schema validado.</div>
+      <div class="card-path">packages/brand-schema/</div>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top:64px;padding-top:24px;border-top:1px solid var(--border);text-align:center;">
+  <div style="width:24px; height:2px; background:var(--accent); margin:0 auto 16px;"></div>
+  <div style="font-family:'Montserrat',sans-serif; font-size:0.6rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--accent); margin-bottom:8px;">Não é dom, é estrutura.</div>
+  <div style="color:var(--text-muted);font-size:0.7rem;">
+    Gerado em 2026-04-07 · Ecossistema AIOS Core<br>
+    <a href="routing-map.md" style="color:var(--text-secondary);">Routing Map</a> · <a href="generated-examples.md" style="color:var(--text-secondary);">Exemplos Gerados</a> · <a href="duplicates-report.md" style="color:var(--text-secondary);">Duplicatas</a> · <a href="INDEX.md" style="color:var(--text-secondary);">INDEX</a>
+  </div>
+</div>
+
+</body>
+</html>

@@ -21,9 +21,9 @@ You are the **Quest Master** — RPG narrator + senior dev mentor. Address the u
 
 If the user provided arguments after the skill name (e.g., `check`, `skip`, `unused`, `sub`, `scan`, `status`), route the command IMMEDIATELY. See the **Command Routing** table below.
 
-**Quest-log guard:** Before executing any routed command, check if `.aios/quest-log.yaml` exists:
+**Quest-log guard:** Before executing any routed command, check if `.aiox/quest-log.yaml` exists:
 ```
-Bash("test -f .aios/quest-log.yaml && echo 'QUEST_LOG_EXISTS' || echo 'NO_QUEST_LOG'")
+Bash("test -f .aiox/quest-log.yaml && echo 'QUEST_LOG_EXISTS' || echo 'NO_QUEST_LOG'")
 ```
 - **If `QUEST_LOG_EXISTS`:** proceed with the command flow normally.
 - **If `NO_QUEST_LOG`:** show `"Nenhum quest log encontrado. Rode /quest primeiro para iniciar sua jornada."` and STOP. Do NOT attempt to execute the command — all commands require an existing quest-log.
@@ -34,10 +34,10 @@ Bash("test -f .aios/quest-log.yaml && echo 'QUEST_LOG_EXISTS' || echo 'NO_QUEST_
 
 ### Step B — Quest-log Detection (only when NO command argument)
 
-If no command argument was provided, check if `.aios/quest-log.yaml` exists:
+If no command argument was provided, check if `.aiox/quest-log.yaml` exists:
 
 ```
-Bash("test -f .aios/quest-log.yaml && echo 'QUEST_LOG_EXISTS' || echo 'NO_QUEST_LOG'")
+Bash("test -f .aiox/quest-log.yaml && echo 'QUEST_LOG_EXISTS' || echo 'NO_QUEST_LOG'")
 ```
 
 **If the output is `QUEST_LOG_EXISTS` → go DIRECTLY to the RESUMPTION section below. Do NOT read any other sections of this file. Do NOT read ceremony.md. Do NOT show ASCII art, loading bars, or project cards. SKIP everything and jump to RESUMPTION.**
@@ -51,7 +51,7 @@ Bash("test -f .aios/quest-log.yaml && echo 'QUEST_LOG_EXISTS' || echo 'NO_QUEST_
 The user has been here before. Show a quick status and the next mission. This should take 5 seconds, not 2 minutes.
 
 **Steps:**
-1. Read `.aios/quest-log.yaml`
+1. Read `.aiox/quest-log.yaml`
    - **Parse guard:** Se o YAML estiver corrompido (parse error) OU se o resultado do parse for `null`/vazio (arquivo de 0 bytes), ir DIRETAMENTE para o módulo `checklist.md §3` (recuperação de corrupção). NÃO tentar usar `meta.pack` ou qualquer campo antes de confirmar que o parse foi bem-sucedido.
    - **Schema guard:** Após parse bem-sucedido, verificar campos mínimos: `meta`, `meta.project`, `meta.pack`, `stats`, `items`. Se qualquer um for `undefined` ou `null`: tratar como corrupção → ir para `checklist.md §3`.
 2. **Auto-Reconciliation (MANDATORY — runs EVERY resumption, silently)**
@@ -63,7 +63,7 @@ The user has been here before. Show a quick status and the next mission. This sh
    ```
    **Nota de portabilidade:** O path `~/aios-core` é o local canônico. Em ambientes alternativos, usar `$AIOS_HOME` se definido: `node ${AIOS_HOME:-~/aios-core}/skills/quest/engine/forge-reconciler.cjs "$(pwd)"`
    
-   - If output contains "Synced N items" → re-read `.aios/quest-log.yaml` (it was updated)
+   - If output contains "Synced N items" → re-read `.aiox/quest-log.yaml` (it was updated)
    - If output is "No items to reconcile." or "No quest-log.yaml found." → proceed normally
    - NEVER skip this step. NEVER ask for confirmation. It runs silently and fast.
    
@@ -73,7 +73,7 @@ The user has been here before. Show a quick status and the next mission. This sh
    
    **Algorithm (for reference — the runtime above implements this):**
    ```
-   1. Glob ".aios/forge-runs/*/state.json"
+   1. Glob ".aiox/forge-runs/*/state.json"
       If no files found → skip reconciliation entirely.
 
    2. For each state.json found:
@@ -154,7 +154,7 @@ The user has been here before. Show a quick status and the next mission. This sh
 5. Read `engine/ceremony.md` §7 — output the Resumption Banner. Ceremony owns all visual output.
 6. Find next mission via `engine/guide.md` §2 (Next Mission Selection). NEVER implement mission selection inline — guide.md owns phase unlock checks, conditions, Integration Gate, and skip logic.
 7. Show the next mission card via `engine/guide.md` §3.
-7. Update `last_active` in `~/.aios/quest-registry.yaml`.
+7. Update `last_active` in `~/.aiox/quest-registry.yaml`.
 
 **STOP HERE. Do not continue to the sections below.**
 
@@ -171,7 +171,7 @@ Everything below is ONLY for when there is NO quest-log.yaml.
 Before running the normal first invocation flow, check if Quest can bootstrap from a Forge run:
 
 ```
-1. Glob(".aios/forge-runs/*/state.json")
+1. Glob(".aiox/forge-runs/*/state.json")
 2. For each file, read and check:
 
    EXPLICIT BRIDGE (preferred):
@@ -249,10 +249,10 @@ Read the selected pack YAML → load phases, items, levels. **Guard:** Se o Read
 ### Step 3 — Check for legacy format
 
 ```
-Glob(".aios/pipeline-checklist.yaml")
+Glob(".aiox/pipeline-checklist.yaml")
 ```
 
-If found → Read `engine/checklist.md` → follow migration procedure BEFORE proceeding. **Important:** migration returns the migrated data in memory but does NOT write `.aios/quest-log.yaml` yet — hero identity is still missing (see checklist.md §7, step 6).
+If found → Read `engine/checklist.md` → follow migration procedure BEFORE proceeding. **Important:** migration returns the migrated data in memory but does NOT write `.aiox/quest-log.yaml` yet — hero identity is still missing (see checklist.md §7, step 6).
 
 ### Step 4 — Ceremony
 
@@ -260,7 +260,7 @@ Read `engine/ceremony.md` → generate full ceremony (title screen, loading, pro
 
 ### Step 5 — Registry
 
-Add project to `~/.aios/quest-registry.yaml`. Create dir/file if needed.
+Add project to `~/.aiox/quest-registry.yaml`. Create dir/file if needed.
 
 ### Step 6 — Dashboard
 
@@ -272,7 +272,7 @@ Public URL: https://quest.fosc.me (requires local server + tunnel active)
 
 ### Step 7 — Create quest-log
 
-Read `engine/checklist.md` → create `quest-log.yaml` + run initial scan. If Step 3 produced migration data, merge `hero_name`/`hero_title` from the ceremony (Step 4) into the migrated payload and write `.aios/quest-log.yaml` now (see checklist.md §7, step 6). After the quest-log is successfully written, rename `.aios/pipeline-checklist.yaml` to `.aios/pipeline-checklist.yaml.bak` (see checklist.md §7, step 7). If no migration, create a fresh quest-log as normal (checklist.md §2).
+Read `engine/checklist.md` → create `quest-log.yaml` + run initial scan. If Step 3 produced migration data, merge `hero_name`/`hero_title` from the ceremony (Step 4) into the migrated payload and write `.aiox/quest-log.yaml` now (see checklist.md §7, step 6). After the quest-log is successfully written, rename `.aiox/pipeline-checklist.yaml` to `.aiox/pipeline-checklist.yaml.bak` (see checklist.md §7, step 7). If no migration, create a fresh quest-log as normal (checklist.md §2).
 
 ### Step 8 — First mission
 
@@ -349,12 +349,12 @@ When the user runs `/quest help`, show this formatted output:
 | Input | Technical Action |
 |-------|--------|
 | `help` | Show formatted help (above) — no file reads needed beyond quest-log for stats |
-| `check <id>` | Read `.aios/quest-log.yaml` + pack YAML + `engine/checklist.md` → execute check |
-| `skip <id>` | Read `.aios/quest-log.yaml` + pack YAML + `engine/checklist.md` → execute skip |
-| `unused <id>` | Read `.aios/quest-log.yaml` + pack YAML + `engine/checklist.md` → mark as unused |
-| `sub <parent_id> <label>` | Read `.aios/quest-log.yaml` + pack YAML + `engine/checklist.md` → create sub-item |
-| `scan` | Read `.aios/quest-log.yaml` + pack YAML + `engine/checklist.md` → execute scan |
-| `status` | Read `.aios/quest-log.yaml` + pack YAML + `engine/checklist.md` §3 → normalize state, then `engine/guide.md` → show status |
+| `check <id>` | Read `.aiox/quest-log.yaml` + pack YAML + `engine/checklist.md` → execute check |
+| `skip <id>` | Read `.aiox/quest-log.yaml` + pack YAML + `engine/checklist.md` → execute skip |
+| `unused <id>` | Read `.aiox/quest-log.yaml` + pack YAML + `engine/checklist.md` → mark as unused |
+| `sub <parent_id> <label>` | Read `.aiox/quest-log.yaml` + pack YAML + `engine/checklist.md` → create sub-item |
+| `scan` | Read `.aiox/quest-log.yaml` + pack YAML + `engine/checklist.md` → execute scan |
+| `status` | Read `.aiox/quest-log.yaml` + pack YAML + `engine/checklist.md` §3 → normalize state, then `engine/guide.md` → show status |
 
 ---
 
@@ -377,7 +377,7 @@ Quest and Forge share a unified state model. Each piece of data has ONE canonica
 ### State Map
 
 ```
-.aios/
+.aiox/
 ├── quest-log.yaml              ← QUEST owns (XP, items, hero, pack)
 ├── forge-runs/                 ← FORGE owns (run state, phases, errors)
 │   └── {run_id}/
@@ -396,7 +396,7 @@ Quest and Forge share a unified state model. Each piece of data has ONE canonica
 | Hero name, pack | **Quest** | `quest-log.yaml → meta` | Quest only |
 | Run progress (phase, status) | **Forge** | `forge-runs/{id}/state.json` | Forge, Quest (read-only) |
 | Ecosystem context | **Forge** | `forge-runs/{id}/context-pack.json` | Forge, agents |
-| Project decisions | **Shared** | `.aios/memory/project-context.md` | All (read) | Agents (via Forge) + user manual. Quest NEVER writes. Forge NEVER writes directly. |
+| Project decisions | **Shared** | `.aiox/memory/project-context.md` | All (read) | Agents (via Forge) + user manual. Quest NEVER writes. Forge NEVER writes directly. |
 
 ### Sync Protocol
 

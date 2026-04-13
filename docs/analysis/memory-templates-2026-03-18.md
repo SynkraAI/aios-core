@@ -1,6 +1,6 @@
 # Memory Templates para `/new-project`
 
-Templates que `/new-project` deve usar ao criar `.aios/memory/`
+Templates que `/new-project` deve usar ao criar `.aiox/memory/`
 
 ---
 

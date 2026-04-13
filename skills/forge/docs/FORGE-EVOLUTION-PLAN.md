@@ -91,7 +91,7 @@ hooks:
     source: "{FORGE_HOME}/forge-memory.md"
     section: "1. Load Protocol"
     description: |
-      Check .aios/memory/forge/learnings.yaml.
+      Check .aiox/memory/forge/learnings.yaml.
       If found: parse, filter by project path, inject top 5 relevant learnings.
       Categories: tech_decision, error_pattern, agent_performance, quality_gate.
 
@@ -105,7 +105,7 @@ hooks:
       - errors[] with types and resolutions
       - agent retry rates
       - quality gate results
-      Append to .aios/memory/forge/learnings.yaml.
+      Append to .aiox/memory/forge/learnings.yaml.
 
   - event: "on:error"
     action: log
@@ -118,12 +118,12 @@ hooks:
 
 state_key: "forge_memory"
 config:
-  learnings_file: ".aios/memory/forge/learnings.yaml"
+  learnings_file: ".aiox/memory/forge/learnings.yaml"
   max_entries: 50
   inject_top_n: 5
 ```
 
-### Learnings YAML (criado em runtime em `.aios/memory/forge/learnings.yaml`)
+### Learnings YAML (criado em runtime em `.aiox/memory/forge/learnings.yaml`)
 
 ```yaml
 learnings:
@@ -215,7 +215,7 @@ learnings:
 |---------|---------|
 | `skills/forge/phases/phase-2-stories.md` | @sm declara `depends_on` por story. Validação de ciclos. Display com setas de dependência no checkpoint. |
 | `skills/forge/phases/phase-3-build.md` | Ordenação por topological sort respeitando depends_on. Validação antes de cada story: depends_on all Done. |
-| `.aios-core/product/templates/story-tmpl.yaml` | Novo campo `depends_on: []` no template |
+| `.aiox-core/product/templates/story-tmpl.yaml` | Novo campo `depends_on: []` no template |
 
 ### Mudanças no phase-2
 
@@ -273,7 +273,7 @@ Step 2: Trocar ordenação linear por topological sort. Dentro do mesmo nível, 
 
 ### Lógica do workflow
 
-1. **Carregar run anterior:** Ler `.aios/forge-runs/{run_id}/state.json`
+1. **Carregar run anterior:** Ler `.aiox/forge-runs/{run_id}/state.json`
 2. **Mostrar decisões:** Stack, MVP scope, stories, erros, quality gates
 3. **Perguntar o que mudar:**
    ```
@@ -536,7 +536,7 @@ hooks:
       > 2. Ficou bom, mas... (follow-up: o que melhorar?)
       > 3. Não ficou bom (follow-up: o que deu errado?)
       > 4. Pular
-      Salvar em .aios/memory/forge/feedback.yaml via forge-memory.
+      Salvar em .aiox/memory/forge/feedback.yaml via forge-memory.
 
   - event: "after:run"
     action: inject
@@ -592,7 +592,7 @@ state_key: "forge_feedback"
 | `phases/phase-5-deploy.md` | 5 |
 | `references/tech-decisions-guide.md` | 6 |
 | `plugins/SCHEMA.md` | 5 |
-| `.aios-core/product/templates/story-tmpl.yaml` | 3 |
+| `.aiox-core/product/templates/story-tmpl.yaml` | 3 |
 
 ---
 

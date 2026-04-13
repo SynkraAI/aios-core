@@ -11,7 +11,7 @@ At the start of every Forge run, check for existing learnings.
 ### Step 1: Find learnings file
 
 ```
-Path: .aios/memory/forge/learnings.yaml (relative to project root / cwd)
+Path: .aiox/memory/forge/learnings.yaml (relative to project root / cwd)
 ```
 
 If file does not exist → skip silently. First run in this project, no learnings yet.
@@ -114,8 +114,8 @@ Each extracted insight becomes one entry in the learnings file:
 
 ### Step 3: Append to file
 
-- Path: `.aios/memory/forge/learnings.yaml`
-- Create directory `.aios/memory/forge/` if it does not exist
+- Path: `.aiox/memory/forge/learnings.yaml`
+- Create directory `.aiox/memory/forge/` if it does not exist
 - Append new entries to the `learnings:` array
 - Use atomic write pattern (.tmp → rename) to prevent corruption
 

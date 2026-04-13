@@ -10,10 +10,10 @@ At the start of a new run, check if there's a previous run in this project that 
 
 ### Step 1: Find previous runs
 
-Glob `.aios/forge-runs/*/state.json` where:
+Glob `.aiox/forge-runs/*/state.json` where:
 - `status == "completed"`
 - `project.path` matches current cwd
-- No entry exists in `.aios/memory/forge/feedback.yaml` with this `run_id`
+- No entry exists in `.aiox/memory/forge/feedback.yaml` with this `run_id`
 
 Sort by `completed_at` descending. Take the most recent.
 
@@ -51,7 +51,7 @@ If an unfeedback'd run is found:
 
 ### Step 4: Persist
 
-Save to `.aios/memory/forge/feedback.yaml`:
+Save to `.aiox/memory/forge/feedback.yaml`:
 
 ```yaml
 feedback:

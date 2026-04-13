@@ -254,14 +254,14 @@ Local: modified 2026-02-15 16:45:00
 **Correcao:**
 ```bash
 # Opcao 1: Manter versao central
-cp .aios/navigator/{project}/roadmap.md docs/framework/roadmap.md
+cp .aiox/navigator/{project}/roadmap.md docs/framework/roadmap.md
 
 # Opcao 2: Manter versao local
-cp docs/framework/roadmap.md .aios/navigator/{project}/roadmap.md
+cp docs/framework/roadmap.md .aiox/navigator/{project}/roadmap.md
 
 # Opcao 3: Merge manual
 # Abrir ambos os arquivos e fazer merge manual
-code docs/framework/roadmap.md .aios/navigator/{project}/roadmap.md
+code docs/framework/roadmap.md .aiox/navigator/{project}/roadmap.md
 ```
 
 ---
@@ -309,7 +309,7 @@ Error: ENOENT: no such file or directory
 **Correcao:**
 ```bash
 # Criar diretorio de checkpoints
-mkdir -p .aios/navigator/{your-project-name}/checkpoints/
+mkdir -p .aiox/navigator/{your-project-name}/checkpoints/
 
 # Tentar novamente
 @navigator
@@ -338,7 +338,7 @@ mkdir -p .aios/navigator/{your-project-name}/checkpoints/
 # Opcao 3: Listar checkpoints primeiro
 *checkpoint --list
 # Deletar checkpoint antigo se necessario
-rm .aios/navigator/{project}/checkpoints/cp-7-manual-20260215-143022.json
+rm .aiox/navigator/{project}/checkpoints/cp-7-manual-20260215-143022.json
 ```
 
 ---
@@ -355,11 +355,11 @@ Error: Checkpoint file corrupted or invalid JSON
 **Correcao:**
 ```bash
 # Validar JSON
-cat .aios/navigator/{project}/checkpoints/cp-X-type-timestamp.json | jq .
+cat .aiox/navigator/{project}/checkpoints/cp-X-type-timestamp.json | jq .
 
 # Se invalido, restaurar do historico git
-git log --all --full-history -- .aios/navigator/{project}/checkpoints/
-git checkout <commit-hash> -- .aios/navigator/{project}/checkpoints/cp-X.json
+git log --all --full-history -- .aiox/navigator/{project}/checkpoints/
+git checkout <commit-hash> -- .aiox/navigator/{project}/checkpoints/cp-X.json
 ```
 
 ---
@@ -445,7 +445,7 @@ outputs:
 **Correcao:**
 ```bash
 # Verificar tamanho do arquivo
-ls -lh .aios/navigator/{project}/roadmap.md
+ls -lh .aiox/navigator/{project}/roadmap.md
 
 # Se muito grande, dividir em multiplos arquivos
 # Ou comprimir detalhes de fases antigas
@@ -538,7 +538,7 @@ export NAVIGATOR_DEBUG=true
 
 ```bash
 # Logs do Navigator (se logging habilitado)
-tail -f .aios/logs/navigator.log
+tail -f .aiox/logs/navigator.log
 ```
 
 ### Executar Diagnostico Completo
@@ -568,7 +568,7 @@ Se nenhuma dessas solucoes funcionar:
 **Nao faca:**
 ```bash
 # ERRADO: Editando arquivo central diretamente
-vim .aios/navigator/{project}/roadmap.md
+vim .aiox/navigator/{project}/roadmap.md
 ```
 
 **Faca:**

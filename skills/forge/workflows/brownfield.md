@@ -61,7 +61,7 @@ Dispatch `@architect` via Agent tool para fazer o assessment:
    - `git log -10 --oneline` → atividade recente
 
 4. **Documentation:**
-   - Tem README? CLAUDE.md? .aios/INDEX.md?
+   - Tem README? CLAUDE.md? .aiox/INDEX.md?
    - Tem stories ativas? (`docs/stories/active/`)
    - Tem tests? Qual cobertura?
 
@@ -110,11 +110,11 @@ Baseado no diagnóstico + o que o usuário disse que quer:
 Quando o usuário escolhe, o Forge:
 1. **Criar state.json ANTES do routing** (CRITICAL — sem isso o workflow destino quebra):
    - Generate run_id: `forge-{slug}-{YYYYMMDD-HHmm}`
-   - Create run folder: `.aios/forge-runs/{run_id}/`
+   - Create run folder: `.aiox/forge-runs/{run_id}/`
    - Write state.json with: mode = workflow destino, status = "running", current_phase = 0
    - Copy context-pack.json from scan results
    - Save diagnostic report path in state.json
-2. Salvar o diagnostic report em `.aios/forge-runs/{run_id}/diagnostic.md`
+2. Salvar o diagnostic report em `.aiox/forge-runs/{run_id}/diagnostic.md`
 3. Despachar para o workflow correto (feature, fix, etc.)
 4. O Project Awareness + diagnostic ficam no context-pack — os agentes vão saber sobre o projeto
 

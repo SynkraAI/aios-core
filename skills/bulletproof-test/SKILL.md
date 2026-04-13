@@ -52,7 +52,7 @@ Questions to ask before executing. Use AskUserQuestion tool. Skip if the user al
 
 ```yaml
 AIOS_ROOT: ~/aios-core
-AGENTS_PATH: ${AIOS_ROOT}/.aios-core/development/agents/
+AGENTS_PATH: ${AIOS_ROOT}/.aiox-core/development/agents/
 KAIZEN_PATH: ${AIOS_ROOT}/squads/kaizen-v2/
 ```
 
@@ -60,12 +60,12 @@ KAIZEN_PATH: ${AIOS_ROOT}/squads/kaizen-v2/
 
 This skill uses specialized agents for each phase. On activation, resolve agents using this priority:
 
-1. **AIOS installed in project** (`.aios/` exists in cwd): Use `@agent` invocation (e.g., `@analyst`)
+1. **AIOS installed in project** (`.aiox/` exists in cwd): Use `@agent` invocation (e.g., `@analyst`)
 2. **AIOS agents on disk** (default): Load agent definition directly from file path:
-   - `~/aios-core/.aios-core/development/agents/analyst.md`
-   - `~/aios-core/.aios-core/development/agents/qa.md`
-   - `~/aios-core/.aios-core/development/agents/pm.md`
-   - `~/aios-core/.aios-core/development/agents/dev.md`
+   - `~/aios-core/.aiox-core/development/agents/analyst.md`
+   - `~/aios-core/.aiox-core/development/agents/qa.md`
+   - `~/aios-core/.aiox-core/development/agents/pm.md`
+   - `~/aios-core/.aiox-core/development/agents/dev.md`
 3. **No AIOS at all**: Execute each phase directly as Claude Code (skip persona loading, follow phase instructions as-is)
 
 **How to load an agent from path:** Read the agent `.md` file, parse the YAML block, adopt the persona and capabilities defined in it, then execute the phase instructions below.

@@ -1,0 +1,1 @@
+../../../../../../skills/forge/workflows/stamp.md

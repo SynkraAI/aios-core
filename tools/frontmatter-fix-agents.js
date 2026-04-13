@@ -19,7 +19,7 @@ const path = require('path');
 const os = require('os');
 
 const AIOS_CORE = path.join(os.homedir(), 'aios-core');
-const CORE_AGENTS_DIR = path.join(AIOS_CORE, '.aios-core', 'development', 'agents');
+const CORE_AGENTS_DIR = path.join(AIOS_CORE, '.aiox-core', 'development', 'agents');
 const SQUADS_DIR = path.join(AIOS_CORE, 'squads');
 
 const apply = process.argv.includes('--apply');

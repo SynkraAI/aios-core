@@ -1,11 +1,11 @@
 # AIOS Ecosystem Index
 
-*Atualizado: 2026-04-08 16:02:17*  
+*Atualizado: 2026-04-13 21:12:48*  
 *Regenerar: `node scripts/generate-ecosystem-index.js`*
 
 ---
 
-## 🧠 Minds (43)
+## 🧠 Minds (44)
 
 | # | Mind | Slug | Status | Fidelidade | Especialidade |
 |---|------|------|--------|------------|---------------|
@@ -52,65 +52,56 @@
 | 41 | **Pedro Sobral** | `pedro-sobral` | Complete | Intermediate | Tráfego Pago, Gestão |
 | 42 | **Juliana Gomes** | `juliana-gomes` | Complete | Intermediate | Conteúdo, Digital |
 | 43 | **Ícaro de Carvalho** | `icaro-de-carvalho` | Complete | Intermediate | Marketing, Copywriting, Negócios |
+| 44 | **Luiz Fernando Garcia** | `luiz-fernando-garcia` | Complete | Premium | Alta Performance, Neurociência Comportamental |
 
 ---
 
-## 🤖 Agentes Core AIOS (39)
+## 🤖 Agentes Core AIOS (27)
 
 | Agente | ID | Especialidade | Autoridade Exclusiva |
 |--------|-----|---------------|----------------------|
-| **ux-design-expert** | `ux-design-expert` | 0. GREENFIELD GUARD: If gitStatus in system prompt says | N/A |
 | **traffic-masters-chief** | `traffic-masters-chief` | an autonomous Traffic Masters Chief agent spawned to execute a specific mission | N/A |
 | **tools-orchestrator** | `tools-orchestrator` | | | N/A |
 | **story-chief** | `story-chief` | an autonomous Story Chief agent spawned to execute a specific mission | N/A |
 | **squad** | `squad` | Squad Architect - master orchestrator for creating AI agent squads | N/A |
-| **squad-creator** | `squad-creator` | 0. GREENFIELD GUARD: If gitStatus in system prompt says | N/A |
 | **sop-extractor** | `sop-extractor` | SOP Extraction Specialist - expert in identifying and documenting processes | N/A |
-| **sm** | `sm` | 0. GREENFIELD GUARD: If gitStatus in system prompt says | N/A |
-| **qa** | `qa` | 0. GREENFIELD GUARD: If gitStatus in system prompt says | N/A |
 | **prompt-architect** | `prompt-architect` | Show all available commands with descriptions | N/A |
-| **po** | `po` | 0. GREENFIELD GUARD: If gitStatus in system prompt says | N/A |
-| **pm** | `pm` | orchestrates other agents via TerminalSpawner | N/A |
 | **pedro-valerio** | `pedro-valerio` | Process Absolutist - guardian of workflow quality | N/A |
 | **oalanicolas** | `oalanicolas` | Mind Cloning Architect - expert in capturing the essence of elite minds | N/A |
 | **navigator** | `navigator` | Display the greeting returned by GreetingBuilder | N/A |
 | **legal-chief** | `legal-chief` | an autonomous Legal Chief agent spawned to execute a specific mission | N/A |
-| **devops** | `devops` | 0. GREENFIELD GUARD: If gitStatus in system prompt says | N/A |
-| **dev** | `dev` | 0. GREENFIELD GUARD: If gitStatus in system prompt says | N/A |
 | **design-system** | `design-system` | an autonomous Design System agent spawned to execute a specific mission | N/A |
 | **design-chief** | `design-chief` | an autonomous Design Chief agent spawned to execute a specific mission | N/A |
 | **db-sage** | `db-sage` | an autonomous DB Sage agent spawned to execute a specific mission | N/A |
-| **data-engineer** | `data-engineer` | 0. GREENFIELD GUARD: If gitStatus in system prompt says | N/A |
 | **data-chief** | `data-chief` | an autonomous Data Chief agent spawned to execute a specific mission | N/A |
 | **cyber-chief** | `cyber-chief` | an autonomous Cyber Chief agent spawned to execute a specific mission | N/A |
 | **copy-chief** | `copy-chief` | an autonomous Copy Chief agent spawned to execute a specific mission | N/A |
-| **architect** | `architect` | 0. GREENFIELD GUARD: If gitStatus in system prompt says | N/A |
-| **analyst** | `analyst` | 0. GREENFIELD GUARD: If gitStatus in system prompt says | N/A |
-| **aios-ux** | `aios-ux` | an autonomous AIOS UX Design Expert agent spawned to execute a specific mission | N/A |
-| **aios-sm** | `aios-sm` | an autonomous AIOS Scrum Master agent spawned to execute a specific mission | N/A |
-| **aios-qa** | `aios-qa` | an autonomous AIOS QA agent spawned to execute a specific mission | N/A |
-| **aios-po** | `aios-po` | an autonomous AIOS Product Owner agent spawned to execute a specific mission | N/A |
-| **aios-pm** | `aios-pm` | an autonomous AIOS Project Manager agent spawned to execute a specific mission | N/A |
-| **aios-master** | `aios-master` | 0. GREENFIELD GUARD: If gitStatus in system prompt says | N/A |
-| **aios-devops** | `aios-devops` | an autonomous AIOS DevOps agent spawned to execute a specific mission | N/A |
-| **aios-dev** | `aios-dev` | an autonomous AIOS Developer agent spawned to execute a specific mission | N/A |
-| **aios-data-engineer** | `aios-data-engineer` | an autonomous AIOS Data Engineer agent spawned to execute a specific mission | N/A |
-| **aios-architect** | `aios-architect` | an autonomous AIOS Architect agent spawned to execute a specific mission | N/A |
-| **aios-analyst** | `aios-analyst` | an autonomous AIOS Analyst agent spawned to execute a specific mission | N/A |
+| **aiox-ux** | `aiox-ux` | an autonomous AIOX UX Design Expert agent spawned to execute a specific mission | N/A |
+| **aiox-sm** | `aiox-sm` | an autonomous AIOX Scrum Master agent spawned to execute a specific mission | N/A |
+| **aiox-qa** | `aiox-qa` | an autonomous AIOX QA agent spawned to execute a specific mission | N/A |
+| **aiox-po** | `aiox-po` | an autonomous AIOX Product Owner agent spawned to execute a specific mission | N/A |
+| **aiox-pm** | `aiox-pm` | an autonomous AIOX Project Manager agent spawned to execute a specific mission | N/A |
+| **aiox-devops** | `aiox-devops` | an autonomous AIOX DevOps agent spawned to execute a specific mission | N/A |
+| **aiox-dev** | `aiox-dev` | an autonomous AIOX Developer agent spawned to execute a specific mission | N/A |
+| **aiox-data-engineer** | `aiox-data-engineer` | an autonomous AIOX Data Engineer agent spawned to execute a specific mission | N/A |
+| **aiox-architect** | `aiox-architect` | an autonomous AIOX Architect agent spawned to execute a specific mission | N/A |
+| **aiox-analyst** | `aiox-analyst` | an autonomous AIOX Analyst agent spawned to execute a specific mission | N/A |
 | **TOPIC-EXTRACTION-AULA4-DESIGN-SYSTEM** | `TOPIC-EXTRACTION-AULA4-DESIGN-SYSTEM` | Transcrita WebVTT, timestamp em linhas alternadas com conteúdo de fala. | N/A |
 
 ---
 
-## 🏢 Agentes por Squad (434)
+## 🏢 Agentes por Squad (436)
 
-### Squad: advisor-board (14)
+### Squad: advisor-board (16)
 
 - **Walt Disney** — Walt Disney — the visionary builder who pioneered animation as art, created the theme park industry, and reshaped American popular culture
 - **verne-harnish** — Verne Harnish, founder of Gazelles and creator of the Scaling Up methodology (Rockefeller Habits 2
 - **Steve Jobs** — Steve Jobs — co-founder of Apple, Pixar chairman, and the most consequential product visionary of the digital age
 - **Shane Parrish** — Shane Parrish — founder of Farnam Street, mental models expert, and author of \"Great Mental Models\" and \"Clear Thinking
+- **paulo-vieira** — Paulo Vieira as emotional intelligence & high performance coaching advisor
 - **Naval Ravikant** — Naval Ravikant — entrepreneur, investor, and philosopher
 - **Nassim Taleb** — Nassim Nicholas Taleb — options trader, philosopher, empirical skeptic, and author of the Incerto
+- **luiz-fernando-garcia** — Luiz Fernando Garcia as behavioral neuroscience & entrepreneurial performance advisor
 - **keith-cunningham** — Agente keith-cunningham do ecossistema AIOS.
 - **hamilton-helmer** — Hamilton Helmer, strategy theorist and author of \"7 Powers: The Foundations of Business Strategy
 - **elon-musk** — Elon Musk — engineer, CEO, and civilization-scale builder
@@ -738,12 +729,12 @@
 
 | Categoria | Quantidade |
 |-----------|------------|
-| **Minds** | 43 |
-| **Agentes Core** | 39 |
+| **Minds** | 44 |
+| **Agentes Core** | 27 |
 | **Squads** | 65 |
-| **Agentes de Squads** | 434 |
-| **TOTAL** | 516 |
+| **Agentes de Squads** | 436 |
+| **TOTAL** | 507 |
 
 ---
 
-*Gerado automaticamente em 2026-04-08 16:02:17*
+*Gerado automaticamente em 2026-04-13 21:12:48*

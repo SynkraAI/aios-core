@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luiz Fosc — DNA Real (Anti-AI)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=Montserrat:wght@200;300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #212121;
+    --black-deep: #1a1a1a;
+    --black-soft: #2a2a2a;
+    --white: #FFFFFF;
+    --ivory: #F5F0EB;
+    --amber: #B8860B;
+    --amber-glow: #D4A017;
+    --amber-light: #E8C547;
+    --amber-dark: #8A6508;
+    --gray-100: #F0EFED;
+    --gray-200: #E0DFDD;
+    --gray-300: #B0AEAB;
+    --gray-400: #8A8885;
+    --gray-500: #6B6966;
+    --gray-600: #4A4846;
+    --gray-700: #353433;
+    --gray-800: #2a2928;
+  }
+
+  body { background: var(--black); color: var(--white); font-family: 'Ubuntu', sans-serif; line-height: 1.6; }
+  .container { max-width: 1140px; margin: 0 auto; padding: 40px 32px; }
+
+  /* Chevron Pattern — CSS recreation of the brand symbol pattern */
+  .chevron-pattern {
+    position: relative;
+    overflow: hidden;
+  }
+  .chevron-pattern::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image:
+      repeating-linear-gradient(45deg, transparent, transparent 8px, var(--white) 8px, var(--white) 9px),
+      repeating-linear-gradient(-45deg, transparent, transparent 8px, var(--white) 8px, var(--white) 9px),
+      repeating-linear-gradient(45deg, transparent, transparent 16px, var(--white) 16px, var(--white) 17px),
+      repeating-linear-gradient(-45deg, transparent, transparent 16px, var(--white) 16px, var(--white) 17px);
+    pointer-events: none;
+  }
+  .chevron-pattern-light::before {
+    opacity: 0.06;
+    background-image:
+      repeating-linear-gradient(45deg, transparent, transparent 8px, var(--black) 8px, var(--black) 9px),
+      repeating-linear-gradient(-45deg, transparent, transparent 8px, var(--black) 8px, var(--black) 9px),
+      repeating-linear-gradient(45deg, transparent, transparent 16px, var(--black) 16px, var(--black) 17px),
+      repeating-linear-gradient(-45deg, transparent, transparent 16px, var(--black) 16px, var(--black) 17px);
+  }
+
+  /* Chevron accent — single diagonal line pair as subtle brand element */
+  .chevron-accent {
+    position: relative;
+  }
+  .chevron-accent::after {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border-right: 2px solid var(--amber);
+    border-top: 2px solid var(--amber);
+    transform: rotate(45deg);
+    opacity: 0.6;
+  }
+  .chevron-accent-tl::after { top: -8px; left: -8px; }
+  .chevron-accent-br::after { bottom: -8px; right: -8px; }
+
+  /* Amber bar — the spotlight moment */
+  .amber-bar {
+    width: 40px;
+    height: 3px;
+    background: var(--amber);
+  }
+
+  /* Section */
+  .section { margin-bottom: 100px; }
+  .section-header {
+    display: flex; align-items: baseline; gap: 20px;
+    margin-bottom: 40px; padding-bottom: 20px;
+    border-bottom: 1px solid var(--gray-700);
+  }
+  .section-num { font-family: 'Montserrat', sans-serif; font-size: 56px; font-weight: 200; color: var(--gray-700); line-height: 1; letter-spacing: -0.04em; }
+  .section-title { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber); }
+  .section-desc { font-family: 'Ubuntu', sans-serif; font-size: 16px; color: var(--gray-400); margin-top: 4px; font-weight: 300; }
+
+  /* Grid */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+
+  /* Card */
+  .card { border-radius: 12px; overflow: hidden; border: 1px solid var(--gray-700); }
+  .card-label {
+    padding: 12px 20px; background: var(--black-soft);
+    border-bottom: 1px solid var(--gray-700);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .card-label .name { font-family: 'Ubuntu', sans-serif; font-size: 14px; font-weight: 500; color: var(--white); }
+  .card-label .tag { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; }
+  .tag-dna { background: var(--amber); color: var(--black); }
+  .tag-light { background: var(--gray-200); color: var(--black); }
+  .card-body { padding: 36px; }
+
+  @media (max-width: 768px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- ===== HERO ===== -->
+<div class="chevron-pattern" style="text-align:center; padding:80px 0 60px; border-bottom:1px solid var(--gray-700); margin-bottom:80px;">
+  <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber); margin-bottom:24px; position:relative; z-index:2;">Direção Anti-AI · DNA Real</div>
+  <div style="position:relative; z-index:2; margin-bottom: 16px;">
+    <span style="font-family:'Montserrat',sans-serif; font-weight:200; font-size:56px; letter-spacing:0.2em; color:var(--white);">LUIZ</span>
+    <span style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:56px; letter-spacing:0.2em; color:var(--white);">FOSC</span>
+  </div>
+  <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-style:italic; font-size:20px; color:var(--amber-glow); margin-bottom:12px; position:relative; z-index:2;">"Não é dom, é estrutura."</div>
+  <div style="font-family:'Ubuntu',sans-serif; font-size:14px; color:var(--gray-400); position:relative; z-index:2;">B&W + Amber · Chevron Pattern · Ubuntu · Montserrat · 3 cores. Zero tendência.</div>
+</div>
+
+<!-- ===== 01: PALETA — 3 CORES. SÓ. ===== -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">01</div>
+    <div>
+      <div class="section-title">Paleta — Três cores. Ponto.</div>
+      <div class="section-desc">O original era B&W. A Beace adicionou o âmbar. É tudo que precisa.</div>
+    </div>
+  </div>
+
+  <div class="grid-3" style="margin-bottom:24px;">
+    <div class="card">
+      <div style="height:140px; background:var(--black); display:flex; align-items:center; justify-content:center;">
+        <span style="font-family:'Montserrat',sans-serif; font-weight:300; font-size:14px; color:var(--white);">Preto #212121</span>
+      </div>
+      <div style="padding:14px 16px; background:var(--black-soft);">
+        <div style="font-size:13px; color:var(--gray-300);">Base · 70% · O palco escuro</div>
+      </div>
+    </div>
+    <div class="card">
+      <div style="height:140px; background:var(--white); display:flex; align-items:center; justify-content:center;">
+        <span style="font-family:'Montserrat',sans-serif; font-weight:500; font-size:14px; color:var(--black);">Branco #FFFFFF</span>
+      </div>
+      <div style="padding:14px 16px; background:var(--black-soft);">
+        <div style="font-size:13px; color:var(--gray-300);">Texto · 25% · A luz que revela</div>
+      </div>
+    </div>
+    <div class="card">
+      <div style="height:140px; background:var(--amber); display:flex; align-items:center; justify-content:center;">
+        <span style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:14px; color:var(--black);">Amber #B8860B</span>
+      </div>
+      <div style="padding:14px 16px; background:var(--black-soft);">
+        <div style="font-size:13px; color:var(--gray-300);">Acento único · 5% · O spotlight do palco</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Proportion -->
+  <div style="display:flex; height:48px; border-radius:10px; overflow:hidden; margin-bottom:8px;">
+    <div style="flex:70; background:var(--black); border:1px solid var(--gray-700); display:flex; align-items:center; justify-content:center;">
+      <span style="font-family:'Montserrat',sans-serif; font-size:12px; font-weight:500; color:var(--white);">Preto · 70%</span>
+    </div>
+    <div style="flex:25; background:var(--white); display:flex; align-items:center; justify-content:center;">
+      <span style="font-family:'Montserrat',sans-serif; font-size:12px; font-weight:500; color:var(--black);">Branco · 25%</span>
+    </div>
+    <div style="flex:5; background:var(--amber); display:flex; align-items:center; justify-content:center;">
+      <span style="font-family:'Montserrat',sans-serif; font-size:11px; font-weight:600; color:var(--black);">5%</span>
+    </div>
+  </div>
+  <div style="text-align:center; font-size:13px; color:var(--gray-500); margin-bottom:32px;">
+    Amber é o spotlight. Quando aparece, chama atenção. Se aparece demais, vira genérico.
+  </div>
+
+  <!-- Light mode palette -->
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-label"><span class="name">Dark Mode</span><span class="tag tag-dna">Padrão</span></div>
+      <div class="card-body chevron-pattern" style="background:var(--black); text-align:center; padding:40px;">
+        <div style="font-family:'Montserrat',sans-serif; font-weight:200; font-size:32px; letter-spacing:0.15em; color:var(--white); position:relative; z-index:2;">LUIZ <span style="font-weight:800;">FOSC</span></div>
+        <div class="amber-bar" style="margin:16px auto; position:relative; z-index:2;"></div>
+        <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-style:italic; font-size:15px; color:var(--amber-glow); position:relative; z-index:2;">"Não é dom, é estrutura."</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-label" style="background:var(--gray-100);"><span class="name" style="color:var(--black);">Light Mode</span><span class="tag tag-light">Ivory</span></div>
+      <div class="card-body chevron-pattern chevron-pattern-light" style="background:var(--ivory); text-align:center; padding:40px;">
+        <div style="font-family:'Montserrat',sans-serif; font-weight:200; font-size:32px; letter-spacing:0.15em; color:var(--black); position:relative; z-index:2;">LUIZ <span style="font-weight:800;">FOSC</span></div>
+        <div class="amber-bar" style="margin:16px auto; position:relative; z-index:2;"></div>
+        <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-style:italic; font-size:15px; color:var(--amber-dark); position:relative; z-index:2;">"Não é dom, é estrutura."</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 02: TIPOGRAFIA ===== -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">02</div>
+    <div>
+      <div class="section-title">Tipografia — Evolução, não revolução</div>
+      <div class="section-desc">Montserrat (logo) + Ubuntu (body) já existem na marca. Adicionar Playfair Display como display editorial opcional.</div>
+    </div>
+  </div>
+
+  <!-- Hierarchy Dark -->
+  <div class="card" style="margin-bottom:24px;">
+    <div class="card-label"><span class="name">Escala Tipográfica — Dark Mode</span><span class="tag tag-dna">DNA Real</span></div>
+    <div class="card-body chevron-pattern" style="background:var(--black);">
+
+      <div style="margin-bottom:44px; position:relative; z-index:2;">
+        <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber); margin-bottom:16px;">Overline · Montserrat 600 · 11px · Caps</div>
+        <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:52px; line-height:1.05; letter-spacing:-0.02em; color:var(--white); margin-bottom:8px;">
+          Pense como um<br>ilusionista
+        </div>
+        <div style="font-size:11px; color:var(--gray-500);">H1 Hero · Montserrat ExtraBold · 52px — impacto de palco</div>
+      </div>
+
+      <div style="margin-bottom:40px; position:relative; z-index:2;">
+        <div style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:36px; line-height:1.15; letter-spacing:-0.01em; color:var(--white); margin-bottom:8px;">
+          A arte de crescer com os desafios
+        </div>
+        <div style="font-size:11px; color:var(--gray-500);">H2 Section · Montserrat Bold · 36px</div>
+      </div>
+
+      <div style="margin-bottom:36px; position:relative; z-index:2;">
+        <div style="font-family:'Ubuntu',sans-serif; font-weight:500; font-size:22px; line-height:1.3; color:var(--white); margin-bottom:8px;">
+          Estrutura invisível que sustenta o impacto visível
+        </div>
+        <div style="font-size:11px; color:var(--gray-500);">H3 Subsection · Ubuntu Medium · 22px</div>
+      </div>
+
+      <div style="margin-bottom:36px; position:relative; z-index:2;">
+        <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:17px; line-height:1.7; color:var(--gray-200); margin-bottom:8px; max-width:660px;">
+          Toda palestra-show é um sistema de engrenagens invisíveis. O público vê o impossível acontecer — mas o que sustenta o milagre é o método. Não existe dom sem estrutura. Não existe mágica sem engenharia. E não existe transformação sem decisão.
+        </div>
+        <div style="font-size:11px; color:var(--gray-500);">Body · Ubuntu Light · 17px — leve, arejado, humano</div>
+      </div>
+
+      <div style="margin-bottom:36px; position:relative; z-index:2;">
+        <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-style:italic; font-size:22px; line-height:1.5; color:var(--amber-glow); border-left:3px solid var(--amber); padding-left:20px; margin-bottom:8px;">
+          "Não é dom, é estrutura. Não é mágica, é método. Não é sorte, é decisão."
+        </div>
+        <div style="font-size:11px; color:var(--gray-500);">Quote · Ubuntu Light Italic · 22px · Amber — o spotlight na frase</div>
+      </div>
+
+      <div style="margin-bottom:36px; position:relative; z-index:2;">
+        <div style="font-family:'Montserrat',sans-serif; font-weight:400; font-size:12px; line-height:1.4; color:var(--gray-400); letter-spacing:0.02em; margin-bottom:8px;">
+          Palestra realizada em São Paulo, SP — Março 2026 · Foto: Acervo pessoal
+        </div>
+        <div style="font-size:11px; color:var(--gray-600);">Caption · Montserrat Regular · 12px</div>
+      </div>
+
+      <div style="position:relative; z-index:2;">
+        <div style="display:flex; gap:12px; align-items:center; margin-bottom:8px;">
+          <div style="background:var(--amber); color:var(--black); font-family:'Montserrat',sans-serif; font-weight:600; font-size:13px; letter-spacing:0.04em; padding:12px 28px; border-radius:6px;">Solicitar proposta</div>
+          <div style="border:1px solid var(--gray-500); color:var(--white); font-family:'Ubuntu',sans-serif; font-weight:400; font-size:14px; padding:12px 28px; border-radius:6px;">Ver depoimentos</div>
+        </div>
+        <div style="font-size:11px; color:var(--gray-500);">Botões · Montserrat 600 (primário) + Ubuntu 400 (secundário)</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Hierarchy Light -->
+  <div class="card">
+    <div class="card-label" style="background:var(--gray-100);"><span class="name" style="color:var(--black);">Escala Tipográfica — Light Mode (Ivory)</span><span class="tag tag-light">Light</span></div>
+    <div class="card-body chevron-pattern chevron-pattern-light" style="background:var(--ivory); position:relative; z-index:1;">
+
+      <div style="margin-bottom:32px; position:relative; z-index:2;">
+        <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber-dark); margin-bottom:16px;">Palestra Show</div>
+        <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:44px; line-height:1.05; letter-spacing:-0.02em; color:var(--black);">
+          Pense como um ilusionista
+        </div>
+      </div>
+
+      <div style="margin-bottom:28px; position:relative; z-index:2;">
+        <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:17px; line-height:1.7; color:var(--gray-600); max-width:600px;">
+          Toda palestra-show é um sistema de engrenagens invisíveis. O público vê o impossível acontecer — mas o que sustenta o milagre é o método.
+        </div>
+      </div>
+
+      <div style="margin-bottom:28px; position:relative; z-index:2;">
+        <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-style:italic; font-size:20px; line-height:1.5; color:var(--amber-dark); border-left:3px solid var(--amber); padding-left:20px;">
+          "O que o público chama de mágica, eu chamo de quinta-feira."
+        </div>
+      </div>
+
+      <div style="display:flex; gap:12px; position:relative; z-index:2;">
+        <div style="background:var(--black); color:var(--white); font-family:'Montserrat',sans-serif; font-weight:600; font-size:13px; padding:12px 28px; border-radius:6px;">Solicitar proposta</div>
+        <div style="border:1px solid var(--amber); color:var(--amber-dark); font-family:'Ubuntu',sans-serif; font-weight:400; font-size:14px; padding:12px 28px; border-radius:6px;">Ver depoimentos</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ===== 03: CHEVRON PATTERN ===== -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">03</div>
+    <div>
+      <div class="section-title">Chevron Pattern — O ativo que já existia</div>
+      <div class="section-desc">O símbolo repetido como textura. Já estava no manual de 2019. Nenhuma AI geraria isso.</div>
+    </div>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-label"><span class="name">Textura sutil (fundos)</span></div>
+      <div class="chevron-pattern" style="height:200px; background:var(--black); display:flex; align-items:center; justify-content:center;">
+        <span style="font-family:'Montserrat',sans-serif; font-size:12px; color:var(--gray-500); position:relative; z-index:2;">Opacidade 4% · Para áreas grandes</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-label"><span class="name">Textura média (cards)</span></div>
+      <div style="height:200px; background:var(--black); position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+        <div style="position:absolute; inset:0; opacity:0.08; background-image: repeating-linear-gradient(45deg, transparent, transparent 8px, var(--white) 8px, var(--white) 9px), repeating-linear-gradient(-45deg, transparent, transparent 8px, var(--white) 8px, var(--white) 9px);"></div>
+        <span style="font-family:'Montserrat',sans-serif; font-size:12px; color:var(--gray-400); position:relative; z-index:2;">Opacidade 8% · Para destaque</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-label"><span class="name">Amber accent pattern</span></div>
+      <div style="height:200px; background:var(--black); position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+        <div style="position:absolute; inset:0; opacity:0.1; background-image: repeating-linear-gradient(45deg, transparent, transparent 8px, var(--amber) 8px, var(--amber) 9px), repeating-linear-gradient(-45deg, transparent, transparent 8px, var(--amber) 8px, var(--amber) 9px);"></div>
+        <span style="font-family:'Montserrat',sans-serif; font-size:12px; color:var(--amber-glow); position:relative; z-index:2;">Amber · Momentos especiais</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 04: INSTAGRAM ===== -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">04</div>
+    <div>
+      <div class="section-title">Instagram — Posts com DNA real</div>
+      <div class="section-desc">B&W + Amber spotlight + Chevron pattern. Zero roxo, zero gradiente neon.</div>
+    </div>
+  </div>
+
+  <div class="grid-3">
+
+    <!-- Quote Card -->
+    <div class="card">
+      <div class="card-label"><span class="name">Card de Frase</span><span class="tag tag-dna">1:1</span></div>
+      <div style="padding:12px; background:var(--black-soft);">
+        <div class="chevron-pattern" style="aspect-ratio:1/1; border-radius:10px; background:var(--black); display:flex; flex-direction:column; justify-content:center; padding:32px; position:relative;">
+          <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber); margin-bottom:20px; position:relative; z-index:2;">#pensecomoumilusionista</div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:20px; line-height:1.2; color:var(--white); margin-bottom:16px; position:relative; z-index:2;">
+            Nem todo problema<br>precisa ser resolvido<br>atacando de frente.
+          </div>
+          <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:14px; color:var(--gray-300); line-height:1.6; margin-bottom:24px; position:relative; z-index:2;">
+            Às vezes, o melhor caminho é desviar o foco — é aí que as soluções criativas aparecem. Com muita <span style="color:var(--amber-glow);">estrutura</span> por trás.
+          </div>
+          <div class="amber-bar" style="margin-bottom:12px; position:relative; z-index:2;"></div>
+          <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:12px; color:var(--gray-500); position:relative; z-index:2;">Luiz Fosc · @luizfosc</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Carousel Cover -->
+    <div class="card">
+      <div class="card-label"><span class="name">Capa Carrossel</span><span class="tag tag-dna">1:1</span></div>
+      <div style="padding:12px; background:var(--black-soft);">
+        <div style="aspect-ratio:1/1; border-radius:10px; background:var(--black); display:flex; flex-direction:column; justify-content:flex-end; padding:32px; position:relative; overflow:hidden;">
+          <!-- Photo placeholder with amber tint -->
+          <div style="position:absolute; top:0; left:0; right:0; height:55%; background: linear-gradient(180deg, rgba(184,134,11,0.08) 0%, rgba(33,33,33,0.95) 100%); display:flex; align-items:center; justify-content:center;">
+            <div style="width:70px; height:70px; border:2px dashed var(--gray-700); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; color:var(--gray-600);">📷</div>
+          </div>
+          <!-- Chevron corner decoration -->
+          <div style="position:absolute; top:16px; right:16px; width:32px; height:32px; border-right:2px solid var(--amber); border-top:2px solid var(--amber); opacity:0.4;"></div>
+          <!-- Content -->
+          <div style="position:relative; z-index:2;">
+            <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:var(--amber); margin-bottom:10px;">Princípio do Ilusionista #03</div>
+            <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:26px; line-height:1.1; color:var(--white); margin-bottom:4px;">
+              Crie distrações<br><span style="color:var(--amber-glow);">inteligentes</span>
+            </div>
+            <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:13px; color:var(--gray-400); margin-top:10px;">Deslize para aprender →</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reels Cover -->
+    <div class="card">
+      <div class="card-label"><span class="name">Capa Reels</span><span class="tag tag-dna">9:16</span></div>
+      <div style="padding:12px; background:var(--black-soft);">
+        <div style="aspect-ratio:9/16; max-height:500px; border-radius:10px; background:var(--black); display:flex; flex-direction:column; justify-content:flex-end; padding:24px; position:relative; overflow:hidden;">
+          <!-- Photo placeholder -->
+          <div style="position:absolute; top:0; left:0; right:0; height:50%; background: linear-gradient(180deg, rgba(184,134,11,0.05) 0%, rgba(33,33,33,0.98) 100%); display:flex; align-items:center; justify-content:center;">
+            <div style="width:60px; height:60px; border:2px dashed var(--gray-700); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; color:var(--gray-600);">📷</div>
+          </div>
+          <!-- Chevron corner -->
+          <div style="position:absolute; top:14px; right:14px; width:28px; height:28px; border-right:2px solid var(--amber); border-top:2px solid var(--amber); opacity:0.35;"></div>
+          <!-- Content -->
+          <div style="position:relative; z-index:2;">
+            <div style="font-family:'Montserrat',sans-serif; font-weight:500; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--gray-400); margin-bottom:8px;">@luizfosc</div>
+            <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:26px; line-height:1.08; color:var(--white); margin-bottom:4px;">
+              Por que empresas de <span style="color:var(--amber-glow);">alta performance</span>
+            </div>
+            <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:15px; color:var(--gray-300);">me chamam para palestrar?</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== 05: BANNER ===== -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">05</div>
+    <div>
+      <div class="section-title">Banners — LinkedIn / YouTube</div>
+      <div class="section-desc">Dark e Light. Chevron pattern como textura de fundo.</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-label"><span class="name">Banner Dark</span><span class="tag tag-dna">Padrão</span></div>
+      <div class="card-body chevron-pattern" style="background:var(--black); padding:44px 36px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; position:relative; z-index:2;">
+          <div>
+            <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber); margin-bottom:10px;">#pensecomoumilusionista</div>
+            <div style="margin-bottom:4px;">
+              <span style="font-family:'Montserrat',sans-serif; font-weight:200; font-size:32px; letter-spacing:0.1em; color:var(--white);">LUIZ </span>
+              <span style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:32px; letter-spacing:0.1em; color:var(--white);">FOSC</span>
+            </div>
+            <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-style:italic; font-size:15px; color:var(--amber-glow);">"Não é dom, é estrutura."</div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:6px; align-items:flex-end;">
+            <div style="font-family:'Montserrat',sans-serif; font-size:9px; font-weight:500; letter-spacing:0.06em; text-transform:uppercase; color:var(--gray-300); border:1px solid var(--gray-600); border-radius:4px; padding:5px 10px;">2× Guinness World Record</div>
+            <div style="font-family:'Montserrat',sans-serif; font-size:9px; font-weight:500; letter-spacing:0.06em; text-transform:uppercase; color:var(--gray-300); border:1px solid var(--gray-600); border-radius:4px; padding:5px 10px;">Top of Mind · Londres</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label" style="background:var(--gray-100);"><span class="name" style="color:var(--black);">Banner Light</span><span class="tag tag-light">Light</span></div>
+      <div class="card-body chevron-pattern chevron-pattern-light" style="background:var(--ivory); padding:44px 36px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; position:relative; z-index:2;">
+          <div>
+            <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber-dark); margin-bottom:10px;">#pensecomoumilusionista</div>
+            <div style="margin-bottom:4px;">
+              <span style="font-family:'Montserrat',sans-serif; font-weight:200; font-size:32px; letter-spacing:0.1em; color:var(--black);">LUIZ </span>
+              <span style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:32px; letter-spacing:0.1em; color:var(--black);">FOSC</span>
+            </div>
+            <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-style:italic; font-size:15px; color:var(--amber-dark);">"Não é dom, é estrutura."</div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:6px; align-items:flex-end;">
+            <div style="font-family:'Montserrat',sans-serif; font-size:9px; font-weight:500; letter-spacing:0.06em; text-transform:uppercase; color:var(--gray-600); border:1px solid var(--gray-300); border-radius:4px; padding:5px 10px;">2× Guinness World Record</div>
+            <div style="font-family:'Montserrat',sans-serif; font-size:9px; font-weight:500; letter-spacing:0.06em; text-transform:uppercase; color:var(--gray-600); border:1px solid var(--gray-300); border-radius:4px; padding:5px 10px;">Top of Mind · Londres</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 06: SLIDE ===== -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">06</div>
+    <div>
+      <div class="section-title">Slide de Palestra</div>
+      <div class="section-desc">O chevron corner como assinatura de slide. Amber no destaque.</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-label"><span class="name">Slide Dark</span><span class="tag tag-dna">16:9</span></div>
+      <div style="padding:12px; background:var(--black-soft);">
+        <div class="chevron-pattern" style="aspect-ratio:16/9; border-radius:10px; background:var(--black); display:flex; flex-direction:column; justify-content:center; padding:48px 56px; position:relative; overflow:hidden;">
+          <!-- Chevron corner mark -->
+          <div style="position:absolute; top:24px; right:32px; width:36px; height:36px; border-right:2px solid var(--amber); border-top:2px solid var(--amber); opacity:0.5;"></div>
+          <div style="position:relative; z-index:2;">
+            <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber); margin-bottom:16px;">Palestra Show · Antifrágil</div>
+            <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:36px; line-height:1.08; color:var(--white); margin-bottom:12px;">
+              A arte de crescer<br>com os <span style="color:var(--amber-glow);">desafios</span>
+            </div>
+            <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:16px; color:var(--gray-300); max-width:440px;">
+              Não é sobre ser forte. É sobre construir estruturas que ficam mais fortes sob pressão.
+            </div>
+          </div>
+          <!-- Logo mark bottom right -->
+          <div style="position:absolute; bottom:20px; right:32px; display:flex; align-items:center; gap:8px;">
+            <span style="font-family:'Montserrat',sans-serif; font-weight:300; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--gray-500);">LUIZ </span>
+            <span style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--gray-500);">FOSC</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label" style="background:var(--gray-100);"><span class="name" style="color:var(--black);">Slide Light</span><span class="tag tag-light">Light</span></div>
+      <div style="padding:12px; background:var(--gray-100);">
+        <div class="chevron-pattern chevron-pattern-light" style="aspect-ratio:16/9; border-radius:10px; background:var(--ivory); display:flex; flex-direction:column; justify-content:center; padding:48px 56px; position:relative; overflow:hidden;">
+          <div style="position:absolute; top:24px; right:32px; width:36px; height:36px; border-right:2px solid var(--amber); border-top:2px solid var(--amber); opacity:0.35;"></div>
+          <div style="position:relative; z-index:2;">
+            <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber-dark); margin-bottom:16px;">Palestra Show · Antifrágil</div>
+            <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:36px; line-height:1.08; color:var(--black); margin-bottom:12px;">
+              A arte de crescer<br>com os <span style="color:var(--amber);">desafios</span>
+            </div>
+            <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:16px; color:var(--gray-600); max-width:440px;">
+              Não é sobre ser forte. É sobre construir estruturas que ficam mais fortes sob pressão.
+            </div>
+          </div>
+          <div style="position:absolute; bottom:20px; right:32px; display:flex; align-items:center; gap:8px;">
+            <span style="font-family:'Montserrat',sans-serif; font-weight:300; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--gray-400);">LUIZ </span>
+            <span style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--gray-400);">FOSC</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 07: CTA ===== -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">07</div>
+    <div>
+      <div class="section-title">CTA — Conversão</div>
+      <div class="section-desc">Dark e Light. Amber como botão de ação. Chevron corner como assinatura.</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-label"><span class="name">CTA Dark</span><span class="tag tag-dna">Padrão</span></div>
+      <div class="card-body chevron-pattern" style="background:var(--black); text-align:center; padding:48px 36px;">
+        <div style="position:relative; z-index:2;">
+          <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber); margin-bottom:16px;">Palestra Show</div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:28px; line-height:1.1; color:var(--white); margin-bottom:8px;">Leve essa experiência<br>para sua empresa</div>
+          <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:15px; color:var(--gray-400); margin-bottom:28px;">500+ apresentações. Resultados que você sente na plateia.</div>
+          <div style="display:inline-flex; gap:12px;">
+            <div style="background:var(--amber); color:var(--black); font-family:'Montserrat',sans-serif; font-weight:600; font-size:13px; padding:14px 32px; border-radius:6px;">Solicitar proposta</div>
+            <div style="border:1px solid var(--gray-500); color:var(--white); font-family:'Ubuntu',sans-serif; font-weight:400; font-size:14px; padding:14px 32px; border-radius:6px;">Ver trailer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label" style="background:var(--gray-100);"><span class="name" style="color:var(--black);">CTA Light</span><span class="tag tag-light">Light</span></div>
+      <div class="card-body chevron-pattern chevron-pattern-light" style="background:var(--ivory); text-align:center; padding:48px 36px;">
+        <div style="position:relative; z-index:2;">
+          <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber-dark); margin-bottom:16px;">Palestra Show</div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:28px; line-height:1.1; color:var(--black); margin-bottom:8px;">Leve essa experiência<br>para sua empresa</div>
+          <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:15px; color:var(--gray-500); margin-bottom:28px;">500+ apresentações. Resultados que você sente na plateia.</div>
+          <div style="display:inline-flex; gap:12px;">
+            <div style="background:var(--black); color:var(--white); font-family:'Montserrat',sans-serif; font-weight:600; font-size:13px; padding:14px 32px; border-radius:6px;">Solicitar proposta</div>
+            <div style="border:1px solid var(--amber); color:var(--amber-dark); font-family:'Ubuntu',sans-serif; font-weight:400; font-size:14px; padding:14px 32px; border-radius:6px;">Ver trailer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div style="text-align:center; padding:48px 0; border-top:1px solid var(--gray-700);">
+  <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-style:italic; font-size:18px; color:var(--amber-glow); margin-bottom:16px;">"Não é dom, é estrutura."</div>
+  <div style="font-family:'Montserrat',sans-serif; font-size:11px; color:var(--gray-500); font-weight:400; letter-spacing:0.04em;">
+    Direção Anti-AI · DNA Real · 2026-04-07<br>
+    Montserrat + Ubuntu · B&W + Amber · Chevron Pattern<br>
+    3 cores. 2 fontes. 1 padrão. Zero tendência.
+  </div>
+</div>
+
+</div>
+</body>
+</html>

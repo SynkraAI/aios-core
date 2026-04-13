@@ -19,16 +19,16 @@ task:
 
 ### Output
 - Merged `.claude/settings.json` with Stop + SessionStart hooks registered
-- Initialized `.aios/logs/` directory
+- Initialized `.aiox/logs/` directory
 - Initialized `squads/kaizen-v2/data/intelligence/` directories
 - First daily YAML captured
 - First briefing tested
 - Installation report
 
 ### Acceptance Criteria
-- [ ] Auto-detect AIOS or AIOX project (check for .aios-core/ or .aiox/)
+- [ ] Auto-detect AIOS or AIOX project (check for .aiox-core/ or .aiox/)
 - [ ] Hooks registered in `.claude/settings.json` (Stop and SessionStart)
-- [ ] `.aios/logs/` directory created
+- [ ] `.aiox/logs/` directory created
 - [ ] `squads/kaizen-v2/data/intelligence/{daily,reflections,knowledge,archive}/` dirs created
 - [ ] `patterns.yaml` has seed patterns (≥5 verified)
 - [ ] First daily YAML captured
@@ -50,7 +50,7 @@ task:
 Check for framework presence:
 ```bash
 # Check for AIOS or AIOX
-if [ -d .aios-core/ ]; then PROJECT_TYPE="aios"; fi
+if [ -d .aiox-core/ ]; then PROJECT_TYPE="aios"; fi
 if [ -d .aiox/ ]; then PROJECT_TYPE="aiox"; fi
 ```
 If neither found: ABORT with error "Not an AIOS or AIOX project".
@@ -149,7 +149,7 @@ After editing, the `hooks` section in `.claude/settings.json` should contain:
 ### Step 4: Initialize Directories
 
 ```bash
-mkdir -p .aios/logs/
+mkdir -p .aiox/logs/
 mkdir -p squads/kaizen-v2/data/intelligence/{daily,reflections,knowledge,archive}
 ```
 
@@ -197,7 +197,7 @@ Run `*health` task to validate all 12 installation points:
 8. `data/intelligence/knowledge/` exists
 9. `data/intelligence/archive/` exists
 10. `patterns.yaml` has schema + ≥5 verified patterns
-11. `.aios/logs/` exists
+11. `.aiox/logs/` exists
 12. Scripts executable (node check)
 
 ### Step 9: Installation Report
@@ -219,7 +219,7 @@ Generate and display report:
 - Pre-existing hooks: PRESERVED ({N} hooks untouched)
 
 ## Directories
-- .aios/logs/: {Created|Exists}
+- .aiox/logs/: {Created|Exists}
 - data/intelligence/daily/: {Created|Exists}
 - data/intelligence/reflections/: {Created|Exists}
 - data/intelligence/knowledge/: {Created|Exists}

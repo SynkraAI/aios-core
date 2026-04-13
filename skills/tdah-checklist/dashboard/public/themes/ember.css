@@ -1,0 +1,49 @@
+/* ============================================================
+   EMBER THEME — Quest Master Dashboard
+   Fire and embers. Incandescent orange over dark ashes.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg-primary:      #0d0a08;
+  --bg-secondary:    #14100c;
+  --bg-card:         #1e1610;
+  --bg-card-hover:   #2a2018;
+
+  --text-primary:    #f4efde;
+  --text-secondary:  #a78a6d;
+  --text-accent:     #ff7100;
+
+  --accent-primary:   #ff7100;
+  --accent-secondary: #edb500;
+  --accent-tertiary:  #b32424;
+
+  --border-color: #3a2a1e;
+  --border-glow:  0 0 0 1px rgba(255, 113, 0, 0.3),
+                  0 0 12px rgba(255, 113, 0, 0.15);
+
+  --progress-gradient: linear-gradient(90deg, #b32424 0%, #ff7100 50%, #edb500 100%);
+  --progress-shine:    linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%);
+
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 20px rgba(255, 113, 0, 0.2);
+
+  --radius-card: 8px;
+  --radius-pill: 9999px;
+
+  --font-display: 'Rajdhani', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-display);
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: #3a2a1e; border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: #5a4a3e; }
+* { scrollbar-width: thin; scrollbar-color: #3a2a1e var(--bg-primary); }

@@ -133,7 +133,7 @@ workflow:
         1. Ler docs/projects/ACTIVE.md
         2. Parsear tabela markdown (extrair colunas Projeto, INDEX, Status)
         3. Para cada projeto, detectar modo:
-           - Se INDEX aponta para .aios/INDEX.md → HYBRID
+           - Se INDEX aponta para .aiox/INDEX.md → HYBRID
            - Se INDEX aponta para docs/projects/{name}/ → CENTRALIZED
         4. Computar path absoluto de cada projeto
         5. Verificar se path existe no filesystem
@@ -278,13 +278,13 @@ Verifica se as configs estão atualizadas.
 | Critério | CENTRALIZED | HYBRID |
 |----------|-------------|--------|
 | Projeto vive em | `aios-core/` (squads, minds) | `~/CODE/Projects/` (apps externos) |
-| INDEX.md em | `docs/projects/{name}/INDEX.md` | `{path}/.aios/INDEX.md` |
+| INDEX.md em | `docs/projects/{name}/INDEX.md` | `{path}/.aiox/INDEX.md` |
 | `.claude/` em | `docs/projects/{name}/.claude/` | `{path}/.claude/` |
 | Herança de config | Herda tudo do aios-core | Pode herdar ou ter próprio |
 | Use quando | Squad, mind clone, research interno | App full-stack, pipeline externo |
 
 **Detecção automática:**
-- INDEX aponta para `.aios/INDEX.md` → HYBRID
+- INDEX aponta para `.aiox/INDEX.md` → HYBRID
 - INDEX aponta para `docs/projects/{name}/` → CENTRALIZED
 - Ambos presentes → ERRO (VETO_4)
 
@@ -299,11 +299,11 @@ O skill verifica que NENHUM destes placeholders existe fora de code blocks:
 | `{{PROJECT_NAME}}` | Minha App |
 | `{{MODE}}` | HYBRID |
 | `{{MODE_DESCRIPTION}}` | Governança local |
-| `{{INDEX_PATH}}` | .aios/INDEX.md |
-| `{{STORIES_PATH}}` | .aios/stories/active/ |
-| `{{SESSIONS_PATH}}` | .aios/sessions/ |
+| `{{INDEX_PATH}}` | .aiox/INDEX.md |
+| `{{STORIES_PATH}}` | .aiox/stories/active/ |
+| `{{SESSIONS_PATH}}` | .aiox/sessions/ |
 | `{{PROJECT_SLUG}}` | minha-app |
-| `{{SAVE_LOCATION}}` | .aios/ |
+| `{{SAVE_LOCATION}}` | .aiox/ |
 
 ---
 

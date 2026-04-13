@@ -62,13 +62,62 @@ function deriveForeground(bgHSL) {
 }
 
 /**
+ * Resolve a flat color palette from a brand, supporting canonical
+ * (colors.semantic) and legacy flat (colors.*) formats.
+ * Also derives missing fields (card, primary_light, highlight, white)
+ * so downstream consumers never hit undefined.
+ * @param {object} brand - Brand config from brand-loader
+ * @returns {object} Flat color map with safe fallbacks
+ */
+function resolveColors(brand) {
+  const raw = brand.colors || {};
+  const sem = raw.semantic || raw;
+  const background = sem.background || '#0A0A0A';
+  const text = sem.text || '#FAFAFA';
+  const primary = sem.primary || sem.accent || '#B8860B';
+  const accent = sem.accent || sem.primary_hover || primary;
+  const border = sem.border || sem.surface_elevated || '#27272A';
+  return {
+    background,
+    text,
+    card: sem.card || sem.surface || sem.surface_elevated || background,
+    primary,
+    primary_light: sem.primary_light || sem.primary_hover || sem.accent_intense || accent,
+    accent,
+    accent_intense: sem.accent_intense || accent,
+    border,
+    border_hover: sem.border_hover || border,
+    text_secondary: sem.text_secondary || sem.text_muted || text,
+    text_muted: sem.text_muted || sem.text_secondary || border,
+    highlight: sem.highlight || sem.accent_intense || accent,
+    white: sem.white || '#FFFFFF',
+    surface: sem.surface || sem.card || background,
+  };
+}
+
+/**
+ * Resolve the primary display font family name from a brand,
+ * supporting canonical (typography.family.display) and legacy (brand.font).
+ * @param {object} brand
+ * @returns {string}
+ */
+function resolveFont(brand) {
+  return (
+    brand.font ||
+    brand.typography?.family?.display ||
+    brand.typography?.family?.body ||
+    'Inter'
+  );
+}
+
+/**
  * Build Tailwind CDN config object from brand colors.
  * Used for inline Tailwind config in GSAP mode.
  * @param {object} brand - Brand config from brand-loader
  * @returns {object} Tailwind theme.extend.colors config
  */
 export function brandToTailwindConfig(brand) {
-  const c = brand.colors;
+  const c = resolveColors(brand);
   return {
     colors: {
       border: c.border,
@@ -81,7 +130,7 @@ export function brandToTailwindConfig(brand) {
       highlight: c.highlight,
     },
     fontFamily: {
-      sans: [brand.font, 'system-ui', 'sans-serif'],
+      sans: [resolveFont(brand), 'system-ui', 'sans-serif'],
     },
     borderRadius: {
       lg: '0.75rem',
@@ -99,7 +148,7 @@ export function brandToTailwindConfig(brand) {
  * @returns {string} CSS custom properties block (without selector)
  */
 export function brandToShadcnVars(brand, mode = 'dark') {
-  const c = brand.colors;
+  const c = resolveColors(brand);
 
   const bg = hexToHSL(c.background);
   const fg = hexToHSL(c.text);
@@ -139,7 +188,7 @@ export function brandToShadcnVars(brand, mode = 'dark') {
 export function brandToFramerMotionTheme(brand) {
   return {
     name: brand.name,
-    font: brand.font,
+    font: resolveFont(brand),
     defaultTheme: brand.theme || 'dark',
     colors: {
       primary: 'hsl(var(--primary))',

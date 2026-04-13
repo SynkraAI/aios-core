@@ -371,7 +371,7 @@ intelligence:
 
 ## Logs & Debug
 
-- Hook logs: `.aios/logs/kaizen-*.log`
+- Hook logs: `.aiox/logs/kaizen-*.log`
 - Pattern debug: `data/intelligence/knowledge/patterns.yaml` (veja decay_score)
 - Daily debug: `data/intelligence/daily/YYYY-MM-DD.yaml`
 

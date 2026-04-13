@@ -7,11 +7,11 @@
 | Projeto | Forge Plugin System + 9 Evolution Features |
 | Modo | CENTRALIZED (dentro de aios-core) |
 | Localização | `skills/forge/` |
-| Status | Implementado + Auditado |
+| Status | ✅ CONCLUÍDO — Implementado + Auditado |
 
 ## Estado Atual
 
-Plugin system completo com 13 plugins validados. 9 features implementadas (Memory, Dry Run, Dep Graph, Replay, Watch, Advisor, Parallel, Templates, Feedback). Auditoria Codex passou com todos os 23 itens resolvidos. Projeto de teste criado em `~/CODE/Projects/forge-test-lab/`. Próximo passo: smoke test com `/forge dry-run` no test lab.
+Plugin system completo com 18 plugins (1037 linhas YAML). 9 features implementadas (Memory, Dry Run, Dep Graph, Replay, Watch, Advisor, Parallel, Templates, Feedback). Auditoria Codex passou com todos os 23 itens resolvidos. Nota: `validate-plugins.cjs` mencionado em sessão anterior não foi persistido — plugins validados manualmente (18/18 YAML bem formados, SCHEMA.md presente).
 
 ## Última Sessão
 

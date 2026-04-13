@@ -21,6 +21,11 @@
             "type": "command",
             "command": "test -f \"${CLAUDE_PROJECT_DIR:-.}/squads/kaizen-v2/scripts/session-briefing.cjs\" && node \"${CLAUDE_PROJECT_DIR:-.}/squads/kaizen-v2/scripts/session-briefing.cjs\" || true",
             "timeout": 3
+          },
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PROJECT_DIR:-.}/skills/socratica/session-check.cjs\" 2>/dev/null || true",
+            "timeout": 3
           }
         ]
       }

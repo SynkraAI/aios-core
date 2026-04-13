@@ -5,7 +5,7 @@
  *
  * Resolves resource paths with squad-local-first strategy:
  *   1. squads/navigator/{type}/{file}     (squad installed)
- *   2. .aios-core/development/{type}/{file} (legacy fallback)
+ *   2. .aiox-core/development/{type}/{file} (legacy fallback)
  *
  * Usage:
  *   const { resolveSquadPath, resolveSquadDir } = require('./squad-paths');
@@ -26,7 +26,7 @@ function getSquadRoot() {
 }
 
 /**
- * Find the project root (where .aios-core/ or .git/ lives)
+ * Find the project root (where .aiox-core/ or .git/ lives)
  * @returns {string} Absolute path to project root
  */
 function getProjectRoot() {
@@ -53,8 +53,8 @@ function resolveSquadPath(resourceType, fileName, projectRoot = null) {
     return squadPath;
   }
 
-  // 2. Legacy .aios-core/development/ fallback
-  const legacyPath = path.join(root, '.aios-core', 'development', resourceType, fileName);
+  // 2. Legacy .aiox-core/development/ fallback
+  const legacyPath = path.join(root, '.aiox-core', 'development', resourceType, fileName);
   if (fs.existsSync(legacyPath)) {
     return legacyPath;
   }
@@ -81,7 +81,7 @@ function resolveSquadDir(dirPath, projectRoot = null) {
   }
 
   // 2. Legacy fallback
-  const legacyDir = path.join(root, '.aios-core', 'development', dirPath);
+  const legacyDir = path.join(root, '.aiox-core', 'development', dirPath);
   if (fs.existsSync(legacyDir)) {
     return legacyDir;
   }

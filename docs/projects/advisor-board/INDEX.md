@@ -48,7 +48,7 @@ Tier 1 (Vision): Jobs, Disney
 ```
 
 ## Arquivos Importantes
-- **Handoff:** `.aios/handoffs/2026-03-12-advisor-board-squad.md`
+- **Handoff:** `.aiox/handoffs/2026-03-12-advisor-board-squad.md`
 - **Sources:** `outputs/minds/advisor-board-sources/{slug}/` (21 livros em markdown, .gitignore)
 - **Minds:** `outputs/minds/{slug}/` (voice_dna + thinking_dna + mind_dna_complete, .gitignore)
 - **Perfil usuario:** `squads/luiz-fosc/data/dna/` (ENTP, frameworks, voice)

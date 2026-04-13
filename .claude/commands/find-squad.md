@@ -3,7 +3,7 @@ Ao receber este comando, siga EXATAMENTE estes passos:
 1. **Capture a demanda do usuário** — o argumento passado após `/find-squad` é a descrição da necessidade. Se não houver argumento, pergunte ao usuário o que ele precisa.
 
 2. **Delegue para um subagente haiku** usando a Task tool com subagent_type "Explore":
-   - O subagente DEVE ler o arquivo `.aios-core/data/catalog.md`
+   - O subagente DEVE ler o arquivo `.aiox-core/data/catalog.md`
    - O subagente DEVE buscar TODOS os squads, skills e agents que sejam genuinamente relevantes para a demanda
    - O subagente DEVE retornar para cada match: nome, slug (para ativação), descrição curta, e relevância (alta/média)
    - O subagente NÃO deve filtrar por quantidade — trazer TUDO que for relevante

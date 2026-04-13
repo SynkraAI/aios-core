@@ -146,7 +146,7 @@
 ### Para Criar Primeiro Vídeo Viral:
 
 ```bash
-1. Abrir: .aios-core/viral-squad/README.md
+1. Abrir: .aiox-core/viral-squad/README.md
 2. Escolher workflow: viral-factory
 3. Seguir: workflows/viral-creation/viral-factory.md
 4. Deixar agentes debaterem em cada fase
@@ -275,7 +275,7 @@ Se quiser expandir ainda mais:
 ## 📂 Estrutura Final
 
 ```
-.aios-core/viral-squad/
+.aiox-core/viral-squad/
 ├── agents/                    # 27 agentes (100%) ✅
 │   ├── viral-strategy/       # 5 agentes
 │   ├── viral-content/        # 5 agentes
@@ -410,7 +410,7 @@ Você tem agora:
 ## 📞 Como Começar AGORA
 
 ```bash
-1. cd .aios-core/viral-squad
+1. cd .aiox-core/viral-squad
 2. cat README.md  # Ler documentação
 3. cat workflows/viral-creation/viral-factory.md  # Ver exemplo completo
 4. Escolher workflow apropriado

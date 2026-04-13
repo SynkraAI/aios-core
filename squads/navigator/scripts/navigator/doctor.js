@@ -200,7 +200,7 @@ async function checkDirectoryStructure() {
  */
 async function checkPipelineMap() {
   const pipelineMapPath = resolveSquadPath('data', 'navigator-pipeline-map.yaml')
-    || '.aios-core/development/data/navigator-pipeline-map.yaml';
+    || '.aiox-core/development/data/navigator-pipeline-map.yaml';
 
   if (!fs.existsSync(pipelineMapPath)) {
     return {
@@ -245,7 +245,7 @@ async function checkPipelineMap() {
  */
 async function checkScriptsExecutable() {
   const scriptsDir = resolveSquadDir('scripts/navigator')
-    || '.aios-core/development/scripts/navigator';
+    || '.aiox-core/development/scripts/navigator';
   const requiredScripts = [
     'roadmap-sync.js',
     'phase-detector.js',

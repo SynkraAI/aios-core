@@ -20,7 +20,7 @@ flowchart TB
     EXIST -->|Yes| EMPTY{Directory empty?}
 
     EMPTY -->|Yes| GREENFIELD[PATH D: GREENFIELD]
-    EMPTY -->|No| CONFIG{Has .aios/config.yaml?}
+    EMPTY -->|No| CONFIG{Has .aiox/config.yaml?}
 
     CONFIG -->|No| ONBOARDING[PATH A: ONBOARDING]
     CONFIG -->|Yes| DOCS{Has docs/architecture.md?}
@@ -46,13 +46,13 @@ flowchart TB
 
 ## PATH A: ONBOARDING (NO_CONFIG)
 
-**Condition:** Project exists but no `.aios/config.yaml`
+**Condition:** Project exists but no `.aiox/config.yaml`
 
 ### Checks
 
 - [ ] **A001**: Directory is not empty
-- [ ] **A002**: `.aios/` directory does NOT exist
-- [ ] **A003**: OR `.aios/` exists but no `config.yaml` inside
+- [ ] **A002**: `.aiox/` directory does NOT exist
+- [ ] **A003**: OR `.aiox/` exists but no `config.yaml` inside
 
 ### Validation Code
 
@@ -67,7 +67,7 @@ function detectOnboarding(projectRoot) {
     return false; // Empty dir → Greenfield
   }
 
-  // .aios/config.yaml does NOT exist
+  // .aiox/config.yaml does NOT exist
   if (fs.existsSync(configPath)) {
     return false; // Config exists → check for docs
   }
@@ -85,7 +85,7 @@ function detectOnboarding(projectRoot) {
   workflow: 'onboarding',
   message: '🔧 AIOS não está configurado. Iniciando setup...',
   nextStep: 'run_aios_init',
-  rationale: 'Projeto existe mas sem .aios/config.yaml'
+  rationale: 'Projeto existe mas sem .aiox/config.yaml'
 }
 ```
 
@@ -97,7 +97,7 @@ function detectOnboarding(projectRoot) {
 
 ### Checks
 
-- [ ] **B001**: `.aios/config.yaml` exists
+- [ ] **B001**: `.aiox/config.yaml` exists
 - [ ] **B002**: `docs/architecture.md` does NOT exist
 - [ ] **B003**: OR `docs/stories/` directory does NOT exist
 - [ ] **B004**: Project has source code (e.g., `src/`, `lib/`, `app/`)
@@ -139,7 +139,7 @@ function detectBrownfield(projectRoot) {
   message: '🔍 Detectei projeto Brownfield. Executando discovery...',
   duration: '2-4 horas',
   nextStep: 'run_brownfield_handler',
-  rationale: 'Tem .aios/config.yaml mas sem docs/architecture.md'
+  rationale: 'Tem .aiox/config.yaml mas sem docs/architecture.md'
 }
 ```
 
@@ -151,7 +151,7 @@ function detectBrownfield(projectRoot) {
 
 ### Checks
 
-- [ ] **C001**: `.aios/config.yaml` exists
+- [ ] **C001**: `.aiox/config.yaml` exists
 - [ ] **C002**: `docs/architecture.md` exists
 - [ ] **C003**: `docs/stories/` directory exists
 - [ ] **C004**: At least 1 story file in `docs/stories/active/` or `docs/stories/completed/`
@@ -256,11 +256,11 @@ function detectGreenfield(projectRoot) {
 ### Case 1: Partial AIOS Setup
 
 ```
-Scenario: .aios/ exists but config.yaml is missing
+Scenario: .aiox/ exists but config.yaml is missing
 
 Detection:
-  - .aios/ directory exists
-  - .aios/config.yaml does NOT exist
+  - .aiox/ directory exists
+  - .aiox/config.yaml does NOT exist
 
 Route: PATH A (Onboarding)
 Reason: Config is the source of truth for AIOS setup
@@ -272,7 +272,7 @@ Reason: Config is the source of truth for AIOS setup
 Scenario: docs/architecture.md exists but docs/stories/ is empty
 
 Detection:
-  - Has .aios/config.yaml
+  - Has .aiox/config.yaml
   - Has docs/architecture.md
   - docs/stories/ is empty or missing
 
@@ -299,8 +299,8 @@ Reason: Git init alone doesn't mean project started
 Scenario: AIOS was initialized but config is corrupted
 
 Detection:
-  - .aios/ directory exists
-  - .aios/config.yaml missing or unreadable
+  - .aiox/ directory exists
+  - .aiox/config.yaml missing or unreadable
   - docs/architecture.md exists (proof AIOS was working)
 
 Route: PATH A with CONFIG_REPAIR flag
@@ -405,7 +405,7 @@ class ProjectStateDetector {
 | Only .git | `.git/` | PATH D | greenfield-fullstack |
 | Git + README | `.git/`, `README.md` | PATH D | greenfield-fullstack |
 | No config | `src/`, `package.json` | PATH A | onboarding |
-| Config only | `.aios/config.yaml`, `src/` | PATH B | brownfield-discovery |
+| Config only | `.aiox/config.yaml`, `src/` | PATH B | brownfield-discovery |
 | Config + arch | Above + `docs/architecture.md` | PATH B | brownfield-discovery |
 | Full AIOS | Above + `docs/stories/` | PATH C | enhancement |
 

@@ -40,7 +40,7 @@ detection:
       confidence: medium
     - condition: "has_file('README.md') AND (has_dir('src') OR has_dir('backend') OR has_dir('frontend') OR has_dir('app'))"
       confidence: medium
-    - condition: "has_dir('.aios/forge-runs') AND has_file_matching('.aios/forge-runs/*/state.json')"
+    - condition: "has_dir('.aiox/forge-runs') AND has_file_matching('.aiox/forge-runs/*/state.json')"
       confidence: medium
     - condition: "inside_path('~/CODE/Projects')"
       confidence: low
@@ -207,7 +207,7 @@ phases:
         who: "user"
         required: true
         xp: 20
-        scan_rule: "has_dir('.aios-core') OR has_dir('.aios')"
+        scan_rule: "has_dir('.aiox-core') OR has_dir('.aios')"
 
       - id: "0.2"
         label: "Setup de ambiente"
@@ -338,7 +338,7 @@ phases:
         who: "@architect"
         required: true
         xp: 30
-        scan_rule: "has_file('docs/ARCHITECTURE.md') OR has_file_matching('docs/**/*architecture*') OR has_file_matching('.aios/**/*architecture*') OR has_file_matching('docs/**/*system-design*')"
+        scan_rule: "has_file('docs/ARCHITECTURE.md') OR has_file_matching('docs/**/*architecture*') OR has_file_matching('.aiox/**/*architecture*') OR has_file_matching('docs/**/*system-design*')"
 
       - id: "2.3"
         label: "Modelar banco de dados"

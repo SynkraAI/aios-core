@@ -12,7 +12,7 @@
 - Piloto whatsapp-prospector (10/10 com contexto real + feedback)
 - Batch em 18 projetos (score 4.3 → 9.4)
 - Fix ACTIVE.md — rows 19-20 movidas para tabela principal (estavam após Backlog)
-- `.aios-core/data/memory/user/luiz-fosc-profile.md` — perfil global do usuário
+- `.aiox-core/data/memory/user/luiz-fosc-profile.md` — perfil global do usuário
 - `/new-project` atualizado (Passo 2.6 + árvores de output com memory/)
 
 ### Phase 2: Read Protocol ✅ COMPLETE
@@ -30,7 +30,7 @@
 ## Decisões tomadas
 1. Plano formal criado em `docs/plans/memory-system-v2.md` (5 phases)
 2. Rule file `.claude/rules/memory-protocol.md` em vez de editar cada agent individualmente
-3. Agentes atualizados nos spawn files (`.aios-core/development/agents/aios-*.md`)
+3. Agentes atualizados nos spawn files (`.aiox-core/development/agents/aios-*.md`)
 
 ## Arquivos criados/modificados
 
@@ -40,8 +40,8 @@
 - `docs/plans/memory-system-v2.md`
 - `docs/reports/project-memory-audit.md`
 - `.claude/rules/memory-protocol.md`
-- `.aios-core/data/memory/user/luiz-fosc-profile.md`
-- `~/CODE/Projects/whatsapp-prospector/.aios/memory/` (4 files)
+- `.aiox-core/data/memory/user/luiz-fosc-profile.md`
+- `~/CODE/Projects/whatsapp-prospector/.aiox/memory/` (4 files)
 - 48 memory files via bootstrap (16 projetos × 3 files)
 
 ### Modificados

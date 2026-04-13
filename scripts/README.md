@@ -25,7 +25,7 @@ node scripts/generate-ecosystem-index.js [options]
 
 **Features:**
 - Scans 36 minds from `squads/mind-cloning/minds/INDEX.md`
-- Scans core agents from `.aios-core/development/agents/`
+- Scans core agents from `.aiox-core/development/agents/`
 - Scans squad agents from `squads/*/agents/`
 - Graceful degradation (always exits 0)
 - Auto-triggered by PostToolUse hook when agent files are edited

@@ -345,7 +345,7 @@ Voltar para menu de resume? [SIM/NÃO]
 ## Session State Structure
 
 ```yaml
-# .aios/.session-state.yaml
+# .aiox/.session-state.yaml
 session_state:
   epic:
     id: epic-12

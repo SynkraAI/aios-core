@@ -36,7 +36,7 @@ Navigator vai:
 1. Analisar entidades, workflows e complexidade
 2. Fazer 3-5 perguntas de esclarecimento (stack, integrações, timeline)
 3. Gerar um roadmap de 10 fases
-4. Salvar em `.aios/navigator/{project}/roadmap.md`
+4. Salvar em `.aiox/navigator/{project}/roadmap.md`
 
 **Depois comece a navegar:**
 

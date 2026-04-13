@@ -329,7 +329,7 @@ Action: Auto-approve (clarification ≠ expansion)
 ## Configuration
 
 ```yaml
-# ~/.aios/user-config.yaml or .aios/config.yaml
+# ~/.aiox/user-config.yaml or .aiox/config.yaml
 bob:
   scope_change_detection:
     enabled: true

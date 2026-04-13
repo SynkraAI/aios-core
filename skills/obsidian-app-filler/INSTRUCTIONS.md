@@ -7,7 +7,7 @@ Quando o usuário executar `/preencher-app`, siga este workflow:
 ### 1. Leitura dos Dados
 ```javascript
 // Ler arquivo de task gerado pelo skill.js
-const taskPath = '.aios/tmp/app-filler-task.json';
+const taskPath = '.aiox/tmp/app-filler-task.json';
 const taskData = JSON.parse(fs.readFileSync(taskPath, 'utf-8'));
 
 // Extrair dados

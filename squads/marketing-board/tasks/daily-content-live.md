@@ -30,7 +30,7 @@ Esta task é um wrapper do `daily-content` que adiciona chamadas ao `emit_event.
 ## Emit Helper
 
 ```bash
-E=".aios-core/expansion-packs/marketing-opes/scripts/emit_event.py"
+E=".aiox-core/expansion-packs/marketing-opes/scripts/emit_event.py"
 ```
 
 ---

@@ -16,7 +16,7 @@ function getProjectPort(projectName) {
 
   try {
     // Check if project already has an allocated port
-    const registryPath = path.join(__dirname, '..', '..', '.aios-core', 'data', 'port-registry.json');
+    const registryPath = path.join(__dirname, '..', '..', '.aiox-core', 'data', 'port-registry.json');
     if (fs.existsSync(registryPath)) {
       const registry = JSON.parse(fs.readFileSync(registryPath, 'utf-8'));
       const key = `quest-${projectName}`;
@@ -28,7 +28,7 @@ function getProjectPort(projectName) {
 
     // Read back the allocated port
     const registry = JSON.parse(fs.readFileSync(
-      path.join(__dirname, '..', '..', '.aios-core', 'data', 'port-registry.json'), 'utf-8'
+      path.join(__dirname, '..', '..', '.aiox-core', 'data', 'port-registry.json'), 'utf-8'
     ));
     const key = `quest-${projectName}`;
     if (registry[key]) return registry[key].port;

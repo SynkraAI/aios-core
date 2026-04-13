@@ -81,7 +81,7 @@ dependencies:
   data:
     - mmos-kb.md
   services:
-    - file-service  # Document parsing via .aios-core/infrastructure/services/file-service
+    - file-service  # Document parsing via .aiox-core/infrastructure/services/file-service
 
 knowledge_areas:
   - DNA Mental™ 8-layer methodology (30% → 94% fidelity)

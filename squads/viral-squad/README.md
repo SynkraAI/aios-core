@@ -327,7 +327,7 @@ Flaticon Regular Rounded
 ## 📂 Estrutura de Arquivos
 
 ```
-.aios-core/viral-squad/
+.aiox-core/viral-squad/
 ├── agents/                 # 30 agentes especializados
 │   ├── viral-strategy/    # 5 agentes
 │   ├── viral-content/     # 5 agentes

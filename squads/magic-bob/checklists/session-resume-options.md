@@ -14,7 +14,7 @@ When user returns to existing BOB session, evaluate options and execute decision
 
 ## Pre-Resume Checks
 
-- [ ] **R000**: Session state file exists (`.aios/.session-state.yaml`)
+- [ ] **R000**: Session state file exists (`.aiox/.session-state.yaml`)
 - [ ] **R001**: Session state is valid YAML (parseable)
 - [ ] **R002**: Required fields present (epic, progress, workflow, last_updated)
 - [ ] **R003**: Detect crash condition (last_updated > 30min ago)
@@ -343,7 +343,7 @@ async handleRestart(sessionState) {
 
 1. Show confirmation message
 2. Wait for user confirmation
-3. If confirmed: delete `.aios/.session-state.yaml`
+3. If confirmed: delete `.aiox/.session-state.yaml`
 4. Clear in-memory session state
 5. Return to orchestrate fresh
 

@@ -118,7 +118,7 @@ Antes de criar, preciso entender melhor o contexto:
 
 ## PROJECT STRUCTURE (MANDATORY)
 
-Every project MUST have INDEX.md — em `docs/projects/{name}/` (interno) OU `.aios/` (externo):
+Every project MUST have INDEX.md — em `docs/projects/{name}/` (interno) OU `.aiox/` (externo):
 
 **CENTRALIZED** (dentro de aios-core):
 1. `docs/projects/{name}/INDEX.md` — project state
@@ -126,12 +126,12 @@ Every project MUST have INDEX.md — em `docs/projects/{name}/` (interno) OU `.a
 3. Row em `docs/projects/ACTIVE.md` com `[INDEX]({name}/INDEX.md)`
 
 **HYBRID** (projetos externos — ~/CODE/Projects/ ou caminho customizado):
-1. `{project-path}/.aios/INDEX.md` — project state (governança local)
-2. `{project-path}/.aios/sessions/` — session files
+1. `{project-path}/.aiox/INDEX.md` — project state (governança local)
+2. `{project-path}/.aiox/sessions/` — session files
 3. `{project-path}/.claude/CLAUDE.md` — ponte de contexto
-4. Row em `docs/projects/ACTIVE.md` com `[INDEX]({path}/.aios/INDEX.md)`
+4. Row em `docs/projects/ACTIVE.md` com `[INDEX]({path}/.aiox/INDEX.md)`
 
-**Detecção:** `.aios/INDEX.md` no cwd → HYBRID | cwd em `aios-core` → CENTRALIZED | ambos → ERRO
+**Detecção:** `.aiox/INDEX.md` no cwd → HYBRID | cwd em `aios-core` → CENTRALIZED | ambos → ERRO
 
 When creating a new project:
 - Use `/new-project` slash command (preferred)

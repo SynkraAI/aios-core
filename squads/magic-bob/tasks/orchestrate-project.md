@@ -88,7 +88,7 @@ if (!lockAcquired) {
   return {
     success: false,
     action: 'lock_failed',
-    error: 'Another BOB orchestration is running. Wait or check .aios/locks/'
+    error: 'Another BOB orchestration is running. Wait or check .aiox/locks/'
   };
 }
 ```
@@ -303,7 +303,7 @@ try {
 
 | Error | Cause | Resolution |
 |-------|-------|------------|
-| `lock_failed` | Another BOB running | Wait or check `.aios/locks/` |
+| `lock_failed` | Another BOB running | Wait or check `.aiox/locks/` |
 | `dependencies_missing` | git/node not found | Install dependencies |
 | `insufficient_disk_space` | < 100MB available | Free disk space |
 | `session_corrupted` | Invalid session state | Discard and restart |

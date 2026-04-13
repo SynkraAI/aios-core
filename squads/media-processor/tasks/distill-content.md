@@ -491,7 +491,7 @@ mv "{session_dir}/session-state.tmp.json" "{session_dir}/session-state.json"
 - Squad: `squads/video-content-distillery/`
 - Squad manifest: `squads/video-content-distillery/squad-manifest.yaml`
 - Slash commands: `.claude/commands/video-content-distillery/`
-- Quality Gate: `.aios-core/core/quality-gates/QG-004-distillation-quality.md`
+- Quality Gate: `.aiox-core/core/quality-gates/QG-004-distillation-quality.md`
 - Distillery README: `squads/video-content-distillery/README.md`
 - 4A Framework: `squads/video-content-distillery/docs/4a-framework.md`
 - Progressive Summarization: `squads/video-content-distillery/docs/progressive-summarization.md`

@@ -3,7 +3,7 @@
 /**
  * Frontmatter Check — PostToolUse Hook (Write/Edit)
  * ==================================================
- * Triggered: After Write or Edit on files in skills/, squads/, .aios-core/development/agents/
+ * Triggered: After Write or Edit on files in skills/, squads/, .aiox-core/development/agents/
  * Purpose: Warn when a file is created/modified without proper frontmatter
  * Timeout: 3s (fail-silent)
  *
@@ -20,7 +20,7 @@ const WATCHED_PATTERNS = [
   { regex: /skills\/[^/]+\/SKILL\.md$/, type: 'skill', required: ['name', 'description'] },
   { regex: /squads\/[^/]+\/README\.md$/, type: 'squad', required: ['name', 'description'] },
   { regex: /squads\/[^/]+\/agents\/[^/]+\.md$/, type: 'agent', required: ['name', 'description'] },
-  { regex: /\.aios-core\/development\/agents\/[^/]+\.md$/, type: 'agent', required: ['name', 'description'] },
+  { regex: /\.aiox-core\/development\/agents\/[^/]+\.md$/, type: 'agent', required: ['name', 'description'] },
 ];
 
 function main() {

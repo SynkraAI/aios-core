@@ -54,7 +54,7 @@ HAS_PRD=false
 [ -f "$PROJECT_PATH/package.json" ] && HAS_PACKAGE=true
 [ -f "$PROJECT_PATH/.claude/CLAUDE.md" ] && HAS_CLAUDE_MD=true
 [ -f "$PROJECT_PATH/README.md" ] && HAS_README=true
-[ -f "$PROJECT_PATH/.aios/pipeline-checklist.yaml" ] && HAS_CHECKLIST=true
+[ -f "$PROJECT_PATH/.aiox/pipeline-checklist.yaml" ] && HAS_CHECKLIST=true
 
 # Check for PRD anywhere in the project
 if find "$PROJECT_PATH" -maxdepth 3 -name "prd*" -o -name "PRD*" 2>/dev/null | head -1 | grep -q .; then
@@ -98,7 +98,7 @@ echo "  Diagnostico:"
 check_icon() { [ "$1" = true ] && echo "\033[32m✓\033[0m" || echo "\033[31m✗\033[0m"; }
 
 echo "    $(check_icon $HAS_GIT) Git inicializado"
-echo "    $(check_icon $HAS_AIOS) AIOS instalado (.aios/ ou .claude/)"
+echo "    $(check_icon $HAS_AIOS) AIOS instalado (.aiox/ ou .claude/)"
 echo "    $(check_icon $HAS_PACKAGE) package.json"
 echo "    $(check_icon $HAS_CLAUDE_MD) CLAUDE.md (system prompt)"
 echo "    $(check_icon $HAS_README) README.md"
@@ -187,7 +187,7 @@ DASHBOARD_PID=$!
 sleep 1
 
 # Get the port from registry
-REGISTRY="$AIOS_HOME/.aios-core/data/port-registry.json"
+REGISTRY="$AIOS_HOME/.aiox-core/data/port-registry.json"
 QUEST_PORT=5000
 if [ -f "$REGISTRY" ]; then
   FOUND_PORT=$(node -e "

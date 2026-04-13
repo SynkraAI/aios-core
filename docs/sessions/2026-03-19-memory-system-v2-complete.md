@@ -19,7 +19,7 @@
 - `tools/bootstrap-project-memory.js` — gera memory/ automático
 - Piloto whatsapp-prospector (10/10 com contexto real)
 - Batch 18 projetos (4.3 → 9.4)
-- User profile global: `.aios-core/data/memory/user/luiz-fosc-profile.md`
+- User profile global: `.aiox-core/data/memory/user/luiz-fosc-profile.md`
 - `/new-project` atualizado com Passo 2.6
 
 **Phase 2: Read Protocol**
@@ -69,7 +69,7 @@ Claude Code (Opus 4.6)
 ## Arquivos para contexto (próximo Claude DEVE ler)
 - `docs/plans/memory-system-v2.md` — plano completo com status
 - `.claude/rules/memory-protocol.md` — rule global (read + write + checkpoints)
-- `.aios-core/data/memory/user/luiz-fosc-profile.md` — user profile
+- `.aiox-core/data/memory/user/luiz-fosc-profile.md` — user profile
 - `tools/memory-health-check.js` — script de auditoria (rodar para verificar)
 - `skills/memory-audit/SKILL.md` — skill para auditorias recorrentes
 
@@ -87,7 +87,7 @@ Claude Code (Opus 4.6)
 - Templates vazios serão preenchidos organicamente conforme projetos são usados
 
 ## Arquivos modificados não commitados
-- `.aios/session.json` (ecosystem-audit do outro terminal)
+- `.aiox/session.json` (ecosystem-audit do outro terminal)
 - `.aiox-core/data/entity-registry.yaml` (ecosystem-audit)
 - `.claude/settings.json` (ecosystem-audit)
 - `docs/ECOSYSTEM-INDEX.md` (ecosystem-audit)

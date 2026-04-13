@@ -34,11 +34,11 @@ This is the single source of truth for CLAUDE.md structure. Both Forge (via this
 | `{{STACK_SECTION}}` | Build from `state.json → tech_decisions` (see below) | "- (A definir conforme projeto evolui)" |
 | `{{COMMANDS_SECTION}}` | Read `package.json → scripts` and list real commands | Minimal default (see below) |
 | `{{MODE}}` | "HYBRID" (external projects are always HYBRID) | "HYBRID" |
-| `{{MODE_DESCRIPTION}}` | "Governança local — INDEX, stories e sessions vivem em `.aios/` dentro do projeto." | (from mode) |
-| `{{INDEX_PATH}}` | `.aios/INDEX.md` | `.aios/INDEX.md` |
-| `{{STORIES_PATH}}` | `.aios/stories/active/` (HYBRID) or `docs/stories/active/` (CENTRALIZED) | `.aios/stories/active/` |
-| `{{SESSIONS_PATH}}` | `.aios/sessions/` | `.aios/sessions/` |
-| `{{SAVE_LOCATION}}` | `.aios/` (HYBRID) or `docs/projects/{slug}/` (CENTRALIZED) | `.aios/` |
+| `{{MODE_DESCRIPTION}}` | "Governança local — INDEX, stories e sessions vivem em `.aiox/` dentro do projeto." | (from mode) |
+| `{{INDEX_PATH}}` | `.aiox/INDEX.md` | `.aiox/INDEX.md` |
+| `{{STORIES_PATH}}` | `.aiox/stories/active/` (HYBRID) or `docs/stories/active/` (CENTRALIZED) | `.aiox/stories/active/` |
+| `{{SESSIONS_PATH}}` | `.aiox/sessions/` | `.aiox/sessions/` |
+| `{{SAVE_LOCATION}}` | `.aiox/` (HYBRID) or `docs/projects/{slug}/` (CENTRALIZED) | `.aiox/` |
 | `{{PROJECT_SLUG}}` | kebab-case of project name | run_id slug |
 
 **Stack section generation (from tech_decisions):**
@@ -83,7 +83,7 @@ Commands section MUST reflect actual `package.json` scripts. If `test` script do
 
 The `## Project Structure` section in CLAUDE.md comes from ONE source only (in priority order):
 
-1. **@architect output** (preferred): If `.aios/forge-runs/{run_id}/spec/architecture.md` exists and contains a directory structure, use it verbatim.
+1. **@architect output** (preferred): If `.aiox/forge-runs/{run_id}/spec/architecture.md` exists and contains a directory structure, use it verbatim.
 2. **Fallback from state.json**: If no architect output, derive from `tech_decisions.repo_structure`:
    - `monorepo_workspaces` → generate `frontend/` + `backend/` + `shared/` layout
    - `single_package` → generate flat layout (no split)
@@ -173,8 +173,8 @@ npm-debug.log*
 coverage/
 
 # AIOS (runtime only, not committed)
-.aios/forge-runs/
-.aios/memory/
+.aiox/forge-runs/
+.aiox/memory/
 ```
 
 **Framework-specific additions:**

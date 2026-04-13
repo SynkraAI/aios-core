@@ -14,7 +14,7 @@ node ~/aios-core/tools/pipeline-dashboard/server.js /path/to/project
 
 ## How It Works
 
-1. The server watches `.aios/pipeline-checklist.yaml` in your project
+1. The server watches `.aiox/pipeline-checklist.yaml` in your project
 2. When the file changes (via `/pipeline-checklist check N`), the server broadcasts via WebSocket
 3. The browser dashboard updates instantly with animations
 

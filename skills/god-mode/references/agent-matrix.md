@@ -155,7 +155,7 @@
 | `*design-rls` | Row-Level Security policies |
 
 **Exclusive authority (delegated from @architect):** DDL, query optimization, RLS, index strategy, migrations.
-**Tasks:** 20+ database tasks (db-*.md) in `.aios-core/development/tasks/`.
+**Tasks:** 20+ database tasks (db-*.md) in `.aiox-core/development/tasks/`.
 
 ---
 

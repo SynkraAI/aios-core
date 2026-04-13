@@ -135,9 +135,9 @@ squad:
 
   knowledge_base:
     inherited_from:
-      - .aios-core/pro/squads/openclaw-setup/
-      - .aios-core/pro/squads/openclaw-skill-factory/
-      - .aios-core/pro/squads/openclaw-ops/
+      - .aiox-core/pro/squads/openclaw-setup/
+      - .aiox-core/pro/squads/openclaw-skill-factory/
+      - .aiox-core/pro/squads/openclaw-ops/
     primary_sources:
       - inputs/curso-openclaw/markdown/
 

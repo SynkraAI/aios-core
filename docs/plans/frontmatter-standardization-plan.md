@@ -55,7 +55,7 @@ category: content | development | research | business | design
 **Campos recomendados:** `version`, `category`
 **Token budget:** 40-80 tokens
 
-### Agents — AIOS Core (`.aios-core/development/agents/{name}.md`)
+### Agents — AIOS Core (`.aiox-core/development/agents/{name}.md`)
 
 ```yaml
 ---

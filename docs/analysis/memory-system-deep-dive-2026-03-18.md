@@ -218,7 +218,7 @@ docs/projects/{projeto}/
 
 **Estrutura criada (HYBRID):**
 ```
-{path-externo}/.aios/
+{path-externo}/.aiox/
 ├── INDEX.md
 └── sessions/
 ```
@@ -231,7 +231,7 @@ docs/projects/{projeto}/
 
 ### 1. **User Profile Memory** (MISSING)
 **O que:** Memória sobre quem é o usuário, suas preferências, contexto pessoal/profissional
-**Onde deveria viver:** `.aios-core/data/memory/user/{user-id}-profile.md`
+**Onde deveria viver:** `.aiox-core/data/memory/user/{user-id}-profile.md`
 **Quem lê:** TODOS os agentes antes de iniciar
 **Exemplo:**
 ```markdown
@@ -255,7 +255,7 @@ docs/projects/{projeto}/
 **O que existe:** INDEX.md tem "Estado Atual" + "Última Sessão"
 **O que falta:** Decisões técnicas, escolhas arquiteturais, "por quês"
 
-**Proposta:** Adicionar `.aios/memory/project-context.md` com:
+**Proposta:** Adicionar `.aiox/memory/project-context.md` com:
 ```markdown
 # Decisões de Arquitetura
 - Por que PostgreSQL? → Features avançadas (RLS, JSONB, full-text search)
@@ -276,7 +276,7 @@ docs/projects/{projeto}/
 
 ### 3. **Feedback Loop Memory** (MISSING)
 **O que:** Quando usuário corrige/critica algo, gravar para não repetir
-**Onde deveria viver:** `.aios/memory/feedback/YYYY-MM-DD-{topic}.md`
+**Onde deveria viver:** `.aiox/memory/feedback/YYYY-MM-DD-{topic}.md`
 **Formato:**
 ```markdown
 ---
@@ -365,7 +365,7 @@ Hoje: Workflow roda até o fim, ignorando feedback no meio.
 
 ```
 {project-root}/                      # Pode ser dentro ou fora de aios-core
-├── .aios/                           # Governança (SEMPRE presente)
+├── .aiox/                           # Governança (SEMPRE presente)
 │   ├── INDEX.md                     # Source of truth (criado por /new-project)
 │   ├── sessions/                    # Session files (criado por /checkpoint)
 │   │   └── YYYY-MM-DD-{uuid}.md
@@ -395,7 +395,7 @@ Hoje: Workflow roda até o fim, ignorando feedback no meio.
 
 **Para user profile (global, não por projeto):**
 ```
-.aios-core/data/memory/user/
+.aiox-core/data/memory/user/
 └── {user-id}-profile.md             # 🆕 NOVO
 ```
 
@@ -405,13 +405,13 @@ Hoje: Workflow roda até o fim, ignorando feedback no meio.
 
 | Tipo | Escopo | Onde vive | Quem grava | Quem lê |
 |------|--------|-----------|------------|---------|
-| **User Profile** | Global | `.aios-core/data/memory/user/` | Manual (ou auto via hook) | TODOS os agentes |
-| **Project Context** | Projeto | `.aios/memory/project-context.md` | Manual (ou `/checkpoint`) | Agentes ao iniciar |
-| **Feedback** | Projeto | `.aios/memory/feedback/` | Auto (hook detecta correção) | Agentes ao iniciar |
-| **Gotchas** | Projeto | `.aios/gotchas.json` | Auto (3x erro) ou manual | Agentes ao começar task |
-| **Session State** | Projeto | `.aios/session-state.json` | Auto (orquestração) | `/resume`, handoffs |
-| **Workflow State** | Projeto | `.aios/workflow-state/` | Auto (ContextManager) | Workflows, recovery |
-| **Session Files** | Projeto | `.aios/sessions/` | Manual (`/checkpoint`) | Manual (`/resume`) |
+| **User Profile** | Global | `.aiox-core/data/memory/user/` | Manual (ou auto via hook) | TODOS os agentes |
+| **Project Context** | Projeto | `.aiox/memory/project-context.md` | Manual (ou `/checkpoint`) | Agentes ao iniciar |
+| **Feedback** | Projeto | `.aiox/memory/feedback/` | Auto (hook detecta correção) | Agentes ao iniciar |
+| **Gotchas** | Projeto | `.aiox/gotchas.json` | Auto (3x erro) ou manual | Agentes ao começar task |
+| **Session State** | Projeto | `.aiox/session-state.json` | Auto (orquestração) | `/resume`, handoffs |
+| **Workflow State** | Projeto | `.aiox/workflow-state/` | Auto (ContextManager) | Workflows, recovery |
+| **Session Files** | Projeto | `.aiox/sessions/` | Manual (`/checkpoint`) | Manual (`/resume`) |
 
 ---
 
@@ -421,17 +421,17 @@ Hoje: Workflow roda até o fim, ignorando feedback no meio.
 
 1. **Read User Profile** (global)
    ```bash
-   .aios-core/data/memory/user/{user-id}-profile.md
+   .aiox-core/data/memory/user/{user-id}-profile.md
    ```
 
 2. **Read Project Context** (se existir)
    ```bash
-   .aios/memory/project-context.md
+   .aiox/memory/project-context.md
    ```
 
 3. **Read Recent Feedback** (últimos 7 dias)
    ```bash
-   .aios/memory/feedback/*.md
+   .aiox/memory/feedback/*.md
    ```
 
 4. **Read Gotchas Relevantes** (via API)
@@ -442,10 +442,10 @@ Hoje: Workflow roda até o fim, ignorando feedback no meio.
 
 5. **Read Session File** (se `/resume` foi usado)
    ```bash
-   .aios/sessions/{mais-recente}.md
+   .aiox/sessions/{mais-recente}.md
    ```
 
-**Implementação:** Adicionar seção "Memory Protocol" em TODOS os spawn files (`.aios-core/development/agents/*.md`)
+**Implementação:** Adicionar seção "Memory Protocol" em TODOS os spawn files (`.aiox-core/development/agents/*.md`)
 
 ---
 
@@ -470,7 +470,7 @@ Hoje: Workflow roda até o fim, ignorando feedback no meio.
 **O que `/new-project` DEVE criar agora:**
 
 ```diff
-{project-root}/.aios/
+{project-root}/.aiox/
 ├── INDEX.md                         # ✅ Já cria
 ├── sessions/                        # ✅ Já cria
 +├── memory/                         # 🆕 NOVO
@@ -506,31 +506,31 @@ Hoje: Workflow roda até o fim, ignorando feedback no meio.
 ```
 ~/
 ├── aios-core/                       # Framework
-│   ├── .aios-core/                  # Core (L1-L2)
+│   ├── .aiox-core/                  # Core (L1-L2)
 │   ├── docs/projects/               # Projetos CENTRALIZED
 │   ├── squads/                      # Expansion packs
-│   └── .aios/                       # Runtime do próprio aios-core
+│   └── .aiox/                       # Runtime do próprio aios-core
 │
 └── CODE/                            # Projetos externos
-    ├── Projects/{nome}/.aios/       # HYBRID
-    ├── design-systems/{nome}/.aios/ # HYBRID
-    └── tools/{nome}/.aios/          # HYBRID
+    ├── Projects/{nome}/.aiox/       # HYBRID
+    ├── design-systems/{nome}/.aiox/ # HYBRID
+    └── tools/{nome}/.aiox/          # HYBRID
 ```
 
 **Mudanças:**
 - NENHUMA mudança na estrutura de diretórios principais
-- Apenas ADICIONAR `.aios/memory/` em projetos (criado por `/new-project`)
-- ADICIONAR `.aios-core/data/memory/user/` (global)
+- Apenas ADICIONAR `.aiox/memory/` em projetos (criado por `/new-project`)
+- ADICIONAR `.aiox-core/data/memory/user/` (global)
 
 ---
 
 ## 📋 Checklist de Implementação (Priorizado)
 
 ### **Phase 1: Foundation (1-2 dias)**
-- [ ] Criar `.aios-core/data/memory/user/` (estrutura)
+- [ ] Criar `.aiox-core/data/memory/user/` (estrutura)
 - [ ] Criar template de `user-profile.md`
 - [ ] Copiar perfil do usuário (de ~/Library/Mobile Documents/...)
-- [ ] Atualizar `/new-project` para criar `.aios/memory/`
+- [ ] Atualizar `/new-project` para criar `.aiox/memory/`
 - [ ] Criar template de `project-context.md`
 
 ### **Phase 2: Read Protocol (2-3 dias)**

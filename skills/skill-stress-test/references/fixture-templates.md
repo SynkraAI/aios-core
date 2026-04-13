@@ -216,7 +216,7 @@ Tests how skills handle damaged state from previous runs.
 
 ### All files from node-minimal, PLUS:
 
-### .aios/quest-log.yaml (corrupted)
+### .aiox/quest-log.yaml (corrupted)
 ```yaml
 # This file is intentionally malformed
 items:
@@ -228,7 +228,7 @@ items:
     # missing closing bracket from above
 ```
 
-### .aios/forge-runs/run-001/state.json (corrupted)
+### .aiox/forge-runs/run-001/state.json (corrupted)
 ```json
 {
   "discovery": {
@@ -243,7 +243,7 @@ items:
 ```
 Note: the JSON above is intentionally malformed (missing closing brace).
 
-### .aios/memory/project-context.md
+### .aiox/memory/project-context.md
 ```markdown
 ---
 stack: Node.js + React

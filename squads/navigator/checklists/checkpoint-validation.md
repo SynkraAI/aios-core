@@ -7,7 +7,7 @@ Validates checkpoint integrity, Priority Architecture compliance, and INDEX↔AC
 ## 1. Priority Architecture Compliance
 
 - [ ] P1: `docs/projects/{project}/INDEX.md` was updated (OBRIGATÓRIO)
-- [ ] P2: `.aios/navigator/{project}/checkpoints/{date}-{slug}.md` saved (OPCIONAL — skip ok in emergency)
+- [ ] P2: `.aiox/navigator/{project}/checkpoints/{date}-{slug}.md` saved (OPCIONAL — skip ok in emergency)
 - [ ] P3: `docs/projects/ACTIVE.md` row updated (OPCIONAL — skip ok in emergency)
 - [ ] No files written outside the 3 allowed paths (whitelist enforced)
 - [ ] Emergency mode used ONLY when: 2º+ checkpoint in session OR `--fast` flag
@@ -44,7 +44,7 @@ Validates checkpoint integrity, Priority Architecture compliance, and INDEX↔AC
 
 ## 3. Snapshot Integrity (P2 — Optional)
 
-- [ ] File path matches pattern: `.aios/navigator/{project}/checkpoints/{date}-{slug}.md`
+- [ ] File path matches pattern: `.aiox/navigator/{project}/checkpoints/{date}-{slug}.md`
 - [ ] File is lightweight (~30 lines max)
 - [ ] Contains required fields: Data, Resumo, Git SHA, Arquivos Modificados, Próximo Passo
 - [ ] Snapshot is complementary to INDEX.md (not a replacement)

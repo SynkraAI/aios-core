@@ -185,9 +185,9 @@ When intent = CREATE, follow this protocol:
 
 | Command | Reference | Save Location |
 |---------|-----------|---------------|
-| `*create-agent {name}` | [agent-creation.md](references/agent-creation.md) | `.aios-core/development/agents/{id}/` (core) or `squads/{squad}/agents/{id}.md` |
-| `*create-task {name}` | [task-creation.md](references/task-creation.md) | `.aios-core/development/tasks/{name}.md` (core) or `squads/{squad}/tasks/` |
-| `*create-workflow {name}` | [workflow-creation.md](references/workflow-creation.md) | `.aios-core/development/workflows/{name}.yaml` (core) or `squads/{squad}/workflows/` |
+| `*create-agent {name}` | [agent-creation.md](references/agent-creation.md) | `.aiox-core/development/agents/{id}/` (core) or `squads/{squad}/agents/{id}.md` |
+| `*create-task {name}` | [task-creation.md](references/task-creation.md) | `.aiox-core/development/tasks/{name}.md` (core) or `squads/{squad}/tasks/` |
+| `*create-workflow {name}` | [workflow-creation.md](references/workflow-creation.md) | `.aiox-core/development/workflows/{name}.yaml` (core) or `squads/{squad}/workflows/` |
 | `*create-squad {name}` | [squad-creation.md](references/squad-creation.md) | `squads/{name}/` |
 | `*create-checklist {name}` | [component-templates.md](references/component-templates.md) | core or squad path |
 | `*create-template {name}` | [component-templates.md](references/component-templates.md) | core or squad path |
@@ -326,7 +326,7 @@ After creating ANY component, verify:
 Runs sequentially:
 1. git status (branch, commits ahead/behind, uncommitted changes)
 2. Active story in docs/stories/active/ (exists, status, pending ACs)
-3. Handoff state (.aios/handoffs/ — unconsumed artifacts?)
+3. Handoff state (.aiox/handoffs/ — unconsumed artifacts?)
 4. Quality gates (npm run lint, npm run typecheck, npm test — last results)
 5. Framework health (L1/L2 intact? core-config.yaml valid?)
 6. Agent memory (.aiox-core/development/agents/*/MEMORY.md — size, freshness)

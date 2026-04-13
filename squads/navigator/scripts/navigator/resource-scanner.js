@@ -114,7 +114,7 @@ function scanTools() {
  * Scan skills/ directory for all available skills
  */
 function scanSkills() {
-  const skillsDir = path.join(PROJECT_ROOT, '.aios/skills');
+  const skillsDir = path.join(PROJECT_ROOT, '.aiox/skills');
 
   if (!fs.existsSync(skillsDir)) {
     return [];

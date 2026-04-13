@@ -40,7 +40,7 @@
 - VETO_3: Zero projetos encontrados -> HALT
 
 **Path Safety:**
-- VETO_4: Modo ambiguo (link INDEX sem `.aios/` nem `docs/projects/`) -> SKIP + WARN
+- VETO_4: Modo ambiguo (link INDEX sem `.aiox/` nem `docs/projects/`) -> SKIP + WARN
 - VETO_5: Path computado fora de project root esperado -> HALT
 - VETO_6: Path relativo nao resolve para absoluto -> HALT
 
@@ -103,11 +103,11 @@ Adicionar ao skill:
 | {{PROJECT_NAME}} | Minha App |
 | {{MODE}} | HYBRID |
 | {{MODE_DESCRIPTION}} | Governanca local |
-| {{INDEX_PATH}} | .aios/INDEX.md |
-| {{STORIES_PATH}} | .aios/stories/active/ |
-| {{SESSIONS_PATH}} | .aios/sessions/ |
+| {{INDEX_PATH}} | .aiox/INDEX.md |
+| {{STORIES_PATH}} | .aiox/stories/active/ |
+| {{SESSIONS_PATH}} | .aiox/sessions/ |
 | {{PROJECT_SLUG}} | minha-app |
-| {{SAVE_LOCATION}} | .aios/ |
+| {{SAVE_LOCATION}} | .aiox/ |
 ```
 
 ---
@@ -158,7 +158,7 @@ Adicionar ao skill:
 | Criterio | CENTRALIZED | HYBRID |
 |----------|-------------|--------|
 | Projeto vive em | aios-core/ | ~/CODE/Projects/ |
-| INDEX.md em | docs/projects/{name}/ | {path}/.aios/ |
+| INDEX.md em | docs/projects/{name}/ | {path}/.aiox/ |
 | Use quando | Squad, mind clone, research | App full-stack, pipeline externo |
 ```
 

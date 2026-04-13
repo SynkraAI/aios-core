@@ -18,8 +18,8 @@ const os = require('os');
 
 const AIOS_CORE = path.join(os.homedir(), 'aios-core');
 const CODE_PROJECTS = path.join(os.homedir(), 'CODE', 'Projects');
-const AGENTS_DIR = path.join(AIOS_CORE, '.aios-core', 'development', 'agents');
-const USER_PROFILE = path.join(AIOS_CORE, '.aios-core', 'data', 'memory', 'user', 'luiz-fosc-profile.md');
+const AGENTS_DIR = path.join(AIOS_CORE, '.aiox-core', 'development', 'agents');
+const USER_PROFILE = path.join(AIOS_CORE, '.aiox-core', 'data', 'memory', 'user', 'luiz-fosc-profile.md');
 
 // ============================================================
 // DISCOVERY — find all projects

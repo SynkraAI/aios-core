@@ -121,7 +121,7 @@ async function scanAgentsCore() {
   log('🤖 Scanning core agents...');
 
   try {
-    const pattern = path.join(process.cwd(), '.aios-core/development/agents/*.md');
+    const pattern = path.join(process.cwd(), '.aiox-core/development/agents/*.md');
     const files = globSync(pattern);
 
     const agents = [];

@@ -24,7 +24,7 @@ issues:
     title: "Slash command aponta para path de agents divergente da fonte canônica"
     file: ".claude/commands/catalog.md"
     line: 11
-    suggestion: "Troque `.aios-core/development/agents/{nome}.md` por `.aiox-core/development/agents/{nome}.md` para manter o comando alinhado ao contrato documentado."
+    suggestion: "Troque `.aiox-core/development/agents/{nome}.md` por `.aiox-core/development/agents/{nome}.md` para manter o comando alinhado ao contrato documentado."
 ---
 
 # Code Ping-Pong — Round 3 Review
@@ -47,8 +47,8 @@ issues:
 #### 🟢 Issue 3.2 — Slash command aponta para path de agents divergente da fonte canônica
 - **File:** `.claude/commands/catalog.md`
 - **Line:** 11
-- **Code:** `- **Agent:** Leia o arquivo \`.aios-core/development/agents/{nome}.md\` e ative`
-- **Problem:** O comando referencia `.aios-core/development/agents/...`, enquanto `AGENTS.md` e os templates de regras do projeto apontam `.aiox-core/development/agents/...` como caminho canônico. Mesmo existindo um diretório `.aios-core`, isso mantém inconsistência desnecessária entre o comando operacional e a fonte de verdade.
+- **Code:** `- **Agent:** Leia o arquivo \`.aiox-core/development/agents/{nome}.md\` e ative`
+- **Problem:** O comando referencia `.aiox-core/development/agents/...`, enquanto `AGENTS.md` e os templates de regras do projeto apontam `.aiox-core/development/agents/...` como caminho canônico. Mesmo existindo um diretório `.aiox-core`, isso mantém inconsistência desnecessária entre o comando operacional e a fonte de verdade.
 - **Suggestion:** Atualize o path no slash command para `.aiox-core/development/agents/{nome}.md` e mantenha o texto consistente com `AGENTS.md`.
 
 ## ⚠️ Regressions

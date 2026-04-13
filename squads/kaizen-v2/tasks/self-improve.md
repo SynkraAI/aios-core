@@ -70,7 +70,7 @@ task:
       name: "Analisar utilização dos agentes"
       action: |
         Fontes primárias:
-        1. Verificar <project_root>/.aios/logs/ para ativações de cada agente
+        1. Verificar <project_root>/.aiox/logs/ para ativações de cada agente
         2. Verificar squads/kaizen-v2/data/intelligence/daily/ para comandos usados por sessão
         Corroboração secundária:
         3. Verificar git log para confirmar atividade detectada nas fontes primárias

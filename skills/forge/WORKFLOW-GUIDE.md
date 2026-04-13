@@ -191,7 +191,7 @@ Não precisa reimplementar:
 |---|---|---|
 | State machine (INIT→PHASE→COMPLETE) | `runner.md` | ✅ |
 | Visual/personality/banners | `personality.md` | ✅ |
-| State persistence (.aios/forge-runs/) | `runner.md` §4 | ✅ |
+| State persistence (.aiox/forge-runs/) | `runner.md` §4 | ✅ |
 | Resume de runs interrompidos | `SKILL.md` §3 | ✅ |
 | Error recovery (retry, escalate) | `runner.md` §4 | ✅ |
 | Ecosystem scan | `ecosystem-scanner.md` | ✅ |

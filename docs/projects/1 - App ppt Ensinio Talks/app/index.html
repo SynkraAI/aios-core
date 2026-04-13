@@ -1,0 +1,2215 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ensinio Talks — Fosc IA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ===== TOKENS ===== */
+:root {
+  --amber: #f59e0b;
+  --amber-soft: #fbbf24;
+  --amber-deep: #d97706;
+  --font-head: 'Montserrat', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --radius-sm: 8px;
+  --radius: 14px;
+  --radius-lg: 22px;
+  --shadow: 0 20px 60px rgba(0,0,0,0.35);
+  --transition: 220ms cubic-bezier(.4,0,.2,1);
+}
+
+[data-theme="dark"] {
+  --bg: #0a0a0a;
+  --bg-2: #111113;
+  --bg-3: #17171a;
+  --fg: #f5f5f5;
+  --fg-muted: #a3a3a3;
+  --fg-dim: #525252;
+  --border: rgba(255,255,255,0.08);
+  --border-strong: rgba(255,255,255,0.18);
+  --surface: rgba(255,255,255,0.03);
+  --surface-2: rgba(255,255,255,0.06);
+  --overlay: rgba(0,0,0,0.75);
+  --code-bg: #0d0d10;
+}
+
+[data-theme="light"] {
+  --bg: #fafaf9;
+  --bg-2: #f5f5f4;
+  --bg-3: #eceae6;
+  --fg: #0a0a0a;
+  --fg-muted: #525252;
+  --fg-dim: #a3a3a3;
+  --border: rgba(0,0,0,0.09);
+  --border-strong: rgba(0,0,0,0.2);
+  --surface: rgba(0,0,0,0.03);
+  --surface-2: rgba(0,0,0,0.06);
+  --overlay: rgba(255,255,255,0.85);
+  --code-bg: #1a1a1c;
+}
+
+/* ===== BASE ===== */
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  transition: background var(--transition), color var(--transition);
+  overflow: hidden;
+  height: 100vh;
+}
+h1, h2, h3, h4 { font-family: var(--font-head); font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; margin: 0; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+a { color: var(--amber); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code, pre { font-family: var(--font-mono); }
+
+/* ===== PROGRESS BAR ===== */
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--bg-3);
+  z-index: 100;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--amber) 0%, var(--amber-soft) 100%);
+  transition: width 400ms cubic-bezier(.4,0,.2,1);
+  box-shadow: 0 0 20px rgba(245,158,11,0.5);
+}
+
+/* ===== LAYOUT ===== */
+.app {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  height: 100vh;
+  padding-top: 4px;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+  background: var(--bg-2);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  padding: 28px 0 28px 0;
+  transition: transform var(--transition);
+  display: flex;
+  flex-direction: column;
+}
+.sidebar nav { flex: 1; }
+.sidebar-footer {
+  margin-top: 20px;
+  padding: 20px 24px 8px 24px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+.sidebar-footer-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+.sidebar-footer img {
+  max-width: 140px;
+  height: auto;
+  opacity: 0.85;
+  transition: opacity var(--transition), filter var(--transition);
+}
+.sidebar-footer img:hover { opacity: 1; }
+[data-theme="light"] .sidebar-footer img {
+  filter: invert(1) brightness(0.2);
+}
+.sidebar::-webkit-scrollbar { width: 6px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
+
+.sidebar-header {
+  padding: 0 24px 20px 24px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+.sidebar-title {
+  font-family: var(--font-head);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--fg-muted);
+  margin-bottom: 6px;
+}
+.sidebar-subtitle {
+  font-family: var(--font-head);
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--fg);
+}
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--amber);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 10px;
+}
+.sidebar-brand::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--amber);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--amber);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+.sidebar-act {
+  padding: 14px 24px 6px 24px;
+  font-family: var(--font-head);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--amber);
+}
+.sidebar-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 9px 24px 9px 40px;
+  font-size: 13px;
+  color: var(--fg-muted);
+  border-left: 2px solid transparent;
+  transition: all var(--transition);
+  position: relative;
+}
+.sidebar-item:hover {
+  background: var(--surface);
+  color: var(--fg);
+}
+.sidebar-item.active {
+  color: var(--fg);
+  background: var(--surface-2);
+  border-left-color: var(--amber);
+  font-weight: 500;
+}
+.sidebar-item .num {
+  display: inline-block;
+  width: 32px;
+  color: var(--fg-dim);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+.sidebar-item.active .num { color: var(--amber); }
+
+/* ===== MAIN ===== */
+.main {
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+.main::-webkit-scrollbar { width: 8px; }
+.main::-webkit-scrollbar-track { background: transparent; }
+.main::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
+
+.slide {
+  min-height: calc(100vh - 4px);
+  padding: 80px 80px 120px 80px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  animation: fadeIn 400ms ease-out;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Act backgrounds */
+.slide[data-act="1"] { background: radial-gradient(ellipse at top left, rgba(245,158,11,0.06) 0%, transparent 50%), var(--bg); }
+.slide[data-act="2"] { background: radial-gradient(ellipse at top right, rgba(139,92,246,0.05) 0%, transparent 50%), var(--bg); }
+.slide[data-act="3"] { background: radial-gradient(ellipse at bottom left, rgba(59,130,246,0.05) 0%, transparent 50%), var(--bg); }
+.slide[data-act="4"] { background: radial-gradient(ellipse at top, rgba(236,72,153,0.05) 0%, transparent 50%), var(--bg); }
+.slide[data-act="5"] { background: radial-gradient(ellipse at bottom right, rgba(34,197,94,0.05) 0%, transparent 50%), var(--bg); }
+.slide[data-act="6"] { background: radial-gradient(ellipse at center, rgba(234,88,12,0.05) 0%, transparent 60%), var(--bg); }
+.slide[data-act="7"] { background: radial-gradient(ellipse at top, rgba(245,158,11,0.10) 0%, transparent 55%), var(--bg); }
+.slide[data-act="8"] { background: radial-gradient(ellipse at bottom, rgba(168,85,247,0.06) 0%, transparent 50%), var(--bg); }
+
+/* ===== COVER ===== */
+.cover {
+  min-height: calc(100vh - 4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 30% 30%, rgba(245,158,11,0.12) 0%, transparent 60%),
+              radial-gradient(circle at 70% 70%, rgba(245,158,11,0.08) 0%, transparent 60%),
+              var(--bg);
+  padding: 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(circle at center, black 20%, transparent 70%);
+  opacity: 0.4;
+}
+.cover-content {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: minmax(320px, 480px) 1fr;
+  gap: 64px;
+  align-items: center;
+  text-align: left;
+}
+.cover-poster {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 1/1;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px var(--border-strong);
+  background: var(--bg-2);
+}
+.cover-poster img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.cover-poster::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-lg);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+  pointer-events: none;
+}
+.cover-text { min-width: 0; }
+.cover-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 18px;
+  background: var(--surface-2);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 32px;
+}
+.cover-kicker::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--amber);
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--amber);
+}
+.cover-title {
+  font-size: clamp(40px, 5.2vw, 80px);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  margin-bottom: 24px;
+  background: linear-gradient(180deg, var(--fg) 0%, var(--fg-muted) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.cover-title .amber {
+  background: linear-gradient(180deg, var(--amber-soft) 0%, var(--amber-deep) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.cover-subtitle {
+  font-size: clamp(17px, 1.4vw, 20px);
+  color: var(--fg-muted);
+  font-weight: 400;
+  max-width: 560px;
+  margin: 0 0 40px 0;
+  line-height: 1.55;
+}
+.cover-meta {
+  display: flex;
+  gap: 32px;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-top: 32px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
+}
+.cover-meta-item {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+.cover-meta-item strong {
+  display: block;
+  font-family: var(--font-head);
+  color: var(--fg);
+  font-size: 14px;
+  margin-top: 4px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.cover-hint {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  color: var(--fg-dim);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  animation: bob 2s ease-in-out infinite;
+}
+@keyframes bob { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(4px)} }
+
+/* ===== ACT DIVIDER ===== */
+.divider {
+  min-height: calc(100vh - 4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px;
+  position: relative;
+  overflow: hidden;
+}
+.divider::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(245,158,11,0.15) 0%, transparent 50%);
+}
+.divider-content { position: relative; z-index: 1; }
+.divider-label {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--amber);
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.divider-number {
+  font-family: var(--font-head);
+  font-size: clamp(120px, 20vw, 260px);
+  font-weight: 900;
+  line-height: 0.85;
+  letter-spacing: -0.05em;
+  background: linear-gradient(180deg, var(--amber-soft) 0%, var(--amber-deep) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 20px;
+}
+.divider-title {
+  font-size: clamp(32px, 4vw, 56px);
+  font-weight: 800;
+  color: var(--fg);
+  max-width: 900px;
+}
+.divider-line {
+  width: 80px;
+  height: 2px;
+  background: var(--amber);
+  margin: 40px auto 0 auto;
+  border-radius: 1px;
+}
+
+/* ===== SLIDE CONTENT ===== */
+.slide-header {
+  max-width: 1100px;
+  margin: 0 auto 40px auto;
+  width: 100%;
+}
+.slide-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--amber);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.slide-eyebrow .dot {
+  width: 6px;
+  height: 6px;
+  background: var(--amber);
+  border-radius: 50%;
+}
+.slide-eyebrow .act-name {
+  color: var(--fg-muted);
+  letter-spacing: 0.1em;
+}
+.slide-title {
+  font-size: clamp(32px, 4vw, 56px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--fg);
+  max-width: 1000px;
+}
+
+.slide-body {
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+  flex: 1;
+}
+
+.speech {
+  position: relative;
+  padding: 28px 32px 28px 48px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--amber);
+  border-radius: var(--radius);
+  margin: 32px 0;
+  font-size: 19px;
+  line-height: 1.6;
+  color: var(--fg);
+  font-style: italic;
+  font-weight: 400;
+}
+.speech::before {
+  content: '💬';
+  position: absolute;
+  left: -18px;
+  top: 24px;
+  width: 36px;
+  height: 36px;
+  background: var(--bg);
+  border: 1px solid var(--border-strong);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-style: normal;
+}
+
+.prose { color: var(--fg); font-size: 17px; }
+.prose p { margin: 16px 0; }
+.prose h3 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--fg);
+  margin: 32px 0 14px 0;
+  font-family: var(--font-head);
+}
+.prose ul, .prose ol { margin: 16px 0; padding-left: 22px; }
+.prose li { margin: 8px 0; color: var(--fg); }
+.prose li::marker { color: var(--amber); }
+.prose strong { color: var(--fg); font-weight: 700; }
+.prose em { color: var(--fg-muted); }
+.prose blockquote {
+  border-left: 3px solid var(--border-strong);
+  padding: 8px 0 8px 24px;
+  margin: 20px 0;
+  color: var(--fg-muted);
+  font-style: italic;
+}
+.prose code {
+  background: var(--code-bg);
+  color: var(--amber-soft);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  border: 1px solid var(--border);
+}
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  font-size: 15px;
+}
+.prose th, .prose td {
+  padding: 12px 16px;
+  text-align: left;
+  border: 1px solid var(--border);
+}
+.prose th {
+  background: var(--surface-2);
+  font-family: var(--font-head);
+  font-weight: 700;
+  color: var(--fg);
+}
+.prose td { color: var(--fg-muted); }
+
+.callout {
+  background: linear-gradient(135deg, rgba(245,158,11,0.08) 0%, rgba(245,158,11,0.02) 100%);
+  border: 1px solid rgba(245,158,11,0.25);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  margin: 28px 0;
+  font-size: 17px;
+  color: var(--fg);
+}
+.callout strong { color: var(--amber); }
+
+/* ===== COMPONENTS ===== */
+
+/* PROMPT BOX */
+.promptbox {
+  margin: 28px 0;
+  background: var(--code-bg);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.promptbox-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  background: rgba(255,255,255,0.03);
+  border-bottom: 1px solid var(--border);
+}
+.promptbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--amber);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.promptbox-dots {
+  display: flex;
+  gap: 6px;
+}
+.promptbox-dots span {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--border-strong);
+}
+.promptbox-dots span:nth-child(1) { background: #ff5f56; }
+.promptbox-dots span:nth-child(2) { background: #ffbd2e; }
+.promptbox-dots span:nth-child(3) { background: #27c93f; }
+.btn-copy {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: var(--amber);
+  color: #0a0a0a;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: all var(--transition);
+}
+.btn-copy:hover { background: var(--amber-soft); transform: translateY(-1px); }
+.btn-copy.copied { background: #22c55e; color: white; }
+.promptbox pre {
+  margin: 0;
+  padding: 22px 24px;
+  color: #e5e5e5;
+  font-size: 14px;
+  line-height: 1.7;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* IMAGE */
+.image-wrap {
+  margin: 28px 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.image-wrap img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.image-caption {
+  padding: 14px 20px;
+  font-size: 13px;
+  color: var(--fg-muted);
+  background: var(--bg-2);
+  border-top: 1px solid var(--border);
+  text-align: center;
+  font-style: italic;
+}
+
+/* IMAGE PLACEHOLDER */
+.placeholder {
+  margin: 28px 0;
+  min-height: 260px;
+  border-radius: var(--radius);
+  border: 2px dashed var(--border-strong);
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 40px 32px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.placeholder::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(45deg, var(--border) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--border) 25%, transparent 25%);
+  background-size: 16px 16px;
+  opacity: 0.15;
+}
+.placeholder-icon {
+  font-size: 32px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+  position: relative;
+}
+.placeholder-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 10px;
+  position: relative;
+}
+.placeholder-text {
+  color: var(--fg-muted);
+  max-width: 600px;
+  font-size: 15px;
+  position: relative;
+}
+
+/* CAROUSEL */
+.carousel {
+  margin: 28px 0;
+}
+.carousel-scroll {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding-bottom: 16px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+}
+.carousel-scroll::-webkit-scrollbar { height: 8px; }
+.carousel-scroll::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
+.carousel-item {
+  flex: 0 0 280px;
+  scroll-snap-align: start;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all var(--transition);
+}
+.carousel-item:hover {
+  border-color: var(--amber);
+  transform: translateY(-2px);
+}
+.carousel-item-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--amber);
+  letter-spacing: 0.15em;
+}
+.carousel-item-title {
+  font-family: var(--font-head);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--fg);
+  margin: 16px 0 8px 0;
+}
+.carousel-item-desc {
+  font-size: 13px;
+  color: var(--fg-muted);
+  line-height: 1.5;
+}
+
+/* VIDEO */
+.video-wrap {
+  margin: 28px 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: #000;
+  aspect-ratio: 16/9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.video-wrap video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.video-placeholder {
+  color: var(--fg-muted);
+  text-align: center;
+  padding: 40px;
+}
+.video-placeholder .play-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--surface-2);
+  border: 2px solid var(--amber);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px auto;
+  font-size: 28px;
+  color: var(--amber);
+}
+
+/* DIAGRAM */
+.diagram {
+  margin: 28px 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid rgba(245,158,11,0.3);
+  background: linear-gradient(135deg, rgba(245,158,11,0.06) 0%, rgba(245,158,11,0.02) 100%);
+  position: relative;
+}
+.diagram-header {
+  padding: 20px 26px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.diagram-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.diagram-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  background: rgba(245,158,11,0.15);
+  border: 1px solid rgba(245,158,11,0.35);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--amber);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.diagram-title {
+  font-family: var(--font-head);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--fg);
+}
+.diagram-body {
+  padding: 32px;
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(245,158,11,0.08) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(245,158,11,0.05) 0%, transparent 40%);
+}
+.diagram-body img {
+  max-width: 100%;
+  max-height: 480px;
+  border-radius: var(--radius-sm);
+}
+.diagram-placeholder-content {
+  text-align: center;
+  color: var(--fg-muted);
+}
+.diagram-placeholder-content .icon {
+  font-size: 48px;
+  display: block;
+  margin-bottom: 14px;
+  filter: grayscale(0.3);
+}
+.diagram-placeholder-content .label {
+  font-family: var(--font-head);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--amber);
+  margin-bottom: 6px;
+}
+.diagram-placeholder-content .hint {
+  font-size: 14px;
+  max-width: 400px;
+}
+.diagram-toggle {
+  padding: 16px 26px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: rgba(0,0,0,0.15);
+}
+.diagram-prompt {
+  padding: 0 26px 26px 26px;
+  display: none;
+}
+.diagram-prompt.open { display: block; }
+.diagram-prompt pre {
+  margin: 0;
+  padding: 18px 20px;
+  background: var(--code-bg);
+  color: #e5e5e5;
+  font-size: 12px;
+  line-height: 1.6;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+.btn-ghost {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--surface-2);
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--fg);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: all var(--transition);
+}
+.btn-ghost:hover {
+  background: var(--amber);
+  color: #0a0a0a;
+  border-color: var(--amber);
+}
+
+/* ===== CONTROLS ===== */
+.controls {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-left: 140px; /* offset for sidebar */
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  background: var(--overlay);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  z-index: 50;
+  box-shadow: var(--shadow);
+}
+.ctrl-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--surface-2);
+  color: var(--fg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: all var(--transition);
+  border: 1px solid transparent;
+}
+.ctrl-btn:hover {
+  background: var(--amber);
+  color: #0a0a0a;
+  transform: scale(1.05);
+}
+.ctrl-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+.ctrl-btn:disabled:hover {
+  background: var(--surface-2);
+  color: var(--fg);
+  transform: none;
+}
+.ctrl-counter {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--fg);
+  padding: 0 12px;
+  min-width: 72px;
+  text-align: center;
+  font-weight: 600;
+}
+.ctrl-counter .sep { color: var(--fg-dim); margin: 0 4px; }
+.ctrl-divider {
+  width: 1px;
+  height: 24px;
+  background: var(--border-strong);
+}
+
+/* ===== SIDEBAR TOGGLE MOBILE ===== */
+.menu-toggle {
+  display: none;
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 200;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--overlay);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-strong);
+  color: var(--fg);
+  font-size: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1100px) {
+  .slide { padding: 60px 40px 120px 40px; }
+  .cover { padding: 60px 40px; }
+  .divider { padding: 60px 40px; }
+  .cover-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+    max-width: 600px;
+  }
+  .cover-poster { max-width: 400px; margin: 0 auto; }
+  .cover-subtitle { margin-left: auto; margin-right: auto; }
+  .cover-meta { justify-content: center; }
+}
+
+@media (max-width: 840px) {
+  .app { grid-template-columns: 1fr; }
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 280px;
+    z-index: 150;
+    transform: translateX(-100%);
+    box-shadow: var(--shadow);
+  }
+  .sidebar.open { transform: translateX(0); }
+  .menu-toggle { display: flex; }
+  .slide { padding: 80px 24px 120px 24px; }
+  .cover { padding: 60px 24px; }
+  .divider { padding: 60px 24px; }
+  .speech { padding: 22px 22px 22px 32px; font-size: 17px; }
+  .slide-title { font-size: 32px; }
+  .controls { margin-left: 0; bottom: 16px; padding: 8px 12px; gap: 8px; }
+  .ctrl-btn { width: 36px; height: 36px; font-size: 16px; }
+  .prose table { font-size: 13px; }
+  .prose th, .prose td { padding: 8px 10px; }
+  .diagram-header { flex-direction: column; align-items: flex-start; }
+  .cover-meta { gap: 20px; }
+}
+
+/* ===== FULLSCREEN HINT ===== */
+.fs-hint {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--fg-dim);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  z-index: 50;
+  background: var(--overlay);
+  backdrop-filter: blur(12px);
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+}
+@media (max-width: 840px) { .fs-hint { display: none; } }
+
+/* ===== PRINT / PROJETOR ===== */
+@media (min-width: 1600px) {
+  html, body { font-size: 19px; }
+  .slide { padding: 100px 120px 140px 120px; }
+  .slide-title { font-size: clamp(40px, 4.2vw, 64px); }
+}
+</style>
+</head>
+<body>
+
+<div class="progress"><div class="progress-fill" id="progressFill"></div></div>
+
+<button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
+
+<div class="fs-hint">F · Fullscreen &nbsp; · &nbsp; ← → · Navegar</div>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-title">Ensinio Talks</div>
+      <div class="sidebar-subtitle">Fosc · IA</div>
+      <div class="sidebar-brand">Ao vivo</div>
+    </div>
+    <nav id="sidebarNav"></nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-footer-label">Apresentação por</div>
+      <img src="imagens/marca/logo-empresa.png" alt="Logo da empresa" onerror="this.style.display='none'">
+    </div>
+  </aside>
+
+  <main class="main" id="main"></main>
+</div>
+
+<div class="controls">
+  <button class="ctrl-btn" id="btnPrev" title="Anterior (←)">‹</button>
+  <div class="ctrl-counter">
+    <span id="curNum">01</span><span class="sep">/</span><span id="totalNum">01</span>
+  </div>
+  <button class="ctrl-btn" id="btnNext" title="Próximo (→)">›</button>
+  <div class="ctrl-divider"></div>
+  <button class="ctrl-btn" id="btnTheme" title="Alternar tema (T)">◐</button>
+  <button class="ctrl-btn" id="btnFull" title="Fullscreen (F)">⛶</button>
+</div>
+
+<script>
+/* ============================================================
+   DADOS DOS SLIDES — Ensinio Talks Fosc IA v2.4
+   ============================================================ */
+
+const ASSETS = {
+  capa: 'imagens/marca/capa-palestra.png',
+  logoEnsinio: 'imagens/marca/logo-ensinio.png',
+  logoEmpresa: 'imagens/marca/logo-empresa.png',
+};
+
+const ACTS = {
+  1: 'Abertura & Hook',
+  2: 'Mão na Massa',
+  3: 'O que é um Framework?',
+  4: 'A Hierarquia',
+  5: 'Tudo são Processos',
+  6: 'Qualidade: as Salvaguardas',
+  7: 'O Grand Finale — FORGE',
+  8: 'Encerramento',
+};
+
+const SLIDES = [
+  /* ============ COVER ============ */
+  {
+    type: 'cover',
+    title: ['Fosc', 'Inteligência Artificial'],
+    kicker: 'Ensinio Talks',
+    subtitle: 'Não é sobre criar um app. É sobre orquestrar a IA pra criar um ecossistema que evolui junto com o projeto.',
+    meta: [
+      { label: 'Formato', value: 'Talk interativa ao vivo' },
+      { label: 'Versão', value: 'v2.4 · 2026-04-10' },
+      { label: 'Por', value: 'Luiz Fosc' },
+    ],
+  },
+
+  /* ============ ATO 1 ============ */
+  { type: 'divider', act: 1 },
+  {
+    type: 'slide', act: 1, id: '1.1',
+    title: 'Disclaimer (quebra-gelo)',
+    speech: 'Isso aqui é um vício, e vocês não vão querer parar de mexer nunca mais... É tipo a pílula da Matrix... portanto, quem não quiser abrir os olhos para algo realmente maravilhoso, pode sair da sala agora, sem hard-feelings hehehe.',
+    components: [
+      { type: 'image-suggested', icon: '💊', label: 'Imagem sugerida', text: 'Referência da pílula vermelha da Matrix (Morpheus estendendo a mão).' },
+    ],
+  },
+  {
+    type: 'slide', act: 1, id: '1.2',
+    title: 'A IA não é o futuro, é o presente',
+    speech: 'A IA não é o futuro, é o presente. E quem acha o contrário, simplesmente vai ficar pra trás.',
+    body: `
+      <ul>
+        <li>Várias profissões já acabaram por causa de evoluções tecnológicas. Hoje ninguém mais vê <em>acendedor de lamparina</em> ou <em>despertador humano</em>.</li>
+        <li>É o natural da evolução: algumas profissões vão ser extintas pela IA. Se não evoluirmos junto, ficamos pra trás.</li>
+        <li><strong>Fonte:</strong> <a href="https://querobolsa.com.br/revista/10-profissoes-extintas" target="_blank">querobolsa.com.br/revista/10-profissoes-extintas</a></li>
+      </ul>
+    `,
+    components: [
+      {
+        type: 'carousel',
+        label: 'Profissões extintas',
+        items: [
+          { num: '01', title: 'Acendedor de lamparina', desc: 'Acendia manualmente os postes de iluminação pública.' },
+          { num: '02', title: 'Despertador humano', desc: 'O "knocker-upper" batia nas janelas pra acordar trabalhadores.' },
+          { num: '03', title: 'Telefonista de central manual', desc: 'Conectava as chamadas manualmente nos painéis.' },
+          { num: '04', title: 'Datilógrafo / estenógrafo', desc: 'Profissional de escrita rápida em máquina ou taquigrafia.' },
+          { num: '05', title: 'Operador de elevador', desc: 'Controlava manualmente a subida e descida dos elevadores.' },
+          { num: '06', title: 'Leiteiro', desc: 'Entregava leite fresco de porta em porta todos os dias.' },
+          { num: '07', title: 'Digitador de cartões perfurados', desc: 'Traduzia dados pra cartões lidos por computadores antigos.' },
+        ],
+      },
+    ],
+  },
+  {
+    type: 'slide', act: 1, id: '1.3',
+    title: 'Metáfora da esteira',
+    speech: 'A vida é como uma esteira: se ela está rodando a 5 km/h e você fica parado em cima dela, você vai cair pra trás. Ou seja, para ficar PARADO, você tem que andar no mínimo a 5 km/h.',
+    body: `
+      <h3>Ponto-chave</h3>
+      <ul>
+        <li>"Mexer com ChatGPT" é tipo ficar parado. Você não está fazendo mais do que a sua obrigação ao usá-lo pras coisas básicas da vida.</li>
+        <li><strong>Precisamos evoluir.</strong> Usar IA pro básico é o novo "saber ler e escrever".</li>
+      </ul>
+      <div class="callout"><strong>Paralelo forte:</strong> No futuro, quem não mexer com IA simplesmente não terá credibilidade. Imagina contratar um engenheiro que faz todas as contas na mão, sem calculadora? Ou que não usa nenhum software para projetar? É exatamente assim que será visto quem não usa IA. As pessoas não vão querer mais ser operadas por um médico humano — vão preferir um robô.</div>
+    `,
+    components: [
+      { type: 'image-suggested', icon: '🏃', label: 'Imagem / animação', text: 'Pessoa correndo numa esteira. Legenda: "5 km/h só pra ficar no lugar."' },
+    ],
+  },
+  {
+    type: 'slide', act: 1, id: '1.4',
+    title: 'Código virou commodity. O programador virou orquestrador.',
+    speech: 'Código é commodity hoje em dia. Antigamente, o programador era bem cotado por saber codar. Hoje, esse mesmo programador é bem cotado por fazer a IA codar. Ele não é mais um simples programador — ele é um orquestrador.',
+    body: `
+      <h3>Minha história — Lupa Construtora</h3>
+      <ul>
+        <li>Eu não sou engenheiro. Não sou arquiteto. Não sou pedreiro. Muito menos mestre de obras.</li>
+        <li>Não sou nada disso. No entanto, eu sei <strong>orquestrar</strong> todas essas funções para ter o efeito final: prédios e galpões que eu construí ao longo da minha vida.</li>
+        <li>É o famoso <em>"eu não preciso saber, mas preciso conhecer alguém que sabe"</em>.</li>
+        <li><strong>Hoje, a IA é esse "alguém que sabe".</strong> A pergunta é: o que a gente vai fazer com esse poder que nos está sendo dado?</li>
+      </ul>
+    `,
+    components: [
+      { type: 'image-suggested', icon: '🏗️', label: 'Imagem', text: 'Foto de uma obra da Lupa Construtora (prédio ou galpão finalizado).' },
+      {
+        type: 'diagram',
+        id: 'executor-orquestrador',
+        title: 'De Executor para Orquestrador',
+        prompt: `Minimalist editorial infographic on dark background (#0a0a0a), amber accents (#f59e0b), thin white lines. LEFT side: a lone figure with a text label above reading "EXECUTOR", typing on a single computer, isolated. RIGHT side: the same figure elevated on a podium with a text label above reading "ORQUESTRADOR", conducting 5 glowing nodes with Portuguese labels reading "IA", "DESIGN", "CÓDIGO", "DADOS", "TESTES", connected by thin amber lines forming a network. Big bold Portuguese title on top reading: "CÓDIGO É COMMODITY. ORQUESTRAR É A NOVA HABILIDADE." All text in the image must be in BRAZILIAN PORTUGUESE, exactly as written above, with correct accents (acentuação). Clean sans-serif typography (Inter/Montserrat), negative space, editorial infographic style, high contrast.`,
+      },
+    ],
+  },
+
+  /* ============ ATO 2 ============ */
+  { type: 'divider', act: 2 },
+  {
+    type: 'slide', act: 2, id: '2.1',
+    title: 'Vamos criar um app juntos, ao vivo',
+    speech: 'Olha só como é fácil hoje criar um app. Vou colar esse prompt aqui no AI Studio e a gente acompanha o que sai.',
+    components: [
+      {
+        type: 'promptbox',
+        label: 'Prompt — AI Studio',
+        code: `Crie um app de To-Do List completo, com as seguintes características:
+
+1. Interface limpa e moderna, com dark mode.
+2. Gestão por IA das tarefas: ao adicionar uma tarefa, a IA deve
+   sugerir em qual quadrante da Matriz de Eisenhower ela se encaixa
+   (Urgente/Importante).
+3. A tela principal deve ter a Matriz de Eisenhower visível, com as
+   4 caixas: Fazer Agora, Agendar, Delegar, Eliminar.
+4. Permitir arrastar e soltar (drag-and-drop) tarefas entre os
+   quadrantes.
+5. A IA deve gerar um resumo diário do que é mais importante fazer
+   hoje, com base nas tarefas cadastradas.
+6. Persistência local (localStorage) para não perder os dados.
+
+Use React + TailwindCSS. Sem backend. Tudo client-side.`,
+      },
+      { type: 'image-suggested', icon: '🖥️', label: 'Imagem', text: 'Screenshot do AI Studio com o prompt colado.' },
+    ],
+  },
+  {
+    type: 'slide', act: 2, id: '2.2',
+    title: 'Explicando as nuances do app gerado',
+    speech: 'Reparem como ele já entendeu a Matriz de Eisenhower, criou o drag-and-drop, o dark mode... Tudo isso em segundos. Mas agora a pergunta é: e se eu quiser crescer esse app? E se eu quiser adicionar login, banco de dados, notificações, integração com o Google Calendar? Aí a brincadeira muda.',
+  },
+  {
+    type: 'slide', act: 2, id: '2.3',
+    title: 'Vibe Coding vs. SDD (Spec-Driven Development)',
+    body: `
+      <h3>Vibe Coding</h3>
+      <ul>
+        <li>Você "sente" o que quer e vai pedindo pra IA.</li>
+        <li>Funciona pra coisas pequenas, MVPs rápidos, provas de conceito.</li>
+        <li><strong>Problema:</strong> quanto mais complexo, mais difícil de manter. A IA começa a inventar, esquecer, reescrever coisas que já existem.</li>
+      </ul>
+      <h3>SDD — Spec-Driven Development</h3>
+      <ul>
+        <li>Você primeiro <strong>especifica</strong> (o "quê") antes de implementar (o "como").</li>
+        <li>A especificação vira a <strong>fonte de verdade</strong> do projeto.</li>
+        <li>A IA implementa seguindo a spec, sem margem pra inventar.</li>
+        <li>É a diferença entre "construir uma casa na sensação" e "construir seguindo a planta do arquiteto".</li>
+      </ul>
+    `,
+    components: [
+      {
+        type: 'image',
+        src: 'imagens/contexto/waterfall-agile-ai.png',
+        caption: 'Waterfall entrega em linha reta. Agile evolui do simples pro complexo. AI sem processo vira uma bagunça criativa até achar o caminho. — Hang Xu (OnlyFAANGs.design)',
+      },
+      {
+        type: 'diagram',
+        id: 'vibe-vs-sdd',
+        title: 'Vibe Coding vs SDD',
+        prompt: `Split-screen comparison infographic, dark background (#0a0a0a), amber accents (#f59e0b), editorial style. LEFT column (red tinted) with Portuguese label "VIBE CODING": chaotic zigzag path with loops, question marks, a figure scratching head, tangled wires, Portuguese tag reading "RÁPIDO, MAS FRÁGIL". RIGHT column (amber tinted) with Portuguese label "SPEC-DRIVEN DEVELOPMENT (SDD)": a clean linear flow with 4 boxes in sequence with Portuguese labels "SPEC → PLANO → BUILD → ENTREGA", each connected by thin amber arrows, a blueprint icon, Portuguese tag reading "COMEÇO LENTO, ESCALA RÁPIDA". Big Portuguese title on top: "OS DOIS JEITOS DE CONSTRUIR COM IA". All text in the image must be in BRAZILIAN PORTUGUESE, exactly as written above, with correct accents. Clean vector infographic, Inter/Montserrat typography, high contrast, no clutter.`,
+      },
+      { type: 'callout', text: '<strong>Fala de transição:</strong> Pro tipo de app que a gente quer construir de verdade — aquele que vai rodar na empresa, que vai gerar dinheiro, que vai ter manutenção por anos — a gente precisa sair do vibe coding e entrar no SDD. E é aí que entra o framework.' },
+    ],
+  },
+
+  /* ============ ATO 3 ============ */
+  { type: 'divider', act: 3 },
+  {
+    type: 'slide', act: 3, id: '3.1',
+    title: 'Framework é um setup',
+    speech: 'Framework, pra mim, é como um setup. Todo dia que eu sento no computador pra trabalhar, eu já tenho tudo preparado: os apps abertos, a gestão automática das janelas, um app que verifica se tem arquivo errado no desktop, o Stream Deck com os botões pré-configurados pra agilizar minha vida... Framework nada mais é do que um sistema que potencializa o Claude Code (ou qualquer IA que você use).',
+    components: [
+      { type: 'image-suggested', icon: '🖥️', label: 'Imagem', text: 'Foto do setup físico do Fosc (computador + Stream Deck + monitores).' },
+    ],
+  },
+  {
+    type: 'slide', act: 3, id: '3.2',
+    title: 'Arrumar a casa primeiro',
+    speech: 'Eu sempre gostei de fazer tudo bem feito pra não ter problema lá na frente. Outro dia eu ouvi de um amigo: "Eu sou muito preguiçoso, então eu trabalho MUITO hoje pra o meu eu do futuro não ter que trabalhar." Tudo tem a ver com a base estrutural que você cria. Em tudo na vida é assim.',
+    body: `
+      <h3>Prática</h3>
+      <ul>
+        <li>A primeira coisa é arrumar a casa, o ambiente de trabalho.</li>
+        <li>Todo mundo quer chegar codando — mas isso é pensamento de curto prazo.</li>
+        <li>Médio/longo prazo exige: <code>Claude.md</code>, <code>Memory.md</code>, Kaizen, regras universais de segurança, ping-pong, stress-test, etc.</li>
+        <li>Tudo organizado nas pastas corretas. Até a IA fica confusa se tiver que procurar em diversos lugares ao mesmo tempo.</li>
+        <li><strong>Frontmatter</strong> é essencial. Imagina se a IA, toda vez que você pede algo, tivesse que ler uma enciclopédia inteira pra saber se aquele arquivo importa? Frontmatter bem feito <strong>economiza tokens</strong>.</li>
+      </ul>
+    `,
+    components: [
+      { type: 'image-suggested', icon: '🗂️', label: 'Imagem', text: 'Comparação lado a lado: projeto bagunçado × projeto organizado.' },
+    ],
+  },
+  {
+    type: 'slide', act: 3, id: '3.3',
+    title: 'Janela de contexto: o coração de tudo',
+    speech: 'A janela de contexto é a única coisa que atrapalha a IA. Se não fosse isso, eles realmente iriam dominar o mundo. O que a gente precisa aprender sobre IA, no fundo, é a janela de contexto.',
+    body: `
+      <h3>Conceito</h3>
+      <ul>
+        <li>A IA não tem memória infinita. Toda vez que a conversa fica longa, ela <strong>compacta</strong> o que aconteceu e pode esquecer coisas importantes.</li>
+        <li>O fluxo natural é: IA anota o que fez → apaga a memória → depois lê o que anotou pra continuar.</li>
+        <li>Não ter <code>Claude.md</code> e <code>Memory.md</code> configurados é como viver com aquela mulher do filme <em>Como se fosse a primeira vez</em> — toda vez que limpa o contexto, a IA esquece completamente onde estava.</li>
+      </ul>
+      <h3>Perigo do vibe coding</h3>
+      <ul>
+        <li>Em apps como Lovable, AI Studio e até o próprio Claude Code, a LLM faz o gerenciamento da janela de contexto <strong>sozinha</strong>. Você nunca sabe o que ela vai deixar de lado.</li>
+      </ul>
+      <div class="callout"><strong>Conclusão:</strong> você precisa ser o GERENTE da janela de contexto da sua aplicação.</div>
+    `,
+    components: [
+      {
+        type: 'diagram',
+        id: 'janela-contexto',
+        title: 'A Janela de Contexto como Mesa de Trabalho',
+        prompt: `Isometric editorial illustration on dark background (#0a0a0a), amber (#f59e0b) and white accents. Scene: a glowing work desk with a Portuguese label "JANELA DE CONTEXTO", with papers, files, and holographic code snippets piled on it. A capacity bar above the desk shows "87% CHEIA" in amber. On the left, a figure labeled "VOCÊ" holds a broom labeled "CLAUDE.MD + MEMORY.MD", sweeping old papers into a glowing archive folder with Portuguese label "MEMÓRIA PERSISTENTE". On the right, another identical desk overflowing, papers falling off the edge, with Portuguese label "SEM GERENCIAMENTO — AS COISAS SE PERDEM". Big Portuguese title above: "VOCÊ É O GERENTE DA SUA JANELA DE CONTEXTO". All text in the image must be in BRAZILIAN PORTUGUESE, exactly as written above, with correct accents. Isometric style, clean, sharp lines, Inter/Montserrat typography.`,
+      },
+    ],
+  },
+  {
+    type: 'slide', act: 3, id: '3.4',
+    title: 'Personalização: faça a IA ser SUA',
+    speech: 'O meu Claude Code conversa COMIGO! Não é um robô genérico — é uma IA que foi ajustada pra minha forma de pensar. E olha como eu cheguei nisso: eu tenho um squad de MBTI que me analisou. Ele descobriu que eu sou ENTP, e a partir disso criou seções específicas no meu Claude.md feitas PRA MIM. Se você fosse ISTJ, por exemplo, essas seções seriam completamente diferentes — porque uma pessoa ISTJ tem necessidades de comunicação totalmente diferentes das minhas.',
+    body: `
+      <h3>Como funcionou na prática</h3>
+      <ul>
+        <li>Rodei um <strong>squad de MBTI</strong> no meu próprio perfil.</li>
+        <li>O squad me analisou e identificou: <strong>tipo ENTP</strong> ("O Debatedor" — curioso, visual, gosta de metáforas, odeia rigidez, precisa de contexto amplo).</li>
+        <li>Com base nesse diagnóstico, ele gerou <strong>blocos customizados</strong> pro meu <code>Claude.md</code>:
+          <ul>
+            <li>Tom de comunicação (informal, direto, com humor).</li>
+            <li>Uso intensivo de <strong>metáforas</strong> (meu cérebro processa melhor assim).</li>
+            <li><strong>Dicas contextuais</strong> no final de cada resposta (porque ENTP ama explorar tangentes e possibilidades).</li>
+            <li>Revisão pt-BR automática (acentuação, cedilha).</li>
+          </ul>
+        </li>
+      </ul>
+      <div class="callout"><strong>A sacada:</strong> pra uma pessoa ISTJ ("O Logístico" — estruturado, direto, odeia firulas), o mesmo squad criaria um <code>Claude.md</code> <strong>oposto</strong>: respostas curtas, sem metáforas, sem dicas extras, só o que foi perguntado. A mesma IA, mas com duas "roupas" diferentes.</div>
+      <blockquote>A minha esposa, que é outro tipo de MBTI, não iria gostar nem um pouco do jeito que o meu Claude Code fala comigo. Principalmente das metáforas. Então a lição é: personalize PRA VOCÊ, não copia o meu.</blockquote>
+    `,
+    components: [
+      { type: 'image-suggested', icon: '📸', label: 'Imagem', text: 'Screenshot de uma resposta do Claude Code com dica contextual (💡).' },
+      {
+        type: 'diagram',
+        id: 'mesma-ia-pessoas-diferentes',
+        title: 'Mesma IA, Pessoas Diferentes',
+        prompt: `Split comparison diagram on dark background (#0a0a0a), amber accents (#f59e0b). Center: a glowing AI core labeled "CLAUDE CODE". Two arms extending from the AI, left and right, ending in two different "personality skins". LEFT SKIN: Portuguese label "USUÁRIO ENTP (Fosc)" - a playful, colorful speech bubble with emojis, metaphors icons, a lightbulb for contextual tips, informal vibe. Portuguese caption: "Quer metáforas, humor, tangentes, visão ampla." RIGHT SKIN: Portuguese label "USUÁRIO ISTJ" - a clean, structured speech bubble with bullet points, checklists, no emojis, formal vibe. Portuguese caption: "Quer respostas diretas, estrutura, sem firula, passos comprovados." Between them, a small box with Portuguese text: "Squad de MBTI analisou cada usuário e customizou o CLAUDE.MD para cada um." Big Portuguese title on top: "UMA IA. DUAS PERSONALIDADES. AMBAS CERTAS." All text in the image must be in BRAZILIAN PORTUGUESE, exactly as written above, with correct accents. Editorial infographic style, Inter/Montserrat typography, thin lines, high contrast.`,
+      },
+    ],
+  },
+  {
+    type: 'slide', act: 3, id: '3.5',
+    title: 'Fontes de verdade',
+    speech: 'Fontes de verdade evitam que a IA fique reinventando a roda o tempo todo. Isso economiza tokens, economiza dinheiro, economiza manutenção — e garante padronização.',
+    body: `
+      <h3>Exemplos de fontes de verdade</h3>
+      <ul>
+        <li><strong>Design System:</strong> evita que o Claude Code crie botões e componentes que já existem. Um botão = um só lugar no projeto.</li>
+        <li><strong>Documentação da API:</strong> pra IA saber exatamente quais endpoints existem.</li>
+        <li><strong>Regras de negócio centralizadas:</strong> pra ela não inventar lógica fora do escopo.</li>
+      </ul>
+    `,
+    components: [
+      {
+        type: 'diagram',
+        id: 'fonte-de-verdade',
+        title: 'Fonte de Verdade Única',
+        prompt: `Minimalist network diagram on dark background (#0a0a0a). In the center, a glowing amber cube with Portuguese label "FONTE DE VERDADE" (with Portuguese sub-labels: "DESIGN SYSTEM", "DOCS DA API", "REGRAS DE NEGÓCIO"). Around it, 6 satellite nodes arranged in a circle, each with Portuguese label: "FRONTEND", "BACKEND", "MOBILE", "TESTES", "DOCS", "AGENTES DE IA". Thin amber lines connect each satellite to the central cube (not to each other). Contrast comparison in a small box at the bottom-right: a tangled mess with Portuguese label "SEM FONTE DE VERDADE" with nodes connected chaotically to each other. Big Portuguese title on top: "UMA VERDADE, MUITOS CONSUMIDORES". All text in the image must be in BRAZILIAN PORTUGUESE, exactly as written above, with correct accents. Clean editorial infographic style, Inter typography, high contrast.`,
+      },
+    ],
+  },
+  {
+    type: 'slide', act: 3, id: '3.6',
+    title: 'A IA é uma multiplicadora (metáfora do Einstein)',
+    speech: 'A IA é uma multiplicadora de coisas. Se você der merda pra ela, vai ter muita merda. Pense sempre muito bem no que você quer, pra ela não gerar um código errado. Comunicação é TUDO.',
+    body: `
+      <div class="callout"><strong>Metáfora central:</strong> A IA é como se fosse o maior gênio do mundo sentado do seu lado. Imagina que você tem o Einstein na sua cozinha e pede pra ele fazer um bolo. Se você só disser "faz um bolo", ele vai fazer da cabeça dele — e pode sair qualquer coisa. Mas se você especificar "bolo de chocolate, fofinho, com recheio de brigadeiro, cobertura de ganache, pra 10 pessoas", aí sim o resultado sai incrível.</div>
+    `,
+    components: [
+      { type: 'image-suggested', icon: '🧪', label: 'Imagem', text: 'Einstein numa cozinha segurando uma colher de pau (ilustração divertida).' },
+    ],
+  },
+
+  /* ============ ATO 4 ============ */
+  { type: 'divider', act: 4 },
+  {
+    type: 'slide', act: 4, id: '4.1',
+    title: 'A pirâmide: Squads > Agentes > Skills > Tools',
+    speech: 'Quando a gente fala de framework de IA, existe uma hierarquia que muita gente ignora: Squads > Agentes > Skills > Tools. E essa ordem importa MUITO.',
+    body: `
+      <div class="callout" style="font-family: var(--font-mono); white-space: pre; font-size: 14px; line-height: 1.8;">        SQUADS      ← times especializados
+         │
+       AGENTES      ← pessoas com cargos específicos
+         │
+        SKILLS      ← habilidades que cada um tem
+         │
+        TOOLS       ← ferramentas que as skills usam</div>
+    `,
+    components: [
+      {
+        type: 'diagram',
+        id: 'hierarquia-piramide',
+        title: 'A Hierarquia do Framework de IA',
+        prompt: `Editorial pyramid diagram on dark background (#0a0a0a), amber accents (#f59e0b). A 4-tier pyramid with glowing amber borders, viewed from a slight front angle. From top to bottom, each tier with Portuguese labels: TIER 1 (top, largest, boldest): "SQUADS — times especializados" with a small icon of multiple people. TIER 2: "AGENTES — especialistas individuais" with a single person icon. TIER 3: "SKILLS — habilidades" with a lightbulb icon. TIER 4 (bottom): "TOOLS — ferramentas" with a wrench icon. On the right side, a small Portuguese caption: "Ter a skill certa e a tool certa é INÚTIL se você pede pra pessoa errada fazer." All text in the image must be in BRAZILIAN PORTUGUESE, exactly as written above, with correct accents. Clean vector infographic, Inter/Montserrat typography, high contrast, negative space.`,
+      },
+    ],
+  },
+  {
+    type: 'slide', act: 4, id: '4.2',
+    title: 'A metáfora da orquestra (e do chef Michelin)',
+    speech: 'Você pode ter a skill certa e a tool certa, mas se pedir pra pessoa errada fazer, dá errado. É a mesma coisa de pedir pro médico fritar um ovo, ou pro chef Michelin fritar o mesmo ovo. Vai sair diferente. Pode até ser que o médico saiba — mas ele não é especialista.',
+    body: `
+      <h3>Exemplo da orquestra</h3>
+      <ul>
+        <li>Numa orquestra, cada músico toca o seu instrumento. O violinista não dá pau na percussão. O maestro orquestra todos.</li>
+        <li>Um Squad funciona igual: cada agente tem seu papel, e um agente-chefe (chief) orquestra o time.</li>
+      </ul>
+    `,
+  },
+  {
+    type: 'slide', act: 4, id: '4.3',
+    title: 'MINDS: não peça pra "agir como", SEJA',
+    speech: 'Não existe essa coisa de "aja como o melhor programador do mundo" ou "seja o melhor programador do mundo". NÃO! É muito melhor que SEJA o melhor programador do mundo. E pra isso existem os MINDS.',
+    body: `
+      <h3>Conceito de MIND</h3>
+      <ul>
+        <li>Um Mind é a <strong>clonagem mental</strong> de uma pessoa real (ex: Hormozi, Charlie Munger, Leandro Ladeira, Paulo Vieira).</li>
+        <li>Extrai: voice DNA (como ela fala), thinking DNA (como ela pensa), frameworks mentais, anti-padrões.</li>
+        <li>Resultado: a IA não está "imitando" — ela está <strong>incorporando</strong> aquele cérebro.</li>
+      </ul>
+      <h3>A grande virada (o "clique" dessa aula)</h3>
+      <blockquote>Pensa comigo. Qual a diferença entre essas duas situações?</blockquote>
+      <ul>
+        <li><strong>Situação A:</strong> Você pede pro ChatGPT escrever uma copy de venda. Ele vai escrever baseado em... sei lá, o que ele leu na internet. Média do mundo. Copy genérica.</li>
+        <li><strong>Situação B:</strong> Você pede pra um <strong>MIND do Hormozi</strong> escrever essa mesma copy. Agora ele está usando: o framework Grand Slam Offer, o CLOSER Framework, os princípios de value stacking, o tom de voz do cara que faturou US$ 100M, as heurísticas de oferta testadas em centenas de empresas reais.</li>
+      </ul>
+      <div class="callout">A diferença não é 10%. É 1000%. Você saiu de "IA escrevendo copy" pra "o conhecimento prático, testado e aprovado, de um ser humano real, sendo aplicado através da IA". É uma mudança de natureza, não de grau.</div>
+      <h3>A regra de ouro</h3>
+      <ul>
+        <li>❌ "Aja como o Hormozi" = teatro, imitação superficial.</li>
+        <li>✅ "SEJA o Hormozi" = conhecimento real incorporado, frameworks mentais clonados.</li>
+      </ul>
+    `,
+    components: [
+      { type: 'image-suggested', icon: '🧠', label: 'Imagem', text: 'Ícones de Minds famosos (Hormozi, Munger, Einstein, etc.) em formato de cards.' },
+      {
+        type: 'diagram',
+        id: 'anatomia-mind',
+        title: 'Anatomia de um MIND Clone',
+        prompt: `Editorial anatomical diagram on dark background (#0a0a0a), amber accents (#f59e0b). Center: a glowing silhouette of a human head in profile, brain visible with circuit-like patterns inside. Four labeled lines extend from the brain outward, each pointing to a labeled component card with Portuguese text: "VOICE DNA — como falam" (waveform icon), "THINKING DNA — como raciocinam" (neural network icon), "FRAMEWORKS MENTAIS — seus modelos" (grid icon), "ANTI-PADRÕES — o que evitam" (forbidden icon). Below, big Portuguese title: "UM MIND NÃO É UMA PERSONA. É UM CLONE." Small Portuguese subtitle: "Não peça pra IA AGIR como o Einstein. Faça ela SER o Einstein." All text in the image must be in BRAZILIAN PORTUGUESE, exactly as written above, with correct accents. Style: technical editorial infographic, clean sans-serif, thin white lines, high contrast.`,
+      },
+    ],
+  },
+  {
+    type: 'slide', act: 4, id: '4.4',
+    title: 'Advisor Board: sua mesa redonda particular',
+    speech: 'Agora imagina levar esse conceito de Mind um passo adiante. Se um Mind sozinho já é poderoso, o que acontece quando você junta vários deles na mesma sala?',
+    body: `
+      <h3>O conceito de Squad + Minds = Advisor Board</h3>
+      <ul>
+        <li>Um <strong>Squad</strong> é um time de agentes trabalhando juntos em um objetivo.</li>
+        <li>Quando você preenche esse squad com <strong>Minds</strong> (em vez de agentes genéricos), você cria algo novo: uma <strong>mesa redonda</strong> de cérebros lendários que conversam entre si pra chegar numa conclusão.</li>
+        <li>Eles <strong>debatem</strong>. Eles <strong>discordam</strong>. Eles <strong>constroem em cima da ideia um do outro</strong>. E no final, você recebe uma decisão lapidada por múltiplas perspectivas de elite.</li>
+      </ul>
+      <h3>Meu próprio Advisor Board</h3>
+      <p>Na minha empresa, quando eu preciso tomar uma decisão estratégica grande, eu não pergunto pro ChatGPT. Eu chamo o meu advisor board pessoal, onde estão clonados:</p>
+      <ul>
+        <li>🍎 <strong>Steve Jobs</strong> — obsessão por produto, simplicidade, "fewer, better things", o elo entre tecnologia e artes liberais.</li>
+        <li>💻 <strong>Bill Gates</strong> — visão sistêmica, leitura massiva, pensamento de longo prazo, como escalar impacto.</li>
+        <li>🚀 <strong>Elon Musk</strong> — first principles thinking, velocidade de execução, apetite por risco calculado.</li>
+        <li>🏰 <strong>Walt Disney</strong> — storytelling, construção de mundos, experiência emocional, pensamento geracional.</li>
+        <li><em>(e outros que vou adicionando conforme a necessidade)</em></li>
+      </ul>
+      <blockquote>Eu jogo a minha decisão na mesa. O Steve Jobs me pergunta se o produto é simples o suficiente. O Gates me mostra o impacto sistêmico. O Musk me cobra velocidade e me desafia no first principles. E o Disney me lembra que, no fim do dia, se não tiver emoção, o cliente não lembra de nada. Sai de lá uma decisão que nenhuma IA genérica jamais chegaria sozinha.</blockquote>
+      <h3>A parte chata — e o porquê vale a pena</h3>
+      <ul>
+        <li>Clonar uma mente dessas é um <strong>trabalho extensivo</strong>. Você precisa estudar livros, entrevistas, frameworks mentais, padrões de linguagem. Pode levar dias pra um único Mind bem feito.</li>
+        <li>MAS — e aqui está a mágica — <strong>você faz isso uma vez só</strong>. Depois que o clone está pronto, ele é seu pra sempre. Ele trabalha 24/7, não cobra consultoria, não tem agenda cheia, não envelhece.</li>
+      </ul>
+      <div class="callout">É infinitamente melhor do que pedir pra IA "aja como um advisor board". Isso aí é teatrinho. O que eu tô falando é VOCÊ TER, de verdade, os maiores cérebros da história trabalhando pra você. Uma vez. Pra sempre.</div>
+    `,
+    components: [
+      {
+        type: 'diagram',
+        id: 'advisor-board',
+        title: 'Advisor Board: Sua Mesa Redonda Particular',
+        critical: true,
+        prompt: `Editorial illustration on dark background (#0a0a0a), amber accents (#f59e0b). Top-down view of a round glass table with amber glow, inspired by a board room. Around the table, 5 holographic figures sitting and debating, each labeled with a name plate (names stay as-is, they are proper nouns): STEVE JOBS (black turtleneck silhouette, Apple icon), BILL GATES (glasses silhouette, Microsoft icon), ELON MUSK (rocket icon silhouette), WALT DISNEY (vintage hat silhouette, castle icon), A chair at the head of the table labeled "VOCÊ" (Portuguese for "you"), a normal-looking person. Speech bubbles floating above the legends with Portuguese phrases: "Está SIMPLES o suficiente?", "Qual o impacto SISTÊMICO?", "PRIMEIROS PRINCÍPIOS?", "Onde está a HISTÓRIA?". In the center of the table, a glowing Portuguese question: "DECISÃO ESTRATÉGICA". Below the scene, a small Portuguese footer note: "Trabalho extenso UMA VEZ. Seu PARA SEMPRE." Big Portuguese title on top: "SEU CONSELHO PESSOAL DE LENDAS". All text in the image (except proper names like Steve Jobs, Bill Gates, etc.) must be in BRAZILIAN PORTUGUESE, exactly as written above, with correct accents. Editorial illustration style, Inter/Montserrat typography, thin white lines, amber highlights, cinematic composition.`,
+      },
+    ],
+  },
+  {
+    type: 'slide', act: 4, id: '4.5',
+    title: 'Criando skills: use o /skill-creator',
+    speech: 'Você pode criar uma skill pedindo pro próprio Claude Code fazer. Mas o mais correto é usar a /skill-creator, que é literalmente uma skill pra criar skills. É meta — e é assim que o ecossistema cresce de forma padronizada.',
+    components: [
+      {
+        type: 'promptbox',
+        label: 'Prompt — exemplo de uso',
+        code: `/skill-creator
+
+Quero criar uma skill chamada "github-issue-triage" que:
+- Lê as issues abertas do repositório
+- Classifica por prioridade (P0, P1, P2)
+- Sugere labels
+- Identifica duplicatas`,
+      },
+    ],
+  },
+
+  /* ============ ATO 5 ============ */
+  { type: 'divider', act: 5 },
+  {
+    type: 'slide', act: 5, id: '5.1',
+    title: 'Sem processo, sem produto',
+    speech: 'Tudo são PROCESSOS. Não existe nada que não seja processo. Não adianta começar um produto sem saber onde quer chegar, sem ter clareza das premissas.',
+    body: `
+      <div class="callout"><strong>Paralelo físico:</strong> Imagina que você vai fabricar um produto físico e pra isso precisa comprar uma máquina que faça um determinado molde. Você concorda que precisa ter uma especificação <strong>muito perfeita</strong> do produto antes de sequer começar a pesquisar a máquina? A IA é igual.</div>
+    `,
+  },
+  {
+    type: 'slide', act: 5, id: '5.2',
+    title: 'O fluxo: PRD → SPEC → Epics/Stories → Build',
+    body: `
+      <h3>1️⃣ PRD — <code>/prd-generator</code></h3>
+      <ul>
+        <li>Product Requirements Document.</li>
+        <li><strong>É o processo que mais leva tempo — o 80/20 da coisa.</strong> Literalmente 80% do tempo é pensando no PRD, e só 20% criando a aplicação.</li>
+        <li>Você precisa pensar em "quem vai fazer o quê".</li>
+        <li><strong>Verdade dura:</strong> Você NUNCA vai conseguir fazer um aplicativo perfeito de primeira. Vão ter testes e mais testes — mas um PRD bem feito evita boa parte dos erros.</li>
+      </ul>
+      <h3>2️⃣ SPEC — <code>/tech-research</code></h3>
+      <ul>
+        <li>Com o PRD pronto (você já sabe o QUE quer), agora precisa do SPEC: o que o projeto precisa pra funcionar tecnicamente.</li>
+        <li>A skill <code>/tech-research</code> serve pra <strong>não reinventar a roda</strong>. Ela pesquisa o que já existe, quais libs usar, quais padrões aplicar.</li>
+      </ul>
+      <h3>3️⃣ Epics e Stories — <code>/forge</code> + <code>/quest</code></h3>
+      <ul>
+        <li>Quebra o PRD em pedaços gerenciáveis (épicos → stories).</li>
+        <li><code>/forge</code> orquestra a criação.</li>
+        <li><code>/quest</code> é a camada gamificada — você vai "evoluindo" a cada story concluída, como um jogo.</li>
+      </ul>
+    `,
+    components: [
+      {
+        type: 'promptbox',
+        label: 'Fluxo real',
+        code: `1. /prd-generator          → Cria o PRD completo do projeto
+2. /tech-research          → Pesquisa stack técnica (não reinventar a roda)
+3. /forge                  → Quebra em epics e stories executáveis
+4. /quest                  → Acompanha a evolução de forma gamificada
+5. /code-review-ping-pong  → Revisa o código entre Claude Code e Codex`,
+      },
+      {
+        type: 'diagram',
+        id: 'fluxo-ideia-produto',
+        title: 'O Fluxo Completo: Ideia → Produto',
+        critical: true,
+        prompt: `Horizontal editorial flowchart on dark background (#0a0a0a), amber accents (#f59e0b), thin white connecting lines with arrows. 5 stages arranged left to right, each in a rounded rectangle card, numbered 1 to 5, all with Portuguese labels: 1. "IDEIA" - lightbulb icon, small, gray tone. 2. "PRD" - document icon, LARGE card (takes 40% of visual weight), labeled below in Portuguese "/prd-generator — 80% do seu tempo vive aqui". 3. "SPEC" - blueprint icon, medium card, labeled in Portuguese "/tech-research — não reinvente a roda". 4. "EPICS + STORIES" - kanban board icon, medium card, labeled in Portuguese "/forge + /quest — execução gamificada". 5. "APP ENTREGUE" - rocket icon, green glow, labeled in Portuguese "Qualidade premium + documentado + expansível". Between stages 1 and 2, a big curved Portuguese label: "A REGRA 80/20 — a maioria pula essa etapa e fracassa". At the bottom, a thin timeline showing time distribution with Portuguese labels: "80% no PRD" and "20% no resto". Big Portuguese title on top: "DA IDEIA AO PRODUTO — O FLUXO SDD". All text in the image must be in BRAZILIAN PORTUGUESE, exactly as written above, with correct accents. Slash command names like "/prd-generator" stay as-is. Clean infographic, Inter/Montserrat typography, negative space, high contrast.`,
+      },
+    ],
+  },
+
+  /* ============ ATO 6 ============ */
+  { type: 'divider', act: 6 },
+  {
+    type: 'slide', act: 6, id: '6.1',
+    title: '/catalog: antes de criar, verifique se já existe',
+    speech: 'Se você tem 100+ skills no ecossistema, antes de criar uma nova, vale rodar /catalog pra ver se já não existe algo parecido que só precisa de um ajuste.',
+    body: `
+      <h3>O que o /catalog serve pra:</h3>
+      <ul>
+        <li>🔍 Descobrir o que já existe antes de criar algo novo.</li>
+        <li>🩺 Verificar se uma skill/squad está saudável ou precisa de atenção.</li>
+        <li>⚡ Navegar rapidamente sem ter que ficar fazendo <code>ls</code> em 10 pastas.</li>
+      </ul>
+    `,
+  },
+  {
+    type: 'slide', act: 6, id: '6.2',
+    title: '/critica: pensar antes de implementar',
+    speech: 'Antes de implementar qualquer projeto sério, rode a skill /critica. Ela faz a revisão crítica do plano ANTES de você gastar tokens implementando algo errado.',
+  },
+  {
+    type: 'slide', act: 6, id: '6.3',
+    title: 'Plan Mode do Claude Code',
+    speech: 'Uma ótima prática é ativar o Plan Mode do Claude Code. Assim ele vai bem a fundo, fica bastante inteligente, pensa no problema inteiro antes de sair implementando na loucura.',
+    components: [
+      { type: 'image-suggested', icon: '📐', label: 'Imagem', text: 'Screenshot do Claude Code em Plan Mode.' },
+    ],
+  },
+  {
+    type: 'slide', act: 6, id: '6.4',
+    title: 'Menos é mais (a frase do Pascal)',
+    body: `
+      <blockquote>Blaise Pascal, certa vez, escreveu uma carta pra um amigo pra explicar um conceito super complexo. Ao final da carta, ele escreveu:</blockquote>
+      <div class="callout" style="font-size: 22px; font-family: var(--font-head); font-weight: 600; font-style: italic; text-align: center;">"Perdoe-me pela carta longa. Não tive tempo de escrever uma menor."</div>
+      <p><strong>Código é igual.</strong> Menos é mais. E isso é principalmente uma questão de manutenção.</p>
+    `,
+    components: [
+      { type: 'image-suggested', icon: '✉️', label: 'Imagem (arquivo)', text: 'Pasted image 20260408124420.png (imagem do arquivo original).' },
+    ],
+  },
+  {
+    type: 'slide', act: 6, id: '6.5',
+    title: 'Code Review Ping-Pong: o time de LLMs',
+    speech: 'A skill /code-review-ping-pong tem rounds que ficam revisando o código entre o CODEX e o Claude Code. E a mágica acontece quando você entende a diferença entre esses dois caras.',
+    body: `
+      <h3>Perfil das 2 LLMs (metáfora humana)</h3>
+      <table>
+        <thead>
+          <tr><th>🎨 Claude Code</th><th>🤖 Codex</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Programador extremamente BOM, muito criativo</td><td>Desenvolvedor extremamente sóbrio</td></tr>
+          <tr><td>Tem as melhores ideias do mundo</td><td>Não toma nem café</td></tr>
+          <tr><td>Sabe fazer melhor do que ninguém</td><td>Autismo forte, só vê código e erros</td></tr>
+          <tr><td>Só que vive <em>bêbado</em> e te engabela o tempo todo</td><td>Revisa tudo muito bem</td></tr>
+          <tr><td>Ótimo pra inventar coisas — e pra quebrá-las</td><td>Não tem NADA de criativo</td></tr>
+          <tr><td>—</td><td>Ótimo pra arrumar as bagunças do Claude</td></tr>
+        </tbody>
+      </table>
+    `,
+    components: [
+      {
+        type: 'diagram',
+        id: 'loop-ping-pong',
+        title: 'O Loop do Ping-Pong',
+        prompt: `Circular loop diagram on dark background (#0a0a0a), amber accents (#f59e0b). Two character avatars facing each other in a circular flow. LEFT character: "CLAUDE CODE" (product name stays in English) - with Portuguese subtitle "O gênio criativo bêbado", holding a paintbrush and a broken calculator, with a halo of lightbulbs above, slightly tilted pose. Color: warm amber glow. RIGHT character: "CODEX" (product name stays in English) - with Portuguese subtitle "O auditor sóbrio e autista", wearing glasses, holding a magnifying glass and a red pen, perfectly upright posture. Color: cool white glow. Between them, circular arrows showing the loop with Portuguese labels: Top arrow (left to right): "CONSTRÓI A FEATURE". Bottom arrow (right to left): "DEVOLVE REVIEW + FIXES NECESSÁRIOS". In the center of the loop, a scoreboard with Portuguese text showing: "RODADA 1: 6/10 → RODADA 2: 8/10 → RODADA 3: 10/10" with a small trophy. Big Portuguese title on top: "A DUPLA DE LLMs — CRIATIVIDADE ENCONTRA DISCIPLINA". All text in the image (except product names "CLAUDE CODE" and "CODEX") must be in BRAZILIAN PORTUGUESE, exactly as written above, with correct accents. Clean editorial illustration, thin lines, Inter typography, high contrast.`,
+      },
+      {
+        type: 'carousel',
+        label: 'O loop em ação (3 rodadas reais)',
+        items: [
+          { num: '01', title: 'CODEX revisa', desc: 'Analisa o código e manda a lista de fixes pro Claude Code aplicar.' },
+          { num: '02', title: 'CLAUDE CODE aplica', desc: 'Recebe a review, entende o que faltou e aplica os ajustes com contexto.' },
+          { num: '03', title: 'CODEX devolve 10/10', desc: 'Depois de várias rodadas, o auditor finalmente aprova o código.' },
+        ],
+      },
+      { type: 'callout', text: '<strong>Remate:</strong> A sacada é que você tem um TIME de LLMs trabalhando pra você. Não é mais você contra a IA — é um time inteiro te servindo.' },
+    ],
+  },
+
+  /* ============ ATO 7 ============ */
+  { type: 'divider', act: 7 },
+  {
+    type: 'slide', act: 7, id: '7.1',
+    title: 'A origem: o FORGE nasceu do QUEST',
+    speech: 'Agora eu quero contar a história do meu framework: o FORGE. E vocês vão ver que ele nasceu por acidente — por causa de outra coisa chamada QUEST.',
+    body: `
+      <h3>História</h3>
+      <ul>
+        <li>No início, eu só queria usar o <code>/quest</code> pra <strong>orquestrar visualmente</strong> o meu trabalho. Entender onde eu estava e qual era o próximo passo.</li>
+        <li>Por que eu precisava disso? Porque o <strong>AIOX</strong> (o framework que eu usava antes) é mais complicado: você precisa ir delegando todas as funções, e ele não te cobra caso você deixe algo passar.</li>
+        <li>O Quest começou como um simples dashboard. Mas foi evoluindo pra uma espécie de <strong>jogo</strong>, onde eu ia evoluindo a cada nova etapa. O dashboard foi ficando cada vez mais complexo.</li>
+        <li>Isso me levou a questionar: <em>"Será que o AIOX é realmente o framework ideal pra ser usado com o Quest?"</em></li>
+        <li><strong>Foi assim que nasceu o FORGE.</strong></li>
+      </ul>
+    `,
+    components: [
+      {
+        type: 'diagram',
+        id: 'timeline-forge',
+        title: 'Timeline: O Nascimento do Forge',
+        prompt: `Horizontal timeline diagram on dark background (#0a0a0a), amber accents (#f59e0b). 4 milestone markers on a thin white line, left to right. Product names stay as-is, descriptions in Portuguese: 1. "AIOX" - Portuguese description "Poderoso mas implacável. Você delega tudo. Se deixar algo passar, ele não avisa." Icon: a complex gear machine. Gray tone. 2. "QUEST (nascido como dashboard)" - Portuguese description "Só queria acompanhar o progresso visualmente." Icon: a simple minimap. Light amber. 3. "QUEST (evoluiu pra jogo)" - Portuguese description "O dashboard virou um sistema de níveis. A coisa ficou interessante." Icon: a video game controller with XP bar. Amber. 4. "FORGE" - Portuguese description "A sacada: se o Quest é o jogo, precisamos de um motor melhor. Nasceu o Forge." Icon: a glowing forge/anvil with sparks. Bright amber glow. Between 3 and 4, a big Portuguese speech bubble reading "MOMENTO EUREKA". Big Portuguese title on top: "COMO UM DASHBOARD VIROU UM FRAMEWORK". All text in the image (except product names AIOX, QUEST, FORGE) must be in BRAZILIAN PORTUGUESE, exactly as written above, with correct accents. Editorial timeline infographic, Inter/Montserrat typography, thin lines, high contrast.`,
+      },
+    ],
+  },
+  {
+    type: 'slide', act: 7, id: '7.2',
+    title: 'O que é o FORGE (a receita real)',
+    speech: 'Gente, agora eu preciso ser honesto com vocês sobre o tamanho dessa receita. Quando eu falo "mashup de frameworks", isso soa pequeno. Mas o que o Forge virou é MUITO maior. Eu analisei 8 frameworks de orquestração AI do mercado, absorvi o melhor de cada um, juntei com 3 skills que eu já tinha criado aqui, e coloquei por cima 10 inovações que nenhum deles tinha. Deixa eu abrir isso pra vocês.',
+    body: `
+      <div class="callout" style="text-align: center; font-family: var(--font-head); font-size: 22px; font-weight: 700;">"Da ideia ao deploy. Sem atalho raso. Com XP."</div>
+      <h3>🧱 Camada 1 — Os 8 frameworks absorvidos</h3>
+      <table>
+        <thead><tr><th>Framework</th><th>O que eu peguei dele</th></tr></thead>
+        <tbody>
+          <tr><td>🔁 <strong>Ralph</strong> (14.9k ⭐)</td><td>Clean context per story — sessão limpa por story, zero acúmulo de lixo mental</td></tr>
+          <tr><td>📋 <strong>BMAD-METHOD</strong> (44k ⭐)</td><td>Processo ágil + Party Mode (subagents paralelos) + Distillator (compressão lossless)</td></tr>
+          <tr><td>🏛️ <strong>AIOX</strong> (2.6k ⭐)</td><td>CLI First + Constitution enforced + IDS anti-duplicação</td></tr>
+          <tr><td>🎨 <strong>Opensquad</strong> (1.3k ⭐)</td><td>Squads visuais + Sherlock Investigator + Veto Conditions granulares</td></tr>
+          <tr><td>📈 <strong>XOIA</strong></td><td>Gotchas auto-capture + CRO Scoring + Tech Presets + Dynamic Executor</td></tr>
+          <tr><td>⚙️ <strong>GSD-2</strong> (5.1k ⭐)</td><td>Tiered Context Injection + Token Profiles + Cost Tracking + Stuck Detection + Crash Recovery</td></tr>
+          <tr><td>🏭 <strong>/forge local</strong></td><td>15+ workflows especializados + plugin system com 19+ hooks</td></tr>
+          <tr><td>🎮 <strong>/quest local</strong></td><td>Gamificação RPG (XP, níveis, achievements, cerimônia)</td></tr>
+        </tbody>
+      </table>
+      <h3>🛠️ Camada 2 — As 3 skills locais que entraram no caldo</h3>
+      <ul>
+        <li>🧪 <strong>Stress-Test</strong> — Cenários tiered pra quebrar a skill antes do usuário quebrar</li>
+        <li>🏓 <strong>Code Review Ping-Pong</strong> — File-as-state-machine entre Claude e Codex</li>
+        <li>🎚️ <strong>CELF</strong> — Context layers (L0 até L7) organizando onde cada tipo de informação vive</li>
+      </ul>
+      <h3>✨ Camada 3 — As 10 inovações EXCLUSIVAS do Forge</h3>
+      <ol>
+        <li><strong>ContextState Unificado</strong> — 1 único struct com 6 eixos ortogonais (layers + pressure + freshness + compression + budget + profile).</li>
+        <li><strong>MVP Gate obrigatório</strong> — Entrega incremental garantida. Ninguém pula pro "vou fazer tudo de uma vez".</li>
+        <li><strong>Forge Memory</strong> — Aprendizado entre runs com evidências reais (não é alucinação).</li>
+        <li><strong>PRD-Generator</strong> — Do vazio pro PRD completo em minutos.</li>
+        <li><strong>Scope Reduction Prohibited</strong> — Constituição Art. 8: o LLM <strong>NÃO pode</strong> silenciosamente cortar escopo.</li>
+        <li><strong>State File as Source of Truth</strong> — Constituição Art. 7: plugins propõem, engine escreve. Atomicidade garantida.</li>
+        <li><strong>Analysis Paralysis Guard</strong> — 5+ reads consecutivas sem write = pausa forçada e justificativa em 1 frase.</li>
+        <li><strong>Deviation Contract</strong> — 4 regras padrão injetadas em <code>@dev</code> e <code>@qa</code>.</li>
+        <li><strong>Quest-Native Gamification</strong> — Gamificação é feature de primeira classe, não add-on.</li>
+        <li><strong>Dry Run + Replay</strong> — Preview do run inteiro antes de gastar 1 token + "save game" pra reexecutar do meio.</li>
+      </ol>
+      <div class="callout"><strong>Remate:</strong> Isso aqui é o que eu quero dizer quando falo "framework profissional". Não é o Lovable. Não é o AI Studio. É um motor que absorveu 8 dos melhores frameworks de AI do mundo — literalmente mais de 60 mil estrelas no GitHub somadas — e colocou 10 inovações por cima. E tudo isso pra que VOCÊ não precise pensar em nada disso. Você só fala o que quer. Ele faz o resto.</div>
+    `,
+    components: [
+      {
+        type: 'diagram',
+        id: 'receita-forge',
+        title: 'A Receita do Forge: 8 + 3 + 10',
+        prompt: `Editorial "recipe" infographic on dark background (#0a0a0a), amber accents (#f59e0b), thin white lines. Central visual metaphor: a large glowing amber forge/anvil in the center with molten metal glowing inside it. Three horizontal layers of ingredients arranged around the forge, each layer with a Portuguese group label: TOP ROW with Portuguese label "8 FRAMEWORKS ABSORVIDOS": 8 small labeled pills/ovals raining down as amber streams into the forge — "RALPH", "BMAD", "AIOX", "OPENSQUAD", "XOIA", "GSD-2", "/forge", "/quest". MIDDLE ROW with Portuguese label "3 SKILLS LOCAIS": 3 labeled pills also falling into the forge — "STRESS-TEST", "PING-PONG", "CELF". BOTTOM HALO (emerging UP from the forge as sparks, not falling in) with Portuguese label "10 INOVAÇÕES EXCLUSIVAS": 10 small glowing stars rising up from the molten metal, labeled in Portuguese: "CONTEXTSTATE UNIFICADO", "MVP GATE", "FORGE MEMORY", "PRD-GENERATOR", "SCOPE LOCK", "STATE = FONTE DE VERDADE", "ANALYSIS GUARD", "DEVIATION CONTRACT", "QUEST NATIVO", "DRY RUN + REPLAY". Below the whole composition, a glowing amber ingot emerging from the forge with the Portuguese tagline: "FORGE — DA IDEIA AO DEPLOY. SEM ATALHO RASO. COM XP." Big Portuguese title on top of the image: "A RECEITA: 8 + 3 + 10". All text in the image (except proper names RALPH, BMAD, AIOX, OPENSQUAD, XOIA, GSD-2, /forge, /quest, STRESS-TEST, PING-PONG, CELF, FORGE, PRD-GENERATOR) must be in BRAZILIAN PORTUGUESE, exactly as written above, with correct accents. Editorial infographic style, cinematic composition, Inter/Montserrat typography, negative space, high contrast, 16:9 aspect ratio.`,
+      },
+    ],
+  },
+  {
+    type: 'slide', act: 7, id: '7.3',
+    title: 'A grande diferença do Forge',
+    speech: 'A ideia do Forge NÃO é simplesmente "criar um app". Isso você faz no Lovable, no AI Studio, no próprio Claude Code. A ideia aqui é criar um app de maneira profissional, com qualidade premium, do jeito que empresas foda de software fariam.',
+    body: `
+      <h3>O que o Forge entrega</h3>
+      <ul>
+        <li>✅ Apps <strong>documentados</strong> do começo ao fim.</li>
+        <li>✅ Todas as <strong>melhores práticas</strong> aplicadas.</li>
+        <li>✅ <strong>Expansíveis</strong> — porque com boa documentação, expansão é consequência natural.</li>
+      </ul>
+    `,
+  },
+  {
+    type: 'slide', act: 7, id: '7.4',
+    title: 'Por que um framework sem auto-guia é um desastre',
+    speech: 'Se você usa o Claude Code sozinho, sem direcionamento, ele não vai te guiar da melhor forma. E se você usa um framework que não te guia, fica igual a esse vídeo aqui...',
+    body: `
+      <blockquote>Esse vídeo é aquele clássico de sistema estilo dominó, onde uma peça bate na outra e tudo acontece em perfeita sincronia. Exceto que... é uma zuação. O sistema NÃO funciona. Toda hora a pessoa precisa interferir pra dar certo. É exatamente assim que funciona um framework ruim — você passa mais tempo consertando do que construindo.</blockquote>
+    `,
+    components: [
+      { type: 'video', src: 'imagens/videos/domino-framework-quebrado.mp4', label: 'Sistema dominó "funcionando" — exceto que toda hora a pessoa precisa interferir. Framework ruim é assim: você passa mais tempo consertando do que construindo.' },
+    ],
+  },
+  {
+    type: 'slide', act: 7, id: '7.5',
+    title: 'Forge resolve esse problema',
+    speech: 'Um bom framework não precisa de interferência. Essa é a ideia do FORGE — é esse problema que ele resolve. Você fala o que quer. Ele faz. E te entrega um produto profissional, documentado, testado e pronto pra escalar.',
+    components: [
+      { type: 'image-suggested', icon: '✨', label: 'Imagem', text: 'Antes/depois: print do vídeo quebrado × print do Forge rodando limpo.' },
+    ],
+  },
+
+  /* ============ ATO 8 ============ */
+  { type: 'divider', act: 8 },
+  {
+    type: 'slide', act: 8, id: '8.1',
+    title: 'A escolha é sua',
+    speech: 'No começo dessa talk eu falei da pílula da Matrix. Agora vocês já viram o outro lado. Podem continuar mexendo no ChatGPT pra fazer receita de bolo — e tudo bem, ninguém vai julgar. Ou podem começar a tratar a IA como aquele gênio que merece ser orquestrado. Código virou commodity. Orquestração virou habilidade. A escolha é de vocês.',
+    body: `
+      <h3>Call to action</h3>
+      <ul>
+        <li>🎯 Comece hoje: crie seu <code>Claude.md</code> e seu <code>Memory.md</code>.</li>
+        <li>🎯 Use o <code>/prd-generator</code> no próximo projeto — só pra sentir a diferença.</li>
+        <li>🎯 Se quiser ir fundo: vem conversar comigo depois da talk.</li>
+      </ul>
+    `,
+  },
+  {
+    type: 'slide', act: 8, id: '8.2',
+    title: 'Recursos (pra quem quiser se aprofundar)',
+    body: `
+      <h3>Skills mencionadas</h3>
+      <ul>
+        <li><code>/prd-generator</code> — gera PRDs completos</li>
+        <li><code>/tech-research</code> — pesquisa stack técnica</li>
+        <li><code>/forge</code> — motor de orquestração</li>
+        <li><code>/quest</code> — camada gamificada</li>
+        <li><code>/code-review-ping-pong</code> — dupla Claude × Codex</li>
+        <li><code>/critica</code> — revisão crítica antes de implementar</li>
+        <li><code>/catalog</code> — catálogo do ecossistema</li>
+        <li><code>/skill-creator</code> — meta skill pra criar skills</li>
+      </ul>
+      <h3>Referências</h3>
+      <ul>
+        <li><a href="https://querobolsa.com.br/revista/10-profissoes-extintas" target="_blank">10 profissões extintas — Quero Bolsa</a></li>
+      </ul>
+      <div class="callout" style="text-align: center; font-family: var(--font-head); font-size: 20px; font-style: italic;">"Não tive tempo de escrever uma menor." — Blaise Pascal</div>
+    `,
+    components: [
+      {
+        type: 'image',
+        src: 'imagens/marca/logo-ensinio.png',
+        caption: 'Apresentado no Ensinio Talks · 10 de abril de 2026 · Obrigado!',
+      },
+    ],
+  },
+];
+
+/* ============================================================
+   ENGINE
+   ============================================================ */
+
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => document.querySelectorAll(sel);
+
+const state = {
+  index: 0,
+  total: SLIDES.length,
+};
+
+function escapeHtml(str) {
+  return String(str)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
+
+function renderComponent(c, slideIdx, compIdx) {
+  if (!c) return '';
+  if (c.type === 'promptbox') {
+    return `
+      <div class="promptbox">
+        <div class="promptbox-header">
+          <div class="promptbox-label">
+            <div class="promptbox-dots"><span></span><span></span><span></span></div>
+            ${escapeHtml(c.label || 'Prompt')}
+          </div>
+          <button class="btn-copy" data-copy="${slideIdx}-${compIdx}">
+            <span>📋</span> Copiar
+          </button>
+        </div>
+        <pre id="code-${slideIdx}-${compIdx}">${escapeHtml(c.code)}</pre>
+      </div>
+    `;
+  }
+  if (c.type === 'image') {
+    return `
+      <div class="image-wrap">
+        <img src="${c.src}" alt="${escapeHtml(c.caption || '')}" onerror="this.parentElement.classList.add('hidden')">
+        ${c.caption ? `<div class="image-caption">${escapeHtml(c.caption)}</div>` : ''}
+      </div>
+    `;
+  }
+  if (c.type === 'image-suggested') {
+    return `
+      <div class="placeholder">
+        <div class="placeholder-icon">${c.icon || '🖼️'}</div>
+        <div class="placeholder-label">${escapeHtml(c.label || 'Imagem sugerida')}</div>
+        <div class="placeholder-text">${escapeHtml(c.text)}</div>
+      </div>
+    `;
+  }
+  if (c.type === 'carousel') {
+    const items = c.items.map(it => `
+      <div class="carousel-item">
+        <div>
+          <div class="carousel-item-num">${escapeHtml(it.num || '')}</div>
+          <div class="carousel-item-title">${escapeHtml(it.title)}</div>
+        </div>
+        <div class="carousel-item-desc">${escapeHtml(it.desc || '')}</div>
+      </div>
+    `).join('');
+    return `
+      <div class="carousel">
+        ${c.label ? `<div class="placeholder-label" style="margin-bottom: 14px;">${escapeHtml(c.label)}</div>` : ''}
+        <div class="carousel-scroll">${items}</div>
+      </div>
+    `;
+  }
+  if (c.type === 'video') {
+    return `
+      <div class="video-wrap">
+        <video controls>
+          <source src="${c.src}" type="video/mp4">
+        </video>
+      </div>
+      ${c.label ? `<div class="image-caption" style="margin-top: -16px; border-radius: 0 0 var(--radius) var(--radius); border-top: none;">${escapeHtml(c.label)}</div>` : ''}
+    `;
+  }
+  if (c.type === 'diagram') {
+    const imgPath = `imagens/diagramas/${c.id}.png`;
+    return `
+      <div class="diagram">
+        <div class="diagram-header">
+          <div class="diagram-title-wrap">
+            <span class="diagram-badge">${c.critical ? '⭐ Diagrama crítico' : '🎨 Diagrama'}</span>
+            <span class="diagram-title">${escapeHtml(c.title)}</span>
+          </div>
+        </div>
+        <div class="diagram-body">
+          <img src="${imgPath}" alt="${escapeHtml(c.title)}"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <div class="diagram-placeholder-content" style="display:none;">
+            <span class="icon">🎨</span>
+            <div class="label">Diagrama pendente de geração</div>
+            <div class="hint">Gere via AI Studio/Midjourney e salve como <code>${c.id}.png</code> em <code>imagens/diagramas/</code>.</div>
+          </div>
+        </div>
+        <div class="diagram-toggle">
+          <span class="placeholder-label" style="margin:0;">Prompt de geração</span>
+          <button class="btn-ghost" data-toggle-prompt="${slideIdx}-${compIdx}">Ver prompt</button>
+          <button class="btn-copy" data-copy-prompt="${slideIdx}-${compIdx}"><span>📋</span> Copiar</button>
+        </div>
+        <div class="diagram-prompt" id="prompt-${slideIdx}-${compIdx}">
+          <pre id="promptcode-${slideIdx}-${compIdx}">${escapeHtml(c.prompt)}</pre>
+        </div>
+      </div>
+    `;
+  }
+  if (c.type === 'callout') {
+    return `<div class="callout">${c.text}</div>`;
+  }
+  return '';
+}
+
+function renderSlide(slide, idx) {
+  if (slide.type === 'cover') {
+    return `
+      <section class="slide cover" data-idx="${idx}">
+        <div class="cover-content">
+          <div class="cover-poster">
+            <img src="${ASSETS.capa}" alt="Ensinio Talks — Orquestrando Inteligência Artificial com Frameworks, com Luiz Fosc">
+          </div>
+          <div class="cover-text">
+            <div class="cover-kicker">${escapeHtml(slide.kicker)}</div>
+            <h1 class="cover-title">${escapeHtml(slide.title[0])} <span class="amber">${escapeHtml(slide.title[1])}</span></h1>
+            <p class="cover-subtitle">${escapeHtml(slide.subtitle)}</p>
+            <div class="cover-meta">
+              ${slide.meta.map(m => `<div class="cover-meta-item">${escapeHtml(m.label)}<strong>${escapeHtml(m.value)}</strong></div>`).join('')}
+            </div>
+          </div>
+        </div>
+        <div class="cover-hint">Use as setas ← → para navegar</div>
+      </section>
+    `;
+  }
+
+  if (slide.type === 'divider') {
+    return `
+      <section class="slide divider" data-idx="${idx}" data-act="${slide.act}">
+        <div class="divider-content">
+          <div class="divider-label">Ato ${slide.act} de 8</div>
+          <div class="divider-number">${String(slide.act).padStart(2, '0')}</div>
+          <h2 class="divider-title">${escapeHtml(ACTS[slide.act])}</h2>
+          <div class="divider-line"></div>
+        </div>
+      </section>
+    `;
+  }
+
+  // Regular slide
+  const components = (slide.components || [])
+    .map((c, ci) => renderComponent(c, idx, ci))
+    .join('');
+
+  return `
+    <section class="slide" data-idx="${idx}" data-act="${slide.act}">
+      <div class="slide-header">
+        <div class="slide-eyebrow">
+          <span class="dot"></span>
+          <span>Ato ${slide.act} · Slide ${slide.id}</span>
+          <span class="act-name">— ${escapeHtml(ACTS[slide.act])}</span>
+        </div>
+        <h2 class="slide-title">${escapeHtml(slide.title)}</h2>
+      </div>
+      <div class="slide-body">
+        ${slide.speech ? `<div class="speech">${escapeHtml(slide.speech)}</div>` : ''}
+        ${slide.body ? `<div class="prose">${slide.body}</div>` : ''}
+        ${components}
+      </div>
+    </section>
+  `;
+}
+
+function renderAll() {
+  const main = $('#main');
+  main.innerHTML = SLIDES.map(renderSlide).join('');
+  renderSidebar();
+  attachHandlers();
+  goTo(0, false);
+}
+
+function renderSidebar() {
+  const nav = $('#sidebarNav');
+  let html = '';
+  let currentAct = null;
+
+  SLIDES.forEach((slide, idx) => {
+    if (slide.type === 'cover') {
+      html += `<button class="sidebar-item" data-goto="${idx}"><span class="num">◆</span>Capa</button>`;
+      return;
+    }
+    if (slide.type === 'divider') {
+      currentAct = slide.act;
+      html += `<div class="sidebar-act">Ato ${slide.act} · ${escapeHtml(ACTS[slide.act])}</div>`;
+      html += `<button class="sidebar-item" data-goto="${idx}"><span class="num">—</span>Abertura do ato</button>`;
+      return;
+    }
+    html += `<button class="sidebar-item" data-goto="${idx}"><span class="num">${slide.id}</span>${escapeHtml(slide.title)}</button>`;
+  });
+
+  nav.innerHTML = html;
+}
+
+function updateProgress() {
+  const pct = ((state.index + 1) / state.total) * 100;
+  $('#progressFill').style.width = pct + '%';
+  $('#curNum').textContent = String(state.index + 1).padStart(2, '0');
+  $('#totalNum').textContent = String(state.total).padStart(2, '0');
+  $('#btnPrev').disabled = state.index === 0;
+  $('#btnNext').disabled = state.index === state.total - 1;
+
+  // Sidebar active state
+  $$('.sidebar-item').forEach((el, i) => {
+    el.classList.toggle('active', parseInt(el.dataset.goto, 10) === state.index);
+  });
+}
+
+function goTo(idx, smooth = true) {
+  idx = Math.max(0, Math.min(SLIDES.length - 1, idx));
+  state.index = idx;
+  const slide = $(`.slide[data-idx="${idx}"]`);
+  if (slide) {
+    slide.scrollIntoView({ behavior: smooth ? 'smooth' : 'instant', block: 'start' });
+  }
+  updateProgress();
+
+  // close sidebar on mobile
+  if (window.innerWidth <= 840) {
+    $('#sidebar').classList.remove('open');
+  }
+}
+
+function next() { goTo(state.index + 1); }
+function prev() { goTo(state.index - 1); }
+
+function toggleTheme() {
+  const html = document.documentElement;
+  const cur = html.getAttribute('data-theme');
+  const nxt = cur === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', nxt);
+  try { localStorage.setItem('theme', nxt); } catch (e) {}
+}
+
+function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen?.();
+  } else {
+    document.exitFullscreen?.();
+  }
+}
+
+async function copyToClipboard(text, btn) {
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch (e) {
+    // fallback
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+  }
+  if (btn) {
+    const original = btn.innerHTML;
+    btn.classList.add('copied');
+    btn.innerHTML = '<span>✓</span> Copiado!';
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.innerHTML = original;
+    }, 1800);
+  }
+}
+
+function attachHandlers() {
+  // Navigation buttons
+  $('#btnPrev').onclick = prev;
+  $('#btnNext').onclick = next;
+  $('#btnTheme').onclick = toggleTheme;
+  $('#btnFull').onclick = toggleFullscreen;
+
+  // Sidebar items
+  $$('.sidebar-item').forEach(el => {
+    el.addEventListener('click', () => {
+      goTo(parseInt(el.dataset.goto, 10));
+    });
+  });
+
+  // Menu toggle (mobile)
+  $('#menuToggle').onclick = () => {
+    $('#sidebar').classList.toggle('open');
+  };
+
+  // Delegate: copy buttons
+  document.addEventListener('click', (e) => {
+    const copyBtn = e.target.closest('[data-copy]');
+    if (copyBtn) {
+      const key = copyBtn.dataset.copy;
+      const code = document.getElementById(`code-${key}`)?.textContent || '';
+      copyToClipboard(code, copyBtn);
+      return;
+    }
+    const copyPromptBtn = e.target.closest('[data-copy-prompt]');
+    if (copyPromptBtn) {
+      const key = copyPromptBtn.dataset.copyPrompt;
+      const code = document.getElementById(`promptcode-${key}`)?.textContent || '';
+      copyToClipboard(code, copyPromptBtn);
+      return;
+    }
+    const toggleBtn = e.target.closest('[data-toggle-prompt]');
+    if (toggleBtn) {
+      const key = toggleBtn.dataset.togglePrompt;
+      const box = document.getElementById(`prompt-${key}`);
+      if (box) {
+        box.classList.toggle('open');
+        toggleBtn.textContent = box.classList.contains('open') ? 'Ocultar prompt' : 'Ver prompt';
+      }
+    }
+  });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); next(); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prev(); }
+    else if (e.key === 'Home') { e.preventDefault(); goTo(0); }
+    else if (e.key === 'End') { e.preventDefault(); goTo(SLIDES.length - 1); }
+    else if (e.key === 't' || e.key === 'T') { toggleTheme(); }
+    else if (e.key === 'f' || e.key === 'F') { toggleFullscreen(); }
+    else if (e.key === 'Escape') { $('#sidebar').classList.remove('open'); }
+  });
+
+  // Track scroll position to update current slide
+  const main = $('#main');
+  let scrollTimeout;
+  main.addEventListener('scroll', () => {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      const slides = $$('.slide');
+      const mainRect = main.getBoundingClientRect();
+      let closest = 0;
+      let minDist = Infinity;
+      slides.forEach((s, i) => {
+        const rect = s.getBoundingClientRect();
+        const dist = Math.abs(rect.top - mainRect.top);
+        if (dist < minDist) { minDist = dist; closest = i; }
+      });
+      if (closest !== state.index) {
+        state.index = closest;
+        updateProgress();
+      }
+    }, 100);
+  });
+}
+
+function init() {
+  // Restore theme
+  try {
+    const saved = localStorage.getItem('theme');
+    if (saved) document.documentElement.setAttribute('data-theme', saved);
+  } catch (e) {}
+
+  renderAll();
+}
+
+init();
+</script>
+</body>
+</html>

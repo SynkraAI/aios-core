@@ -45,7 +45,7 @@ Registro completo de ações para análise post-mortem.
 |----------|------------|----------|
 | Decision Log | `.ai/decision-log-{story-id}.md` | Decisões autônomas com rationale |
 | Git Log | `git log --oneline` | Histórico de commits |
-| Recovery Tracker | `.aios/recovery/attempts.json` | Tentativas de implementação |
+| Recovery Tracker | `.aiox/recovery/attempts.json` | Tentativas de implementação |
 | QA Loop Status | `qa/loop-status.json` | Iterações de review |
 
 ### Camada 4: Interrupção (Emergencial)

@@ -9,7 +9,7 @@ Entrada: |
   - project_description: Text description of the project (free form)
   - domain_hint: Optional domain hint for guidance
 Saida: |
-  - roadmap_central: .aios/navigator/[project]/roadmap.md
+  - roadmap_central: .aiox/navigator/[project]/roadmap.md
   - roadmap_local: docs/framework/roadmap.md
   - project_metadata: YAML metadata
 Checklist:
@@ -106,12 +106,12 @@ estimated_duration: "3-4 meses (12-16 sprints)"
 
 1. Create directory structure:
 ```bash
-mkdir -p .aios/navigator/ecommerce-order-mgmt/{checkpoints,reports}
+mkdir -p .aiox/navigator/ecommerce-order-mgmt/{checkpoints,reports}
 ```
 
 2. Write roadmap to central:
 ```
-.aios/navigator/ecommerce-order-mgmt/roadmap.md
+.aiox/navigator/ecommerce-order-mgmt/roadmap.md
 ```
 
 3. Write roadmap to local:
@@ -121,7 +121,7 @@ docs/framework/roadmap.md
 
 4. Run sync script:
 ```javascript
-const { syncRoadmap } = require('.aios-core/development/scripts/navigator/roadmap-sync');
+const { syncRoadmap } = require('.aiox-core/development/scripts/navigator/roadmap-sync');
 await syncRoadmap('ecommerce-order-mgmt');
 ```
 
@@ -135,7 +135,7 @@ await syncRoadmap('ecommerce-order-mgmt');
 **Complexidade:** Medium (3-4 meses)
 
 **Localizações:**
-- Central: .aios/navigator/ecommerce-order-mgmt/roadmap.md
+- Central: .aiox/navigator/ecommerce-order-mgmt/roadmap.md
 - Local: docs/framework/roadmap.md
 
 **Fase atual:** 1 (Pesquisa)
@@ -178,7 +178,7 @@ async function mapProject(description, options = {}) {
   await syncRoadmap(projectMeta.name);
 
   return {
-    roadmapPath: `.aios/navigator/${projectMeta.name}/roadmap.md`,
+    roadmapPath: `.aiox/navigator/${projectMeta.name}/roadmap.md`,
     currentPhase: phases[0],
     nextStep: phases[0].command
   };

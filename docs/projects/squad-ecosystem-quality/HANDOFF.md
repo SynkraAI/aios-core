@@ -16,7 +16,7 @@ Você auditou 10 squads/sistemas do AIOS com 4 lentes (40 análises). Resultado:
 - **7 stories criadas** para resolver os gaps
 
 **Epic criado:** EPIC-squad-ecosystem-quality
-**Estrutura:** `.aios-core/development/epics/2026-03-squad-ecosystem-quality/`
+**Estrutura:** `.aiox-core/development/epics/2026-03-squad-ecosystem-quality/`
 
 ---
 
@@ -59,12 +59,12 @@ docs/stories/active/EPIC-status.md
 
 **Epic Folder:**
 ```
-.aios-core/development/epics/2026-03-squad-ecosystem-quality/
+.aiox-core/development/epics/2026-03-squad-ecosystem-quality/
 ```
 
 **Governança:**
 ```
-.aios-core/development/epics/GUIDELINES.md
+.aiox-core/development/epics/GUIDELINES.md
 ```
 
 ---

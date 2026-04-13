@@ -88,7 +88,7 @@ The runner manages execution state across phases.
 
 ### State File
 
-Location: `.aios/{{DOMAIN}}-forge-runs/{run_id}/state.json`
+Location: `.aiox/{{DOMAIN}}-forge-runs/{run_id}/state.json`
 
 ` ` `json
 {
@@ -130,7 +130,7 @@ Phase 0 (Discovery) → Phase 1 (Plan) → Phase 2 (Execute) → Phase 3 (Delive
 ### Resume Protocol
 
 On `/{{DOMAIN}}-forge resume`:
-1. Scan `.aios/{{DOMAIN}}-forge-runs/` for status == "running" or "paused"
+1. Scan `.aiox/{{DOMAIN}}-forge-runs/` for status == "running" or "paused"
 2. Load state.json
 3. Show summary of where we stopped
 4. Ask user: "Continuar de onde parou ou recomeçar?"

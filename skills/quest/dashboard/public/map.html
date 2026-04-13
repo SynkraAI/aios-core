@@ -116,6 +116,18 @@
     .hud-l { display: flex; align-items: center; gap: 14px; }
     .hud-r { display: flex; align-items: center; gap: 14px; }
     .h-title { font-size: var(--font-size-title); color: var(--accent-primary); }
+    .h-hero {
+      color: var(--text-primary);
+      font-size: var(--font-size-hud);
+      padding: 2px 10px;
+      border: 1px solid var(--accent-primary);
+      border-radius: 3px;
+      background: rgba(0, 0, 0, 0.25);
+      white-space: nowrap;
+    }
+    .h-hero .h-hero-name { color: var(--accent-primary); font-weight: 700; }
+    .h-hero .h-hero-title { color: var(--text-muted); font-style: italic; margin-left: 6px; }
+    .h-hero:empty { display: none; }
     .h-lv { color: var(--accent-done); font-size: var(--font-size-hud); }
     .h-xp { color: var(--text-muted); font-size: calc(var(--font-size-hud) - 1px); }
     .xp-w { width: 180px; height: 12px; background: var(--bg-body); border: 2px solid var(--text-muted); border-radius: 2px; overflow: hidden; }
@@ -256,6 +268,7 @@
 <div class="hud">
   <div class="hud-l">
     <span class="h-title" id="h-title">QUEST MAP</span>
+    <span class="h-hero" id="h-hero"></span>
     <span class="h-lv" id="h-lv">Lv.1</span>
     <div class="xp-w"><div class="xp-f" id="h-xp-bar" style="width:0%"></div></div>
     <span class="h-xp" id="h-xp">0 XP</span>
@@ -458,6 +471,7 @@ function removeWhite(img) {
 let questItems = {};   // { "0.1": { status, label, command, who, tip, ... } }
 let questStats = {};
 let questName = '';
+let questHero = { name: '', title: '' };
 let packData = null;   // pack YAML data for enrichment
 let renderNodes = [];  // merged: position + quest data
 let cam = { x: 0, y: 0 };
@@ -526,6 +540,10 @@ async function loadData() {
   questItems = items;
   questStats = parsed.stats || {};
   questName = proj.name;
+  questHero = {
+    name: (parsed.meta && parsed.meta.hero_name) || 'Aventureiro',
+    title: (parsed.meta && parsed.meta.hero_title) || ''
+  };
   packData = proj.pack_data || null;
 
   // Build pack item index for enrichment: { "0.1": { command, who, tip, label, xp } }
@@ -905,6 +923,16 @@ function drawHeroAt(x, y) {
 // --------------------------------------------------------------------------
 function updateHUD() {
   document.getElementById('h-title').textContent = `QUEST MAP — ${questName}`;
+  const heroEl = document.getElementById('h-hero');
+  if (heroEl) {
+    if (questHero && questHero.name) {
+      const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+      heroEl.innerHTML = '⚔️ <span class="h-hero-name">' + esc(questHero.name) + '</span>' +
+        (questHero.title ? '<span class="h-hero-title">' + esc(questHero.title) + '</span>' : '');
+    } else {
+      heroEl.innerHTML = '';
+    }
+  }
   let done = 0, total = 0, xp = 0;
   if (questStats.total_xp !== undefined) {
     xp = questStats.total_xp; done = questStats.items_done || 0; total = questStats.items_total || 0;

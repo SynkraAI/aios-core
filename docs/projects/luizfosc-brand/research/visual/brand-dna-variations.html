@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luiz Fosc — Variações do Sistema Visual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=Montserrat:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --black: #212121; --black-soft: #2a2a2a; --white: #FFFFFF; --ivory: #F5F0EB;
+    --amber: #B8860B; --amber-glow: #D4A017; --amber-light: #E8C547; --amber-dark: #8A6508;
+    --gray-100: #F0EFED; --gray-200: #E0DFDD; --gray-300: #B0AEAB; --gray-400: #8A8885;
+    --gray-500: #6B6966; --gray-600: #4A4846; --gray-700: #353433; --gray-800: #2a2928;
+  }
+  body { background: var(--black); color: var(--white); font-family: 'Ubuntu', sans-serif; line-height: 1.6; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 40px 32px; }
+
+  .chevron-pattern { position: relative; overflow: hidden; }
+  .chevron-pattern::before {
+    content: ''; position: absolute; inset: 0; opacity: 0.04; pointer-events: none;
+    background-image:
+      repeating-linear-gradient(45deg, transparent, transparent 8px, var(--white) 8px, var(--white) 9px),
+      repeating-linear-gradient(-45deg, transparent, transparent 8px, var(--white) 8px, var(--white) 9px);
+  }
+  .chevron-light::before {
+    opacity: 0.06;
+    background-image:
+      repeating-linear-gradient(45deg, transparent, transparent 8px, var(--black) 8px, var(--black) 9px),
+      repeating-linear-gradient(-45deg, transparent, transparent 8px, var(--black) 8px, var(--black) 9px);
+  }
+
+  .section { margin-bottom: 100px; }
+  .section-header { display: flex; align-items: baseline; gap: 20px; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid var(--gray-700); }
+  .section-num { font-family: 'Montserrat', sans-serif; font-size: 56px; font-weight: 200; color: var(--gray-700); line-height: 1; }
+  .section-title { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber); }
+  .section-desc { font-size: 16px; color: var(--gray-400); margin-top: 4px; font-weight: 300; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+
+  .card { border-radius: 12px; overflow: hidden; border: 1px solid var(--gray-700); }
+  .card-label { padding: 12px 20px; background: var(--black-soft); border-bottom: 1px solid var(--gray-700); display: flex; justify-content: space-between; align-items: center; }
+  .card-label .name { font-family: 'Ubuntu', sans-serif; font-size: 14px; font-weight: 500; color: var(--white); }
+  .card-label .tag { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; }
+  .tag-base { background: var(--amber); color: var(--black); }
+  .tag-var { background: var(--gray-600); color: var(--white); }
+  .tag-photo { background: #4A6741; color: var(--white); }
+  .tag-launch { background: #8B2F2F; color: var(--white); }
+
+  .ig { aspect-ratio: 1/1; border-radius: 10px; overflow: hidden; position: relative; display: flex; flex-direction: column; }
+  .ig-reels { aspect-ratio: 9/16; max-height: 480px; border-radius: 10px; overflow: hidden; position: relative; display: flex; flex-direction: column; }
+
+  @media (max-width: 768px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HERO -->
+<div class="chevron-pattern" style="text-align:center; padding:70px 0 50px; border-bottom:1px solid var(--gray-700); margin-bottom:80px;">
+  <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber); margin-bottom:20px; position:relative; z-index:2;">Sistema Visual — Variações</div>
+  <div style="position:relative; z-index:2; margin-bottom:12px;">
+    <span style="font-family:'Montserrat',sans-serif; font-weight:200; font-size:48px; letter-spacing:0.2em;">LUIZ</span>
+    <span style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:48px; letter-spacing:0.2em;">FOSC</span>
+  </div>
+  <div style="font-family:'Ubuntu',sans-serif; font-size:15px; color:var(--gray-400); font-weight:300; position:relative; z-index:2;">
+    A base é B&W + Amber. Aqui: como ela se adapta a fotos, lançamentos, eventos e diferentes humores.
+  </div>
+</div>
+
+<!-- ===== 01: BASE vs VARIAÇÕES — CONCEITO ===== -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">01</div>
+    <div>
+      <div class="section-title">O conceito — Uma base, múltiplos humores</div>
+      <div class="section-desc">Como o Tony Robbins: "Liberdade dentro de um framework". A base nunca muda. O contexto colore.</div>
+    </div>
+  </div>
+
+  <div style="background:var(--black-soft); border-radius:12px; padding:36px; border:1px solid var(--gray-700); margin-bottom:32px;">
+    <div style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:18px; color:var(--white); margin-bottom:16px;">O que NUNCA muda:</div>
+    <div style="display:flex; gap:24px; flex-wrap:wrap; margin-bottom:24px;">
+      <div style="display:flex; align-items:center; gap:8px;"><div style="width:20px; height:20px; background:var(--black); border:1px solid var(--gray-600); border-radius:4px;"></div><span style="font-size:14px; color:var(--gray-300);">Preto #212121</span></div>
+      <div style="display:flex; align-items:center; gap:8px;"><div style="width:20px; height:20px; background:var(--white); border-radius:4px;"></div><span style="font-size:14px; color:var(--gray-300);">Branco #FFFFFF</span></div>
+      <div style="display:flex; align-items:center; gap:8px;"><div style="width:20px; height:20px; background:var(--amber); border-radius:4px;"></div><span style="font-size:14px; color:var(--gray-300);">Amber #B8860B</span></div>
+      <div style="display:flex; align-items:center; gap:8px;"><span style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:13px; color:var(--gray-300);">Montserrat + Ubuntu</span></div>
+      <div style="display:flex; align-items:center; gap:8px;"><span style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:13px; color:var(--gray-300);">Chevron Pattern</span></div>
+    </div>
+    <div style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:18px; color:var(--amber); margin-bottom:16px;">O que FLEXIONA por contexto:</div>
+    <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:15px; color:var(--gray-300); line-height:1.7;">
+      → Fotos trazem suas próprias cores (palco quente, bastidor frio, evento colorido)<br>
+      → Lançamentos podem ter uma <strong style="color:var(--white);">cor de campanha temporária</strong> que vive junto com o amber<br>
+      → O fundo pode variar entre preto puro, preto quente, preto frio, ivory, creme<br>
+      → A intensidade do chevron pattern sobe ou desce conforme o contexto
+    </div>
+  </div>
+</div>
+
+<!-- ===== 02: POSTS COM FOTO ===== -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">02</div>
+    <div>
+      <div class="section-title">Posts com foto — A foto traz a cor</div>
+      <div class="section-desc">O sistema se adapta à temperatura da imagem. O amber e o preto ancoram, a foto colore.</div>
+    </div>
+  </div>
+
+  <div class="grid-3">
+    <!-- Foto warm (palco, amber light) -->
+    <div class="card">
+      <div class="card-label"><span class="name">Foto quente (palco)</span><span class="tag tag-photo">Com foto</span></div>
+      <div style="padding:12px; background:var(--black-soft);">
+        <div class="ig" style="background: linear-gradient(180deg, #3D2B10 0%, #1a1a1a 50%, var(--black) 100%); justify-content:flex-end; padding:28px;">
+          <div style="position:absolute; top:0; left:0; right:0; height:55%; background: linear-gradient(180deg, rgba(184,134,11,0.2) 0%, rgba(33,33,33,0.95) 100%); display:flex; align-items:center; justify-content:center;">
+            <div style="font-size:11px; color:var(--gray-500); text-align:center;">[ foto no palco ]<br><span style="color:var(--amber-glow); font-size:10px;">tons quentes naturais</span></div>
+          </div>
+          <div style="position:absolute; top:14px; right:14px; width:24px; height:24px; border-right:2px solid var(--amber); border-top:2px solid var(--amber); opacity:0.4;"></div>
+          <div style="position:relative; z-index:2;">
+            <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:20px; color:var(--white); line-height:1.1; margin-bottom:4px;">
+              Quando o conteúdo conecta, <span style="color:var(--amber-glow);">tudo muda</span>
+            </div>
+            <div style="width:28px; height:2px; background:var(--amber); margin:10px 0;"></div>
+            <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:12px; color:var(--gray-400);">@luizfosc</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Foto cool (bastidor, piano) — destaque em tom frio -->
+    <div class="card">
+      <div class="card-label"><span class="name">Foto fria (bastidor)</span><span class="tag tag-photo">Com foto</span></div>
+      <div style="padding:12px; background:var(--black-soft);">
+        <div class="ig" style="background: linear-gradient(180deg, #1a2030 0%, #1a1a1a 50%, var(--black) 100%); justify-content:flex-end; padding:28px;">
+          <div style="position:absolute; top:0; left:0; right:0; height:55%; background: linear-gradient(180deg, rgba(40,50,70,0.3) 0%, rgba(33,33,33,0.95) 100%); display:flex; align-items:center; justify-content:center;">
+            <div style="font-size:11px; color:var(--gray-500); text-align:center;">[ foto no piano / bastidor ]<br><span style="color:#7A8BA0; font-size:10px;">tons frios naturais</span></div>
+          </div>
+          <div style="position:absolute; top:14px; right:14px; width:24px; height:24px; border-right:2px solid #7A8BA0; border-top:2px solid #7A8BA0; opacity:0.3;"></div>
+          <div style="position:relative; z-index:2;">
+            <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:20px; color:var(--white); line-height:1.1; margin-bottom:4px;">
+              O silêncio antes do <span style="color:#9AB0C8;">show</span>
+            </div>
+            <div style="width:28px; height:2px; background:#7A8BA0; margin:10px 0;"></div>
+            <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:12px; color:var(--gray-400);">@luizfosc</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Foto família (warm, casual) — destaque em tom humano/terroso -->
+    <div class="card">
+      <div class="card-label"><span class="name">Foto quente (família)</span><span class="tag tag-photo">Com foto</span></div>
+      <div style="padding:12px; background:var(--black-soft);">
+        <div class="ig" style="background: linear-gradient(180deg, #3A2E20 0%, #1a1a1a 50%, var(--black) 100%); justify-content:flex-end; padding:28px;">
+          <div style="position:absolute; top:0; left:0; right:0; height:55%; background: linear-gradient(180deg, rgba(180,150,100,0.15) 0%, rgba(33,33,33,0.95) 100%); display:flex; align-items:center; justify-content:center;">
+            <div style="font-size:11px; color:var(--gray-500); text-align:center;">[ foto com família ]<br><span style="color:#C4A882; font-size:10px;">tons quentes humanos</span></div>
+          </div>
+          <div style="position:absolute; top:14px; right:14px; width:24px; height:24px; border-right:2px solid #C4A882; border-top:2px solid #C4A882; opacity:0.3;"></div>
+          <div style="position:relative; z-index:2;">
+            <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:20px; color:var(--white); line-height:1.1; margin-bottom:4px;">
+              O melhor de mim <span style="color:#E0C9A8;">não está no palco</span>
+            </div>
+            <div style="width:28px; height:2px; background:#C4A882; margin:10px 0;"></div>
+            <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:12px; color:var(--gray-400);">@luizfosc</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 03: LANÇAMENTOS DE PRODUTO ===== -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">03</div>
+    <div>
+      <div class="section-title">Lançamentos de Produto — Cor de campanha temporária</div>
+      <div class="section-desc">Cada produto pode ter UMA cor de campanha que vive junto com o amber. O preto e o chevron ancoram tudo como "Fosc".</div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:24px;">
+
+    <!-- Palestra Antifrágil — layout CINEMATIC (foto bg simulada + texto central) -->
+    <div class="card">
+      <div class="card-label"><span class="name">Palestra "Antifrágil"</span><span class="tag tag-launch">Lançamento</span></div>
+      <div style="background: linear-gradient(135deg, #1a0a0a 0%, var(--black) 40%, #2a1515 100%); padding:48px 36px; position:relative; overflow:hidden; min-height:280px;">
+        <div style="position:absolute; inset:0; opacity:0.04; background-image: repeating-linear-gradient(45deg, transparent, transparent 8px, #8B2F2F 8px, #8B2F2F 9px), repeating-linear-gradient(-45deg, transparent, transparent 8px, #8B2F2F 8px, #8B2F2F 9px);"></div>
+        <div style="position:absolute; top:0; left:0; width:100%; height:4px; background: linear-gradient(90deg, transparent, #8B2F2F, var(--amber), transparent);"></div>
+        <div style="position:relative; z-index:2; text-align:center;">
+          <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:#C45454; margin-bottom:12px;">Palestra Show</div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:900; font-size:42px; line-height:1.0; color:var(--white); margin-bottom:8px; letter-spacing:-0.02em;">ANTIFRÁGIL</div>
+          <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:15px; color:var(--gray-300); margin-bottom:24px;">A arte de crescer com os <span style="color:var(--amber-glow);">desafios</span></div>
+          <div style="display:inline-flex; gap:10px;">
+            <div style="background:var(--amber); color:var(--black); font-family:'Montserrat',sans-serif; font-weight:600; font-size:12px; padding:10px 24px; border-radius:6px;">Contratar palestra</div>
+            <div style="border:1px solid var(--gray-600); color:var(--gray-300); font-family:'Ubuntu',sans-serif; font-weight:400; font-size:13px; padding:10px 24px; border-radius:6px;">Ver trailer</div>
+          </div>
+        </div>
+        <div style="position:absolute; bottom:12px; left:16px; font-size:9px; color:var(--gray-700);">Cor de campanha: Deep Red #8B2F2F</div>
+      </div>
+    </div>
+
+    <!-- Palestra Fora da Caixa — layout PLAYFUL (listras laterais + alinhamento esquerdo) -->
+    <div class="card">
+      <div class="card-label"><span class="name">Palestra "Fora da Caixa"</span><span class="tag" style="background:#C47A1A; color:var(--black);">Lançamento</span></div>
+      <div style="background:var(--black); padding:40px 36px; position:relative; overflow:hidden; min-height:280px;">
+        <!-- Orange stripes on the right (inspired by Beace original) -->
+        <div style="position:absolute; right:0; top:0; bottom:0; width:60px;">
+          <div style="position:absolute; top:20px; right:12px; width:8px; height:40%; background:#C47A1A; border-radius:4px; opacity:0.6;"></div>
+          <div style="position:absolute; top:35px; right:28px; width:8px; height:35%; background:#E09030; border-radius:4px; opacity:0.3;"></div>
+          <div style="position:absolute; top:50px; right:44px; width:8px; height:25%; background:var(--amber); border-radius:4px; opacity:0.2;"></div>
+        </div>
+        <div style="position:relative; z-index:2; max-width:80%;">
+          <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:#E09030; margin-bottom:12px;">Palestra Show</div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:28px; line-height:1.05; color:var(--white); margin-bottom:8px;">
+            Como pensar fora<br>da... <span style="color:#E09030;">caixa?</span>
+          </div>
+          <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:15px; color:var(--gray-300); margin-bottom:24px;">
+            Inovação, criatividade e soluções <span style="color:var(--amber-glow);">inteligentes</span>
+          </div>
+          <div style="display:flex; gap:10px;">
+            <div style="background:var(--amber); color:var(--black); font-family:'Montserrat',sans-serif; font-weight:600; font-size:12px; padding:10px 24px; border-radius:6px;">Contratar palestra</div>
+            <div style="border:1px solid var(--gray-600); color:var(--gray-300); font-family:'Ubuntu',sans-serif; font-weight:400; font-size:13px; padding:10px 24px; border-radius:6px;">Ver trailer</div>
+          </div>
+        </div>
+        <div style="position:absolute; bottom:12px; left:16px; font-size:9px; color:var(--gray-700);">Cor de campanha: Burnt Orange #C47A1A</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+
+    <!-- Mentoria Premium — layout EXCLUSIVE (amber chevron pattern + centered) -->
+    <div class="card">
+      <div class="card-label"><span class="name">Mentoria "Palestra Elite"</span><span class="tag" style="background:var(--amber-glow); color:var(--black);">Premium</span></div>
+      <div style="background:var(--black); padding:48px 36px; position:relative; overflow:hidden; min-height:280px;">
+        <div style="position:absolute; inset:0; opacity:0.07; background-image: repeating-linear-gradient(45deg, transparent, transparent 8px, var(--amber) 8px, var(--amber) 9px), repeating-linear-gradient(-45deg, transparent, transparent 8px, var(--amber) 8px, var(--amber) 9px);"></div>
+        <div style="position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, transparent 10%, var(--amber-glow), transparent 90%);"></div>
+        <div style="position:absolute; bottom:0; left:0; right:0; height:3px; background: linear-gradient(90deg, transparent 10%, var(--amber-glow), transparent 90%);"></div>
+        <div style="position:relative; z-index:2; text-align:center;">
+          <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--amber-glow); margin-bottom:16px;">✦ Mentoria · Vagas Limitadas ✦</div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:200; font-size:16px; letter-spacing:0.15em; color:var(--gray-300); margin-bottom:4px;">PALESTRA</div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:900; font-size:40px; line-height:1.0; color:var(--amber-glow); letter-spacing:0.05em;">ELITE</div>
+          <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:14px; color:var(--gray-400); margin:16px 0 24px; max-width:380px; margin-left:auto; margin-right:auto;">
+            Construa uma palestra cinematográfica. Roteiro, storytelling e performance prontos para o palco.
+          </div>
+          <div style="display:inline-flex; gap:10px;">
+            <div style="background:var(--amber-glow); color:var(--black); font-family:'Montserrat',sans-serif; font-weight:700; font-size:12px; padding:12px 28px; border-radius:6px; letter-spacing:0.04em;">Candidatar-se</div>
+            <div style="border:1px solid var(--gray-600); color:var(--gray-300); font-family:'Ubuntu',sans-serif; font-weight:400; font-size:13px; padding:12px 28px; border-radius:6px;">Conheça o método</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Produto Digital — layout MODERN (green accent + left aligned + icon area) -->
+    <div class="card">
+      <div class="card-label"><span class="name">Produto Digital (ex: curso)</span><span class="tag" style="background:#2B6B5A; color:var(--white);">Produto</span></div>
+      <div class="chevron-pattern" style="background:var(--black); padding:40px 36px; position:relative; overflow:hidden; min-height:280px;">
+        <div style="position:absolute; left:0; top:0; bottom:0; width:4px; background: linear-gradient(180deg, #2B6B5A, #4AAE8C, transparent);"></div>
+        <!-- Decorative numbered circle -->
+        <div style="position:absolute; right:24px; top:50%; transform:translateY(-50%); width:80px; height:80px; border:1px solid rgba(43,107,90,0.3); border-radius:50%; display:flex; align-items:center; justify-content:center;">
+          <span style="font-family:'Montserrat',sans-serif; font-weight:200; font-size:32px; color:rgba(43,107,90,0.4);">6</span>
+        </div>
+        <div style="position:relative; z-index:2; max-width:75%;">
+          <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:#4AAE8C; margin-bottom:12px;">Curso Online</div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:26px; line-height:1.05; color:var(--white); margin-bottom:8px;">
+            Pense como um <span style="color:#4AAE8C;">Ilusionista</span>
+          </div>
+          <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:15px; color:var(--gray-300); margin-bottom:24px;">
+            Os 6 princípios que transformam limitações em <span style="color:var(--amber-glow);">estrutura</span>
+          </div>
+          <div style="display:flex; gap:10px;">
+            <div style="background:var(--amber); color:var(--black); font-family:'Montserrat',sans-serif; font-weight:600; font-size:12px; padding:10px 24px; border-radius:6px;">Inscreva-se</div>
+            <div style="border:1px solid var(--gray-600); color:var(--gray-300); font-family:'Ubuntu',sans-serif; font-weight:400; font-size:13px; padding:10px 24px; border-radius:6px;">Prévia gratuita</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 04: LANDING PAGE MOCKUP ===== -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">04</div>
+    <div>
+      <div class="section-title">Landing Page — Hero Section</div>
+      <div class="section-desc">Como fica um hero de LP com e sem foto, dark e light.</div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:24px;">
+    <!-- LP Hero Dark com foto -->
+    <div class="card">
+      <div class="card-label"><span class="name">LP Hero — Dark + Foto</span><span class="tag tag-base">Base</span></div>
+      <div style="background:var(--black); padding:48px 36px; position:relative; overflow:hidden; min-height:320px;">
+        <div style="position:absolute; inset:0; opacity:0.04; background-image: repeating-linear-gradient(45deg, transparent, transparent 8px, var(--white) 8px, var(--white) 9px), repeating-linear-gradient(-45deg, transparent, transparent 8px, var(--white) 8px, var(--white) 9px);"></div>
+        <!-- Simulated photo right side -->
+        <div style="position:absolute; right:0; top:0; bottom:0; width:45%; background: linear-gradient(90deg, var(--black) 0%, rgba(33,33,33,0.5) 30%, rgba(184,134,11,0.08) 100%); display:flex; align-items:center; justify-content:center;">
+          <div style="font-size:11px; color:var(--gray-600); text-align:center;">[ sua foto<br>chiaroscuro ]</div>
+        </div>
+        <div style="position:relative; z-index:2; max-width:55%;">
+          <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber); margin-bottom:20px;">Palestra Show</div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:36px; line-height:1.05; color:var(--white); margin-bottom:12px;">
+            Uma experiência que sua equipe <span style="color:var(--amber-glow);">nunca vai esquecer</span>
+          </div>
+          <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:15px; color:var(--gray-300); margin-bottom:24px;">
+            Motivação + inovação + mágica. 500+ apresentações. 2× Guinness World Record.
+          </div>
+          <div style="display:flex; gap:10px;">
+            <div style="background:var(--amber); color:var(--black); font-family:'Montserrat',sans-serif; font-weight:600; font-size:13px; padding:14px 28px; border-radius:6px;">Solicitar proposta</div>
+            <div style="border:1px solid var(--gray-600); color:var(--white); font-family:'Ubuntu',sans-serif; font-weight:400; font-size:14px; padding:14px 28px; border-radius:6px;">Assistir trailer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LP Hero Light com foto -->
+    <div class="card">
+      <div class="card-label" style="background:var(--gray-100);"><span class="name" style="color:var(--black);">LP Hero — Light + Foto</span><span class="tag" style="background:var(--gray-200); color:var(--black);">Light</span></div>
+      <div style="background:var(--ivory); padding:48px 36px; position:relative; overflow:hidden; min-height:320px;">
+        <div style="position:absolute; inset:0; opacity:0.05; background-image: repeating-linear-gradient(45deg, transparent, transparent 8px, var(--black) 8px, var(--black) 9px), repeating-linear-gradient(-45deg, transparent, transparent 8px, var(--black) 8px, var(--black) 9px);"></div>
+        <div style="position:absolute; right:0; top:0; bottom:0; width:45%; background: linear-gradient(90deg, var(--ivory) 0%, rgba(245,240,235,0.5) 30%, rgba(184,134,11,0.06) 100%); display:flex; align-items:center; justify-content:center;">
+          <div style="font-size:11px; color:var(--gray-400); text-align:center;">[ sua foto<br>chiaroscuro ]</div>
+        </div>
+        <div style="position:relative; z-index:2; max-width:55%;">
+          <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber-dark); margin-bottom:20px;">Palestra Show</div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:36px; line-height:1.05; color:var(--black); margin-bottom:12px;">
+            Uma experiência que sua equipe <span style="color:var(--amber);">nunca vai esquecer</span>
+          </div>
+          <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:15px; color:var(--gray-500); margin-bottom:24px;">
+            Motivação + inovação + mágica. 500+ apresentações. 2× Guinness World Record.
+          </div>
+          <div style="display:flex; gap:10px;">
+            <div style="background:var(--black); color:var(--white); font-family:'Montserrat',sans-serif; font-weight:600; font-size:13px; padding:14px 28px; border-radius:6px;">Solicitar proposta</div>
+            <div style="border:1px solid var(--amber); color:var(--amber-dark); font-family:'Ubuntu',sans-serif; font-weight:400; font-size:14px; padding:14px 28px; border-radius:6px;">Assistir trailer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 05: GRID INSTAGRAM ===== -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">05</div>
+    <div>
+      <div class="section-title">Grid Instagram — Tudo junto</div>
+      <div class="section-desc">Como fica o feed com posts variados: frase, foto, lançamento, bastidor. A base B&W + Amber unifica.</div>
+    </div>
+  </div>
+
+  <div class="grid-3">
+    <!-- 1: Quote -->
+    <div class="ig chevron-pattern" style="background:var(--black); justify-content:center; padding:24px;">
+      <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber); margin-bottom:12px; position:relative; z-index:2;">#pensecomoumilusionista</div>
+      <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:16px; line-height:1.2; color:var(--white); position:relative; z-index:2;">O impossível é só o possível que ninguém tentou ainda.</div>
+      <div style="width:24px; height:2px; background:var(--amber); margin-top:12px; position:relative; z-index:2;"></div>
+    </div>
+
+    <!-- 2: Photo warm -->
+    <div class="ig" style="background: linear-gradient(180deg, #3D2B10 0%, var(--black) 100%); justify-content:flex-end; padding:20px;">
+      <div style="position:absolute; top:0; left:0; right:0; height:70%; background:linear-gradient(180deg, rgba(184,134,11,0.15) 0%, rgba(33,33,33,0.95) 100%); display:flex; align-items:center; justify-content:center;">
+        <span style="font-size:10px; color:var(--gray-600);">📷 palco</span>
+      </div>
+      <div style="position:absolute; top:10px; right:10px; width:18px; height:18px; border-right:1.5px solid var(--amber); border-top:1.5px solid var(--amber); opacity:0.4;"></div>
+      <div style="position:relative; z-index:2; font-family:'Montserrat',sans-serif; font-weight:700; font-size:14px; color:var(--white);">Tudo <span style="color:var(--amber-glow);">muda</span></div>
+    </div>
+
+    <!-- 3: Launch -->
+    <div class="ig chevron-pattern" style="background:var(--black); justify-content:center; padding:24px; text-align:center;">
+      <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:9px; letter-spacing:0.12em; text-transform:uppercase; color:#C45454; margin-bottom:8px; position:relative; z-index:2;">Palestra Show</div>
+      <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:22px; line-height:1.05; color:var(--white); position:relative; z-index:2;">Antifrágil</div>
+      <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:12px; color:var(--gray-400); position:relative; z-index:2; margin-top:6px;">A arte de crescer com os desafios</div>
+    </div>
+
+    <!-- 4: Photo backstage -->
+    <div class="ig" style="background: linear-gradient(180deg, #1a2030 0%, var(--black) 100%); justify-content:flex-end; padding:20px;">
+      <div style="position:absolute; top:0; left:0; right:0; height:70%; background:linear-gradient(180deg, rgba(40,50,70,0.2) 0%, rgba(33,33,33,0.95) 100%); display:flex; align-items:center; justify-content:center;">
+        <span style="font-size:10px; color:var(--gray-600);">📷 bastidor</span>
+      </div>
+      <div style="position:relative; z-index:2; font-family:'Ubuntu',sans-serif; font-weight:300; font-style:italic; font-size:13px; color:var(--amber-glow);">"Ninguém vê as horas de ensaio"</div>
+    </div>
+
+    <!-- 5: Quote light -->
+    <div class="ig" style="background:var(--ivory); justify-content:center; padding:24px; position:relative; overflow:hidden;">
+      <div style="position:absolute; inset:0; opacity:0.05; background-image: repeating-linear-gradient(45deg, transparent, transparent 8px, var(--black) 8px, var(--black) 9px), repeating-linear-gradient(-45deg, transparent, transparent 8px, var(--black) 8px, var(--black) 9px);"></div>
+      <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:16px; line-height:1.2; color:var(--black); position:relative; z-index:2;">
+        Não é <span style="color:var(--amber);">dom</span>,<br>é estrutura.
+      </div>
+      <div style="width:24px; height:2px; background:var(--amber); margin-top:12px; position:relative; z-index:2;"></div>
+    </div>
+
+    <!-- 6: Mentoria -->
+    <div class="ig" style="background:var(--black); justify-content:center; padding:24px; text-align:center; position:relative; overflow:hidden;">
+      <div style="position:absolute; inset:0; opacity:0.06; background-image: repeating-linear-gradient(45deg, transparent, transparent 8px, var(--amber) 8px, var(--amber) 9px), repeating-linear-gradient(-45deg, transparent, transparent 8px, var(--amber) 8px, var(--amber) 9px);"></div>
+      <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:9px; letter-spacing:0.12em; text-transform:uppercase; color:var(--amber-glow); margin-bottom:8px; position:relative; z-index:2;">Mentoria · Vagas Limitadas</div>
+      <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:20px; line-height:1.1; color:var(--white); position:relative; z-index:2;">Palestra<br><span style="color:var(--amber-glow);">Elite</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 06: CORES DE CAMPANHA ===== -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">06</div>
+    <div>
+      <div class="section-title">Cores de Campanha — O catálogo</div>
+      <div class="section-desc">Cores temporárias que podem ser usadas em lançamentos. O amber e o B&W SEMPRE presentes.</div>
+    </div>
+  </div>
+
+  <!-- Dark versions -->
+  <div style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:14px; color:var(--white); margin-bottom:12px;">Dark Mode</div>
+  <div style="display:grid; grid-template-columns: repeat(6, 1fr); gap:12px; margin-bottom:32px;">
+    <div style="text-align:center;">
+      <div style="height:70px; background:var(--amber); border-radius:8px 8px 0 0; display:flex; align-items:center; justify-content:center;"><span style="font-family:'Montserrat',sans-serif; font-size:9px; font-weight:600; color:var(--black);">SEMPRE</span></div>
+      <div style="height:35px; background:var(--amber-glow); border-radius:0 0 8px 8px; display:flex; align-items:center; justify-content:center;"><span style="font-family:'Montserrat',sans-serif; font-size:8px; color:var(--black);">Glow</span></div>
+      <div style="font-family:'Montserrat',sans-serif; font-size:10px; color:var(--gray-400); margin-top:6px;">Amber<br>#B8860B / #D4A017</div>
+      <div style="font-size:9px; color:var(--gray-600); margin-top:2px;">Base permanente</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="height:70px; background:#8B2F2F; border-radius:8px 8px 0 0;"></div>
+      <div style="height:35px; background:#C45454; border-radius:0 0 8px 8px; display:flex; align-items:center; justify-content:center;"><span style="font-family:'Montserrat',sans-serif; font-size:8px; color:var(--white);">Glow</span></div>
+      <div style="font-family:'Montserrat',sans-serif; font-size:10px; color:var(--gray-400); margin-top:6px;">Deep Red<br>#8B2F2F / #C45454</div>
+      <div style="font-size:9px; color:var(--gray-600); margin-top:2px;">Superação, garra</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="height:70px; background:#C47A1A; border-radius:8px 8px 0 0;"></div>
+      <div style="height:35px; background:#E09030; border-radius:0 0 8px 8px; display:flex; align-items:center; justify-content:center;"><span style="font-family:'Montserrat',sans-serif; font-size:8px; color:var(--black);">Glow</span></div>
+      <div style="font-family:'Montserrat',sans-serif; font-size:10px; color:var(--gray-400); margin-top:6px;">Burnt Orange<br>#C47A1A / #E09030</div>
+      <div style="font-size:9px; color:var(--gray-600); margin-top:2px;">Criatividade, energia</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="height:70px; background:#2B6B5A; border-radius:8px 8px 0 0;"></div>
+      <div style="height:35px; background:#4AAE8C; border-radius:0 0 8px 8px; display:flex; align-items:center; justify-content:center;"><span style="font-family:'Montserrat',sans-serif; font-size:8px; color:var(--black);">Glow</span></div>
+      <div style="font-family:'Montserrat',sans-serif; font-size:10px; color:var(--gray-400); margin-top:6px;">Forest Green<br>#2B6B5A / #4AAE8C</div>
+      <div style="font-size:9px; color:var(--gray-600); margin-top:2px;">Crescimento, método</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="height:70px; background:#3A5A8C; border-radius:8px 8px 0 0;"></div>
+      <div style="height:35px; background:#5A8AC0; border-radius:0 0 8px 8px; display:flex; align-items:center; justify-content:center;"><span style="font-family:'Montserrat',sans-serif; font-size:8px; color:var(--white);">Glow</span></div>
+      <div style="font-family:'Montserrat',sans-serif; font-size:10px; color:var(--gray-400); margin-top:6px;">Steel Blue<br>#3A5A8C / #5A8AC0</div>
+      <div style="font-size:9px; color:var(--gray-600); margin-top:2px;">Confiança, corporativo</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="height:70px; background:#6B4F3A; border-radius:8px 8px 0 0;"></div>
+      <div style="height:35px; background:#9B7A5A; border-radius:0 0 8px 8px; display:flex; align-items:center; justify-content:center;"><span style="font-family:'Montserrat',sans-serif; font-size:8px; color:var(--white);">Glow</span></div>
+      <div style="font-family:'Montserrat',sans-serif; font-size:10px; color:var(--gray-400); margin-top:6px;">Warm Brown<br>#6B4F3A / #9B7A5A</div>
+      <div style="font-size:9px; color:var(--gray-600); margin-top:2px;">Autenticidade, raiz</div>
+    </div>
+  </div>
+
+  <!-- Light versions -->
+  <div style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:14px; color:var(--white); margin-bottom:12px;">Light Mode — Versões claras</div>
+  <div style="display:grid; grid-template-columns: repeat(6, 1fr); gap:12px; background:var(--ivory); border-radius:12px; padding:20px;">
+    <div style="text-align:center;">
+      <div style="height:70px; background:#F5E6C4; border-radius:8px 8px 0 0; display:flex; align-items:center; justify-content:center;"><span style="font-family:'Montserrat',sans-serif; font-size:9px; font-weight:500; color:var(--amber-dark);">Light</span></div>
+      <div style="height:35px; background:var(--amber-dark); border-radius:0 0 8px 8px; display:flex; align-items:center; justify-content:center;"><span style="font-family:'Montserrat',sans-serif; font-size:8px; color:var(--white);">Texto</span></div>
+      <div style="font-family:'Montserrat',sans-serif; font-size:10px; color:var(--gray-600); margin-top:6px;">Amber Light<br>#F5E6C4 / #8A6508</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="height:70px; background:#F2D5D5; border-radius:8px 8px 0 0; display:flex; align-items:center; justify-content:center;"><span style="font-family:'Montserrat',sans-serif; font-size:9px; font-weight:500; color:#8B2F2F;">Light</span></div>
+      <div style="height:35px; background:#8B2F2F; border-radius:0 0 8px 8px; display:flex; align-items:center; justify-content:center;"><span style="font-family:'Montserrat',sans-serif; font-size:8px; color:var(--white);">Texto</span></div>
+      <div style="font-family:'Montserrat',sans-serif; font-size:10px; color:var(--gray-600); margin-top:6px;">Red Light<br>#F2D5D5 / #8B2F2F</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="height:70px; background:#FAE4C8; border-radius:8px 8px 0 0; display:flex; align-items:center; justify-content:center;"><span style="font-family:'Montserrat',sans-serif; font-size:9px; font-weight:500; color:#C47A1A;">Light</span></div>
+      <div style="height:35px; background:#A06215; border-radius:0 0 8px 8px; display:flex; align-items:center; justify-content:center;"><span style="font-family:'Montserrat',sans-serif; font-size:8px; color:var(--white);">Texto</span></div>
+      <div style="font-family:'Montserrat',sans-serif; font-size:10px; color:var(--gray-600); margin-top:6px;">Orange Light<br>#FAE4C8 / #A06215</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="height:70px; background:#D4EDE5; border-radius:8px 8px 0 0; display:flex; align-items:center; justify-content:center;"><span style="font-family:'Montserrat',sans-serif; font-size:9px; font-weight:500; color:#2B6B5A;">Light</span></div>
+      <div style="height:35px; background:#2B6B5A; border-radius:0 0 8px 8px; display:flex; align-items:center; justify-content:center;"><span style="font-family:'Montserrat',sans-serif; font-size:8px; color:var(--white);">Texto</span></div>
+      <div style="font-family:'Montserrat',sans-serif; font-size:10px; color:var(--gray-600); margin-top:6px;">Green Light<br>#D4EDE5 / #2B6B5A</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="height:70px; background:#D5E2F0; border-radius:8px 8px 0 0; display:flex; align-items:center; justify-content:center;"><span style="font-family:'Montserrat',sans-serif; font-size:9px; font-weight:500; color:#3A5A8C;">Light</span></div>
+      <div style="height:35px; background:#3A5A8C; border-radius:0 0 8px 8px; display:flex; align-items:center; justify-content:center;"><span style="font-family:'Montserrat',sans-serif; font-size:8px; color:var(--white);">Texto</span></div>
+      <div style="font-family:'Montserrat',sans-serif; font-size:10px; color:var(--gray-600); margin-top:6px;">Blue Light<br>#D5E2F0 / #3A5A8C</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="height:70px; background:#E8DDD2; border-radius:8px 8px 0 0; display:flex; align-items:center; justify-content:center;"><span style="font-family:'Montserrat',sans-serif; font-size:9px; font-weight:500; color:#6B4F3A;">Light</span></div>
+      <div style="height:35px; background:#6B4F3A; border-radius:0 0 8px 8px; display:flex; align-items:center; justify-content:center;"><span style="font-family:'Montserrat',sans-serif; font-size:8px; color:var(--white);">Texto</span></div>
+      <div style="font-family:'Montserrat',sans-serif; font-size:10px; color:var(--gray-600); margin-top:6px;">Brown Light<br>#E8DDD2 / #6B4F3A</div>
+    </div>
+  </div>
+
+  <div style="background:var(--black-soft); border-radius:10px; padding:20px; border:1px solid var(--gray-700); margin-top:24px;">
+    <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:14px; color:var(--gray-300); line-height:1.7;">
+      <strong style="color:var(--white);">Regra:</strong> Cor de campanha aparece no máximo em <strong style="color:var(--amber-glow);">2 elementos</strong> por peça (overline + palavra destaque ou lateral + ícone). O amber continua nos botões e na assinatura. Acabou a campanha, a cor desaparece. O B&W + Amber fica pra sempre.
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div style="text-align:center; padding:48px 0; border-top:1px solid var(--gray-700);">
+  <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-style:italic; font-size:18px; color:var(--amber-glow); margin-bottom:16px;">"Não é dom, é estrutura."</div>
+  <div style="font-family:'Montserrat',sans-serif; font-size:11px; color:var(--gray-500); font-weight:400; letter-spacing:0.04em;">
+    Sistema Visual Completo · Luiz Fosc · 2026-04-07<br>
+    Base permanente: B&W + Amber · Cores de campanha: temporárias por lançamento<br>
+    A foto traz a cor. O sistema ancora a identidade.
+  </div>
+</div>
+
+</div>
+</body>
+</html>

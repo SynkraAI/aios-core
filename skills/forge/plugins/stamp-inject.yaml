@@ -1,6 +1,6 @@
 # Stamp Inject Plugin
 # Automatically injects stamp reports into Phase 1 agent context.
-# Works with both in-run stamps and standalone stamps from .aios/stamps/.
+# Works with both in-run stamps and standalone stamps from .aiox/stamps/.
 
 plugin:
   name: stamp-inject
@@ -32,7 +32,7 @@ hooks:
          - Read the stamp report file
          - Inject as "REFERENCE PATTERNS" block at the start of Phase 1
 
-      2. Else if `.aios/stamps/*.md` exists:
+      2. Else if `.aiox/stamps/*.md` exists:
          - List available stamps (sorted by modification date, newest first)
          - Read the most recent stamp
          - Inject as "REFERENCE PATTERNS (from previous stamp)" block
@@ -63,7 +63,7 @@ hooks:
       When dispatching agents in Phase 1, inject stamp sections by role.
       Phase 1 only — stamps inform DESIGN decisions, not BUILD execution.
 
-      Check: state.json has `stamp.report_path` OR `.aios/stamps/*.md` exists.
+      Check: state.json has `stamp.report_path` OR `.aiox/stamps/*.md` exists.
       If no stamp: skip silently.
 
       Per agent:

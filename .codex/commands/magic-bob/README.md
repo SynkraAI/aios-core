@@ -34,7 +34,7 @@ BOB: Detects project state → Spawns @architect for design
 ### Activate BOB Mode
 
 ```yaml
-# .aios/config.yaml or ~/.aios/user-config.yaml
+# .aiox/config.yaml or ~/.aiox/user-config.yaml
 user_profile: bob
 ```
 
@@ -189,7 +189,7 @@ BOB evaluates these criteria BEFORE every significant decision:
 BOB saves session state at every phase transition:
 
 ```yaml
-# .aios/.session-state.yaml
+# .aiox/.session-state.yaml
 session_state:
   epic:
     id: epic-12
@@ -220,14 +220,14 @@ config:
   tech-stack: config/tech-stack.md
 ```
 
-### User Config (`~/.aios/user-config.yaml`)
+### User Config (`~/.aiox/user-config.yaml`)
 
 ```yaml
 user_profile: bob           # Activate BOB mode
 educational_mode: false     # Minimal panel (default)
 ```
 
-### Project Config (`.aios/config.yaml`)
+### Project Config (`.aiox/config.yaml`)
 
 ```yaml
 coderabbit_integration:
@@ -266,7 +266,7 @@ Toggle verbose explanations:
 "Bob, ativa modo educativo"
 
 # Permanent toggle
-# Edit ~/.aios/user-config.yaml:
+# Edit ~/.aiox/user-config.yaml:
 educational_mode: true
 ```
 
@@ -290,7 +290,7 @@ educational_mode: true
 |----------|-------------|
 | [`docs/aios-workflows/bob-orchestrator-workflow.md`](../../docs/aios-workflows/bob-orchestrator-workflow.md) | Complete workflow spec (1561 lines) |
 | [`docs/qa/magic-bob-analysis.md`](../../docs/qa/magic-bob-analysis.md) | QA analysis and recommendations |
-| [`.aios-core/constitution.md`](../../.aios-core/constitution.md) | Framework principles (Artigo V: Quality First) |
+| [`.aiox-core/constitution.md`](../../.aiox-core/constitution.md) | Framework principles (Artigo V: Quality First) |
 
 ---
 
@@ -326,7 +326,7 @@ BOB integrates with these core modules:
 
 **Solution:**
 ```yaml
-# ~/.aios/user-config.yaml
+# ~/.aiox/user-config.yaml
 user_profile: bob
 ```
 
@@ -336,7 +336,7 @@ user_profile: bob
 
 **Solution:**
 ```bash
-rm .aios/.session-state.yaml
+rm .aiox/.session-state.yaml
 @pm  # Restart
 ```
 

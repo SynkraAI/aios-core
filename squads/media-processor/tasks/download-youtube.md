@@ -167,7 +167,7 @@ python3 <PROJECT_ROOT>/tools/aios-transcriber/aios_transcriber.py \
 **Action:**
 1. Determine command type (process vs batch-playlist)
 2. Build command string with all flags
-3. Log full command to `.aios-core/logs/media-processor/download-youtube.log`
+3. Log full command to `.aiox-core/logs/media-processor/download-youtube.log`
 4. Display command to user for review
 5. Await confirmation if not in YOLO mode
 
@@ -192,7 +192,7 @@ python3 <PROJECT_ROOT>/tools/aios-transcriber/aios_transcriber.py youtube --play
 2. Monitor progress (aios-transcriber shows progress):
    - Caption extraction progress
    - Markdown generation status
-3. Log all output to `.aios-core/logs/media-processor/download-youtube.log`
+3. Log all output to `.aiox-core/logs/media-processor/download-youtube.log`
 4. Handle interruptions (Ctrl+C) gracefully:
    - Save partial progress
    - Offer resume option
@@ -346,7 +346,7 @@ Run both QG-001 (download) and QG-002 (transcription) validations:
 ### Secondary Outputs
 
 1. **Download Report:** `{output_dir}/YOUTUBE-DOWNLOAD-REPORT.md`
-2. **Download Log:** `.aios-core/logs/media-processor/download-youtube.log`
+2. **Download Log:** `.aiox-core/logs/media-processor/download-youtube.log`
 3. **Metrics Update:** `.synapse/metrics/media-processor-metrics.json`
 
 ```json

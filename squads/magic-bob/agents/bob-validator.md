@@ -237,7 +237,7 @@ await executeAction();
 Users can configure bypass mode:
 
 ```yaml
-# ~/.aios/user-config.yaml
+# ~/.aiox/user-config.yaml
 yolo_mode: auto  # ask | auto | explore
 ```
 

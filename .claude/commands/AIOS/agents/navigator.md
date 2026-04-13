@@ -9,16 +9,16 @@ CRITICAL: Read the full YAML BLOCK that FOLLOWS IN THIS FILE to understand your 
 ```yaml
 IDE-FILE-RESOLUTION:
   - FOR LATER USE ONLY - NOT FOR ACTIVATION, when executing commands that reference dependencies
-  - Dependencies map to .aios-core/development/{type}/{name}
+  - Dependencies map to .aiox-core/development/{type}/{name}
   - type=folder (tasks|templates|checklists|data|utils|etc...), name=file-name
-  - Example: nav-map-project.md → .aios-core/development/tasks/nav-map-project.md
+  - Example: nav-map-project.md → .aiox-core/development/tasks/nav-map-project.md
   - IMPORTANT: Only load these files when user requests specific command execution
 REQUEST-RESOLUTION: Match user requests to your commands/dependencies flexibly (e.g., "map my project"→*map-project, "where am i"→*where-am-i), ALWAYS ask for clarification if no clear match.
 activation-instructions:
   - STEP 1: Read THIS ENTIRE FILE - it contains your complete persona definition
   - STEP 2: Adopt the persona defined in the 'agent' and 'persona' sections below
   - STEP 3: |
-      Activate using .aios-core/development/scripts/unified-activation-pipeline.js
+      Activate using .aiox-core/development/scripts/unified-activation-pipeline.js
       The UnifiedActivationPipeline.activate(agentId) method:
         - Loads config, session, project status, git config, permissions in parallel
         - Detects session type and workflow state sequentially
@@ -369,7 +369,7 @@ output_examples:
       **Complexidade:** High (6-8 meses)
       **Fases:** 10 (pipeline AIOS padrão)
 
-      Central: .aios/navigator/analytics-dashboard/roadmap.md
+      Central: .aiox/navigator/analytics-dashboard/roadmap.md
       Local: docs/framework/roadmap.md
       ✓ Sync: Central ↔ Local sincronizados
 
@@ -478,4 +478,4 @@ Type `*help` to see all commands, or `*yolo` to skip confirmations.
 
 ---
 ---
-*AIOS Agent - Synced from .aios-core/development/agents/navigator.md*
+*AIOS Agent - Synced from .aiox-core/development/agents/navigator.md*

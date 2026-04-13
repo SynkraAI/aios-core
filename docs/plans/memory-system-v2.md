@@ -22,7 +22,7 @@ Estrutura de arquivos + tooling de auditoria.
 - [x] Piloto whatsapp-prospector (10/10 com contexto real + feedback)
 - [x] Batch em 18 projetos (score 4.3 → 9.4)
 - [x] Fix ACTIVE.md — rows 19-20 movidas para tabela principal
-- [x] Criar `.aios-core/data/memory/user/luiz-fosc-profile.md` (perfil global)
+- [x] Criar `.aiox-core/data/memory/user/luiz-fosc-profile.md` (perfil global)
 - [x] Atualizar `/new-project` para criar `memory/` automaticamente (Passo 2.6 + árvores atualizadas)
 
 **Entregáveis:** Estrutura existe em todos os projetos. Próximo passo é fazer alguém LER.
@@ -79,7 +79,7 @@ Memórias carregam automaticamente ao abrir projeto, sem precisar de `/resume`.
 
 - [x] Hook `.claude/hooks/memory-autoload.cjs` criado
 - [x] Registrado em `.claude/settings.json` → SessionStart
-- [x] Detecta HYBRID (`.aios/memory/`) e CENTRALIZED (via `session.json`)
+- [x] Detecta HYBRID (`.aiox/memory/`) e CENTRALIZED (via `session.json`)
 - [x] Carrega: stack, decisões, regras, feedback recente, user profile
 - [x] Testado: whatsapp-prospector → output correto com stack + regras + user
 - [x] `/resume` continua funcionando (auto-load é complementar, não substituto)

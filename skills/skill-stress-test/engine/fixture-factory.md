@@ -179,7 +179,7 @@ rm "$FIXTURE_PATH/pyproject.toml"
 
 ### Mutation: Corrupt State
 ```bash
-echo "{ broken json" > "$FIXTURE_PATH/.aios/state.json"
+echo "{ broken json" > "$FIXTURE_PATH/.aiox/state.json"
 ```
 
 ### Mutation: Remove Git

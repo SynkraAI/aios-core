@@ -81,7 +81,7 @@ fixes:
 ### Fix for Issue 2.4 — Expansion-pack `requires` metadata still undocumented
 - **Status:** FIXED
 - **File:** `skills/quest/packs/design-system-forge.yaml`
-- **What changed:** Already removed in round 1. The `requires: aios` line was deleted because the `detection.prerequisites` gate already checks for AIOS via `has_dir('.aios-core') OR has_dir('.aios')`.
+- **What changed:** Already removed in round 1. The `requires: aios` line was deleted because the `detection.prerequisites` gate already checks for AIOS via `has_dir('.aiox-core') OR has_dir('.aios')`.
 - **Deviation from suggestion:** Fix was applied in round 1. Codex reviewed the original commit.
 
 ### Fix for Issue 2.5 — User-facing pt-BR copy still has missing accents

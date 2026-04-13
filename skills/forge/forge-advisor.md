@@ -10,7 +10,7 @@ Before Phase 0 presents tech decision questions, gather all available evidence.
 
 ### Step 1: Load learnings
 
-Read `.aios/memory/forge/learnings.yaml` (if exists):
+Read `.aiox/memory/forge/learnings.yaml` (if exists):
 - Filter entries where `category == "tech_decision"`
 - Filter by current project path (prioritize same-project learnings)
 - Also include cross-project learnings if technology is the same
@@ -40,7 +40,7 @@ evidence:
 ### Step 2: Read project context
 
 Check for existing tech decisions in project memory:
-- HYBRID: `{cwd}/.aios/memory/project-context.md` → "Stack Técnica" section
+- HYBRID: `{cwd}/.aiox/memory/project-context.md` → "Stack Técnica" section
 - CENTRALIZED: `docs/projects/{name}/memory/project-context.md`
 
 If found: these are **established decisions** that should be respected unless the user explicitly wants to change them.

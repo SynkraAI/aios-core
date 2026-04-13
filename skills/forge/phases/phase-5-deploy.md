@@ -39,8 +39,8 @@ If user chooses 3: mark Phase 5 as "paused", save state, show completion banner 
 ### Step 2: Dispatch @devops
 
 Dispatch @devops via Agent tool:
-- Read `{AIOS_HOME}/.aios-core/development/agents/aios-devops.md`
-- Read `{AIOS_HOME}/.aios-core/development/tasks/push.md` (or `commit-workflow.md`)
+- Read `{AIOS_HOME}/.aiox-core/development/agents/aios-devops.md`
+- Read `{AIOS_HOME}/.aiox-core/development/tasks/push.md` (or `commit-workflow.md`)
 - Instructions:
   1. Run pre-push quality gate: `npm run lint && npm run typecheck && npm test && npm run build`
   2. If any gate fails: HALT and report to runner (do NOT push broken code)

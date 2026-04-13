@@ -4,7 +4,7 @@ Esta skill utiliza o tech-preset `frontend-audit-2025` como base de conhecimento
 
 ## Localização
 
-**Arquivo:** `.aios-core/data/tech-presets/frontend-audit-2025.md`
+**Arquivo:** `.aiox-core/data/tech-presets/frontend-audit-2025.md`
 
 ## O Que Contém
 
@@ -58,5 +58,5 @@ A skill REFERENCIA o preset durante execução, não repete o conteúdo.
 
 _Para ver o conteúdo completo do tech-preset:_
 ```bash
-cat .aios-core/data/tech-presets/frontend-audit-2025.md
+cat .aiox-core/data/tech-presets/frontend-audit-2025.md
 ```

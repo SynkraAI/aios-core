@@ -157,7 +157,7 @@ if (type === 'next-step') {
 
 ### [GAP] Stamp do create-t3-app gerado mas sem índice de stamps
 
-**Causa**: O `/forge stamp` salvou o report em `.aios/stamps/create-t3-app.md`, mas não existe um índice de stamps disponíveis. O stamp-inject plugin faz glob por `*.md` — funciona, mas o usuário não tem visibilidade de quais stamps existem.
+**Causa**: O `/forge stamp` salvou o report em `.aiox/stamps/create-t3-app.md`, mas não existe um índice de stamps disponíveis. O stamp-inject plugin faz glob por `*.md` — funciona, mas o usuário não tem visibilidade de quais stamps existem.
 **Ação**: O plugin pega o mais recente automaticamente, mas sem listagem não há como o usuário escolher.
 **Artefato alvo**: `skills/forge/workflows/stamp.md`
 **Status atual (auditado)**: Não endereçado.

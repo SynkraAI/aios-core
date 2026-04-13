@@ -10,7 +10,7 @@
 - User says "quero seguir o padrão de {url}" during a Forge run
 - User wants to extract architecture patterns from a reference project
 - Works standalone OR mid-run (during Phase 1)
-- **Nota:** Stamps NÃO são injetados em runs QUICK. A injeção automática acontece apenas em fluxos que executam Phase 1 (ex.: FULL_APP, DESIGN_SYSTEM, LANDING_PAGE, CLONE_SITE). SINGLE_FEATURE pula Phase 1 — o stamp fica salvo em `.aios/stamps/` mas não é injetado automaticamente.
+- **Nota:** Stamps NÃO são injetados em runs QUICK. A injeção automática acontece apenas em fluxos que executam Phase 1 (ex.: FULL_APP, DESIGN_SYSTEM, LANDING_PAGE, CLONE_SITE). SINGLE_FEATURE pula Phase 1 — o stamp fica salvo em `.aiox/stamps/` mas não é injetado automaticamente.
 
 ---
 
@@ -47,7 +47,7 @@ If > 500MB: warn "Repo grande ({size}). A análise pode demorar. Continuar?" —
 ### Step 2: Analyze (@architect)
 
 Dispatch @architect via Agent tool:
-- Agent: `{AIOS_HOME}/.aios-core/development/agents/aios-architect.md`
+- Agent: `{AIOS_HOME}/.aiox-core/development/agents/aios-architect.md`
 - Task: Analyze reference project and extract patterns
 - Input: `.stamp/{slug}/` directory
 - Instructions — extract and document:
@@ -135,9 +135,9 @@ Create `stamp-report.md` from @architect analysis:
 
 **Save to:**
 - If inside a Forge run (`state.json` exists with `status == "running"`):
-  `.aios/forge-runs/{run_id}/spec/stamp-report.md`
+  `.aiox/forge-runs/{run_id}/spec/stamp-report.md`
 - If standalone:
-  `.aios/stamps/{slug}.md` (create `.aios/stamps/` if needed)
+  `.aiox/stamps/{slug}.md` (create `.aiox/stamps/` if needed)
 
 ### Step 4: Cleanup
 
@@ -154,7 +154,7 @@ Create `stamp-report.md` from @architect analysis:
     "stamp": {
       "url": "{github-url}",
       "slug": "{slug}",
-      "report_path": ".aios/forge-runs/{run_id}/spec/stamp-report.md",
+      "report_path": ".aiox/forge-runs/{run_id}/spec/stamp-report.md",
       "analyzed_at": "{ISO 8601}"
     }
   }
@@ -165,7 +165,7 @@ Create `stamp-report.md` from @architect analysis:
 **If standalone:**
 - Show report summary (Tech Stack + Recommended Adoption sections)
 - Suggest: "Para usar esses padrões num novo projeto: `/forge {descrição}` — o stamp será injetado automaticamente."
-- Mention: "Stamp salvo em `.aios/stamps/{slug}.md` — disponível para futuros runs."
+- Mention: "Stamp salvo em `.aiox/stamps/{slug}.md` — disponível para futuros runs."
 
 ---
 
@@ -176,7 +176,7 @@ When a user says "quero que siga o padrão de {url}" during Phase 1:
 1. Detect intent: URL + pattern-related keywords ("padrao", "referencia", "estilo", "como o")
 2. Pause current phase execution
 3. Execute Steps 1-4 (Clone → Cleanup) inline
-4. Save to `.aios/forge-runs/{run_id}/spec/stamp-report.md`
+4. Save to `.aiox/forge-runs/{run_id}/spec/stamp-report.md`
 5. Update state.json with `stamp` field
 6. Resume Phase 1 — @pm and @architect will receive stamp context via `stamp-inject` plugin
 

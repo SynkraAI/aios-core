@@ -1,0 +1,176 @@
+# Luiz Fosc Brand — Dramático/Premium (dark theme)
+# Source: ~/CODE/Projects/LUIZFOSC/design-system/tokens.yaml (v1.0.0 — 2026-04-07)
+# Philosophy: Anti-AI — every token comes from real DNA. Tagline: "Não é dom, é estrutura."
+# Ideal for: talks, mentorias, high-ticket, Forge framework, conteúdo autoral pessoal
+# Theme: dark | Core black #212121 + Amber accent (5% rule) + Teal editorial mood
+
+name: Luiz Fosc
+version: 1
+theme: dark
+source: "LUIZFOSC/design-system"
+
+typography:
+  family:
+    display: "Montserrat"
+    body: "Ubuntu"
+    mono: "JetBrains Mono"
+    fallback: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    google_fonts: "https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800;900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&display=swap"
+  scale:
+    h1: { size: 64px, weight: 900, line_height: 1.0, letter_spacing: "-0.02em" }
+    h2: { size: 42px, weight: 800, line_height: 1.05, letter_spacing: "-0.01em" }
+    h3: { size: 28px, weight: 800, line_height: 1.1 }
+    h4: { size: 20px, weight: 700, line_height: 1.2 }
+    body: { size: 16px, weight: 300, line_height: 1.6 }
+    body_sm: { size: 14px, weight: 300, line_height: 1.6 }
+    caption: { size: 12px, weight: 400, line_height: 1.5 }
+    label: { size: 11px, weight: 600, line_height: 1.4, letter_spacing: "0.14em", text_transform: uppercase }
+
+colors:
+  primitives:
+    gray:
+      100: "#F0EFED"
+      200: "#E0DFDD"
+      300: "#B0AEAB"
+      400: "#8A8885"
+      500: "#6B6966"
+      600: "#4A4846"
+      700: "#353433"
+      800: "#2a2928"
+      900: "#212121"
+    amber:
+      base: "#B8860B"
+      glow: "#D4A017"
+      light: "#E8C547"
+      dark: "#8A6508"
+    teal:
+      soft: "#152E2E"
+      base: "#1A3A3A"
+      glow: "#2A5A5A"
+      light: "#3A7A7A"
+  semantic:
+    background: "#212121"
+    surface: "#2a2a2a"
+    surface_elevated: "#353433"
+    border: "#353433"
+    border_hover: "#4A4846"
+    text: "#FFFFFF"
+    text_secondary: "#B0AEAB"
+    text_muted: "#8A8885"
+    primary: "#B8860B"
+    primary_hover: "#D4A017"
+    accent: "#D4A017"
+    accent_intense: "#E8C547"
+    success: "#4AAE8C"
+    warning: "#E09030"
+    error: "#C45454"
+    info: "#5A8AC0"
+
+spacing:
+  scale: [4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80, 100]
+  section_padding: 100px
+  card_padding: 32px
+  button_padding_x: 28px
+  button_padding_y: 14px
+
+radii:
+  none: 0
+  sm: 4px
+  md: 6px
+  lg: 8px
+  xl: 10px
+  "2xl": 12px
+  full: 9999px
+  default: 6px
+
+shadows:
+  none: "none"
+  xs: "0 1px 2px rgba(0,0,0,0.4)"
+  sm: "0 2px 6px rgba(0,0,0,0.45), 0 1px 2px rgba(0,0,0,0.3)"
+  md: "0 6px 16px rgba(0,0,0,0.55), 0 2px 4px rgba(0,0,0,0.35)"
+  lg: "0 12px 32px rgba(0,0,0,0.65), 0 4px 8px rgba(0,0,0,0.4)"
+  xl: "0 20px 56px rgba(0,0,0,0.75), 0 8px 16px rgba(0,0,0,0.5)"
+  amber_glow: "0 0 24px rgba(212,160,23,0.25), 0 0 48px rgba(184,134,11,0.15)"
+
+animation:
+  duration:
+    fast: 180ms
+    normal: 240ms
+    slow: 360ms
+  easing: "cubic-bezier(0.22, 1, 0.36, 1)"
+  hover_scale: 1.03
+
+components:
+  button:
+    primary:
+      bg: "#B8860B"
+      text: "#212121"
+      radius: 6px
+      padding: "14px 28px"
+      font_family: "Montserrat"
+      font_weight: 600
+      font_size: 13px
+      letter_spacing: "0.04em"
+      text_transform: uppercase
+    secondary:
+      bg: "transparent"
+      text: "#B0AEAB"
+      border: "#4A4846"
+      radius: 6px
+      padding: "14px 28px"
+      font_family: "Ubuntu"
+      font_weight: 400
+      font_size: 14px
+    premium:
+      bg: "#D4A017"
+      text: "#212121"
+      radius: 6px
+      padding: "14px 32px"
+      font_family: "Montserrat"
+      font_weight: 700
+      font_size: 13px
+      letter_spacing: "0.04em"
+      text_transform: uppercase
+  card:
+    bg: "#2a2a2a"
+    border: "#353433"
+    radius: 12px
+    padding: 32px
+  input:
+    bg: "#2a2a2a"
+    border: "#353433"
+    text: "#FFFFFF"
+    placeholder: "#6B6966"
+    radius: 6px
+    padding: "12px 16px"
+
+cover:
+  gradient_primary: "rgba(184,134,11,0.10)"
+  gradient_secondary: "rgba(212,160,23,0.05)"
+  photo_overlay_warm: "linear-gradient(180deg, rgba(184,134,11,0.12) 0%, #212121 55%)"
+  teal_editorial: "radial-gradient(ellipse at 30% 30%, #1A3A3A 0%, #152E2E 60%, #212121 100%)"
+  accent_line_amber: "linear-gradient(90deg, transparent 10%, #D4A017, transparent 90%)"
+
+pattern:
+  chevron:
+    opacity: 0.04
+    line_color: "#FFFFFF"
+    line_width: "1px"
+    gap: "8px"
+    angles: [45, -45]
+
+tagline: "Não é dom, é estrutura."
+
+anti_slop:
+  - "Regra 70/25/5: 70% preto (#212121), 25% branco (#FFFFFF), 5% amber. NUNCA inverter."
+  - "CTA primário SEMPRE em amber.base (#B8860B) sobre preto. Nunca outra cor."
+  - "Tipografia: Montserrat APENAS em headings/botões. Ubuntu APENAS em body."
+  - "Headings heroicos: weight 800-900 + tracking negativo (-0.02em)."
+  - "Overlines obrigatórias: 10-11px, Montserrat 600, uppercase, tracking 0.14em, cor amber.base."
+  - "Números grandes (stats, section numbers) SEMPRE em Montserrat thin (weight 200)."
+  - "Proibido usar azul/verde saturado — apenas teal editorial (#1A3A3A) em momentos de reflexão."
+  - "Chevron pattern (45°/-45°) é elemento de assinatura — usar em hero/premium blocks."
+  - "Quote mark (aspas grandes) em amber.glow #D4A017, peso 800, size 38-48px, line-height 0.8."
+  - "Zero emojis decorativos — Fosc é editorial/dramático, não playful."
+  - "Corner accent (border-right + border-top, 18-24px, amber 30-40% opacity) em cards premium."
+  - "Divisores: 24-28px de largura, 2px de altura, cor amber.base. Nunca full-width."

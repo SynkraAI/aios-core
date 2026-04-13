@@ -4,7 +4,7 @@
 
 - **Node.js** >= 18.0.0
 - **Git** (qualquer versão)
-- **AIOS Core** inicializado (`.aios-core/` existe no seu projeto)
+- **AIOS Core** inicializado (`.aiox-core/` existe no seu projeto)
 
 ---
 
@@ -131,7 +131,7 @@ squads/navigator/
 Dados de runtime são guardados em:
 
 ```
-.aios/navigator/{project-name}/
+.aiox/navigator/{project-name}/
 ├── roadmap.md              # Roadmap central (source of truth)
 └── checkpoints/            # Snapshots de estado do projeto
 ```
@@ -145,7 +145,7 @@ Dados de runtime são guardados em:
 node squads/navigator/scripts/install-hooks.js --uninstall
 
 # 2. Remover dados de runtime (opcional)
-rm -rf .aios/navigator/
+rm -rf .aiox/navigator/
 
 # 3. Remover arquivos do squad (opcional)
 rm -rf squads/navigator/

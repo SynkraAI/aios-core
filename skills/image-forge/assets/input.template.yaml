@@ -1,0 +1,59 @@
+# image-forge input template
+# --------------------------
+# Copy this file, rename it (e.g. my-project.yaml), fill in `items` and run:
+#   node ~/aios-core/skills/image-forge/scripts/forge.mjs path/to/my-project.yaml
+#
+# The skill will route each item to the best model automatically.
+# To override the routing for a specific item, set `model:` explicitly.
+
+# Where generated files will be saved (absolute path recommended).
+# Directory is created if missing.
+output_dir: /Users/luizfosc/Downloads/image-forge-output
+
+# Optional defaults applied to every item (overridable per-item).
+defaults:
+  aspect_ratio: '16:9'
+  # model: null          # uncomment to force a specific model for all items
+  # negative_prompt: ''  # uncomment to apply globally
+
+# List of images to generate.
+items:
+  - id: example-1
+    filename: 01-example-diagram.png
+    category: diagrama          # hints the router toward Ideogram
+    aspect_ratio: '16:9'
+    prompt: |
+      STYLE ANCHOR: Editorial infographic, dark background #0a0a0a, amber #f59e0b accents,
+      Inter/Montserrat typography. ALL TEXT IN BRAZILIAN PORTUGUESE with correct accents.
+      Two figures labeled "EXECUTOR" and "ORQUESTRADOR" connected by glowing lines.
+      Title on top: "CÓDIGO É COMMODITY. ORQUESTRAR É A NOVA HABILIDADE."
+
+  - id: example-2
+    filename: 02-example-photo.png
+    category: slide              # hints the router toward Flux
+    aspect_ratio: '16:9'
+    prompt: |
+      Cinematic close-up of an outstretched hand offering a single glowing red pill
+      on a dark moody background, dramatic lighting, photorealistic, film still.
+
+  - id: example-3
+    filename: 03-example-vector.png
+    category: icon               # hints the router toward Recraft
+    aspect_ratio: '1:1'
+    prompt: |
+      Minimalist vector illustration of a glowing anvil with sparks,
+      flat design, amber and white palette, clean lines.
+
+  - id: example-4
+    filename: 04-forced-model.png
+    aspect_ratio: '1:1'
+    model: black-forest-labs/flux-1.1-pro-ultra   # explicit override
+    prompt: |
+      Ultra-detailed architectural photograph of a futuristic glass tower at blue hour.
+
+# --- Routing cheat sheet (for humans) ---
+# category: diagrama | infographic  →  Ideogram v3 turbo   (pt-BR text)
+# category: slide                   →  Flux 1.1 Pro        (photo/cinematic)
+# category: icon | vector | flat    →  Recraft v3          (vector design)
+# no category → router infers from prompt keywords
+# --draft CLI flag → overrides everything to Flux Schnell (~R$0,015/image)

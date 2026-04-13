@@ -363,7 +363,7 @@ Change only what addresses the root cause. Show diff clearly.
 
 ### AIOS Agent YAML
 
-When producing agent format, use the template at `.aios-core/product/templates/personalized-agent-template.md`. Key sections:
+When producing agent format, use the template at `.aiox-core/product/templates/personalized-agent-template.md`. Key sections:
 
 ```yaml
 agent:

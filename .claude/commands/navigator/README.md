@@ -226,7 +226,7 @@ graph TB
 ### Fluxo de Dados
 
 ```
-Roadmap Central (.aios/navigator/{projeto}/roadmap.md)
+Roadmap Central (.aiox/navigator/{projeto}/roadmap.md)
        ↕  roadmap-sync.js (resolucao de conflito por timestamp)
 Roadmap Local (docs/roadmap.md)
 
@@ -341,7 +341,7 @@ Checkpoints sao snapshots do estado do seu projeto — pense neles como "save po
 # - Metricas de velocidade
 ```
 
-**Storage:** `.aios/navigator/{projeto}/checkpoints/`
+**Storage:** `.aiox/navigator/{projeto}/checkpoints/`
 
 **Auto-checkpoints:** O git hook post-commit cria checkpoints automaticamente quando detecta transicao de fase.
 
@@ -387,7 +387,7 @@ node squads/navigator/scripts/install-hooks.js
 
 ### Pipeline Customizado
 
-Edite `.aios-core/development/data/navigator-pipeline-map.yaml` pra customizar:
+Edite `.aiox-core/development/data/navigator-pipeline-map.yaml` pra customizar:
 
 ```yaml
 phases:
@@ -499,7 +499,7 @@ R: Edite `navigator-pipeline-map.yaml` pra encaixar no seu workflow. Voce pode a
 R: O Navigator gera comandos pra agentes AIOS, mas o roadmap, checkpoints e deteccao de fase funcionam standalone.
 
 **P: Os dados sao armazenados remotamente?**
-R: Nao. Tudo e local — `.aios/navigator/` na raiz do seu projeto. Nada sai da sua maquina.
+R: Nao. Tudo e local — `.aiox/navigator/` na raiz do seu projeto. Nada sai da sua maquina.
 
 > [FAQ completo com 40+ perguntas →](./FAQ.md)
 

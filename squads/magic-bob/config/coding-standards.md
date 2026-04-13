@@ -1,6 +1,6 @@
 # Magic BOB - Coding Standards
 
-**Extends:** `.aios-core/docs/standards/CODING-STANDARDS.md`
+**Extends:** `.aiox-core/docs/standards/CODING-STANDARDS.md`
 
 ## BOB-Specific Standards
 
@@ -229,4 +229,4 @@ test(bob): add integration tests for brownfield
 
 ---
 
-**Reference:** `.aios-core/docs/standards/CODING-STANDARDS.md` for general AIOS standards.
+**Reference:** `.aiox-core/docs/standards/CODING-STANDARDS.md` for general AIOS standards.

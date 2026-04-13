@@ -85,10 +85,10 @@ integration:
 
 dependencies:
   aios_core:
-    - .aios-core/core/orchestration/executor-assignment.js
-    - .aios-core/core/orchestration/terminal-spawner.js
-    - .aios-core/core/orchestration/workflow-executor.js
-    - .aios-core/core/orchestration/surface-checker.js
+    - .aiox-core/core/orchestration/executor-assignment.js
+    - .aiox-core/core/orchestration/terminal-spawner.js
+    - .aiox-core/core/orchestration/workflow-executor.js
+    - .aiox-core/core/orchestration/surface-checker.js
   node: []
   python: []
   squads: []

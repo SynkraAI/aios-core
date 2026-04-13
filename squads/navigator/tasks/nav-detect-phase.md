@@ -25,7 +25,7 @@ Checklist:
 veto_conditions:
   - "Pipeline map file missing → BLOCK (navigator-pipeline-map.yaml not found)"
   - "Pipeline map has invalid YAML syntax → BLOCK (run *navigator-doctor to fix)"
-  - "Project root not an AIOS project (.aios-core/ missing) → BLOCK (run npx aios-core install)"
+  - "Project root not an AIOS project (.aiox-core/ missing) → BLOCK (run npx aios-core install)"
 ---
 
 # nav-detect-phase (Internal)
@@ -45,7 +45,7 @@ Called internally by:
 
 ```javascript
 const pipelineMap = yaml.load(
-  fs.readFileSync('.aios-core/development/data/navigator-pipeline-map.yaml')
+  fs.readFileSync('.aiox-core/development/data/navigator-pipeline-map.yaml')
 );
 ```
 
@@ -119,7 +119,7 @@ function calculateCompletion(phase, projectRoot) {
 ## Implementation
 
 ```javascript
-// .aios-core/development/scripts/navigator/phase-detector.js
+// .aiox-core/development/scripts/navigator/phase-detector.js
 
 const fs = require('fs');
 const yaml = require('js-yaml');
@@ -129,7 +129,7 @@ function detectPhase(projectRoot, pipelineMap) {
   // 1. Load pipeline map if not provided
   if (!pipelineMap) {
     pipelineMap = yaml.load(
-      fs.readFileSync('.aios-core/development/data/navigator-pipeline-map.yaml')
+      fs.readFileSync('.aiox-core/development/data/navigator-pipeline-map.yaml')
     );
   }
 

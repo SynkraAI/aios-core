@@ -33,8 +33,8 @@
    - 18 linhas atualizadas manualmente
 
 4. **H2: Symlinks em HYBRID** — `tools/create-epic-structure.js`
-   - Detecta modo automaticamente (.aios/ exists?)
-   - Cria symlinks: `docs/INDEX.md` → `../.aios/INDEX.md`
+   - Detecta modo automaticamente (.aiox/ exists?)
+   - Cria symlinks: `docs/INDEX.md` → `../.aiox/INDEX.md`
    - Elimina duplicação de fonte de verdade
    - ✅ Testado em /tmp com sucesso
 
@@ -78,7 +78,7 @@
 5. **F2.5: Registry central** — `tools/validate-active.js` (NOVO arquivo)
    - Escaneia ACTIVE.md linha por linha
    - Detecta links quebrados (INDEX.md não existe)
-   - Atualiza `.aios/project-registry.json` (last_seen, mode, type)
+   - Atualiza `.aiox/project-registry.json` (last_seen, mode, type)
    - ✅ Testado: 17/18 projetos OK, 1 link detectado como diretório
 
 6. **F2.6: /validate-active skill** — `tools/validate-active.js` (integrado com F2.5)
@@ -319,7 +319,7 @@ Para continuar na próxima sessão:
 - **Scripts novos:** 8 (validate-structure --dry-run, rollback, append-to-active, validate-active, create-handoff + 3 modificados)
 - **Testes:** 6 testes Jest (todos passing)
 - **Templates:** 1 novo (research)
-- **Registry:** 1 arquivo (.aios/project-registry.json)
+- **Registry:** 1 arquivo (.aiox/project-registry.json)
 - **Documentação:** 2 checkpoints
 
 ### Próximo Passo: Push (@devops)
@@ -349,7 +349,7 @@ Commits para push: 3
 
 2. **Script de migração** — `tools/fix-hybrid-symlinks.js`
    - Detecta projetos HYBRID em qualquer path
-   - Cria symlinks faltantes (`.aios/skills` e `.claude/commands`)
+   - Cria symlinks faltantes (`.aiox/skills` e `.claude/commands`)
    - Valida que symlinks funcionam corretamente
    - Suporta `--dry-run` e `--path` flags
    - ✅ Testado em /tmp com sucesso

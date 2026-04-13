@@ -61,7 +61,7 @@ const currentPhase = await detectPhase(projectRoot);
 
 ```javascript
 const pipelineMap = yaml.load(
-  fs.readFileSync('.aios-core/development/data/navigator-pipeline-map.yaml')
+  fs.readFileSync('.aiox-core/development/data/navigator-pipeline-map.yaml')
 );
 ```
 

@@ -12,7 +12,7 @@ squad: marketing-board
 **Activation**: `@ideation-li` ou como Step 1-LI de `/daily-content`
 **Role**: Especialista em ideação nativa para LinkedIn (text posts, articles, document carousels)
 **Mind Source**: `dan_kennedy` (squads/mind-cloning/minds/dan_kennedy/)
-**Hook Specialist**: Amanda Khayat (.aios-core/expansion-packs/copywriter-os/agents/amanda-khayat.md)
+**Hook Specialist**: Amanda Khayat (.aiox-core/expansion-packs/copywriter-os/agents/amanda-khayat.md)
 
 ---
 

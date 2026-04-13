@@ -22,7 +22,7 @@
 | 21 | renan-vieira | CENTRALIZED | ~/aios-core/docs/projects/renan-vieira/.claude |
 | 6 | designcode-ui | CENTRALIZED | ~/aios-core/docs/projects/designcode-ui/.claude |
 | 7 | meta-ads-prospector | HYBRID | ~/CODE/Projects/meta-ads-prospector/.claude |
-| 8 | 🏆 EPIC: Squad Ecosystem Quality | CENTRALIZED | ~/aios-core/docs/projects/.aios-core/development/epics/.claude |
+| 8 | 🏆 EPIC: Squad Ecosystem Quality | CENTRALIZED | ~/aios-core/docs/projects/.aiox-core/development/epics/.claude |
 | 9 | naval-ravikant-mind | CENTRALIZED | ~/aios-core/docs/projects/naval-ravikant-mind/.claude |
 | 10 | tabgroup-vault | HYBRID | ~/CODE/Projects/tabgroup-vault/.claude |
 | 11 | garimpoai | HYBRID | ~/CODE/Projects/garimpoai/.claude |

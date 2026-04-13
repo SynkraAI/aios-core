@@ -82,9 +82,9 @@ dependencies:
   data:
     - mmos-kb.md
   services:
-    - file-service  # Document parsing via .aios-core/infrastructure/services/file-service
-    - google-drive  # Storage via .aios-core/infrastructure/services/google-drive
-    - tiktok        # Social collection via .aios-core/infrastructure/services/tiktok
+    - file-service  # Document parsing via .aiox-core/infrastructure/services/file-service
+    - google-drive  # Storage via .aiox-core/infrastructure/services/google-drive
+    - tiktok        # Social collection via .aiox-core/infrastructure/services/tiktok
 
 knowledge_areas:
   - Source discovery techniques (books, videos, interviews, writings)

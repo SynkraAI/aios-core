@@ -27,7 +27,7 @@ agents:
 
 # State management
 state:
-  runs_dir: ".aios/forge-runs"
+  runs_dir: ".aiox/forge-runs"
   state_file: "state.json"
 
 # Quality gates (veto conditions)
@@ -102,7 +102,7 @@ extended_quality:
 
 # Forge Memory (Feature 1)
 memory:
-  dir: ".aios/memory/forge/"     # Relative to project root
+  dir: ".aiox/memory/forge/"     # Relative to project root
   learnings_file: "learnings.yaml"
   feedback_file: "feedback.yaml"
   max_entries: 50                # Max learnings per project

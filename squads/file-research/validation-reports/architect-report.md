@@ -147,7 +147,7 @@ Phase 6: documentation_complete {output_dir, files_created[]}
 
 **Path Restrictions:**
 - ✅ **Allowed:** `docs/file-research/**` only
-- ✅ **Forbidden:** `.claude/**`, `.aios-core/**`, `squads/**`, `packages/**`
+- ✅ **Forbidden:** `.claude/**`, `.aiox-core/**`, `squads/**`, `packages/**`
 - ✅ **Veto condition:** VETO_FORBIDDEN_PATH blocks writes outside allowed paths
 - ✅ **Enforcement:** Config-level + veto-level (defense in depth)
 

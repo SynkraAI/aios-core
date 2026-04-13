@@ -7,7 +7,7 @@
  * before triggering index regeneration.
  *
  * Only triggers if:
- * - File is in .aios-core/development/agents/
+ * - File is in .aiox-core/development/agents/
  * - File is in squads/*/agents/
  * - File is squads/mind-cloning/minds/INDEX.md
  *
@@ -31,7 +31,7 @@ function shouldTrigger() {
       const file = line.substring(3).trim(); // Remove status prefix
 
       // Check if file matches trigger patterns
-      if (file.includes('.aios-core/development/agents/') ||
+      if (file.includes('.aiox-core/development/agents/') ||
           file.includes('squads/') && file.includes('/agents/') ||
           file === 'squads/mind-cloning/minds/INDEX.md') {
         return true;

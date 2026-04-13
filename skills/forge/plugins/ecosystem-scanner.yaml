@@ -33,7 +33,7 @@ hooks:
       Run full ecosystem scan after Phase 0 Discovery completes.
       Reads minds INDEX, globs skills/*/SKILL.md, globs squads/*/config.yaml.
       Matches project keywords against routing matrix + dynamic grep fallback.
-      Outputs: .aios/forge-runs/{run_id}/context-pack.json
+      Outputs: .aiox/forge-runs/{run_id}/context-pack.json
       Max items: config.ecosystem.max_context_items (default: 3)
 
   # --- Context Injection (every agent dispatch) ---

@@ -7,7 +7,7 @@ workflow:
     parallel agent execution, and human checkpoints. Extends core brownfield
     workflow with BOB-specific autonomy and session persistence.
   type: brownfield
-  extends: .aios-core/development/workflows/brownfield-discovery.yaml
+  extends: .aiox-core/development/workflows/brownfield-discovery.yaml
 
   bob_features:
     autonomous_execution: true
@@ -203,10 +203,10 @@ workflow:
     panel_mode: minimal  # minimal | detailed
     panel_refresh_rate: 1000  # ms
     dashboard_bridge_enabled: true
-    dashboard_bridge_file: .aios/bob-status.json
+    dashboard_bridge_file: .aiox/bob-status.json
 
   session_management:
-    state_file: .aios/.session-state.yaml
+    state_file: .aiox/.session-state.yaml
     checkpoint_auto_save: true
     crash_detection_threshold: 1800  # 30 min
     protected_files:

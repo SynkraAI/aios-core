@@ -219,13 +219,13 @@ describe('reconcile (integration)', () => {
     const questLog = makeQuestLog(tmpDir);
     const forgeState = makeForgeState(tmpDir);
 
-    writeYaml(tmpDir, '.aios/quest-log.yaml', questLog);
-    writeJson(tmpDir, '.aios/forge-runs/run-001/state.json', forgeState);
+    writeYaml(tmpDir, '.aiox/quest-log.yaml', questLog);
+    writeJson(tmpDir, '.aiox/forge-runs/run-001/state.json', forgeState);
 
     const result = reconcile({
       projectPath: tmpDir,
-      questLogPath: path.join(tmpDir, '.aios/quest-log.yaml'),
-      forgeRunsDir: path.join(tmpDir, '.aios/forge-runs'),
+      questLogPath: path.join(tmpDir, '.aiox/quest-log.yaml'),
+      forgeRunsDir: path.join(tmpDir, '.aiox/forge-runs'),
       packsDir: PACKS_DIR,
     });
 
@@ -251,13 +251,13 @@ describe('reconcile (integration)', () => {
       },
     });
 
-    writeYaml(tmpDir, '.aios/quest-log.yaml', questLog);
-    writeJson(tmpDir, '.aios/forge-runs/run-001/state.json', forgeState);
+    writeYaml(tmpDir, '.aiox/quest-log.yaml', questLog);
+    writeJson(tmpDir, '.aiox/forge-runs/run-001/state.json', forgeState);
 
     const result = reconcile({
       projectPath: tmpDir,
-      questLogPath: path.join(tmpDir, '.aios/quest-log.yaml'),
-      forgeRunsDir: path.join(tmpDir, '.aios/forge-runs'),
+      questLogPath: path.join(tmpDir, '.aiox/quest-log.yaml'),
+      forgeRunsDir: path.join(tmpDir, '.aiox/forge-runs'),
       packsDir: PACKS_DIR,
     });
 
@@ -276,13 +276,13 @@ describe('reconcile (integration)', () => {
     const questLog = makeQuestLog(tmpDir);
     const forgeState = makeForgeState(tmpDir);
 
-    writeYaml(tmpDir, '.aios/quest-log.yaml', questLog);
-    writeJson(tmpDir, '.aios/forge-runs/run-001/state.json', forgeState);
+    writeYaml(tmpDir, '.aiox/quest-log.yaml', questLog);
+    writeJson(tmpDir, '.aiox/forge-runs/run-001/state.json', forgeState);
 
     const result = reconcile({
       projectPath: tmpDir,
-      questLogPath: path.join(tmpDir, '.aios/quest-log.yaml'),
-      forgeRunsDir: path.join(tmpDir, '.aios/forge-runs'),
+      questLogPath: path.join(tmpDir, '.aiox/quest-log.yaml'),
+      forgeRunsDir: path.join(tmpDir, '.aiox/forge-runs'),
       packsDir: PACKS_DIR,
     });
 
@@ -300,13 +300,13 @@ describe('reconcile (integration)', () => {
     });
     const forgeState = makeForgeState(tmpDir);
 
-    writeYaml(tmpDir, '.aios/quest-log.yaml', questLog);
-    writeJson(tmpDir, '.aios/forge-runs/run-001/state.json', forgeState);
+    writeYaml(tmpDir, '.aiox/quest-log.yaml', questLog);
+    writeJson(tmpDir, '.aiox/forge-runs/run-001/state.json', forgeState);
 
     const result = reconcile({
       projectPath: tmpDir,
-      questLogPath: path.join(tmpDir, '.aios/quest-log.yaml'),
-      forgeRunsDir: path.join(tmpDir, '.aios/forge-runs'),
+      questLogPath: path.join(tmpDir, '.aiox/quest-log.yaml'),
+      forgeRunsDir: path.join(tmpDir, '.aiox/forge-runs'),
       packsDir: PACKS_DIR,
     });
 
@@ -317,13 +317,13 @@ describe('reconcile (integration)', () => {
     const questLog = makeQuestLog(tmpDir);
     const forgeState = makeForgeState('/completely/different/project');
 
-    writeYaml(tmpDir, '.aios/quest-log.yaml', questLog);
-    writeJson(tmpDir, '.aios/forge-runs/run-001/state.json', forgeState);
+    writeYaml(tmpDir, '.aiox/quest-log.yaml', questLog);
+    writeJson(tmpDir, '.aiox/forge-runs/run-001/state.json', forgeState);
 
     const result = reconcile({
       projectPath: tmpDir,
-      questLogPath: path.join(tmpDir, '.aios/quest-log.yaml'),
-      forgeRunsDir: path.join(tmpDir, '.aios/forge-runs'),
+      questLogPath: path.join(tmpDir, '.aiox/quest-log.yaml'),
+      forgeRunsDir: path.join(tmpDir, '.aiox/forge-runs'),
       packsDir: PACKS_DIR,
     });
 
@@ -334,13 +334,13 @@ describe('reconcile (integration)', () => {
     const questLog = makeQuestLog(tmpDir);
     const forgeState = makeForgeState(tmpDir, { mode: 'DESIGN_SYSTEM' });
 
-    writeYaml(tmpDir, '.aios/quest-log.yaml', questLog);
-    writeJson(tmpDir, '.aios/forge-runs/run-001/state.json', forgeState);
+    writeYaml(tmpDir, '.aiox/quest-log.yaml', questLog);
+    writeJson(tmpDir, '.aiox/forge-runs/run-001/state.json', forgeState);
 
     const result = reconcile({
       projectPath: tmpDir,
-      questLogPath: path.join(tmpDir, '.aios/quest-log.yaml'),
-      forgeRunsDir: path.join(tmpDir, '.aios/forge-runs'),
+      questLogPath: path.join(tmpDir, '.aiox/quest-log.yaml'),
+      forgeRunsDir: path.join(tmpDir, '.aiox/forge-runs'),
       packsDir: PACKS_DIR,
     });
 
@@ -360,13 +360,13 @@ describe('reconcile (integration)', () => {
       },
     });
 
-    writeYaml(tmpDir, '.aios/quest-log.yaml', questLog);
-    writeJson(tmpDir, '.aios/forge-runs/run-001/state.json', forgeState);
+    writeYaml(tmpDir, '.aiox/quest-log.yaml', questLog);
+    writeJson(tmpDir, '.aiox/forge-runs/run-001/state.json', forgeState);
 
     const result = reconcile({
       projectPath: tmpDir,
-      questLogPath: path.join(tmpDir, '.aios/quest-log.yaml'),
-      forgeRunsDir: path.join(tmpDir, '.aios/forge-runs'),
+      questLogPath: path.join(tmpDir, '.aiox/quest-log.yaml'),
+      forgeRunsDir: path.join(tmpDir, '.aiox/forge-runs'),
       packsDir: PACKS_DIR,
     });
 
@@ -381,13 +381,13 @@ describe('reconcile (integration)', () => {
     });
     const forgeState = makeForgeState(tmpDir);
 
-    writeYaml(tmpDir, '.aios/quest-log.yaml', questLog);
-    writeJson(tmpDir, '.aios/forge-runs/run-001/state.json', forgeState);
+    writeYaml(tmpDir, '.aiox/quest-log.yaml', questLog);
+    writeJson(tmpDir, '.aiox/forge-runs/run-001/state.json', forgeState);
 
     const result = reconcile({
       projectPath: tmpDir,
-      questLogPath: path.join(tmpDir, '.aios/quest-log.yaml'),
-      forgeRunsDir: path.join(tmpDir, '.aios/forge-runs'),
+      questLogPath: path.join(tmpDir, '.aiox/quest-log.yaml'),
+      forgeRunsDir: path.join(tmpDir, '.aiox/forge-runs'),
       packsDir: PACKS_DIR,
     });
 
@@ -398,13 +398,13 @@ describe('reconcile (integration)', () => {
     const questLog = makeQuestLog(tmpDir);
     const forgeState = makeForgeState(tmpDir);
 
-    writeYaml(tmpDir, '.aios/quest-log.yaml', questLog);
-    writeJson(tmpDir, '.aios/forge-runs/run-001/state.json', forgeState);
+    writeYaml(tmpDir, '.aiox/quest-log.yaml', questLog);
+    writeJson(tmpDir, '.aiox/forge-runs/run-001/state.json', forgeState);
 
     const result = reconcile({
       projectPath: tmpDir,
-      questLogPath: path.join(tmpDir, '.aios/quest-log.yaml'),
-      forgeRunsDir: path.join(tmpDir, '.aios/forge-runs'),
+      questLogPath: path.join(tmpDir, '.aiox/quest-log.yaml'),
+      forgeRunsDir: path.join(tmpDir, '.aiox/forge-runs'),
       packsDir: PACKS_DIR,
     });
 
@@ -415,12 +415,12 @@ describe('reconcile (integration)', () => {
 
   test('handles missing forge-runs directory gracefully', () => {
     const questLog = makeQuestLog(tmpDir);
-    writeYaml(tmpDir, '.aios/quest-log.yaml', questLog);
+    writeYaml(tmpDir, '.aiox/quest-log.yaml', questLog);
 
     const result = reconcile({
       projectPath: tmpDir,
-      questLogPath: path.join(tmpDir, '.aios/quest-log.yaml'),
-      forgeRunsDir: path.join(tmpDir, '.aios/forge-runs'), // doesn't exist
+      questLogPath: path.join(tmpDir, '.aiox/quest-log.yaml'),
+      forgeRunsDir: path.join(tmpDir, '.aiox/forge-runs'), // doesn't exist
       packsDir: PACKS_DIR,
     });
 
@@ -430,16 +430,16 @@ describe('reconcile (integration)', () => {
 
   test('handles corrupted state.json gracefully', () => {
     const questLog = makeQuestLog(tmpDir);
-    writeYaml(tmpDir, '.aios/quest-log.yaml', questLog);
+    writeYaml(tmpDir, '.aiox/quest-log.yaml', questLog);
 
-    const corruptPath = path.join(tmpDir, '.aios/forge-runs/run-bad/state.json');
+    const corruptPath = path.join(tmpDir, '.aiox/forge-runs/run-bad/state.json');
     fs.mkdirSync(path.dirname(corruptPath), { recursive: true });
     fs.writeFileSync(corruptPath, '{ invalid json !!!');
 
     const result = reconcile({
       projectPath: tmpDir,
-      questLogPath: path.join(tmpDir, '.aios/quest-log.yaml'),
-      forgeRunsDir: path.join(tmpDir, '.aios/forge-runs'),
+      questLogPath: path.join(tmpDir, '.aiox/quest-log.yaml'),
+      forgeRunsDir: path.join(tmpDir, '.aiox/forge-runs'),
       packsDir: PACKS_DIR,
     });
 

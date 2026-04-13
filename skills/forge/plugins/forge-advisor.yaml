@@ -27,7 +27,7 @@ hooks:
          - Filter by category: "tech_decision"
          - Extract: what worked, what caused problems, user overrides
       2. Read project-context.md for existing tech stack decisions
-         - HYBRID: {cwd}/.aios/memory/project-context.md
+         - HYBRID: {cwd}/.aiox/memory/project-context.md
          - CENTRALIZED: docs/projects/{name}/memory/project-context.md
       3. Prepare advisor context:
          - Build "evidence briefing" with tech recommendations

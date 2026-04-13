@@ -6,7 +6,7 @@ Se `$ARGUMENTS` estiver preenchido, use-o como nome do projeto e PULE para o Pas
 **Validação do argumento:**
 1. Verificar se `docs/projects/{argumento}/` existe (modo CENTRALIZED)
 2. Se NÃO existir: verificar ACTIVE.md por link INDEX que contenha o argumento
-3. Se encontrar link absoluto (ex: `~/CODE/Projects/{argumento}/.aios/INDEX.md`) → modo HYBRID
+3. Se encontrar link absoluto (ex: `~/CODE/Projects/{argumento}/.aiox/INDEX.md`) → modo HYBRID
 4. Se NÃO encontrar em nenhum lugar: mostrar "Projeto '{argumento}' não encontrado." e cair no Passo 1
 
 ## Passo 1: Mostrar projetos ativos (pular se argumento válido fornecido)
@@ -27,8 +27,8 @@ Após o usuário escolher (ou usar o argumento fornecido):
 
 **Detecção de modo:**
 1. Se `docs/projects/{projeto}/INDEX.md` existe → `index_path` = `docs/projects/{projeto}/INDEX.md`, modo = **CENTRALIZED**
-2. Se a row no ACTIVE.md tem link INDEX absoluto (ex: `~/CODE/Projects/.../.aios/INDEX.md`) → seguir esse path, modo = **HYBRID**
-3. Se `.aios/INDEX.md` existe no cwd atual → `index_path` = `.aios/INDEX.md`, modo = **HYBRID**
+2. Se a row no ACTIVE.md tem link INDEX absoluto (ex: `~/CODE/Projects/.../.aiox/INDEX.md`) → seguir esse path, modo = **HYBRID**
+3. Se `.aiox/INDEX.md` existe no cwd atual → `index_path` = `.aiox/INDEX.md`, modo = **HYBRID**
 
 Guardar `index_path`, `sessions_path`, `modo`.
 

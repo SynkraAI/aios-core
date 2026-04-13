@@ -226,7 +226,7 @@ function auditSquads() {
 function auditAgents() {
   console.log('\n[3/6] Auditando Agents...');
 
-  const agentsDir = path.join(AIOS_CORE, '.aios-core/development/agents');
+  const agentsDir = path.join(AIOS_CORE, '.aiox-core/development/agents');
   const agentFiles = fs.readdirSync(agentsDir).filter(f => f.endsWith('.md'));
 
   const results = agentFiles.map(file => {
@@ -302,7 +302,7 @@ function auditAgents() {
 function auditSkills() {
   console.log('\n[4/6] Auditando Skills...');
 
-  const skillsDir = path.join(AIOS_CORE, '.aios/skills');
+  const skillsDir = path.join(AIOS_CORE, '.aiox/skills');
   const skills = fs.readdirSync(skillsDir)
     .filter(name => {
       const skillPath = path.join(skillsDir, name);

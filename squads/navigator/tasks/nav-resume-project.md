@@ -21,13 +21,13 @@ Saida: |
   - session_context: Full context
   - next_action: Suggested command
 Checklist:
-  - "[ ] List available projects (.aios/navigator/)"
+  - "[ ] List available projects (.aiox/navigator/)"
   - "[ ] Load selected project roadmap"
   - "[ ] Run nav-where-am-i internally"
   - "[ ] Display project status"
   - "[ ] Offer quick actions (continue/review/restart)"
 veto_conditions:
-  - "No projects found in .aios/navigator/ → BLOCK (no mapped projects to resume, use *map-project)"
+  - "No projects found in .aiox/navigator/ → BLOCK (no mapped projects to resume, use *map-project)"
   - "Selected project roadmap is corrupted/unreadable → BLOCK (suggest *navigator-doctor)"
   - "Selected project has no checkpoints and no stories → WARN (limited context available for resume)"
   - "No INDEX.md AND no roadmap found for project → BLOCK (project unmapped, run *create-project or *map-project)"
@@ -55,7 +55,7 @@ Resume existing project with full context restoration.
 ### Step 1: List Projects
 
 ```javascript
-const projects = fs.readdirSync('.aios/navigator/');
+const projects = fs.readdirSync('.aiox/navigator/');
 
 console.log('Available projects:');
 projects.forEach((project, i) => {
@@ -90,10 +90,10 @@ const index = fs.readFileSync(indexPath, 'utf-8');
 | # | Fonte | Path | Quando usar |
 |---|-------|------|-------------|
 | 1 | **INDEX.md** | `docs/projects/{project}/INDEX.md` | SEMPRE (fonte da verdade) |
-| 2 | **Roadmap** | `.aios/navigator/{project}/roadmap.md` | FALLBACK se INDEX.md não existir |
-| 3 | **Snapshots** | `.aios/navigator/{project}/checkpoints/` | Referência complementar (nunca primário) |
+| 2 | **Roadmap** | `.aiox/navigator/{project}/roadmap.md` | FALLBACK se INDEX.md não existir |
+| 3 | **Snapshots** | `.aiox/navigator/{project}/checkpoints/` | Referência complementar (nunca primário) |
 
-**NOTA:** O roadmap em `.aios/navigator/` é um artefato de mapeamento inicial (`*map-project`). Ele NÃO é sincronizado com o INDEX.md automaticamente. Se o INDEX.md existe, o roadmap pode estar desatualizado — usar INDEX.md como fonte primária.
+**NOTA:** O roadmap em `.aiox/navigator/` é um artefato de mapeamento inicial (`*map-project`). Ele NÃO é sincronizado com o INDEX.md automaticamente. Se o INDEX.md existe, o roadmap pode estar desatualizado — usar INDEX.md como fonte primária.
 
 ### Step 3: Sync Deferred Updates
 

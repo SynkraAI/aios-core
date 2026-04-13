@@ -23,7 +23,7 @@ async function detectPhase(projectRoot = process.cwd(), pipelineMap = null) {
   // Load pipeline map if not provided
   if (!pipelineMap) {
     const pipelineMapPath = resolveSquadPath('data', 'navigator-pipeline-map.yaml', projectRoot)
-      || path.join(projectRoot, '.aios-core/development/data/navigator-pipeline-map.yaml');
+      || path.join(projectRoot, '.aiox-core/development/data/navigator-pipeline-map.yaml');
 
     if (!fs.existsSync(pipelineMapPath)) {
       throw new Error(`Pipeline map not found: ${pipelineMapPath}`);

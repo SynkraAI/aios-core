@@ -277,7 +277,7 @@ function assessRisk(operation) {
 ## YOLO Mode Configuration
 
 ```yaml
-# ~/.aios/user-config.yaml
+# ~/.aiox/user-config.yaml
 yolo_mode: auto  # ask | auto | explore
 ```
 
@@ -384,7 +384,7 @@ Tem CERTEZA? [SIM para confirmar]
 
 - **Agent:** bob-validator.md
 - **Data:** data/surface-criteria.yaml
-- **Module:** surface-checker.js (.aios-core/core/orchestration/)
+- **Module:** surface-checker.js (.aiox-core/core/orchestration/)
 
 ---
 

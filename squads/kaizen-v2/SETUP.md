@@ -105,7 +105,7 @@ intelligence:
 grep "kaizen-v2-stop-capture" .claude/settings.json
 
 # Check logs
-tail -f .aios/logs/kaizen-stop.log
+tail -f .aiox/logs/kaizen-stop.log
 
 # Check git availability
 git log --since=today
@@ -115,7 +115,7 @@ git log --since=today
 1. Verify `.claude/settings.json` has correct hook entry
 2. Check `squads/kaizen-v2/data/intelligence/daily/` directory exists
 3. Run `/kaizen-v2:*install` to re-register hooks
-4. Check `.aios/logs/kaizen-stop.log` for error details
+4. Check `.aiox/logs/kaizen-stop.log` for error details
 
 ### SessionStart Hook Not Injecting Briefing
 
@@ -130,7 +130,7 @@ grep "kaizen-v2-session-briefing" .claude/settings.json
 test -f squads/kaizen-v2/data/intelligence/knowledge/patterns.yaml && echo "OK" || echo "MISSING"
 
 # Check logs
-tail -f .aios/logs/kaizen-session-briefing.log
+tail -f .aiox/logs/kaizen-session-briefing.log
 ```
 
 **Fix:**
@@ -169,8 +169,8 @@ node squads/kaizen-v2/scripts/stop-capture.cjs
 
 ### Log Files
 
-- **Stop hook:** `.aios/logs/kaizen-stop.log`
-- **SessionStart hook:** `.aios/logs/kaizen-session-briefing.log`
+- **Stop hook:** `.aiox/logs/kaizen-stop.log`
+- **SessionStart hook:** `.aiox/logs/kaizen-session-briefing.log`
 - **General:** Check console output
 
 ### Log Levels
@@ -183,13 +183,13 @@ node squads/kaizen-v2/scripts/stop-capture.cjs
 
 ```bash
 # Watch Stop hook logs
-tail -f .aios/logs/kaizen-stop.log
+tail -f .aiox/logs/kaizen-stop.log
 
 # Watch SessionStart hook logs
-tail -f .aios/logs/kaizen-session-briefing.log
+tail -f .aiox/logs/kaizen-session-briefing.log
 
 # Clean logs (quarterly)
-rm .aios/logs/kaizen-*.log
+rm .aiox/logs/kaizen-*.log
 ```
 
 ## Manual Hook Testing
@@ -228,7 +228,7 @@ node squads/kaizen-v2/scripts/session-briefing.cjs | jq -r '.hookSpecificOutput.
 
 `tasks/install.md` detects:
 ```bash
-if [ -d .aios-core/ ]; then PROJECT_TYPE="aios"
+if [ -d .aiox-core/ ]; then PROJECT_TYPE="aios"
 elif [ -d .aiox/ ]; then PROJECT_TYPE="aiox"
 else echo "ERROR: Not AIOS or AIOX"; fi
 ```
@@ -244,7 +244,7 @@ Hooks are appended to existing `.claude/settings.json`:
 
 ### No Core Modifications
 
-- ❌ Does NOT modify `.aios-core/`
+- ❌ Does NOT modify `.aiox-core/`
 - ❌ Does NOT modify `squads/kaizen/`
 - ✅ Only creates/updates `squads/kaizen-v2/`
 - ✅ Only appends to `.claude/settings.json` (preserves existing)
@@ -311,7 +311,7 @@ git restore squads/kaizen-v2/data/intelligence/knowledge/patterns.yaml
 ### Weekly
 
 - Check `/kaizen-v2:*health` (all systems operational)
-- Review `.aios/logs/kaizen-*.log` for WARN/ERROR
+- Review `.aiox/logs/kaizen-*.log` for WARN/ERROR
 
 ### Monthly
 

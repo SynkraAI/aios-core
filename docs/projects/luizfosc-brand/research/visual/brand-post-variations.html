@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luiz Fosc — Galeria de Variações de Posts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=Montserrat:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --black: #212121; --black-soft: #2a2a2a;
+    --white: #FFFFFF; --ivory: #F5F0EB;
+    --amber: #B8860B; --amber-glow: #D4A017; --amber-light: #E8C547; --amber-dark: #8A6508;
+    --teal: #1A3A3A; --teal-glow: #2A5A5A; --teal-light: #3A7A7A; --teal-soft: #152E2E;
+    --gray-100: #F0EFED; --gray-200: #E0DFDD; --gray-300: #B0AEAB; --gray-400: #8A8885;
+    --gray-500: #6B6966; --gray-600: #4A4846; --gray-700: #353433;
+  }
+  body { background: var(--black); color: var(--white); font-family: 'Ubuntu', sans-serif; line-height: 1.6; }
+  .container { max-width: 1260px; margin: 0 auto; padding: 40px 24px; }
+  .section { margin-bottom: 80px; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 32px; padding-bottom: 16px; border-bottom: 1px solid var(--gray-700); }
+  .section-num { font-family: 'Montserrat', sans-serif; font-size: 48px; font-weight: 200; color: var(--gray-700); line-height: 1; }
+  .section-title { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber); }
+  .section-desc { font-size: 15px; color: var(--gray-400); margin-top: 4px; font-weight: 300; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .ig { aspect-ratio: 1/1; border-radius: 10px; overflow: hidden; position: relative; display: flex; flex-direction: column; }
+  .ig-label { font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 0.06em; color: var(--gray-500); text-align: center; margin-top: 6px; }
+
+  /* Chevron decorations */
+  .chevron-bg { position: relative; overflow: hidden; }
+  .chevron-bg::before { content: ''; position: absolute; inset: 0; opacity: 0.04; pointer-events: none; background-image: repeating-linear-gradient(45deg, transparent, transparent 8px, var(--white) 8px, var(--white) 9px), repeating-linear-gradient(-45deg, transparent, transparent 8px, var(--white) 8px, var(--white) 9px); }
+  .chevron-bg-light { position: relative; overflow: hidden; }
+  .chevron-bg-light::before { content: ''; position: absolute; inset: 0; opacity: 0.05; pointer-events: none; background-image: repeating-linear-gradient(45deg, transparent, transparent 8px, var(--black) 8px, var(--black) 9px), repeating-linear-gradient(-45deg, transparent, transparent 8px, var(--black) 8px, var(--black) 9px); }
+
+  /* Moldura (thin frame) */
+  .moldura { border: 1px solid var(--teal-glow); padding: 20px; border-radius: 4px; }
+  .moldura-amber { border-color: var(--amber); }
+
+  /* Chevron arrow decorative */
+  .chevron-arrow { position: absolute; z-index: 1; }
+  .chevron-arrow svg { display: block; }
+
+  @media (max-width: 900px) { .grid-4 { grid-template-columns: repeat(2, 1fr); } .grid-3 { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .grid-4, .grid-3 { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HERO -->
+<div style="text-align:center; padding:60px 0 40px; border-bottom:1px solid var(--gray-700); margin-bottom:60px;">
+  <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber); margin-bottom:16px;">Galeria de Variações · Cardápio Visual</div>
+  <div style="margin-bottom:10px;">
+    <span style="font-family:'Montserrat',sans-serif; font-weight:200; font-size:40px; letter-spacing:0.2em;">LUIZ</span>
+    <span style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:40px; letter-spacing:0.2em;">FOSC</span>
+  </div>
+  <div style="font-family:'Ubuntu',sans-serif; font-size:14px; color:var(--gray-400); font-weight:300;">24 variações de post · 5 humores · Todos os elementos · Cardápio pra produção diária</div>
+</div>
+
+<!-- ===== 01: QUOTES PRÓPRIAS (6 variações) ===== -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">01</div>
+    <div>
+      <div class="section-title">Quotes Próprias — 6 variações</div>
+      <div class="section-desc">Frases do Fosc. Cada layout usa elementos diferentes do sistema.</div>
+    </div>
+  </div>
+  <div class="grid-3">
+
+    <!-- Q1: Minimalista puro -->
+    <div>
+      <div class="ig chevron-bg" style="background:var(--black); justify-content:center; padding:28px;">
+        <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber); margin-bottom:16px; position:relative; z-index:2;">#pensecomoumilusionista</div>
+        <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:20px; line-height:1.2; color:var(--white); position:relative; z-index:2;">O impossível é só o possível que ninguém <span style="color:var(--amber-glow);">tentou</span> ainda.</div>
+        <div style="width:28px; height:2px; background:var(--amber); margin-top:16px; position:relative; z-index:2;"></div>
+        <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:11px; color:var(--gray-500); margin-top:8px; position:relative; z-index:2;">@luizfosc</div>
+      </div>
+      <div class="ig-label">Minimalista + chevron bg</div>
+    </div>
+
+    <!-- Q2: Com moldura teal -->
+    <div>
+      <div class="ig" style="background:var(--black); justify-content:center; padding:24px;">
+        <!-- Logo cortada no canto -->
+        <div style="position:absolute; bottom:-15px; right:-15px; width:80px; height:80px; opacity:0.08;">
+          <div style="width:80px; height:80px; border:3px solid var(--white); transform:rotate(45deg);"></div>
+        </div>
+        <div class="moldura" style="position:relative; z-index:2;">
+          <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:18px; line-height:1.25; color:var(--white);">Não existe <span style="color:var(--teal-light);">atalho</span> para quem está disposto a fazer o <span style="color:var(--amber-glow);">caminho inteiro</span>.</div>
+        </div>
+        <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:11px; color:var(--gray-500); margin-top:12px; position:relative; z-index:2;">Luiz Fosc · @luizfosc</div>
+      </div>
+      <div class="ig-label">Moldura teal + logo cortada</div>
+    </div>
+
+    <!-- Q3: Tipografia grande dramática -->
+    <div>
+      <div class="ig chevron-bg" style="background:var(--black); justify-content:center; padding:28px; text-align:center;">
+        <div style="font-family:'Montserrat',sans-serif; font-weight:200; font-size:14px; letter-spacing:0.1em; color:var(--gray-400); margin-bottom:12px; position:relative; z-index:2;">NÃO É</div>
+        <div style="font-family:'Montserrat',sans-serif; font-weight:900; font-size:42px; line-height:0.95; color:var(--amber-glow); position:relative; z-index:2;">DOM</div>
+        <div style="font-family:'Montserrat',sans-serif; font-weight:200; font-size:14px; letter-spacing:0.1em; color:var(--gray-400); margin:12px 0; position:relative; z-index:2;">É</div>
+        <div style="font-family:'Montserrat',sans-serif; font-weight:900; font-size:42px; line-height:0.95; color:var(--white); position:relative; z-index:2;">ESTRUTURA</div>
+      </div>
+      <div class="ig-label">Tipografia dramática centralizada</div>
+    </div>
+
+    <!-- Q4: Light mode + chevron -->
+    <div>
+      <div class="ig chevron-bg-light" style="background:var(--ivory); justify-content:center; padding:28px;">
+        <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:36px; color:var(--amber); line-height:0.8; margin-bottom:14px; position:relative; z-index:2;">"</div>
+        <div style="font-family:'Ubuntu',sans-serif; font-weight:400; font-size:16px; line-height:1.5; color:var(--black); position:relative; z-index:2;">Quando eu era pequeno, achavam que eu era tímido. Na verdade, eu estava <span style="color:var(--amber);">observando</span>.</div>
+        <div style="width:28px; height:2px; background:var(--amber); margin-top:14px; position:relative; z-index:2;"></div>
+        <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:11px; color:var(--gray-500); margin-top:8px; position:relative; z-index:2;">@luizfosc</div>
+      </div>
+      <div class="ig-label">Light mode + aspas amber</div>
+    </div>
+
+    <!-- Q5: Teal editorial -->
+    <div>
+      <div class="ig" style="background: radial-gradient(ellipse at 20% 20%, var(--teal) 0%, var(--black) 100%); justify-content:center; padding:28px;">
+        <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:var(--teal-light); margin-bottom:14px;">Reflexão</div>
+        <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:16px; color:var(--white); line-height:1.6; margin-bottom:14px;">O público vê o impossível acontecer. Mas o que sustenta o milagre é o <span style="color:var(--amber-glow);">método</span>.</div>
+        <div style="width:28px; height:2px; background:var(--teal-glow); margin-bottom:8px;"></div>
+        <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:11px; color:var(--gray-500);">@luizfosc</div>
+      </div>
+      <div class="ig-label">Teal editorial</div>
+    </div>
+
+    <!-- Q6: Moldura amber + símbolo decorativo grande -->
+    <div>
+      <div class="ig" style="background:var(--black); justify-content:center; padding:24px; position:relative;">
+        <!-- Símbolo grande cortado -->
+        <div style="position:absolute; top:-30px; right:-30px; width:140px; height:140px; border:2px solid var(--amber); transform:rotate(45deg); opacity:0.06;"></div>
+        <div style="position:absolute; top:-20px; right:-20px; width:110px; height:110px; border:2px solid var(--amber); transform:rotate(45deg); opacity:0.04;"></div>
+        <div class="moldura-amber moldura" style="position:relative; z-index:2;">
+          <div style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:18px; line-height:1.2; color:var(--white);">A mágica não está no truque. Está na <span style="color:var(--amber-glow);">reação</span> de quem assiste.</div>
+        </div>
+        <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:11px; color:var(--gray-500); margin-top:10px; position:relative; z-index:2;">@luizfosc</div>
+      </div>
+      <div class="ig-label">Moldura amber + símbolo cortado</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== 02: QUOTES DE OUTROS AUTORES (4 variações) ===== -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">02</div>
+    <div>
+      <div class="section-title">Quotes de Outros Autores — 4 variações</div>
+      <div class="section-desc">Humor Editorial/Teal. Aspas grandes em amber. Fundo teal ou preto.</div>
+    </div>
+  </div>
+  <div class="grid-4">
+
+    <!-- A1: Teal + aspas -->
+    <div>
+      <div class="ig" style="background: radial-gradient(ellipse at 30% 30%, var(--teal) 0%, var(--teal-soft) 60%, var(--black) 100%); justify-content:center; padding:24px;">
+        <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:36px; color:var(--amber-glow); line-height:0.8; margin-bottom:12px;">"</div>
+        <div style="font-family:'Ubuntu',sans-serif; font-weight:400; font-size:14px; color:var(--white); line-height:1.5; margin-bottom:14px;">A imaginação é mais importante que o conhecimento.</div>
+        <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--teal-light);">Albert Einstein</div>
+      </div>
+      <div class="ig-label">Teal radial + aspas amber</div>
+    </div>
+
+    <!-- A2: Dark + moldura teal + foto placeholder -->
+    <div>
+      <div class="ig" style="background:var(--black); justify-content:center; padding:20px; position:relative;">
+        <div style="position:absolute; top:0; right:0; width:45%; height:100%; background:linear-gradient(90deg, var(--black), rgba(33,33,33,0.5)); display:flex; align-items:center; justify-content:center;"><span style="font-size:9px; color:var(--gray-700);">📷 foto</span></div>
+        <div style="position:relative; z-index:2; max-width:55%;">
+          <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:32px; color:var(--amber-glow); line-height:0.8; margin-bottom:10px;">"</div>
+          <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:13px; color:var(--white); line-height:1.5; margin-bottom:10px;">Seja mais gentil com seus clientes do que seus concorrentes.</div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.06em; text-transform:uppercase; color:var(--teal-light);">Richard Reed</div>
+        </div>
+      </div>
+      <div class="ig-label">Split foto + quote</div>
+    </div>
+
+    <!-- A3: Teal sólido -->
+    <div>
+      <div class="ig" style="background:var(--teal-soft); justify-content:center; padding:24px;">
+        <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:36px; color:var(--amber-glow); line-height:0.8; margin-bottom:12px;">"</div>
+        <div style="font-family:'Ubuntu',sans-serif; font-weight:400; font-size:14px; color:var(--gray-200); line-height:1.5; margin-bottom:14px;">O sucesso não é o resultado de um jogo de sorte. É simplesmente uma questão de persistência e determinação.</div>
+        <div style="width:24px; height:2px; background:var(--teal-glow); margin-bottom:8px;"></div>
+        <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--teal-light);">Napoleon Hill</div>
+      </div>
+      <div class="ig-label">Teal sólido + barra teal</div>
+    </div>
+
+    <!-- A4: Light mode -->
+    <div>
+      <div class="ig chevron-bg-light" style="background:var(--ivory); justify-content:center; padding:24px; position:relative;">
+        <div style="position:absolute; top:12px; right:12px; font-family:'Montserrat',sans-serif; font-weight:200; font-size:10px; letter-spacing:0.1em; color:var(--gray-400);"><span style="letter-spacing:0.1em;">LUIZ</span> <span style="font-weight:700;">FOSC</span></div>
+        <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:36px; color:var(--amber); line-height:0.8; margin-bottom:12px; position:relative; z-index:2;">"</div>
+        <div style="font-family:'Ubuntu',sans-serif; font-weight:400; font-size:15px; color:var(--black); line-height:1.5; margin-bottom:14px; position:relative; z-index:2;">Quem pensa fora da caixa nunca fica preso dentro dela.</div>
+        <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--amber-dark); position:relative; z-index:2;">Provérbio</div>
+      </div>
+      <div class="ig-label">Light mode + aspas amber</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== 03: COM FOTO (6 variações) ===== -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">03</div>
+    <div>
+      <div class="section-title">Posts com Foto — 6 variações</div>
+      <div class="section-desc">Foto traz a cor. O sistema ancora. Chevron corner, moldura, seta, símbolo cortado.</div>
+    </div>
+  </div>
+  <div class="grid-3">
+
+    <!-- F1: Foto + texto embaixo + chevron corner -->
+    <div>
+      <div class="ig" style="background: linear-gradient(180deg, rgba(184,134,11,0.12) 0%, var(--black) 55%); justify-content:flex-end; padding:22px; position:relative;">
+        <div style="position:absolute; top:0; left:0; right:0; height:60%; display:flex; align-items:center; justify-content:center;"><span style="font-size:10px; color:var(--gray-600);">📷 palco</span></div>
+        <div style="position:absolute; top:12px; right:12px; width:20px; height:20px; border-right:1.5px solid var(--amber); border-top:1.5px solid var(--amber); opacity:0.5;"></div>
+        <div style="position:relative; z-index:2;">
+          <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:20px; color:var(--white); line-height:1.1;">Quando o conteúdo conecta, <span style="color:var(--amber-glow);">tudo muda</span></div>
+          <div style="width:24px; height:2px; background:var(--amber); margin-top:10px;"></div>
+        </div>
+      </div>
+      <div class="ig-label">Foto quente + chevron corner</div>
+    </div>
+
+    <!-- F2: Foto + moldura teal -->
+    <div>
+      <div class="ig" style="background: linear-gradient(180deg, rgba(26,58,58,0.15) 0%, var(--black) 100%); justify-content:center; padding:20px; position:relative;">
+        <div style="position:absolute; top:0; left:0; right:0; height:100%; display:flex; align-items:center; justify-content:center;"><span style="font-size:10px; color:var(--gray-700);">📷 palco wide</span></div>
+        <div style="position:relative; z-index:2;">
+          <div style="font-family:'Montserrat',sans-serif; font-weight:200; font-size:10px; letter-spacing:0.1em; color:var(--gray-300); margin-bottom:8px; text-align:center;"><span>LUIZ</span> <span style="font-weight:700;">FOSC</span></div>
+          <div class="moldura" style="text-align:center;">
+            <div style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:18px; color:var(--white); line-height:1.2;">Com Luiz Fosc você não verá <span style="color:var(--teal-light);">"mais do mesmo"</span></div>
+          </div>
+        </div>
+        <!-- Seta chevron decorativa -->
+        <div style="position:absolute; bottom:10px; left:10px; z-index:1;">
+          <div style="width:20px; height:20px; border-left:3px solid var(--amber); border-bottom:3px solid var(--amber); transform:rotate(-45deg); opacity:0.4;"></div>
+          <div style="width:16px; height:16px; border-left:3px solid var(--amber); border-bottom:3px solid var(--amber); transform:rotate(-45deg); opacity:0.25; margin-top:-8px; margin-left:8px;"></div>
+        </div>
+      </div>
+      <div class="ig-label">Foto bg + moldura teal + seta</div>
+    </div>
+
+    <!-- F3: Foto bastidor frio -->
+    <div>
+      <div class="ig" style="background: linear-gradient(180deg, #1a2030 0%, var(--black) 55%); justify-content:flex-end; padding:22px; position:relative;">
+        <div style="position:absolute; top:0; left:0; right:0; height:60%; display:flex; align-items:center; justify-content:center;"><span style="font-size:10px; color:var(--gray-600);">📷 bastidor/piano</span></div>
+        <div style="position:absolute; top:12px; right:12px; width:20px; height:20px; border-right:1.5px solid #7A8BA0; border-top:1.5px solid #7A8BA0; opacity:0.4;"></div>
+        <div style="position:relative; z-index:2;">
+          <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-style:italic; font-size:16px; color:var(--white); line-height:1.4;">"O silêncio antes do show é onde a mágica <span style="color:#9AB0C8;">começa</span>"</div>
+          <div style="width:24px; height:2px; background:#7A8BA0; margin-top:10px;"></div>
+        </div>
+      </div>
+      <div class="ig-label">Foto fria + cor adaptada</div>
+    </div>
+
+    <!-- F4: Foto família light -->
+    <div>
+      <div class="ig" style="background: linear-gradient(180deg, #E8E2DB 0%, var(--ivory) 100%); justify-content:flex-end; padding:22px; position:relative;">
+        <div style="position:absolute; top:0; left:0; right:0; height:60%; display:flex; align-items:center; justify-content:center;"><span style="font-size:10px; color:var(--gray-400);">📷 família</span></div>
+        <div style="position:relative; z-index:2;">
+          <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:18px; color:var(--black); line-height:1.1;">O melhor de mim <span style="color:var(--amber);">não está no palco</span></div>
+        </div>
+      </div>
+      <div class="ig-label">Foto família + light mode</div>
+    </div>
+
+    <!-- F5: Foto + símbolo grande cortado -->
+    <div>
+      <div class="ig" style="background: linear-gradient(180deg, rgba(184,134,11,0.08) 0%, var(--black) 50%); justify-content:flex-end; padding:22px; position:relative;">
+        <div style="position:absolute; top:0; left:0; right:0; height:65%; display:flex; align-items:center; justify-content:center;"><span style="font-size:10px; color:var(--gray-600);">📷 close-up expressivo</span></div>
+        <!-- Símbolo cortado no canto -->
+        <div style="position:absolute; bottom:-20px; right:-20px; width:100px; height:100px; border:2px solid var(--amber); transform:rotate(45deg); opacity:0.1;"></div>
+        <div style="position:absolute; bottom:-10px; right:-10px; width:70px; height:70px; border:2px solid var(--amber); transform:rotate(45deg); opacity:0.07;"></div>
+        <div style="position:relative; z-index:2;">
+          <div style="font-family:'Montserrat',sans-serif; font-weight:500; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--gray-400); margin-bottom:6px;">@luizfosc</div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:20px; color:var(--white); line-height:1.08;">Por que empresas de <span style="color:var(--amber-glow);">alta performance</span></div>
+          <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:14px; color:var(--gray-300);">me chamam para palestrar?</div>
+        </div>
+      </div>
+      <div class="ig-label">Foto + símbolo cortado no canto</div>
+    </div>
+
+    <!-- F6: Foto lateral + texto + seta dupla -->
+    <div>
+      <div class="ig" style="background:var(--black); position:relative;">
+        <div style="position:absolute; top:0; left:0; width:45%; height:100%; background:linear-gradient(90deg, rgba(184,134,11,0.08), var(--black)); display:flex; align-items:center; justify-content:center;"><span style="font-size:9px; color:var(--gray-700);">📷</span></div>
+        <div style="position:absolute; right:20px; top:50%; transform:translateY(-50%); z-index:2; max-width:50%;">
+          <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber); margin-bottom:8px;">Resultado real</div>
+          <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-style:italic; font-size:14px; color:var(--white); line-height:1.4;">"Superou todas as expectativas da equipe"</div>
+          <div style="width:24px; height:2px; background:var(--amber); margin:8px 0;"></div>
+          <div style="font-family:'Ubuntu',sans-serif; font-weight:400; font-size:10px; color:var(--gray-400);">Diretor de RH, Energold</div>
+        </div>
+        <!-- Seta chevron -->
+        <div style="position:absolute; bottom:12px; left:12px;">
+          <div style="width:16px; height:16px; border-left:2.5px solid var(--amber); border-bottom:2.5px solid var(--amber); transform:rotate(-45deg); opacity:0.35;"></div>
+          <div style="width:12px; height:12px; border-left:2.5px solid var(--amber); border-bottom:2.5px solid var(--amber); transform:rotate(-45deg); opacity:0.2; margin-top:-6px; margin-left:6px;"></div>
+        </div>
+      </div>
+      <div class="ig-label">Foto lateral + depoimento + seta</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== 04: DADOS E NÚMEROS (4 variações) ===== -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">04</div>
+    <div>
+      <div class="section-title">Dados e Números — 4 variações</div>
+      <div class="section-desc">Estatísticas, credenciais, fatos. Montserrat peso extremo pra impacto.</div>
+    </div>
+  </div>
+  <div class="grid-4">
+
+    <!-- N1: Número grande -->
+    <div>
+      <div class="ig" style="background:var(--black); justify-content:center; padding:24px; text-align:center;">
+        <div style="font-family:'Montserrat',sans-serif; font-weight:200; font-size:56px; color:var(--amber-glow); line-height:1;">2×</div>
+        <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:12px; letter-spacing:0.08em; color:var(--white); margin-top:4px;">GUINNESS WORLD RECORD</div>
+        <div style="width:28px; height:2px; background:var(--amber); margin:10px auto;"></div>
+        <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:11px; color:var(--gray-400);">O único palestrante brasileiro</div>
+      </div>
+      <div class="ig-label">Número destaque</div>
+    </div>
+
+    <!-- N2: Stat com moldura -->
+    <div>
+      <div class="ig" style="background:var(--black); justify-content:center; padding:20px; text-align:center;">
+        <div class="moldura-amber moldura">
+          <div style="font-family:'Montserrat',sans-serif; font-weight:200; font-size:48px; color:var(--amber-glow); line-height:1;">500+</div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:11px; letter-spacing:0.06em; color:var(--white); margin-top:4px;">APRESENTAÇÕES</div>
+        </div>
+        <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:11px; color:var(--gray-400); margin-top:10px;">Nenhum milagre. Só método.</div>
+      </div>
+      <div class="ig-label">Stat + moldura amber</div>
+    </div>
+
+    <!-- N3: Lista de fatos -->
+    <div>
+      <div class="ig chevron-bg-light" style="background:var(--ivory); justify-content:center; padding:24px; position:relative;">
+        <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber-dark); margin-bottom:14px; position:relative; z-index:2;">Poucos sabem</div>
+        <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:13px; color:var(--gray-600); line-height:1.8; text-align:left; position:relative; z-index:2;">
+          → Já fui muito <strong style="color:var(--black);">tímido</strong><br>
+          → Tive <strong style="color:var(--black);">430 funcionários</strong><br>
+          → <strong style="color:var(--black);">47 livros</strong> em 1 ano<br>
+          → Toco <strong style="color:var(--black);">piano</strong> de ouvido<br>
+          → <span style="color:var(--amber-dark);">"Fosc" = 4 dos meus 6 nomes</span>
+        </div>
+      </div>
+      <div class="ig-label">Light mode + lista de fatos</div>
+    </div>
+
+    <!-- N4: Credencial premium -->
+    <div>
+      <div class="ig" style="background:var(--black); justify-content:center; padding:20px; text-align:center; position:relative; overflow:hidden;">
+        <div style="position:absolute; inset:0; opacity:0.05; background-image: repeating-linear-gradient(45deg, transparent, transparent 8px, var(--amber) 8px, var(--amber) 9px), repeating-linear-gradient(-45deg, transparent, transparent 8px, var(--amber) 8px, var(--amber) 9px);"></div>
+        <div style="position:relative; z-index:2;">
+          <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber-glow); margin-bottom:12px;">🏆 Premiação</div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:16px; color:var(--white); margin-bottom:4px;">TOP OF MIND</div>
+          <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:13px; color:var(--gray-300);">"Palestrante Destaque"</div>
+          <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:12px; color:var(--gray-500); margin-top:4px;">Londres, Inglaterra</div>
+        </div>
+      </div>
+      <div class="ig-label">Credencial premium</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== 05: CAPAS DE CARROSSEL (4 variações) ===== -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">05</div>
+    <div>
+      <div class="section-title">Capas de Carrossel — 4 variações</div>
+      <div class="section-desc">Primeira imagem do carrossel. Precisa gerar curiosidade e swipe.</div>
+    </div>
+  </div>
+  <div class="grid-4">
+
+    <!-- C1: Princípio do Ilusionista -->
+    <div>
+      <div class="ig chevron-bg" style="background:var(--black); justify-content:flex-end; padding:24px; position:relative;">
+        <div style="position:absolute; top:0; left:0; right:0; height:45%; background:linear-gradient(180deg, rgba(184,134,11,0.06) 0%, rgba(33,33,33,0.95) 100%); display:flex; align-items:center; justify-content:center;"><span style="font-size:9px; color:var(--gray-700);">📷</span></div>
+        <div style="position:relative; z-index:2;">
+          <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:9px; letter-spacing:0.12em; text-transform:uppercase; color:var(--amber); margin-bottom:8px;">Princípio do Ilusionista #03</div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:22px; line-height:1.1; color:var(--white);">Crie distrações <span style="color:var(--amber-glow);">inteligentes</span></div>
+          <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:11px; color:var(--gray-400); margin-top:8px;">Deslize →</div>
+        </div>
+      </div>
+      <div class="ig-label">Princípio + foto + CTA</div>
+    </div>
+
+    <!-- C2: Pergunta provocativa -->
+    <div>
+      <div class="ig" style="background:var(--black); justify-content:center; padding:24px; text-align:center;">
+        <div style="font-family:'Montserrat',sans-serif; font-weight:200; font-size:14px; letter-spacing:0.08em; color:var(--gray-400); margin-bottom:8px;">VOCÊ SABE</div>
+        <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:24px; line-height:1.1; color:var(--white); margin-bottom:8px;">por que 90% das palestras são <span style="color:var(--amber-glow);">esquecidas</span>?</div>
+        <div style="width:28px; height:2px; background:var(--amber); margin:12px auto;"></div>
+        <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:11px; color:var(--gray-400);">Deslize para descobrir →</div>
+      </div>
+      <div class="ig-label">Pergunta provocativa</div>
+    </div>
+
+    <!-- C3: Teal editorial -->
+    <div>
+      <div class="ig" style="background: linear-gradient(160deg, var(--teal) 0%, var(--black) 100%); justify-content:center; padding:24px;">
+        <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:var(--teal-light); margin-bottom:12px;">Lição de palco #07</div>
+        <div style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:22px; line-height:1.15; color:var(--white);">O público não lembra do que você <span style="color:var(--amber-glow);">disse</span>.</div>
+        <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:14px; color:var(--gray-300); margin-top:6px;">Lembra do que <strong style="color:var(--white);">sentiu</strong>.</div>
+        <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:11px; color:var(--gray-500); margin-top:12px;">Deslize →</div>
+      </div>
+      <div class="ig-label">Teal + lição numerada</div>
+    </div>
+
+    <!-- C4: Light mode -->
+    <div>
+      <div class="ig chevron-bg-light" style="background:var(--ivory); justify-content:center; padding:24px; position:relative;">
+        <div style="position:relative; z-index:2; text-align:center;">
+          <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber-dark); margin-bottom:12px;">Quem Sou Eu</div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:22px; line-height:1.15; color:var(--black);">O que <span style="color:var(--amber);">poucas pessoas</span> sabem</div>
+          <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:11px; color:var(--gray-500); margin-top:10px;">Deslize →</div>
+        </div>
+      </div>
+      <div class="ig-label">Light mode + carrossel pessoal</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== 06: REELS (4 variações) ===== -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">06</div>
+    <div>
+      <div class="section-title">Capas de Reels — 4 variações</div>
+      <div class="section-desc">9:16 comprimido. Texto grande embaixo, foto ou fundo escuro em cima.</div>
+    </div>
+  </div>
+  <div class="grid-4">
+
+    <!-- R1 -->
+    <div>
+      <div style="aspect-ratio:9/16; max-height:380px; border-radius:10px; overflow:hidden; background: linear-gradient(180deg, rgba(184,134,11,0.08) 0%, var(--black) 45%); display:flex; flex-direction:column; justify-content:flex-end; padding:20px; position:relative;">
+        <div style="position:absolute; top:0; left:0; right:0; height:50%; display:flex; align-items:center; justify-content:center;"><span style="font-size:9px; color:var(--gray-700);">📷</span></div>
+        <div style="position:absolute; top:10px; right:10px; width:16px; height:16px; border-right:1.5px solid var(--amber); border-top:1.5px solid var(--amber); opacity:0.4;"></div>
+        <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:22px; color:var(--white); line-height:1.08;">Por que empresas de <span style="color:var(--amber-glow);">alta performance</span></div>
+        <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:13px; color:var(--gray-300);">me chamam?</div>
+      </div>
+      <div class="ig-label">Foto + título</div>
+    </div>
+
+    <!-- R2 -->
+    <div>
+      <div style="aspect-ratio:9/16; max-height:380px; border-radius:10px; overflow:hidden; background:var(--black); display:flex; flex-direction:column; justify-content:center; padding:20px; text-align:center;">
+        <div style="font-family:'Montserrat',sans-serif; font-weight:200; font-size:12px; letter-spacing:0.1em; color:var(--gray-400); margin-bottom:6px;">O QUE ACONTECE</div>
+        <div style="font-family:'Montserrat',sans-serif; font-weight:900; font-size:28px; line-height:0.95; color:var(--white); margin-bottom:6px;">DEPOIS DA <span style="color:var(--amber-glow);">PALESTRA</span></div>
+        <div style="width:28px; height:2px; background:var(--amber); margin:10px auto;"></div>
+        <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:12px; color:var(--gray-400);">Assista até o final</div>
+      </div>
+      <div class="ig-label">Texto centralizado</div>
+    </div>
+
+    <!-- R3 -->
+    <div>
+      <div style="aspect-ratio:9/16; max-height:380px; border-radius:10px; overflow:hidden; background: linear-gradient(180deg, var(--teal-soft) 0%, var(--black) 50%); display:flex; flex-direction:column; justify-content:flex-end; padding:20px; position:relative;">
+        <div style="position:absolute; top:0; left:0; right:0; height:50%; display:flex; align-items:center; justify-content:center;"><span style="font-size:9px; color:var(--gray-700);">📷</span></div>
+        <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:9px; letter-spacing:0.1em; text-transform:uppercase; color:var(--teal-light); margin-bottom:6px;">Bastidor</div>
+        <div style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:20px; color:var(--white); line-height:1.08;">O que <span style="color:var(--amber-glow);">ninguém vê</span> antes do show</div>
+      </div>
+      <div class="ig-label">Teal + bastidor</div>
+    </div>
+
+    <!-- R4 -->
+    <div>
+      <div style="aspect-ratio:9/16; max-height:380px; border-radius:10px; overflow:hidden; background:var(--black); display:flex; flex-direction:column; justify-content:center; padding:20px; position:relative; text-align:center;">
+        <div style="position:absolute; inset:0; opacity:0.05; background-image: repeating-linear-gradient(45deg, transparent, transparent 8px, var(--amber) 8px, var(--amber) 9px), repeating-linear-gradient(-45deg, transparent, transparent 8px, var(--amber) 8px, var(--amber) 9px);"></div>
+        <div style="position:relative; z-index:2;">
+          <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:var(--amber-glow); margin-bottom:8px;">✦ Mentoria ✦</div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:200; font-size:14px; letter-spacing:0.1em; color:var(--gray-400);">PALESTRA</div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:900; font-size:36px; color:var(--amber-glow);">ELITE</div>
+          <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:11px; color:var(--gray-400); margin-top:10px;">Vagas limitadas</div>
+        </div>
+      </div>
+      <div class="ig-label">Premium / mentoria</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div style="text-align:center; padding:40px 0; border-top:1px solid var(--gray-700);">
+  <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-style:italic; font-size:16px; color:var(--amber-glow); margin-bottom:12px;">"Não é dom, é estrutura."</div>
+  <div style="font-family:'Montserrat',sans-serif; font-size:10px; color:var(--gray-500); letter-spacing:0.04em;">
+    Galeria de Variações · 24 posts · 6 categorias · Luiz Fosc · 2026-04-07<br>
+    Elementos: chevron bg · chevron corner · chevron seta · moldura teal · moldura amber · aspas " · símbolo cortado
+  </div>
+</div>
+
+</div>
+</body>
+</html>

@@ -14,20 +14,20 @@ Contexto acabando ou usuário pediu checkpoint. Execute TODOS os passos abaixo S
 
 Determine onde vive a governança do projeto:
 
-1. **Se `.aios/INDEX.md` existe no cwd** → modo **HYBRID**
-   - `gov_path` = `.aios/` (relativo ao cwd)
-   - `index_path` = `.aios/INDEX.md`
-   - `sessions_path` = `.aios/sessions/`
-   - Validar INDEX.md: ler e verificar se contém "Estado Atual" ou "Status". Se vazio ou sem campos obrigatórios → PARAR com erro: "INDEX.md em `.aios/` está corrompido ou vazio. Restaure manualmente ou recrie com `/new-project`."
+1. **Se `.aiox/INDEX.md` existe no cwd** → modo **HYBRID**
+   - `gov_path` = `.aiox/` (relativo ao cwd)
+   - `index_path` = `.aiox/INDEX.md`
+   - `sessions_path` = `.aiox/sessions/`
+   - Validar INDEX.md: ler e verificar se contém "Estado Atual" ou "Status". Se vazio ou sem campos obrigatórios → PARAR com erro: "INDEX.md em `.aiox/` está corrompido ou vazio. Restaure manualmente ou recrie com `/new-project`."
 2. **Se cwd contém `aios-core`** → modo **CENTRALIZED**
    - Identificar projeto pelo contexto da conversa
    - `gov_path` = `docs/projects/{projeto}/`
    - `index_path` = `docs/projects/{projeto}/INDEX.md`
    - `sessions_path` = `docs/projects/{projeto}/sessions/`
-3. **Se AMBOS existem** (`.aios/INDEX.md` no cwd E `docs/projects/{projeto}/INDEX.md` em aios-core) → ERRO:
+3. **Se AMBOS existem** (`.aiox/INDEX.md` no cwd E `docs/projects/{projeto}/INDEX.md` em aios-core) → ERRO:
    ```
    ⚠️ CONFLITO: Governança duplicada detectada.
-   - `.aios/INDEX.md` existe localmente (HYBRID)
+   - `.aiox/INDEX.md` existe localmente (HYBRID)
    - `docs/projects/{projeto}/INDEX.md` existe em aios-core (CENTRALIZED)
    Escolha qual usar ou delete um dos dois.
    ```
@@ -40,7 +40,7 @@ Guarde `gov_path`, `index_path`, `sessions_path` para os passos seguintes.
 - Rode `git log --oneline -5` via Bash
 - Analise o contexto da conversa para identificar o projeto ativo
 - Se trabalhou em mais de 1 projeto, pergunte qual é o foco principal
-- **Em modo HYBRID:** o projeto já está identificado pelo `.aios/INDEX.md` no cwd
+- **Em modo HYBRID:** o projeto já está identificado pelo `.aiox/INDEX.md` no cwd
 - **Em modo CENTRALIZED:**
   - **VALIDAR:** Verificar se `docs/projects/{projeto}/` existe
   - Se NÃO existir: pergunte "Projeto '{projeto}' não encontrado em docs/projects/. Quer criar com `/new-project`?"
@@ -132,7 +132,7 @@ Se houver stories ou epic ativo, adicionar/atualizar na seção "Estado Atual":
 - Atualize a row do projeto: status, agente/squad, última sessão, link INDEX
 - Link INDEX:
   - **CENTRALIZED:** `[INDEX]({nome}/INDEX.md)`
-  - **HYBRID:** `[INDEX]({path-absoluto}/.aios/INDEX.md)`
+  - **HYBRID:** `[INDEX]({path-absoluto}/.aiox/INDEX.md)`
 - Se o projeto não está na tabela, adicione uma nova row (calcular `max(#) + 1`)
 
 ## Passo 4: Salvar session file

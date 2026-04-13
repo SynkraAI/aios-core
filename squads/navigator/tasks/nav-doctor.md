@@ -61,7 +61,7 @@ pre-conditions:
     tipo: pre-condition
     blocker: false
     validacao: |
-      .aios-core/ directory exists
+      .aiox-core/ directory exists
     error_message: "Not an AIOS project. Run 'npx aios-core install' first."
 ```
 
@@ -70,7 +70,7 @@ pre-conditions:
 ### Step 1: Run Health Check Script
 
 ```bash
-node .aios-core/development/scripts/navigator/doctor.js
+node .aiox-core/development/scripts/navigator/doctor.js
 ```
 
 ### Expected Output
@@ -121,11 +121,11 @@ node .aios-core/development/scripts/navigator/doctor.js
 
 ### 5. Directory Structure
 - **Check:** Required directories exist:
-  - `.aios-core/development/agents`
-  - `.aios-core/development/tasks`
-  - `.aios-core/development/templates`
-  - `.aios-core/development/scripts/navigator`
-  - `.aios-core/development/data`
+  - `.aiox-core/development/agents`
+  - `.aiox-core/development/tasks`
+  - `.aiox-core/development/templates`
+  - `.aiox-core/development/scripts/navigator`
+  - `.aiox-core/development/data`
 - **Fix:** Reinstall AIOS or create missing directories
 
 ### 6. Pipeline Map
@@ -187,7 +187,7 @@ post-conditions:
 ## Dependencies
 
 - **Scripts:**
-  - `.aios-core/development/scripts/navigator/doctor.js`
+  - `.aiox-core/development/scripts/navigator/doctor.js`
 
 - **Tools:**
   - Node.js (>= 18.0.0)

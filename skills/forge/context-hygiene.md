@@ -40,7 +40,7 @@ For the completed phase N, gather:
 ### Where to Save
 
 1. **state.json** — `phases.{N}.summary` as a string (the full markdown block)
-2. **File** — `.aios/forge-runs/{run_id}/phase-{N}-summary.md` (for injection after /clear)
+2. **File** — `.aiox/forge-runs/{run_id}/phase-{N}-summary.md` (for injection after /clear)
 
 ### /clear Suggestion (Heavy Phases Only)
 
@@ -60,7 +60,7 @@ If the completed phase is in the heavy list, show:
   2. /forge resume
 
   O resumo da fase está salvo em:
-  .aios/forge-runs/{run_id}/phase-{N}-summary.md
+  .aiox/forge-runs/{run_id}/phase-{N}-summary.md
 
   Nada se perde. O Forge retoma de onde parou
   com todas as decisões anteriores injetadas.
@@ -77,7 +77,7 @@ If the completed phase is in the heavy list, show:
 
 ### Protocol
 
-1. Glob `.aios/forge-runs/{run_id}/phase-*-summary.md`
+1. Glob `.aiox/forge-runs/{run_id}/phase-*-summary.md`
 2. Filter: only phases M where M < N (current phase number)
 3. Sort by phase number ascending
 4. Build the "Phase Memory Briefing" block:

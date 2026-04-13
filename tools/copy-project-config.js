@@ -30,7 +30,7 @@ const VALID_TYPES = ['app', 'squad', 'mind-clone', 'pipeline', 'knowledge', 'res
 const VALID_MODES = ['HYBRID', 'CENTRALIZED'];
 
 const MODE_DESCRIPTIONS = {
-  HYBRID: 'Governança local — INDEX, stories e sessions vivem em `.aios/` dentro do projeto.',
+  HYBRID: 'Governança local — INDEX, stories e sessions vivem em `.aiox/` dentro do projeto.',
   CENTRALIZED: 'Governança central — INDEX, stories e sessions vivem em `docs/projects/{nome}/` dentro do aios-core.'
 };
 
@@ -71,10 +71,10 @@ function computePaths(destination, mode, projectName) {
 
   if (mode === 'HYBRID') {
     return {
-      INDEX_PATH: '.aios/INDEX.md',
-      STORIES_PATH: '.aios/stories/active/',
-      SESSIONS_PATH: '.aios/sessions/',
-      SAVE_LOCATION: '.aios/',
+      INDEX_PATH: '.aiox/INDEX.md',
+      STORIES_PATH: '.aiox/stories/active/',
+      SESSIONS_PATH: '.aiox/sessions/',
+      SAVE_LOCATION: '.aiox/',
       PROJECT_SLUG: slug
     };
   } else {
@@ -102,7 +102,7 @@ function allocatePort(projectSlug, type) {
     });
 
     // Read registry to get allocated port
-    const registryPath = path.join(__dirname, '..', '.aios-core', 'data', 'port-registry.json');
+    const registryPath = path.join(__dirname, '..', '.aiox-core', 'data', 'port-registry.json');
     const registry = JSON.parse(fs.readFileSync(registryPath, 'utf8'));
 
     return registry[projectSlug]?.port || null;
@@ -217,7 +217,7 @@ async function copyProjectConfig(destination, type, projectName, mode, mergeType
   if (await fs.pathExists(portConfigSrc)) {
     console.log(`\n🔌 Configurando port management...\n`);
 
-    // Criar .aios/ se não existir
+    // Criar .aiox/ se não existir
     await fs.ensureDir(path.join(resolvedDest, '.aios'));
 
     // Copiar port-config.json

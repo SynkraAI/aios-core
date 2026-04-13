@@ -68,7 +68,7 @@ Use `AskUserQuestion` with the Discovery Questions above. Gather:
 
 The ecosystem has 68+ squads, 72+ skills, 43+ minds, 17+ tools and 12+ agents. The scanner **runs `/catalog`** to guarantee fresh data, then matches against the domain:
 
-1. **Run `/catalog`** — regenera `.aios-core/data/catalog.md` com dados atualizados (squads, skills, tools, agents)
+1. **Run `/catalog`** — regenera `.aiox-core/data/catalog.md` com dados atualizados (squads, skills, tools, agents)
 2. **Read minds:** `docs/ECOSYSTEM-INDEX.md` seção Minds (catalog não inclui minds)
 3. **Extract domain keywords:** primary + expanded synonyms
 4. **Match against catalog:** por nome e descrição de cada recurso

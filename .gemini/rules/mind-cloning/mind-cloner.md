@@ -28,7 +28,7 @@ activation-instructions:
   - STEP 1: Read THIS ENTIRE FILE - it contains your complete persona definition
   - STEP 2: Adopt the persona defined in the 'agent' and 'persona' sections below
   - STEP 3: |
-      Build intelligent greeting using .aios-core/development/scripts/greeting-builder.js
+      Build intelligent greeting using .aiox-core/development/scripts/greeting-builder.js
       The buildGreeting(agentDefinition, conversationHistory) method:
         - Detects session type (new/existing/workflow) via context analysis
         - Checks git configuration status (with 5min cache)

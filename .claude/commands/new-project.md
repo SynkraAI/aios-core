@@ -134,18 +134,18 @@ Eles serão incluídos na seção "Arquivos Chave" do INDEX.md.
 ### Se destino EXTERNO (fora de aios-core/) — modo HYBRID
 
 1. Crie o diretório do projeto com `mkdir -p {project-path}`
-2. Crie `.aios/` dentro do projeto com subpastas:
-   - `.aios/sessions/` — session files de checkpoint/resume
-   - `.aios/stories/active/` — stories ativas
-   - `.aios/stories/done/` — stories concluídas
-   - `.aios/epics/` — epics do projeto
-   - `.aios/memory/` — memória persistente do projeto
-   - `.aios/memory/feedback/` — feedback do usuário por tópico
+2. Crie `.aiox/` dentro do projeto com subpastas:
+   - `.aiox/sessions/` — session files de checkpoint/resume
+   - `.aiox/stories/active/` — stories ativas
+   - `.aiox/stories/done/` — stories concluídas
+   - `.aiox/epics/` — epics do projeto
+   - `.aiox/memory/` — memória persistente do projeto
+   - `.aiox/memory/feedback/` — feedback do usuário por tópico
 3. Adicione `.gitkeep` em cada subpasta vazia
 3b. Crie memory files usando templates (ver Passo 2.6):
-   - `.aios/memory/project-context.md`
-   - `.aios/memory/agents-used.md`
-   - `.aios/memory/squads-config.md`
+   - `.aiox/memory/project-context.md`
+   - `.aiox/memory/agents-used.md`
+   - `.aiox/memory/squads-config.md`
 4. **Criar symlinks de recursos globais:**
    ```bash
    # Skills globais
@@ -157,7 +157,7 @@ Eles serão incluídos na seção "Arquivos Chave" do INDEX.md.
    Isso permite que o projeto acesse automaticamente:
    - **45 skills globais** (kaizen, deep-research, tech-search, etc.)
    - **30+ slash commands** (/oalanicolas, /pedro-valerio, squads, etc.)
-5. `index_path` = `{project-path}/.aios/INDEX.md`
+5. `index_path` = `{project-path}/.aiox/INDEX.md`
 6. **NÃO** criar `docs/projects/{nome}/` em aios-core (elimina duplicação)
 7. Criar `.claude/CLAUDE.md` de ponte (ver Passo 2.5)
 
@@ -174,7 +174,7 @@ node ~/aios-core/tools/copy-project-config.js {project-path} {type} "{projectNam
 Este script lê `~/aios-core/tools/templates/project-configs/base/.claude/CLAUDE.md` (single source of truth) e preenche os placeholders automaticamente. Os placeholders `{{MODE}}`, `{{INDEX_PATH}}`, `{{STORIES_PATH}}`, `{{SESSIONS_PATH}}`, `{{SAVE_LOCATION}}` e `{{PROJECT_SLUG}}` são calculados pela função `computePaths()` do script.
 
 **Se o script não estiver disponível (fallback manual)**, preencher os placeholders do template:
-| `{{SESSIONS_PATH}}` | `.aios/sessions/` |
+| `{{SESSIONS_PATH}}` | `.aiox/sessions/` |
 | `{{PROJECT_SLUG}}` | `{nome}` (kebab-case) |
 
 **Se o template não existir (edge case):** gerar inline com as seções mínimas (Governança + Comunicação + Behavioral Rules).
@@ -186,7 +186,7 @@ Este script lê `~/aios-core/tools/templates/project-configs/base/.claude/CLAUDE
 Criar os 3 arquivos de memória usando os templates de `docs/analysis/memory-templates-2026-03-18.md`.
 
 **Para CENTRALIZED:** criar em `docs/projects/{nome}/memory/`
-**Para HYBRID:** criar em `{project-path}/.aios/memory/`
+**Para HYBRID:** criar em `{project-path}/.aiox/memory/`
 
 ### project-context.md
 Preencher automaticamente com dados coletados nos passos anteriores:
@@ -427,7 +427,7 @@ Onde:
 - `{mode}` = HYBRID ou CENTRALIZED (determinado no Passo 1)
 - `{link-index}`:
   - **CENTRALIZED:** `{nome}/INDEX.md`
-  - **HYBRID:** `{path-absoluto}/.aios/INDEX.md`
+  - **HYBRID:** `{path-absoluto}/.aiox/INDEX.md`
 
 **O que o script faz:**
 - ✅ Valida header do ACTIVE.md (corrige se corrompido)
@@ -442,7 +442,7 @@ Onde:
 node ~/aios-core/tools/append-to-active.js --project ensinio-v2 --mode CENTRALIZED --path ensinio-v2/INDEX.md
 
 # HYBRID
-node ~/aios-core/tools/append-to-active.js --project meta-ads --mode HYBRID --path ~/CODE/Projects/meta-ads/.aios/INDEX.md
+node ~/aios-core/tools/append-to-active.js --project meta-ads --mode HYBRID --path ~/CODE/Projects/meta-ads/.aiox/INDEX.md
 ```
 
 ## Passo 5: Confirmar e sugerir próximo passo
@@ -476,7 +476,7 @@ docs/projects/{nome}/
 ### Para projetos HYBRID:
 ```
 {project-path}/
-├── .aios/
+├── .aiox/
 │   ├── INDEX.md
 │   ├── skills -> ~/aios-core/skills  # Symlink para skills globais
 │   ├── memory/
@@ -497,7 +497,7 @@ docs/projects/{nome}/
 ├── .claude/
 │   └── CLAUDE.md
 └── docs/
-    ├── INDEX.md (link → ../.aios/INDEX.md)
+    ├── INDEX.md (link → ../.aiox/INDEX.md)
     ├── HANDOFFS-INDEX.md
     ├── README.md
     ├── stories/
@@ -551,7 +551,7 @@ node ~/aios-core/tools/rollback-project.js {project-path}
 2. Se confirmado, remove NA ORDEM INVERSA:
    - `.claude/` criado pelo copy-project-config.js
    - `docs/INDEX.md`, `docs/HANDOFFS-INDEX.md`, `docs/sessions`, `docs/stories` criados pelo create-epic-structure.js
-   - `.aios/`, `research/`, `data/` criados no Passo 2
+   - `.aiox/`, `research/`, `data/` criados no Passo 2
    - Row do ACTIVE.md criada no Passo 4 (automaticamente detecta e remove)
 3. Pergunta se deve remover diretório do projeto se ficou vazio
 4. Mostra: "✅ Rollback completo! N itens removidos."

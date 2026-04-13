@@ -32,7 +32,7 @@ detection:
     - condition: "inside_path('~/CODE/design-systems')"
       confidence: high
   prerequisites:
-    - condition: "has_dir('.aios-core') OR has_dir('.aios')"
+    - condition: "has_dir('.aiox-core') OR has_dir('.aios')"
       message: "AIOS obrigatório. Rode: npx ~/aios-core init ."
   fallback_question: "Quer extrair o DNA visual de um site e criar um design system premium? Essa quest transforma qualquer referência em componentes prontos pra uso."
 
@@ -183,7 +183,7 @@ phases:
         who: "user"
         required: true
         xp: 15
-        scan_rule: "has_dir('.aios-core') OR has_dir('.aios')"
+        scan_rule: "has_dir('.aiox-core') OR has_dir('.aios')"
 
       - id: "0.2"
         label: "Instalar Playwright"

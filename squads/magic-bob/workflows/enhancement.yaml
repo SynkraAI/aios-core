@@ -162,7 +162,7 @@ workflow:
     show_phase_progress: true  # [1/6] [2/6] etc.
 
   session_management:
-    state_file: .aios/.session-state.yaml
+    state_file: .aiox/.session-state.yaml
     save_on_checkpoint: true
     protected_files:
       - docs/stories/active/*.md

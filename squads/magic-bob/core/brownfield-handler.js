@@ -104,7 +104,7 @@ class BrownfieldHandler extends EventEmitter {
     // Workflow path
     this.workflowPath = path.join(
       projectRoot,
-      '.aios-core/development/workflows/brownfield-discovery.yaml',
+      '.aiox-core/development/workflows/brownfield-discovery.yaml',
     );
 
     // Phase progress tracking
@@ -602,7 +602,7 @@ Quer que eu comece?`;
           data: {
             message: 'Vou criar um plano para resolver os débitos técnicos.',
             nextStep: 'brownfield_create_epic',
-            taskPath: '.aios-core/development/tasks/brownfield-create-epic.md',
+            taskPath: '.aiox-core/development/tasks/brownfield-create-epic.md',
             context,
           },
         };

@@ -47,10 +47,10 @@ The Forge skill lives inside `aios-core`. When running from external projects, f
 
 **AIOS agent/task files** also live in aios-core:
 - Set `AIOS_HOME` = `/Users/luizfosc/aios-core`
-- Agent files: `{AIOS_HOME}/.aios-core/development/agents/aios-{name}.md`
-- Task files: `{AIOS_HOME}/.aios-core/development/tasks/{task-name}.md`
+- Agent files: `{AIOS_HOME}/.aiox-core/development/agents/aios-{name}.md`
+- Task files: `{AIOS_HOME}/.aiox-core/development/tasks/{task-name}.md`
 
-**Project files** (stories, state, .aios/) always use the current working directory (cwd).
+**Project files** (stories, state, .aiox/) always use the current working directory (cwd).
 
 ---
 
@@ -139,7 +139,7 @@ When the user runs `/forge help`, show this formatted output and STOP:
 
   ━━━ RUNS ATIVOS ━━━
 
-  {lista de .aios/forge-runs/ com status == "running" APENAS}
+  {lista de .aiox/forge-runs/ com status == "running" APENAS}
   {ignorar status: completed, converted, saved, cancelled}
   {ou "Nenhum run ativo."}
 
@@ -160,7 +160,7 @@ When the user runs `/forge help`, show this formatted output and STOP:
 To build the help output:
 1. Read `{FORGE_HOME}/personality.md` (banner)
 2. Glob `{FORGE_HOME}/workflows/*.md` → read first line of `## When to Use` from each for the workflow list
-3. Glob `.aios/forge-runs/*/state.json` → list active runs with status
+3. Glob `.aiox/forge-runs/*/state.json` → list active runs with status
 4. Show formatted output and STOP (do not proceed to discovery)
 
 ### Detection Rules
@@ -176,7 +176,7 @@ To build the help output:
 | **CLONE_SITE** | Prefix `clone` or `redesign`, or words like "refazer site", "redesenhar", "clonar", "melhorar esse site", "fazer igual" | `{FORGE_HOME}/workflows/clone-site.md` (Extract → Strategy → Build Premium → QA → Deploy) |
 | **SQUAD_UPGRADE** | Prefix `squad-upgrade`, or words like "upgrade squad", "melhorar squad", "evoluir squad" | `{FORGE_HOME}/workflows/squad-upgrade.md` (Diagnose → DNA → Quality → Workflows → Validate) |
 | **NEW_WORKFLOW** | Prefix `new-workflow`, or words like "criar workflow", "novo workflow", "adicionar workflow" | Read `{FORGE_HOME}/WORKFLOW-GUIDE.md` and execute workflow creation |
-| **RESUME** | Prefix `resume`, or "continuar", "retomar" | Check `.aios/forge-runs/` for interrupted runs |
+| **RESUME** | Prefix `resume`, or "continuar", "retomar" | Check `.aiox/forge-runs/` for interrupted runs |
 | **DRY_RUN** | Prefix `dry-run`, or words like "simular", "preview", "o que faria", "simulação" | `{FORGE_HOME}/workflows/dry-run.md` (simulate only, zero agent dispatch) |
 | **REPLAY** | Prefix `replay`, or words like "refazer", "replay", "de novo", "from phase" | `{FORGE_HOME}/workflows/replay.md` (load previous run, apply changes, re-execute) |
 | **TEMPLATE** | Prefix `template`, or words like "template", "scaffold", "boilerplate", "starter" | `{FORGE_HOME}/workflows/template.md` (pre-configured project, skip Phase 0+1) |
@@ -214,7 +214,7 @@ If running inside an existing project (package.json exists) and user runs `/forg
    - Sort by priority, build hook registry
    - Fire hook: `before:run`
    - If no plugins found: proceed with legacy behavior (backwards compatible)
-4. **Check for interrupted runs** — Glob `.aios/forge-runs/*/state.json`, filter ONLY `status == "running"` (ignore `completed`, `converted`, `saved`, `cancelled` — see runner.md Section 6.0):
+4. **Check for interrupted runs** — Glob `.aiox/forge-runs/*/state.json`, filter ONLY `status == "running"` (ignore `completed`, `converted`, `saved`, `cancelled` — see runner.md Section 6.0):
    - **Error handling:** Wrap JSON.parse em try/catch. Se state.json estiver corrompido: log warning `"State corrompido para run {folder}. Ignorando."` e skip esse run (não crashar).
    - **Múltiplos runs:** Se 2+ runs têm status "running", listar todos com fase e timestamp, e perguntar qual retomar: "Encontrei {N} runs interrompidos: 1. `{slug-a}` (Fase {X}), 2. `{slug-b}` (Fase {Y}). Qual retomar, ou começar novo?"
    - **Single run:** If found: "Encontrei um run interrompido: `{slug}` (parado na Fase {N}). Continuar ou começar novo?"
@@ -229,7 +229,7 @@ If running inside an existing project (package.json exists) and user runs `/forg
 Every run creates a folder:
 
 ```
-.aios/forge-runs/{run_id}/
+.aiox/forge-runs/{run_id}/
 ├── state.json          <- Updated after EVERY phase transition
 ├── context-pack.json   <- Ecosystem scan results (Sprint 2)
 ├── spec/               <- PRD, architecture docs
@@ -269,8 +269,8 @@ Every run creates a folder:
 
 For each phase that requires an agent:
 
-1. **Read the agent file** — `{AIOS_HOME}/.aios-core/development/agents/aios-{name}.md`
-2. **Read the task file** — `{AIOS_HOME}/.aios-core/development/tasks/{task-name}.md`
+1. **Read the agent file** — `{AIOS_HOME}/.aiox-core/development/agents/aios-{name}.md`
+2. **Read the task file** — `{AIOS_HOME}/.aiox-core/development/tasks/{task-name}.md`
 3. **Build context prompt** with:
    - Agent persona and operational framework
    - Task definition and steps
@@ -324,7 +324,7 @@ Forge and Quest share a unified state model. Each piece of data has ONE canonica
 ### State Map
 
 ```
-.aios/
+.aiox/
 ├── quest-log.yaml              ← QUEST owns (XP, items, hero, pack)
 ├── forge-runs/                 ← FORGE owns (run state, phases, errors)
 │   └── {run_id}/
@@ -338,7 +338,7 @@ Forge and Quest share a unified state model. Each piece of data has ONE canonica
 
 - **Forge owns** `forge-runs/` — run state, phase progress, errors, context-pack
 - **Quest owns** `quest-log.yaml` — item status, XP, level, hero, pack
-- **Shared** `.aios/memory/` — project context, decisions, feedback
+- **Shared** `.aiox/memory/` — project context, decisions, feedback
 - **Forge NEVER writes to** `quest-log.yaml` — it communicates via forge-bridge
 - **Quest NEVER writes to** `forge-runs/` — it only reads for status display
 

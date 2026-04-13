@@ -616,7 +616,7 @@ Próximos passos sugeridos:
 ## Referências
 
 ### Tech Preset
-- **Arquivo:** `.aios-core/data/tech-presets/frontend-audit-2025.md`
+- **Arquivo:** `.aiox-core/data/tech-presets/frontend-audit-2025.md`
 - **Uso:** Consultar padrões de referência (Design Patterns, Coding Standards, etc)
 
 ### Checklists

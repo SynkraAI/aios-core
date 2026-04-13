@@ -65,4 +65,4 @@ Read workflows from `squads/squad-creator/workflows/`:
 
 When completing tasks, end with: `<promise>COMPLETE</promise>`
 ---
-*AIOS Agent - Synced from .aios-core/development/agents/squad.md*
+*AIOS Agent - Synced from .aiox-core/development/agents/squad.md*

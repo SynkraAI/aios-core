@@ -25,7 +25,7 @@ Scan the current working directory using **parallel tool calls** to gather conte
 ```
 # Batch 1 — run in parallel
 Glob("*")                          → top-level files and dirs
-Glob(".aios/quest-log.yaml")       → existing quest log?
+Glob(".aiox/quest-log.yaml")       → existing quest log?
 Bash("git remote -v")              → git remotes
 Bash("pwd")                        → absolute cwd path
 ```
@@ -254,7 +254,7 @@ Conditions can use `AND`, `OR`, and unary `NOT` to combine functions:
 ```
 "has_file('package.json') AND has_dir('src')"
 "has_file('config.yaml') OR has_file('squad.yaml')"
-"has_file('package.json') AND NOT has_file('.aios/quest-log.yaml')"
+"has_file('package.json') AND NOT has_file('.aiox/quest-log.yaml')"
 ```
 
 **Evaluation:** split by `AND`/`OR`, evaluate each sub-expression, apply boolean logic. Precedence (highest to lowest): `NOT` > `AND` > `OR`. `NOT` applies to the immediately following sub-expression only.
@@ -307,7 +307,7 @@ After evaluating all packs, build a sorted results list:
 matches:
   - pack_id: "app-development"
     confidence: high
-    matched_rule: "has_file('package.json') AND NOT has_file('.aios/quest-log.yaml')"
+    matched_rule: "has_file('package.json') AND NOT has_file('.aiox/quest-log.yaml')"
   - pack_id: "squad-upgrade"
     confidence: medium
     matched_rule: "has_file('config.yaml') AND has_dir('agents')"
@@ -420,7 +420,7 @@ Some packs define `detection.prerequisites` — conditions that MUST be true for
 # Example from pack YAML:
 detection:
   prerequisites:
-    - condition: "has_dir('.aios-core') OR has_dir('.aios')"
+    - condition: "has_dir('.aiox-core') OR has_dir('.aios')"
       message: "AIOS obrigatório. Rode: npx ~/aios-core init ."
 ```
 
@@ -452,14 +452,14 @@ pack:
   parent_item: "2.5"              # item in parent pack that must be done
 ```
 
-**Model: single quest-log with pack transition.** The project has ONE `.aios/quest-log.yaml` at a time. Activating an expansion replaces the active pack (like switching game chapters), preserving the parent's completed items for gate validation.
+**Model: single quest-log with pack transition.** The project has ONE `.aiox/quest-log.yaml` at a time. Activating an expansion replaces the active pack (like switching game chapters), preserving the parent's completed items for gate validation.
 
 **Evaluation:**
 
 ```
 if pack.type == "expansion":
   // 1. Check if a quest-log exists
-  quest_log_path = ".aios/quest-log.yaml"
+  quest_log_path = ".aiox/quest-log.yaml"
   quest_log = read(quest_log_path)
 
   if quest_log does not exist:

@@ -179,7 +179,7 @@ M  docs/projects/ACTIVE.md
 
 **Não commitados (ignorados pelo git):**
 ```
-M  .aios/session.json (sistema)
+M  .aiox/session.json (sistema)
 M  .claude/agent-memory/pedro-valerio/MEMORY.md (gitignored)
 ```
 

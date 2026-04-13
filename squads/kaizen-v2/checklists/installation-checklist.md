@@ -4,7 +4,7 @@
 
 ## Pre-Flight Checks
 
-- [ ] 1. AIOS or AIOX project detected (.aios-core/ or .aiox/ exists)
+- [ ] 1. AIOS or AIOX project detected (.aiox-core/ or .aiox/ exists)
 - [ ] 2. squads/kaizen-v2/ directory exists and complete
 - [ ] 3. Write permissions on project root verified
 - [ ] 4. No existing kaizen-v2 installation (idempotent check)

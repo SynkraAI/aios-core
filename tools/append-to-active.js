@@ -11,7 +11,7 @@
  *
  * Exemplo:
  *   node tools/append-to-active.js --project ensinio --mode CENTRALIZED --path ensinio/INDEX.md
- *   node tools/append-to-active.js --project meta-ads --mode HYBRID --path ~/CODE/Projects/meta-ads/.aios/INDEX.md
+ *   node tools/append-to-active.js --project meta-ads --mode HYBRID --path ~/CODE/Projects/meta-ads/.aiox/INDEX.md
  */
 
 const fs = require('fs-extra');

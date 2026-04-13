@@ -150,7 +150,7 @@ design_rules:
     rule: "Squad DEVE ser self-contained - tudo dentro da pasta do squad"
     check: "Agent referencia arquivo fora de squads/{squad-name}/? → VETO"
     allowed: ["agents/", "tasks/", "data/", "checklists/", "minds/"]
-    forbidden: ["squads/mind-cloning/minds/", ".aios-core/", "docs/"]
+    forbidden: ["squads/mind-cloning/minds/", ".aiox-core/", "docs/"]
 
   functional_over_philosophical:
     rule: "Agent deve saber FAZER o trabalho, não ser clone perfeito"

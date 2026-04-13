@@ -154,7 +154,7 @@
 - SessionStart hook injection is optional (fail-silent if disabled)
 
 **Boundary Constraints:**
-- No modifications to `.aios-core/`
+- No modifications to `.aiox-core/`
 - No modifications to `squads/kaizen/`
 - All new code in `squads/kaizen-v2/` only
 - Intelligence data confined to `data/intelligence/` (under git control, not cloud)
@@ -171,7 +171,7 @@
 - [x] 13 minds active (10 v1 + 3 v2 new)
 - [x] Data structure initialized (intelligence dirs + .gitkeep)
 - [x] README.md + SETUP.md + CHANGELOG.md
-- [x] No modifications to v1 or .aios-core
+- [x] No modifications to v1 or .aiox-core
 
 ---
 

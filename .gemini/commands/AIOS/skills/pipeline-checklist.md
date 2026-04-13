@@ -89,7 +89,7 @@ Perguntas a fazer antes de executar. Pule se o usuário já forneceu o contexto.
 
 ### Persistência
 
-- Quest log salvo no projeto (caminho dentro de `.aios/` ou `docs/`)
+- Quest log salvo no projeto (caminho dentro de `.aiox/` ou `docs/`)
 - `scan` detecta artefatos reais (arquivos, testes, commits) para marcar missões automaticamente
 - `reset` arquiva o quest atual antes de criar novo
 

@@ -1,0 +1,50 @@
+/* ============================================================
+   VAPOR THEME — Quest Master Dashboard
+   Pink, teal and mint pastel. 90s digital nostalgia.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+:root {
+  --bg-primary:      #1a0a2e;
+  --bg-secondary:    #201040;
+  --bg-card:         #281545;
+  --bg-card-hover:   #321a55;
+
+  --text-primary:    #e0f0ff;
+  --text-secondary:  #80c0e0;
+  --text-accent:     #ff71ce;
+
+  --accent-primary:   #ff71ce;
+  --accent-secondary: #01cdfe;
+  --accent-tertiary:  #05ffa1;
+
+  --border-color: #3a1860;
+  --border-glow:  0 0 0 1px rgba(255, 113, 206, 0.3),
+                  0 0 12px rgba(1, 205, 254, 0.15);
+
+  --progress-gradient: linear-gradient(90deg, #ff71ce 0%, #b967ff 33%, #01cdfe 66%, #05ffa1 100%);
+  --progress-shine:    linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%);
+
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 20px rgba(255, 113, 206, 0.2);
+
+  --radius-card: 0px;
+  --radius-pill: 0px;
+
+  --font-display: 'VT323', monospace;
+  --font-mono:    'VT323', monospace;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: #3a1860; border-radius: 0; }
+::-webkit-scrollbar-thumb:hover { background: #4a2870; }
+* { scrollbar-width: thin; scrollbar-color: #3a1860 var(--bg-primary); }

@@ -17,7 +17,7 @@ phases:
     steps:
       - step: 1.1
         name: "Detect Project Type"
-        check: "test -d .aios-core/ || test -d .aiox/"
+        check: "test -d .aiox-core/ || test -d .aiox/"
         output: "PROJECT_TYPE = aios | aiox"
         fail_action: "ERROR: Not an AIOS or AIOX project"
 

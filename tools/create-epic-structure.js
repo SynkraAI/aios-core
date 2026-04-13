@@ -169,7 +169,7 @@ async function createStructure(targetPath, { skipEpics = false } = {}) {
 
   console.log(`\n🏗️  Criando estrutura AIOX em: ${resolvedPath}`);
   if (isHybrid) {
-    console.log(`📍 Modo detectado: HYBRID (.aios/ encontrado)\n`);
+    console.log(`📍 Modo detectado: HYBRID (.aiox/ encontrado)\n`);
   } else {
     console.log(`📍 Modo detectado: CENTRALIZED\n`);
   }
@@ -225,11 +225,11 @@ async function createStructure(targetPath, { skipEpics = false } = {}) {
     }
   }
 
-  // Em modo HYBRID, criar symlinks de docs/ apontando para .aios/
+  // Em modo HYBRID, criar symlinks de docs/ apontando para .aiox/
   if (isHybrid) {
     const symlinkPairs = [
-      { source: '../.aios/INDEX.md', target: path.join(resolvedPath, 'docs/INDEX.md') },
-      { source: '../.aios/HANDOFFS-INDEX.md', target: path.join(resolvedPath, 'docs/HANDOFFS-INDEX.md') }
+      { source: '../.aiox/INDEX.md', target: path.join(resolvedPath, 'docs/INDEX.md') },
+      { source: '../.aiox/HANDOFFS-INDEX.md', target: path.join(resolvedPath, 'docs/HANDOFFS-INDEX.md') }
     ];
 
     for (const { source, target } of symlinkPairs) {
@@ -240,7 +240,7 @@ async function createStructure(targetPath, { skipEpics = false } = {}) {
         if (!stat.isSymbolicLink()) {
           await fs.remove(target);
           await fs.symlink(source, target);
-          console.log(`🔗 Symlink criado: docs/${path.basename(target)} → .aios/${path.basename(target)}`);
+          console.log(`🔗 Symlink criado: docs/${path.basename(target)} → .aiox/${path.basename(target)}`);
         }
       }
     }
@@ -249,8 +249,8 @@ async function createStructure(targetPath, { skipEpics = false } = {}) {
   console.log(`\n🎉 Estrutura criada com sucesso!\n`);
   console.log(`📂 Próximos passos:\n`);
   if (isHybrid) {
-    console.log(`   1. Abrir ${resolvedPath}/.aios/INDEX.md (fonte de verdade)`);
-    console.log(`   2. docs/INDEX.md é symlink → .aios/INDEX.md`);
+    console.log(`   1. Abrir ${resolvedPath}/.aiox/INDEX.md (fonte de verdade)`);
+    console.log(`   2. docs/INDEX.md é symlink → .aiox/INDEX.md`);
   } else {
     console.log(`   1. Abrir ${resolvedPath}/docs/INDEX.md`);
   }

@@ -582,7 +582,7 @@ class BobOrchestrator {
           success: false,
           projectState: null,
           action: 'lock_failed',
-          error: 'Another Bob orchestration is already running. Wait or check .aios/locks/',
+          error: 'Another Bob orchestration is already running. Wait or check .aiox/locks/',
         };
       }
 

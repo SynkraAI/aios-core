@@ -6,7 +6,7 @@ workflow:
     BOB-orchestrated greenfield fullstack development with automated PRD→Epic→Stories
     sharding, parallel development cycles, and strategic checkpoints.
   type: greenfield
-  extends: .aios-core/development/workflows/greenfield-fullstack.yaml
+  extends: .aiox-core/development/workflows/greenfield-fullstack.yaml
 
   bob_features:
     autonomous_execution: true
@@ -39,7 +39,7 @@ workflow:
       agent: devops
       action: bootstrap-environment
       creates:
-        - .aios/
+        - .aiox/
         - package.json
         - .gitignore
         - README.md
@@ -162,7 +162,7 @@ workflow:
     show_time_estimates: true
 
   session_management:
-    state_file: .aios/.session-state.yaml
+    state_file: .aiox/.session-state.yaml
     save_frequency: after_each_phase_transition
     protected_files:
       - docs/prd.md

@@ -45,7 +45,7 @@ Implementei sistema completo de templates `.claude/` para todos os projetos novo
 
 ### Modificados (3 arquivos)
 1. `.claude/commands/new-project.md` — Passo 2.8 adicionado
-2. `.aios-core/development/epics/GUIDELINES.md` — v1.1
+2. `.aiox-core/development/epics/GUIDELINES.md` — v1.1
 3. `.gitignore` — Exceção para templates
 
 ---
@@ -156,7 +156,7 @@ Todos os templates têm:
 
 - **Templates:** `tools/templates/project-configs/README.md`
 - **Skill:** `skills/audit-project-config/SKILL.md`
-- **Guidelines:** `.aios-core/development/epics/GUIDELINES.md` (v1.1)
+- **Guidelines:** `.aiox-core/development/epics/GUIDELINES.md` (v1.1)
 - **Integration:** `.claude/commands/new-project.md` (Passo 2.8)
 
 ---

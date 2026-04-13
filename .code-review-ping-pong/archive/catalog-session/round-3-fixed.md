@@ -52,7 +52,7 @@ fixes:
 ### Fix for Issue 3.2 — Path de agents divergente no slash command
 - **Status:** ✅ FIXED
 - **File:** `.claude/commands/catalog.md:11`
-- **What changed:** Corrigido `.aios-core/development/agents/{nome}.md` → `.aiox-core/development/agents/{nome}.md` para alinhar com a fonte canônica documentada.
+- **What changed:** Corrigido `.aiox-core/development/agents/{nome}.md` → `.aiox-core/development/agents/{nome}.md` para alinhar com a fonte canônica documentada.
 - **Deviation from suggestion:** None.
 
 ---

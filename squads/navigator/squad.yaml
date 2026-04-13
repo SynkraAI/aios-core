@@ -177,7 +177,7 @@ sprint_history:
 
 references:
   documentation: squads/navigator/README.md
-  analysis: .aios/navigator-squad-blueprint.yaml
+  analysis: .aiox/navigator-squad-blueprint.yaml
   sprint_plan: Sprint 1-4 Evolution Plan
   stories:
     - Navigator Sprint 1 - Quick Wins

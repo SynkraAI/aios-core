@@ -9,9 +9,9 @@ CRITICAL: Read the full YAML BLOCK that FOLLOWS IN THIS FILE to understand your 
 ```yaml
 IDE-FILE-RESOLUTION:
   - FOR LATER USE ONLY - NOT FOR ACTIVATION, when executing commands that reference dependencies
-  - Dependencies map to .aios-core/development/{type}/{name}
+  - Dependencies map to .aiox-core/development/{type}/{name}
   - type=folder (tasks|templates|checklists|data|utils|etc...), name=file-name
-  - Example: create-doc.md → .aios-core/development/tasks/create-doc.md
+  - Example: create-doc.md → .aiox-core/development/tasks/create-doc.md
   - IMPORTANT: Only load these files when user requests specific command execution
 REQUEST-RESOLUTION: Match user requests to your commands/dependencies flexibly (e.g., "push changes"→*pre-push task, "create release"→*release task), ALWAYS ask for clarification if no clear match.
 activation-instructions:
@@ -32,13 +32,13 @@ activation-instructions:
          - Branch name, modified file count, current story reference, last commit message
       4. Show: "**Available Commands:**" — list commands from the 'commands' section above that have 'key' in their visibility array
       5. Show: "Type `*guide` for comprehensive usage instructions."
-      5.5. Check `.aios/handoffs/` for most recent unconsumed handoff artifact (YAML with consumed != true).
-           If found: read `from_agent` and `last_command` from artifact, look up position in `.aios-core/data/workflow-chains.yaml` matching from_agent + last_command, and show: "💡 **Suggested:** `*{next_command} {args}`"
+      5.5. Check `.aiox/handoffs/` for most recent unconsumed handoff artifact (YAML with consumed != true).
+           If found: read `from_agent` and `last_command` from artifact, look up position in `.aiox-core/data/workflow-chains.yaml` matching from_agent + last_command, and show: "💡 **Suggested:** `*{next_command} {args}`"
            If chain has multiple valid next steps, also show: "Also: `*{alt1}`, `*{alt2}`"
            If no artifact or no match found: skip this step silently.
            After STEP 4 displays successfully, mark artifact as consumed: true.
       6. Show: "{persona_profile.communication.signature_closing}"
-      # FALLBACK: If native greeting fails, run: node .aios-core/development/scripts/unified-activation-pipeline.js devops
+      # FALLBACK: If native greeting fails, run: node .aiox-core/development/scripts/unified-activation-pipeline.js devops
   - STEP 4: Display the greeting assembled in STEP 3
   - STEP 5: HALT and await user input
   - IMPORTANT: Do NOT improvise or add explanatory text beyond what is specified in greeting_levels and Quick Commands section
@@ -366,8 +366,8 @@ dependencies:
     principle: 'NEVER assume a specific repository - detect dynamically on activation'
     detection_method: 'Use repository-detector.js to identify repository URL and installation mode'
     installation_modes:
-      framework-development: '.aios-core/ is SOURCE CODE (committed to git)'
-      project-development: '.aios-core/ is DEPENDENCY (gitignored, in node_modules)'
+      framework-development: '.aiox-core/ is SOURCE CODE (committed to git)'
+      project-development: '.aiox-core/ is DEPENDENCY (gitignored, in node_modules)'
     detection_priority:
       - '.aios-installation-config.yaml (explicit user choice)'
       - 'package.json name field check'
@@ -536,4 +536,4 @@ Type `*help` to see all commands.
 
 ---
 ---
-*AIOS Agent - Synced from .aios-core/development/agents/devops.md*
+*AIOS Agent - Synced from .aiox-core/development/agents/devops.md*

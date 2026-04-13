@@ -119,13 +119,13 @@ Items with a `condition` field in the pack gain an additional `condition_state` 
 
 ## 2. Create Quest-log
 
-**Trigger:** No `.aios/quest-log.yaml` exists in the project root.
+**Trigger:** No `.aiox/quest-log.yaml` exists in the project root.
 
 **Inputs:** Pack YAML (loaded by SKILL.md), project context (cwd).
 
 **Steps:**
 
-1. Create `.aios/` directory if it does not exist.
+1. Create `.aiox/` directory if it does not exist.
 2. Build the `meta` block:
    - `project`: basename of cwd
    - `project_path`: absolute path of cwd
@@ -139,26 +139,26 @@ Items with a `condition` field in the pack gain an additional `condition_state` 
 4. Initialize `achievements` as an empty list `[]`.
 5. Initialize `integration_results` as an empty map `{}`.
 6. Calculate `stats` by calling the xp-system (see `engine/xp-system.md`). Pass the pack and the quest-log items (with any `unused` conditions already applied from step 3). On a fresh quest-log with no conditions: `total_xp: 0`, `level: 1`, `level_name: <level 1 name from pack>`, `streak: 0`, `items_done: 0`, `items_total: <count of all items minus unused>`, `items_skipped: 0`, `percent: 0`. **Note:** The `percent` and counter values calculated here feed progress bars rendered by the unified progress bar contract (ceremony.md §2, ceremony.md §7, guide.md §5, guide.md §6). If checklist ever outputs visual stats or progress bars directly, it MUST use the same contract: `█` (U+2588) for filled, `░` (U+2591) for empty, 20-char width, `round()` rounding. See also §3 step 5 for the cross-reference during Read flow.
-7. Write the YAML file to `.aios/quest-log.yaml`.
+7. Write the YAML file to `.aiox/quest-log.yaml`.
 
 ---
 
 ## 3. Read Quest-log
 
-**Trigger:** `.aios/quest-log.yaml` exists.
+**Trigger:** `.aiox/quest-log.yaml` exists.
 
 **Steps:**
 
-0. **YAML Parse Guard:** Attempt to read and parse `.aios/quest-log.yaml`. If YAML parsing fails (syntax error, corrupt file):
+0. **YAML Parse Guard:** Attempt to read and parse `.aiox/quest-log.yaml`. If YAML parsing fails (syntax error, corrupt file):
    - Show error: "Quest log corrompido — o arquivo YAML não pôde ser lido."
-   - Check if `.aios/quest-log.yaml.bak` exists:
+   - Check if `.aiox/quest-log.yaml.bak` exists:
      - **If backup exists:** ask "Encontrei um backup. Restaurar? (s/n)"
        - If "s": copy `.bak` over `.yaml`, retry parse
        - If "n": proceed to recreate
      - **If no backup:** ask "Quer criar um novo quest log? O progresso anterior será perdido. (s/n)"
        - If "s": delete corrupt file, trigger Create Quest-log (section 2)
-       - If "n": stop with message "Corrija o arquivo manualmente ou delete `.aios/quest-log.yaml` para recomeçar."
-1. Read and parse `.aios/quest-log.yaml`.
+       - If "n": stop with message "Corrija o arquivo manualmente ou delete `.aiox/quest-log.yaml` para recomeçar."
+1. Read and parse `.aiox/quest-log.yaml`.
 2. Validate `meta.pack` matches the pack selected by the scanner.
    - **Match:** proceed normally.
    - **Mismatch:** ask the user: `"Quest log usa pack '{meta.pack}', mas scanner detectou '{scanner_pack}'. Qual usar? (log/scanner)"`.
@@ -434,11 +434,11 @@ Items with a `condition` field require special handling. Condition evaluation is
 
 ## 7. Migration: pipeline-checklist.yaml to quest-log.yaml
 
-**Trigger:** `.aios/pipeline-checklist.yaml` exists AND `.aios/quest-log.yaml` does NOT exist.
+**Trigger:** `.aiox/pipeline-checklist.yaml` exists AND `.aiox/quest-log.yaml` does NOT exist.
 
 **Steps:**
 
-1. Read and parse `.aios/pipeline-checklist.yaml`.
+1. Read and parse `.aiox/pipeline-checklist.yaml`.
 2. Map fields to the new format:
 
 | Source (pipeline-checklist) | Target (quest-log) |
@@ -457,8 +457,8 @@ Items with a `condition` field require special handling. Condition evaluation is
 3. Fields that do NOT migrate (they live in the pack now): `label`, `command`, `xp`, `who`, `required`, phase `name`.
 4. For any items in the pack that do NOT exist in the old checklist, add them as `{ status: pending }`.
 5. Recalculate stats via xp-system (never trust migrated `total_xp`, `level`, `streak` values).
-6. **Do NOT write `.aios/quest-log.yaml` yet.** The migrated data is missing `meta.hero_name` and `meta.hero_title`, which are only collected during the ceremony (ceremony.md §A-B). Return the migration payload to SKILL.md so it can merge hero identity from the ceremony before persisting. SKILL.md Step 7 is responsible for the final write (see SKILL.md §Step 7).
-7. **Do NOT rename `.aios/pipeline-checklist.yaml` yet.** Keep the source file in place so the migration can be re-run if the user interrupts before SKILL.md Step 7 writes the quest-log. SKILL.md Step 7 is responsible for renaming to `.bak` AFTER the quest-log is successfully persisted (see SKILL.md §Step 7).
+6. **Do NOT write `.aiox/quest-log.yaml` yet.** The migrated data is missing `meta.hero_name` and `meta.hero_title`, which are only collected during the ceremony (ceremony.md §A-B). Return the migration payload to SKILL.md so it can merge hero identity from the ceremony before persisting. SKILL.md Step 7 is responsible for the final write (see SKILL.md §Step 7).
+7. **Do NOT rename `.aiox/pipeline-checklist.yaml` yet.** Keep the source file in place so the migration can be re-run if the user interrupts before SKILL.md Step 7 writes the quest-log. SKILL.md Step 7 is responsible for renaming to `.bak` AFTER the quest-log is successfully persisted (see SKILL.md §Step 7).
 8. Show message: `"Dados migrados com sucesso! Aguardando cerimônia para finalizar quest-log."`
 
 ---
@@ -538,10 +538,10 @@ The parent ID is reconstructed by taking the first two parts: `4.2.M8` → paren
 
 Every time the quest-log is written to disk:
 
-1. **Backup first:** Copy current `.aios/quest-log.yaml` to `.aios/quest-log.yaml.bak` BEFORE writing. This ensures recovery if the write is interrupted or corrupts the file.
+1. **Backup first:** Copy current `.aiox/quest-log.yaml` to `.aiox/quest-log.yaml.bak` BEFORE writing. This ensures recovery if the write is interrupted or corrupts the file.
 2. Update `meta.last_updated` to current datetime.
 3. Stats MUST be recalculated via xp-system before saving. Never write stale stats.
-4. Write the full YAML structure (meta, stats, achievements, integration_results, items) to `.aios/quest-log.yaml`.
+4. Write the full YAML structure (meta, stats, achievements, integration_results, items) to `.aiox/quest-log.yaml`.
 5. Preserve YAML formatting: use 2-space indentation, quote item ids that look like numbers (e.g. `"0.1"`).
 
 ---

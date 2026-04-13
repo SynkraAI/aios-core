@@ -26,7 +26,7 @@ LOAD_PREVIOUS → SHOW_DECISIONS → ASK_CHANGES → CREATE_NEW_RUN → EXECUTE_
 ### Phase R-1: Load Previous Run
 
 1. Parse the command: `/forge replay {run_id} [--from phase:{N}]`
-2. Read `.aios/forge-runs/{run_id}/state.json`
+2. Read `.aiox/forge-runs/{run_id}/state.json`
 3. Validate:
    - File exists and is valid JSON
    - `status == "completed"` (can only replay completed runs)
@@ -103,7 +103,7 @@ Proceed with original decisions.
 ### Phase R-4: Create New Run
 
 1. Generate new run_id: `{original_run_id}-replay`
-2. Create new run directory: `.aios/forge-runs/{new_run_id}/`
+2. Create new run directory: `.aiox/forge-runs/{new_run_id}/`
 3. Copy state.json from original run
 4. Apply user's changes to the copied state
 5. Set `from_phase` to `--from` value (or Phase 0 if not specified)

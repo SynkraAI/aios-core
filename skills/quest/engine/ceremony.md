@@ -302,8 +302,8 @@ Determine the project's class based on scan results. Evaluate rules top-to-botto
 
 | # | Classe | Condição | Descrição |
 |---|--------|----------|-----------|
-| 5 | Fortaleza Ativa | Has quest-log (`.aios/quest-log.yaml` exists) | "Jornada em andamento. Bem-vindo de volta." |
-| 4 | Fortaleza em Obras | Has AIOS (`.aios/` dir exists) AND has code/content (any source files or pack-relevant content) | "A construção começou. Continue." |
+| 5 | Fortaleza Ativa | Has quest-log (`.aiox/quest-log.yaml` exists) | "Jornada em andamento. Bem-vindo de volta." |
+| 4 | Fortaleza em Obras | Has AIOS (`.aiox/` dir exists) AND has code/content (any source files or pack-relevant content) | "A construção começou. Continue." |
 | 3 | Fundação | Has git (`.git/` dir exists) AND has package manager config (`package.json`, `Cargo.toml`, `pyproject.toml`, `config.yaml`, or equivalent) | "Os alicerces existem. Hora de subir paredes." |
 | 2 | Pergaminho | Has docs only (`docs/` dir OR `*.md` files OR PRD exists) but no code | "Tem a planta. Falta construir." |
 | 1 | Terreno Virgem | Empty folder or only minimal files (< 3 files, no directories) | "Uma página em branco. Tudo é possível." |
@@ -312,8 +312,8 @@ Determine the project's class based on scan results. Evaluate rules top-to-botto
 
 ```
 scan results = {
-  has_quest_log:  Glob(".aios/quest-log.yaml") found
-  has_aios:       Glob(".aios/") found
+  has_quest_log:  Glob(".aiox/quest-log.yaml") found
+  has_aios:       Glob(".aiox/") found
   has_git:        Glob(".git/") found
   has_pkg_mgr:    Glob("package.json") OR Glob("Cargo.toml") OR Glob("pyproject.toml") OR Glob("config.yaml") found
   has_docs:       Glob("docs/") OR any *.md files found
@@ -410,7 +410,7 @@ Build the action list dynamically based on what's missing:
 
 | Condition | Action Item |
 |-----------|-------------|
-| No `.aios/` directory | "Instalar AIOS neste projeto" |
+| No `.aiox/` directory | "Instalar AIOS neste projeto" |
 | No quest-log | "Criar quest log gamificado" |
 | Quest-log exists but incomplete | "Rodar scan para atualizar progresso" |
 | Dashboard not mentioned yet | "Iniciar dashboard no segundo monitor" |

@@ -581,7 +581,7 @@ mv "{session_dir}/session-state.tmp.json" "{session_dir}/session-state.json"
 - Squad: `squads/knowledge-base-builder/`
 - Squad manifest: `squads/knowledge-base-builder/squad-manifest.yaml`
 - Slash commands: `.claude/commands/knowledge-base-builder/`
-- Quality Gate: `.aios-core/core/quality-gates/QG-005-kb-quality.md`
+- Quality Gate: `.aiox-core/core/quality-gates/QG-005-kb-quality.md`
 - KB Builder README: `squads/knowledge-base-builder/README.md`
 - Obsidian format spec: `squads/knowledge-base-builder/docs/obsidian-format.md`
 

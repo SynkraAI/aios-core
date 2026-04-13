@@ -36,7 +36,7 @@ const DEFAULT_GREENFIELD_INDICATORS = [
   '.git',
   'docs/',
   'src/',
-  '.aios-core/',
+  '.aiox-core/',
 ];
 
 /**
@@ -115,7 +115,7 @@ class GreenfieldHandler extends EventEmitter {
     // Workflow path
     this.workflowPath = path.join(
       projectRoot,
-      '.aios-core/development/workflows/greenfield-fullstack.yaml',
+      '.aiox-core/development/workflows/greenfield-fullstack.yaml',
     );
 
     // Phase progress tracking
@@ -293,7 +293,7 @@ class GreenfieldHandler extends EventEmitter {
     // AC2: Spawn @devops for environment-bootstrap
     const spawnResult = await this._spawnAgent('@devops', 'environment-bootstrap', {
       instructions: 'Execute *environment-bootstrap to set up the development environment',
-      creates: ['.aios/config.yaml', '.aios/environment-report.json', '.gitignore', 'README.md', 'package.json'],
+      creates: ['.aiox/config.yaml', '.aiox/environment-report.json', '.gitignore', 'README.md', 'package.json'],
     });
 
     this.phaseProgress[GreenfieldPhase.BOOTSTRAP] = {

@@ -345,7 +345,7 @@ kaizen_report:
 
     catalog_registration:
       status: NOT_VERIFIED
-      details: "Não verificado se está no catálogo geral (.aios-core/data/catalog.md)"
+      details: "Não verificado se está no catálogo geral (.aiox-core/data/catalog.md)"
 
   # ═══════════════════════════════════════════════════════════════════════════════
   # ISSUES

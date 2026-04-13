@@ -123,8 +123,8 @@ For each story, execute the SDC subloop:
 **Skip if:** stories already exist (FULL_APP) or BUG_FIX mode.
 
 Dispatch @sm:
-- Read `{AIOS_HOME}/.aios-core/development/agents/aios-sm.md`
-- Read `{AIOS_HOME}/.aios-core/development/tasks/create-next-story.md`
+- Read `{AIOS_HOME}/.aiox-core/development/agents/aios-sm.md`
+- Read `{AIOS_HOME}/.aiox-core/development/tasks/create-next-story.md`
 - Input: feature description + project context
 - Inject ecosystem context: relevant skills for this domain
 - Output: Story file created at `docs/stories/active/{run_id}/`
@@ -143,8 +143,8 @@ Show handoff:
 **Skip if:** BUG_FIX mode.
 
 Dispatch @po:
-- Read `{AIOS_HOME}/.aios-core/development/agents/aios-po.md`
-- Read `{AIOS_HOME}/.aios-core/development/tasks/validate-next-story.md`
+- Read `{AIOS_HOME}/.aiox-core/development/agents/aios-po.md`
+- Read `{AIOS_HOME}/.aiox-core/development/tasks/validate-next-story.md`
 - Input: Story file from 2.1
 - Veto: Score < 7/10
   - If veto: return to @sm with @po's feedback
@@ -155,8 +155,8 @@ Dispatch @po:
 #### 2.3 — Implementation (@dev)
 
 Dispatch @dev:
-- Read `{AIOS_HOME}/.aios-core/development/agents/aios-dev.md`
-- Read `{AIOS_HOME}/.aios-core/development/tasks/dev-develop-story.md`
+- Read `{AIOS_HOME}/.aiox-core/development/agents/aios-dev.md`
+- Read `{AIOS_HOME}/.aiox-core/development/tasks/dev-develop-story.md`
 - Mode: YOLO (autonomous)
 - Input:
   - Story file (status: Ready)
@@ -188,8 +188,8 @@ If ANY check fails:
 #### 2.5 — Quality Gate (@qa)
 
 Dispatch @qa:
-- Read `{AIOS_HOME}/.aios-core/development/agents/aios-qa.md`
-- Read `{AIOS_HOME}/.aios-core/development/tasks/qa-review-story.md`
+- Read `{AIOS_HOME}/.aiox-core/development/agents/aios-qa.md`
+- Read `{AIOS_HOME}/.aiox-core/development/tasks/qa-review-story.md`
 - Input: Story file + code changes
 - Decision:
   - **APPROVED** -> Story Done ✅

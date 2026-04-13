@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luiz Fosc — 5 Humores do Sistema Visual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=Montserrat:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --black: #212121; --black-soft: #2a2a2a;
+    --white: #FFFFFF; --ivory: #F5F0EB;
+    --amber: #B8860B; --amber-glow: #D4A017; --amber-light: #E8C547; --amber-dark: #8A6508;
+    --teal: #1A3A3A; --teal-glow: #2A5A5A; --teal-light: #3A7A7A; --teal-soft: #152E2E;
+    --gray-100: #F0EFED; --gray-200: #E0DFDD; --gray-300: #B0AEAB; --gray-400: #8A8885;
+    --gray-500: #6B6966; --gray-600: #4A4846; --gray-700: #353433;
+  }
+  body { background: var(--black); color: var(--white); font-family: 'Ubuntu', sans-serif; line-height: 1.6; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 40px 32px; }
+  .section { margin-bottom: 100px; }
+  .section-header { display: flex; align-items: baseline; gap: 20px; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid var(--gray-700); }
+  .section-num { font-family: 'Montserrat', sans-serif; font-size: 56px; font-weight: 200; color: var(--gray-700); line-height: 1; }
+  .section-title { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber); }
+  .section-desc { font-size: 16px; color: var(--gray-400); margin-top: 4px; font-weight: 300; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+  .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+  .card { border-radius: 12px; overflow: hidden; border: 1px solid var(--gray-700); }
+  .card-label { padding: 12px 20px; background: var(--black-soft); border-bottom: 1px solid var(--gray-700); display: flex; justify-content: space-between; align-items: center; }
+  .card-label .name { font-size: 14px; font-weight: 500; }
+  .card-label .tag { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; }
+  .ig { aspect-ratio: 1/1; border-radius: 10px; overflow: hidden; position: relative; display: flex; flex-direction: column; }
+  .chevron-pattern { position: relative; overflow: hidden; }
+  .chevron-pattern::before { content: ''; position: absolute; inset: 0; opacity: 0.04; pointer-events: none; background-image: repeating-linear-gradient(45deg, transparent, transparent 8px, var(--white) 8px, var(--white) 9px), repeating-linear-gradient(-45deg, transparent, transparent 8px, var(--white) 8px, var(--white) 9px); }
+  @media (max-width: 768px) { .grid-2, .grid-3, .grid-5 { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HERO -->
+<div style="text-align:center; padding:70px 0 50px; border-bottom:1px solid var(--gray-700); margin-bottom:80px;">
+  <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber); margin-bottom:20px;">5 Humores · Um Sistema</div>
+  <div style="margin-bottom:12px;">
+    <span style="font-family:'Montserrat',sans-serif; font-weight:200; font-size:48px; letter-spacing:0.2em;">LUIZ</span>
+    <span style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:48px; letter-spacing:0.2em;">FOSC</span>
+  </div>
+  <div style="font-family:'Ubuntu',sans-serif; font-size:15px; color:var(--gray-400); font-weight:300; max-width:600px; margin:0 auto;">
+    Mesmo instrumento, músicas diferentes. O sistema nunca muda — mas o humor do dia sim. Aqui: como cada humor se manifesta visualmente.
+  </div>
+</div>
+
+<!-- ===== 01: PALETA COMPLETA COM TEAL ===== -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">01</div>
+    <div>
+      <div class="section-title">Paleta Atualizada — Teal entra como "modo reflexivo"</div>
+      <div class="section-desc">Preto + Branco + Amber (permanentes) + Teal (humor editorial/intelectual, encontrado no kit Canva original)</div>
+    </div>
+  </div>
+
+  <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:16px; margin-bottom:24px;">
+    <div class="card">
+      <div style="height:100px; background:var(--black); display:flex; align-items:center; justify-content:center;">
+        <span style="font-family:'Montserrat',sans-serif; font-size:13px; font-weight:400; color:var(--white);">Preto #212121</span>
+      </div>
+      <div style="padding:10px 14px; background:var(--black-soft); font-size:12px; color:var(--gray-400);">Sempre · Base</div>
+    </div>
+    <div class="card">
+      <div style="height:100px; background:var(--white); display:flex; align-items:center; justify-content:center;">
+        <span style="font-family:'Montserrat',sans-serif; font-size:13px; font-weight:500; color:var(--black);">Branco #FFFFFF</span>
+      </div>
+      <div style="padding:10px 14px; background:var(--black-soft); font-size:12px; color:var(--gray-400);">Sempre · Texto</div>
+    </div>
+    <div class="card">
+      <div style="height:100px; background:var(--amber); display:flex; align-items:center; justify-content:center;">
+        <span style="font-family:'Montserrat',sans-serif; font-size:13px; font-weight:600; color:var(--black);">Amber #B8860B</span>
+      </div>
+      <div style="padding:10px 14px; background:var(--black-soft); font-size:12px; color:var(--gray-400);">Sempre · Spotlight</div>
+    </div>
+    <div class="card" style="border-color:var(--teal-glow);">
+      <div style="height:100px; background:var(--teal); display:flex; align-items:center; justify-content:center;">
+        <span style="font-family:'Montserrat',sans-serif; font-size:13px; font-weight:400; color:var(--white);">Teal #1A3A3A</span>
+      </div>
+      <div style="padding:10px 14px; background:var(--black-soft); font-size:12px; color:var(--teal-light);">Humor · Modo reflexivo/editorial</div>
+    </div>
+  </div>
+
+  <!-- Teal variations -->
+  <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:12px; margin-bottom:24px;">
+    <div style="height:48px; background:var(--teal-soft); border-radius:8px; display:flex; align-items:center; justify-content:center;">
+      <span style="font-family:'Montserrat',sans-serif; font-size:10px; color:var(--gray-300);">Teal Soft #152E2E</span>
+    </div>
+    <div style="height:48px; background:var(--teal); border-radius:8px; display:flex; align-items:center; justify-content:center;">
+      <span style="font-family:'Montserrat',sans-serif; font-size:10px; color:var(--gray-300);">Teal #1A3A3A</span>
+    </div>
+    <div style="height:48px; background:var(--teal-glow); border-radius:8px; display:flex; align-items:center; justify-content:center;">
+      <span style="font-family:'Montserrat',sans-serif; font-size:10px; color:var(--white);">Teal Glow #2A5A5A</span>
+    </div>
+    <div style="height:48px; background:var(--teal-light); border-radius:8px; display:flex; align-items:center; justify-content:center;">
+      <span style="font-family:'Montserrat',sans-serif; font-size:10px; color:var(--white);">Teal Light #3A7A7A</span>
+    </div>
+  </div>
+
+  <div style="background:var(--black-soft); border-radius:10px; padding:20px; border:1px solid var(--gray-700);">
+    <div style="font-weight:300; font-size:14px; color:var(--gray-300); line-height:1.7;">
+      <strong style="color:var(--white);">Quando usar Teal:</strong> Quotes de outros autores, reflexões pessoais, conteúdo editorial, momentos "bastidor intelectual". O Teal é o humor do Fosc quando ele está pensando, não performando. <strong style="color:var(--amber-glow);">Amber</strong> = palco. <strong style="color:var(--teal-light);">Teal</strong> = camarim da mente.
+    </div>
+  </div>
+</div>
+
+<!-- ===== 02: OS 5 HUMORES ===== -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">02</div>
+    <div>
+      <div class="section-title">Os 5 Humores — Mesmo sistema, expressões diferentes</div>
+      <div class="section-desc">Cada humor tem um tratamento visual distinto. Todos são reconhecíveis como "Fosc".</div>
+    </div>
+  </div>
+
+  <!-- Humor 1: Dramático/Palco -->
+  <div style="margin-bottom:40px;">
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+      <div style="width:12px; height:12px; background:var(--amber); border-radius:50%;"></div>
+      <span style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:16px; color:var(--white);">Humor 1: Dramático / Palco</span>
+      <span style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:13px; color:var(--gray-400);">— Lançamentos, media kits, momentos de impacto</span>
+    </div>
+    <div class="grid-3">
+      <div style="padding:8px; background:var(--black-soft); border-radius:12px;">
+        <div class="ig chevron-pattern" style="background:var(--black); justify-content:center; padding:28px; text-align:center;">
+          <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber); margin-bottom:14px; position:relative; z-index:2;">Palestra Show</div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:900; font-size:28px; line-height:1.0; color:var(--white); position:relative; z-index:2;">ANTIFRÁGIL</div>
+          <div style="width:32px; height:2px; background:var(--amber); margin:12px auto; position:relative; z-index:2;"></div>
+          <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:13px; color:var(--gray-300); position:relative; z-index:2;">A arte de crescer com os desafios</div>
+        </div>
+      </div>
+      <div style="padding:8px; background:var(--black-soft); border-radius:12px;">
+        <div class="ig" style="background: linear-gradient(180deg, rgba(184,134,11,0.1) 0%, var(--black) 50%); justify-content:flex-end; padding:24px;">
+          <div style="position:absolute; top:0; left:0; right:0; height:55%; display:flex; align-items:center; justify-content:center;"><span style="font-size:10px; color:var(--gray-600);">📷 palco dramático</span></div>
+          <div style="position:absolute; top:12px; right:12px; width:22px; height:22px; border-right:2px solid var(--amber); border-top:2px solid var(--amber); opacity:0.4;"></div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:18px; color:var(--white); line-height:1.1;">500+ <span style="color:var(--amber-glow);">apresentações</span></div>
+          <div style="width:24px; height:2px; background:var(--amber); margin-top:8px;"></div>
+        </div>
+      </div>
+      <div style="padding:8px; background:var(--black-soft); border-radius:12px;">
+        <div class="ig chevron-pattern" style="background:var(--black); justify-content:center; padding:28px; text-align:center;">
+          <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber); margin-bottom:12px; position:relative; z-index:2;">#pensecomoumilusionista</div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:18px; line-height:1.2; color:var(--white); position:relative; z-index:2;">Não é <span style="color:var(--amber-glow);">dom</span>,<br>é estrutura.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Humor 2: Editorial/Intelectual (TEAL) -->
+  <div style="margin-bottom:40px;">
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+      <div style="width:12px; height:12px; background:var(--teal-light); border-radius:50%;"></div>
+      <span style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:16px; color:var(--white);">Humor 2: Editorial / Intelectual</span>
+      <span style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:13px; color:var(--gray-400);">— Quotes, reflexões, conteúdo denso</span>
+    </div>
+    <div class="grid-3">
+      <div style="padding:8px; background:var(--black-soft); border-radius:12px;">
+        <div class="ig" style="background: radial-gradient(ellipse at 30% 30%, var(--teal) 0%, var(--teal-soft) 60%, var(--black) 100%); justify-content:center; padding:28px;">
+          <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:40px; color:var(--amber-glow); line-height:0.8; margin-bottom:16px;">"</div>
+          <div style="font-family:'Ubuntu',sans-serif; font-weight:400; font-size:16px; color:var(--white); line-height:1.5; margin-bottom:16px;">Não se trata de que os deuses produzam a ocasião para nós, mas que nós produzamos a ocasião para os deuses.</div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--teal-light);">Sêneca</div>
+        </div>
+      </div>
+      <div style="padding:8px; background:var(--black-soft); border-radius:12px;">
+        <div class="ig" style="background: var(--teal-soft); justify-content:center; padding:28px;">
+          <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:var(--teal-light); margin-bottom:14px;">Reflexão</div>
+          <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:15px; color:var(--gray-200); line-height:1.6; margin-bottom:16px;">Às vezes o truque não é fazer algo impossível acontecer. É fazer parecer que sempre foi óbvio.</div>
+          <div style="width:28px; height:2px; background:var(--teal-glow); margin-bottom:10px;"></div>
+          <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:12px; color:var(--gray-500);">Luiz Fosc · @luizfosc</div>
+        </div>
+      </div>
+      <div style="padding:8px; background:var(--black-soft); border-radius:12px;">
+        <div class="ig" style="background: linear-gradient(160deg, var(--teal) 0%, var(--black) 100%); justify-content:center; padding:28px;">
+          <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:40px; color:var(--amber-glow); line-height:0.8; margin-bottom:16px;">"</div>
+          <div style="font-family:'Ubuntu',sans-serif; font-weight:400; font-size:15px; color:var(--white); line-height:1.5; margin-bottom:16px;">O que você faria se não tivesse medo?</div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--teal-light);">Sheryl Sandberg</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Humor 3: Humano/Bastidor -->
+  <div style="margin-bottom:40px;">
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+      <div style="width:12px; height:12px; background:var(--ivory); border-radius:50%; border:1px solid var(--gray-400);"></div>
+      <span style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:16px; color:var(--white);">Humor 3: Humano / Bastidor</span>
+      <span style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:13px; color:var(--gray-400);">— Família, bastidor, vulnerabilidade, "quem sou eu"</span>
+    </div>
+    <div class="grid-3">
+      <div style="padding:8px; background:var(--black-soft); border-radius:12px;">
+        <div class="ig" style="background: var(--ivory); justify-content:center; padding:28px; position:relative; overflow:hidden;">
+          <div style="position:absolute; inset:0; opacity:0.05; background-image: repeating-linear-gradient(45deg, transparent, transparent 8px, var(--black) 8px, var(--black) 9px), repeating-linear-gradient(-45deg, transparent, transparent 8px, var(--black) 8px, var(--black) 9px);"></div>
+          <div style="position:relative; z-index:2;">
+            <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:40px; color:var(--amber); line-height:0.8; margin-bottom:16px;">"</div>
+            <div style="font-family:'Ubuntu',sans-serif; font-weight:400; font-size:15px; color:var(--black); line-height:1.6; margin-bottom:16px;">Sou casado com a Tati, pai do Daniel e da Aurora. Sou mineiro e adoro um pão de queijo com cafézin.</div>
+            <div style="width:28px; height:2px; background:var(--amber); margin-bottom:10px;"></div>
+            <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:12px; color:var(--gray-500);">@luizfosc</div>
+          </div>
+        </div>
+      </div>
+      <div style="padding:8px; background:var(--black-soft); border-radius:12px;">
+        <div class="ig" style="background: linear-gradient(180deg, #E8E2DB 0%, var(--ivory) 100%); justify-content:flex-end; padding:24px; position:relative;">
+          <div style="position:absolute; top:0; left:0; right:0; height:60%; display:flex; align-items:center; justify-content:center;"><span style="font-size:10px; color:var(--gray-400);">📷 foto com família</span></div>
+          <div style="position:relative; z-index:2;">
+            <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:18px; color:var(--black); line-height:1.1;">O melhor de mim <span style="color:var(--amber);">não está no palco</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="padding:8px; background:var(--black-soft); border-radius:12px;">
+        <div class="ig" style="background: var(--ivory); justify-content:center; padding:28px; text-align:center; position:relative; overflow:hidden;">
+          <div style="position:absolute; inset:0; opacity:0.05; background-image: repeating-linear-gradient(45deg, transparent, transparent 8px, var(--black) 8px, var(--black) 9px), repeating-linear-gradient(-45deg, transparent, transparent 8px, var(--black) 8px, var(--black) 9px);"></div>
+          <div style="position:relative; z-index:2;">
+            <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber-dark); margin-bottom:12px;">Poucos sabem</div>
+            <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:14px; color:var(--gray-600); line-height:1.6; text-align:left;">
+              → Já fui muito tímido<br>
+              → Tive 430 funcionários<br>
+              → 47 livros em 1 ano<br>
+              → Toco piano de ouvido<br>
+              → <span style="color:var(--amber-dark);">"Fosc" vem de 4 dos meus 6 nomes</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Humor 4: Energia/Evento -->
+  <div style="margin-bottom:40px;">
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+      <div style="width:12px; height:12px; background:var(--amber-glow); border-radius:50%;"></div>
+      <span style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:16px; color:var(--white);">Humor 4: Energia / Evento</span>
+      <span style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:13px; color:var(--gray-400);">— Reels, cobertura de eventos, bastidor de palco</span>
+    </div>
+    <div class="grid-3">
+      <div style="padding:8px; background:var(--black-soft); border-radius:12px;">
+        <div class="ig" style="background: linear-gradient(180deg, rgba(184,134,11,0.15) 0%, var(--black) 60%); justify-content:flex-end; padding:24px; position:relative;">
+          <div style="position:absolute; top:0; left:0; right:0; height:65%; display:flex; align-items:center; justify-content:center;"><span style="font-size:10px; color:var(--gray-600);">📷 palco + platéia</span></div>
+          <div style="position:relative; z-index:2;">
+            <div style="font-family:'Montserrat',sans-serif; font-weight:500; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--gray-400); margin-bottom:6px;">@luizfosc</div>
+            <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:22px; color:var(--white); line-height:1.08;">Quando o conteúdo conecta, <span style="color:var(--amber-glow);">tudo muda</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="padding:8px; background:var(--black-soft); border-radius:12px;">
+        <div class="ig" style="background: linear-gradient(180deg, rgba(184,134,11,0.12) 0%, var(--black) 50%); justify-content:flex-end; padding:24px; position:relative;">
+          <div style="position:absolute; top:0; left:0; right:0; height:70%; display:flex; align-items:center; justify-content:center;"><span style="font-size:10px; color:var(--gray-600);">📷 close-up expressivo</span></div>
+          <div style="position:relative; z-index:2;">
+            <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:22px; color:var(--white); line-height:1.08;">Por que empresas de <span style="color:var(--amber-glow);">alta performance</span></div>
+            <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:14px; color:var(--gray-300);">me chamam para palestrar?</div>
+          </div>
+        </div>
+      </div>
+      <div style="padding:8px; background:var(--black-soft); border-radius:12px;">
+        <div class="ig" style="background: var(--black); justify-content:center; padding:24px; text-align:center;">
+          <div style="font-family:'Montserrat',sans-serif; font-weight:200; font-size:48px; color:var(--amber-glow); line-height:1; margin-bottom:4px;">2×</div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:14px; letter-spacing:0.06em; color:var(--white); margin-bottom:8px;">GUINNESS WORLD RECORD</div>
+          <div style="width:32px; height:2px; background:var(--amber); margin:0 auto 8px;"></div>
+          <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:12px; color:var(--gray-400);">O único palestrante brasileiro com 2 recordes mundiais</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Humor 5: Premium/Venda -->
+  <div style="margin-bottom:40px;">
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+      <div style="width:12px; height:12px; background:var(--amber-light); border-radius:50%;"></div>
+      <span style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:16px; color:var(--white);">Humor 5: Premium / Venda</span>
+      <span style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:13px; color:var(--gray-400);">— Mentoria, high-ticket, CTAs de conversão</span>
+    </div>
+    <div class="grid-3">
+      <div style="padding:8px; background:var(--black-soft); border-radius:12px;">
+        <div class="ig" style="background: var(--black); justify-content:center; padding:28px; text-align:center; position:relative; overflow:hidden;">
+          <div style="position:absolute; inset:0; opacity:0.07; background-image: repeating-linear-gradient(45deg, transparent, transparent 8px, var(--amber) 8px, var(--amber) 9px), repeating-linear-gradient(-45deg, transparent, transparent 8px, var(--amber) 8px, var(--amber) 9px);"></div>
+          <div style="position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, transparent 10%, var(--amber-glow), transparent 90%);"></div>
+          <div style="position:absolute; bottom:0; left:0; right:0; height:3px; background: linear-gradient(90deg, transparent 10%, var(--amber-glow), transparent 90%);"></div>
+          <div style="position:relative; z-index:2;">
+            <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:var(--amber-glow); margin-bottom:12px;">✦ Vagas Limitadas ✦</div>
+            <div style="font-family:'Montserrat',sans-serif; font-weight:200; font-size:14px; letter-spacing:0.12em; color:var(--gray-400); margin-bottom:2px;">MENTORIA</div>
+            <div style="font-family:'Montserrat',sans-serif; font-weight:900; font-size:32px; color:var(--amber-glow);">ELITE</div>
+          </div>
+        </div>
+      </div>
+      <div style="padding:8px; background:var(--black-soft); border-radius:12px;">
+        <div class="ig" style="background: var(--black); justify-content:center; padding:28px; position:relative; overflow:hidden;">
+          <div style="position:absolute; inset:0; opacity:0.05; background-image: repeating-linear-gradient(45deg, transparent, transparent 8px, var(--amber) 8px, var(--amber) 9px), repeating-linear-gradient(-45deg, transparent, transparent 8px, var(--amber) 8px, var(--amber) 9px);"></div>
+          <div style="position:relative; z-index:2;">
+            <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber); margin-bottom:14px;">Resultado real</div>
+            <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-style:italic; font-size:15px; color:var(--white); line-height:1.5; margin-bottom:16px;">"Eu não esperava tudo isso! Superou minhas expectativas"</div>
+            <div style="width:28px; height:2px; background:var(--amber); margin-bottom:10px;"></div>
+            <div style="font-family:'Ubuntu',sans-serif; font-weight:400; font-size:12px; color:var(--gray-400);">Flávio Moreira, Presidente da Fleury</div>
+          </div>
+        </div>
+      </div>
+      <div style="padding:8px; background:var(--black-soft); border-radius:12px;">
+        <div class="ig" style="background: var(--black); justify-content:center; padding:28px; text-align:center;">
+          <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:20px; color:var(--white); line-height:1.15; margin-bottom:16px;">Leve essa experiência<br>para sua <span style="color:var(--amber-glow);">empresa</span></div>
+          <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:13px; color:var(--gray-400); margin-bottom:20px;">Palestra-show com mágica, storytelling e resultados</div>
+          <div style="display:inline-block; background:var(--amber); color:var(--black); font-family:'Montserrat',sans-serif; font-weight:600; font-size:12px; padding:10px 24px; border-radius:6px;">Solicitar proposta →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 03: GRID COMPLETO ===== -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">03</div>
+    <div>
+      <div class="section-title">Grid Instagram — Os 5 humores juntos</div>
+      <div class="section-desc">Como fica o feed quando alterna entre os humores. A base B&W + Amber + Chevron unifica tudo.</div>
+    </div>
+  </div>
+
+  <div class="grid-3">
+    <!-- 1: Dramático -->
+    <div class="ig chevron-pattern" style="background:var(--black); justify-content:center; padding:20px; text-align:center;">
+      <div style="font-family:'Montserrat',sans-serif; font-weight:900; font-size:22px; color:var(--white); position:relative; z-index:2;">ANTIFRÁGIL</div>
+      <div style="width:24px; height:2px; background:var(--amber); margin:8px auto; position:relative; z-index:2;"></div>
+      <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:11px; color:var(--gray-400); position:relative; z-index:2;">A arte de crescer</div>
+    </div>
+    <!-- 2: Editorial/Teal -->
+    <div class="ig" style="background: radial-gradient(ellipse at 30% 30%, var(--teal) 0%, var(--black) 100%); justify-content:center; padding:20px;">
+      <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:32px; color:var(--amber-glow); line-height:0.8; margin-bottom:10px;">"</div>
+      <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:13px; color:var(--white); line-height:1.5;">O impossível é só o possível que ninguém tentou.</div>
+    </div>
+    <!-- 3: Foto palco -->
+    <div class="ig" style="background: linear-gradient(180deg, rgba(184,134,11,0.1) 0%, var(--black) 55%); justify-content:flex-end; padding:16px;">
+      <div style="position:absolute; top:0; left:0; right:0; height:60%; display:flex; align-items:center; justify-content:center;"><span style="font-size:9px; color:var(--gray-600);">📷</span></div>
+      <div style="position:absolute; top:10px; right:10px; width:16px; height:16px; border-right:1.5px solid var(--amber); border-top:1.5px solid var(--amber); opacity:0.4;"></div>
+      <div style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:14px; color:var(--white);">Tudo <span style="color:var(--amber-glow);">muda</span></div>
+    </div>
+    <!-- 4: Light/Humano -->
+    <div class="ig" style="background:var(--ivory); justify-content:center; padding:20px; position:relative; overflow:hidden;">
+      <div style="position:absolute; inset:0; opacity:0.05; background-image: repeating-linear-gradient(45deg, transparent, transparent 8px, var(--black) 8px, var(--black) 9px), repeating-linear-gradient(-45deg, transparent, transparent 8px, var(--black) 8px, var(--black) 9px);"></div>
+      <div style="position:relative; z-index:2; font-family:'Montserrat',sans-serif; font-weight:800; font-size:16px; color:var(--black); line-height:1.2;">Não é <span style="color:var(--amber);">dom</span>,<br>é estrutura.</div>
+    </div>
+    <!-- 5: Premium -->
+    <div class="ig" style="background:var(--black); justify-content:center; padding:20px; text-align:center; position:relative; overflow:hidden;">
+      <div style="position:absolute; inset:0; opacity:0.06; background-image: repeating-linear-gradient(45deg, transparent, transparent 8px, var(--amber) 8px, var(--amber) 9px), repeating-linear-gradient(-45deg, transparent, transparent 8px, var(--amber) 8px, var(--amber) 9px);"></div>
+      <div style="position:relative; z-index:2; font-family:'Montserrat',sans-serif; font-weight:200; font-size:12px; letter-spacing:0.12em; color:var(--gray-400);">MENTORIA</div>
+      <div style="position:relative; z-index:2; font-family:'Montserrat',sans-serif; font-weight:900; font-size:28px; color:var(--amber-glow);">ELITE</div>
+    </div>
+    <!-- 6: Teal quote -->
+    <div class="ig" style="background:var(--teal-soft); justify-content:center; padding:20px;">
+      <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-style:italic; font-size:13px; color:var(--gray-200); line-height:1.5;">"O silêncio antes do show é onde a mágica começa."</div>
+      <div style="width:24px; height:2px; background:var(--teal-glow); margin-top:8px;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 04: RESUMO ===== -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">04</div>
+    <div>
+      <div class="section-title">Resumo — Quando usar cada humor</div>
+    </div>
+  </div>
+
+  <div style="display:grid; grid-template-columns: auto 1fr 1fr 1fr; gap:1px; background:var(--gray-700); border-radius:12px; overflow:hidden;">
+    <!-- Header -->
+    <div style="background:var(--black-soft); padding:14px 18px; font-family:'Montserrat',sans-serif; font-weight:600; font-size:11px; letter-spacing:0.06em; color:var(--gray-400);">HUMOR</div>
+    <div style="background:var(--black-soft); padding:14px 18px; font-family:'Montserrat',sans-serif; font-weight:600; font-size:11px; letter-spacing:0.06em; color:var(--gray-400);">FUNDO</div>
+    <div style="background:var(--black-soft); padding:14px 18px; font-family:'Montserrat',sans-serif; font-weight:600; font-size:11px; letter-spacing:0.06em; color:var(--gray-400);">COR DE DESTAQUE</div>
+    <div style="background:var(--black-soft); padding:14px 18px; font-family:'Montserrat',sans-serif; font-weight:600; font-size:11px; letter-spacing:0.06em; color:var(--gray-400);">QUANDO</div>
+    <!-- Dramático -->
+    <div style="background:var(--black); padding:14px 18px; display:flex; align-items:center; gap:8px;"><div style="width:10px; height:10px; background:var(--amber); border-radius:50%;"></div><span style="font-size:13px; font-weight:500; color:var(--white);">Dramático</span></div>
+    <div style="background:var(--black); padding:14px 18px; font-size:13px; color:var(--gray-300);">Preto puro + chevron branco</div>
+    <div style="background:var(--black); padding:14px 18px; font-size:13px; color:var(--amber-glow);">Amber</div>
+    <div style="background:var(--black); padding:14px 18px; font-size:13px; color:var(--gray-400);">Lançamentos, media kits, impacto</div>
+    <!-- Editorial -->
+    <div style="background:var(--black); padding:14px 18px; display:flex; align-items:center; gap:8px;"><div style="width:10px; height:10px; background:var(--teal-light); border-radius:50%;"></div><span style="font-size:13px; font-weight:500; color:var(--white);">Editorial</span></div>
+    <div style="background:var(--black); padding:14px 18px; font-size:13px; color:var(--gray-300);">Teal escuro / gradiente teal→preto</div>
+    <div style="background:var(--black); padding:14px 18px; font-size:13px; color:var(--teal-light);">Teal + aspas amber</div>
+    <div style="background:var(--black); padding:14px 18px; font-size:13px; color:var(--gray-400);">Quotes, reflexões, conteúdo denso</div>
+    <!-- Humano -->
+    <div style="background:var(--black); padding:14px 18px; display:flex; align-items:center; gap:8px;"><div style="width:10px; height:10px; background:var(--ivory); border-radius:50%; border:1px solid var(--gray-500);"></div><span style="font-size:13px; font-weight:500; color:var(--white);">Humano</span></div>
+    <div style="background:var(--black); padding:14px 18px; font-size:13px; color:var(--gray-300);">Ivory / cinza claro + chevron escuro</div>
+    <div style="background:var(--black); padding:14px 18px; font-size:13px; color:var(--amber);">Amber escuro</div>
+    <div style="background:var(--black); padding:14px 18px; font-size:13px; color:var(--gray-400);">Família, bastidor, vulnerabilidade</div>
+    <!-- Energia -->
+    <div style="background:var(--black); padding:14px 18px; display:flex; align-items:center; gap:8px;"><div style="width:10px; height:10px; background:var(--amber-glow); border-radius:50%;"></div><span style="font-size:13px; font-weight:500; color:var(--white);">Energia</span></div>
+    <div style="background:var(--black); padding:14px 18px; font-size:13px; color:var(--gray-300);">Foto com overlay → preto</div>
+    <div style="background:var(--black); padding:14px 18px; font-size:13px; color:var(--amber-glow);">Amber glow</div>
+    <div style="background:var(--black); padding:14px 18px; font-size:13px; color:var(--gray-400);">Reels, eventos, cobertura ao vivo</div>
+    <!-- Premium -->
+    <div style="background:var(--black); padding:14px 18px; display:flex; align-items:center; gap:8px;"><div style="width:10px; height:10px; background:var(--amber-light); border-radius:50%;"></div><span style="font-size:13px; font-weight:500; color:var(--white);">Premium</span></div>
+    <div style="background:var(--black); padding:14px 18px; font-size:13px; color:var(--gray-300);">Preto + chevron amber</div>
+    <div style="background:var(--black); padding:14px 18px; font-size:13px; color:var(--amber-light);">Amber glow intenso</div>
+    <div style="background:var(--black); padding:14px 18px; font-size:13px; color:var(--gray-400);">Mentoria, high-ticket, vendas</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div style="text-align:center; padding:48px 0; border-top:1px solid var(--gray-700);">
+  <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-style:italic; font-size:18px; color:var(--amber-glow); margin-bottom:16px;">"Não é dom, é estrutura."</div>
+  <div style="font-family:'Montserrat',sans-serif; font-size:11px; color:var(--gray-500); font-weight:400; letter-spacing:0.04em;">
+    5 Humores · Um Sistema · Luiz Fosc · 2026-04-07<br>
+    B&W + Amber (sempre) · Teal (editorial) · Ivory (humano) · Chevron Pattern (identidade)
+  </div>
+</div>
+
+</div>
+</body>
+</html>

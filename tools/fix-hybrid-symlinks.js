@@ -4,7 +4,7 @@
  * fix-hybrid-symlinks.js
  *
  * Migra projetos HYBRID existentes para incluir symlinks de recursos globais:
- * - .aios/skills → ~/aios-core/skills
+ * - .aiox/skills → ~/aios-core/skills
  * - .claude/commands → ~/aios-core/.claude/commands
  *
  * Usage:
@@ -33,7 +33,7 @@ const SYMLINK_CONFIGS = [
   {
     name: 'skills',
     target: path.join(AIOS_CORE_PATH, '.aios', 'skills'),
-    link: '.aios/skills',
+    link: '.aiox/skills',
     description: '45 skills globais (kaizen, deep-research, etc.)'
   },
   {
@@ -65,7 +65,7 @@ async function detectHybridProjects(basePath) {
       const projectPath = path.join(basePath, entry.name);
       const aiosIndexPath = path.join(projectPath, '.aios', 'INDEX.md');
 
-      // Projeto HYBRID tem .aios/INDEX.md
+      // Projeto HYBRID tem .aiox/INDEX.md
       if (await fs.pathExists(aiosIndexPath)) {
         projects.push(projectPath);
       }

@@ -177,7 +177,7 @@ if {output_dir}: COMMAND+=" -o \"{output_dir}\""
 
 **Action:**
 1. Build command string with all flags
-2. Log full command to `.aios-core/logs/media-processor/download-cademi.log`
+2. Log full command to `.aiox-core/logs/media-processor/download-cademi.log`
 3. Display command to user for review
 4. Await confirmation if not in YOLO mode
 
@@ -231,7 +231,7 @@ cd <PROJECT_ROOT>/tools/cademi-downloader
 **Action:**
 1. Execute download command
 2. Monitor progress (cademi-dl shows progress bars)
-3. Log all output to `.aios-core/logs/media-processor/download-cademi.log`
+3. Log all output to `.aiox-core/logs/media-processor/download-cademi.log`
 4. Update `cademi-download-status.json` in real-time (if dashboard enabled):
    - Current module/lesson
    - Download speed
@@ -408,7 +408,7 @@ Run QG-001 validation (see Validation section below):
 ### Secondary Outputs
 
 1. **Download Report:** `{output_dir}/{CourseName}/DOWNLOAD-REPORT.md`
-2. **Download Log:** `.aios-core/logs/media-processor/download-cademi.log`
+2. **Download Log:** `.aiox-core/logs/media-processor/download-cademi.log`
 3. **Dashboard Status:** `tools/cademi-downloader/cademi-download-status.json`
 4. **Metrics Update:** `.synapse/metrics/media-processor-metrics.json`
 

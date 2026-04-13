@@ -36,7 +36,7 @@ DO NOT read `phase-0-discovery.md`. Quick mode replaces Phase 0 entirely.
    - Read `package.json` (or `Cargo.toml`, `go.mod`, `requirements.txt`) → stack, scripts
    - Run `ls` top-level → folder structure
    - Run `git log -3 --oneline` → recent context (se `.git/` existir; senão skip com nota "sem histórico git")
-   - Read `.aios/memory/project-context.md` if exists → known context
+   - Read `.aiox/memory/project-context.md` if exists → known context
 3. If NO existing project detected:
    - BLOCK: "⚡ Quick mode precisa de um projeto existente. Quer rodar `/forge feature` ao invés?"
    - STOP execution
@@ -49,9 +49,9 @@ DO NOT read `phase-0-discovery.md`. Quick mode replaces Phase 0 entirely.
      - If user insists: proceed anyway
 5. Skip ecosystem scan entirely (too slow for quick mode)
 6. Initialize run:
-   - Create run folder: `.aios/forge-runs/forge-{slug}-{YYYYMMDD-HHmm}/`
+   - Create run folder: `.aiox/forge-runs/forge-{slug}-{YYYYMMDD-HHmm}/`
    - Create `state.json` with `mode: "QUICK"`, `quick_mode: true`
-   - Create `.aios/forge-runs/.lock`
+   - Create `.aiox/forge-runs/.lock`
 7. Proceed immediately to Phase 3
 
 **Duration target:** < 15 seconds.
@@ -94,8 +94,8 @@ Notes:
 
 #### Step 2: Dispatch @dev (YOLO mode)
 
-1. Read agent file: `{AIOS_HOME}/.aios-core/development/agents/aios-dev.md`
-2. Read task file: `{AIOS_HOME}/.aios-core/development/tasks/dev-develop-story.md`
+1. Read agent file: `{AIOS_HOME}/.aiox-core/development/agents/aios-dev.md`
+2. Read task file: `{AIOS_HOME}/.aiox-core/development/tasks/dev-develop-story.md`
 3. Dispatch @dev via Agent tool (`subagent_type: aiox-dev`):
    - Story file from Step 1
    - Project context from Phase 0 snap (package.json summary, folder structure)
@@ -136,7 +136,7 @@ Read `{FORGE_HOME}/phases/phase-5-deploy.md`:
 1. **CHECKPOINT:** "⚡ Pronto. Deployar?"
 2. @devops: commit with `quick: {description}` + push + PR
 3. Completion banner with ⚡ Quick Mode indicator
-4. Clean up: remove `.aios/forge-runs/.lock`, update `state.json` status to `completed`
+4. Clean up: remove `.aiox/forge-runs/.lock`, update `state.json` status to `completed`
 
 ---
 

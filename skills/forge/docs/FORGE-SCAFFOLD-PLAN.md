@@ -9,7 +9,7 @@
 ## Problema
 
 1. **Sem CLAUDE.md** — o @dev implementa sem saber convenções, import paths, naming, comandos. Cada agente "adivinha" as regras.
-2. **Sem setup AIOS** — o Forge cria `.aios/forge-runs/` mas não cria `.aios/INDEX.md`, `memory/`, etc. O projeto fica "órfão" do ecossistema.
+2. **Sem setup AIOS** — o Forge cria `.aiox/forge-runs/` mas não cria `.aiox/INDEX.md`, `memory/`, etc. O projeto fica "órfão" do ecossistema.
 3. **Sem `.claude/settings.json`** — hooks do AIOS (Synapse, validadores) não são herdados automaticamente em projetos HYBRID.
 
 ---
@@ -112,13 +112,13 @@ state_key: "forge_scaffold"
 
 **O que faz:**
 
-1. Detecta se o projeto tem estrutura AIOS (`.aios/INDEX.md`)
+1. Detecta se o projeto tem estrutura AIOS (`.aiox/INDEX.md`)
 2. Se NÃO tem, pergunta:
 
 ```
 Esse projeto não tem estrutura AIOS. Como quer configurar?
 
-> 1. **Setup completo** — .aios/ + docs/stories/ + .claude/CLAUDE.md + memory
+> 1. **Setup completo** — .aiox/ + docs/stories/ + .claude/CLAUDE.md + memory
 >    Pra projetos que você vai manter e evoluir. Tracking completo.
 > 2. **Setup mínimo** — só .claude/CLAUDE.md
 >    Pra projetos rápidos. O Forge cria o mínimo necessário.
@@ -127,19 +127,19 @@ Esse projeto não tem estrutura AIOS. Como quer configurar?
 ```
 
 3. Se opção 1 (completo):
-   - Criar `.aios/INDEX.md` (governança local)
-   - Criar `.aios/memory/` (pra project-context.md futuro)
+   - Criar `.aiox/INDEX.md` (governança local)
+   - Criar `.aiox/memory/` (pra project-context.md futuro)
    - Criar `docs/stories/active/` e `docs/stories/done/`
    - Criar `.claude/CLAUDE.md` (via forge-scaffold plugin)
    - Atualizar `docs/projects/ACTIVE.md` no aios-core (registro centralizado)
 
 4. Se opção 2 (mínimo):
    - Criar `.claude/CLAUDE.md` (via forge-scaffold plugin)
-   - Forge cria `.aios/forge-runs/` automaticamente quando precisar
+   - Forge cria `.aiox/forge-runs/` automaticamente quando precisar
 
 5. Se opção 3 (sem setup):
    - Prosseguir sem criar nada
-   - Forge cria `.aios/forge-runs/` automaticamente
+   - Forge cria `.aiox/forge-runs/` automaticamente
 
 ---
 
@@ -175,7 +175,7 @@ Esse projeto não tem estrutura AIOS. Como quer configurar?
 
 - [x] Adicionar step "AIOS Setup" em `phase-0-discovery.md` (após Discovery, antes de state.json)
 - [x] Implementar 3 opções (completo, mínimo, sem setup)
-- [x] Opção 1 cria: .aios/INDEX.md, .aios/memory/, docs/stories/
+- [x] Opção 1 cria: .aiox/INDEX.md, .aiox/memory/, docs/stories/
 - [x] Opção 1 atualiza docs/projects/ACTIVE.md no aios-core
 - [x] Opção 2 delega pro forge-scaffold plugin
 - [ ] Testar no forge-test-lab

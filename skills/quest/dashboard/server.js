@@ -554,6 +554,11 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  if (pathname === '/api/reflections') {
+    serveReflections(res);
+    return;
+  }
+
   // Static files
   const filePath = pathname === '/' ? path.join(PUBLIC_DIR, 'index.html') : path.join(PUBLIC_DIR, pathname);
   const ext = path.extname(filePath);
@@ -577,6 +582,74 @@ const server = http.createServer((req, res) => {
 });
 
 // --- API handlers ---
+
+function serveReflections(res) {
+  try {
+    const aiosRoot = path.resolve(__dirname, '..', '..', '..');
+    const reflectionsDir = path.join(aiosRoot, 'memory', 'reflections');
+    const logPath = path.join(aiosRoot, '.aios', 'logs', 'socratica.log');
+    const flagPath = path.join(aiosRoot, 'skills', 'socratica', 'pending-reflection.json');
+
+    // Read reflections
+    const reflections = [];
+    if (fs.existsSync(reflectionsDir)) {
+      const files = fs.readdirSync(reflectionsDir)
+        .filter(f => f.endsWith('.md'))
+        .sort()
+        .reverse();
+      for (const file of files.slice(0, 30)) {
+        const content = fs.readFileSync(path.join(reflectionsDir, file), 'utf8');
+        // Extract frontmatter
+        const fmMatch = content.match(/^---\n([\s\S]*?)\n---/);
+        let meta = {};
+        if (fmMatch) {
+          for (const line of fmMatch[1].split('\n')) {
+            const kv = line.match(/^(\w+):\s*(.+)/);
+            if (kv) meta[kv[1]] = kv[2].trim();
+          }
+        }
+        // Extract first heading after frontmatter
+        const titleMatch = content.match(/^#\s+(.+)/m);
+        reflections.push({
+          file,
+          date: meta.date || file.slice(0, 10),
+          title: titleMatch ? titleMatch[1] : file.replace('.md', ''),
+          summary: meta.session_summary || meta.description || '',
+          errors: parseInt(meta.errors_found) || 0,
+          rules: parseInt(meta.rules_proposed) || 0,
+          reincidences: parseInt(meta.reincidences) || 0,
+        });
+      }
+    }
+
+    // Read log (last 50 entries)
+    const logs = [];
+    if (fs.existsSync(logPath)) {
+      const lines = fs.readFileSync(logPath, 'utf8').trim().split('\n').filter(Boolean);
+      for (const line of lines.slice(-50).reverse()) {
+        const match = line.match(/^\[(.+?)\]\s+(.+)$/);
+        if (match) {
+          logs.push({ timestamp: match[1], message: match[2] });
+        }
+      }
+    }
+
+    // Read pending flag
+    let pending = null;
+    if (fs.existsSync(flagPath)) {
+      try {
+        pending = JSON.parse(fs.readFileSync(flagPath, 'utf8'));
+      } catch (e) { /* ignore */ }
+    }
+
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ reflections, logs, pending }));
+  } catch (err) {
+    res.writeHead(500, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ error: err.message }));
+  }
+}
+
 function serveProjects(res) {
   try {
     const registry = readRegistry();

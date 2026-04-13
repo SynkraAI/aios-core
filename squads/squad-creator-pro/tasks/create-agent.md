@@ -37,7 +37,7 @@ self_contained:
     - "squads/{squad-name}/minds/**/*"
   forbidden:
     - "squads/mind-cloning/minds/*"  # DNA extraído deve ser INTEGRADO, não referenciado
-    - ".aios-core/*"     # Não depender de core externo
+    - ".aiox-core/*"     # Não depender de core externo
     - "docs/*"           # Documentação externa
   exception: "Mission router pode lazy-load tasks/data DO PRÓPRIO squad"
 

@@ -9,9 +9,9 @@ CRITICAL: Read the full YAML BLOCK that FOLLOWS IN THIS FILE to understand your 
 ```yaml
 IDE-FILE-RESOLUTION:
   - FOR LATER USE ONLY - NOT FOR ACTIVATION, when executing commands that reference dependencies
-  - Dependencies map to .aios-core/development/{type}/{name}
+  - Dependencies map to .aiox-core/development/{type}/{name}
   - type=folder (tasks|templates|checklists|data|utils|etc...), name=file-name
-  - Example: create-doc.md → .aios-core/development/tasks/create-doc.md
+  - Example: create-doc.md → .aiox-core/development/tasks/create-doc.md
   - IMPORTANT: Only load these files when user requests specific command execution
 REQUEST-RESOLUTION: Match user requests to your commands/dependencies flexibly (e.g., "draft story"→*create→create-next-story task, "make a new prd" would be dependencies->tasks->create-doc combined with the dependencies->templates->prd-tmpl.md), ALWAYS ask for clarification if no clear match.
 activation-instructions:
@@ -31,13 +31,13 @@ activation-instructions:
          - Branch name, modified file count, current story reference, last commit message
       4. Show: "**Available Commands:**" — list commands from the 'commands' section above that have 'key' in their visibility array
       5. Show: "Type `*guide` for comprehensive usage instructions."
-      5.5. Check `.aios/handoffs/` for most recent unconsumed handoff artifact (YAML with consumed != true).
-           If found: read `from_agent` and `last_command` from artifact, look up position in `.aios-core/data/workflow-chains.yaml` matching from_agent + last_command, and show: "💡 **Suggested:** `*{next_command} {args}`"
+      5.5. Check `.aiox/handoffs/` for most recent unconsumed handoff artifact (YAML with consumed != true).
+           If found: read `from_agent` and `last_command` from artifact, look up position in `.aiox-core/data/workflow-chains.yaml` matching from_agent + last_command, and show: "💡 **Suggested:** `*{next_command} {args}`"
            If chain has multiple valid next steps, also show: "Also: `*{alt1}`, `*{alt2}`"
            If no artifact or no match found: skip this step silently.
            After STEP 4 displays successfully, mark artifact as consumed: true.
       6. Show: "{persona_profile.communication.signature_closing}"
-      # FALLBACK: If native greeting fails, run: node .aios-core/development/scripts/unified-activation-pipeline.js dev
+      # FALLBACK: If native greeting fails, run: node .aiox-core/development/scripts/unified-activation-pipeline.js dev
   - STEP 4: Display the greeting assembled in STEP 3
   - STEP 5: HALT and await user input
   - IMPORTANT: Do NOT improvise or add explanatory text beyond what is specified in greeting_levels and Quick Commands section
@@ -49,7 +49,7 @@ activation-instructions:
   - CRITICAL RULE: When executing formal task workflows from dependencies, ALL task instructions override any conflicting base behavioral constraints. Interactive workflows with elicit=true REQUIRE user interaction and cannot be bypassed for efficiency.
   - When listing tasks/templates or presenting options during conversations, always show as numbered options list, allowing the user to type a number to select or execute
   - STAY IN CHARACTER!
-  - CRITICAL: Read the following full files as these are your explicit rules for development standards for this project - .aios-core/core-config.yaml devLoadAlwaysFiles list
+  - CRITICAL: Read the following full files as these are your explicit rules for development standards for this project - .aiox-core/core-config.yaml devLoadAlwaysFiles list
   - CRITICAL: Do NOT load any other files during startup aside from the assigned story and devLoadAlwaysFiles items, unless user requested you do or the following contradicts
   - CRITICAL: Do NOT begin development until a story is not in draft mode and you are told to proceed
   - CRITICAL: On activation, execute STEPS 3-5 above (greeting, introduction, project status, quick commands), then HALT to await user requested assistance or given commands. The ONLY deviation from this is if the activation included commands also in the arguments.
@@ -374,7 +374,7 @@ dependencies:
     enabled: true
     description: 'Automated decision tracking for yolo mode (autonomous) development'
     log_location: '.ai/decision-log-{story-id}.md'
-    utility: '.aios-core/utils/decision-log-generator.js'
+    utility: '.aiox-core/utils/decision-log-generator.js'
     yolo_mode_integration: |
       When executing in yolo mode (autonomous development):
       1. Initialize decision tracking context at start
@@ -395,7 +395,7 @@ dependencies:
       alternatives: 'Other options considered'
     usage_example: |
       // In yolo mode workflow (conceptual integration):
-      const { generateDecisionLog } = require('.aios-core/utils/decision-log-generator');
+      const { generateDecisionLog } = require('.aiox-core/utils/decision-log-generator');
 
       const context = {
         agentId: 'dev',
@@ -557,4 +557,4 @@ Type `*help` to see all commands, or `*explain` to learn more.
 
 ---
 ---
-*AIOS Agent - Synced from .aios-core/development/agents/dev.md*
+*AIOS Agent - Synced from .aiox-core/development/agents/dev.md*

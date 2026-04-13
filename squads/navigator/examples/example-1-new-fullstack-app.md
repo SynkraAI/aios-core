@@ -73,7 +73,7 @@ Tech Stack:
 ✅ Roadmap gerado!
 
 📁 Salvo em:
-  - .aios/navigator/ecommerce-platform/roadmap.md
+  - .aiox/navigator/ecommerce-platform/roadmap.md
   - docs/roadmap.md (copia local)
 
 📊 10 fases mapeadas:
@@ -204,7 +204,7 @@ Depois que @analyst completa a pesquisa, checar progresso:
 📸 Checkpoint criado!
 
 ID: cp-1-manual-20260215-143500
-Path: .aios/navigator/ecommerce-platform/checkpoints/cp-1-manual-20260215-143500.json
+Path: .aiox/navigator/ecommerce-platform/checkpoints/cp-1-manual-20260215-143500.json
 
 Snapshot inclui:
   - Phase: 1 (Pesquisa)

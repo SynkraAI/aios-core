@@ -298,7 +298,7 @@ Encerra sessão de advisory, gera handoff (se necessário).
 **Follow-up date:** [quando revisar decisão]
 ```
 
-**Save to:** `.aios/sessions/advisory/YYYY-MM-DD-{slug}.md`
+**Save to:** `.aiox/sessions/advisory/YYYY-MM-DD-{slug}.md`
 
 ---
 
@@ -767,7 +767,7 @@ Challenge:
 ```
 *exit OR natural end
   ↓
-Generate session handoff (.aios/sessions/advisory/YYYY-MM-DD-{slug}.md)
+Generate session handoff (.aiox/sessions/advisory/YYYY-MM-DD-{slug}.md)
   ↓
 Ask: "Follow-up date?" (quando revisar decisão)
 ```
@@ -779,7 +779,7 @@ Ask: "Follow-up date?" (quando revisar decisão)
 ### With Other Squads
 - **luiz-fosc squad:** Load personality profile + blind spots from `squads/luiz-fosc/data/dna/`
 - **mind-cloning squad:** Each advisor é uma mind clone (source material em `squads/mind-cloning/minds/{name}/`)
-- **session-tracker:** Handoffs vão pra `.aios/sessions/advisory/`
+- **session-tracker:** Handoffs vão pra `.aiox/sessions/advisory/`
 
 ### With AIOX Core
 - **Agent handoff protocol:** Usa `.claude/rules/agent-handoff.md` quando routear pra advisors

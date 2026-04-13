@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="cyberpunk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Socratica — Reflection Timeline</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-body: #0a0a1a;
+      --bg-card: #111827;
+      --bg-card-hover: #1a2332;
+      --bg-panel: rgba(17,24,39,0.95);
+      --border-color: #1e3a5f;
+      --border-glow: #00d4ff;
+      --text-primary: #e2e8f0;
+      --text-muted: #64748b;
+      --text-accent: #00d4ff;
+      --accent-error: #ef4444;
+      --accent-warn: #f59e0b;
+      --accent-success: #22c55e;
+      --accent-info: #3b82f6;
+      --accent-purple: #a855f7;
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-sans: 'Inter', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-body);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Background grid effect */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* === HEADER === */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .header-back {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      cursor: pointer;
+      font-size: 1.1rem;
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .header-back:hover { border-color: var(--border-glow); box-shadow: 0 0 8px rgba(0,212,255,0.2); }
+    .header h1 {
+      font-family: var(--font-mono);
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, var(--text-accent), var(--accent-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .header-subtitle {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    /* === STATUS BAR === */
+    .status-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 1rem 1.2rem;
+      transition: border-color 0.3s;
+    }
+    .stat-card:hover { border-color: var(--border-glow); }
+    .stat-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+    .stat-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      margin-top: 0.3rem;
+    }
+    .stat-value.cyan { color: var(--text-accent); }
+    .stat-value.red { color: var(--accent-error); }
+    .stat-value.yellow { color: var(--accent-warn); }
+    .stat-value.green { color: var(--accent-success); }
+    .stat-value.purple { color: var(--accent-purple); }
+
+    /* === PENDING ALERT === */
+    .pending-alert {
+      background: rgba(245,158,11,0.1);
+      border: 1px solid var(--accent-warn);
+      border-radius: 10px;
+      padding: 1rem 1.5rem;
+      margin-bottom: 2rem;
+      display: none;
+      align-items: center;
+      gap: 1rem;
+      animation: pulse-border 2s infinite;
+    }
+    .pending-alert.active { display: flex; }
+    .pending-icon { font-size: 1.5rem; }
+    .pending-text { font-size: 0.85rem; color: var(--accent-warn); }
+    .pending-text strong { color: var(--text-primary); }
+
+    @keyframes pulse-border {
+      0%, 100% { border-color: var(--accent-warn); }
+      50% { border-color: rgba(245,158,11,0.3); }
+    }
+
+    /* === TIMELINE === */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--border-glow), var(--border-color), transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 1.5rem;
+      animation: fadeIn 0.4s ease-out;
+    }
+    .timeline-dot {
+      position: absolute;
+      left: -2rem;
+      top: 0.6rem;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      border: 2px solid var(--border-glow);
+      background: var(--bg-body);
+      z-index: 2;
+    }
+    .timeline-dot.has-reincidence {
+      border-color: var(--accent-error);
+      box-shadow: 0 0 8px rgba(239,68,68,0.4);
+    }
+    .timeline-dot.clean {
+      border-color: var(--accent-success);
+    }
+
+    .timeline-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 1.2rem 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .timeline-card:hover {
+      border-color: var(--border-glow);
+      box-shadow: 0 0 15px rgba(0,212,255,0.08);
+      transform: translateX(4px);
+    }
+    .timeline-date {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-accent);
+      letter-spacing: 1px;
+    }
+    .timeline-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-top: 0.3rem;
+    }
+    .timeline-summary {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.3rem;
+    }
+    .timeline-badges {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.6rem;
+      flex-wrap: wrap;
+    }
+    .badge {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .badge-errors { background: rgba(239,68,68,0.15); color: var(--accent-error); border: 1px solid rgba(239,68,68,0.3); }
+    .badge-rules { background: rgba(34,197,94,0.15); color: var(--accent-success); border: 1px solid rgba(34,197,94,0.3); }
+    .badge-reincidence { background: rgba(245,158,11,0.15); color: var(--accent-warn); border: 1px solid rgba(245,158,11,0.3); }
+
+    /* === LOG PANEL === */
+    .section-title {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      margin: 2rem 0 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border-color);
+    }
+
+    .log-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 1rem;
+      max-height: 300px;
+      overflow-y: auto;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      line-height: 1.8;
+    }
+    .log-entry { color: var(--text-muted); }
+    .log-entry .timestamp { color: var(--text-accent); opacity: 0.6; }
+    .log-entry .flag-set { color: var(--accent-warn); }
+    .log-entry .clean { color: var(--accent-success); }
+
+    /* === EMPTY STATE === */
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--text-muted);
+    }
+    .empty-state .icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.3; }
+    .empty-state h3 { font-size: 1rem; margin-bottom: 0.5rem; color: var(--text-primary); }
+    .empty-state p { font-size: 0.85rem; max-width: 400px; margin: 0 auto; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-body); }
+    ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--border-glow); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <a href="/" class="header-back">&#8592;</a>
+      <div>
+        <h1>Socratica</h1>
+        <div class="header-subtitle">Reflection Timeline</div>
+      </div>
+    </div>
+
+    <!-- Pending Alert -->
+    <div class="pending-alert" id="pendingAlert">
+      <div class="pending-icon">&#9888;</div>
+      <div class="pending-text">
+        <strong>Reflexao pendente</strong> — <span id="pendingReason"></span>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="status-bar" id="statusBar">
+      <div class="stat-card">
+        <div class="stat-label">Reflexoes</div>
+        <div class="stat-value cyan" id="totalReflections">-</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Erros capturados</div>
+        <div class="stat-value red" id="totalErrors">-</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Regras criadas</div>
+        <div class="stat-value green" id="totalRules">-</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Reincidencias</div>
+        <div class="stat-value yellow" id="totalReincidences">-</div>
+      </div>
+    </div>
+
+    <!-- Timeline -->
+    <div class="section-title">Timeline de Reflexoes</div>
+    <div class="timeline" id="timeline"></div>
+
+    <!-- Log -->
+    <div class="section-title">Log do Sistema</div>
+    <div class="log-panel" id="logPanel"></div>
+  </div>
+
+  <script>
+    async function loadData() {
+      try {
+        const res = await fetch('/api/reflections');
+        const data = await res.json();
+        renderStats(data);
+        renderPending(data.pending);
+        renderTimeline(data.reflections);
+        renderLog(data.logs);
+      } catch (err) {
+        console.error('Failed to load reflections:', err);
+      }
+    }
+
+    function renderStats(data) {
+      const { reflections } = data;
+      document.getElementById('totalReflections').textContent = reflections.length;
+      document.getElementById('totalErrors').textContent = reflections.reduce((s, r) => s + r.errors, 0);
+      document.getElementById('totalRules').textContent = reflections.reduce((s, r) => s + r.rules, 0);
+      document.getElementById('totalReincidences').textContent = reflections.reduce((s, r) => s + r.reincidences, 0);
+    }
+
+    function renderPending(pending) {
+      const el = document.getElementById('pendingAlert');
+      if (!pending) return;
+      el.classList.add('active');
+      document.getElementById('pendingReason').textContent =
+        `${pending.reason} (${pending.signal_count} sinais) — ${pending.date}`;
+    }
+
+    function renderTimeline(reflections) {
+      const container = document.getElementById('timeline');
+
+      if (!reflections.length) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="icon">&#x1F9D0;</div>
+            <h3>Nenhuma reflexao ainda</h3>
+            <p>Quando uma sessao com erros terminar e a proxima comecar, a socratica vai refletir automaticamente e aparecer aqui.</p>
+          </div>`;
+        return;
+      }
+
+      container.innerHTML = reflections.map(r => {
+        const dotClass = r.reincidences > 0 ? 'has-reincidence' : (r.errors === 0 ? 'clean' : '');
+        const badges = [];
+        if (r.errors > 0) badges.push(`<span class="badge badge-errors">${r.errors} erros</span>`);
+        if (r.rules > 0) badges.push(`<span class="badge badge-rules">${r.rules} regras</span>`);
+        if (r.reincidences > 0) badges.push(`<span class="badge badge-reincidence">${r.reincidences} reincidencias</span>`);
+
+        return `
+          <div class="timeline-item">
+            <div class="timeline-dot ${dotClass}"></div>
+            <div class="timeline-card">
+              <div class="timeline-date">${r.date}</div>
+              <div class="timeline-title">${escapeHtml(r.title)}</div>
+              ${r.summary ? `<div class="timeline-summary">${escapeHtml(r.summary)}</div>` : ''}
+              ${badges.length ? `<div class="timeline-badges">${badges.join('')}</div>` : ''}
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    function renderLog(logs) {
+      const container = document.getElementById('logPanel');
+      if (!logs.length) {
+        container.innerHTML = '<div class="log-entry">Nenhum log registrado ainda.</div>';
+        return;
+      }
+      container.innerHTML = logs.map(l => {
+        const isFlag = l.message.includes('FLAG SET');
+        const isClean = l.message.includes('CLEAN');
+        const cls = isFlag ? 'flag-set' : (isClean ? 'clean' : '');
+        const time = l.timestamp.slice(11, 19);
+        const date = l.timestamp.slice(0, 10);
+        return `<div class="log-entry"><span class="timestamp">${date} ${time}</span> <span class="${cls}">${escapeHtml(l.message)}</span></div>`;
+      }).join('');
+    }
+
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    loadData();
+    // Auto-refresh every 30s
+    setInterval(loadData, 30000);
+  </script>
+</body>
+</html>

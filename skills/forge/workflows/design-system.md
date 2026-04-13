@@ -133,7 +133,7 @@ When invoked by Quest (via forge-bridge), Forge receives the specific mission co
 
 - **Single item execution:** Forge runs only the relevant sub-step (e.g., "Deep CSS extraction") not the entire pipeline
 - **Phase execution:** If the Quest item maps to a full Forge phase, run the complete phase
-- **Context preservation:** Forge state is saved in `.aios/forge-runs/` so Quest can track which items were completed by Forge
+- **Context preservation:** Forge state is saved in `.aiox/forge-runs/` so Quest can track which items were completed by Forge
 
 ### Mapping Quest items to Forge steps
 

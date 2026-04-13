@@ -19,7 +19,7 @@ hooks:
     source: "{FORGE_HOME}/forge-memory.md"
     section: "1. Load Protocol"
     description: |
-      Check for existing learnings at .aios/memory/forge/learnings.yaml.
+      Check for existing learnings at .aiox/memory/forge/learnings.yaml.
       If file exists:
         1. Parse YAML
         2. Filter entries where project matches current cwd (or project.path in state.json)
@@ -69,8 +69,8 @@ hooks:
          - Tags: ["estimation", "dry-run"]
          → category: "estimation_accuracy"
 
-      Append entries to .aios/memory/forge/learnings.yaml.
-      Create directory .aios/memory/forge/ if it does not exist.
+      Append entries to .aiox/memory/forge/learnings.yaml.
+      Create directory .aiox/memory/forge/ if it does not exist.
       Each entry gets: id (learn-{NNN}), run_id, project, timestamp, category, content, tags.
 
       If file has more than max_entries (default: 50):
@@ -103,7 +103,7 @@ hooks:
 state_key: "forge_memory"
 
 config:
-  learnings_file: ".aios/memory/forge/learnings.yaml"
+  learnings_file: ".aiox/memory/forge/learnings.yaml"
   max_entries: 50
   inject_top_n: 5
   retention_days: 90

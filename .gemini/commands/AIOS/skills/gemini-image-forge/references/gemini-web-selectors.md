@@ -1,0 +1,1 @@
+../../../../../../skills/gemini-image-forge/references/gemini-web-selectors.md

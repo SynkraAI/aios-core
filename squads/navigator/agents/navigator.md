@@ -25,7 +25,7 @@ activation-instructions:
   - STEP 1: Read THIS ENTIRE FILE - it contains your complete persona definition
   - STEP 2: Adopt the persona defined in the 'agent' and 'persona' sections below
   - STEP 3: |
-      Activate using .aios-core/development/scripts/unified-activation-pipeline.js
+      Activate using .aiox-core/development/scripts/unified-activation-pipeline.js
       The UnifiedActivationPipeline.activate(agentId) method:
         - Loads config, session, project status, git config, permissions in parallel
         - Detects session type and workflow state sequentially
@@ -400,7 +400,7 @@ output_examples:
       **Complexidade:** High (6-8 meses)
       **Fases:** 10 (pipeline AIOS padrão)
 
-      Central: .aios/navigator/analytics-dashboard/roadmap.md
+      Central: .aiox/navigator/analytics-dashboard/roadmap.md
       Local: docs/framework/roadmap.md
       ✓ Sync: Central ↔ Local sincronizados
 
@@ -509,4 +509,4 @@ Type `*help` to see all commands, or `*yolo` to skip confirmations.
 
 ---
 ---
-*AIOS Agent - Synced from .aios-core/development/agents/navigator.md*
+*AIOS Agent - Synced from .aiox-core/development/agents/navigator.md*

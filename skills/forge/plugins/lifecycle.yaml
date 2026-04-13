@@ -52,7 +52,7 @@ hooks:
       3. Show handoff visual (personality.md) if next phase involves a different agent
 
       ATOMIC WRITE PATTERN (mandatory for ALL state.json writes):
-        a. Write to .aios/forge-runs/{run_id}/state.json.tmp
+        a. Write to .aiox/forge-runs/{run_id}/state.json.tmp
         b. Rename .tmp to .json (atomic on POSIX)
         c. This prevents corruption from mid-write crashes
 

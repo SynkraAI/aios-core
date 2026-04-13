@@ -156,7 +156,7 @@ Intervenção necessária:
 - [ ] **EC3.3:** HIGH issues ≤ 2 (or addressed in quality gate)
 - [ ] **EC3.4:** Auto-fixes applied and committed
 - [ ] **EC3.5:** Tests still passing after fixes
-- [ ] **EC3.6:** Scan report saved to .aios/qa/coderabbit-report.json
+- [ ] **EC3.6:** Scan report saved to .aiox/qa/coderabbit-report.json
 
 ### Validation Code
 

@@ -171,7 +171,7 @@ function scanSquads() {
 
 function scanCoreAgents() {
   const results = [];
-  const agentsDir = path.join(AIOS_CORE, '.aios-core', 'development', 'agents');
+  const agentsDir = path.join(AIOS_CORE, '.aiox-core', 'development', 'agents');
   if (!fs.existsSync(agentsDir)) return results;
 
   for (const file of fs.readdirSync(agentsDir)) {

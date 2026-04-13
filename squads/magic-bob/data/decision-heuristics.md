@@ -74,7 +74,7 @@ BOB classifies projects into **4 states** based on file system inspection.
 
 | State | Condition | Meaning | Handler |
 |-------|-----------|---------|---------|
-| `NO_CONFIG` | No `.aios/config.yaml` | Fresh project, needs init | `_handleNoConfig()` |
+| `NO_CONFIG` | No `.aiox/config.yaml` | Fresh project, needs init | `_handleNoConfig()` |
 | `GREENFIELD` | Has config, no code | New project, start development | `_handleGreenfield()` |
 | `EXISTING_NO_DOCS` | Has code, no AIOS docs | Brownfield discovery needed | `_handleBrownfield()` |
 | `EXISTING_WITH_DOCS` | Has code AND docs | Resume existing work | `_handleExistingProject()` |
@@ -116,7 +116,7 @@ detectProjectState(projectRoot) {
 
 | Scenario | State | Rationale |
 |----------|-------|-----------|
-| `.aios/` exists but config missing | `NO_CONFIG` → **VETO-1** | Triggers repair path instead of init loop |
+| `.aiox/` exists but config missing | `NO_CONFIG` → **VETO-1** | Triggers repair path instead of init loop |
 | Empty project with config | `GREENFIELD` | Config presence indicates intent, treat as greenfield |
 | Code without AIOS structure | `EXISTING_NO_DOCS` | Needs brownfield discovery workflow |
 
@@ -154,7 +154,7 @@ graph TD
 
 ```javascript
 if (this._isAiosInitialized()) {
-  // .aios/ exists but config missing → REPAIR
+  // .aiox/ exists but config missing → REPAIR
   return {
     action: 'config_repair',
     data: {
@@ -224,7 +224,7 @@ BOB surfaces decisions when:
 
 ### SurfaceChecker Algorithm
 
-**Location:** `.aios-core/core/orchestration/surface-checker.js`
+**Location:** `.aiox-core/core/orchestration/surface-checker.js`
 
 ```javascript
 shouldSurface(context) {
@@ -297,7 +297,7 @@ shouldSurface(context) {
 
 **Problem:** User runs `aios init` → config deleted → BOB suggests init again → infinite loop
 
-**Solution:** Check if `.aios/` directory exists before suggesting init
+**Solution:** Check if `.aiox/` directory exists before suggesting init
 
 ```javascript
 if (this._isAiosInitialized()) {
@@ -560,10 +560,10 @@ graph TD
 
 **Symptom:** Infinite loop of init suggestions
 
-**Diagnosis:** VETO-1 not triggering, or `.aios/` doesn't exist
+**Diagnosis:** VETO-1 not triggering, or `.aiox/` doesn't exist
 
 **Fix:**
-1. Check if `.aios/` directory exists: `ls -la .aios`
+1. Check if `.aiox/` directory exists: `ls -la .aios`
 2. If missing, run `aios init` properly
 3. If exists but config missing, BOB should suggest repair (VETO-1)
 
@@ -639,8 +639,8 @@ When debugging BOB decisions:
 - [ ] Verify project state detection: `detectProjectState()`
 - [ ] Review surface conditions: `shouldSurface()` result
 - [ ] Check veto gates: Search for "veto" in logs
-- [ ] Inspect session state: `.aios/session-state.json`
-- [ ] Verify lock ownership: `.aios/locks/`
+- [ ] Inspect session state: `.aiox/session-state.json`
+- [ ] Verify lock ownership: `.aiox/locks/`
 
 ---
 

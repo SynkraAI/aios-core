@@ -56,7 +56,7 @@ Usuário reportou que AIOS "esquece tudo a cada 5 minutos" — agentes não grav
 
 **Estrutura Proposta:**
 ```
-{projeto}/.aios/
+{projeto}/.aiox/
 ├── INDEX.md                         # ✅ Já existe
 ├── CLAUDE.md                        # ✅ Já existe
 ├── memory/                          # 🆕 NOVO
@@ -69,7 +69,7 @@ Usuário reportou que AIOS "esquece tudo a cada 5 minutos" — agentes não grav
 └── workflow-state/                  # ✅ Já existe
 
 Global:
-.aios-core/data/memory/user/
+.aiox-core/data/memory/user/
 └── luiz-fosc-profile.md             # 🆕 NOVO
 ```
 
@@ -91,14 +91,14 @@ Claude Code (Sonnet 4.5) — análise e design de arquitetura
    - Mesmo squad em 2 projetos = 2 contextos diferentes
 
 2. **Estrutura de diretórios NÃO muda**
-   - Apenas ADICIONAR `.aios/memory/` em projetos
-   - ADICIONAR `.aios-core/data/memory/user/` (global)
+   - Apenas ADICIONAR `.aiox/memory/` em projetos
+   - ADICIONAR `.aiox-core/data/memory/user/` (global)
    - Zero breaking changes
 
 3. **Update AIOX protegido**
    - `.aiox-core/core/**` → pode sobrescrever
-   - `.aios/memory/**` → NUNCA tocar
-   - `.aios/sessions/**` → NUNCA tocar
+   - `.aiox/memory/**` → NUNCA tocar
+   - `.aiox/sessions/**` → NUNCA tocar
    - Merge conflicts em CLAUDE.md se customizado
 
 4. **Abordagem de rollout: Audit → Quick Win → Incremental**
@@ -116,7 +116,7 @@ Claude Code (Sonnet 4.5) — análise e design de arquitetura
 
 **Amanhã (2-3h):**
 1. Escolher 1 projeto piloto (pequeno e simples)
-2. Criar `.aios/memory/` manualmente
+2. Criar `.aiox/memory/` manualmente
 3. Atualizar 1 agent spawn file com Read Protocol
 4. Testar que agent lê memórias antes de começar
 
@@ -126,7 +126,7 @@ Claude Code (Sonnet 4.5) — análise e design de arquitetura
 3. Migração incremental (validar cada lote)
 
 ## Arquivos modificados não commitados
-- `.aios/session.json` (8 linhas modificadas)
+- `.aiox/session.json` (8 linhas modificadas)
 - `docs/reports/project-config-audit.md` (43 linhas modificadas)
 
 **Decisão:** Registrado no checkpoint, commit será feito quando implementação começar.

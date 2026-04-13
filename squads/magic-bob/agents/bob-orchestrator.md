@@ -504,7 +504,7 @@ From QA analysis:
 ## Activation
 
 ```yaml
-# ~/.aios/user-config.yaml
+# ~/.aiox/user-config.yaml
 user_profile: bob
 ```
 

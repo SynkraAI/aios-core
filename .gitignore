@@ -22,6 +22,10 @@ npm-debug.log*
 .aiox-backup/
 .aiox-core.backup*/                # Backup directories (any timestamp)
 
+# Legacy (migrated to .aiox-core/ and .aiox/)
+.aios-core/
+.aios/
+
 # Build output
 build/*.txt
 web-bundles/

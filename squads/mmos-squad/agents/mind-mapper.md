@@ -118,8 +118,8 @@ dependencies:
   data:
     - mmos-kb.md
   services:
-    - file-service  # Document parsing via .aios-core/infrastructure/services/file-service
-    - clickup       # Project tracking via .aios-core/infrastructure/services/clickup
+    - file-service  # Document parsing via .aiox-core/infrastructure/services/file-service
+    - clickup       # Project tracking via .aiox-core/infrastructure/services/clickup
 
 knowledge_areas:
   - DNA Mental™ 8-layer cognitive analysis methodology

@@ -109,7 +109,7 @@ CHECK 2: index.html in root?
   NO → check for index.html in subdirs (dist/, build/, out/, public/)
 
 CHECK 3: Is this output from another skill?
-  - .aios/forge-runs/ exists? → "Forge project"
+  - .aiox/forge-runs/ exists? → "Forge project"
   - LP Generator markers (data-lp-generator)? → "LP Generator output"
   - Has _redirects or netlify.toml? → "Already configured for Netlify"
   - Has vercel.json? → "Already configured for Vercel"

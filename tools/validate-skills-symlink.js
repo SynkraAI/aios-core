@@ -22,33 +22,33 @@ console.log(`🏠 AIOS Core: ${aioscorePath}\n`);
 
 let exitCode = 0;
 
-// Check 1: .aios/ directory exists
+// Check 1: .aiox/ directory exists
 const aiosDir = path.join(projectPath, '.aios');
 if (!fs.existsSync(aiosDir)) {
-  console.error('❌ Diretório .aios/ não encontrado');
+  console.error('❌ Diretório .aiox/ não encontrado');
   console.error('   Este projeto não parece ser HYBRID.\n');
   process.exit(1);
 }
-console.log('✅ Diretório .aios/ existe');
+console.log('✅ Diretório .aiox/ existe');
 
 // Check 2: skills symlink exists
 const skillsSymlink = path.join(aiosDir, 'skills');
 if (!fs.existsSync(skillsSymlink)) {
-  console.error('❌ Symlink .aios/skills não encontrado');
+  console.error('❌ Symlink .aiox/skills não encontrado');
   console.error('   Execute: cd .aios && ln -s ~/aios-core/skills skills\n');
   process.exit(1);
 }
-console.log('✅ Symlink .aios/skills existe');
+console.log('✅ Symlink .aiox/skills existe');
 
 // Check 3: symlink points to correct target
 const stats = fs.lstatSync(skillsSymlink);
 if (!stats.isSymbolicLink()) {
-  console.error('❌ .aios/skills não é um symlink');
-  console.error('   Remova e crie novamente: ln -s ~/aios-core/skills .aios/skills\n');
+  console.error('❌ .aiox/skills não é um symlink');
+  console.error('   Remova e crie novamente: ln -s ~/aios-core/skills .aiox/skills\n');
   exitCode = 1;
 } else {
   const linkTarget = fs.readlinkSync(skillsSymlink);
-  const expectedTarget = path.join(aioscorePath, '.aios/skills');
+  const expectedTarget = path.join(aioscorePath, '.aiox/skills');
   const resolvedTarget = path.resolve(aiosDir, linkTarget);
 
   if (resolvedTarget !== expectedTarget) {

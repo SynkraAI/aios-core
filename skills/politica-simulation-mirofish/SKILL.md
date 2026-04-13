@@ -1276,6 +1276,6 @@ Se algum criterio falhar:
 
 ## Referencias
 
-- Spec completa: `.aios/forge-runs/forge-politica-simulation-mirofish-20260323-2242/spec/spec-final.md`
-- Arquitetura: `.aios/forge-runs/forge-politica-simulation-mirofish-20260323-2242/spec/architecture.md`
-- Research: `.aios/forge-runs/forge-politica-simulation-mirofish-20260323-2242/spec/research.md`
+- Spec completa: `.aiox/forge-runs/forge-politica-simulation-mirofish-20260323-2242/spec/spec-final.md`
+- Arquitetura: `.aiox/forge-runs/forge-politica-simulation-mirofish-20260323-2242/spec/architecture.md`
+- Research: `.aiox/forge-runs/forge-politica-simulation-mirofish-20260323-2242/spec/research.md`

@@ -87,7 +87,7 @@ dependencies:
   data:
     - mmos-kb.md
   services:
-    - clickup  # Project tracking via .aios-core/infrastructure/services/clickup
+    - clickup  # Project tracking via .aiox-core/infrastructure/services/clickup
 
 knowledge_areas:
   - MMOS pipeline architecture (6 phases, 47 prompts)

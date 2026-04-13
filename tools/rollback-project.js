@@ -89,9 +89,9 @@ async function rollbackStructure(projectPath) {
     'docs/stories',
     'docs',
     // Passo 2: estrutura base
-    '.aios/sessions',
-    '.aios/HANDOFFS-INDEX.md',
-    '.aios/INDEX.md',
+    '.aiox/sessions',
+    '.aiox/HANDOFFS-INDEX.md',
+    '.aiox/INDEX.md',
     '.aios',
     'data',
     'research'

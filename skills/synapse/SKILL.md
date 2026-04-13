@@ -6,7 +6,7 @@ category: framework
 tags: [context-engine, rules, injection, hooks, domains]
 paths:
   - "skills/synapse/"
-  - ".aios-core/core/synapse/"
+  - ".aiox-core/core/synapse/"
   - ".synapse/"
 lazy_load: true
 context_budget: 1200
@@ -39,7 +39,7 @@ SYNAPSE (Synkra Adaptive Processing & State Engine) é o motor de contexto unifi
 
 ## Do NOT Use This Skill When
 
-- Quer criar um agente → use a estrutura de agentes em `.aios-core/development/agents/`
+- Quer criar um agente → use a estrutura de agentes em `.aiox-core/development/agents/`
 - Quer gerenciar memória do projeto → use o memory protocol
 - Quer configurar MCP servers → delegue para `@devops`
 
@@ -91,7 +91,7 @@ SYNAPSE opera em 4 camadas arquiteturais:
 .claude/hooks/synapse-engine.js          # Layer 1: Hook Entry (~50 linhas)
         |
         v imports
-.aios-core/core/synapse/                 # Layer 2: Engine Modules
+.aiox-core/core/synapse/                 # Layer 2: Engine Modules
 |-- engine.js                            #   Classe SynapseEngine
 |-- layers/                              #   8 layer processors (L0-L7)
 |-- session/session-manager.js           #   Estado da sessão (JSON v2.0)
@@ -261,7 +261,7 @@ Veja [assets/README.md](assets/README.md) para detalhes.
 | Arquivo | Função |
 |---------|--------|
 | `.claude/hooks/synapse-engine.js` | Entry point do hook (UserPromptSubmit) |
-| `.aios-core/core/synapse/engine.js` | Orquestrador SynapseEngine |
+| `.aiox-core/core/synapse/engine.js` | Orquestrador SynapseEngine |
 | `.synapse/manifest` | Registro de domínios (KEY=VALUE) |
 | `.synapse/commands` | Definições de star-commands |
 | `.claude/commands/synapse/manager.md` | Router de comandos CRUD |

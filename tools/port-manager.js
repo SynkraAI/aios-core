@@ -28,7 +28,7 @@ const PORT_RANGES = {
   research: { start: 7100, end: 7199 }
 };
 
-const REGISTRY_PATH = path.join(__dirname, '..', '.aios-core', 'data', 'port-registry.json');
+const REGISTRY_PATH = path.join(__dirname, '..', '.aiox-core', 'data', 'port-registry.json');
 
 /**
  * Load port registry from disk

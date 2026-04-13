@@ -360,7 +360,7 @@ python3 <PROJECT_ROOT>/tools/aios-transcriber/aios_transcriber.py \
 - Tool: `tools/aios-transcriber/`
 - CLI docs: `tools/aios-transcriber/README.md`
 - YouTube module: `tools/aios-transcriber/lib/youtube.py`
-- Quality Gate: `.aios-core/core/quality-gates/QG-002-transcription-quality.md`
+- Quality Gate: `.aiox-core/core/quality-gates/QG-002-transcription-quality.md`
 
 ---
 

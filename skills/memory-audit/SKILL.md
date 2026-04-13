@@ -73,7 +73,7 @@ Perguntas para fazer antes de executar. Usar AskUserQuestion tool. Pular se o us
 - Acesso de leitura às pastas de memória:
   - `.claude/projects/*/memory/` (memórias globais por projeto)
   - `docs/projects/*/memory/` (projetos CENTRALIZED)
-  - `{project}/.aios/memory/` (projetos HYBRID)
+  - `{project}/.aiox/memory/` (projetos HYBRID)
 - Acesso de leitura ao `MEMORY.md` índice central
 - Para `--fix`: acesso de escrita aos arquivos de memória
 
@@ -89,7 +89,7 @@ Escanear todas as pastas de memória e listar cada arquivo encontrado.
 - `.claude/projects/*/memory/` — memórias globais (feedback, project, reference, user)
 - `.claude/projects/*/memory/MEMORY.md` — índices de memória
 - `docs/projects/*/memory/` — projetos centralizados
-- Projetos HYBRID detectados via `.aios/` — `{path}/.aios/memory/`
+- Projetos HYBRID detectados via `.aiox/` — `{path}/.aiox/memory/`
 
 **Output desta fase:**
 ```

@@ -38,7 +38,7 @@ const CONFIG = {
   project_root: path.resolve(__dirname, '..', '..', '..'),
   daily_dir: 'squads/kaizen-v2/data/intelligence/daily',
   frontmatter_cache: 'squads/kaizen-v2/data/intelligence/frontmatter-health.json',
-  log_file: '.aios/logs/kaizen-stop.log',
+  log_file: '.aiox/logs/kaizen-stop.log',
   fail_silent: true,
 };
 
@@ -380,6 +380,17 @@ async function main() {
       }
     } catch (fmErr) {
       log('WARN', `Frontmatter health capture failed: ${fmErr.message}`);
+    }
+
+    // Trigger socrática reflection flag if session had friction
+    try {
+      const socraticaFlag = path.join(CONFIG.project_root, 'skills', 'socratica', 'stop-flag.cjs');
+      if (fs.existsSync(socraticaFlag)) {
+        const { run } = require(socraticaFlag);
+        run(dailyPath, last_assistant_message || '');
+      }
+    } catch (sfErr) {
+      log('WARN', `Socrática flag check failed: ${sfErr.message}`);
     }
 
     // No stdout output — avoid Claude Code interpreting it as hook control

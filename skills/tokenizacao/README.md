@@ -148,7 +148,7 @@ Esta skill **referencia** o tech-preset `frontend-audit-2025.md`:
 
 ```bash
 # Ver tech-preset completo
-cat .aios-core/data/tech-presets/frontend-audit-2025.md
+cat .aiox-core/data/tech-presets/frontend-audit-2025.md
 ```
 
 ---

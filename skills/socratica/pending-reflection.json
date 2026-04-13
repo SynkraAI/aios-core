@@ -1,0 +1,13 @@
+{
+  "created": "2026-04-13T21:13:50.963Z",
+  "date": "2026-04-13",
+  "reason": "critical-signal",
+  "signal_count": 4,
+  "signals": [
+    "\\bfalh[aoue]",
+    "\\bbug\\b",
+    "\\bworkaround\\b",
+    "\\breincid",
+    "CRITICAL:\\breincid"
+  ]
+}

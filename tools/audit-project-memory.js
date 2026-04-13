@@ -4,7 +4,7 @@
  * Audit Project Memory — v1.0
  *
  * Valida que projetos ativos têm estrutura de memória adequada.
- * Verifica: .aios/memory/, sessions/, INDEX.md, feedback/, gotchas.
+ * Verifica: .aiox/memory/, sessions/, INDEX.md, feedback/, gotchas.
  *
  * Reutiliza parseActiveProjects() de audit-project-configs.js
  *
@@ -64,15 +64,15 @@ function validateProjectMemory(project) {
     issues.push({ severity: SEVERITY.CRITICAL, message: 'INDEX.md não encontrado' });
   }
 
-  // 2. .aios/ directory (HYBRID only)
+  // 2. .aiox/ directory (HYBRID only)
   if (project.mode === 'HYBRID') {
     if (fs.existsSync(aiosPath)) {
       stats.hasAios = true;
     } else {
-      issues.push({ severity: SEVERITY.HIGH, message: '.aios/ não existe (HYBRID precisa)' });
+      issues.push({ severity: SEVERITY.HIGH, message: '.aiox/ não existe (HYBRID precisa)' });
     }
   } else {
-    stats.hasAios = true; // CENTRALIZED doesn't need .aios/
+    stats.hasAios = true; // CENTRALIZED doesn't need .aiox/
   }
 
   // 3. memory/ directory
@@ -224,7 +224,7 @@ function generateMemoryReport(projects, results, warnings) {
   report += '## Recomendações\n\n';
   if (buckets.missing.length > 0) {
     report += `### Prioridade 1: Criar memory/ (${buckets.missing.length} projetos)\n`;
-    report += 'Projetos sem nenhuma estrutura de memória. Criar `.aios/memory/project-context.md` mínimo.\n\n';
+    report += 'Projetos sem nenhuma estrutura de memória. Criar `.aiox/memory/project-context.md` mínimo.\n\n';
     buckets.missing.forEach((r, idx) => {
       const proj = projects[results.indexOf(r)];
       report += `${idx + 1}. **${proj.name}** (score ${r.score}/10)\n`;

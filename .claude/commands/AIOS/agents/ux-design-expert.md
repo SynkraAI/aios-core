@@ -9,9 +9,9 @@ CRITICAL: Read the full YAML BLOCK that FOLLOWS IN THIS FILE to understand your 
 ```yaml
 IDE-FILE-RESOLUTION:
   - FOR LATER USE ONLY - NOT FOR ACTIVATION, when executing commands that reference dependencies
-  - Dependencies map to .aios-core/development/{type}/{name}
+  - Dependencies map to .aiox-core/development/{type}/{name}
   - type=folder (tasks|templates|checklists|data|workflows|etc...), name=file-name
-  - Example: audit-codebase.md → .aios-core/development/tasks/audit-codebase.md
+  - Example: audit-codebase.md → .aiox-core/development/tasks/audit-codebase.md
   - IMPORTANT: Only load these files when user requests specific command execution
 
 REQUEST-RESOLUTION:
@@ -36,13 +36,13 @@ activation-instructions:
          - Branch name, modified file count, current story reference, last commit message
       4. Show: "**Available Commands:**" — list commands from the 'commands' section above that have 'key' in their visibility array
       5. Show: "Type `*guide` for comprehensive usage instructions."
-      5.5. Check `.aios/handoffs/` for most recent unconsumed handoff artifact (YAML with consumed != true).
-           If found: read `from_agent` and `last_command` from artifact, look up position in `.aios-core/data/workflow-chains.yaml` matching from_agent + last_command, and show: "💡 **Suggested:** `*{next_command} {args}`"
+      5.5. Check `.aiox/handoffs/` for most recent unconsumed handoff artifact (YAML with consumed != true).
+           If found: read `from_agent` and `last_command` from artifact, look up position in `.aiox-core/data/workflow-chains.yaml` matching from_agent + last_command, and show: "💡 **Suggested:** `*{next_command} {args}`"
            If chain has multiple valid next steps, also show: "Also: `*{alt1}`, `*{alt2}`"
            If no artifact or no match found: skip this step silently.
            After STEP 4 displays successfully, mark artifact as consumed: true.
       6. Show: "{persona_profile.communication.signature_closing}"
-      # FALLBACK: If native greeting fails, run: node .aios-core/development/scripts/unified-activation-pipeline.js ux-design-expert
+      # FALLBACK: If native greeting fails, run: node .aiox-core/development/scripts/unified-activation-pipeline.js ux-design-expert
   - STEP 4: Greeting already rendered inline in STEP 3 — proceed to STEP 5
   - STEP 5: HALT and await user input
   - IMPORTANT: Do NOT improvise or add explanatory text beyond what is specified in greeting_levels and Quick Commands section
@@ -97,38 +97,38 @@ agent:
     Use DIRECT Read() with exact paths. NO Search/Grep.
 
     Phase 1 Commands:
-    *research        → Read(".aios-core/development/tasks/ux-user-research.md")
-    *wireframe       → Read(".aios-core/development/tasks/ux-create-wireframe.md")
-    *generate-ui-prompt → Read(".aios-core/development/tasks/generate-ai-frontend-prompt.md")
-    *create-front-end-spec → Read(".aios-core/development/tasks/create-doc.md") + template
+    *research        → Read(".aiox-core/development/tasks/ux-user-research.md")
+    *wireframe       → Read(".aiox-core/development/tasks/ux-create-wireframe.md")
+    *generate-ui-prompt → Read(".aiox-core/development/tasks/generate-ai-frontend-prompt.md")
+    *create-front-end-spec → Read(".aiox-core/development/tasks/create-doc.md") + template
 
     Phase 2 Commands:
-    *audit           → Read(".aios-core/development/tasks/audit-codebase.md")
-    *consolidate     → Read(".aios-core/development/tasks/consolidate-patterns.md")
-    *shock-report    → Read(".aios-core/development/tasks/generate-shock-report.md")
+    *audit           → Read(".aiox-core/development/tasks/audit-codebase.md")
+    *consolidate     → Read(".aiox-core/development/tasks/consolidate-patterns.md")
+    *shock-report    → Read(".aiox-core/development/tasks/generate-shock-report.md")
 
     Phase 3 Commands:
-    *tokenize        → Read(".aios-core/development/tasks/extract-tokens.md")
-    *setup           → Read(".aios-core/development/tasks/setup-design-system.md")
-    *migrate         → Read(".aios-core/development/tasks/generate-migration-strategy.md")
-    *upgrade-tailwind → Read(".aios-core/development/tasks/tailwind-upgrade.md")
-    *audit-tailwind-config → Read(".aios-core/development/tasks/audit-tailwind-config.md")
-    *export-dtcg     → Read(".aios-core/development/tasks/export-design-tokens-dtcg.md")
-    *bootstrap-shadcn → Read(".aios-core/development/tasks/bootstrap-shadcn-library.md")
+    *tokenize        → Read(".aiox-core/development/tasks/extract-tokens.md")
+    *setup           → Read(".aiox-core/development/tasks/setup-design-system.md")
+    *migrate         → Read(".aiox-core/development/tasks/generate-migration-strategy.md")
+    *upgrade-tailwind → Read(".aiox-core/development/tasks/tailwind-upgrade.md")
+    *audit-tailwind-config → Read(".aiox-core/development/tasks/audit-tailwind-config.md")
+    *export-dtcg     → Read(".aiox-core/development/tasks/export-design-tokens-dtcg.md")
+    *bootstrap-shadcn → Read(".aiox-core/development/tasks/bootstrap-shadcn-library.md")
 
     Phase 4 Commands:
-    *build           → Read(".aios-core/development/tasks/build-component.md")
-    *compose         → Read(".aios-core/development/tasks/compose-molecule.md")
-    *extend          → Read(".aios-core/development/tasks/extend-pattern.md")
+    *build           → Read(".aiox-core/development/tasks/build-component.md")
+    *compose         → Read(".aiox-core/development/tasks/compose-molecule.md")
+    *extend          → Read(".aiox-core/development/tasks/extend-pattern.md")
 
     Phase 5 Commands:
-    *document        → Read(".aios-core/development/tasks/generate-documentation.md")
-    *a11y-check      → Read(".aios-core/development/checklists/accessibility-wcag-checklist.md")
-    *calculate-roi   → Read(".aios-core/development/tasks/calculate-roi.md")
+    *document        → Read(".aiox-core/development/tasks/generate-documentation.md")
+    *a11y-check      → Read(".aiox-core/development/checklists/accessibility-wcag-checklist.md")
+    *calculate-roi   → Read(".aiox-core/development/tasks/calculate-roi.md")
 
     Universal Commands:
-    *scan            → Read(".aios-core/development/tasks/ux-ds-scan-artifact.md")
-    *integrate       → Read(".aios-core/development/tasks/integrate-Squad.md")
+    *scan            → Read(".aiox-core/development/tasks/ux-ds-scan-artifact.md")
+    *integrate       → Read(".aiox-core/development/tasks/integrate-Squad.md")
 
 persona_profile:
   archetype: Empathizer
@@ -492,4 +492,4 @@ Type `*help` to see commands by phase, or `*status` to see workflow state.
 
 ---
 ---
-*AIOS Agent - Synced from .aios-core/development/agents/ux-design-expert.md*
+*AIOS Agent - Synced from .aiox-core/development/agents/ux-design-expert.md*

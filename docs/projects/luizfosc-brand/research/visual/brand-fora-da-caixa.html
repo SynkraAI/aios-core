@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luiz Fosc — Palestra "Fora da Caixa" · Identidade Visual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=Montserrat:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --black: #212121; --black-soft: #2a2a2a; --black-deep: #1a1a1a;
+    --white: #FFFFFF; --ivory: #F5F0EB;
+    --amber: #B8860B; --amber-glow: #D4A017;
+    --electric: #E8A317; --electric-glow: #F5C842; --electric-soft: #3D2E10;
+    --gray-100: #F0EFED; --gray-200: #E0DFDD; --gray-300: #B0AEAB; --gray-400: #8A8885;
+    --gray-500: #6B6966; --gray-600: #4A4846; --gray-700: #353433;
+  }
+  body { background: var(--black); color: var(--white); font-family: 'Ubuntu', sans-serif; line-height: 1.6; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 40px 32px; }
+  .section { margin-bottom: 100px; }
+  .section-header { display: flex; align-items: baseline; gap: 20px; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid var(--gray-700); }
+  .section-num { font-family: 'Montserrat', sans-serif; font-size: 56px; font-weight: 200; color: var(--gray-700); line-height: 1; }
+  .section-title { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--electric); }
+  .section-desc { font-size: 16px; color: var(--gray-400); margin-top: 4px; font-weight: 300; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+  .card { border-radius: 12px; overflow: hidden; border: 1px solid var(--gray-700); }
+  .card-label { padding: 12px 20px; background: var(--black-soft); border-bottom: 1px solid var(--gray-700); display: flex; justify-content: space-between; align-items: center; }
+  .card-label .name { font-size: 14px; font-weight: 500; }
+  .card-label .tag { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; }
+  .tag-fc { background: var(--electric); color: var(--black); }
+  .tag-af { background: #8B2F2F; color: var(--white); }
+  .ig { aspect-ratio: 1/1; border-radius: 10px; overflow: hidden; position: relative; display: flex; flex-direction: column; }
+
+  /* Cube drawing */
+  .cube-container { position: relative; width: 120px; height: 120px; }
+  .cube-line { stroke: var(--ivory); stroke-width: 1.5; fill: none; opacity: 0.5; }
+  .cube-line-open { stroke: var(--electric-glow); stroke-width: 1.5; fill: none; opacity: 0.8; stroke-dasharray: 4 4; }
+  .cube-glow { fill: var(--electric); opacity: 0.15; }
+
+  /* Chevron escape animation hint */
+  .chevron-escape { position: relative; overflow: hidden; }
+  .chevron-escape::before {
+    content: '';
+    position: absolute; inset: 0; opacity: 0.03; pointer-events: none;
+    background-image:
+      repeating-linear-gradient(45deg, transparent, transparent 8px, var(--white) 8px, var(--white) 9px),
+      repeating-linear-gradient(-45deg, transparent, transparent 8px, var(--white) 8px, var(--white) 9px);
+  }
+  .chevron-escape::after {
+    content: '';
+    position: absolute; right: -20px; bottom: -20px; width: 200px; height: 200px; opacity: 0.06; pointer-events: none;
+    background-image:
+      repeating-linear-gradient(45deg, transparent, transparent 12px, var(--electric) 12px, var(--electric) 13px),
+      repeating-linear-gradient(-45deg, transparent, transparent 12px, var(--electric) 12px, var(--electric) 13px);
+    transform: rotate(15deg);
+  }
+
+  @media (max-width: 768px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- ===== HERO ===== -->
+<div class="chevron-escape" style="text-align:center; padding:80px 0 60px; border-bottom:1px solid var(--gray-700); margin-bottom:80px;">
+  <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--gray-400); margin-bottom:24px; position:relative; z-index:2;">
+    <span style="font-family:'Montserrat',sans-serif; font-weight:200; letter-spacing:0.15em;">LUIZ</span> <span style="font-weight:800; letter-spacing:0.15em;">FOSC</span> <span style="color:var(--gray-600);">apresenta</span>
+  </div>
+  <div style="position:relative; z-index:2; margin-bottom:8px;">
+    <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:48px; line-height:1.05; color:var(--white);">Como Pensar</div>
+    <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:48px; line-height:1.05; color:var(--white);">Fora da Caixa?</div>
+  </div>
+  <div style="font-family:'Montserrat',sans-serif; font-weight:900; font-size:72px; line-height:1.0; color:var(--electric); position:relative; z-index:2; margin-bottom:16px;">QUE CAIXA?</div>
+  <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-style:italic; font-size:17px; color:var(--gray-400); position:relative; z-index:2;">Não é dom, é estrutura.</div>
+</div>
+
+<!-- ===== 01: COMPARAÇÃO ANTIFRÁGIL vs FORA DA CAIXA ===== -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">01</div>
+    <div>
+      <div class="section-title">Antifrágil vs Fora da Caixa — Duas palestras, um DNA</div>
+      <div class="section-desc">Thriller de Nolan vs Heist Movie de Soderbergh. Mesmo ator, gêneros diferentes.</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <!-- Antifrágil -->
+    <div class="card">
+      <div class="card-label"><span class="name">Antifrágil</span><span class="tag tag-af">Thriller</span></div>
+      <div style="background:var(--black); padding:48px 36px; text-align:center; position:relative; overflow:hidden; min-height:340px;">
+        <div style="position:absolute; inset:0; opacity:0.03; background-image: repeating-linear-gradient(45deg, transparent, transparent 8px, var(--white) 8px, var(--white) 9px), repeating-linear-gradient(-45deg, transparent, transparent 8px, var(--white) 8px, var(--white) 9px);"></div>
+        <div style="position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, transparent, #8B2F2F, transparent);"></div>
+        <div style="position:relative; z-index:2;">
+          <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:#C45454; margin-bottom:20px;">Palestra Show</div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:900; font-size:42px; line-height:1.0; color:var(--white); margin-bottom:10px; letter-spacing:-0.02em;">ANTIFRÁGIL</div>
+          <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:15px; color:var(--gray-300); margin-bottom:24px;">A arte de crescer com os <span style="color:var(--amber-glow);">desafios</span></div>
+          <div style="display:flex; justify-content:center; gap:16px; margin-bottom:24px;">
+            <div style="font-family:'Montserrat',sans-serif; font-size:9px; font-weight:500; letter-spacing:0.06em; text-transform:uppercase; color:var(--gray-300); border:1px solid var(--gray-600); border-radius:4px; padding:5px 10px;">🏆 2× Guinness</div>
+            <div style="font-family:'Montserrat',sans-serif; font-size:9px; font-weight:500; letter-spacing:0.06em; text-transform:uppercase; color:var(--gray-300); border:1px solid var(--gray-600); border-radius:4px; padding:5px 10px;">🏆 Top of Mind</div>
+          </div>
+          <div style="background:var(--amber); color:var(--black); font-family:'Montserrat',sans-serif; font-weight:600; font-size:12px; padding:12px 28px; border-radius:6px; display:inline-block;">Contratar palestra</div>
+        </div>
+        <div style="position:absolute; bottom:16px; left:0; right:0; text-align:center;">
+          <span style="font-size:10px; color:var(--gray-600);">Centralizado · Simétrico · Peso 900 · B&W + Red</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fora da Caixa -->
+    <div class="card">
+      <div class="card-label"><span class="name">Fora da Caixa</span><span class="tag tag-fc">Heist</span></div>
+      <div class="chevron-escape" style="background:var(--black); padding:48px 36px; position:relative; overflow:hidden; min-height:340px;">
+        <div style="position:absolute; top:0; right:0; width:4px; height:100%; background: linear-gradient(180deg, var(--electric-glow), var(--electric), transparent);"></div>
+        <!-- Cube icon top right -->
+        <div style="position:absolute; top:20px; right:24px; z-index:3;">
+          <svg width="48" height="48" viewBox="0 0 48 48">
+            <polygon points="24,4 44,16 44,36 24,48 4,36 4,16" fill="none" stroke="#F5F0EB" stroke-width="1" opacity="0.2"/>
+            <line x1="24" y1="4" x2="24" y2="48" stroke="#F5F0EB" stroke-width="1" opacity="0.15"/>
+            <line x1="4" y1="16" x2="44" y2="16" stroke="#F5F0EB" stroke-width="1" opacity="0.15"/>
+            <!-- Open face glow -->
+            <polygon points="24,4 44,16 44,36 24,48" fill="#E8A317" opacity="0.08"/>
+            <line x1="44" y1="16" x2="44" y2="36" stroke="#E8A317" stroke-width="1.5" opacity="0.5" stroke-dasharray="3 3"/>
+          </svg>
+        </div>
+        <div style="position:relative; z-index:2;">
+          <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--electric); margin-bottom:20px;">Palestra Show</div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:36px; line-height:1.05; color:var(--white); margin-bottom:4px;">Como Pensar</div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:36px; line-height:1.05; color:var(--white); margin-bottom:12px;">Fora da Caixa?</div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:900; font-size:48px; line-height:1.0; color:var(--electric); margin-bottom:16px;">QUE CAIXA?</div>
+          <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-style:italic; font-size:15px; color:var(--gray-400); margin-bottom:24px;">Inovação, criatividade e soluções inteligentes</div>
+          <div style="background:var(--amber); color:var(--black); font-family:'Montserrat',sans-serif; font-weight:600; font-size:12px; padding:12px 28px; border-radius:6px; display:inline-block;">Contratar palestra</div>
+        </div>
+        <div style="position:absolute; bottom:16px; left:16px;">
+          <span style="font-size:10px; color:var(--gray-600);">Assimétrico · Esquerda · Peso 600+900 · Electric Amber</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 02: COR DE CAMPANHA ===== -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">02</div>
+    <div>
+      <div class="section-title">Cor de Campanha — Electric Amber</div>
+      <div class="section-desc">Evolução do laranja da Beace. Dentro da família Amber, mas mais vibrante e energético.</div>
+    </div>
+  </div>
+
+  <div style="display:grid; grid-template-columns: repeat(5, 1fr); gap:12px; margin-bottom:24px;">
+    <div style="text-align:center;">
+      <div style="height:80px; background:var(--amber); border-radius:8px; margin-bottom:8px; display:flex; align-items:center; justify-content:center;"><span style="font-family:'Montserrat',sans-serif; font-size:9px; font-weight:500; color:var(--black);">Base Fosc</span></div>
+      <div style="font-family:'Montserrat',sans-serif; font-size:10px; color:var(--gray-400);">Amber<br>#B8860B</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="height:80px; background:#C47A1A; border-radius:8px; margin-bottom:8px; display:flex; align-items:center; justify-content:center;"><span style="font-family:'Montserrat',sans-serif; font-size:9px; font-weight:500; color:var(--black);">Beace (antigo)</span></div>
+      <div style="font-family:'Montserrat',sans-serif; font-size:10px; color:var(--gray-400);">Burnt Orange<br>#C47A1A</div>
+    </div>
+    <div style="text-align:center; position:relative;">
+      <div style="position:absolute; top:-8px; left:50%; transform:translateX(-50%); font-family:'Montserrat',sans-serif; font-size:8px; font-weight:700; color:var(--electric-glow); letter-spacing:0.1em;">← ESCOLHIDA</div>
+      <div style="height:80px; background:var(--electric); border-radius:8px; margin-bottom:8px; border:2px solid var(--electric-glow); display:flex; align-items:center; justify-content:center;"><span style="font-family:'Montserrat',sans-serif; font-size:9px; font-weight:700; color:var(--black);">Electric Amber</span></div>
+      <div style="font-family:'Montserrat',sans-serif; font-size:10px; color:var(--white); font-weight:600;">Electric Amber<br>#E8A317</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="height:80px; background:var(--electric-glow); border-radius:8px; margin-bottom:8px; display:flex; align-items:center; justify-content:center;"><span style="font-family:'Montserrat',sans-serif; font-size:9px; font-weight:500; color:var(--black);">Glow</span></div>
+      <div style="font-family:'Montserrat',sans-serif; font-size:10px; color:var(--gray-400);">Electric Glow<br>#F5C842</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="height:80px; background:var(--electric-soft); border-radius:8px; margin-bottom:8px; border:1px solid var(--gray-700); display:flex; align-items:center; justify-content:center;"><span style="font-family:'Montserrat',sans-serif; font-size:9px; font-weight:500; color:var(--gray-400);">Wash</span></div>
+      <div style="font-family:'Montserrat',sans-serif; font-size:10px; color:var(--gray-400);">Electric Soft<br>#3D2E10</div>
+    </div>
+  </div>
+
+  <div style="background:var(--black-soft); border-radius:10px; padding:16px 20px; border:1px solid var(--gray-700);">
+    <div style="font-weight:300; font-size:13px; color:var(--gray-300); line-height:1.6;">
+      <strong style="color:var(--white);">Lógica:</strong> O Amber base (#B8860B) aparece nos <strong style="color:var(--amber-glow);">botões</strong> (é a marca Fosc). O Electric Amber (#E8A317) aparece nos <strong style="color:var(--electric);">destaques de texto e elementos decorativos</strong> (é a campanha "Fora da Caixa"). Os dois convivem sem conflito — são da mesma família, mas com intensidades diferentes.
+    </div>
+  </div>
+</div>
+
+<!-- ===== 03: O CUBO ABERTO ===== -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">03</div>
+    <div>
+      <div class="section-title">O Cubo Aberto — Elemento visual exclusivo</div>
+      <div class="section-desc">A caixa que nunca existiu. Um cubo isométrico com uma face aberta, de onde a luz amber escapa.</div>
+    </div>
+  </div>
+
+  <div class="grid-3">
+    <!-- Cubo fechado (limitação) -->
+    <div class="card">
+      <div class="card-label"><span class="name">Cubo Fechado</span><span style="font-size:11px; color:var(--gray-500);">A limitação</span></div>
+      <div style="height:220px; background:var(--black); display:flex; align-items:center; justify-content:center;">
+        <svg width="140" height="140" viewBox="0 0 140 140">
+          <polygon points="70,15 125,45 125,105 70,135 15,105 15,45" fill="none" stroke="#F5F0EB" stroke-width="1.5" opacity="0.3"/>
+          <line x1="70" y1="15" x2="70" y2="135" stroke="#F5F0EB" stroke-width="1" opacity="0.2"/>
+          <line x1="15" y1="45" x2="125" y2="45" stroke="#F5F0EB" stroke-width="1" opacity="0.2"/>
+          <line x1="15" y1="105" x2="70" y2="75" stroke="#F5F0EB" stroke-width="1" opacity="0.15"/>
+          <line x1="125" y1="105" x2="70" y2="75" stroke="#F5F0EB" stroke-width="1" opacity="0.15"/>
+          <line x1="70" y1="15" x2="70" y2="75" stroke="#F5F0EB" stroke-width="1" opacity="0.15"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Cubo abrindo (transição) -->
+    <div class="card">
+      <div class="card-label"><span class="name">Cubo Abrindo</span><span style="font-size:11px; color:var(--electric);">A perspectiva muda</span></div>
+      <div style="height:220px; background:var(--black); display:flex; align-items:center; justify-content:center; position:relative;">
+        <svg width="140" height="140" viewBox="0 0 140 140">
+          <!-- Back faces -->
+          <polygon points="70,15 125,45 125,105 70,135 15,105 15,45" fill="none" stroke="#F5F0EB" stroke-width="1.5" opacity="0.2"/>
+          <line x1="70" y1="15" x2="70" y2="75" stroke="#F5F0EB" stroke-width="1" opacity="0.15"/>
+          <line x1="15" y1="105" x2="70" y2="75" stroke="#F5F0EB" stroke-width="1" opacity="0.15"/>
+          <!-- Open right face with glow -->
+          <polygon points="70,75 125,45 125,105 70,135" fill="#E8A317" opacity="0.06"/>
+          <line x1="125" y1="45" x2="125" y2="105" stroke="#E8A317" stroke-width="1.5" opacity="0.5" stroke-dasharray="4 4"/>
+          <line x1="125" y1="105" x2="70" y2="75" stroke="#E8A317" stroke-width="1" opacity="0.3" stroke-dasharray="4 4"/>
+          <!-- Glow emanating -->
+          <circle cx="98" cy="75" r="25" fill="#E8A317" opacity="0.05"/>
+          <circle cx="98" cy="75" r="15" fill="#F5C842" opacity="0.08"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Cubo aberto (liberdade) -->
+    <div class="card">
+      <div class="card-label"><span class="name">Cubo Aberto</span><span style="font-size:11px; color:var(--electric-glow);">A ideia escapa</span></div>
+      <div style="height:220px; background:var(--black); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
+        <!-- Escaped chevrons -->
+        <div style="position:absolute; right:10px; bottom:15px; width:40px; height:40px; border-right:2px solid var(--electric); border-top:2px solid var(--electric); opacity:0.3; transform:rotate(15deg);"></div>
+        <div style="position:absolute; right:30px; bottom:40px; width:28px; height:28px; border-right:1.5px solid var(--electric-glow); border-top:1.5px solid var(--electric-glow); opacity:0.2; transform:rotate(25deg);"></div>
+        <svg width="140" height="140" viewBox="0 0 140 140">
+          <!-- Left faces remain (structure) -->
+          <line x1="70" y1="15" x2="15" y2="45" stroke="#F5F0EB" stroke-width="1.5" opacity="0.3"/>
+          <line x1="15" y1="45" x2="15" y2="105" stroke="#F5F0EB" stroke-width="1.5" opacity="0.3"/>
+          <line x1="15" y1="105" x2="70" y2="135" stroke="#F5F0EB" stroke-width="1.5" opacity="0.3"/>
+          <line x1="70" y1="15" x2="70" y2="75" stroke="#F5F0EB" stroke-width="1" opacity="0.2"/>
+          <line x1="15" y1="105" x2="70" y2="75" stroke="#F5F0EB" stroke-width="1" opacity="0.15"/>
+          <!-- Top face partial -->
+          <line x1="70" y1="15" x2="125" y2="45" stroke="#F5F0EB" stroke-width="1" opacity="0.15"/>
+          <!-- Bottom partial -->
+          <line x1="70" y1="135" x2="125" y2="105" stroke="#F5F0EB" stroke-width="1" opacity="0.15"/>
+          <!-- Right face GONE — replaced by glow -->
+          <circle cx="110" cy="75" r="35" fill="#E8A317" opacity="0.06"/>
+          <circle cx="110" cy="75" r="20" fill="#F5C842" opacity="0.1"/>
+          <circle cx="110" cy="75" r="8" fill="#F5C842" opacity="0.2"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 04: INSTAGRAM MOCKUPS ===== -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">04</div>
+    <div>
+      <div class="section-title">Instagram — "Fora da Caixa" em ação</div>
+      <div class="section-desc">Posts, carrossel e reels com a identidade da palestra.</div>
+    </div>
+  </div>
+
+  <div class="grid-3">
+    <!-- Post: Título assimétrico -->
+    <div class="card">
+      <div class="card-label"><span class="name">Post Título</span><span class="tag tag-fc">1:1</span></div>
+      <div style="padding:10px; background:var(--black-soft);">
+        <div class="ig chevron-escape" style="background:var(--black); justify-content:flex-end; padding:28px;">
+          <!-- Cube icon -->
+          <div style="position:absolute; top:16px; right:16px; z-index:3;">
+            <svg width="36" height="36" viewBox="0 0 48 48">
+              <polygon points="24,4 44,16 44,36 24,48 4,36 4,16" fill="none" stroke="#F5F0EB" stroke-width="1" opacity="0.2"/>
+              <polygon points="24,4 44,16 44,36 24,48" fill="#E8A317" opacity="0.08"/>
+              <line x1="44" y1="16" x2="44" y2="36" stroke="#E8A317" stroke-width="1.5" opacity="0.4" stroke-dasharray="3 3"/>
+            </svg>
+          </div>
+          <div style="position:relative; z-index:2;">
+            <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--electric); margin-bottom:14px;">Palestra Show</div>
+            <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:22px; line-height:1.08; color:var(--white); margin-bottom:6px;">Como Pensar</div>
+            <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:22px; line-height:1.08; color:var(--white); margin-bottom:10px;">Fora da Caixa?</div>
+            <div style="font-family:'Montserrat',sans-serif; font-weight:900; font-size:32px; line-height:1.0; color:var(--electric);">QUE CAIXA?</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Post: Quote do tema -->
+    <div class="card">
+      <div class="card-label"><span class="name">Post Frase</span><span class="tag tag-fc">1:1</span></div>
+      <div style="padding:10px; background:var(--black-soft);">
+        <div class="ig" style="background: linear-gradient(160deg, var(--electric-soft) 0%, var(--black) 60%); justify-content:center; padding:28px;">
+          <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:36px; color:var(--electric-glow); line-height:0.8; margin-bottom:14px;">"</div>
+          <div style="font-family:'Ubuntu',sans-serif; font-weight:400; font-size:16px; color:var(--white); line-height:1.5; margin-bottom:16px;">A caixa não existe. O que existe é a <span style="color:var(--electric-glow);">perspectiva</span> de quem nunca tentou olhar por outro ângulo.</div>
+          <div style="width:28px; height:2px; background:var(--electric); margin-bottom:10px;"></div>
+          <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:12px; color:var(--gray-500);">Luiz Fosc · @luizfosc</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Post: Com foto -->
+    <div class="card">
+      <div class="card-label"><span class="name">Post com Foto</span><span class="tag tag-fc">1:1</span></div>
+      <div style="padding:10px; background:var(--black-soft);">
+        <div class="ig" style="background: linear-gradient(180deg, rgba(232,163,23,0.1) 0%, var(--black) 55%); justify-content:flex-end; padding:24px; position:relative;">
+          <!-- Photo placeholder -->
+          <div style="position:absolute; top:0; left:0; right:0; height:60%; display:flex; align-items:center; justify-content:center;">
+            <div style="font-size:10px; color:var(--gray-600); text-align:center;">📷 Fosc sorrindo<br><span style="color:var(--electric); font-size:9px;">braços cruzados, cor seletiva amber</span></div>
+          </div>
+          <!-- Cube corner -->
+          <div style="position:absolute; top:12px; right:12px; z-index:3;">
+            <svg width="28" height="28" viewBox="0 0 48 48">
+              <polygon points="24,4 44,16 44,36 24,48 4,36 4,16" fill="none" stroke="#F5F0EB" stroke-width="1" opacity="0.15"/>
+              <polygon points="24,4 44,16 44,36 24,48" fill="#E8A317" opacity="0.06"/>
+            </svg>
+          </div>
+          <div style="position:relative; z-index:2;">
+            <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:20px; color:var(--white); line-height:1.1;">
+              Inovação não é pensar diferente. É <span style="color:var(--electric-glow);">ver</span> diferente.
+            </div>
+            <div style="width:24px; height:2px; background:var(--electric); margin-top:10px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 05: SLIDE ===== -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">05</div>
+    <div>
+      <div class="section-title">Slides de Palestra</div>
+      <div class="section-desc">Assimétrico, leve à esquerda, punchline pesada à direita. O cubo como assinatura.</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <!-- Slide título -->
+    <div class="card">
+      <div class="card-label"><span class="name">Slide Abertura</span><span class="tag tag-fc">16:9</span></div>
+      <div style="padding:10px; background:var(--black-soft);">
+        <div class="chevron-escape" style="aspect-ratio:16/9; border-radius:8px; background:var(--black); display:flex; align-items:center; padding:40px 48px; position:relative;">
+          <!-- Cube top right -->
+          <div style="position:absolute; top:20px; right:28px; z-index:3;">
+            <svg width="56" height="56" viewBox="0 0 48 48">
+              <polygon points="24,4 44,16 44,36 24,48 4,36 4,16" fill="none" stroke="#F5F0EB" stroke-width="1" opacity="0.15"/>
+              <polygon points="24,4 44,16 44,36 24,48" fill="#E8A317" opacity="0.06"/>
+              <line x1="44" y1="16" x2="44" y2="36" stroke="#E8A317" stroke-width="1.5" opacity="0.4" stroke-dasharray="3 3"/>
+            </svg>
+          </div>
+          <div style="position:absolute; top:0; right:0; width:4px; height:100%; background: linear-gradient(180deg, var(--electric-glow), var(--electric), transparent); border-radius:0 8px 8px 0;"></div>
+          <div style="position:relative; z-index:2;">
+            <div style="font-family:'Montserrat',sans-serif; font-weight:200; font-size:12px; letter-spacing:0.15em; color:var(--gray-400); margin-bottom:12px;">
+              <span style="letter-spacing:0.15em;">LUIZ</span> <span style="font-weight:700;">FOSC</span> <span style="color:var(--gray-600);">apresenta</span>
+            </div>
+            <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:30px; line-height:1.05; color:var(--white); margin-bottom:6px;">Como Pensar</div>
+            <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:30px; line-height:1.05; color:var(--white); margin-bottom:10px;">Fora da Caixa?</div>
+            <div style="font-family:'Montserrat',sans-serif; font-weight:900; font-size:44px; line-height:1.0; color:var(--electric);">QUE CAIXA?</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide conteúdo -->
+    <div class="card">
+      <div class="card-label"><span class="name">Slide Conteúdo</span><span class="tag tag-fc">16:9</span></div>
+      <div style="padding:10px; background:var(--black-soft);">
+        <div style="aspect-ratio:16/9; border-radius:8px; background:var(--black); display:flex; align-items:center; padding:40px 48px; position:relative; overflow:hidden;">
+          <div style="position:absolute; top:0; right:0; width:3px; height:100%; background: linear-gradient(180deg, var(--electric), transparent);"></div>
+          <!-- Escaped chevrons decorative -->
+          <div style="position:absolute; right:40px; bottom:20px; width:48px; height:48px; border-right:2px solid var(--electric); border-top:2px solid var(--electric); opacity:0.12; transform:rotate(20deg);"></div>
+          <div style="position:absolute; right:60px; bottom:45px; width:32px; height:32px; border-right:1.5px solid var(--electric-glow); border-top:1.5px solid var(--electric-glow); opacity:0.08; transform:rotate(30deg);"></div>
+          <div style="position:relative; z-index:2; max-width:65%;">
+            <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:var(--electric); margin-bottom:14px;">Princípio #03</div>
+            <div style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:26px; line-height:1.1; color:var(--white); margin-bottom:10px;">Crie distrações <span style="color:var(--electric-glow);">inteligentes</span></div>
+            <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:14px; color:var(--gray-300); line-height:1.6;">Nem todo problema precisa ser resolvido atacando de frente. O melhor caminho é justamente desviar o foco — mudar a percepção ou criar alternativas.</div>
+          </div>
+          <!-- Logo bottom right -->
+          <div style="position:absolute; bottom:16px; right:24px; display:flex; align-items:center; gap:6px;">
+            <span style="font-family:'Montserrat',sans-serif; font-weight:300; font-size:10px; letter-spacing:0.1em; color:var(--gray-600);">LUIZ</span>
+            <span style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:10px; letter-spacing:0.1em; color:var(--gray-600);">FOSC</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 06: BANNER / LP HERO ===== -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">06</div>
+    <div>
+      <div class="section-title">Banner & Landing Page Hero</div>
+      <div class="section-desc">Como a palestra aparece em LinkedIn, YouTube e página de vendas.</div>
+    </div>
+  </div>
+
+  <!-- Banner wide -->
+  <div class="card" style="margin-bottom:24px;">
+    <div class="card-label"><span class="name">Banner LinkedIn / YouTube</span><span class="tag tag-fc">Wide</span></div>
+    <div class="chevron-escape" style="background:var(--black); padding:40px 36px; position:relative;">
+      <div style="position:absolute; top:0; right:0; width:3px; height:100%; background: linear-gradient(180deg, var(--electric-glow), var(--electric), transparent);"></div>
+      <div style="display:flex; justify-content:space-between; align-items:center; position:relative; z-index:2;">
+        <div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:200; font-size:11px; letter-spacing:0.12em; color:var(--gray-400); margin-bottom:8px;">
+            <span style="letter-spacing:0.12em;">LUIZ</span> <span style="font-weight:700;">FOSC</span> <span style="color:var(--gray-600);">apresenta</span>
+          </div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:26px; line-height:1.05; color:var(--white); margin-bottom:6px;">Como Pensar Fora da Caixa?</div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:900; font-size:36px; line-height:1.0; color:var(--electric);">QUE CAIXA?</div>
+        </div>
+        <div style="text-align:right;">
+          <svg width="64" height="64" viewBox="0 0 48 48" style="margin-bottom:8px;">
+            <polygon points="24,4 44,16 44,36 24,48 4,36 4,16" fill="none" stroke="#F5F0EB" stroke-width="1" opacity="0.2"/>
+            <polygon points="24,4 44,16 44,36 24,48" fill="#E8A317" opacity="0.08"/>
+            <line x1="44" y1="16" x2="44" y2="36" stroke="#E8A317" stroke-width="1.5" opacity="0.4" stroke-dasharray="3 3"/>
+            <circle cx="38" cy="26" r="8" fill="#F5C842" opacity="0.1"/>
+          </svg>
+          <div style="display:flex; flex-direction:column; gap:4px; align-items:flex-end;">
+            <div style="font-family:'Montserrat',sans-serif; font-size:9px; font-weight:500; letter-spacing:0.06em; text-transform:uppercase; color:var(--gray-300); border:1px solid var(--gray-600); border-radius:4px; padding:4px 8px;">2× Guinness</div>
+            <div style="font-family:'Montserrat',sans-serif; font-size:9px; font-weight:500; letter-spacing:0.06em; text-transform:uppercase; color:var(--gray-300); border:1px solid var(--gray-600); border-radius:4px; padding:4px 8px;">Top of Mind</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LP Hero -->
+  <div class="card">
+    <div class="card-label"><span class="name">Landing Page Hero</span><span class="tag tag-fc">Desktop</span></div>
+    <div class="chevron-escape" style="background:var(--black); padding:56px 48px; position:relative; min-height:320px;">
+      <div style="position:absolute; top:0; right:0; width:3px; height:100%; background: linear-gradient(180deg, var(--electric-glow), var(--electric), transparent);"></div>
+      <!-- Photo area right -->
+      <div style="position:absolute; right:40px; top:0; bottom:0; width:40%; display:flex; align-items:center; justify-content:center;">
+        <div style="font-size:11px; color:var(--gray-600); text-align:center;">📷 Fosc sorrindo<br><span style="color:var(--electric); font-size:10px;">cor seletiva amber<br>braços cruzados</span></div>
+      </div>
+      <!-- Cube decoration -->
+      <div style="position:absolute; right:36px; top:24px; z-index:3;">
+        <svg width="48" height="48" viewBox="0 0 48 48">
+          <polygon points="24,4 44,16 44,36 24,48 4,36 4,16" fill="none" stroke="#F5F0EB" stroke-width="1" opacity="0.12"/>
+          <polygon points="24,4 44,16 44,36 24,48" fill="#E8A317" opacity="0.06"/>
+        </svg>
+      </div>
+      <div style="position:relative; z-index:2; max-width:50%;">
+        <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--electric); margin-bottom:20px;">Palestra Show</div>
+        <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:36px; line-height:1.05; color:var(--white); margin-bottom:4px;">Como Pensar</div>
+        <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:36px; line-height:1.05; color:var(--white); margin-bottom:10px;">Fora da Caixa?</div>
+        <div style="font-family:'Montserrat',sans-serif; font-weight:900; font-size:52px; line-height:1.0; color:var(--electric); margin-bottom:16px;">QUE CAIXA?</div>
+        <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-style:italic; font-size:15px; color:var(--gray-400); margin-bottom:28px;">Inovação, criatividade e soluções que sua equipe nunca pensou serem possíveis.</div>
+        <div style="display:flex; gap:10px;">
+          <div style="background:var(--amber); color:var(--black); font-family:'Montserrat',sans-serif; font-weight:600; font-size:13px; padding:14px 28px; border-radius:6px;">Contratar palestra</div>
+          <div style="border:1px solid var(--gray-600); color:var(--white); font-family:'Ubuntu',sans-serif; font-weight:400; font-size:14px; padding:14px 28px; border-radius:6px;">Assistir trailer</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 07: MEDIA KIT (widescreen) ===== -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">07</div>
+    <div>
+      <div class="section-title">Media Kit — Para enviar a empresas</div>
+      <div class="section-desc">O material que o RH/eventos recebe. Profissional, premium, com todas as credenciais.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label"><span class="name">Media Kit Widescreen</span><span class="tag tag-fc">16:9</span></div>
+    <div style="padding:10px; background:var(--black-soft);">
+      <div class="chevron-escape" style="aspect-ratio:16/9; border-radius:8px; background:var(--black); display:flex; position:relative; overflow:hidden;">
+        <div style="position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, transparent, var(--electric), transparent);"></div>
+        <!-- Left: Photo area -->
+        <div style="width:45%; display:flex; align-items:center; justify-content:center; position:relative;">
+          <div style="font-size:11px; color:var(--gray-600); text-align:center;">📷 Fosc sorrindo<br><span style="color:var(--electric); font-size:9px;">braços cruzados, colete<br>cor seletiva amber sobre B&W</span></div>
+        </div>
+        <!-- Right: Info -->
+        <div style="width:55%; padding:32px 36px; display:flex; flex-direction:column; justify-content:center; position:relative; z-index:2;">
+          <div style="font-family:'Montserrat',sans-serif; font-weight:200; font-size:11px; letter-spacing:0.12em; color:var(--gray-400); margin-bottom:4px;">
+            <span>LUIZ</span> <span style="font-weight:700;">FOSC</span>
+          </div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--electric); margin-bottom:14px;">Palestra Show</div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:24px; line-height:1.05; color:var(--white); margin-bottom:4px;">Como Pensar Fora da Caixa?</div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:900; font-size:34px; line-height:1.0; color:var(--electric); margin-bottom:14px;">QUE CAIXA?</div>
+          <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-size:13px; color:var(--gray-400); line-height:1.6; margin-bottom:16px;">
+            Inovação, criatividade e soluções inteligentes para equipes que precisam pensar diferente.
+          </div>
+          <!-- Credentials -->
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <div style="font-family:'Montserrat',sans-serif; font-size:8px; font-weight:500; letter-spacing:0.06em; text-transform:uppercase; color:var(--gray-300); border:1px solid var(--gray-600); border-radius:4px; padding:4px 8px;">🏆 2× Guinness World Record</div>
+            <div style="font-family:'Montserrat',sans-serif; font-size:8px; font-weight:500; letter-spacing:0.06em; text-transform:uppercase; color:var(--gray-300); border:1px solid var(--gray-600); border-radius:4px; padding:4px 8px;">🏆 Top of Mind Londres</div>
+            <div style="font-family:'Montserrat',sans-serif; font-size:8px; font-weight:500; letter-spacing:0.06em; text-transform:uppercase; color:var(--gray-300); border:1px solid var(--gray-600); border-radius:4px; padding:4px 8px;">500+ apresentações</div>
+          </div>
+        </div>
+        <!-- Cube mark -->
+        <div style="position:absolute; bottom:16px; right:20px;">
+          <svg width="36" height="36" viewBox="0 0 48 48">
+            <polygon points="24,4 44,16 44,36 24,48 4,36 4,16" fill="none" stroke="#F5F0EB" stroke-width="1" opacity="0.12"/>
+            <polygon points="24,4 44,16 44,36 24,48" fill="#E8A317" opacity="0.06"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div style="text-align:center; padding:48px 0; border-top:1px solid var(--gray-700);">
+  <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:28px; color:var(--white); margin-bottom:4px;">Como Pensar Fora da Caixa?</div>
+  <div style="font-family:'Montserrat',sans-serif; font-weight:900; font-size:36px; color:var(--electric); margin-bottom:16px;">QUE CAIXA?</div>
+  <div style="font-family:'Ubuntu',sans-serif; font-weight:300; font-style:italic; font-size:15px; color:var(--gray-400); margin-bottom:16px;">Não é dom, é estrutura.</div>
+  <div style="font-family:'Montserrat',sans-serif; font-size:10px; color:var(--gray-600); letter-spacing:0.04em;">
+    Identidade Visual · Palestra "Fora da Caixa" · Luiz Fosc · 2026-04-07<br>
+    Electric Amber #E8A317 · Cubo Aberto · Chevrons Escapando · Layout Assimétrico
+  </div>
+</div>
+
+</div>
+</body>
+</html>

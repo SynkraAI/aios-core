@@ -78,7 +78,7 @@ On EVERY invocation:
 ### Step 1.2: Load or Create Quest
 
 ```
-1. Check .aios/pipeline-checklist.yaml
+1. Check .aiox/pipeline-checklist.yaml
 2. If EXISTS: load state, calculate XP/level, show quest log
 3. If NOT EXISTS: show welcome ceremony (Section 5), create from template
 ```
@@ -481,7 +481,7 @@ worlds:
 
 ## 5. Welcome Ceremony (first run)
 
-When creating a NEW quest (no `.aios/pipeline-checklist.yaml` exists):
+When creating a NEW quest (no `.aiox/pipeline-checklist.yaml` exists):
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -639,7 +639,7 @@ Scale by XP value:
 
 ## 7. Checklist Template
 
-When creating a NEW quest, write `.aios/pipeline-checklist.yaml`:
+When creating a NEW quest, write `.aiox/pipeline-checklist.yaml`:
 
 ```yaml
 # Pipeline Quest — {PROJECT_NAME}
@@ -760,7 +760,7 @@ Same detection logic as v1 (check for files, configs, git state, Forge runs). On
   Opa! Voce ja fez mais do que pensava:
 
   NOVAS DESCOBERTAS:
-  +20 XP  0.1 AIOS instalado ........... .aios/ encontrado
+  +20 XP  0.1 AIOS instalado ........... .aiox/ encontrado
   +15 XP  0.3 GitHub configurado ....... remote origin detectado
   +15 XP  0.5 README + CLAUDE.md ....... ambos existem
   +35 XP  2.1 PRD criado ............... spec/prd.md encontrado
@@ -811,7 +811,7 @@ If a PRD file is found (`*prd*`, `*PRD*` in top 3 levels), READ its content and 
 
 ### Forge Integration
 
-If `.aios/forge-runs/*/state.json` exists, map Forge phases to quest items (same mapping as v1).
+If `.aiox/forge-runs/*/state.json` exists, map Forge phases to quest items (same mapping as v1).
 
 ---
 
@@ -853,4 +853,4 @@ tips:
 - **Multiple celebrations:** If completing an item triggers level up + achievement + world complete, show ALL celebrations in sequence (item → achievement → level up → world complete).
 - **Skipped items:** Skipped optional items don't break streak, don't block world progression, but don't give XP.
 - **Skipped required items:** Show warning: "Essa missao e obrigatoria. Tem certeza que quer pular? O mundo seguinte pode nao funcionar sem ela."
-- **Reset:** Archive current as `.aios/pipeline-checklist-{date}.yaml.bak`, create fresh.
+- **Reset:** Archive current as `.aiox/pipeline-checklist-{date}.yaml.bak`, create fresh.

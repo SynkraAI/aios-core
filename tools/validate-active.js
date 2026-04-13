@@ -10,7 +10,7 @@
  *   node tools/validate-active.js
  *   node tools/validate-active.js --fix  (remove rows com links quebrados)
  *
- * Também atualiza .aios/project-registry.json com last_seen.
+ * Também atualiza .aiox/project-registry.json com last_seen.
  */
 
 const fs = require('fs-extra');
@@ -23,7 +23,7 @@ const os = require('os');
 
 const AIOS_ROOT = path.resolve(__dirname, '..');
 const ACTIVE_MD = path.join(AIOS_ROOT, 'docs/projects/ACTIVE.md');
-const REGISTRY_PATH = path.join(AIOS_ROOT, '.aios/project-registry.json');
+const REGISTRY_PATH = path.join(AIOS_ROOT, '.aiox/project-registry.json');
 
 // ═══════════════════════════════════════════════════════════
 // HELPERS
@@ -50,7 +50,7 @@ function resolveIndexPath(link) {
 
 function detectMode(link) {
   if (!link) return 'UNKNOWN';
-  if (link.includes('.aios/')) return 'HYBRID';
+  if (link.includes('.aiox/')) return 'HYBRID';
   return 'CENTRALIZED';
 }
 

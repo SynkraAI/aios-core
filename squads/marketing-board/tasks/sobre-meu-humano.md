@@ -48,7 +48,7 @@ O que foi produzido: posts, carrosseis, temas do dia.
 
 ### 4. Expansion Pack Activity
 ```bash
-git diff --stat HEAD~10 -- .aios-core/expansion-packs/
+git diff --stat HEAD~10 -- .aiox-core/expansion-packs/
 ```
 Novos agentes, tasks, mudancas de sistema. A IA conta o que o Jose "construiu".
 
@@ -62,7 +62,7 @@ Novos agentes, tasks, mudancas de sistema. A IA conta o que o Jose "construiu".
 1. Rodar git log --since="24 hours ago"
 2. Listar docs/logs/ das ultimas 24h
 3. Listar outputs recentes
-4. Identificar commits em .aios-core/expansion-packs/
+4. Identificar commits em .aiox-core/expansion-packs/
 5. Compilar lista bruta de "observacoes"
 ```
 
@@ -132,7 +132,7 @@ Mesmo sistema visual do F3, MAS:
 ### Step 5: Gerar Slides (PNG)
 
 ```bash
-python3 .aios-core/expansion-packs/marketing-opes/scripts/generate_sobre_meu_humano.py \
+python3 .aiox-core/expansion-packs/marketing-opes/scripts/generate_sobre_meu_humano.py \
   --observations "obs1|obs2|obs3|obs4|obs5" \
   --cover-hook "A frase de capa" \
   --closing "A observacao final" \
@@ -163,7 +163,7 @@ autorizado por: ninguem
 
 ```bash
 # Usa o mesmo publish.py mas com flag especial
-python3 .aios-core/expansion-packs/marketing-opes/scripts/publish.py YYYY-MM-DD \
+python3 .aiox-core/expansion-packs/marketing-opes/scripts/publish.py YYYY-MM-DD \
   --instagram-only \
   --content-type sobre-meu-humano
 ```
@@ -217,7 +217,7 @@ Jose descobre o que foi publicado JUNTO com a audiencia. Esse e o ponto.
 
 - **Frequencia:** Diario (todo dia que houver atividade nas ultimas 24h)
 - **Horario:** 09:00 BRT (cron automatico, sem aprovacao)
-- **Automacao:** `crontab` roda `/.aios-core/expansion-packs/marketing-opes/scripts/auto_sobre_meu_humano.py`
+- **Automacao:** `crontab` roda `/.aiox-core/expansion-packs/marketing-opes/scripts/auto_sobre_meu_humano.py`
 - **Skip:** Se nao houver atividade nas ultimas 24h, nao publica (silencio e mais misterioso)
 - **Log:** `outputs/hubs/marketing/sobre-meu-humano-auto.log`
 

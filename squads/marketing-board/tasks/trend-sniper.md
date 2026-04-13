@@ -27,15 +27,15 @@ producao rapida (< 2h do alerta ao post publicado).
 
 ### Via Script (cron)
 ```bash
-python3 .aios-core/expansion-packs/marketing-opes/scripts/trend_sniper.py
-python3 .aios-core/expansion-packs/marketing-opes/scripts/trend_sniper.py --dry-run
-python3 .aios-core/expansion-packs/marketing-opes/scripts/trend_sniper.py --history
-python3 .aios-core/expansion-packs/marketing-opes/scripts/trend_sniper.py --force
+python3 .aiox-core/expansion-packs/marketing-opes/scripts/trend_sniper.py
+python3 .aiox-core/expansion-packs/marketing-opes/scripts/trend_sniper.py --dry-run
+python3 .aiox-core/expansion-packs/marketing-opes/scripts/trend_sniper.py --history
+python3 .aiox-core/expansion-packs/marketing-opes/scripts/trend_sniper.py --force
 ```
 
 ### Via Cron (automatico)
 ```
-*/30 8-21 * * * cd /Users/josecarlosamorim/mmos && python3 .aios-core/expansion-packs/marketing-opes/scripts/trend_sniper.py >> outputs/hubs/marketing/trends/cron.log 2>&1
+*/30 8-21 * * * cd /Users/josecarlosamorim/mmos && python3 .aiox-core/expansion-packs/marketing-opes/scripts/trend_sniper.py >> outputs/hubs/marketing/trends/cron.log 2>&1
 ```
 
 ---

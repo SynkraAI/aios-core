@@ -193,7 +193,7 @@ const PRE_FLIGHT_CHECKS = [
       const candidates = [
         path.join(projectPath, 'INDEX.md'),
         path.join(projectPath, 'docs/INDEX.md'),
-        path.join(projectPath, '.aios/INDEX.md')
+        path.join(projectPath, '.aiox/INDEX.md')
       ];
       const found = [];
       for (const c of candidates) {

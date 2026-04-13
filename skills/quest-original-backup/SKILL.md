@@ -249,7 +249,7 @@ open "http://localhost:{PORT}" 2>/dev/null || true
 
 **CRITICAL: The AIOS init is INTERACTIVE — it needs TTY.**
 
-If AIOS is NOT installed (no .aios/ and no .claude/CLAUDE.md):
+If AIOS is NOT installed (no .aiox/ and no .claude/CLAUDE.md):
 
 ```
   [2/4] AIOS nao detectado. Preciso que voce instale.
@@ -277,7 +277,7 @@ If AIOS IS installed, skip this step and show:
 After AIOS is confirmed installed, create the checklist:
 
 1. Read the pipeline-checklist skill at `/Users/luizfosc/aios-core/skills/pipeline-checklist/SKILL.md`
-2. Create `.aios/pipeline-checklist.yaml` from the template in Section 7 of that skill
+2. Create `.aiox/pipeline-checklist.yaml` from the template in Section 7 of that skill
 3. Run the scan logic (Section 4 of that skill) to auto-detect completed items
 
 Show:
@@ -348,7 +348,7 @@ If user says yes, dispatch @devops with `*environment-bootstrap`. Then continue 
 
 Once AIOS is installed, invoke the pipeline-checklist skill to create the quest log:
 - Read the skill at `~/aios-core/skills/pipeline-checklist/SKILL.md`
-- Create `.aios/pipeline-checklist.yaml` from template
+- Create `.aiox/pipeline-checklist.yaml` from template
 - Run scan to auto-detect what was just done (AIOS install, etc.)
 - Show the quest log with current status
 
@@ -387,7 +387,7 @@ The scan will detect existing items (git, package.json, README, etc.) and mark t
 AIOS is there but setup isn't complete or checklist doesn't exist.
 
 **4a. Create checklist if missing:**
-Invoke pipeline-checklist skill to create `.aios/pipeline-checklist.yaml`.
+Invoke pipeline-checklist skill to create `.aiox/pipeline-checklist.yaml`.
 
 **4b. Run scan:**
 Auto-detect what's already done.

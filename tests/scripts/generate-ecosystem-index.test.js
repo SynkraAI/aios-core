@@ -136,12 +136,12 @@ describe('generate-ecosystem-index.js', () => {
   });
 
   describe('Core Agents Scanning', () => {
-    test('should scan .aios-core/development/agents/*.md', () => {
+    test('should scan .aiox-core/development/agents/*.md', () => {
       execSync(`node "${SCRIPT_PATH}"`, { encoding: 'utf8' });
       const content = fs.readFileSync(OUTPUT_PATH, 'utf8');
 
       // Should find some core agents
-      expect(content).toMatch(/aios-dev|aios-qa|aios-po/);
+      expect(content).toMatch(/aiox-dev|aiox-qa|aiox-po/);
     });
   });
 

@@ -56,7 +56,7 @@
   - cria pasta do run
   - cria `state.json`
   - cria `context-pack.json`
-  - não cria `.aios/forge-runs/.lock`
+  - não cria `.aiox/forge-runs/.lock`
 - [ ] Escolher `Executar de verdade`
 - [ ] Confirmar que o novo run real:
   - recebe novo `run_id`

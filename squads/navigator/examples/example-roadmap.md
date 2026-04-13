@@ -361,7 +361,7 @@ analytics, e features de produtividade de time.
 ## Notas
 
 - Este roadmap e versionado em git
-- Updates sincronizam entre .aios/navigator/ e docs/
+- Updates sincronizam entre .aiox/navigator/ e docs/
 - Use `@navigator *where-am-i` para checar progresso
 - Checkpoints auto-criados apos cada fase
 
@@ -398,7 +398,7 @@ analytics, e features de produtividade de time.
 
 **Agents:**
 - Sempre use prefixo `@`
-- Deve corresponder a IDs de agente em `.aios-core/development/agents/`
+- Deve corresponder a IDs de agente em `.aiox-core/development/agents/`
 
 **Commands:**
 - Sempre use prefixo `*`

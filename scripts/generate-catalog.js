@@ -42,7 +42,7 @@ const SQUADS_DIR = path.join(ROOT, 'squads');
 const SKILLS_DIR = path.join(ROOT, 'skills');
 const TOOLS_DIR = path.join(ROOT, 'tools');
 const AGENTS_DIR = path.join(ROOT, '.claude', 'commands', 'AIOS', 'agents');
-const TAXONOMY_PATH = path.join(ROOT, '.aios-core', 'data', 'domain-taxonomy.json');
+const TAXONOMY_PATH = path.join(ROOT, '.aiox-core', 'data', 'domain-taxonomy.json');
 
 /**
  * Load domain taxonomy for tag inference
@@ -1101,14 +1101,14 @@ function main() {
     const markdown = generateMarkdown(squads, skills, tools, agents, minds);
 
     // Write catalog.md
-    const outputPath = path.join(ROOT, '.aios-core', 'data', 'catalog.md');
+    const outputPath = path.join(ROOT, '.aiox-core', 'data', 'catalog.md');
     fs.writeFileSync(outputPath, markdown, 'utf8');
     log(`✓ Catalog written to ${outputPath}`, 'green');
 
     // Write catalog-tags.json
     log('📝 Generating tags JSON...', 'cyan');
     const tagsJson = generateTagsJson(squads, skills, tools, agents, minds);
-    const jsonPath = path.join(ROOT, '.aios-core', 'data', 'catalog-tags.json');
+    const jsonPath = path.join(ROOT, '.aiox-core', 'data', 'catalog-tags.json');
     fs.writeFileSync(jsonPath, JSON.stringify(tagsJson, null, 2), 'utf8');
     log(`✓ Tags JSON written to ${jsonPath}`, 'green');
 

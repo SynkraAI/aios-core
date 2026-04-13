@@ -209,7 +209,7 @@ operational_frameworks:
          - decisions made, stories touched
          - learning-worthy insights
       4. Never blocks session exit
-      5. On failure: logs to .aios/logs/kaizen-stop.log (silent to user)
+      5. On failure: logs to .aiox/logs/kaizen-stop.log (silent to user)
 
     example_daily_yaml:
       date: "2026-03-11"

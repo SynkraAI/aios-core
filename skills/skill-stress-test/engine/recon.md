@@ -71,7 +71,7 @@ Extract the discovery questions section:
 
 Identify all files the skill creates:
 - Output files mentioned in instructions
-- State files (`.aios/`, `progress.yaml`, `state.json`, etc.)
+- State files (`.aiox/`, `progress.yaml`, `state.json`, etc.)
 - Reports or generated content
 - Temporary files
 
@@ -88,7 +88,7 @@ Identify external dependencies:
 #### 2g. State Files
 
 Identify what state the skill reads and writes:
-- `.aios/` directory patterns
+- `.aiox/` directory patterns
 - YAML/JSON state files
 - Progress tracking files
 - Session/history files

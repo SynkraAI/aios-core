@@ -6,7 +6,7 @@ Use this checklist to validate roadmap structure and completeness before startin
 
 ## File Structure
 
-- [ ] Roadmap file exists at `.aios/navigator/{project-name}/roadmap.md`
+- [ ] Roadmap file exists at `.aiox/navigator/{project-name}/roadmap.md`
 - [ ] Local copy exists at `docs/framework/roadmap.md` (if bidirectional sync enabled)
 - [ ] File has valid YAML front-matter with required metadata
 - [ ] Markdown content is well-formed and readable
@@ -63,7 +63,7 @@ Use this checklist to validate roadmap structure and completeness before startin
 
 ## Agent Assignments
 
-- [ ] All referenced agents exist in `.aios-core/development/agents/`
+- [ ] All referenced agents exist in `.aiox-core/development/agents/`
 - [ ] Agent capabilities match phase responsibilities
 - [ ] No single agent dominates entire pipeline (balanced workload)
 - [ ] Handoffs between agents are logical (e.g., @pm → @architect → @dev)

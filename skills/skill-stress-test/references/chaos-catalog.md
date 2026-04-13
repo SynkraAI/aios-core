@@ -178,8 +178,8 @@ and what USUALLY happens (crash). Sorted by frequency of occurrence.
 - **Common failure:** Write tool fails, skill crashes
 - **Severity:** MEDIUM
 
-### C7-002: No write permission to .aios/
-- **Trigger:** `chmod 444 .aios/` before running skill
+### C7-002: No write permission to .aiox/
+- **Trigger:** `chmod 444 .aiox/` before running skill
 - **Expected:** Skill reports can't write state, continues without persistence
 - **Common failure:** State write fails silently, progress lost
 - **Severity:** MEDIUM

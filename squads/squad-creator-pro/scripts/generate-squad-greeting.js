@@ -32,11 +32,11 @@ const fs = require('fs').promises;
 const path = require('path');
 const yaml = require('js-yaml');
 
-// Framework dependencies (from .aios-core/)
-const { SquadLoader } = require('../../../.aios-core/development/scripts/squad/squad-loader');
-const GreetingBuilder = require('../../../.aios-core/development/scripts/greeting-builder');
-const SessionContextLoader = require('../../../.aios-core/scripts/session-context-loader');
-const { loadProjectStatus } = require('../../../.aios-core/infrastructure/scripts/project-status-loader');
+// Framework dependencies (from .aiox-core/)
+const { SquadLoader } = require('../../../.aiox-core/development/scripts/squad/squad-loader');
+const GreetingBuilder = require('../../../.aiox-core/development/scripts/greeting-builder');
+const SessionContextLoader = require('../../../.aiox-core/scripts/session-context-loader');
+const { loadProjectStatus } = require('../../../.aiox-core/infrastructure/scripts/project-status-loader');
 
 const DEFAULT_SQUADS_PATH = './squads';
 const DEFAULT_REGISTRY_PATH = './squads/squad-creator/data/squad-registry.yaml';

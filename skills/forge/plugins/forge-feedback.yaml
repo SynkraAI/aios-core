@@ -20,12 +20,12 @@ hooks:
     section: "1. Previous Run Feedback"
     description: |
       At the start of a new run in the SAME project:
-      1. Check .aios/forge-runs/ for completed runs in this project
+      1. Check .aiox/forge-runs/ for completed runs in this project
       2. Find the most recent completed run
-      3. Check .aios/memory/forge/feedback.yaml for existing feedback on that run
+      3. Check .aiox/memory/forge/feedback.yaml for existing feedback on that run
       4. If completed run exists AND no feedback captured yet:
          Show feedback prompt (see forge-feedback.md section 1)
-      5. If user gives feedback: save to .aios/memory/forge/feedback.yaml
+      5. If user gives feedback: save to .aiox/memory/forge/feedback.yaml
       6. If user skips: proceed silently
 
       NEVER block run start on feedback. If user doesn't respond, skip.
@@ -44,11 +44,11 @@ hooks:
 
       Save feedback to state.json under plugins.forge_feedback.
       The forge-memory plugin will pick this up and persist it
-      to .aios/memory/forge/feedback.yaml at the next run.
+      to .aiox/memory/forge/feedback.yaml at the next run.
 
 state_key: "forge_feedback"
 
 config:
   ask_previous_run_feedback: true
   ask_current_run_feedback: true
-  feedback_file: ".aios/memory/forge/feedback.yaml"
+  feedback_file: ".aiox/memory/forge/feedback.yaml"

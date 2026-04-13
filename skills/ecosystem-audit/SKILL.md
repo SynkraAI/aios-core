@@ -42,7 +42,7 @@ Auditoria em **6 dimensões**:
 
 1. **Projects** — Configurações `.claude/` + INDEX.md + stories
 2. **Squads** — README, agents, tasks, workflows
-3. **Agents** — Definições em `.aios-core/development/agents/`
+3. **Agents** — Definições em `.aiox-core/development/agents/`
 4. **Skills** — Estrutura em `skills/`
 5. **Minds** — Clones em `squads/mind-cloning/minds/`
 6. **Tools** — Scripts em `tools/`
@@ -115,7 +115,7 @@ Score = média ponderada:
 
 ### 3. Agents Audit
 
-Para cada agent em `.aios-core/development/agents/`:
+Para cada agent em `.aiox-core/development/agents/`:
 - Arquivo `.md` presente
 - Seções obrigatórias: Role, Capabilities, Commands
 - Integração com squads (bidirectional link)

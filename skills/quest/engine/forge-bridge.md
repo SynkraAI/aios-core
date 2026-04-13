@@ -357,11 +357,11 @@ When the user enables Quest from within `/forge` (Phase 0, Step 5.5), the Forge 
 ```
 function detect_forge_quest_bootstrap():
   // Check for active Forge runs with quest_enabled
-  runs = glob(".aios/forge-runs/*/state.json")
+  runs = glob(".aiox/forge-runs/*/state.json")
   for run in runs:
     state = read_json(run)
     if state.quest_enabled == true AND state.status == "running":
-      if NOT exists(".aios/quest-log.yaml"):
+      if NOT exists(".aiox/quest-log.yaml"):
         return state.quest_bootstrap  // bootstrap data
   return null
 ```
@@ -389,7 +389,7 @@ When `detect_forge_quest_bootstrap()` returns data, the Quest Engine creates `qu
    - project: project_name
    - project_path: cwd
 
-   This creates .aios/quest-log.yaml with the CANONICAL schema:
+   This creates .aiox/quest-log.yaml with the CANONICAL schema:
    meta (project, project_path, pack, pack_version, hero_name, hero_title, created, last_updated),
    stats, achievements, integration_results, items.
 

@@ -37,13 +37,13 @@
 
 ### Session State
 - **Format:** YAML
-- **Location:** `.aios/.session-state.yaml`
-- **Backup:** `.aios/snapshots/*.json`
+- **Location:** `.aiox/.session-state.yaml`
+- **Backup:** `.aiox/snapshots/*.json`
 - **Retention:** 30 days (auto-archive)
 
 ### Lock Files
 - **Format:** YAML
-- **Location:** `.aios/locks/*.lock`
+- **Location:** `.aiox/locks/*.lock`
 - **TTL:** 300s (5 minutes)
 - **Cleanup:** Auto on startup
 

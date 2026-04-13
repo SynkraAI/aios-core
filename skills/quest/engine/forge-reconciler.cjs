@@ -37,7 +37,7 @@ const MODE_TO_PACK = {
  * @param {object} options
  * @param {string} options.projectPath - Absolute path to project root
  * @param {string} options.questLogPath - Path to quest-log.yaml
- * @param {string} options.forgeRunsDir - Path to .aios/forge-runs/
+ * @param {string} options.forgeRunsDir - Path to .aiox/forge-runs/
  * @param {string} options.packsDir - Path to skills/quest/packs/
  * @returns {{ synced_count: number, items_synced: string[], run_id: string|null, quest_log: object|null }}
  */

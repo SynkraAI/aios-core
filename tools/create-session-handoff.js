@@ -87,7 +87,7 @@ async function createHandoff(projectName, type, mode, projectPath) {
 
   // Determinar onde salvar o handoff
   const sessionsDir = mode === 'HYBRID'
-    ? path.join(projectPath, '.aios/sessions', yearMonth)
+    ? path.join(projectPath, '.aiox/sessions', yearMonth)
     : path.join(__dirname, '../docs/sessions', yearMonth);
 
   await fs.ensureDir(sessionsDir);
@@ -99,7 +99,7 @@ async function createHandoff(projectName, type, mode, projectPath) {
 
 **Data:** ${date}
 **Tipo:** ${type}
-**Modo:** ${mode} (${mode === 'HYBRID' ? 'Governança local (.aios/)' : 'Governança central (docs/projects/)'})
+**Modo:** ${mode} (${mode === 'HYBRID' ? 'Governança local (.aiox/)' : 'Governança central (docs/projects/)'})
 **Path:** ${projectPath}
 
 ---
@@ -128,7 +128,7 @@ docs/projects/${slug}/
 
 \`\`\`
 ${projectPath}/
-├── .aios/
+├── .aiox/
 │   ├── INDEX.md            # Estado do projeto
 │   ├── sessions/           # Handoffs
 │   ├── stories/            # Stories
@@ -138,7 +138,7 @@ ${projectPath}/
 │   ├── settings.json       # Permissões
 │   └── rules/              # Regras comportamentais
 └── docs/
-    ├── INDEX.md            # Symlink → ../.aios/INDEX.md
+    ├── INDEX.md            # Symlink → ../.aiox/INDEX.md
     ├── HANDOFFS-INDEX.md
     ├── README.md
     ├── stories/            # Estrutura completa

@@ -69,7 +69,7 @@ Para cada fase do workflow detectado, SIMULAR (sem executar):
    - **Se `mvp.mode` = "defined" ou "assisted":** separar MVP (3-5) e post-MVP (2-5). Mostrar "~3-5 MVP + ~2-5 post-MVP"
    - **NUNCA** mostrar o range de MVP como se fosse o total quando `mvp.mode = "all"`
    - **Calibração via Forge Memory (se disponível):**
-     Checar `.aios/memory/forge/learnings.yaml` por entries com `category: "estimation_accuracy"` neste projeto.
+     Checar `.aiox/memory/forge/learnings.yaml` por entries com `category: "estimation_accuracy"` neste projeto.
      Se existirem: usar `accuracy_ratio` médio para ajustar a estimativa genérica.
      Exemplo: se o ratio médio é 1.8 (estimou 5, foram 9), multiplicar estimativa por 1.8.
      Learnings de estimation_accuracy têm precedência sobre ranges genéricos.
@@ -156,7 +156,7 @@ O que quer fazer?
 
   **Validação:** Ao iniciar Phase 1, o runner DEVE verificar que o novo state.json tem todos os campos obrigatórios (`discovery`, `tech_decisions`, `mvp`, `core_atom`, `plugins.ecosystem_scan`). Se algum estiver faltando, HALT com mensagem de erro — não prosseguir com estado incompleto.
 
-- **Opção 2:** Salvar o relatório como `.aios/forge-runs/{run_id}/simulation-report.md`. Marcar dry-run como `status: "saved"`.
+- **Opção 2:** Salvar o relatório como `.aiox/forge-runs/{run_id}/simulation-report.md`. Marcar dry-run como `status: "saved"`.
 - **Opção 3:** Voltar ao Phase SIM-1 com perguntas específicas
 - **Opção 4:** Marcar dry-run como `status: "cancelled"`. Encerrar.
 
@@ -207,10 +207,10 @@ Se o usuário escolher "Executar de verdade" (opção 1), o run real que se inic
 
 ## State Management
 
-- **Creates** `.aios/forge-runs/{run_id}/` with `state.json` (mode: "DRY_RUN")
-- **NUNCA cria `.aios/forge-runs/.lock`** — dry-run é simulação, não bloqueia outros runs. Lock só é criado se o usuário escolher "Executar de verdade" (opção 1 do SIM-4), e nesse caso é o NOVO run real que cria o lock, não o dry-run.
+- **Creates** `.aiox/forge-runs/{run_id}/` with `state.json` (mode: "DRY_RUN")
+- **NUNCA cria `.aiox/forge-runs/.lock`** — dry-run é simulação, não bloqueia outros runs. Lock só é criado se o usuário escolher "Executar de verdade" (opção 1 do SIM-4), e nesse caso é o NOVO run real que cria o lock, não o dry-run.
 - `state.json` contains Discovery answers, ecosystem scan results, and simulation report
-- If user chooses option 2 (save plan): export simulation report as `.aios/forge-runs/{run_id}/simulation-report.md`
+- If user chooses option 2 (save plan): export simulation report as `.aiox/forge-runs/{run_id}/simulation-report.md`
 - If user chooses option 1 (execute): um NOVO run é criado (ver detalhes na seção SIM-4 opção 1 acima)
 
 ---

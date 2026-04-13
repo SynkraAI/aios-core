@@ -10,7 +10,7 @@ const cwd = process.env.CLAUDE_PROJECT_DIR || process.cwd();
 const AIOS_CORE = path.join(os.homedir(), 'aios-core');
 
 function findMemory() {
-  // 1. HYBRID: .aios/memory/ in cwd
+  // 1. HYBRID: .aiox/memory/ in cwd
   const hybridPath = path.join(cwd, '.aios', 'memory', 'project-context.md');
   if (fs.existsSync(hybridPath)) {
     return {
@@ -110,7 +110,7 @@ function main() {
   }
 
   // User profile key rules
-  const profilePath = path.join(AIOS_CORE, '.aios-core', 'data', 'memory', 'user', 'luiz-fosc-profile.md');
+  const profilePath = path.join(AIOS_CORE, '.aiox-core', 'data', 'memory', 'user', 'luiz-fosc-profile.md');
   if (fs.existsSync(profilePath)) {
     try {
       const profile = fs.readFileSync(profilePath, 'utf8');

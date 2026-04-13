@@ -19,18 +19,18 @@ Execute runner.md Section 2, Step 1 ("Enter Phase") para N=2 antes de prosseguir
 ### Step 1: Story Creation (@sm)
 
 Dispatch @sm via Agent tool:
-- Agent: `{AIOS_HOME}/.aios-core/development/agents/aios-sm.md`
-- Task: `{AIOS_HOME}/.aios-core/development/tasks/create-next-story.md`
+- Agent: `{AIOS_HOME}/.aiox-core/development/agents/aios-sm.md`
+- Task: `{AIOS_HOME}/.aiox-core/development/tasks/create-next-story.md`
 - Input:
-  - Final spec from Phase 1: `.aios/forge-runs/{run_id}/spec/spec-final.md`
-  - Architecture document: `.aios/forge-runs/{run_id}/spec/architecture.md`
+  - Final spec from Phase 1: `.aiox/forge-runs/{run_id}/spec/spec-final.md`
+  - Architecture document: `.aiox/forge-runs/{run_id}/spec/architecture.md`
   - Epic definition (extracted from spec)
 - Instructions:
   - Create stories ONE BY ONE, not all at once
   - Each story must have: title, description (As a/I want/So that), AC, tasks, dev notes
   - **Each story MUST be tagged as `mvp: true` or `mvp: false`** based on the MVP Scope from the PRD
   - **Each story MUST declare `depends_on: []`** — list of story IDs that must be completed before this story can start. Base stories (no dependencies) get `depends_on: []`.
-  - Follow the story template at `.aios-core/product/templates/story-tmpl.yaml`
+  - Follow the story template at `.aiox-core/product/templates/story-tmpl.yaml`
   - Save each story to `docs/stories/active/{run_id}/` (subpasta por run para isolamento)
   - **MVP stories FIRST**, then post-MVP stories
   - Suggest priority order: MVP stories ordered by dependency → post-MVP stories ordered by value
@@ -48,8 +48,8 @@ Show progress:
 For EACH story created by @sm:
 
 Dispatch @po:
-- Agent: `{AIOS_HOME}/.aios-core/development/agents/aios-po.md`
-- Task: `{AIOS_HOME}/.aios-core/development/tasks/validate-next-story.md`
+- Agent: `{AIOS_HOME}/.aiox-core/development/agents/aios-po.md`
+- Task: `{AIOS_HOME}/.aiox-core/development/tasks/validate-next-story.md`
 - Input: Story file
 - Validation: 10-point checklist (completeness, clarity, testability, etc.)
 - Scoring: Pass >= 7/10

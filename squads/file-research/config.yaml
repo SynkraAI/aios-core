@@ -101,7 +101,7 @@ security:
     - docs/file-research/**
   forbidden_paths:
     - .claude/**
-    - .aios-core/**
+    - .aiox-core/**
     - squads/**
     - packages/**
   validation:

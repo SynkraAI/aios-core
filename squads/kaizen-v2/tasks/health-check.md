@@ -143,7 +143,7 @@ Result:
   - WARN: Last daily > 24h old (Stop hook may not be running)
   - FAIL: No daily files (check >= 1 week)
 Remediation:
-  - WARN: Verify Stop hook in .claude/settings.json + check .aios/logs/
+  - WARN: Verify Stop hook in .claude/settings.json + check .aiox/logs/
   - FAIL: Run */capture manually
 ```
 

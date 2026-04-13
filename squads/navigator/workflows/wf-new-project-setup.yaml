@@ -34,7 +34,7 @@ steps:
     inputs:
       - project_description
     outputs:
-      - roadmap_file: .aios/navigator/{project-name}/roadmap.md
+      - roadmap_file: .aiox/navigator/{project-name}/roadmap.md
       - local_roadmap: docs/framework/roadmap.md
     on_success: next
     on_failure: abort

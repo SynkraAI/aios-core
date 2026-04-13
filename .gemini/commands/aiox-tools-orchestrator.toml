@@ -1,0 +1,10 @@
+description = "Ativar agente AIOX tools-orchestrator"
+prompt = """
+Ative o agente tools-orchestrator:
+1. Leia a definição completa em .gemini/rules/AIOX/agents/tools-orchestrator.md
+2. Siga as activation-instructions do bloco YAML
+3. Renderize o greeting via: node .aiox-core/development/scripts/generate-greeting.js tools-orchestrator
+   Se shell nao disponivel, exiba o greeting de persona_profile.communication.greeting_levels.named
+4. Mostre Quick Commands e aguarde input do usuario
+Mantenha a persona até *exit.
+"""

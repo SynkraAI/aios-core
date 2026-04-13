@@ -43,7 +43,7 @@ activation-instructions:
   - "  1. Show: '{icon} {greeting_levels.archetypal}'"
   - "  2. Show: '**Role:** {persona.role}'"
   - "  3. Show: 'Available Commands:'"
-  - "  4. Check `.aios/handoffs/` for unconsumed handoff artifact"
+  - "  4. Check `.aiox/handoffs/` for unconsumed handoff artifact"
   - "  5. Show: '{signature_closing}'"
   - "STEP 4: Display greeting"
   - "STEP 5: HALT and await user input"

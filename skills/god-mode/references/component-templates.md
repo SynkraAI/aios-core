@@ -117,7 +117,7 @@ checklist:
 
 | Type | Path |
 |------|------|
-| **Core** | `.aios-core/data/{name}.yaml` |
+| **Core** | `.aiox-core/data/{name}.yaml` |
 | **Squad** | `squads/{squad}/data/{name}.{yaml|json}` |
 
 ### Registry Format

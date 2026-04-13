@@ -262,6 +262,55 @@
     }
 
     /* === PROJECT VIEW === */
+    .hero-card {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      padding: 1.25rem 1.5rem;
+      border-radius: var(--radius-card, 12px);
+      background: linear-gradient(135deg, var(--bg-card, #1e293b) 0%, var(--bg-card-hover, #334155) 100%);
+      border: 1px solid var(--accent-primary, #00fff2);
+      box-shadow: 0 0 20px rgba(0, 255, 242, 0.08);
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+    }
+    .hero-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 30px rgba(0, 255, 242, 0.15);
+    }
+    .hero-avatar {
+      font-size: 2.5rem;
+      line-height: 1;
+      filter: drop-shadow(0 0 8px var(--accent-primary, #00fff2));
+    }
+    .hero-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+      flex: 1;
+      min-width: 0;
+    }
+    .hero-label {
+      font-size: 0.7rem;
+      color: var(--text-secondary, #64748b);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 600;
+    }
+    .hero-name {
+      font-family: var(--font-mono, 'JetBrains Mono', monospace);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-accent, #00fff2);
+      line-height: 1.2;
+    }
+    .hero-title-text {
+      font-size: 0.9rem;
+      color: var(--text-primary, #e2e8f0);
+      font-style: italic;
+      opacity: 0.85;
+    }
+
     .stats-row {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -1720,8 +1769,20 @@
       ? '<span class="streak-badge"><span class="streak-fire">\uD83D\uDD25</span> Streak ' + streak + '</span>'
       : '';
 
+    var heroNameVal = (data.meta && data.meta.hero_name) || 'Aventureiro';
+    var heroTitleVal = (data.meta && data.meta.hero_title) || '';
+    var heroHtml = '<div class="hero-card view-enter">' +
+        '<div class="hero-avatar">\u2694\uFE0F</div>' +
+        '<div class="hero-info">' +
+          '<div class="hero-label">HER\u00D3I</div>' +
+          '<div class="hero-name">' + escapeHtml(heroNameVal) + '</div>' +
+          (heroTitleVal ? '<div class="hero-title-text">' + escapeHtml(heroTitleVal) + '</div>' : '') +
+        '</div>' +
+      '</div>';
+
     app.innerHTML = renderHeader(displayName, packName ? 'Pack: ' + packName : 'Quest', true) +
       victoryHtml +
+      heroHtml +
       '<div class="stats-row view-enter">' +
         '<div class="stat-card"><div class="stat-value">\u2B50 ' + stats.xp + '</div><div class="stat-label">XP Total</div></div>' +
         '<div class="stat-card"><div class="stat-value">\u2694\uFE0F ' + stats.done + '/' + stats.total + '</div><div class="stat-label">Miss\u00F5es</div></div>' +
@@ -1824,6 +1885,7 @@
           '<button class="zoom-btn" onclick="changeZoom(10)" title="Aumentar fonte">+</button>' +
         '</div>' +
         '<a href="/map.html" class="header-back" title="Quest Map" style="text-decoration:none;width:auto;padding:0 10px;font-size:0.75rem;letter-spacing:1px;">MAP</a>' +
+        '<a href="/reflections.html" class="header-back" title="Socratica Reflections" style="text-decoration:none;width:auto;padding:0 10px;font-size:0.75rem;letter-spacing:1px;">SOCRATICA</a>' +
         '<div class="theme-switcher">' +
           '<select class="theme-select" id="theme-dropdown" onchange="onThemeClick(this.value)">' +
             '<optgroup label="Dark">' +

@@ -16,7 +16,7 @@ Nenhum forge pode conhecer tudo isso de cabeça. O scanner é o "olho" que vê a
 
 **Não ler o catalog. RODAR o `/catalog`.**
 
-O `/catalog` regenera `.aios-core/data/catalog.md` com dados frescos. Isso garante que o scan sempre trabalha com a versão mais atualizada do ecossistema — sem depender de quando foi a última vez que alguém rodou.
+O `/catalog` regenera `.aiox-core/data/catalog.md` com dados frescos. Isso garante que o scan sempre trabalha com a versão mais atualizada do ecossistema — sem depender de quando foi a última vez que alguém rodou.
 
 O catalog gerado contém:
 - Todos os squads com descrição e comando de ativação
@@ -24,7 +24,7 @@ O catalog gerado contém:
 - Todas as tools com descrição
 - Todos os agents com persona, escopo e autoridade exclusiva
 
-**Após rodar `/catalog`, ler `.aios-core/data/catalog.md`.** É o ÚNICO arquivo necessário pra visão completa.
+**Após rodar `/catalog`, ler `.aiox-core/data/catalog.md`.** É o ÚNICO arquivo necessário pra visão completa.
 
 ### Fonte Complementar: Minds
 
@@ -37,9 +37,9 @@ O catalog não inclui minds. Para minds, ler:
 
 ### Step 1: Rodar `/catalog`
 
-Invoke the `/catalog` skill. This regenerates `.aios-core/data/catalog.md` with fresh data.
+Invoke the `/catalog` skill. This regenerates `.aiox-core/data/catalog.md` with fresh data.
 
-After it completes, read `.aios-core/data/catalog.md` and extract all 4 tables:
+After it completes, read `.aiox-core/data/catalog.md` and extract all 4 tables:
 - Squads (nome, descrição, ativação)
 - Skills (nome, descrição, ativação)
 - Tools (nome, descrição)
@@ -173,7 +173,7 @@ Após validação do usuário, converter scan results em capability-map.yaml:
 
 ```yaml
 # Gerado pelo Ecosystem Scanner do forge-creator
-# Fonte: .aios-core/data/catalog.md + docs/ECOSYSTEM-INDEX.md (minds)
+# Fonte: .aiox-core/data/catalog.md + docs/ECOSYSTEM-INDEX.md (minds)
 # Domínio: {domain}
 # Scan date: {ISO8601}
 

@@ -21,7 +21,7 @@ Execute runner.md Section 2, Step 1 ("Enter Phase") para N=4 antes de prosseguir
 ### Step 1: Full Test Suite (@qa)
 
 Dispatch @qa via Agent tool:
-- Agent: `{AIOS_HOME}/.aios-core/development/agents/aios-qa.md`
+- Agent: `{AIOS_HOME}/.aiox-core/development/agents/aios-qa.md`
 - Task: Full integration review (not per-story, but whole project)
 - Input:
   - All story files (list from state.json phases.2.stories)
@@ -192,7 +192,7 @@ The runner executes plugins in priority order (30-35 for quality gates). Results
 ### Step 5: Pre-Push Quality Gate (@devops)
 
 Dispatch @devops (read-only mode, no push yet):
-- Agent: `{AIOS_HOME}/.aios-core/development/agents/aios-devops.md`
+- Agent: `{AIOS_HOME}/.aiox-core/development/agents/aios-devops.md`
 - Run pre-push quality gate:
   1. `npm run lint` — 0 errors
   2. `npm run typecheck` — 0 errors

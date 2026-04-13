@@ -19,7 +19,7 @@ Execute runner.md Section 2, Step 1 ("Enter Phase") para N=1 antes de prosseguir
 ### Step 1: PRD Creation (@pm)
 
 Dispatch @pm via Agent tool:
-- Agent: `{AIOS_HOME}/.aios-core/development/agents/aios-pm.md`
+- Agent: `{AIOS_HOME}/.aiox-core/development/agents/aios-pm.md`
 - Task: spec-gather-requirements + spec-write-spec
 - Input:
   - User answers from Phase 0
@@ -32,7 +32,7 @@ Dispatch @pm via Agent tool:
     * Table stakes e gaps identificados
     * Recomendação (build_on_existing, integrate_components, build_from_scratch)
     * `research_folder` path para detalhes completos
-- Output: PRD document saved to `.aios/forge-runs/{run_id}/spec/prd.md`
+- Output: PRD document saved to `.aiox/forge-runs/{run_id}/spec/prd.md`
 
 **Se market_research.executed == true — @pm DEVE incorporar no PRD:**
 
@@ -71,13 +71,13 @@ Show progress:
 Dispatch in PARALLEL (two Agent tool calls in one message):
 
 **@architect:**
-- Agent: `{AIOS_HOME}/.aios-core/development/agents/aios-architect.md`
+- Agent: `{AIOS_HOME}/.aiox-core/development/agents/aios-architect.md`
 - Task: spec-assess-complexity
 - Input: PRD from Step 1
 - **Constraint — repo structure:** Read `state.json → tech_decisions.repo_structure`. When value is `monorepo_workspaces`, the architecture document MUST define `frontend/` and `backend/` as separate top-level directories. When `single_package`, use flat layout. The @architect owns the definitive directory tree — the scaffold plugin will use this output as source of truth for the CLAUDE.md `## Project Structure` section.
 - Stamp report (se `state.json.stamp` disponível): usar folder structure e design patterns como referência para decisões de arquitetura
 - Output: Complexity score + architecture document (including directory structure)
-- Save to: `.aios/forge-runs/{run_id}/spec/architecture.md`
+- Save to: `.aiox/forge-runs/{run_id}/spec/architecture.md`
 
 **@analyst (MANDATORY quando Phase 1 executa — dois modos):**
 
@@ -89,10 +89,10 @@ O @analyst SEMPRE despacha em paralelo com @architect quando Phase 1 é executad
   - Verificar assinaturas de API vs versão estável atual
   - Checar breaking changes desde knowledge cutoff
   - Checar deprecation notices
-- Agent: `{AIOS_HOME}/.aios-core/development/agents/aios-analyst.md`
+- Agent: `{AIOS_HOME}/.aiox-core/development/agents/aios-analyst.md`
 - Task: docs-validation (lightweight, focused on API compatibility)
 - Input: Lista de tecnologias de `state.json.tech_decisions` + PRD
-- Output: `.aios/forge-runs/{run_id}/spec/docs-validation.md`
+- Output: `.aiox/forge-runs/{run_id}/spec/docs-validation.md`
 - Formato do output:
   ```markdown
   # Docs Validation Report
@@ -119,7 +119,7 @@ O @analyst SEMPRE despacha em paralelo com @architect quando Phase 1 é executad
 - Input: PRD + specific technical questions
 - Inject: relevant minds from context-pack (ex: @hormozi for growth, @munger for strategy)
 - Output: Research brief
-- Save to: `.aios/forge-runs/{run_id}/spec/research.md`
+- Save to: `.aiox/forge-runs/{run_id}/spec/research.md`
 
 **Lógica de dispatch:**
 - SEMPRE despachar Mode A (Doc Validation) — é obrigatório, nunca pular
@@ -142,7 +142,7 @@ Dispatch @pm again:
 - Input: PRD + architecture + research (if available) + docs-validation.md
   - @pm DEVE referenciar docs-validation no PRD: marcar tecnologias com WARNING/BREAKING se aplicável
   - Se alguma tecnologia tem status BREAKING: incluir seção "Alertas de Compatibilidade" no spec
-- Stamp report (se `state.json.stamp` existe): `.aios/forge-runs/{run_id}/spec/stamp-report.md`
+- Stamp report (se `state.json.stamp` existe): `.aiox/forge-runs/{run_id}/spec/stamp-report.md`
   - @pm deve referenciar padrões do stamp no PRD
   - Se stamp define stack: usar como strong suggestion (usuário pode override)
 - Task: Finalize spec with implementation plan
@@ -151,7 +151,7 @@ Dispatch @pm again:
   - Story breakdown (high-level, detailed stories come in Phase 2)
   - Tech stack confirmed
   - Architecture decisions
-- Save to: `.aios/forge-runs/{run_id}/spec/spec-final.md`
+- Save to: `.aiox/forge-runs/{run_id}/spec/spec-final.md`
 
 ### Step 4: MVP Definition Gate (MANDATORY)
 
@@ -205,7 +205,7 @@ Se core_atom.risk_level in ["high", "medium"] AND Core Atom NÃO está no MVP:
 ### Step 5: Spec Critique (@qa)
 
 Dispatch @qa:
-- Agent: `{AIOS_HOME}/.aios-core/development/agents/aios-qa.md`
+- Agent: `{AIOS_HOME}/.aiox-core/development/agents/aios-qa.md`
 - Task: spec-critique
 - Input: Final spec
 - Scoring: 1-5 scale on completeness, clarity, testability, feasibility
@@ -244,9 +244,9 @@ Save to state.json:
   "phases": {
     "1": {
       "status": "completed",
-      "spec_path": ".aios/forge-runs/{run_id}/spec/spec-final.md",
-      "architecture_path": ".aios/forge-runs/{run_id}/spec/architecture.md",
-      "docs_validation_path": ".aios/forge-runs/{run_id}/spec/docs-validation.md",
+      "spec_path": ".aiox/forge-runs/{run_id}/spec/spec-final.md",
+      "architecture_path": ".aiox/forge-runs/{run_id}/spec/architecture.md",
+      "docs_validation_path": ".aiox/forge-runs/{run_id}/spec/docs-validation.md",
       "docs_validation_status": "OK|WARNING|BREAKING|PARTIAL",
       "complexity": "STANDARD",
       "qa_score": 4.2,

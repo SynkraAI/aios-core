@@ -9,7 +9,7 @@ Antes de criar qualquer plano, começar qualquer implementação, ou tomar qualq
 ### 1. Project Memory (se existir)
 
 Detectar modo do projeto:
-- **HYBRID** (cwd tem `.aios/`): ler `.aios/memory/project-context.md`
+- **HYBRID** (cwd tem `.aiox/`): ler `.aiox/memory/project-context.md`
 - **CENTRALIZED** (cwd é aios-core): ler `docs/projects/{projeto}/memory/project-context.md`
 
 Se `project-context.md` existir, ler e absorver:
@@ -27,7 +27,7 @@ Ler até 3 arquivos mais recentes em `memory/feedback/`:
 
 ### 3. User Profile (global)
 
-Se existir `.aios-core/data/memory/user/luiz-fosc-profile.md`, ler para adaptar:
+Se existir `.aiox-core/data/memory/user/luiz-fosc-profile.md`, ler para adaptar:
 - Tom de comunicação
 - Preferências de trabalho
 - Stack preferida

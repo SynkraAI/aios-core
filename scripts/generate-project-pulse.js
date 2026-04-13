@@ -99,7 +99,7 @@ function detectStack(pkg) {
 }
 
 function readIndexStatus(projectPath) {
-  // Check .aios/INDEX.md (hybrid) or look for status in README
+  // Check .aiox/INDEX.md (hybrid) or look for status in README
   const indexPaths = [
     path.join(projectPath, '.aios', 'INDEX.md'),
     path.join(projectPath, 'INDEX.md'),

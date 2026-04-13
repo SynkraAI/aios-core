@@ -193,7 +193,7 @@ Generate user-friendly report:
 ### Primary Output
 
 **File:** `classification-report-{timestamp}.json`
-**Location:** `.aios-core/cache/media-processor/classifications/`
+**Location:** `.aiox-core/cache/media-processor/classifications/`
 
 ```json
 {
@@ -442,7 +442,7 @@ User: "<USER_HOME>/Downloads/videos/"
 - **Hotmart Detection:** Tools/hotmart-downloader documentation
 - **Cademi Detection:** Tools/cademi-downloader documentation
 - **YouTube Detection:** Tools/video-transcriber documentation
-- **File Type Registry:** `.aios-core/core/registry/media-types.yaml`
+- **File Type Registry:** `.aiox-core/core/registry/media-types.yaml`
 
 ---
 

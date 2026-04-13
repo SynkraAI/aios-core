@@ -262,7 +262,7 @@ formatos:
         border_radius: "16px"
         padding: "16-20px"
       avatar:
-        imagem: ".aios-core/expansion-packs/marketing-opes/assets/avatar-jose.jpg (circular, 48×48px)"
+        imagem: ".aiox-core/expansion-packs/marketing-opes/assets/avatar-jose.jpg (circular, 48×48px)"
         fonte: "IMG_8140.JPG — foto com óculos laranja, blazer preto, fundo cinza"
         posicao: "Topo esquerdo do card"
       nome_usuario:

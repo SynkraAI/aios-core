@@ -10,7 +10,7 @@ Entrada: |
 Saida: |
   - index_updated: true|false
   - active_updated: true|false (skipped in emergency mode)
-  - snapshot_path: path to .aios/navigator/ snapshot (skipped in emergency mode)
+  - snapshot_path: path to .aiox/navigator/ snapshot (skipped in emergency mode)
 Checklist:
   - "[ ] Detect active project from conversation context"
   - "[ ] Collect state (git log, modified files)"
@@ -23,7 +23,7 @@ veto_conditions:
   - "INDEX.md exists but '## Estado Atual' or '## Histórico' section missing → BLOCK (restore from backup or recreate)"
   - "Cannot detect project from context AND no project_name provided → BLOCK (provide project name explicitly)"
   - "Multiple projects modified in git log → ASK user which project to checkpoint"
-  - "Write/edit target outside whitelist (INDEX.md, .aios/checkpoints/, ACTIVE.md) → BLOCK (only 3 paths allowed)"
+  - "Write/edit target outside whitelist (INDEX.md, .aiox/checkpoints/, ACTIVE.md) → BLOCK (only 3 paths allowed)"
 ---
 
 # *checkpoint
@@ -34,7 +34,7 @@ Create checkpoint of current project state.
 
 ```
 PRIORITY 1 → docs/projects/{project}/INDEX.md    (FONTE DA VERDADE — living checkpoint)
-PRIORITY 2 → .aios/navigator/{project}/checkpoints/  (snapshot imutável — OPCIONAL)
+PRIORITY 2 → .aiox/navigator/{project}/checkpoints/  (snapshot imutável — OPCIONAL)
 PRIORITY 3 → docs/projects/ACTIVE.md              (dashboard row — resumo)
 ```
 
@@ -42,7 +42,7 @@ PRIORITY 3 → docs/projects/ACTIVE.md              (dashboard row — resumo)
 
 **Na prática:**
 - Se só dá tempo de atualizar UM arquivo → atualiza o INDEX.md
-- O snapshot em `.aios/` é opcional (nice-to-have para histórico)
+- O snapshot em `.aiox/` é opcional (nice-to-have para histórico)
 - O ACTIVE.md é atualizado por último (row de dashboard)
 
 ## Allowed Write Targets (WHITELIST)
@@ -52,7 +52,7 @@ O checkpoint SÓ pode escrever/editar nestes 3 paths. Qualquer escrita fora dele
 | # | Path Pattern | Operação | Obrigatório |
 |---|-------------|----------|-------------|
 | P1 | `docs/projects/{project}/INDEX.md` | Edit (seções específicas) | SIM |
-| P2 | `.aios/navigator/{project}/checkpoints/{date}-{slug}.md` | Write (novo arquivo) | NÃO |
+| P2 | `.aiox/navigator/{project}/checkpoints/{date}-{slug}.md` | Write (novo arquivo) | NÃO |
 | P3 | `docs/projects/ACTIVE.md` | Edit (row do projeto) | NÃO |
 
 **VETO:** Checkpoint tenta criar/editar arquivo fora desta whitelist → BLOCK imediato.
@@ -60,7 +60,7 @@ O checkpoint SÓ pode escrever/editar nestes 3 paths. Qualquer escrita fora dele
 **Exemplos de paths PROIBIDOS:**
 - `docs/sessions/` — sessões são artefatos separados, não checkpoints
 - `docs/stories/` — stories têm lifecycle próprio
-- `.aios-core/` — framework core, nunca modificado por checkpoint
+- `.aiox-core/` — framework core, nunca modificado por checkpoint
 - Qualquer outro `.md` que não seja INDEX.md ou ACTIVE.md
 
 ## Emergency Mode
@@ -219,7 +219,7 @@ Only if context window allows. Lightweight markdown (~30 lines max):
 {next action}
 ```
 
-Save to: `.aios/navigator/{project}/checkpoints/{date}-{slug}.md`
+Save to: `.aiox/navigator/{project}/checkpoints/{date}-{slug}.md`
 
 ### Step 5: Update ACTIVE.md (PRIORITY 3)
 

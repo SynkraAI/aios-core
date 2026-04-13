@@ -48,7 +48,7 @@ O ecossistema Forge + Quest é um sistema de orquestração em duas camadas que 
 │  - Carrega workflow: design-system.md                         │
 │  - Identifica fase: Phase 1 (Extraction)                      │
 │  - Despacha agente: @dev → deep CSS extraction                │
-│  - Gerencia estado: .aios/forge-runs/                         │
+│  - Gerencia estado: .aiox/forge-runs/                         │
 │  - Error recovery: retry → escalate → checkpoint              │
 │                                                                │
 │  NUNCA implementa. Só orquestra agentes/squads.               │
@@ -153,7 +153,7 @@ O ecossistema Forge + Quest é um sistema de orquestração em duas camadas que 
 │  ecosystem-scanner   → Detecta minds/squads/skills úteis     │
 │  phase-0-discovery   → Discovery genérico (todas as rotas)   │
 │  phase-5-deploy      → Deploy genérico (push, PR, verify)    │
-│  .aios/forge-runs/   → State persistence + resume            │
+│  .aiox/forge-runs/   → State persistence + resume            │
 └──────────────────────────────────────────────────────────────┘
 ```
 
@@ -259,8 +259,8 @@ Item completado → XP base (definido no pack)
 ```
 Para cada fase que requer um agente:
 
-1. Ler arquivo do agente   → .aios-core/development/agents/aios-{name}.md
-2. Ler arquivo da task     → .aios-core/development/tasks/{task-name}.md
+1. Ler arquivo do agente   → .aiox-core/development/agents/aios-{name}.md
+2. Ler arquivo da task     → .aiox-core/development/tasks/{task-name}.md
 3. Montar context prompt   → Agent persona + task + project context + story
 4. Despachar via Agent tool → subagent_type matching the agent role
 5. Coletar output          → Parse resultado, checar erros
@@ -311,7 +311,7 @@ Erro detectado na Phase 3 (Build Loop)
 ### 5.6 State Management
 
 ```
-.aios/forge-runs/{run_id}/
+.aiox/forge-runs/{run_id}/
 ├── state.json          ← Atualizado a cada transição de fase
 ├── context-pack.json   ← Resultados do ecosystem scan
 ├── spec/               ← PRD, docs de arquitetura
@@ -743,7 +743,7 @@ skills/forge/
 ### 10.1 Mapa de Estado
 
 ```
-.aios/
+.aiox/
 ├── quest-log.yaml              ← QUEST é dono
 │   ├── meta (hero, pack)
 │   ├── items (status, checked_by)
@@ -819,7 +819,7 @@ Este é o safety net. Captura casos onde:
 |---|---|
 | Forge anota, Quest não sabe → progresso desatualizado | Auto-sync em 2 camadas → sempre consistente |
 | Quest marca done, Forge re-executa → trabalho duplicado | Donos separados + bridge → sem conflito |
-| Anotação em lugar errado → contexto perdido | `.aios/memory/` único → sempre encontrável |
+| Anotação em lugar errado → contexto perdido | `.aiox/memory/` único → sempre encontrável |
 | Contexto acaba → estado corrompido | Resumption reconcilia → self-healing |
 
 ---
@@ -828,8 +828,8 @@ Este é o safety net. Captura casos onde:
 
 | Componente | Pertence a | Relação com Forge+Quest |
 |---|---|---|
-| Agentes AIOS (@dev, @qa, etc.) | `.aios-core/development/agents/` | Forge os despacha, mas não os define |
-| Tasks AIOS | `.aios-core/development/tasks/` | Forge as referencia, mas não as define |
+| Agentes AIOS (@dev, @qa, etc.) | `.aiox-core/development/agents/` | Forge os despacha, mas não os define |
+| Tasks AIOS | `.aiox-core/development/tasks/` | Forge as referencia, mas não as define |
 | Squads (design, copywriting, etc.) | `squads/` | Forge os orquestra, mas não os define |
 | Skills independentes | `skills/` | Quest pode invocar diretamente (sem Forge) |
 | Constitution AIOS | `.aiox-core/constitution.md` | Forge enforce, mas não define |

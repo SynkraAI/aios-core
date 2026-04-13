@@ -1,0 +1,579 @@
+# ============================================================
+# LUIZ FOSC — Design Tokens (Master File)
+# Anti-AI · DNA Real · Brad Frost Atomic Design
+# Generated: 2026-04-07
+# Source: brand-sistema-completo.html (approved session 5)
+# ============================================================
+
+meta:
+  name: "Luiz Fosc Brand"
+  version: "1.0.0"
+  philosophy: "Anti-AI — every token comes from real DNA (manual 2019, Beace kit, Canva originals)"
+  tagline: "Não é dom, é estrutura."
+
+# ============================================================
+# COLORS
+# ============================================================
+
+color:
+
+  # --- Core (PERMANENT — never changes) ---
+  core:
+    black:
+      value: "#212121"
+      usage: "Primary background, base — 70%"
+    black-soft:
+      value: "#2a2a2a"
+      usage: "Cards, elevated surfaces"
+    white:
+      value: "#FFFFFF"
+      usage: "Primary text on dark — 25%"
+    ivory:
+      value: "#F5F0EB"
+      usage: "Light mode background, human mood"
+
+  # --- Amber (PERMANENT accent — 5% rule) ---
+  amber:
+    base:
+      value: "#B8860B"
+      usage: "Primary accent, CTA buttons ALWAYS"
+    glow:
+      value: "#D4A017"
+      usage: "Highlighted words, premium elements"
+    light:
+      value: "#E8C547"
+      usage: "Premium mood, intense emphasis"
+    dark:
+      value: "#8A6508"
+      usage: "Light mode text accent, overlines"
+
+  # --- Teal (MOOD — editorial/intellectual) ---
+  teal:
+    soft:
+      value: "#152E2E"
+      usage: "Deep editorial background"
+    base:
+      value: "#1A3A3A"
+      usage: "Editorial mood primary"
+    glow:
+      value: "#2A5A5A"
+      usage: "Dividers, subtle elements in editorial"
+    light:
+      value: "#3A7A7A"
+      usage: "Author attribution, overlines in editorial"
+
+  # --- Gray Scale ---
+  gray:
+    100:
+      value: "#F0EFED"
+      usage: "Light mode surfaces"
+    200:
+      value: "#E0DFDD"
+      usage: "Light mode borders"
+    300:
+      value: "#B0AEAB"
+      usage: "Body text on dark (secondary)"
+    400:
+      value: "#8A8885"
+      usage: "Captions, descriptions"
+    500:
+      value: "#6B6966"
+      usage: "Muted text, placeholders"
+    600:
+      value: "#4A4846"
+      usage: "Ghost button borders, tags"
+    700:
+      value: "#353433"
+      usage: "Section borders, card borders, section numbers"
+    800:
+      value: "#2a2928"
+      usage: "Subtle dividers"
+
+  # --- Campaign Colors (TEMPORARY — per product/launch) ---
+  campaign:
+    deep-red:
+      base: "#8B2F2F"
+      glow: "#C45454"
+      light-bg: "#F2D5D5"
+      meaning: "Superação, garra"
+      product: "Palestra Antifrágil"
+    burnt-orange:
+      base: "#C47A1A"
+      glow: "#E09030"
+      light-bg: "#FAE4C8"
+      light-text: "#A06215"
+      meaning: "Criatividade, energia"
+      product: "Palestra Fora da Caixa"
+    forest-green:
+      base: "#2B6B5A"
+      glow: "#4AAE8C"
+      light-bg: "#D4EDE5"
+      meaning: "Crescimento, método"
+      product: "Curso / produto digital"
+    steel-blue:
+      base: "#3A5A8C"
+      glow: "#5A8AC0"
+      light-bg: "#D5E2F0"
+      meaning: "Confiança, corporativo"
+      product: "Conteúdo corporativo"
+    warm-brown:
+      base: "#6B4F3A"
+      glow: "#9B7A5A"
+      light-bg: "#E8DDD2"
+      meaning: "Autenticidade, raiz"
+      product: "Conteúdo pessoal / origem"
+
+  # --- Fora da Caixa (sub-brand) ---
+  fora-da-caixa:
+    electric-amber:
+      value: "#E8A317"
+      usage: "Exclusive to Fora da Caixa identity"
+
+  # --- Campaign Rules ---
+  rules:
+    max-elements-per-piece: 2
+    cta-always: "amber"
+    when-campaign-ends: "color disappears, B&W + Amber stays forever"
+
+# ============================================================
+# TYPOGRAPHY
+# ============================================================
+
+typography:
+
+  font-family:
+    heading: "'Montserrat', sans-serif"
+    body: "'Ubuntu', sans-serif"
+    google-fonts-url: "https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=Montserrat:wght@200;300;400;500;600;700;800;900&display=swap"
+
+  # --- Type Scale (modular, based on real usage) ---
+  scale:
+    xs:
+      size: "0.625rem"    # 10px — overlines, micro labels
+      line-height: 1.4
+    sm:
+      size: "0.6875rem"   # 11px — attribution, small labels
+      line-height: 1.4
+    base:
+      size: "0.75rem"     # 12px — captions, tags
+      line-height: 1.5
+    md:
+      size: "0.875rem"    # 14px — body text, descriptions
+      line-height: 1.6
+    lg:
+      size: "0.9375rem"   # 15px — body main
+      line-height: 1.6
+    xl:
+      size: "1rem"        # 16px — section descriptions
+      line-height: 1.6
+    2xl:
+      size: "1.125rem"    # 18px — sub-headings, mood labels
+      line-height: 1.3
+    3xl:
+      size: "1.25rem"     # 20px — card headings
+      line-height: 1.15
+    4xl:
+      size: "1.625rem"    # 26px — product titles
+      line-height: 1.05
+    5xl:
+      size: "1.875rem"    # 30px — large titles (mentoria)
+      line-height: 1.0
+    6xl:
+      size: "2.25rem"     # 36px — hero headings
+      line-height: 1.05
+    7xl:
+      size: "2.625rem"    # 42px — dramatic titles
+      line-height: 1.0
+    8xl:
+      size: "3rem"        # 48px — logo / hero display
+      line-height: 1.0
+    9xl:
+      size: "3.5rem"      # 56px — section numbers
+      line-height: 1.0
+
+  # --- Font Weights (semantic) ---
+  weight:
+    thin: 200         # Section numbers, display numbers (Montserrat)
+    light: 300        # Body text, descriptions, captions (Ubuntu)
+    regular: 400      # Body text, quotes (Ubuntu), general text
+    medium: 500       # Card labels, emphasis (Ubuntu)
+    semibold: 600     # Overlines, tag labels, CTA text (Montserrat)
+    bold: 700         # Mood titles, sub-headings (Montserrat)
+    extrabold: 800    # Card headings, quote text (Montserrat)
+    black: 900        # Hero titles, dramatic impact (Montserrat)
+
+  # --- Letter Spacing ---
+  tracking:
+    tight: "-0.02em"   # Dramatic titles
+    normal: "0"        # Body text
+    wide: "0.04em"     # CTA buttons, subtle tracking
+    wider: "0.06em"    # Stats (GUINNESS), small caps
+    widest: "0.08em"   # Author attribution, editorial labels
+    overline: "0.12em" # Product type labels (MENTORIA)
+    ultra: "0.14em"    # Overlines (#pensecomoumilusionista)
+    display: "0.2em"   # Logo (LUIZ FOSC), premium labels
+
+  # --- Semantic Styles (ready to use) ---
+  styles:
+    overline:
+      family: "heading"
+      weight: 600
+      size: "xs"        # 10px
+      tracking: "ultra" # 0.14em
+      transform: "uppercase"
+      color: "amber.base"
+
+    heading-hero:
+      family: "heading"
+      weight: 800
+      size: "6xl"       # 36px
+      tracking: "normal"
+      color: "core.white"
+
+    heading-card:
+      family: "heading"
+      weight: 800
+      size: "3xl"       # 20px
+      tracking: "normal"
+      line-height: 1.1
+      color: "core.white"
+
+    heading-section:
+      family: "heading"
+      weight: 600
+      size: "sm"        # 11px
+      tracking: "ultra" # 0.14em
+      transform: "uppercase"
+      color: "amber.base"
+
+    section-number:
+      family: "heading"
+      weight: 200
+      size: "9xl"       # 56px
+      color: "gray.700"
+
+    body-main:
+      family: "body"
+      weight: 300
+      size: "lg"        # 15px
+      line-height: 1.6
+      color: "gray.300"
+
+    body-caption:
+      family: "body"
+      weight: 300
+      size: "base"      # 12px
+      color: "gray.400"
+
+    quote-text:
+      family: "body"
+      weight: 400
+      size: "md"        # 14px
+      line-height: 1.5
+      color: "core.white"
+
+    quote-mark:
+      family: "heading"
+      weight: 800
+      size: "5xl"       # 38px equivalent
+      line-height: 0.8
+      color: "amber.glow"
+
+    attribution:
+      family: "heading"
+      weight: 600
+      size: "sm"        # 11px
+      tracking: "widest" # 0.08em
+      transform: "uppercase"
+
+    cta-primary:
+      family: "heading"
+      weight: 600
+      size: "base"      # 12-13px
+      color: "core.black"
+      background: "amber.base"
+
+    cta-secondary:
+      family: "body"
+      weight: 400
+      size: "md"        # 13-14px
+      color: "gray.300"
+      border: "gray.600"
+
+    stat-number:
+      family: "heading"
+      weight: 200
+      size: "7xl"       # 44px
+      color: "amber.glow"
+
+    stat-label:
+      family: "heading"
+      weight: 800
+      size: "base"      # 12-13px
+      tracking: "wider"  # 0.06em
+      color: "core.white"
+
+    logo-first:
+      family: "heading"
+      weight: 200
+      size: "8xl"       # 48px
+      tracking: "display" # 0.2em
+
+    logo-last:
+      family: "heading"
+      weight: 800
+      size: "8xl"       # 48px
+      tracking: "display" # 0.2em
+
+# ============================================================
+# SPACING
+# ============================================================
+
+spacing:
+  0: "0"
+  1: "0.25rem"   # 4px
+  1.5: "0.375rem" # 6px
+  2: "0.5rem"    # 8px
+  2.5: "0.625rem" # 10px
+  3: "0.75rem"   # 12px
+  3.5: "0.875rem" # 14px
+  4: "1rem"      # 16px
+  5: "1.25rem"   # 20px
+  6: "1.5rem"    # 24px
+  7: "1.75rem"   # 28px
+  8: "2rem"      # 32px
+  9: "2.25rem"   # 36px
+  10: "2.5rem"   # 40px
+  12: "3rem"     # 48px
+  16: "4rem"     # 64px
+  18: "4.375rem" # 70px
+  20: "5rem"     # 80px
+  25: "6.25rem"  # 100px
+
+# ============================================================
+# BORDER RADIUS
+# ============================================================
+
+radius:
+  none: "0"
+  sm: "4px"
+  md: "6px"
+  lg: "8px"
+  xl: "10px"
+  2xl: "12px"
+  full: "9999px"
+
+# ============================================================
+# BORDERS
+# ============================================================
+
+border:
+  width:
+    thin: "1px"
+    medium: "1.5px"
+    thick: "2px"
+    accent: "3px"
+    hero: "4px"
+
+  style:
+    card: "1px solid"        # + gray.700
+    card-teal: "1px solid"   # + teal.glow
+    divider: "1px solid"     # + gray.700
+    accent-top: "3-4px solid" # gradient, amber or campaign
+
+# ============================================================
+# SHADOWS & EFFECTS
+# ============================================================
+
+effects:
+  chevron-pattern:
+    dark:
+      description: "White chevron lines on dark background"
+      opacity: 0.04
+      line-color: "core.white"
+      line-width: "1px"
+      gap: "8px"
+      angles: [45, -45]
+    light:
+      description: "Dark chevron lines on light background"
+      opacity: 0.06
+      line-color: "core.black"
+      line-width: "1px"
+      gap: "8px"
+      angles: [45, -45]
+    premium:
+      description: "Amber chevron lines for premium/high-ticket"
+      opacity: 0.07
+      line-color: "amber.base"
+      line-width: "1px"
+      gap: "8px"
+      angles: [45, -45]
+
+  gradient:
+    photo-overlay-warm: "linear-gradient(180deg, rgba(184,134,11,0.12) 0%, #212121 55%)"
+    photo-overlay-cool: "linear-gradient(180deg, rgba(40,50,70,0.2) 0%, #212121 55%)"
+    photo-overlay-human: "linear-gradient(180deg, rgba(180,150,100,0.15) 0%, #212121 55%)"
+    teal-editorial: "radial-gradient(ellipse at 30% 30%, #1A3A3A 0%, #152E2E 60%, #212121 100%)"
+    teal-linear: "linear-gradient(160deg, #1A3A3A 0%, #212121 100%)"
+    accent-line-amber: "linear-gradient(90deg, transparent 10%, #D4A017, transparent 90%)"
+    campaign-red: "linear-gradient(135deg, #1a0a0a 0%, #212121 40%, #2a1515 100%)"
+
+# ============================================================
+# COMPONENTS (Atomic)
+# ============================================================
+
+components:
+
+  # --- Atoms ---
+  divider:
+    width: "24px"      # or 28px for larger contexts
+    height: "2px"
+    color: "amber.base"
+    variants:
+      teal:
+        color: "teal.glow"
+      campaign:
+        color: "dynamic"
+
+  corner-accent:
+    size: "18-24px"
+    border-width: "1.5-2px"
+    style: "border-right + border-top"
+    color: "amber.base"
+    opacity: 0.3-0.4
+    position: "top-right"
+
+  quote-mark:
+    character: "\""
+    font: "heading"
+    weight: 800
+    size: "38px"
+    color: "amber.glow"
+    line-height: 0.8
+
+  overline-label:
+    font: "heading"
+    weight: 600
+    size: "9-10px"
+    tracking: "0.14em"
+    transform: "uppercase"
+    color: "amber.base"
+
+  tag:
+    padding: "3px 10px"
+    radius: "4px"
+    font: "heading"
+    size: "10px"
+    weight: 600
+    tracking: "0.08em"
+    transform: "uppercase"
+    variants:
+      base:
+        bg: "amber.base"
+        text: "core.black"
+      neutral:
+        bg: "gray.600"
+        text: "core.white"
+      photo:
+        bg: "#4A6741"
+        text: "core.white"
+      launch:
+        bg: "#8B2F2F"
+        text: "core.white"
+
+  # --- Molecules ---
+  button:
+    primary:
+      bg: "amber.base"
+      text: "core.black"
+      font: "heading"
+      weight: 600
+      size: "12-13px"
+      padding: "10px 24px"  # or 12px 28px for premium
+      radius: "md"          # 6px
+    secondary:
+      bg: "transparent"
+      text: "gray.300"
+      border: "1px solid gray.600"
+      font: "body"
+      weight: 400
+      size: "13-14px"
+      padding: "10px 24px"
+      radius: "md"
+    premium:
+      bg: "amber.glow"
+      text: "core.black"
+      font: "heading"
+      weight: 700
+      size: "12px"
+      padding: "12px 28px"
+      radius: "md"
+      tracking: "0.04em"
+
+  card:
+    radius: "2xl"         # 12px
+    border: "1px solid gray.700"
+    overflow: "hidden"
+    label:
+      padding: "12px 20px"
+      bg: "core.black-soft"
+      border-bottom: "1px solid gray.700"
+
+  ig-post:
+    aspect-ratio: "1/1"
+    radius: "xl"          # 10px
+    overflow: "hidden"
+
+  ig-reels:
+    aspect-ratio: "9/16"
+    max-height: "480px"
+    radius: "xl"          # 10px
+    overflow: "hidden"
+
+# ============================================================
+# MOODS (5 humores — guia de aplicação)
+# ============================================================
+
+moods:
+
+  dramatico:
+    name: "Dramático / Palco"
+    when: "Lançamentos, media kits, impacto"
+    background: "core.black"
+    pattern: "chevron.dark"
+    accent: "amber.base"
+    highlight: "amber.glow"
+
+  editorial:
+    name: "Editorial / Intelectual"
+    when: "Quotes, reflexões, conteúdo denso"
+    background: "teal.base or teal gradient"
+    pattern: "none"
+    accent: "teal.light"
+    highlight: "amber.glow (quote marks only)"
+    quote-attribution: "teal.light"
+
+  humano:
+    name: "Humano / Bastidor"
+    when: "Família, vulnerabilidade, 'quem sou eu'"
+    background: "core.ivory"
+    pattern: "chevron.light"
+    accent: "amber.base (dark variant)"
+    text-color: "core.black"
+
+  energia:
+    name: "Energia / Evento"
+    when: "Reels, cobertura, bastidor de palco"
+    background: "photo overlay → core.black"
+    pattern: "none"
+    accent: "amber.glow"
+    corner-accent: true
+
+  premium:
+    name: "Premium / Venda"
+    when: "Mentoria, high-ticket, CTAs"
+    background: "core.black"
+    pattern: "chevron.premium (amber lines)"
+    accent: "amber.glow (intense)"
+    top-bottom-line: "gradient amber"
+    special: "✦ symbols, wide tracking"

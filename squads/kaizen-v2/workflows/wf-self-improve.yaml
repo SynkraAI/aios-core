@@ -67,7 +67,7 @@ workflow:
         - id: "0.3"
           name: "Analisar atividade do próprio squad"
           action: |
-            1. Scan .aios/logs/ for kaizen-v2 related entries (primary source)
+            1. Scan .aiox/logs/ for kaizen-v2 related entries (primary source)
             2. Read data/intelligence/daily/ digests for recent squad activity
             3. Fallback: git log --oneline --since='7 days ago' -- squads/kaizen-v2/
             4. Quais comandos foram executados (chief, analyze, gaps, etc.)

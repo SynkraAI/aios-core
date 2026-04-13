@@ -18,7 +18,7 @@ const HOOK_FILE = '.husky/post-commit';
 // Resolve hook script path: squad-local first, legacy fallback
 const hookScriptPath = resolveSquadPath('scripts/navigator', 'post-commit-hook.js')
   ? 'squads/navigator/scripts/navigator/post-commit-hook.js'
-  : '.aios-core/development/scripts/navigator/post-commit-hook.js';
+  : '.aiox-core/development/scripts/navigator/post-commit-hook.js';
 const HOOK_LINE = `node ${hookScriptPath} 2>/dev/null || true`;
 const HOOK_COMMENT = '# Navigator Auto-Update (Navigator Agent)';
 

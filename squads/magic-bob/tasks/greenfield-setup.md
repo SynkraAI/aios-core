@@ -84,7 +84,7 @@ await this.workflowExecutor.execute({
   task: 'bootstrap-environment',
   actions: [
     'Initialize git repository',
-    'Create .aios/ structure',
+    'Create .aiox/ structure',
     'Setup package.json / requirements.txt',
     'Configure linting and formatting',
   ],
@@ -161,7 +161,7 @@ Automatically transitions to first story execution using the 6-phase development
 
 ```
 project-root/
-├── .aios/
+├── .aiox/
 │   ├── config.yaml
 │   └── session-state.yaml
 ├── docs/

@@ -3,7 +3,7 @@
 /**
  * Migrate Skills to Root
  *
- * Moves .aios/skills/ → skills/ at root level.
+ * Moves .aiox/skills/ → skills/ at root level.
  * Updates all references and regenerates symlinks.
  *
  * Usage:
@@ -31,14 +31,14 @@ const c = {
 
 let stats = { moved: 0, filesUpdated: 0, symlinksFixed: 0, errors: [] };
 
-console.log(c.bold('\n━━━ Skills Migration: .aios/skills/ → skills/ ━━━\n'));
+console.log(c.bold('\n━━━ Skills Migration: .aiox/skills/ → skills/ ━━━\n'));
 console.log(DRY_RUN ? c.yellow('MODE: DRY RUN (no changes)') : c.red('MODE: LIVE (will modify files)'));
 console.log('');
 
 // ── Step 0: Pre-flight checks ──────────────────────────────────
 
 if (!fs.existsSync(OLD_PATH)) {
-  console.error(c.red('ERROR: .aios/skills/ not found. Already migrated?'));
+  console.error(c.red('ERROR: .aiox/skills/ not found. Already migrated?'));
   process.exit(1);
 }
 
@@ -46,10 +46,10 @@ const TARGET_EXISTS = fs.existsSync(NEW_PATH);
 
 // ── Step 1: Move/Merge the folder ──────────────────────────────
 
-console.log(c.bold('Step 1: Move .aios/skills/ → skills/'));
+console.log(c.bold('Step 1: Move .aiox/skills/ → skills/'));
 
 if (TARGET_EXISTS) {
-  console.log(c.yellow('  ⚠ skills/ already exists at root — will MERGE (.aios/skills/ wins conflicts)'));
+  console.log(c.yellow('  ⚠ skills/ already exists at root — will MERGE (.aiox/skills/ wins conflicts)'));
 
   // Get all skill dirs from source
   const sourceSkills = fs.readdirSync(OLD_PATH, { withFileTypes: true })
@@ -96,14 +96,14 @@ if (TARGET_EXISTS) {
   // Remove the now-empty source directory
   if (!DRY_RUN) {
     fs.rmSync(OLD_PATH, { recursive: true });
-    console.log(c.green('  ✓ Removed empty .aios/skills/'));
+    console.log(c.green('  ✓ Removed empty .aiox/skills/'));
   }
 } else {
   if (DRY_RUN) {
-    console.log(c.cyan('  [dry-run] Would move .aios/skills/ → skills/'));
+    console.log(c.cyan('  [dry-run] Would move .aiox/skills/ → skills/'));
   } else {
     fs.renameSync(OLD_PATH, NEW_PATH);
-    console.log(c.green('  ✓ Moved .aios/skills/ → skills/'));
+    console.log(c.green('  ✓ Moved .aiox/skills/ → skills/'));
   }
 }
 stats.moved = 1;
@@ -115,20 +115,20 @@ console.log(c.bold('\nStep 2: Update references in files'));
 // Patterns to replace (order matters — longer patterns first)
 const REPLACEMENTS = [
   // Relative paths from different depths
-  ['../../../../.aios/skills/', '../../../skills/'],
-  ['../../../.aios/skills/', '../../skills/'],
-  ['../../.aios/skills/', '../skills/'],
+  ['../../../../.aiox/skills/', '../../../skills/'],
+  ['../../../.aiox/skills/', '../../skills/'],
+  ['../../.aiox/skills/', '../skills/'],
   // Absolute-style references
-  ['.aios/skills/', 'skills/'],
+  ['.aiox/skills/', 'skills/'],
   // Home-based references
-  ['~/aios-core/.aios/skills', '~/aios-core/skills'],
+  ['~/aios-core/.aiox/skills', '~/aios-core/skills'],
 ];
 
 // Files to skip
 const SKIP_PATTERNS = [
   'node_modules',
   '.git/',
-  '.aios/skills-backup',
+  '.aiox/skills-backup',
   'scripts/migrate-skills-to-root.js',
   '.DS_Store',
 ];
@@ -166,7 +166,7 @@ const SCAN_DIRS = [
   path.join(ROOT, '.codex'),
   path.join(ROOT, '.gemini'),
   path.join(ROOT, '.aios'),
-  path.join(ROOT, '.aios-core'),
+  path.join(ROOT, '.aiox-core'),
   path.join(ROOT, 'scripts'),
   path.join(ROOT, 'tools'),
   path.join(ROOT, 'squads'),
@@ -226,14 +226,14 @@ for (const symlinkDir of SYMLINK_DIRS) {
     if (entry.isSymbolicLink()) {
       const currentTarget = fs.readlinkSync(fullPath);
 
-      if (currentTarget.includes('.aios/skills/')) {
-        // Replace .aios/skills/ with skills/ in the relative path
-        // Old: ../../../../.aios/skills/foo/SKILL.md
+      if (currentTarget.includes('.aiox/skills/')) {
+        // Replace .aiox/skills/ with skills/ in the relative path
+        // Old: ../../../../.aiox/skills/foo/SKILL.md
         // New: ../../../skills/foo/SKILL.md  (one less ../ because skills is at root)
         const newTarget = currentTarget
-          .replace('../../../../.aios/skills/', '../../../skills/')
-          .replace('../../../.aios/skills/', '../../skills/')
-          .replace('../../.aios/skills/', '../skills/');
+          .replace('../../../../.aiox/skills/', '../../../skills/')
+          .replace('../../../.aiox/skills/', '../../skills/')
+          .replace('../../.aiox/skills/', '../skills/');
 
         if (DRY_RUN) {
           console.log(c.cyan(`  [dry-run] ${dirRelative}/${entry.name}`));
@@ -253,11 +253,11 @@ for (const symlinkDir of SYMLINK_DIRS) {
         const subPath = path.join(fullPath, sub.name);
         if (sub.isSymbolicLink()) {
           const currentTarget = fs.readlinkSync(subPath);
-          if (currentTarget.includes('.aios/skills/')) {
+          if (currentTarget.includes('.aiox/skills/')) {
             const newTarget = currentTarget
-              .replace('../../../../../.aios/skills/', '../../../../skills/')
-              .replace('../../../../.aios/skills/', '../../../skills/')
-              .replace('../../../.aios/skills/', '../../skills/');
+              .replace('../../../../../.aiox/skills/', '../../../../skills/')
+              .replace('../../../../.aiox/skills/', '../../../skills/')
+              .replace('../../../.aiox/skills/', '../../skills/');
 
             if (DRY_RUN) {
               console.log(c.cyan(`  [dry-run] ${dirRelative}/${entry.name}/${sub.name}`));

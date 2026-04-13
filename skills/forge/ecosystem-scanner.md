@@ -15,13 +15,13 @@
 
 ### Step 0: Refresh the Catalog (ALWAYS)
 
-**Run `/catalog`** before any matching. This regenerates `.aios-core/data/catalog.md` with fresh data — all squads, skills, tools, and agents with descriptions and activation commands.
+**Run `/catalog`** before any matching. This regenerates `.aiox-core/data/catalog.md` with fresh data — all squads, skills, tools, and agents with descriptions and activation commands.
 
 Without this step, the scan works with stale data. The catalog is the single source of truth.
 
 ### Step 1: Read the Indexes
 
-1. **Catalog:** Read `.aios-core/data/catalog.md` (freshly generated in Step 0)
+1. **Catalog:** Read `.aiox-core/data/catalog.md` (freshly generated in Step 0)
    - Extract: all squads (name, description, activation), all skills (name, description, activation), all tools (name, description), all agents (name, persona, scope)
 
 2. **Minds:** Read `docs/ECOSYSTEM-INDEX.md` — seção "Minds" only (catalog does not include minds)
@@ -58,14 +58,14 @@ Analyze the user's project description + detected tech stack and match.
 #### Dynamic Detection (beyond the matrix)
 
 If the project description contains terms NOT in the matrix:
-1. **Search the catalog first:** match the term against squad/skill names and descriptions in `.aios-core/data/catalog.md`
+1. **Search the catalog first:** match the term against squad/skill names and descriptions in `.aiox-core/data/catalog.md`
 2. **If no catalog match:** Grep the term across `squads/*/README.md` and `skills/*/SKILL.md`
 3. If matches found, include them in the context pack
 4. If no matches, proceed without — the matrix + catalog cover 95%+ of cases
 
 ### Step 3: Build Context Pack
 
-Save to `.aios/forge-runs/{run_id}/context-pack.json`:
+Save to `.aiox/forge-runs/{run_id}/context-pack.json`:
 
 ```json
 {
@@ -145,7 +145,7 @@ Phase 0 does the main scan. But during execution, the runner can trigger micro-s
 
 ### How to micro-scan
 
-1. **Search catalog first:** match the term against `.aios-core/data/catalog.md` (already loaded in Phase 0 — no need to re-run `/catalog`)
+1. **Search catalog first:** match the term against `.aiox-core/data/catalog.md` (already loaded in Phase 0 — no need to re-run `/catalog`)
 2. **If no catalog match:** Grep for the specific term in `skills/*/SKILL.md` and `squads/*/README.md`
 3. If found, add to context-pack.json (append, don't overwrite)
 4. Inject in the next agent dispatch

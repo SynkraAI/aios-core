@@ -1,0 +1,383 @@
+/* ============================================================
+ * LUIZ FOSC — Design Tokens (CSS Custom Properties)
+ * Anti-AI · DNA Real · Brad Frost Atomic Design
+ * Generated: 2026-04-07
+ * Source: brand-sistema-completo.html (approved session 5)
+ * ============================================================ */
+
+/* ---- DARK MODE (default) ---- */
+:root {
+
+  /* === CORE COLORS (permanent — never changes) === */
+  --fosc-black: #212121;
+  --fosc-black-soft: #2a2a2a;
+  --fosc-white: #FFFFFF;
+  --fosc-ivory: #F5F0EB;
+
+  /* === AMBER (permanent accent — 5% rule, CTA ALWAYS) === */
+  --fosc-amber: #B8860B;
+  --fosc-amber-glow: #D4A017;
+  --fosc-amber-light: #E8C547;
+  --fosc-amber-dark: #8A6508;
+
+  /* === TEAL (mood: editorial/intellectual) === */
+  --fosc-teal-soft: #152E2E;
+  --fosc-teal: #1A3A3A;
+  --fosc-teal-glow: #2A5A5A;
+  --fosc-teal-light: #3A7A7A;
+
+  /* === GRAY SCALE === */
+  --fosc-gray-100: #F0EFED;
+  --fosc-gray-200: #E0DFDD;
+  --fosc-gray-300: #B0AEAB;
+  --fosc-gray-400: #8A8885;
+  --fosc-gray-500: #6B6966;
+  --fosc-gray-600: #4A4846;
+  --fosc-gray-700: #353433;
+  --fosc-gray-800: #2a2928;
+
+  /* === CAMPAIGN COLORS (temporary — per product) === */
+  /* Deep Red — Superação, garra (Antifrágil) */
+  --fosc-campaign-red: #8B2F2F;
+  --fosc-campaign-red-glow: #C45454;
+  --fosc-campaign-red-light: #F2D5D5;
+
+  /* Burnt Orange — Criatividade, energia (Fora da Caixa) */
+  --fosc-campaign-orange: #C47A1A;
+  --fosc-campaign-orange-glow: #E09030;
+  --fosc-campaign-orange-light: #FAE4C8;
+  --fosc-campaign-orange-text: #A06215;
+
+  /* Forest Green — Crescimento, método (cursos) */
+  --fosc-campaign-green: #2B6B5A;
+  --fosc-campaign-green-glow: #4AAE8C;
+  --fosc-campaign-green-light: #D4EDE5;
+
+  /* Steel Blue — Confiança, corporativo */
+  --fosc-campaign-blue: #3A5A8C;
+  --fosc-campaign-blue-glow: #5A8AC0;
+  --fosc-campaign-blue-light: #D5E2F0;
+
+  /* Warm Brown — Autenticidade, raiz */
+  --fosc-campaign-brown: #6B4F3A;
+  --fosc-campaign-brown-glow: #9B7A5A;
+  --fosc-campaign-brown-light: #E8DDD2;
+
+  /* Fora da Caixa (sub-brand) */
+  --fosc-electric-amber: #E8A317;
+
+  /* === SEMANTIC COLORS (dark mode) === */
+  --fosc-bg-primary: var(--fosc-black);
+  --fosc-bg-elevated: var(--fosc-black-soft);
+  --fosc-bg-editorial: var(--fosc-teal);
+  --fosc-bg-human: var(--fosc-ivory);
+
+  --fosc-text-primary: var(--fosc-white);
+  --fosc-text-secondary: var(--fosc-gray-300);
+  --fosc-text-muted: var(--fosc-gray-400);
+  --fosc-text-subtle: var(--fosc-gray-500);
+
+  --fosc-accent-primary: var(--fosc-amber);
+  --fosc-accent-glow: var(--fosc-amber-glow);
+
+  --fosc-border-default: var(--fosc-gray-700);
+  --fosc-border-subtle: var(--fosc-gray-800);
+
+  /* === TYPOGRAPHY === */
+  --fosc-font-heading: 'Montserrat', sans-serif;
+  --fosc-font-body: 'Ubuntu', sans-serif;
+
+  /* Font Sizes */
+  --fosc-text-xs: 0.625rem;     /* 10px — overlines */
+  --fosc-text-sm: 0.6875rem;    /* 11px — attribution */
+  --fosc-text-base: 0.75rem;    /* 12px — captions */
+  --fosc-text-md: 0.875rem;     /* 14px — body */
+  --fosc-text-lg: 0.9375rem;    /* 15px — body main */
+  --fosc-text-xl: 1rem;         /* 16px — descriptions */
+  --fosc-text-2xl: 1.125rem;    /* 18px — sub-headings */
+  --fosc-text-3xl: 1.25rem;     /* 20px — card headings */
+  --fosc-text-4xl: 1.625rem;    /* 26px — product titles */
+  --fosc-text-5xl: 1.875rem;    /* 30px — large titles */
+  --fosc-text-6xl: 2.25rem;     /* 36px — hero headings */
+  --fosc-text-7xl: 2.625rem;    /* 42px — dramatic */
+  --fosc-text-8xl: 3rem;        /* 48px — display / logo */
+  --fosc-text-9xl: 3.5rem;      /* 56px — section numbers */
+
+  /* Font Weights */
+  --fosc-weight-thin: 200;
+  --fosc-weight-light: 300;
+  --fosc-weight-regular: 400;
+  --fosc-weight-medium: 500;
+  --fosc-weight-semibold: 600;
+  --fosc-weight-bold: 700;
+  --fosc-weight-extrabold: 800;
+  --fosc-weight-black: 900;
+
+  /* Letter Spacing */
+  --fosc-tracking-tight: -0.02em;
+  --fosc-tracking-normal: 0;
+  --fosc-tracking-wide: 0.04em;
+  --fosc-tracking-wider: 0.06em;
+  --fosc-tracking-widest: 0.08em;
+  --fosc-tracking-overline: 0.12em;
+  --fosc-tracking-ultra: 0.14em;
+  --fosc-tracking-display: 0.2em;
+
+  /* Line Heights */
+  --fosc-leading-none: 1;
+  --fosc-leading-tight: 1.05;
+  --fosc-leading-snug: 1.15;
+  --fosc-leading-normal: 1.4;
+  --fosc-leading-relaxed: 1.5;
+  --fosc-leading-loose: 1.6;
+  --fosc-leading-prose: 1.7;
+
+  /* === SPACING === */
+  --fosc-space-0: 0;
+  --fosc-space-1: 0.25rem;    /* 4px */
+  --fosc-space-1-5: 0.375rem; /* 6px */
+  --fosc-space-2: 0.5rem;     /* 8px */
+  --fosc-space-2-5: 0.625rem; /* 10px */
+  --fosc-space-3: 0.75rem;    /* 12px */
+  --fosc-space-3-5: 0.875rem; /* 14px */
+  --fosc-space-4: 1rem;       /* 16px */
+  --fosc-space-5: 1.25rem;    /* 20px */
+  --fosc-space-6: 1.5rem;     /* 24px */
+  --fosc-space-7: 1.75rem;    /* 28px */
+  --fosc-space-8: 2rem;       /* 32px */
+  --fosc-space-9: 2.25rem;    /* 36px */
+  --fosc-space-10: 2.5rem;    /* 40px */
+  --fosc-space-12: 3rem;      /* 48px */
+  --fosc-space-16: 4rem;      /* 64px */
+  --fosc-space-18: 4.375rem;  /* 70px */
+  --fosc-space-20: 5rem;      /* 80px */
+  --fosc-space-25: 6.25rem;   /* 100px */
+
+  /* === BORDER RADIUS === */
+  --fosc-radius-none: 0;
+  --fosc-radius-sm: 4px;
+  --fosc-radius-md: 6px;
+  --fosc-radius-lg: 8px;
+  --fosc-radius-xl: 10px;
+  --fosc-radius-2xl: 12px;
+  --fosc-radius-full: 9999px;
+
+  /* === BORDER WIDTHS === */
+  --fosc-border-thin: 1px;
+  --fosc-border-medium: 1.5px;
+  --fosc-border-thick: 2px;
+  --fosc-border-accent: 3px;
+  --fosc-border-hero: 4px;
+
+  /* === LAYOUT === */
+  --fosc-container-max: 1200px;
+  --fosc-container-padding: 32px;
+  --fosc-grid-gap: 24px;
+  --fosc-grid-gap-sm: 12px;
+  --fosc-ig-aspect: 1 / 1;
+  --fosc-reels-aspect: 9 / 16;
+
+  /* === GRADIENTS === */
+  --fosc-gradient-photo-warm: linear-gradient(180deg, rgba(184,134,11,0.12) 0%, #212121 55%);
+  --fosc-gradient-photo-cool: linear-gradient(180deg, rgba(40,50,70,0.2) 0%, #212121 55%);
+  --fosc-gradient-photo-human: linear-gradient(180deg, rgba(180,150,100,0.15) 0%, #212121 55%);
+  --fosc-gradient-teal-radial: radial-gradient(ellipse at 30% 30%, #1A3A3A 0%, #152E2E 60%, #212121 100%);
+  --fosc-gradient-teal-linear: linear-gradient(160deg, #1A3A3A 0%, #212121 100%);
+  --fosc-gradient-amber-line: linear-gradient(90deg, transparent 10%, #D4A017, transparent 90%);
+  --fosc-gradient-campaign-red: linear-gradient(135deg, #1a0a0a 0%, #212121 40%, #2a1515 100%);
+}
+
+/* ---- LIGHT MODE ---- */
+[data-theme="light"],
+.fosc-light {
+  --fosc-bg-primary: var(--fosc-ivory);
+  --fosc-bg-elevated: var(--fosc-gray-100);
+  --fosc-text-primary: var(--fosc-black);
+  --fosc-text-secondary: var(--fosc-gray-500);
+  --fosc-text-muted: var(--fosc-gray-400);
+  --fosc-accent-primary: var(--fosc-amber-dark);
+  --fosc-border-default: var(--fosc-gray-200);
+}
+
+/* ============================================================
+ * CHEVRON PATTERNS (utility classes)
+ * ============================================================ */
+
+.fosc-chevron-dark {
+  position: relative;
+  overflow: hidden;
+}
+.fosc-chevron-dark::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(45deg, transparent, transparent 8px, var(--fosc-white) 8px, var(--fosc-white) 9px),
+    repeating-linear-gradient(-45deg, transparent, transparent 8px, var(--fosc-white) 8px, var(--fosc-white) 9px);
+}
+
+.fosc-chevron-light {
+  position: relative;
+  overflow: hidden;
+}
+.fosc-chevron-light::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.06;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(45deg, transparent, transparent 8px, var(--fosc-black) 8px, var(--fosc-black) 9px),
+    repeating-linear-gradient(-45deg, transparent, transparent 8px, var(--fosc-black) 8px, var(--fosc-black) 9px);
+}
+
+.fosc-chevron-premium {
+  position: relative;
+  overflow: hidden;
+}
+.fosc-chevron-premium::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.07;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(45deg, transparent, transparent 8px, var(--fosc-amber) 8px, var(--fosc-amber) 9px),
+    repeating-linear-gradient(-45deg, transparent, transparent 8px, var(--fosc-amber) 8px, var(--fosc-amber) 9px);
+}
+
+/* ============================================================
+ * COMPONENT UTILITIES
+ * ============================================================ */
+
+/* Divider */
+.fosc-divider {
+  width: 24px;
+  height: 2px;
+  background: var(--fosc-amber);
+}
+.fosc-divider--wide { width: 28px; }
+.fosc-divider--teal { background: var(--fosc-teal-glow); }
+
+/* Corner Accent */
+.fosc-corner {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 24px;
+  height: 24px;
+  border-right: 2px solid var(--fosc-amber);
+  border-top: 2px solid var(--fosc-amber);
+  opacity: 0.4;
+}
+.fosc-corner--sm { width: 18px; height: 18px; border-width: 1.5px; }
+
+/* Quote Mark */
+.fosc-quote-mark {
+  font-family: var(--fosc-font-heading);
+  font-weight: var(--fosc-weight-extrabold);
+  font-size: 38px;
+  color: var(--fosc-amber-glow);
+  line-height: 0.8;
+}
+
+/* Overline */
+.fosc-overline {
+  font-family: var(--fosc-font-heading);
+  font-weight: var(--fosc-weight-semibold);
+  font-size: var(--fosc-text-xs);
+  letter-spacing: var(--fosc-tracking-ultra);
+  text-transform: uppercase;
+  color: var(--fosc-amber);
+}
+
+/* Tags */
+.fosc-tag {
+  font-family: var(--fosc-font-heading);
+  font-size: 10px;
+  font-weight: var(--fosc-weight-semibold);
+  letter-spacing: var(--fosc-tracking-widest);
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: var(--fosc-radius-sm);
+}
+.fosc-tag--base { background: var(--fosc-amber); color: var(--fosc-black); }
+.fosc-tag--neutral { background: var(--fosc-gray-600); color: var(--fosc-white); }
+.fosc-tag--photo { background: #4A6741; color: var(--fosc-white); }
+.fosc-tag--launch { background: #8B2F2F; color: var(--fosc-white); }
+
+/* Buttons */
+.fosc-btn-primary {
+  display: inline-block;
+  background: var(--fosc-amber);
+  color: var(--fosc-black);
+  font-family: var(--fosc-font-heading);
+  font-weight: var(--fosc-weight-semibold);
+  font-size: var(--fosc-text-base);
+  padding: 10px 24px;
+  border-radius: var(--fosc-radius-md);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+.fosc-btn-primary--premium {
+  background: var(--fosc-amber-glow);
+  font-weight: var(--fosc-weight-bold);
+  padding: 12px 28px;
+  letter-spacing: var(--fosc-tracking-wide);
+}
+
+.fosc-btn-secondary {
+  display: inline-block;
+  background: transparent;
+  color: var(--fosc-gray-300);
+  font-family: var(--fosc-font-body);
+  font-weight: var(--fosc-weight-regular);
+  font-size: var(--fosc-text-md);
+  padding: 10px 24px;
+  border-radius: var(--fosc-radius-md);
+  border: 1px solid var(--fosc-gray-600);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* Accent Lines (top/bottom for premium) */
+.fosc-accent-line-top,
+.fosc-accent-line-bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--fosc-gradient-amber-line);
+}
+.fosc-accent-line-top { top: 0; }
+.fosc-accent-line-bottom { bottom: 0; }
+
+/* Card */
+.fosc-card {
+  border-radius: var(--fosc-radius-2xl);
+  overflow: hidden;
+  border: 1px solid var(--fosc-border-default);
+}
+
+/* IG Post Container */
+.fosc-ig {
+  aspect-ratio: var(--fosc-ig-aspect);
+  border-radius: var(--fosc-radius-xl);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.fosc-ig-reels {
+  aspect-ratio: var(--fosc-reels-aspect);
+  max-height: 480px;
+  border-radius: var(--fosc-radius-xl);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}

@@ -180,16 +180,16 @@ If conditions are NOT met: use standard sequential SDC below (no change from cur
 ### 3.1 Story Creation (@sm)
 
 Dispatch @sm via Agent tool with:
-- Agent: `{AIOS_HOME}/.aios-core/development/agents/aios-sm.md`
-- Task: `{AIOS_HOME}/.aios-core/development/tasks/create-next-story.md`
+- Agent: `{AIOS_HOME}/.aiox-core/development/agents/aios-sm.md`
+- Task: `{AIOS_HOME}/.aiox-core/development/tasks/create-next-story.md`
 - Input: Epic/PRD from Phase 1 (or user description for SINGLE_FEATURE)
 - Output: Story file at `docs/stories/active/{run_id}/{id}.story.md`
 
 ### 3.2 Story Validation (@po)
 
 Dispatch @po via Agent tool with:
-- Agent: `{AIOS_HOME}/.aios-core/development/agents/aios-po.md`
-- Task: `{AIOS_HOME}/.aios-core/development/tasks/validate-next-story.md`
+- Agent: `{AIOS_HOME}/.aiox-core/development/agents/aios-po.md`
+- Task: `{AIOS_HOME}/.aiox-core/development/tasks/validate-next-story.md`
 - Input: Story file from 3.1
 - Veto: Score < 7/10 -> return to @sm with feedback (max 2 retries)
 - Output: Story status updated to "Ready"
@@ -197,8 +197,8 @@ Dispatch @po via Agent tool with:
 ### 3.3 Implementation (@dev)
 
 Dispatch @dev via Agent tool with:
-- Agent: `{AIOS_HOME}/.aios-core/development/agents/aios-dev.md`
-- Task: `{AIOS_HOME}/.aios-core/development/tasks/dev-develop-story.md`
+- Agent: `{AIOS_HOME}/.aiox-core/development/agents/aios-dev.md`
+- Task: `{AIOS_HOME}/.aiox-core/development/tasks/dev-develop-story.md`
 - Mode: YOLO (autonomous)
 - Input: Story file (status: Ready) + project context
 - Output: Code changes, story status "In Progress" -> "In Review"
@@ -206,8 +206,8 @@ Dispatch @dev via Agent tool with:
 ### 3.4 Quality Gate (@qa)
 
 Dispatch @qa via Agent tool with:
-- Agent: `{AIOS_HOME}/.aios-core/development/agents/aios-qa.md`
-- Task: `{AIOS_HOME}/.aios-core/development/tasks/qa-review-story.md`
+- Agent: `{AIOS_HOME}/.aiox-core/development/agents/aios-qa.md`
+- Task: `{AIOS_HOME}/.aiox-core/development/tasks/qa-review-story.md`
 - Input: Story file + code changes from @dev
 - Decision:
   - **PASS** -> Mark story Done, proceed to next story
@@ -370,7 +370,7 @@ O campo `status` no state.json aceita estes valores:
 
 When resuming an interrupted run (`status == "running"`):
 
-1. Read `.aios/forge-runs/{run_id}/state.json` **with validation:**
+1. Read `.aiox/forge-runs/{run_id}/state.json` **with validation:**
    - Parse JSON inside try/catch
    - If JSON is invalid/corrupted: show "State do run `{run_id}` está corrompido. Quer começar um novo run ou tentar recuperar?"
    - If recover: try to read last valid phase from build-log/ files
@@ -384,7 +384,7 @@ When resuming an interrupted run (`status == "running"`):
 ### State Write Safety
 
 ALL state.json writes MUST use atomic pattern:
-1. Write to `.aios/forge-runs/{run_id}/state.json.tmp`
+1. Write to `.aiox/forge-runs/{run_id}/state.json.tmp`
 2. Rename `.tmp` to `.json` (atomic on POSIX)
 3. This prevents corruption from crashes mid-write
 
@@ -397,7 +397,7 @@ After all phases complete:
 1. **Fire hook: `after:deploy`** — ONLY if Phase 5 actually deployed (push + PR created). Does NOT fire if user chose "don't deploy" or run was paused. This hook triggers post-deploy monitoring (forge-watch plugin).
 2. **Fire hook: `after:run`** — plugins perform final validations, sync status, and cleanup
 3. Update state.json: `status = "completed"`, `completed_at = now` (atomic write)
-4. **Remove lock file:** Delete `.aios/forge-runs/.lock`
+4. **Remove lock file:** Delete `.aiox/forge-runs/.lock`
 3. **Move stories:** Move `docs/stories/active/{run_id}/` to `docs/stories/done/{run_id}/` (subpasta inteira, não arquivos individuais)
 4. Show completion banner (personality.md) with:
    - Run ID

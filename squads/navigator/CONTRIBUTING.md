@@ -299,7 +299,7 @@ const stories = glob.sync('docs/stories/story-*.md');
  * @throws {Error} If roadmap file not found or invalid
  *
  * @example
- * const phase = await detectPhase('.aios/navigator/my-project/roadmap.md');
+ * const phase = await detectPhase('.aiox/navigator/my-project/roadmap.md');
  * console.log(`Current phase: ${phase.name} (${phase.completion}%)`);
  */
 async function detectPhase(roadmapPath) {

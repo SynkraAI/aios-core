@@ -25,7 +25,7 @@
 | Checklists | `.aiox-core/development/checklists/` | 9 |
 | Constitution | `.aiox-core/constitution.md` | 1 |
 | Rules | `.claude/rules/` | 8+ |
-| Handoff artifacts | `.aios/handoffs/` | runtime |
+| Handoff artifacts | `.aiox/handoffs/` | runtime |
 | Squads | `squads/` | 60+ |
 | Commands | `.claude/commands/` | 60+ |
 | Skills | `skills/` | 28 |
@@ -127,7 +127,7 @@ Example:
 
 2. **Incoming** receives: full persona + compact handoff (~379 tokens)
 3. **Savings:** ~33% per switch, ~57% after 2 switches
-4. **Storage:** `.aios/handoffs/handoff-{from}-to-{to}-{timestamp}.yaml`
+4. **Storage:** `.aiox/handoffs/handoff-{from}-to-{to}-{timestamp}.yaml`
 5. **Retention:** Max 3 artifacts (oldest discarded on 4th)
 
 ---

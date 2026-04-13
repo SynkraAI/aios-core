@@ -169,7 +169,7 @@ APIs utilizadas:
   - UazAPI (WhatsApp) — notificação de confirmação
 
 Credenciais: ~/.config/aios/credentials.yaml
-Script: .aios-core/expansion-packs/marketing-opes/scripts/publish.py
+Script: .aiox-core/expansion-packs/marketing-opes/scripts/publish.py
 ```
 
 **Output:** Posts publicados + IDs registrados em `outputs/hubs/marketing/YYYY-MM-DD.md`
@@ -282,7 +282,7 @@ points:
 | Imagens | Nano Banana Pro | generativelanguage.googleapis.com | API key (permanente) |
 | Hosting | catbox.moe | catbox.moe/user/api.php | N/A (free, no auth) |
 
-**Script:** `.aios-core/expansion-packs/marketing-opes/scripts/publish.py`
+**Script:** `.aiox-core/expansion-packs/marketing-opes/scripts/publish.py`
 **Credenciais:** `~/.config/aios/credentials.yaml`
 
 ---

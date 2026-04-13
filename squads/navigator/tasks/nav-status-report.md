@@ -18,7 +18,7 @@ Entrada: |
   - report_type: daily|weekly|custom
   - time_range: Date range for report
 Saida: |
-  - report_file: .aios/navigator/[project]/reports/[date]-[type].md
+  - report_file: .aiox/navigator/[project]/reports/[date]-[type].md
 Checklist:
   - "[ ] Calculate metrics (stories, commits, velocity)"
   - "[ ] Identify blockers"
@@ -108,7 +108,7 @@ const report = renderTemplate('nav-status-report-tmpl.md', {
 
 ```javascript
 const filename = `${dateString}-weekly.md`;
-const reportPath = `.aios/navigator/${projectName}/reports/${filename}`;
+const reportPath = `.aiox/navigator/${projectName}/reports/${filename}`;
 fs.writeFileSync(reportPath, report);
 ```
 
@@ -128,10 +128,10 @@ fs.writeFileSync(reportPath, report);
 - Blockers: 0
 
 **Saved to:**
-.aios/navigator/ecommerce-order-mgmt/reports/2026-02-15-weekly.md
+.aiox/navigator/ecommerce-order-mgmt/reports/2026-02-15-weekly.md
 
 View full report:
-cat .aios/navigator/ecommerce-order-mgmt/reports/2026-02-15-weekly.md
+cat .aiox/navigator/ecommerce-order-mgmt/reports/2026-02-15-weekly.md
 ```
 
 ## Implementation

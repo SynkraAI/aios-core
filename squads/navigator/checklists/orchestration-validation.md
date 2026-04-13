@@ -7,7 +7,7 @@ Use this checklist to validate agent orchestration setup and execution.
 ## Pre-Orchestration Setup
 
 - [ ] Roadmap exists and is validated (see roadmap-validation.md)
-- [ ] All required agents exist in `.aios-core/development/agents/`
+- [ ] All required agents exist in `.aiox-core/development/agents/`
 - [ ] Agent commands are executable
 - [ ] Dependencies installed (`npm install` completed)
 - [ ] Git repository is clean (no uncommitted changes)

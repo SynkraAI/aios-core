@@ -83,7 +83,7 @@ const progress = (completedStories.length / totalStories) * 100;
 ### Step 4: Detect Phase
 
 ```javascript
-const { detectPhase } = require('.aios-core/development/scripts/navigator/phase-detector');
+const { detectPhase } = require('.aiox-core/development/scripts/navigator/phase-detector');
 const currentPhase = await detectPhase(projectRoot, pipelineMap);
 ```
 

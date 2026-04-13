@@ -102,9 +102,9 @@ Todos os templates incluem `port-config.json` que define:
 
 Ao rodar `/new-project` com tipo `app`:
 1. ✅ Porta é alocada automaticamente (ex: 3001)
-2. ✅ `.aios/port-config.json` é atualizado com porta alocada
+2. ✅ `.aiox/port-config.json` é atualizado com porta alocada
 3. ✅ `.env` é criado com `PORT=3001`
-4. ✅ Registry global é atualizado (`.aios-core/data/port-registry.json`)
+4. ✅ Registry global é atualizado (`.aiox-core/data/port-registry.json`)
 
 ### Port Manager CLI
 

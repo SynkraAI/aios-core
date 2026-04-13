@@ -255,7 +255,7 @@ const last_session_date = `${date} às ${time}`;
 Search for related files:
 1. Stories: `docs/stories/**/*{name}*.md`
 2. Epics: `docs/stories/epics/**/*{name}*.md`
-3. Checkpoints: `.aios/navigator/{name}/checkpoints/*.md`
+3. Checkpoints: `.aiox/navigator/{name}/checkpoints/*.md`
 4. Sessions: `docs/sessions/**/*{name}*.md`
 
 Populate arrays for template:

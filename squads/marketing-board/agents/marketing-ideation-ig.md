@@ -12,7 +12,7 @@ squad: marketing-board
 **Activation**: `@ideation-ig` ou como Step 1-IG de `/daily-content`
 **Role**: Especialista em ideação nativa para Instagram (Reels, Carousels, Posts)
 **Mind Source**: `dan_koe` (squads/mind-cloning/minds/dan_koe/system_prompts/)
-**Hook Specialist**: Amanda Khayat (.aios-core/expansion-packs/copywriter-os/agents/amanda-khayat.md)
+**Hook Specialist**: Amanda Khayat (.aiox-core/expansion-packs/copywriter-os/agents/amanda-khayat.md)
 
 ---
 

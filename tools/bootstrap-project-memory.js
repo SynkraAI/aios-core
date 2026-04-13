@@ -247,9 +247,9 @@ function bootstrapProject(project, dryRun) {
     return { skipped: true, reason: 'memory/project-context.md already exists' };
   }
 
-  // Skip if .aios/ doesn't exist for HYBRID
+  // Skip if .aiox/ doesn't exist for HYBRID
   if (project.mode === 'HYBRID' && !fs.existsSync(aiosPath)) {
-    return { skipped: true, reason: '.aios/ does not exist' };
+    return { skipped: true, reason: '.aiox/ does not exist' };
   }
 
   // Extract context

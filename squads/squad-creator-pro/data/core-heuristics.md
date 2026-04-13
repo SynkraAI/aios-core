@@ -439,7 +439,7 @@ evaluation:
     guardrails:
       loop_prevention: "Max 1 sync per commit"
       idempotency: "Hash check before copy"
-      audit_trail: "Log to .aios/logs/sync.log"
+      audit_trail: "Log to .aiox/logs/sync.log"
       manual_escape: "--no-sync flag"
       retry_logic: "3 retries, 1s backoff"
 

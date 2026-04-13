@@ -269,7 +269,7 @@ Gere status report para reunioes de time:
 ### Dica 4: Pipelines Customizados
 Copie `example-roadmap.md` e adapte para seu tech stack:
 ```bash
-cp squads/navigator/examples/example-roadmap.md .aios/navigator/my-project/roadmap.md
+cp squads/navigator/examples/example-roadmap.md .aiox/navigator/my-project/roadmap.md
 # Editar fases, agents, outputs para seu projeto
 ```
 
