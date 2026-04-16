@@ -1,7 +1,7 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-03-11T00:48:55.982Z'
-  entityCount: 745
+  lastUpdated: '2026-03-17T15:38:11.021Z'
+  entityCount: 746
   checksumAlgorithm: sha256
   resolutionRate: 100
 entities:
@@ -8729,7 +8729,9 @@ entities:
         - injector
       usedBy: []
       dependencies:
+        - memory-query
         - gotchas-memory
+        - session-memory
       externalDeps: []
       plannedDeps:
         - memory-query
@@ -8739,8 +8741,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:a183255eb4831f701086f23f371f94a9ce10c46ea18c8369ec0fd756777f042f
-      lastVerified: '2026-03-11T00:48:55.878Z'
+      checksum: sha256:b53f19422d4df0470852ed2a6015408d08dd9182998819667c96bd1c0be33c61
+      lastVerified: '2026-03-17T15:38:10.868Z'
     parallel-executor:
       path: .aiox-core/core/execution/parallel-executor.js
       layer: L1
@@ -8851,6 +8853,8 @@ entities:
         - dispatcher
       usedBy: []
       dependencies:
+        - ai-providers
+        - memory-query
         - gotchas-memory
       externalDeps: []
       plannedDeps:
@@ -8861,8 +8865,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:7affbc04de9be2bc53427670009a885f0b35e1cc183f82c2e044abf9611344b6
-      lastVerified: '2026-03-11T00:48:55.878Z'
+      checksum: sha256:7b9d3f4bdca4bceb6e533fd7a20b29f529325193e65dda3021daf534a6eb18ee
+      lastVerified: '2026-03-17T15:38:10.869Z'
     wave-executor:
       path: .aiox-core/core/execution/wave-executor.js
       layer: L1
@@ -9030,8 +9034,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:d9108fa47ed7a9131703739befb214b97d5b8e546faf1b49d8ae9d083756c589
-      lastVerified: '2026-03-11T00:48:55.879Z'
+      checksum: sha256:14ac8d59fdb804341eb9ef7a1e11289d906bfc47a51a89bce7c09fab22420075
+      lastVerified: '2026-03-17T15:38:10.870Z'
     circuit-breaker:
       path: .aiox-core/core/ids/circuit-breaker.js
       layer: L1
@@ -12778,6 +12782,22 @@ entities:
         extensionPoints: []
       checksum: sha256:dd025894f8f0d3bd22a147dbc0debef8b83e96f3c59483653404b3cd5a01d5aa
       lastVerified: '2026-03-11T00:48:55.903Z'
+    reflection-engine:
+      path: .aiox-core/core/memory/reflection-engine.js
+      layer: L1
+      type: module
+      purpose: reflection.description || '',
+      keywords:
+        - reflection
+        - engine
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.4
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:e219009b9322b996ef0ab0ef25d70f8ddd26717d0e24e88129988fe63f8514ca
+      lastVerified: '2026-03-17T15:38:11.019Z'
   agents:
     aiox-master:
       path: .aiox-core/development/agents/aiox-master.md

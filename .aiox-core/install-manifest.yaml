@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 5.0.3
-generated_at: "2026-03-11T15:04:09.395Z"
+generated_at: "2026-03-17T15:40:02.776Z"
 generator: scripts/generate-install-manifest.js
-file_count: 1090
+file_count: 1091
 files:
   - path: cli/commands/config/index.js
     hash: sha256:25c4b9bf4e0241abf7754b55153f49f1a214f1fb5fe904a576675634cb7b3da9
@@ -409,9 +409,9 @@ files:
     type: core
     size: 48976
   - path: core/execution/context-injector.js
-    hash: sha256:a183255eb4831f701086f23f371f94a9ce10c46ea18c8369ec0fd756777f042f
+    hash: sha256:b53f19422d4df0470852ed2a6015408d08dd9182998819667c96bd1c0be33c61
     type: core
-    size: 14860
+    size: 14956
   - path: core/execution/parallel-executor.js
     hash: sha256:46870e5c8ff8db3ee0386e477d427cc98eeb008f630818b093a9524b410590ae
     type: core
@@ -433,9 +433,9 @@ files:
     type: core
     size: 51556
   - path: core/execution/subagent-dispatcher.js
-    hash: sha256:7affbc04de9be2bc53427670009a885f0b35e1cc183f82c2e044abf9611344b6
+    hash: sha256:7b9d3f4bdca4bceb6e533fd7a20b29f529325193e65dda3021daf534a6eb18ee
     type: core
-    size: 25738
+    size: 25837
   - path: core/execution/wave-executor.js
     hash: sha256:4e2324edb37ae0729062b5ac029f2891e050e7efd3a48d0f4a1dc4f227a6716b
     type: core
@@ -689,9 +689,9 @@ files:
     type: core
     size: 7755
   - path: core/ideation/ideation-engine.js
-    hash: sha256:d9108fa47ed7a9131703739befb214b97d5b8e546faf1b49d8ae9d083756c589
+    hash: sha256:14ac8d59fdb804341eb9ef7a1e11289d906bfc47a51a89bce7c09fab22420075
     type: core
-    size: 22865
+    size: 22960
   - path: core/ids/circuit-breaker.js
     hash: sha256:1b35331ba71a6ce17869bab255e087fc540291243f9884fc21ed89f7efc122a4
     type: core
@@ -792,6 +792,10 @@ files:
     hash: sha256:0063eff42caf0dda759c0390ac323e7b102f5507f27b8beb7b0acc2fbec407c4
     type: core
     size: 33058
+  - path: core/memory/reflection-engine.js
+    hash: sha256:e219009b9322b996ef0ab0ef25d70f8ddd26717d0e24e88129988fe63f8514ca
+    type: core
+    size: 18745
   - path: core/migration/migration-config.yaml
     hash: sha256:c251213b99ce86c9b15311d51a0b464b7fc25179455c4c6c107cae76cf49d1ab
     type: core
@@ -1221,9 +1225,9 @@ files:
     type: data
     size: 9575
   - path: data/entity-registry.yaml
-    hash: sha256:cc1bf74d3ef4e90b7a396d5b77259e540b2f9bd4a5b4b1da4977fe49ae83525d
+    hash: sha256:4238c9d7fa10886d601ab9510ba39b0efbd2ab24206848bc5d4eb1166429189c
     type: data
-    size: 521869
+    size: 522442
   - path: data/learned-patterns.yaml
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data
