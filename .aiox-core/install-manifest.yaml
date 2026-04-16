@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 5.0.3
-generated_at: "2026-03-11T15:04:09.395Z"
+generated_at: "2026-03-17T15:36:14.895Z"
 generator: scripts/generate-install-manifest.js
-file_count: 1090
+file_count: 1091
 files:
   - path: cli/commands/config/index.js
     hash: sha256:25c4b9bf4e0241abf7754b55153f49f1a214f1fb5fe904a576675634cb7b3da9
@@ -788,6 +788,10 @@ files:
     hash: sha256:895ec75f6a303edf4cffa0ab7adbb8a4876f62626cc0d7178420efd5758f21a9
     type: core
     size: 8850
+  - path: core/memory/decision-memory.js
+    hash: sha256:8a6d5b1bcfc45dda57b0a8740175ce08802b50c22c0a4bfd3de9cf1efef85475
+    type: core
+    size: 22491
   - path: core/memory/gotchas-memory.js
     hash: sha256:0063eff42caf0dda759c0390ac323e7b102f5507f27b8beb7b0acc2fbec407c4
     type: core
