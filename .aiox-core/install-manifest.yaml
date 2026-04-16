@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.0.3
-generated_at: "2026-03-11T15:04:09.395Z"
+generated_at: "2026-03-13T00:47:14.973Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1090
 files:
@@ -789,9 +789,9 @@ files:
     type: core
     size: 8850
   - path: core/memory/gotchas-memory.js
-    hash: sha256:0063eff42caf0dda759c0390ac323e7b102f5507f27b8beb7b0acc2fbec407c4
+    hash: sha256:cb666e318d1716c1cb8007cd216e5a97be8c8fbee1e802b8ce13a7b4e9ad2121
     type: core
-    size: 33058
+    size: 33491
   - path: core/migration/migration-config.yaml
     hash: sha256:c251213b99ce86c9b15311d51a0b464b7fc25179455c4c6c107cae76cf49d1ab
     type: core

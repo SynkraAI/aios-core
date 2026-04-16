@@ -257,6 +257,12 @@ class GotchasMemory extends EventEmitter {
         errorPattern: errorData.message,
         category: this._detectCategory(errorData.message + ' ' + (errorData.stack || '')),
       };
+    } else if (now - tracking.lastSeen >= this.options.errorWindowMs) {
+      // Window expired — reset count so only errors within the rolling window
+      // contribute toward the auto-capture threshold (fixes #475)
+      tracking.count = 0;
+      tracking.firstSeen = now;
+      tracking.samples = [];
     }
 
     // Update tracking
@@ -311,10 +317,13 @@ class GotchasMemory extends EventEmitter {
       gotchas = gotchas.filter((g) => !g.resolved);
     }
 
-    // Sort by severity (critical first), then by last occurrence
+    // Sort by severity (critical first), then by last occurrence.
+    // Use ?? not || so that 0 (critical) is not treated as falsy (fixes #476)
     const severityOrder = { critical: 0, warning: 1, info: 2 };
     gotchas.sort((a, b) => {
-      const severityDiff = (severityOrder[a.severity] || 2) - (severityOrder[b.severity] || 2);
+      const aSev = severityOrder[a.severity] ?? 2;
+      const bSev = severityOrder[b.severity] ?? 2;
+      const severityDiff = aSev - bSev;
       if (severityDiff !== 0) return severityDiff;
       return new Date(b.source.lastSeen) - new Date(a.source.lastSeen);
     });
