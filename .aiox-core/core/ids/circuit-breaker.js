@@ -93,21 +93,23 @@ class CircuitBreaker {
    * Record a failed operation.
    */
   recordFailure() {
-    this._failureCount++;
-    this._lastFailureTime = Date.now();
-
     if (this._state === STATE_HALF_OPEN) {
       // Any failure in half-open re-opens the circuit
       this._halfOpenProbeInFlight = false;
       this._state = STATE_OPEN;
       this._totalTrips++;
+      this._failureCount++;
       this._successCount = 0;
+      this._lastFailureTime = Date.now();
     } else if (this._state === STATE_CLOSED) {
+      this._failureCount++;
+      this._lastFailureTime = Date.now();
       if (this._failureCount >= this._failureThreshold) {
         this._state = STATE_OPEN;
         this._totalTrips++;
       }
     }
+    // STATE_OPEN: no-op — do not reset _lastFailureTime so recovery timeout is preserved
   }
 
   /**

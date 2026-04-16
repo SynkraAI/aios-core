@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.0.3
-generated_at: "2026-03-11T15:04:09.395Z"
+generated_at: "2026-03-13T00:48:04.596Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1090
 files:
@@ -693,9 +693,9 @@ files:
     type: core
     size: 22865
   - path: core/ids/circuit-breaker.js
-    hash: sha256:1b35331ba71a6ce17869bab255e087fc540291243f9884fc21ed89f7efc122a4
+    hash: sha256:407ae5ab689d834fa027a20db48d1696238b7393c3beeb0ec9d1651d5a832b17
     type: core
-    size: 4235
+    size: 4400
   - path: core/ids/framework-governor.js
     hash: sha256:ef7a3b7444a51f2f122c114c662b1db544d1c9e7833dc6f77dce30ac3a2005a2
     type: core
