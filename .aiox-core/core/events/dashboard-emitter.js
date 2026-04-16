@@ -23,10 +23,29 @@ const EMIT_TIMEOUT_MS = 500;
 
 /**
  * DashboardEmitter - Singleton for emitting events to monitor-server
+ *
+ * Sends high-level CLI events (agent activation, command execution,
+ * story status changes, session lifecycle) to the monitor-server via
+ * non-blocking HTTP POST requests with 500ms timeout.
+ *
+ * Falls back to writing events to a JSONL file when the monitor-server
+ * is unreachable. Automatically disabled in test environments.
+ *
+ * @example
+ * const emitter = DashboardEmitter.getInstance();
+ * emitter.setAgent('dev');
+ * await emitter.emitCommandStart('*develop', ['--story', '3.1']);
  */
 class DashboardEmitter {
   static instance = null;
 
+  /**
+   * Create a new DashboardEmitter instance
+   *
+   * Uses the CLAUDE_CODE_SESSION_ID environment variable if available,
+   * otherwise generates a random UUID for session tracking.
+   * Automatically disabled when NODE_ENV is 'test'.
+   */
   constructor() {
     this.sessionId = process.env.CLAUDE_CODE_SESSION_ID || randomUUID();
     this.projectRoot = process.cwd();

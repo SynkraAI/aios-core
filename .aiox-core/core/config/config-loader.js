@@ -77,7 +77,9 @@ const performanceMetrics = {
 };
 
 /**
- * Checks if cache is still valid
+ * Checks if the configuration cache is still valid based on TTL
+ *
+ * @returns {boolean} True if cache exists and has not expired
  */
 function isCacheValid() {
   if (!configCache.lastLoad) return false;
@@ -89,7 +91,13 @@ function isCacheValid() {
 }
 
 /**
- * Loads full config file (used for initial load or cache refresh)
+ * Loads the full core-config.yaml file from disk
+ *
+ * Used for initial load or cache refresh. The result is cached internally
+ * and subsequent calls within the TTL window return the cached version.
+ *
+ * @returns {Promise<Object>} Parsed configuration object
+ * @throws {Error} If the config file cannot be read or parsed
  */
 async function loadFullConfig() {
   const configPath = path.join('.aiox-core', 'core-config.yaml');
@@ -121,8 +129,13 @@ async function loadFullConfig() {
 /**
  * Loads specific config sections on demand
  *
+ * If the cache is valid, returns sections from cache. Otherwise performs
+ * a full config reload and extracts the requested sections.
+ * Sections that do not exist in the config are silently omitted.
+ *
  * @param {string[]} sections - Array of section names to load
- * @returns {Promise<Object>} Config object with requested sections
+ * @returns {Promise<Object>} Config object containing only the requested sections
+ * @throws {Error} If config file cannot be read or parsed (on cache miss)
  */
 async function loadConfigSections(sections) {
   const startTime = Date.now();
@@ -160,10 +173,18 @@ async function loadConfigSections(sections) {
 }
 
 /**
- * Loads config for specific agent with lazy loading
+ * Loads config for a specific agent with lazy loading
  *
- * @param {string} agentId - Agent ID (e.g., 'dev', 'qa', 'po')
- * @returns {Promise<Object>} Config object with sections needed by agent
+ * Only loads the configuration sections required by the given agent,
+ * as defined in the agentRequirements mapping. Falls back to
+ * ALWAYS_LOADED sections for unknown agent IDs.
+ *
+ * @param {string} agentId - Agent ID (e.g., 'dev', 'qa', 'po', 'architect')
+ * @returns {Promise<Object>} Config object with only the sections needed by the agent
+ * @throws {Error} If config file cannot be read or parsed
+ * @example
+ * const config = await loadAgentConfig('dev');
+ * // Returns { frameworkDocsLocation, projectDocsLocation, toolConfigurations, ... }
  */
 async function loadAgentConfig(agentId) {
   const startTime = Date.now();
@@ -186,16 +207,25 @@ async function loadAgentConfig(agentId) {
 }
 
 /**
- * Loads always-loaded sections (minimal config)
+ * Loads only the always-loaded (minimal) configuration sections
+ *
+ * Returns the lightweight subset of config needed by all agents:
+ * frameworkDocsLocation, projectDocsLocation, devLoadAlwaysFiles, and lazyLoading.
  *
  * @returns {Promise<Object>} Minimal config with always-loaded sections
+ * @throws {Error} If config file cannot be read or parsed
  */
 async function loadMinimalConfig() {
   return await loadConfigSections(ALWAYS_LOADED);
 }
 
 /**
- * Preloads config into cache (useful for startup optimization)
+ * Preloads the full configuration into cache for startup optimization
+ *
+ * Call this during application initialization to avoid cold cache
+ * misses on the first config access.
+ *
+ * @returns {Promise<void>}
  */
 async function preloadConfig() {
   console.log('🔄 Preloading config into cache...');
@@ -204,7 +234,12 @@ async function preloadConfig() {
 }
 
 /**
- * Clears config cache (useful for testing or forcing reload)
+ * Clears the entire config cache, forcing a full reload on next access
+ *
+ * Useful for testing scenarios or when the config file has been
+ * modified externally and a fresh load is required.
+ *
+ * @returns {void}
  */
 function clearCache() {
   configCache.full = null;
@@ -229,10 +264,15 @@ function getPerformanceMetrics() {
 }
 
 /**
- * Validates that required sections exist in config
+ * Validates that all required config sections exist for a given agent
  *
- * @param {string} agentId - Agent ID to validate
- * @returns {Promise<Object>} Validation result
+ * Loads the full config and checks that every section listed in the
+ * agent's requirements is present. Returns a detailed validation result
+ * including any missing sections.
+ *
+ * @param {string} agentId - Agent ID to validate (e.g., 'dev', 'qa')
+ * @returns {Promise<{valid: boolean, agentId: string, requiredSections: string[], missingSections: string[], availableSections: string[]}>} Validation result
+ * @throws {Error} If config file cannot be read or parsed
  */
 async function validateAgentConfig(agentId) {
   const requiredSections = agentRequirements[agentId] || ALWAYS_LOADED;
@@ -253,10 +293,15 @@ async function validateAgentConfig(agentId) {
 }
 
 /**
- * Gets config section on demand (async lazy load)
+ * Gets a single config section on demand via async lazy load
  *
- * @param {string} sectionName - Section to load
- * @returns {Promise<any>} Section content
+ * Leverages the caching layer so repeated calls for the same section
+ * within the TTL window are served from cache.
+ *
+ * @param {string} sectionName - Section name to load (e.g., 'toolConfigurations')
+ * @returns {Promise<*>} Section content, or undefined if the section does not exist
+ * @example
+ * const tools = await getConfigSection('toolConfigurations');
  */
 async function getConfigSection(sectionName) {
   const config = await loadConfigSections([sectionName]);

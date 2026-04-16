@@ -459,7 +459,12 @@ class GateEvaluator {
   }
 
   /**
-   * Clear all results
+   * Clear all stored gate results and logs
+   *
+   * Resets the evaluator to its initial state, removing all
+   * previously recorded gate evaluations and log entries.
+   *
+   * @returns {void}
    */
   clear() {
     this.results = [];
@@ -469,6 +474,8 @@ class GateEvaluator {
   /**
    * Log message
    * @private
+   * @param {string} message - Log message
+   * @param {string} [level='info'] - Log level (info, warn, error)
    */
   _log(message, level = 'info') {
     const timestamp = new Date().toISOString();
@@ -476,7 +483,9 @@ class GateEvaluator {
   }
 
   /**
-   * Get logs
+   * Get all evaluation logs
+   *
+   * @returns {Array<{timestamp: string, level: string, message: string}>} Copy of all log entries
    */
   getLogs() {
     return [...this.logs];
