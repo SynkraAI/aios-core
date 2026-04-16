@@ -158,8 +158,8 @@ class BuildStateManager {
     }
 
     this.storyId = storyId;
-    this.rootPath = options.rootPath || process.cwd();
-    this.planDir = options.planDir || path.join(this.rootPath, 'plan');
+    this.rootPath = options.rootPath ?? process.cwd();
+    this.planDir = options.planDir ?? path.join(this.rootPath, 'plan');
     this.config = { ...DEFAULT_CONFIG, ...options.config };
 
     // State file paths
@@ -213,7 +213,7 @@ class BuildStateManager {
       plan: options.plan || null,
       checkpoints: [],
       metrics: {
-        totalSubtasks: options.totalSubtasks || 0,
+        totalSubtasks: options.totalSubtasks ?? 0,
         completedSubtasks: 0,
         totalAttempts: 0,
         totalFailures: 0,
@@ -355,10 +355,10 @@ class BuildStateManager {
       subtaskId,
       status: options.status || 'completed',
       gitCommit: options.gitCommit || null,
-      filesModified: options.filesModified || [],
+      filesModified: options.filesModified ?? [],
       metrics: {
-        duration: options.duration || 0,
-        attempts: options.attempts || 1,
+        duration: options.duration ?? 0,
+        attempts: options.attempts ?? 1,
       },
     };
 

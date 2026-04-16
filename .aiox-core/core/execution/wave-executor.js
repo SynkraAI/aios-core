@@ -64,7 +64,7 @@ class WaveExecutor extends EventEmitter {
         waves: [
           {
             index: 1,
-            tasks: context.tasks || [],
+            tasks: context.tasks ?? [],
           },
         ],
       };
@@ -101,7 +101,7 @@ class WaveExecutor extends EventEmitter {
         wave: wave.index,
         results: waveResult,
         allSucceeded: waveResult.every((r) => r.success),
-        duration: waveResult.reduce((sum, r) => sum + (r.duration || 0), 0),
+        duration: waveResult.reduce((sum, r) => sum + (r.duration ?? 0), 0),
       });
 
       this.emit('wave_completed', {
@@ -148,7 +148,7 @@ class WaveExecutor extends EventEmitter {
    * @returns {Promise<Array>} - Task results
    */
   async executeWave(wave, context) {
-    const tasks = wave.tasks || [];
+    const tasks = wave.tasks ?? [];
 
     if (tasks.length === 0) {
       return [];
@@ -175,7 +175,7 @@ class WaveExecutor extends EventEmitter {
             success: result.value.success,
             result: result.value,
             critical: task.critical || false,
-            duration: result.value.duration || 0,
+            duration: result.value.duration ?? 0,
           });
         } else {
           allResults.push({
@@ -314,7 +314,7 @@ class WaveExecutor extends EventEmitter {
     const allTasks = waveResults.flatMap((w) => w.results);
     const successful = allTasks.filter((t) => t.success).length;
     const failed = allTasks.filter((t) => !t.success).length;
-    const totalDuration = allTasks.reduce((sum, t) => sum + (t.duration || 0), 0);
+    const totalDuration = allTasks.reduce((sum, t) => sum + (t.duration ?? 0), 0);
 
     // Calculate wall time (actual elapsed time)
     const wallTime = waveResults.reduce((sum, w) => {

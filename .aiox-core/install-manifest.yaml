@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.0.3
-generated_at: "2026-03-11T15:04:09.395Z"
+generated_at: "2026-03-18T02:09:42.143Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1090
 files:
@@ -405,7 +405,7 @@ files:
     type: core
     size: 31780
   - path: core/execution/build-state-manager.js
-    hash: sha256:415fca3ad3d750db1f41f14f33971cf661ee9d6073a570175d695bb3c1be655c
+    hash: sha256:7b13b18fa3ef9d624ea23ce25b30d88311f0d225125b2b7b07e76bdf57eb30c5
     type: core
     size: 48976
   - path: core/execution/context-injector.js
@@ -425,7 +425,7 @@ files:
     type: core
     size: 9033
   - path: core/execution/result-aggregator.js
-    hash: sha256:fc662bbc649bf704a8f6e70d0203fab389c664a6b4b2932510f84c251ae26610
+    hash: sha256:5346bf5ac07f4e837ba3c44115ac73eede3eeea1d342fae1f30d01663e32240f
     type: core
     size: 14553
   - path: core/execution/semantic-merge-engine.js
@@ -437,7 +437,7 @@ files:
     type: core
     size: 25738
   - path: core/execution/wave-executor.js
-    hash: sha256:4e2324edb37ae0729062b5ac029f2891e050e7efd3a48d0f4a1dc4f227a6716b
+    hash: sha256:950f659dd9d7176b39450c95f1903ea8868efd7324603040b770a80e2063310c
     type: core
     size: 11060
   - path: core/graph-dashboard/cli.js
@@ -1221,7 +1221,7 @@ files:
     type: data
     size: 9575
   - path: data/entity-registry.yaml
-    hash: sha256:cc1bf74d3ef4e90b7a396d5b77259e540b2f9bd4a5b4b1da4977fe49ae83525d
+    hash: sha256:7ab5f897a51bbe4b63db9250ba3496c911462ab761a7655672a0bf50f0a821e8
     type: data
     size: 521869
   - path: data/learned-patterns.yaml
