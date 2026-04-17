@@ -63,7 +63,7 @@ Analyze the project to determine its type:
    - `pyproject.toml` / `setup.py` -> Python project
    - `Cargo.toml` -> Rust project
    - `go.mod` -> Go project
-   - `.aiox-core/` -> AIOX-managed project
+   - `.aios-core/` -> AIOS-managed project
 2. Detect project structure:
    - `src/app/` or `app/` -> App Router (Next.js)
    - `src/pages/` -> Pages Router
@@ -83,7 +83,7 @@ Analyze the project to determine its type:
 | library | main/module in package.json | askAlways |
 | cli | bin/ field in package.json | askAlways |
 | python | pyproject.toml, src/ | acceptEdits |
-| aiox | .aiox-core/ directory | acceptEdits |
+| aios | .aios-core/ directory | acceptEdits |
 
 ### Phase 2: Generate CLAUDE.md
 
@@ -96,7 +96,7 @@ Analyze the project to determine its type:
    - **Architecture notes**: Key directories and their purpose
 3. Use @imports for large reference documents
 4. Target: under 200 lines
-5. If AIOX project: include AIOX-specific sections (agent system, workflows)
+5. If AIOS project: include AIOS-specific sections (agent system, workflows)
 
 ### Phase 3: Configure settings.json
 
@@ -109,7 +109,7 @@ Analyze the project to determine its type:
    - Frontend: allow Bash(npm run dev), Bash(npm run build)
    - API: deny external network calls by default
    - Library: stricter permissions (askAlways)
-3. If AIOX project: add L1-L4 boundary protection deny rules
+3. If AIOS project: add L1-L4 boundary protection deny rules
 
 ### Phase 4: Set Up .claude/rules/
 

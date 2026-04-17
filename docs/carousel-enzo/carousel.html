@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carrossel IA — Enzo</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --accent: #00E8A8;
+    --accent-glow: rgba(0, 232, 168, 0.18);
+    --accent-subtle: rgba(0, 232, 168, 0.06);
+    --accent-border: rgba(0, 232, 168, 0.25);
+    --bg: #050505;
+    --text: #ffffff;
+    --muted: rgba(255,255,255,0.35);
+    --dim: rgba(255,255,255,0.55);
+    --font: 'Space Grotesk', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #111;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 48px;
+    padding: 48px 20px;
+    font-family: var(--font);
+  }
+
+  .slide-label {
+    color: #444;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-family: var(--font);
+    margin-bottom: -38px;
+    align-self: flex-start;
+    margin-left: calc(50% - 540px);
+  }
+
+  /* BASE */
+  .slide {
+    width: 1080px;
+    height: 1350px;
+    position: relative;
+    overflow: hidden;
+    background: var(--bg);
+    flex-shrink: 0;
+  }
+
+  /* SHARED UTILITIES */
+  .tag-row {
+    position: absolute;
+    top: 70px;
+    left: 72px;
+    right: 72px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .tag {
+    font-family: var(--font);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .tag.accent-tag {
+    color: var(--accent);
+    letter-spacing: 3px;
+  }
+
+  .slide-num {
+    position: absolute;
+    bottom: 64px;
+    right: 72px;
+    font-family: var(--font);
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.15);
+  }
+
+  /* ─────────────────────────────────────── */
+  /* SLIDE 1 — GANCHO */
+  /* ─────────────────────────────────────── */
+  .s1 .bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+
+  .s1 .accent-corner {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle at bottom right, rgba(0,232,168,0.08) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .s1 .img-block {
+    position: absolute;
+    bottom: 130px;
+    right: 72px;
+    width: 380px;
+    height: 480px;
+    overflow: hidden;
+  }
+
+  .s1 .img-block img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(30%) brightness(0.65);
+  }
+
+  .s1 .img-block::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg, var(--bg) 0%, transparent 25%, transparent 65%, var(--bg) 100%
+    ), linear-gradient(90deg, var(--bg) 0%, transparent 35%);
+  }
+
+  .s1 .center-content {
+    position: absolute;
+    top: 50%;
+    left: 72px;
+    right: 72px;
+    transform: translateY(-58%);
+  }
+
+  .s1 .eyebrow {
+    font-family: var(--font);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 28px;
+    opacity: 0.85;
+  }
+
+  .s1 .headline {
+    font-family: var(--font);
+    font-size: 108px;
+    font-weight: 700;
+    line-height: 0.9;
+    color: var(--text);
+    letter-spacing: -4px;
+  }
+
+  .s1 .headline .hl {
+    color: var(--accent);
+    display: block;
+  }
+
+  .s1 .divider {
+    width: 48px;
+    height: 2px;
+    background: var(--accent);
+    opacity: 0.6;
+    margin: 44px 0 36px;
+  }
+
+  .s1 .sub {
+    font-family: var(--font);
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.65;
+    color: var(--dim);
+    max-width: 520px;
+  }
+
+  .s1 .sub strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .s1 .corner-bracket {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border-color: var(--accent-border);
+    border-style: solid;
+  }
+  .s1 .cb-tl { top: 48px; left: 48px; border-width: 1px 0 0 1px; }
+  .s1 .cb-tr { top: 48px; right: 48px; border-width: 1px 1px 0 0; }
+  .s1 .cb-bl { bottom: 48px; left: 48px; border-width: 0 0 1px 1px; }
+  .s1 .cb-br { bottom: 48px; right: 48px; border-width: 0 1px 1px 0; }
+
+  .s1 .bottom-bar {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-border), transparent);
+  }
+
+  /* ─────────────────────────────────────── */
+  /* SLIDE 2 — URGÊNCIA */
+  /* ─────────────────────────────────────── */
+  .s2 .bg-lines::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg, transparent, transparent 119px,
+      rgba(255,255,255,0.02) 120px
+    );
+  }
+
+  .s2 .accent-bar {
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent 5%, var(--accent) 40%, transparent 85%);
+    opacity: 0.7;
+  }
+
+  .s2 .img-wrap {
+    position: absolute;
+    top: 140px;
+    right: 72px;
+    width: 360px;
+    height: 320px;
+    overflow: hidden;
+    border: 1px solid var(--accent-border);
+  }
+
+  .s2 .img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(20%) brightness(0.55) saturate(1.2);
+  }
+
+  .s2 .img-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0,232,168,0.06) 0%, transparent 50%);
+  }
+
+  .s2 .img-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px 14px;
+    background: rgba(0,0,0,0.6);
+    font-family: var(--font);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .s2 .main-content {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-48%);
+    left: 88px;
+    right: 72px;
+  }
+
+  .s2 .number {
+    font-family: var(--font);
+    font-size: 220px;
+    font-weight: 700;
+    line-height: 1;
+    color: rgba(255,255,255,0.03);
+    position: absolute;
+    right: -10px;
+    top: -160px;
+    letter-spacing: -10px;
+  }
+
+  .s2 .headline {
+    font-family: var(--font);
+    font-size: 76px;
+    font-weight: 700;
+    line-height: 0.95;
+    color: var(--text);
+    letter-spacing: -2.5px;
+    margin-bottom: 40px;
+  }
+
+  .s2 .headline .hl { color: var(--accent); }
+
+  .s2 .line {
+    width: 40px;
+    height: 2px;
+    background: var(--accent);
+    opacity: 0.6;
+    margin-bottom: 36px;
+  }
+
+  .s2 .body-text {
+    font-family: var(--font);
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--dim);
+    max-width: 580px;
+  }
+
+  .s2 .body-text strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  /* ─────────────────────────────────────── */
+  /* SLIDE 3 — OBJEÇÃO */
+  /* ─────────────────────────────────────── */
+  .s3 .bg-dot {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: radial-gradient(ellipse 85% 85% at 50% 50%, black 0%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 85% 85% at 50% 50%, black 0%, transparent 100%);
+  }
+
+  .s3 .accent-glow-top {
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(0,232,168,0.05) 0%, transparent 65%);
+  }
+
+  .s3 .objection-box {
+    position: absolute;
+    top: 165px;
+    left: 72px;
+    right: 72px;
+    padding: 36px 44px;
+    border: 1px solid rgba(255,255,255,0.07);
+    background: rgba(255,255,255,0.02);
+  }
+
+  .s3 .objection-label {
+    font-family: var(--font);
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .s3 .objection-text {
+    font-family: var(--font);
+    font-size: 38px;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.3;
+    letter-spacing: -1px;
+  }
+
+  .s3 .answer-content {
+    position: absolute;
+    top: 440px;
+    left: 72px;
+    right: 72px;
+  }
+
+  .s3 .answer-headline {
+    font-family: var(--font);
+    font-size: 60px;
+    font-weight: 700;
+    line-height: 1.0;
+    color: var(--text);
+    letter-spacing: -2px;
+    margin-bottom: 40px;
+  }
+
+  .s3 .answer-headline .hl { color: var(--accent); }
+
+  .s3 .tools-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 40px;
+  }
+
+  .s3 .tool-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 22px 26px;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.02);
+    transition: border-color 0.2s;
+  }
+
+  .s3 .tool-item:hover { border-color: var(--accent-border); }
+
+  .s3 .tool-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+    box-shadow: 0 0 8px var(--accent);
+  }
+
+  .s3 .tool-name {
+    font-family: var(--font);
+    font-size: 17px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.75);
+    letter-spacing: 0.5px;
+  }
+
+  .s3 .tool-desc {
+    font-family: var(--font);
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+
+  .s3 .footer-line {
+    font-family: var(--font);
+    font-size: 18px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.65;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.055);
+  }
+
+  .s3 .footer-line strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .s3 .tool-img {
+    position: absolute;
+    top: 165px;
+    right: 72px;
+    width: 120px;
+    height: 120px;
+    overflow: hidden;
+  }
+
+  /* ─────────────────────────────────────── */
+  /* SLIDE 4 — IMPACTO REAL */
+  /* ─────────────────────────────────────── */
+  .s4 .bg-gradient {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 55% 45% at 50% 0%, rgba(0,232,168,0.04) 0%, transparent 60%);
+  }
+
+  .s4 .img-hero {
+    position: absolute;
+    top: 130px;
+    right: 72px;
+    width: 420px;
+    height: 280px;
+    overflow: hidden;
+  }
+
+  .s4 .img-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(15%) brightness(0.6) saturate(0.9);
+  }
+
+  .s4 .img-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, var(--bg) 0%, transparent 30%),
+      linear-gradient(180deg, transparent 50%, var(--bg) 100%);
+  }
+
+  .s4 .img-hero-tag {
+    position: absolute;
+    top: 130px;
+    right: 72px;
+    z-index: 2;
+    background: var(--accent);
+    color: #000;
+    font-family: var(--font);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 6px 12px;
+  }
+
+  .s4 .headline {
+    position: absolute;
+    top: 170px;
+    left: 72px;
+    width: 560px;
+    font-family: var(--font);
+    font-size: 60px;
+    font-weight: 700;
+    line-height: 1.0;
+    color: var(--text);
+    letter-spacing: -2px;
+  }
+
+  .s4 .headline .hl { color: var(--accent); }
+
+  .s4 .items-list {
+    position: absolute;
+    top: 450px;
+    left: 72px;
+    right: 72px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .s4 .item {
+    display: flex;
+    align-items: flex-start;
+    gap: 28px;
+    padding: 34px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .s4 .item:first-child { border-top: 1px solid rgba(255,255,255,0.05); }
+
+  .s4 .item-number {
+    font-family: var(--font);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 2px;
+    padding-top: 4px;
+    min-width: 28px;
+    opacity: 0.8;
+  }
+
+  .s4 .item-title {
+    font-family: var(--font);
+    font-size: 21px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.88);
+    margin-bottom: 6px;
+    letter-spacing: -0.3px;
+  }
+
+  .s4 .item-sub {
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.35);
+    line-height: 1.5;
+  }
+
+  .s4 .bottom-statement {
+    position: absolute;
+    bottom: 90px;
+    left: 72px;
+    right: 72px;
+    font-family: var(--font);
+    font-size: 20px;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(255,255,255,0.3);
+    line-height: 1.55;
+    padding-top: 28px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+
+  /* ─────────────────────────────────────── */
+  /* SLIDE 5 — CONSEQUÊNCIA */
+  /* ─────────────────────────────────────── */
+  .s5 .bg-vline {
+    position: absolute;
+    left: 50%; top: 0; bottom: 0;
+    width: 1px;
+    background: rgba(255,255,255,0.03);
+  }
+
+  .s5 .headline {
+    position: absolute;
+    top: 155px;
+    left: 72px;
+    right: 72px;
+    font-family: var(--font);
+    font-size: 82px;
+    font-weight: 700;
+    line-height: 0.92;
+    color: var(--text);
+    letter-spacing: -3px;
+  }
+
+  .s5 .headline .hl { color: var(--accent); }
+  .s5 .headline .dim { color: rgba(255,255,255,0.3); display: block; }
+
+  .s5 .divider-line {
+    position: absolute;
+    top: 480px;
+    left: 72px;
+    width: 48px;
+    height: 2px;
+    background: var(--accent);
+    opacity: 0.6;
+  }
+
+  .s5 .comparison {
+    position: absolute;
+    top: 540px;
+    left: 72px;
+    right: 72px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+
+  .s5 .col {
+    padding: 0;
+    border: 1px solid rgba(255,255,255,0.06);
+    overflow: hidden;
+  }
+
+  .s5 .col-img {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .s5 .col-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .s5 .col.win .col-img img {
+    filter: brightness(0.7) saturate(1.1);
+  }
+
+  .s5 .col.lose .col-img img {
+    filter: grayscale(80%) brightness(0.45);
+  }
+
+  .s5 .col-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 40%, rgba(5,5,5,0.9) 100%);
+  }
+
+  .s5 .col-body {
+    padding: 28px 28px 32px;
+    background: rgba(255,255,255,0.02);
+  }
+
+  .s5 .col.lose .col-body { background: rgba(0,0,0,0.3); }
+
+  .s5 .col-label {
+    font-family: var(--font);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .s5 .col.win .col-label { color: var(--accent); }
+  .s5 .col.lose .col-label { color: rgba(255,255,255,0.2); }
+
+  .s5 .col-label::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .s5 .col.win .col-label::before {
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+  }
+  .s5 .col.lose .col-label::before { background: rgba(255,255,255,0.15); }
+
+  .s5 .col-items {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .s5 .col-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  .s5 .col.win .col-item { color: rgba(255,255,255,0.75); }
+  .s5 .col.lose .col-item { color: rgba(255,255,255,0.22); }
+
+  .s5 .col-item::before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .s5 .col.win .col-item::before { background: var(--accent); opacity: 0.7; }
+  .s5 .col.lose .col-item::before { background: rgba(255,255,255,0.12); }
+
+  .s5 .bottom-cta {
+    position: absolute;
+    bottom: 90px;
+    left: 72px;
+    right: 72px;
+    font-family: var(--font);
+    font-size: 20px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.38);
+    line-height: 1.6;
+  }
+
+  .s5 .bottom-cta strong {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* ─────────────────────────────────────── */
+  /* SLIDE 6 — BARREIRA */
+  /* ─────────────────────────────────────── */
+  .s6 .bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 120px 120px;
+  }
+
+  .s6 .img-door {
+    position: absolute;
+    top: 155px;
+    right: 72px;
+    width: 340px;
+    height: 360px;
+    overflow: hidden;
+    border: 1px solid var(--accent-border);
+  }
+
+  .s6 .img-door img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(20%) brightness(0.55) saturate(0.9);
+  }
+
+  .s6 .img-door::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, var(--bg) 0%, transparent 25%),
+      linear-gradient(180deg, transparent 55%, var(--bg) 100%),
+      linear-gradient(135deg, rgba(0,232,168,0.04) 0%, transparent 60%);
+  }
+
+  .s6 .myth-box {
+    position: absolute;
+    top: 175px;
+    left: 72px;
+    width: 560px;
+    padding: 40px 44px;
+    border: 1px solid rgba(255,255,255,0.07);
+    background: rgba(255,255,255,0.02);
+  }
+
+  .s6 .myth-label {
+    font-family: var(--font);
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .s6 .myth-text {
+    font-family: var(--font);
+    font-size: 40px;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.25;
+    letter-spacing: -1px;
+  }
+
+  .s6 .answer-area {
+    position: absolute;
+    top: 530px;
+    left: 72px;
+    right: 72px;
+  }
+
+  .s6 .answer-headline {
+    font-family: var(--font);
+    font-size: 68px;
+    font-weight: 700;
+    line-height: 0.95;
+    color: var(--text);
+    letter-spacing: -2.5px;
+    margin-bottom: 44px;
+  }
+
+  .s6 .answer-headline .hl { color: var(--accent); }
+
+  .s6 .steps { display: flex; flex-direction: column; gap: 0; }
+
+  .s6 .step {
+    display: flex;
+    align-items: flex-start;
+    gap: 28px;
+    padding: 26px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .s6 .step-n {
+    font-family: var(--font);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 2px;
+    min-width: 28px;
+    padding-top: 3px;
+    opacity: 0.8;
+  }
+
+  .s6 .step-text {
+    font-family: var(--font);
+    font-size: 19px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.45;
+  }
+
+  .s6 .step-text strong { color: var(--text); font-weight: 600; }
+
+  .s6 .bottom-note {
+    position: absolute;
+    bottom: 90px;
+    left: 72px;
+    right: 72px;
+    font-family: var(--font);
+    font-size: 20px;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(255,255,255,0.28);
+    padding-top: 26px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+
+  /* ─────────────────────────────────────── */
+  /* SLIDE 7 — CTA */
+  /* ─────────────────────────────────────── */
+  .s7 .bg-img {
+    position: absolute;
+    inset: 0;
+  }
+
+  .s7 .bg-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(30%) brightness(0.25) saturate(0.8);
+  }
+
+  .s7 .bg-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0,232,168,0.06) 0%, transparent 65%),
+      linear-gradient(180deg, rgba(5,5,5,0.6) 0%, rgba(5,5,5,0.3) 40%, rgba(5,5,5,0.7) 100%);
+  }
+
+  .s7 .ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid var(--accent-border);
+  }
+
+  .s7 .ring-1 { width: 420px; height: 420px; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.3; }
+  .s7 .ring-2 { width: 680px; height: 680px; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.15; }
+  .s7 .ring-3 { width: 950px; height: 950px; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.07; }
+
+  .s7 .center-content {
+    position: absolute;
+    top: 50%;
+    left: 72px;
+    right: 72px;
+    transform: translateY(-50%);
+    text-align: center;
+  }
+
+  .s7 .eyebrow {
+    font-family: var(--font);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 36px;
+    opacity: 0.85;
+  }
+
+  .s7 .headline {
+    font-family: var(--font);
+    font-size: 104px;
+    font-weight: 700;
+    line-height: 0.88;
+    color: var(--text);
+    letter-spacing: -5px;
+    margin-bottom: 12px;
+  }
+
+  .s7 .headline-2 {
+    font-family: var(--font);
+    font-size: 104px;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 0.88;
+    color: var(--accent);
+    letter-spacing: -5px;
+    margin-bottom: 54px;
+  }
+
+  .s7 .divider {
+    width: 1px;
+    height: 48px;
+    background: var(--accent-border);
+    margin: 0 auto 48px;
+  }
+
+  .s7 .body-text {
+    font-family: var(--font);
+    font-size: 19px;
+    font-weight: 300;
+    line-height: 1.78;
+    color: rgba(255,255,255,0.45);
+    max-width: 580px;
+    margin: 0 auto;
+  }
+
+  .s7 .body-text strong { color: var(--text); font-weight: 600; }
+
+  .s7 .cta-box {
+    margin-top: 52px;
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 44px;
+    border: 1px solid var(--accent);
+    background: var(--accent-subtle);
+    box-shadow: 0 0 24px rgba(0,232,168,0.12);
+  }
+
+  .s7 .cta-arrow {
+    font-size: 18px;
+    color: var(--accent);
+  }
+
+  .s7 .cta-text {
+    font-family: var(--font);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .s7 .bottom-row {
+    position: absolute;
+    bottom: 70px;
+    left: 72px;
+    right: 72px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .s7 .handle {
+    font-family: var(--font);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: var(--accent);
+    opacity: 0.8;
+  }
+
+  .s7 .slide-counter {
+    font-family: var(--font);
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.18);
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════ SLIDE 1 ══════════ -->
+<div class="slide-label">SLIDE 01 — GANCHO</div>
+<div class="slide s1">
+  <div class="bg-grid"></div>
+  <div class="accent-corner"></div>
+  <div class="cb-tl corner-bracket"></div>
+  <div class="cb-tr corner-bracket"></div>
+  <div class="cb-bl corner-bracket"></div>
+  <div class="cb-br corner-bracket"></div>
+
+  <!-- Imagem: pessoa trabalhando no laptop, exausta -->
+  <div class="img-block">
+    <img
+      src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&auto=format&fit=crop"
+      alt="Pessoa trabalhando"
+      onerror="this.parentElement.style.background='linear-gradient(135deg,#0a0a0a 0%,#111 100%)'"
+    >
+  </div>
+
+  <div class="tag-row">
+    <span class="tag">IA</span>
+    <span class="tag">2026</span>
+  </div>
+
+  <div class="center-content">
+    <div class="eyebrow">A pergunta que ninguém quer responder</div>
+    <div class="headline">
+      Você ainda<br>
+      faz tudo<br>
+      <span class="hl">na mão?</span>
+    </div>
+    <div class="divider"></div>
+    <div class="sub">
+      Enquanto você gasta <strong>4 horas</strong> num briefing,<br>
+      tem gente entregando o dobro<br>
+      na metade do tempo.
+    </div>
+  </div>
+
+  <div class="bottom-bar"></div>
+  <div class="slide-num">01 / 07</div>
+</div>
+
+<!-- ══════════ SLIDE 2 ══════════ -->
+<div class="slide-label">SLIDE 02 — URGÊNCIA</div>
+<div class="slide s2">
+  <div class="bg-lines"></div>
+  <div class="accent-bar"></div>
+
+  <!-- Imagem: mercado digital / tendência -->
+  <div class="img-wrap">
+    <img
+      src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=800&auto=format&fit=crop"
+      alt="Inteligência artificial"
+      onerror="this.parentElement.style.background='#0a0a0a'"
+    >
+    <div class="img-caption">IA — 2026</div>
+  </div>
+
+  <div class="tag-row">
+    <span class="tag">Mercado</span>
+    <span class="tag accent-tag">Realidade</span>
+  </div>
+
+  <div class="main-content">
+    <div class="number">02</div>
+    <div class="headline">
+      O mercado<br>
+      já mudou.<br>
+      <span class="hl">Você não.</span>
+    </div>
+    <div class="line"></div>
+    <div class="body-text">
+      Freelancers estão usando IA pra criar roteiros,<br>
+      montar propostas, gerar variantes de design<br>
+      e responder clientes.<br><br>
+      Não é sobre substituir ninguém.<br>
+      É sobre quem <strong>entrega mais rápido,<br>
+      cobra mais caro</strong> e ainda tem tempo sobrando.
+    </div>
+  </div>
+
+  <div class="slide-num">02 / 07</div>
+</div>
+
+<!-- ══════════ SLIDE 3 ══════════ -->
+<div class="slide-label">SLIDE 03 — OBJEÇÃO</div>
+<div class="slide s3">
+  <div class="bg-dot"></div>
+  <div class="accent-glow-top"></div>
+
+  <div class="tag-row">
+    <span class="tag">Objeção</span>
+    <span class="tag accent-tag">Resposta</span>
+  </div>
+
+  <div class="objection-box">
+    <div class="objection-label">O que você pensa</div>
+    <div class="objection-text">"Mas IA não entende<br>o meu trabalho."</div>
+  </div>
+
+  <div class="answer-content">
+    <div class="answer-headline">
+      Entende sim.<br>Melhor do que<br><span class="hl">você imagina.</span>
+    </div>
+
+    <div class="tools-grid">
+      <div class="tool-item">
+        <div class="tool-dot"></div>
+        <div>
+          <div class="tool-name">ChatGPT</div>
+          <div class="tool-desc">Roteiros e textos</div>
+        </div>
+      </div>
+      <div class="tool-item">
+        <div class="tool-dot"></div>
+        <div>
+          <div class="tool-name">Claude</div>
+          <div class="tool-desc">Estratégias e análise</div>
+        </div>
+      </div>
+      <div class="tool-item">
+        <div class="tool-dot"></div>
+        <div>
+          <div class="tool-name">Gemini</div>
+          <div class="tool-desc">Dados e insights</div>
+        </div>
+      </div>
+      <div class="tool-item">
+        <div class="tool-dot"></div>
+        <div>
+          <div class="tool-name">Midjourney</div>
+          <div class="tool-desc">Referências visuais</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-line">
+      O problema nunca foi a ferramenta.<br>
+      Foi você <strong>não saber fazer a pergunta certa.</strong>
+    </div>
+  </div>
+
+  <div class="slide-num">03 / 07</div>
+</div>
+
+<!-- ══════════ SLIDE 4 ══════════ -->
+<div class="slide-label">SLIDE 04 — IMPACTO REAL</div>
+<div class="slide s4">
+  <div class="bg-gradient"></div>
+
+  <!-- Imagem: workspace produtivo / telas -->
+  <div class="img-hero">
+    <img
+      src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop"
+      alt="Workspace produtivo"
+      onerror="this.parentElement.style.background='#0a0a0a'"
+    >
+  </div>
+  <div class="img-hero-tag">Na prática</div>
+
+  <div class="tag-row">
+    <span class="tag">Impacto</span>
+    <span class="tag accent-tag">Na prática</span>
+  </div>
+
+  <div class="headline">
+    O que muda quando<br>você <span class="hl">começa</span> a usar IA:
+  </div>
+
+  <div class="items-list">
+    <div class="item">
+      <span class="item-number">01</span>
+      <div>
+        <div class="item-title">Briefing em 40 minutos</div>
+        <div class="item-sub">O que levava 3 horas sai em menos de uma</div>
+      </div>
+    </div>
+    <div class="item">
+      <span class="item-number">02</span>
+      <div>
+        <div class="item-title">Propostas prontas, não rascunhadas</div>
+        <div class="item-sub">Estrutura, argumentação e fechamento em minutos</div>
+      </div>
+    </div>
+    <div class="item">
+      <span class="item-number">03</span>
+      <div>
+        <div class="item-title">Pesquisa que virou conversa</div>
+        <div class="item-sub">Uma manhã de referências resolvida em 5 minutos</div>
+      </div>
+    </div>
+    <div class="item">
+      <span class="item-number">04</span>
+      <div>
+        <div class="item-title">De operacional a estratégico</div>
+        <div class="item-sub">Você para de executar e começa a pensar</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-statement">
+    Quem usa IA direito não volta atrás.<br>Percebe que estava gastando energia demais.
+  </div>
+  <div class="slide-num">04 / 07</div>
+</div>
+
+<!-- ══════════ SLIDE 5 ══════════ -->
+<div class="slide-label">SLIDE 05 — CONSEQUÊNCIA</div>
+<div class="slide s5">
+  <div class="bg-vline"></div>
+
+  <div class="tag-row">
+    <span class="tag">Gap</span>
+    <span class="tag accent-tag">Consequência</span>
+  </div>
+
+  <div class="headline">
+    Quem ignora IA<br>
+    <span class="hl">vai sentir</span><br>
+    <span class="dim">o preço.</span>
+  </div>
+
+  <div class="divider-line"></div>
+
+  <div class="comparison">
+    <!-- Coluna WIN -->
+    <div class="col win">
+      <div class="col-img">
+        <img
+          src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&auto=format&fit=crop"
+          alt="Sucesso"
+          onerror="this.parentElement.style.background='#0d1a0f'"
+        >
+      </div>
+      <div class="col-body">
+        <div class="col-label">Quem usa</div>
+        <div class="col-items">
+          <div class="col-item">Entrega mais rápido</div>
+          <div class="col-item">Cobra mais caro</div>
+          <div class="col-item">Pega melhores projetos</div>
+          <div class="col-item">Sobra tempo pra pensar</div>
+        </div>
+      </div>
+    </div>
+    <!-- Coluna LOSE -->
+    <div class="col lose">
+      <div class="col-img">
+        <img
+          src="https://images.unsplash.com/photo-1496307653780-42ee777d4833?w=600&auto=format&fit=crop"
+          alt="Estagnação"
+          onerror="this.parentElement.style.background='#0d0d0d'"
+        >
+      </div>
+      <div class="col-body">
+        <div class="col-label">Quem não usa</div>
+        <div class="col-items">
+          <div class="col-item">Briga por prazo</div>
+          <div class="col-item">Compete por preço</div>
+          <div class="col-item">500 concorrentes iguais</div>
+          <div class="col-item">Tempo sempre curto</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-cta">
+    Qual lado você quer estar<br>
+    <strong>daqui a 6 meses?</strong>
+  </div>
+
+  <div class="slide-num">05 / 07</div>
+</div>
+
+<!-- ══════════ SLIDE 6 ══════════ -->
+<div class="slide-label">SLIDE 06 — BARREIRA</div>
+<div class="slide s6">
+  <div class="bg-grid"></div>
+
+  <!-- Imagem: porta aberta / primeiro passo -->
+  <div class="img-door">
+    <img
+      src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=600&auto=format&fit=crop"
+      alt="Começar agora"
+      onerror="this.parentElement.style.background='#0a0a0a'"
+    >
+  </div>
+
+  <div class="tag-row">
+    <span class="tag">Barreira</span>
+    <span class="tag accent-tag">Solução</span>
+  </div>
+
+  <div class="myth-box">
+    <div class="myth-label">A desculpa mais comum</div>
+    <div class="myth-text">"Não sei por<br>onde começar."</div>
+  </div>
+
+  <div class="answer-area">
+    <div class="answer-headline">
+      Ninguém<br><span class="hl">sabia.</span>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <span class="step-n">01</span>
+        <span class="step-text">Todo mundo que usa IA hoje <strong>começou perdido</strong></span>
+      </div>
+      <div class="step">
+        <span class="step-n">02</span>
+        <span class="step-text">A diferença é que eles <strong>começaram</strong></span>
+      </div>
+      <div class="step">
+        <span class="step-n">03</span>
+        <span class="step-text">Você não precisa de 15 ferramentas. <strong>Precisa de uma.</strong></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-note">
+    O resto vem com o tempo.
+  </div>
+
+  <div class="slide-num">06 / 07</div>
+</div>
+
+<!-- ══════════ SLIDE 7 ══════════ -->
+<div class="slide-label">SLIDE 07 — CTA</div>
+<div class="slide s7">
+  <!-- Imagem de fundo: pessoa em ação -->
+  <div class="bg-img">
+    <img
+      src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1080&auto=format&fit=crop"
+      alt="Ação"
+      onerror="this.parentElement.style.background='#050505'"
+    >
+  </div>
+
+  <div class="ring ring-1"></div>
+  <div class="ring ring-2"></div>
+  <div class="ring ring-3"></div>
+
+  <div class="center-content">
+    <div class="eyebrow">A decisão é agora</div>
+    <div class="headline">Para de</div>
+    <div class="headline-2">assistir.</div>
+    <div class="divider"></div>
+    <div class="body-text">
+      Abre o ChatGPT, o Claude, o Gemini — qualquer um.<br>
+      Digita o que você precisa resolver <strong>agora</strong>.<br><br>
+      O pior cenário é você aprender alguma coisa.<br>
+      O melhor é <strong>nunca mais trabalhar do mesmo jeito.</strong>
+    </div>
+    <div style="text-align:center">
+      <div class="cta-box">
+        <span class="cta-arrow">→</span>
+        <span class="cta-text">Começa hoje</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-row">
+    <span class="handle">@enzogabrielzr</span>
+    <span class="slide-counter">07 / 07</span>
+  </div>
+</div>
+
+</body>
+</html>

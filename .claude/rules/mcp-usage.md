@@ -2,7 +2,7 @@
 paths: **/*
 ---
 
-# MCP Server Usage Rules - AIOX Architecture
+# MCP Server Usage Rules - AIOS Architecture
 
 ## MCP Governance
 
@@ -22,7 +22,7 @@ Other agents (Dev, Architect, etc.) are MCP **consumers**, not administrators. I
 
 ## MCP Configuration Architecture
 
-AIOX uses Docker MCP Toolkit as the primary MCP infrastructure:
+AIOS uses Docker MCP Toolkit as the primary MCP infrastructure:
 
 ### Direct in Claude Code (global ~/.claude.json)
 | MCP | Purpose |

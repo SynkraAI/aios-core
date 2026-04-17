@@ -326,4 +326,4 @@ context_rot_audit_result:
 | Project has no git history (cannot determine staleness) | WARN -- skip staleness checks |
 | Rot score exceeds 50 | HALT -- critical rot, needs immediate human attention |
 | Auto-fix would modify more than 10 files | HALT -- too many changes, require manual review |
-| CLAUDE.md has AIOX-managed sections | WARN -- do not modify managed sections |
+| CLAUDE.md has AIOS-managed sections | WARN -- do not modify managed sections |

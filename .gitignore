@@ -367,3 +367,7 @@ build/
 .aiox-core/local/
 .claude/settings.local.json
 .aiox/install-log.txt
+
+# AIOS Local (AIOS)
+.aios-core/local/
+.aios/install-log.txt

@@ -17,7 +17,7 @@
 - `*cleanup` - Identify and remove stale branches/files
 - `*triage-issues` - Analyze open GitHub issues, classify, prioritize, recommend next
 - `*resolve-issue` - Investigate and resolve a GitHub issue end-to-end
-- `*health-check` - Run unified health diagnostic (aiox doctor --json + governance interpretation)
+- `*health-check` - Run unified health diagnostic (aios doctor --json + governance interpretation)
 - `*sync-registry` - Sync entity registry (incremental, --full rebuild, or --heal integrity)
 - `*check-docs` - Verify documentation links integrity (broken, incorrect markings)
 - `*session-info` - Show current session details (agent history, commands)
@@ -46,7 +46,7 @@
 - `*list-mcps` - List currently enabled MCPs and their tools
 - `*remove-mcp` - Remove MCP server from Docker MCP Toolkit
 - `*setup-mcp-docker` - Initial Docker MCP Toolkit configuration [Story 5.11]
-- `*health-check` - Run unified health diagnostic (aiox doctor --json + governance interpretation)
+- `*health-check` - Run unified health diagnostic (aios doctor --json + governance interpretation)
 - `*sync-registry` - Sync entity registry (incremental, --full rebuild, or --heal integrity)
 - `*check-docs` - Verify documentation links integrity (broken, incorrect markings)
 - `*create-worktree` - Create isolated worktree for story development
@@ -68,4 +68,4 @@
 **I receive delegation from:**
 
 ---
-*AIOX Agent - Synced from .aiox-core/development/agents/devops.md*
+*AIOS Agent - Synced from .aios-core/development/agents/devops.md*

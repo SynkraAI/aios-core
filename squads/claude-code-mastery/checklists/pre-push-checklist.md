@@ -7,7 +7,7 @@
 [[LLM: INITIALIZATION INSTRUCTIONS - PRE-PUSH VALIDATION
 
 This checklist validates Claude Code configuration changes specifically.
-It complements the AIOX framework pre-push-checklist but focuses on
+It complements the AIOS framework pre-push-checklist but focuses on
 .claude/ directory artifacts, settings.json, rules, hooks, and MCP config.
 
 EXECUTION APPROACH:
@@ -34,7 +34,7 @@ CRITICAL items are marked with (CRITICAL) suffix.]]
 
 - [ ] CLAUDE.md exists at `.claude/CLAUDE.md` (CRITICAL)
 - [ ] CLAUDE.md is under 500 lines total (recommended under 200 for auto-memory projects)
-- [ ] All `AIOX-MANAGED-START` sections have matching `AIOX-MANAGED-END` markers (CRITICAL)
+- [ ] All `AIOS-MANAGED-START` sections have matching `AIOS-MANAGED-END` markers (CRITICAL)
 - [ ] No stale file path references (all mentioned paths exist in the repository)
 - [ ] No duplicate instructions between CLAUDE.md and `.claude/rules/` files
 - [ ] Code examples in CLAUDE.md are syntactically valid

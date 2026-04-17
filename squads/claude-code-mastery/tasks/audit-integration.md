@@ -96,7 +96,7 @@ Parse `.claude/settings.json` and check:
 4. **Dangerous gaps**: common dangerous commands not explicitly denied
    - `rm -rf /`, `git push --force`, `DROP TABLE`, `sudo`
 5. **Overly permissive**: check for `bash("*")` or wildcard allows
-6. **AIOX compatibility**: if AIOX project, verify L1/L2 protection rules present
+6. **AIOS compatibility**: if AIOS project, verify L1/L2 protection rules present
 
 Flag each finding as: PASS, WARN, FAIL.
 

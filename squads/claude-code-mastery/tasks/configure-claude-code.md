@@ -52,7 +52,7 @@
    - Framework: Next.js, Vite, Express, Fastify, Django, etc.
    - Testing: Jest, Vitest, Playwright, Cypress
    - Database: Supabase, Prisma, Drizzle migrations
-   - AIOX: Check for .aiox-core/ directory
+   - AIOS: Check for .aios-core/ directory
 2. Identify sensitive file patterns:
    - `.env`, `.env.*`, `.env.local`
    - `secrets/`, `credentials/`, `private/`

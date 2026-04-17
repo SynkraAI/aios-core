@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Phoenix Vistos — Green Card por Mérito</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      width: 1080px;
+      height: 1350px;
+      overflow: hidden;
+      background: #07091a;
+    }
+
+    .post {
+      width: 1080px;
+      height: 1350px;
+      position: relative;
+      font-family: 'Sora', sans-serif;
+      background: #07091a;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* ─── TOP / BOTTOM BARS ─── */
+    .top-bar {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #8B1A2A 0%, #C9A065 50%, transparent 100%);
+      z-index: 20;
+    }
+    .bottom-line {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #8B1A2A, transparent);
+      z-index: 20;
+    }
+
+    /* ─── LEFT PANEL ─── */
+    .left {
+      width: 510px;
+      height: 100%;
+      position: relative;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 100px 56px 100px 84px;
+      background:
+        radial-gradient(ellipse at 10% 80%, rgba(139,26,42,0.12) 0%, transparent 60%),
+        linear-gradient(160deg, #0b1028 0%, #060a1c 100%);
+    }
+
+    /* Vertical separator */
+    .sep {
+      position: absolute;
+      left: 510px;
+      top: 5%;
+      width: 1px;
+      height: 90%;
+      background: linear-gradient(to bottom,
+        transparent 0%,
+        rgba(139,26,42,0.6) 25%,
+        rgba(201,160,101,0.4) 55%,
+        rgba(139,26,42,0.3) 80%,
+        transparent 100%);
+      z-index: 10;
+    }
+
+    /* ─── RIGHT PANEL ─── */
+    .right {
+      width: 570px;
+      height: 100%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(145deg, #091433 0%, #060e28 60%, #050b1e 100%);
+      overflow: hidden;
+    }
+
+    /* ─── EYEBROW ─── */
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 40px;
+    }
+    .eyebrow-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #8B1A2A;
+      flex-shrink: 0;
+    }
+    .eyebrow-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 4.5px;
+      color: rgba(255,255,255,0.38);
+      text-transform: uppercase;
+    }
+
+    /* ─── HEADLINES ─── */
+    .h1 {
+      font-size: 60px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.07;
+      margin-bottom: 5px;
+    }
+    .h2 {
+      font-size: 60px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.07;
+      margin-bottom: 52px;
+    }
+    .crimsontag {
+      background: #8B1A2A;
+      padding: 3px 16px 9px;
+      display: inline;
+    }
+
+    /* ─── DIVIDER ─── */
+    .rule {
+      width: 56px; height: 4px;
+      background: #8B1A2A;
+      border-radius: 2px;
+      margin-bottom: 44px;
+    }
+
+    /* ─── BODY COPY ─── */
+    .body     { font-size: 30px; font-weight: 400; color: rgba(255,255,255,0.62); line-height: 1.65; }
+    .body-em  { font-size: 30px; font-weight: 600; color: rgba(255,255,255,0.90); line-height: 1.65; }
+    .gold     { color: #C9A065; font-weight: 700; }
+
+    /* ─── LOGO (bottom-left) ─── */
+    .logo-row {
+      position: absolute;
+      bottom: 72px;
+      left: 84px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      z-index: 15;
+    }
+    .logo-wordmark { display: flex; flex-direction: column; }
+    .logo-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 30px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 1.5px;
+      line-height: 1;
+    }
+    .logo-tag {
+      font-size: 8px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.42);
+      letter-spacing: 3.5px;
+      margin-top: 5px;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+<div class="post">
+
+  <div class="top-bar"></div>
+  <div class="bottom-line"></div>
+  <div class="sep"></div>
+
+  <!-- ═══════════════ LEFT: TEXT ═══════════════ -->
+  <div class="left">
+
+    <div class="eyebrow">
+      <div class="eyebrow-dot"></div>
+      <div class="eyebrow-label">Green Card por Mérito</div>
+    </div>
+
+    <div class="h1">O cenário pode mudar.</div>
+    <div class="h2">O nível de exigência,&nbsp;<span class="crimsontag">não.</span></div>
+
+    <div class="rule"></div>
+
+    <div class="body">Em processos de <span class="gold">Green<br>Card por mérito,</span></div>
+    <div class="body">o que sustenta<br>a narrativa</div>
+    <div class="body-em">são <span class="crimsontag" style="padding:4px 16px 9px;">evidências.</span></div>
+
+  </div>
+
+  <!-- ═══════════════ RIGHT: VISUAL ═══════════════ -->
+  <div class="right">
+
+    <svg width="530" height="680" viewBox="0 0 530 680" fill="none"
+         xmlns="http://www.w3.org/2000/svg"
+         style="position:absolute; inset:0; z-index:2;">
+
+      <!-- ── Glow behind seal ── -->
+      <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%"   stop-color="#C9A065" stop-opacity="0.12"/>
+        <stop offset="100%" stop-color="#C9A065" stop-opacity="0"/>
+      </radialGradient>
+      <circle cx="265" cy="340" r="230" fill="url(#glow)"/>
+
+      <!-- ── Outer ring ── -->
+      <circle cx="265" cy="340" r="210" stroke="rgba(201,160,101,0.18)" stroke-width="1.5" stroke-dasharray="6 4"/>
+      <circle cx="265" cy="340" r="195" stroke="rgba(201,160,101,0.10)" stroke-width="1"/>
+
+      <!-- ── 13 Stars arc (top of seal – founding symbolism) ── -->
+      <!-- Stars placed on arc r=178 from center (265,340) -->
+      <g fill="rgba(201,160,101,0.75)" font-family="serif" font-size="18" text-anchor="middle">
+        <!-- Angles from -150° to -30° (13 stars, step ~10°) - top semicircle -->
+        <!-- Star positions (cx + r·cos, cy + r·sin), r=178 -->
+        <!-- -150°: cos=-0.866, sin=-0.5 → 265+178*(-0.866), 340+178*(-0.5) = 111, 251 -->
+        <text x="111" y="259">★</text>
+        <!-- -140°: cos=-0.766, sin=-0.643 → 128, 225 -->
+        <text x="128" y="232">★</text>
+        <!-- -130°: cos=-0.643, sin=-0.766 → 150, 204 -->
+        <text x="150" y="210">★</text>
+        <!-- -120°: cos=-0.5, sin=-0.866 → 176, 186 -->
+        <text x="176" y="193">★</text>
+        <!-- -110°: cos=-0.342, sin=-0.940 → 204, 173 -->
+        <text x="204" y="180">★</text>
+        <!-- -100°: cos=-0.174, sin=-0.985 → 234, 165 -->
+        <text x="234" y="170">★</text>
+        <!-- -90° (top): cos=0, sin=-1 → 265, 162 -->
+        <text x="265" y="167">★</text>
+        <!-- -80°: cos=0.174, sin=-0.985 → 296, 165 -->
+        <text x="296" y="170">★</text>
+        <!-- -70°: cos=0.342, sin=-0.940 → 326, 173 -->
+        <text x="326" y="180">★</text>
+        <!-- -60°: cos=0.5, sin=-0.866 → 354, 186 -->
+        <text x="354" y="193">★</text>
+        <!-- -50°: cos=0.643, sin=-0.766 → 380, 204 -->
+        <text x="380" y="210">★</text>
+        <!-- -40°: cos=0.766, sin=-0.643 → 402, 225 -->
+        <text x="402" y="232">★</text>
+        <!-- -30°: cos=0.866, sin=-0.5 → 419, 251 -->
+        <text x="419" y="259">★</text>
+      </g>
+
+      <!-- ── Document stack ── -->
+      <!-- Shadow doc -->
+      <rect x="143" y="300" width="248" height="174" rx="8"
+            fill="#0b1840" stroke="rgba(201,160,101,0.15)" stroke-width="1.5"/>
+      <!-- Middle doc -->
+      <rect x="135" y="290" width="248" height="174" rx="8"
+            fill="#0e1f4a" stroke="rgba(201,160,101,0.25)" stroke-width="1.5"/>
+      <!-- Front doc -->
+      <rect x="127" y="280" width="248" height="174" rx="8"
+            fill="#122259" stroke="rgba(201,160,101,0.55)" stroke-width="2"/>
+
+      <!-- Doc header line (gold) -->
+      <rect x="148" y="302" width="100" height="5" rx="2.5" fill="rgba(201,160,101,0.75)"/>
+
+      <!-- Doc text lines -->
+      <rect x="148" y="320" width="186" height="3" rx="1.5" fill="rgba(255,255,255,0.18)"/>
+      <rect x="148" y="333" width="168" height="3" rx="1.5" fill="rgba(255,255,255,0.18)"/>
+      <rect x="148" y="346" width="176" height="3" rx="1.5" fill="rgba(255,255,255,0.18)"/>
+      <line x1="148" y1="362" x2="356" y2="362" stroke="rgba(201,160,101,0.18)" stroke-width="1"/>
+      <rect x="148" y="374" width="140" height="3" rx="1.5" fill="rgba(255,255,255,0.13)"/>
+      <rect x="148" y="387" width="158" height="3" rx="1.5" fill="rgba(255,255,255,0.13)"/>
+      <rect x="148" y="400" width="128" height="3" rx="1.5" fill="rgba(255,255,255,0.13)"/>
+      <rect x="148" y="413" width="148" height="3" rx="1.5" fill="rgba(255,255,255,0.13)"/>
+
+      <!-- Seal on doc (bottom-right) -->
+      <circle cx="322" cy="414" r="26" fill="none" stroke="rgba(139,26,42,0.9)" stroke-width="2"/>
+      <circle cx="322" cy="414" r="18" fill="rgba(139,26,42,0.35)" stroke="rgba(139,26,42,0.5)" stroke-width="1"/>
+      <text x="322" y="419" text-anchor="middle" fill="rgba(201,160,101,0.95)"
+            font-family="serif" font-size="16">★</text>
+
+      <!-- ── "EVIDÊNCIAS" label below doc ── -->
+      <text x="265" y="496"
+            text-anchor="middle"
+            fill="rgba(201,160,101,0.45)"
+            font-family="'Sora', sans-serif"
+            font-size="11"
+            font-weight="600"
+            letter-spacing="5">EVIDÊNCIAS</text>
+
+      <!-- ── Decorative bottom arc ── -->
+      <path d="M111 430 A178 178 0 0 0 419 430"
+            stroke="rgba(201,160,101,0.12)" stroke-width="1" fill="none"/>
+
+    </svg>
+
+    <!-- Faint large diamond watermark behind illustration -->
+    <svg width="480" height="480" viewBox="0 0 200 200" fill="none"
+         style="position:absolute; opacity:0.04; z-index:1;">
+      <path d="M100,5 C100,42 158,100 195,100 C158,100 100,158 100,195 C100,158 42,100 5,100 C42,100 100,42 100,5 Z"
+            stroke="white" stroke-width="1.5"/>
+      <path d="M100,28 C100,57 143,100 172,100 C143,100 100,143 100,172 C100,143 57,100 28,100 C57,100 100,57 100,28 Z"
+            stroke="white" stroke-width="1.5"/>
+    </svg>
+
+  </div>
+
+  <!-- ═══════════════ LOGO ═══════════════ -->
+  <div class="logo-row">
+
+    <!--
+      Phoenix Diamond Mark — fiel ao original:
+      4 pontas côncavas, 3 contornos concêntricos, diamante sólido central
+    -->
+    <svg width="50" height="50" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Outer concave 4-pointed star -->
+      <path d="M100,5
+               C 100,42 158,100 195,100
+               C 158,100 100,158 100,195
+               C 100,158 42,100   5,100
+               C  42,100 100, 42 100,5 Z"
+            stroke="white" stroke-width="9" fill="none"/>
+      <!-- Middle layer -->
+      <path d="M100,28
+               C 100,57 143,100 172,100
+               C 143,100 100,143 100,172
+               C 100,143  57,100  28,100
+               C  57,100 100, 57 100,28 Z"
+            stroke="white" stroke-width="7" fill="none"/>
+      <!-- Inner layer -->
+      <path d="M100,52
+               C 100,70 130,100 148,100
+               C 130,100 100,130 100,148
+               C 100,130  70,100  52,100
+               C  70,100 100, 70 100,52 Z"
+            stroke="white" stroke-width="5" fill="none"/>
+      <!-- Centre diamond -->
+      <path d="M100,82 L118,100 L100,118 L82,100 Z" fill="white"/>
+    </svg>
+
+    <div class="logo-wordmark">
+      <div class="logo-name">Phoenix</div>
+      <div class="logo-tag">Mentoria em Imigração Qualificada</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -67,7 +67,7 @@
 | Index strategy execution | Frontend/UI |
 | Migration planning & execution | — |
 
-### @aiox-master — Framework Governance
+### @aios-master — Framework Governance
 
 | Capability | Details |
 |-----------|---------|
@@ -99,7 +99,7 @@ ANY agent → @devops *push
 
 ## Escalation Rules
 
-1. Agent cannot complete task → Escalate to @aiox-master
+1. Agent cannot complete task → Escalate to @aios-master
 2. Quality gate fails → Return to @dev with specific feedback
 3. Constitutional violation detected → BLOCK, require fix before proceed
-4. Agent boundary conflict → @aiox-master mediates
+4. Agent boundary conflict → @aios-master mediates

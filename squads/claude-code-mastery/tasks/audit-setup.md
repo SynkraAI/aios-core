@@ -92,7 +92,7 @@ Score each item:
    - Uses bullet points for instructions
    - Contains concrete, verifiable instructions (not vague)
 4. Check for @imports usage
-5. Check for AIOX-managed sections (if AIOX project)
+5. Check for AIOS-managed sections (if AIOS project)
 6. Flag if over 200 lines without @imports or .claude/rules/ usage
 
 ### Phase 4: List Configured Hooks
@@ -107,7 +107,7 @@ Score each item:
    - PreToolUse for Bash command validation
    - PreCompact for context preservation
    - Stop for session cleanup
-4. If AIOX project: check for Python hooks in `.aiox-core/monitor/hooks/`
+4. If AIOS project: check for Python hooks in `.aios-core/monitor/hooks/`
 
 ### Phase 5: List MCP Servers
 

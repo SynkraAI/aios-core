@@ -1,0 +1,154 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Task Template Variables",
+  "description": "Schema for Task template variables",
+  "type": "object",
+  "required": ["id", "name", "description", "status"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Task ID"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 150,
+      "description": "Task name"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 10,
+      "description": "Task description"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["Pending", "In Progress", "Completed", "Blocked", "Cancelled"],
+      "description": "Task status"
+    },
+    "storyRef": {
+      "type": "string",
+      "description": "Reference to parent story"
+    },
+    "assignee": {
+      "type": "string",
+      "description": "Task assignee"
+    },
+    "estimate": {
+      "type": "string",
+      "description": "Time estimate (e.g., 2h, 1d)"
+    },
+    "priority": {
+      "type": "string",
+      "enum": ["P0", "P1", "P2", "P3"],
+      "description": "Task priority"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["Development", "Design", "Testing", "Documentation", "Research", "Bugfix", "Refactor"],
+      "description": "Task type"
+    },
+    "inputs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Required inputs"
+    },
+    "outputs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Expected outputs"
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["step"],
+        "properties": {
+          "step": {
+            "type": "string",
+            "description": "Step description"
+          },
+          "completed": {
+            "type": "boolean",
+            "default": false
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Task steps"
+    },
+    "validation": {
+      "type": "object",
+      "properties": {
+        "criteria": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "commands": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "description": "Validation criteria"
+    },
+    "dependencies": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Task dependencies"
+    },
+    "blockedBy": {
+      "type": "string",
+      "description": "Blocking issue if status is Blocked"
+    },
+    "completedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Completion timestamp"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes"
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "action"],
+        "properties": {
+          "path": { "type": "string" },
+          "action": {
+            "type": "string",
+            "enum": ["created", "modified", "deleted"]
+          }
+        }
+      },
+      "description": "Files affected by this task"
+    },
+    "elicitation": {
+      "type": "object",
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "questions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["question"],
+            "properties": {
+              "question": { "type": "string" },
+              "type": {
+                "type": "string",
+                "enum": ["text", "choice", "confirm"]
+              },
+              "options": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            }
+          }
+        }
+      },
+      "description": "Elicitation configuration"
+    }
+  }
+}

@@ -10,5 +10,45 @@
       "Bash(git push:*)",
       "Bash(node -e:*)"
     ]
+  },
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"C:\\\\Users\\\\enzog\\\\Documentos\\\\GitHub\\\\aios-core\\\\.claude\\\\hooks\\\\precompact-session-digest.cjs\"",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"C:\\\\Users\\\\enzog\\\\Documentos\\\\GitHub\\\\aios-core\\\\.claude\\\\hooks\\\\precompact-wrapper.cjs\"",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"C:\\\\Users\\\\enzog\\\\Documentos\\\\GitHub\\\\aios-core\\\\.claude\\\\hooks\\\\synapse-engine.cjs\"",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"C:\\\\Users\\\\enzog\\\\Documentos\\\\GitHub\\\\aios-core\\\\.claude\\\\hooks\\\\synapse-wrapper.cjs\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
   }
 }

@@ -1,7 +1,7 @@
 ---
 paths:
   - "docs/stories/**"
-  - ".aiox-core/development/**"
+  - ".aios-core/development/**"
 ---
 
 # Story Lifecycle — Detailed Rules

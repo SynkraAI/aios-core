@@ -135,7 +135,7 @@ detection:
 - Keep under 200 lines (auto-memory compatibility)
 - Focus on what Claude needs to know, not general documentation
 - Include: code standards, testing commands, git conventions, key architecture decisions
-- Use managed sections (`<!-- AIOX-MANAGED-START -->`) for auto-updatable content
+- Use managed sections (`<!-- AIOS-MANAGED-START -->`) for auto-updatable content
 
 ### Steps
 
