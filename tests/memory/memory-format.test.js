@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const AGENTS_DIR = path.join(__dirname, '..', '..', '.aios-core', 'development', 'agents');
+const AGENTS_DIR = path.join(__dirname, '..', '..', '.aiox-core', 'development', 'agents');
 
 const AGENT_IDS = [
   'dev', 'qa', 'devops', 'architect', 'po', 'pm',

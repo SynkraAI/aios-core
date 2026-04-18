@@ -37,13 +37,13 @@ const REQUIRED_PATHS = [
   // Rules
   '.claude/rules/',
   // CLI binaries
-  'bin/aios.js',
-  'bin/aios-minimal.js',
+  'bin/aiox.js',
+  'bin/aiox-minimal.js',
   // Core framework
-  '.aios-core/core-config.yaml',
-  '.aios-core/constitution.md',
-  '.aios-core/development/agents/',
-  '.aios-core/development/tasks/',
+  '.aiox-core/core-config.yaml',
+  '.aiox-core/constitution.md',
+  '.aiox-core/development/agents/',
+  '.aiox-core/development/tasks/',
 ];
 
 /**
@@ -54,7 +54,7 @@ const EXCLUDED_PATHS = [
   '.env',
   '.git/',
   'node_modules/',
-  '.aios/',
+  '.aiox/',
   'tests/',
 ];
 
@@ -64,14 +64,14 @@ const EXCLUDED_PATHS = [
 const REQUIRED_FILES_ENTRIES = [
   '.claude/hooks/',
   '.claude/rules/',
-  '.aios-core/',
+  '.aiox-core/',
   'bin/',
 ];
 
 /**
  * Bin entries that must point to existing files.
  */
-const REQUIRED_BIN_ENTRIES = ['aios', 'aios-core'];
+const REQUIRED_BIN_ENTRIES = ['aiox', 'aiox-core'];
 
 /**
  * Runtime dependencies that must be present.
@@ -276,7 +276,7 @@ function validateBinScripts() {
 
 function main() {
   log('='.repeat(60));
-  log('AIOS-Core Package Completeness Validation');
+  log('AIOX-Core Package Completeness Validation');
   log('='.repeat(60));
 
   const pkg = loadPackageJson();

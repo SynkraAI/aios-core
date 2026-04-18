@@ -1,10 +1,10 @@
-# AIOS 质量门控系统指南
+# AIOX 质量门控系统指南
 
 > **[EN](../../guides/quality-gates.md)** | **[PT](../../pt/guides/quality-gates.md)** | **[ES](../../es/guides/quality-gates.md)** | **ZH**
 
 ---
 
-Synkra AIOS 的 3 层质量门控系统综合指南。
+Synkra AIOX 的 3 层质量门控系统综合指南。
 
 **版本：** 2.1.0
 **最后更新：** 2025-12-01
@@ -13,7 +13,7 @@ Synkra AIOS 的 3 层质量门控系统综合指南。
 
 ## 概述
 
-AIOS 质量门控系统通过三个渐进式验证层提供自动化质量保证。每层在开发的适当阶段捕获不同类型的问题。
+AIOX 质量门控系统通过三个渐进式验证层提供自动化质量保证。每层在开发的适当阶段捕获不同类型的问题。
 
 ### 3 层架构
 
@@ -49,7 +49,7 @@ AIOS 质量门控系统通过三个渐进式验证层提供自动化质量保证
 ### 配置
 
 ```yaml
-# .aios-core/core/quality-gates/quality-gate-config.yaml
+# .aiox-core/core/quality-gates/quality-gate-config.yaml
 layer1:
   enabled: true
   failFast: true
@@ -76,15 +76,15 @@ layer1:
 
 ```bash
 # 运行所有第 1 层检查
-aios qa run --layer=1
+aiox qa run --layer=1
 
 # 运行特定检查
-aios qa run --layer=1 --check=lint
-aios qa run --layer=1 --check=test
-aios qa run --layer=1 --check=typecheck
+aiox qa run --layer=1 --check=lint
+aiox qa run --layer=1 --check=test
+aiox qa run --layer=1 --check=typecheck
 
 # 详细输出
-aios qa run --layer=1 --verbose
+aiox qa run --layer=1 --verbose
 ```
 
 ### 预期输出
@@ -129,7 +129,7 @@ aios qa run --layer=1 --verbose
 ### 配置
 
 ```yaml
-# .aios-core/core/quality-gates/quality-gate-config.yaml
+# .aiox-core/core/quality-gates/quality-gate-config.yaml
 layer2:
   enabled: true
   coderabbit:
@@ -147,7 +147,7 @@ layer2:
   quinn:
     enabled: true
     autoReview: true
-    agentPath: '.claude/commands/AIOS/agents/qa.md'
+    agentPath: '.claude/commands/AIOX/agents/qa.md'
     severity:
       block: ['CRITICAL']
       warn: ['HIGH', 'MEDIUM']
@@ -157,13 +157,13 @@ layer2:
 
 ```bash
 # 运行所有第 2 层检查
-aios qa run --layer=2
+aiox qa run --layer=2
 
 # 仅运行 CodeRabbit
-aios qa run --layer=2 --tool=coderabbit
+aiox qa run --layer=2 --tool=coderabbit
 
 # 运行 Quinn 审查
-aios qa run --layer=2 --tool=quinn
+aiox qa run --layer=2 --tool=quinn
 ```
 
 ### 严重级别
@@ -204,7 +204,7 @@ coderabbit --files "src/**/*.js" --prompt-only
 ### 配置
 
 ```yaml
-# .aios-core/core/quality-gates/quality-gate-config.yaml
+# .aiox-core/core/quality-gates/quality-gate-config.yaml
 layer3:
   enabled: true
   requireSignoff: true
@@ -263,78 +263,78 @@ layer3:
 
 ```bash
 # 请求人工审查
-aios qa request-review --pr=123
+aiox qa request-review --pr=123
 
 # 审查签字
-aios qa signoff --pr=123 --reviewer="@architect"
+aiox qa signoff --pr=123 --reviewer="@architect"
 
 # 检查签字状态
-aios qa signoff-status --pr=123
+aiox qa signoff-status --pr=123
 ```
 
 ---
 
 ## CLI 命令
 
-### `aios qa run`
+### `aiox qa run`
 
 运行质量门控检查。
 
 ```bash
 # 按顺序运行所有层
-aios qa run
+aiox qa run
 
 # 运行特定层
-aios qa run --layer=1
-aios qa run --layer=2
-aios qa run --layer=3
+aiox qa run --layer=1
+aiox qa run --layer=2
+aiox qa run --layer=3
 
 # 带选项运行
-aios qa run --verbose          # 详细输出
-aios qa run --fail-fast        # 第一个失败时停止
-aios qa run --continue-on-fail # 尽管失败仍继续
+aiox qa run --verbose          # 详细输出
+aiox qa run --fail-fast        # 第一个失败时停止
+aiox qa run --continue-on-fail # 尽管失败仍继续
 ```
 
-### `aios qa status`
+### `aiox qa status`
 
 检查当前质量门控状态。
 
 ```bash
 # 获取总体状态
-aios qa status
+aiox qa status
 
 # 获取特定层的状态
-aios qa status --layer=1
+aiox qa status --layer=1
 
 # 获取 PR 状态
-aios qa status --pr=123
+aiox qa status --pr=123
 ```
 
-### `aios qa report`
+### `aiox qa report`
 
 生成质量门控报告。
 
 ```bash
 # 生成报告
-aios qa report
+aiox qa report
 
 # 导出到文件
-aios qa report --output=qa-report.json
-aios qa report --format=markdown --output=qa-report.md
+aiox qa report --output=qa-report.json
+aiox qa report --format=markdown --output=qa-report.md
 ```
 
-### `aios qa configure`
+### `aiox qa configure`
 
 配置质量门控设置。
 
 ```bash
 # 交互式配置
-aios qa configure
+aiox qa configure
 
 # 设置特定选项
-aios qa configure --layer1.coverage.minimum=90
-aios qa configure --layer2.coderabbit.enabled=false
-aios qa configure --layer3.requireSignoff=true
+aiox qa configure --layer1.coverage.minimum=90
+aiox qa configure --layer2.coderabbit.enabled=false
+aiox qa configure --layer3.requireSignoff=true
 ```
 
 ---
@@ -361,7 +361,7 @@ jobs:
         with:
           node-version: '18'
       - run: npm ci
-      - run: aios qa run --layer=1
+      - run: aiox qa run --layer=1
 
   layer2:
     name: Layer 2 - PR Automation
@@ -373,7 +373,7 @@ jobs:
         with:
           node-version: '18'
       - run: npm ci
-      - run: aios qa run --layer=2
+      - run: aiox qa run --layer=2
         env:
           CODERABBIT_API_KEY: ${{ secrets.CODERABBIT_API_KEY }}
 
@@ -383,7 +383,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: aios qa request-review --pr=${{ github.event.pull_request.number }}
+      - run: aiox qa request-review --pr=${{ github.event.pull_request.number }}
 ```
 
 ### GitLab CI
@@ -399,20 +399,20 @@ layer1:
   stage: layer1
   script:
     - npm ci
-    - aios qa run --layer=1
+    - aiox qa run --layer=1
 
 layer2:
   stage: layer2
   script:
     - npm ci
-    - aios qa run --layer=2
+    - aiox qa run --layer=2
   needs:
     - layer1
 
 layer3:
   stage: layer3
   script:
-    - aios qa request-review
+    - aiox qa request-review
   needs:
     - layer2
   when: manual
@@ -425,7 +425,7 @@ layer3:
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-aios qa run --layer=1 --fail-fast
+aiox qa run --layer=1 --fail-fast
 ```
 
 ---
@@ -459,4 +459,4 @@ aios qa run --layer=1 --fail-fast
 
 ---
 
-_Synkra AIOS v4 质量门控系统指南_
+_Synkra AIOX v4 质量门控系统指南_

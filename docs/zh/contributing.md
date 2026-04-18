@@ -1,8 +1,8 @@
-# 对 Synkra AIOS 做出贡献
+# 对 Synkra AIOX 做出贡献
 
 > **[葡萄牙語版本](../CONTRIBUTING-PT.md)**
 
-欢迎来到 AIOS！感谢您对贡献的兴趣。本指南将帮助您了解我们的开发工作流程、贡献流程以及如何提交更改。
+欢迎来到 AIOX！感谢您对贡献的兴趣。本指南将帮助您了解我们的开发工作流程、贡献流程以及如何提交更改。
 
 ## 目录
 
@@ -28,11 +28,11 @@
 
 ```bash
 # 通过 GitHub UI Fork，然后克隆您的 fork
-git clone https://github.com/YOUR_USERNAME/aios-core.git
-cd aios-core
+git clone https://github.com/YOUR_USERNAME/aiox-core.git
+cd aiox-core
 
 # 添加 upstream 远程
-git remote add upstream https://github.com/SynkraAI/aios-core.git
+git remote add upstream https://github.com/SynkraAI/aiox-core.git
 ```
 
 ### 2. 设置开发环境
@@ -144,7 +144,7 @@ git commit -m "docs: update contribution guide"
 ### 代理文件位置
 
 ```
-.aios-core/development/agents/your-agent.md
+.aiox-core/development/agents/your-agent.md
 ```
 
 ### 所需的代理结构
@@ -218,7 +218,7 @@ dependencies:
 ### 任务文件位置
 
 ```
-.aios-core/development/tasks/your-task.md
+.aiox-core/development/tasks/your-task.md
 ```
 
 ### 所需的任务结构
@@ -320,7 +320,7 @@ tasks:
 
 - [Squads 指南](../docs/guides/squads-guide.md) - 完整文档
 - [Squad 模板](../templates/squad/) - 从工作模板开始
-- [Squad 讨论](https://github.com/SynkraAI/aios-core/discussions/categories/ideas) - 分享想法
+- [Squad 讨论](https://github.com/SynkraAI/aiox-core/discussions/categories/ideas) - 分享想法
 
 ---
 
@@ -344,7 +344,7 @@ tasks:
 
 - 代码质量和最佳实践
 - 安全问题
-- AIOS 特定模式（代理、任务、工作流）
+- AIOX 特定模式（代理、任务、工作流）
 - 性能问题
 
 **严重级别：**
@@ -383,7 +383,7 @@ tasks:
 
 ## 验证系统
 
-AIOS 实施了 **深度防御**策略，有 3 个验证层：
+AIOX 实施了 **深度防御**策略，有 3 个验证层：
 
 ### 第 1 层：提交前（本地）
 
@@ -425,7 +425,7 @@ AIOS 实施了 **深度防御**策略，有 3 个验证层：
 ### 文件组织
 
 ```
-.aios-core/
+.aiox-core/
 ├── development/
 │   ├── agents/      # 代理定义
 │   ├── tasks/       # 任务工作流
@@ -524,23 +524,23 @@ gh pr checks  # 查看 PR 检查状态
 
 ## 获得帮助
 
-- **GitHub Issues：** [打开一个 issue](https://github.com/SynkraAI/aios-core/issues)
-- **讨论：** [开始讨论](https://github.com/SynkraAI/aios-core/discussions)
+- **GitHub Issues：** [打开一个 issue](https://github.com/SynkraAI/aiox-core/issues)
+- **讨论：** [开始讨论](https://github.com/SynkraAI/aiox-core/discussions)
 - **社区：** [COMMUNITY.md](../COMMUNITY.md)
 
 ---
 
 ## 使用 Pro
 
-AIOS 使用 Open Core 模型，带有私人 `pro/` git 子模块（见 [ADR-PRO-001](../docs/architecture/adr/adr-pro-001-repository-strategy.md)）。
+AIOX 使用 Open Core 模型，带有私人 `pro/` git 子模块（见 [ADR-PRO-001](../docs/architecture/adr/adr-pro-001-repository-strategy.md)）。
 
 ### 对于开源贡献者
 
 **您不需要 pro/ 子模块。** 标准克隆完美运行：
 
 ```bash
-git clone https://github.com/SynkraAI/aios-core.git
-cd aios-core
+git clone https://github.com/SynkraAI/aiox-core.git
+cd aiox-core
 npm install && npm test  # 所有测试都通过了，没有 pro/
 ```
 
@@ -550,19 +550,19 @@ npm install && npm test  # 所有测试都通过了，没有 pro/
 
 ```bash
 # 使用子模块克隆
-git clone --recurse-submodules https://github.com/SynkraAI/aios-core.git
+git clone --recurse-submodules https://github.com/SynkraAI/aiox-core.git
 
 # 或添加到现有克隆
 git submodule update --init pro
 ```
 
-**推送顺序：** 始终先推送 `pro/` 更改，然后是 `aios-core`。
+**推送顺序：** 始终先推送 `pro/` 更改，然后是 `aiox-core`。
 
 ### 未来：CLI 设置
 
 ```bash
 # 将在未来版本中发布
-aios setup --pro
+aiox setup --pro
 ```
 
 有关完整的开发者工作流程指南，见 [Pro 开发者工作流程](../docs/guides/workflows/pro-developer-workflow.md)。
@@ -578,4 +578,4 @@ aios setup --pro
 
 ---
 
-**感谢您对 Synkra AIOS 的贡献！**
+**感谢您对 Synkra AIOX 的贡献！**

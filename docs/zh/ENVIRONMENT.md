@@ -6,17 +6,17 @@
 
 ---
 
-本文档列出了 Synkra AIOS 及其组件使用的所有环境变量。
+本文档列出了 Synkra AIOX 及其组件使用的所有环境变量。
 
 ## 概述
 
-Synkra AIOS 使用环境变量进行配置、API 密钥和敏感信息。**切勿在存储库中提交环境变量。**
+Synkra AIOX 使用环境变量进行配置、API 密钥和敏感信息。**切勿在存储库中提交环境变量。**
 
 ## 必需的环境变量
 
 ### 框架核心
 
-当前，Synkra AIOS 不需要任何必需的环境变量来进行基本操作。所有配置都通过 `core-config.yaml` 和 Squad 配置文件进行。
+当前，Synkra AIOX 不需要任何必需的环境变量来进行基本操作。所有配置都通过 `core-config.yaml` 和 Squad 配置文件进行。
 
 ## 可选的环境变量
 
@@ -45,7 +45,7 @@ TWITTER_API_KEY=your_twitter_api_key
 
 #### 私有 Squads
 
-私有 Squads（在 `aios-Squads` 存储库中）可能需要额外的环境变量。请查看每个 Squad 的文档。
+私有 Squads（在 `aiox-Squads` 存储库中）可能需要额外的环境变量。请查看每个 Squad 的文档。
 
 ## 环境文件配置
 
@@ -70,7 +70,7 @@ TWITTER_API_KEY=your_twitter_api_key
 
 ### 加载环境变量
 
-Synkra AIOS 使用 `dotenv`（如果已安装）加载 `.env`。若依赖 Node.js 原生能力，请明确使用 `--env-file` 或等效方式加载。
+Synkra AIOX 使用 `dotenv`（如果已安装）加载 `.env`。若依赖 Node.js 原生能力，请明确使用 `--env-file` 或等效方式加载。
 
 **重要：** `.env` 文件在 gitignore 中，永远不会被提交到存储库。
 

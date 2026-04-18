@@ -1,5 +1,5 @@
 # Welcome New Contributors Workflow
-# Automatically welcomes first-time contributors to AIOS
+# Automatically welcomes first-time contributors to AIOX
 #
 # Reference: https://github.com/actions/first-interaction
 # Story: GHIM-001 - GitHub Issue Management
@@ -25,21 +25,21 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           issue-message: |
-            Welcome to **aios-core**! Thanks for opening your first issue.
+            Welcome to **aiox-core**! Thanks for opening your first issue.
 
             **What happens next?**
             - A maintainer will triage this and add appropriate labels
             - We'll respond as soon as possible
-            - Feel free to join [Community Discussions](https://github.com/SynkraAI/aios-core/discussions)
+            - Feel free to join [Community Discussions](https://github.com/SynkraAI/aiox-core/discussions)
 
             **Helpful Resources:**
-            - [Contributing Guide](https://github.com/SynkraAI/aios-core/blob/main/CONTRIBUTING.md)
-            - [Documentation](https://github.com/SynkraAI/aios-core/tree/main/docs)
+            - [Contributing Guide](https://github.com/SynkraAI/aiox-core/blob/main/CONTRIBUTING.md)
+            - [Documentation](https://github.com/SynkraAI/aiox-core/tree/main/docs)
 
             **Looking to contribute?** Check issues labeled `community: good first issue`.
 
           pr-message: |
-            Welcome to **aios-core**! Thanks for your first pull request.
+            Welcome to **aiox-core**! Thanks for your first pull request.
 
             **What happens next?**
             1. Automated checks will run on your PR

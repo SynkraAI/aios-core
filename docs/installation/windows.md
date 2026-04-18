@@ -1,4 +1,4 @@
-# Windows Installation Guide for Synkra AIOS
+# Windows Installation Guide for Synkra AIOX
 
 > 🌐 [EN](windows.md) | [PT](../pt/installation/windows.md) | [ES](../es/installation/windows.md)
 
@@ -146,7 +146,7 @@ winget install Microsoft.WindowsTerminal
 3. Run the installer:
 
    ```powershell
-   npx github:SynkraAI/aios-core install
+   npx github:SynkraAI/aiox-core install
    ```
 
 ### What the Installer Does
@@ -182,7 +182,7 @@ The installer automatically:
    npm install -g @anthropic-ai/claude-code
    ```
 
-2. Commands are installed to `.claude\commands\AIOS\`
+2. Commands are installed to `.claude\commands\AIOX\`
 3. Use `/agent-name` to activate agents
 
 
@@ -192,7 +192,7 @@ The installer automatically:
 ### VS Code
 
 1. Install Continue extension from marketplace
-2. AIOS can integrate via `.continue\` configuration
+2. AIOX can integrate via `.continue\` configuration
 
 ---
 
@@ -337,7 +337,7 @@ wsl --install -d Ubuntu
 # Restart computer when prompted
 ```
 
-### Configure AIOS with WSL
+### Configure AIOX with WSL
 
 ```bash
 # Inside WSL, follow the Linux installation guide
@@ -403,11 +403,11 @@ To update an existing installation:
 
 ```powershell
 # Using npx (recommended)
-npx github:SynkraAI/aios-core install
+npx github:SynkraAI/aiox-core install
 
 # The updater will:
 # - Detect existing installation
-# - Back up customizations to .aios-backup\
+# - Back up customizations to .aiox-backup\
 # - Update only changed files
 # - Preserve configurations
 ```
@@ -421,12 +421,12 @@ See the complete [Uninstallation Guide](../uninstallation.md) for detailed steps
 Quick uninstall via PowerShell:
 
 ```powershell
-# Remove AIOS from project
-Remove-Item -Recurse -Force .aios-core
-Remove-Item -Recurse -Force .claude\commands\AIOS
+# Remove AIOX from project
+Remove-Item -Recurse -Force .aiox-core
+Remove-Item -Recurse -Force .claude\commands\AIOX
 
 # Remove global npm packages
-npm uninstall -g @synkra/aios
+npm uninstall -g @synkra/aiox
 ```
 
 ---
@@ -474,4 +474,4 @@ npm uninstall -g @synkra/aios
 - [Troubleshooting Guide](troubleshooting.md)
 - [FAQ](faq.md)
 - [Discord Community](https://discord.gg/gk8jAdXWmj)
-- [GitHub Issues](https://github.com/SynkraAI/aios-core/issues)
+- [GitHub Issues](https://github.com/SynkraAI/aiox-core/issues)

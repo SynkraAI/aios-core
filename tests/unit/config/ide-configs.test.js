@@ -4,7 +4,7 @@
  * Story 1.4: IDE Selection
  * Tests IDE configuration metadata structure
  *
- * Synkra AIOS v2.1 supports 6 IDEs:
+ * Synkra AIOX v2.1 supports 6 IDEs:
  * - Claude Code, Codex CLI, Gemini CLI, Cursor, GitHub Copilot, AntiGravity
  */
 

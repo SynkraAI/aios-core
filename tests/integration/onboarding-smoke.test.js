@@ -1,5 +1,5 @@
 /**
- * Story AIOS-DIFF-4.0.5: Onboarding smoke tests in clean environment.
+ * Story AIOX-DIFF-4.0.5: Onboarding smoke tests in clean environment.
  *
  * Objective:
  * - Validate that "Comece Aqui" onboarding flow remains executable.
@@ -13,12 +13,12 @@ const os = require('os');
 const path = require('path');
 const { execFileSync } = require('child_process');
 
-describe('Onboarding smoke flow (AIOS-DIFF-4.0.5)', () => {
+describe('Onboarding smoke flow (AIOX-DIFF-4.0.5)', () => {
   const repoRoot = path.resolve(__dirname, '..', '..');
-  const cliBin = path.join(repoRoot, 'bin', 'aios.js');
+  const cliBin = path.join(repoRoot, 'bin', 'aiox.js');
   const greetingScript = path.join(
     repoRoot,
-    '.aios-core',
+    '.aiox-core',
     'development',
     'scripts',
     'generate-greeting.js',
@@ -41,7 +41,7 @@ describe('Onboarding smoke flow (AIOS-DIFF-4.0.5)', () => {
   };
 
   beforeEach(async () => {
-    tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'aios-onboarding-smoke-'));
+    tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'aiox-onboarding-smoke-'));
   });
 
   afterEach(async () => {
@@ -49,7 +49,7 @@ describe('Onboarding smoke flow (AIOS-DIFF-4.0.5)', () => {
   });
 
   it('validates Start Here commands are discoverable and executable from clean env', async () => {
-    expect(await fs.pathExists(path.join(tempDir, '.aios-core'))).toBe(false);
+    expect(await fs.pathExists(path.join(tempDir, '.aiox-core'))).toBe(false);
     expect(await fs.pathExists(path.join(tempDir, '.codex'))).toBe(false);
     expect(await fs.pathExists(path.join(tempDir, '.claude'))).toBe(false);
 
@@ -70,11 +70,11 @@ describe('Onboarding smoke flow (AIOS-DIFF-4.0.5)', () => {
     const gettingStarted = await fs.readFile(path.join(repoRoot, 'docs', 'getting-started.md'), 'utf8');
 
     expect(readme).toContain('Comece Aqui (10 Min)');
-    expect(readme).toContain('npx aios-core init');
-    expect(readme).toContain('npx aios-core install');
+    expect(readme).toContain('npx aiox-core init');
+    expect(readme).toContain('npx aiox-core install');
 
     expect(gettingStarted).toContain('10-Minute Quick Path');
-    expect(gettingStarted).toContain('Step 1: Install AIOS');
+    expect(gettingStarted).toContain('Step 1: Install AIOX');
     expect(gettingStarted).toContain('Step 2: Pick your IDE activation path');
     expect(gettingStarted).toContain('Step 3: Validate first value');
     expect(gettingStarted).toContain('*help');

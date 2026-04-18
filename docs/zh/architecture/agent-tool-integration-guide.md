@@ -14,7 +14,7 @@
 
 ## 概述
 
-本指南说明如何将工具与 AIOS 代理集成。工具通过提供对外部服务、API 和系统资源的访问来扩展代理的能力。
+本指南说明如何将工具与 AIOX 代理集成。工具通过提供对外部服务、API 和系统资源的访问来扩展代理的能力。
 
 ---
 
@@ -55,13 +55,13 @@
 | 类型           | 描述                           | 位置                        |
 | -------------- | ------------------------------ | -------------------------- |
 | `tools`        | CLI 工具和外部服务             | 系统 PATH 或 MCP           |
-| `tasks`        | 任务工作流文件                 | `.aios-core/development/tasks/`    |
-| `checklists`   | 验证清单                       | `.aios-core/product/checklists/`   |
+| `tasks`        | 任务工作流文件                 | `.aiox-core/development/tasks/`    |
+| `checklists`   | 验证清单                       | `.aiox-core/product/checklists/`   |
 
 ### 声明示例
 
 ```yaml
-# 来自 .aios-core/development/agents/dev.md
+# 来自 .aiox-core/development/agents/dev.md
 dependencies:
   checklists:
     - story-dod-checklist.md
@@ -202,7 +202,7 @@ coderabbit_integration:
 
 ## Git 限制架构
 
-AIOS 实现严格的 git 操作治理:
+AIOX 实现严格的 git 操作治理:
 
 ### @dev 代理的权限
 
@@ -329,7 +329,7 @@ tool_integration:
 
 - [MCP API 密钥管理](./mcp-api-keys-management.md)
 - [MCP 使用规则](../../../.claude/rules/mcp-usage.md)
-- [代理定义](../../../.aios-core/development/agents/)
+- [代理定义](../../../.aiox-core/development/agents/)
 
 ---
 

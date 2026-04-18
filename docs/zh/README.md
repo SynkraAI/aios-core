@@ -4,7 +4,7 @@
   最后同步：2026-02-23
 -->
 
-# Synkra AIOS 中文文档
+# Synkra AIOX 中文文档
 
 > 🌐 [EN](../README.md) | [PT](../pt/README.md) | [ES](../es/README.md) | **ZH**
 
@@ -33,8 +33,8 @@ docs/
 ├── architecture/              # English
 ├── framework/                 # English
 ├── platforms/                 # English
-├── aios-agent-flows/          # Detailed agent documentation (PT)
-├── aios-workflows/            # Detailed workflow documentation (PT)
+├── aiox-agent-flows/          # Detailed agent documentation (PT)
+├── aiox-workflows/            # Detailed workflow documentation (PT)
 │
 ├── pt/                        # Português
 ├── es/                        # Español
@@ -51,8 +51,8 @@ docs/
 - [Installation Guide](../installation/README.md)
 - [Architecture Overview](../core-architecture.md)
 - [Meta-Agent Commands](../meta-agent-commands.md)
-- [Agent System Documentation](../en/aios-agent-flows/README.md)
-- [Workflow Documentation](../en/aios-workflows/README.md)
+- [Agent System Documentation](../en/aiox-agent-flows/README.md)
+- [Workflow Documentation](../en/aiox-workflows/README.md)
 - [Troubleshooting](../troubleshooting.md)
 
 ### Português
@@ -60,9 +60,9 @@ docs/
 - [Começando](../pt/getting-started.md)
 - [Guia de Instalação](../pt/installation/README.md)
 - [Visão Geral da Arquitetura](../pt/architecture/ARCHITECTURE-INDEX.md)
-- [Meta-Agent Commands](../pt/meta-agent-commands.md)
-- [Documentação do Sistema de Agentes](../aios-agent-flows/README.md)
-- [Documentação de Workflows](../aios-workflows/README.md)
+- [Referência de Agentes](../pt/agent-reference-guide.md)
+- [Documentação do Sistema de Agentes](../aiox-agent-flows/README.md)
+- [Documentação de Workflows](../aiox-workflows/README.md)
 - [Solução de Problemas](../pt/troubleshooting.md)
 
 ### Español
@@ -70,9 +70,9 @@ docs/
 - [Comenzando](../es/getting-started.md)
 - [Guía de Instalación](../es/installation/README.md)
 - [Visión General de la Arquitectura](../es/architecture/ARCHITECTURE-INDEX.md)
-- [Meta-Agent Commands](../es/meta-agent-commands.md)
-- [Documentación del Sistema de Agentes](../es/aios-agent-flows/README.md)
-- [Documentación de Workflows](../es/aios-workflows/README.md)
+- [Referencia de Agentes](../es/agent-reference-guide.md)
+- [Documentación del Sistema de Agentes](../es/aiox-agent-flows/README.md)
+- [Documentación de Workflows](../es/aiox-workflows/README.md)
 - [Solución de Problemas](../es/troubleshooting.md)
 
 ### 中文（简体）
@@ -80,9 +80,9 @@ docs/
 - [快速入门](./getting-started.md)
 - [安装指南](./installation/README.md)
 - [架构总览](./architecture/ARCHITECTURE-INDEX.md)
-- [Meta-Agent Commands](./meta-agent-commands.md)
-- [代理系统文档](./aios-agent-flows/README.md)
-- [工作流文档](./aios-workflows/README.md)
+- [代理参考](./agent-reference-guide.md)
+- [代理系统文档](./aiox-agent-flows/README.md)
+- [工作流文档](./aiox-workflows/README.md)
 - [故障排查](./troubleshooting.md)
 
 ---
@@ -130,4 +130,4 @@ docs/
 
 ---
 
-_Synkra AIOS 中文文档_
+_Synkra AIOX 中文文档_

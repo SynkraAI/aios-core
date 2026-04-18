@@ -563,4 +563,4 @@ const workflowContext = pvMind.getPhaseContext(<phase-number>);
 
 **状态**：完整 - 所有 9 个代理已实现并验证
 **最后验证**：2025-10-19
-**维护者**：AIOS HybridOps 团队
+**维护者**：AIOX HybridOps 团队

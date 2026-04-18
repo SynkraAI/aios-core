@@ -1,4 +1,4 @@
-# AIOS Code Owners
+# AIOX Code Owners
 # Issue: #99 (Governance)
 # Last Updated: 2026-02-21
 #
@@ -22,10 +22,10 @@
 # Critical Paths (requires lead maintainer review)
 # ============================================
 # Orchestration layer (MasterOrchestrator, BobOrchestrator, GateEvaluator)
-.aios-core/core/orchestration/ @Pedrovaleriolopez @oalanicolas
+.aiox-core/core/orchestration/ @Pedrovaleriolopez @oalanicolas
 
 # Execution engine (WaveExecutor, ParallelExecutor)
-.aios-core/core/execution/ @Pedrovaleriolopez @oalanicolas
+.aiox-core/core/execution/ @Pedrovaleriolopez @oalanicolas
 
 # Packages (installer, CLI, shared libraries)
 packages/ @Pedrovaleriolopez @oalanicolas
@@ -37,20 +37,20 @@ packages/ @Pedrovaleriolopez @oalanicolas
 # Framework Core (requires senior review)
 # ============================================
 # Agent definitions
-.aios-core/development/agents/ @Pedrovaleriolopez @oalanicolas
+.aiox-core/development/agents/ @Pedrovaleriolopez @oalanicolas
 
 # Task definitions
-.aios-core/development/tasks/ @Pedrovaleriolopez @oalanicolas
+.aiox-core/development/tasks/ @Pedrovaleriolopez @oalanicolas
 
 # Workflow definitions
-.aios-core/development/workflows/ @Pedrovaleriolopez @oalanicolas
+.aiox-core/development/workflows/ @Pedrovaleriolopez @oalanicolas
 
 # Templates
-.aios-core/product/templates/ @Pedrovaleriolopez @oalanicolas
+.aiox-core/product/templates/ @Pedrovaleriolopez @oalanicolas
 templates/ @Pedrovaleriolopez @oalanicolas
 
 # CLI utilities
-.aios-core/cli/ @Pedrovaleriolopez @oalanicolas
+.aiox-core/cli/ @Pedrovaleriolopez @oalanicolas
 
 # ============================================
 # Infrastructure
@@ -59,7 +59,7 @@ templates/ @Pedrovaleriolopez @oalanicolas
 .docker/ @Pedrovaleriolopez @oalanicolas
 
 # Framework configuration
-.aios-core/core-config.yaml @Pedrovaleriolopez @oalanicolas
+.aiox-core/core-config.yaml @Pedrovaleriolopez @oalanicolas
 
 # Package management
 package.json @Pedrovaleriolopez @oalanicolas

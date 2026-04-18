@@ -13,7 +13,7 @@
 
 ## 概述
 
-项目状态功能在任何AIOS Agent激活时自动显示你当前的工作上下文。这包括：
+项目状态功能在任何AIOX Agent激活时自动显示你当前的工作上下文。这包括：
 
 - **Git分支** 你当前在哪个分支
 - **修改的文件** 工作目录中的修改
@@ -46,7 +46,7 @@
 ### 前提条件
 
 - **Git仓库** - 项目必须用 `git init` 初始化
-- **AIOS-FullStack** 框架已安装
+- **AIOX-FullStack** 框架已安装
 - **Node.js 18+** 和所需包
 
 ### 初始设置
@@ -61,7 +61,7 @@
 这将：
 1. 检测你的git仓库
 2. 在 `core-config.yaml` 中启用 `projectStatus`
-3. 创建 `.aios/project-status.yaml` 缓存文件
+3. 创建 `.aiox/project-status.yaml` 缓存文件
 4. 将缓存文件添加到 `.gitignore`
 5. 测试状态显示
 
@@ -69,7 +69,7 @@
 
 如果你更喜欢手动配置：
 
-1. 编辑 `.aios-core/core-config.yaml`：
+1. 编辑 `.aiox-core/core-config.yaml`：
    ```yaml
    projectStatus:
      enabled: true
@@ -78,14 +78,14 @@
      cacheTimeSeconds: 60
    ```
 
-2. 创建 `.aios/` 目录：
+2. 创建 `.aiox/` 目录：
    ```bash
-   mkdir .aios
+   mkdir .aiox
    ```
 
 3. 添加到 `.gitignore`：
    ```gitignore
-   .aios/project-status.yaml
+   .aiox/project-status.yaml
    ```
 
 ---
@@ -94,7 +94,7 @@
 
 ### 完整配置选项
 
-位置: `.aios-core/core-config.yaml`
+位置: `.aiox-core/core-config.yaml`
 
 ```yaml
 projectStatus:
@@ -108,7 +108,7 @@ projectStatus:
     recentWork: true                 # 显示最近提交
     currentEpic: true                # 显示当前epic
     currentStory: true               # 显示当前story
-  statusFile: .aios/project-status.yaml  # 缓存文件位置
+  statusFile: .aiox/project-status.yaml  # 缓存文件位置
   maxModifiedFiles: 5                # 限制显示的修改文件数
   maxRecentCommits: 2                # 限制显示的提交数
 ```
@@ -148,7 +148,7 @@ projectStatus:
 
 当Agent激活时，系统：
 
-1. **检查缓存** - 查找 `.aios/project-status.yaml`
+1. **检查缓存** - 查找 `.aiox/project-status.yaml`
 2. **验证TTL** - 缓存 < 60秒？
 3. **返回缓存** - 如果有效，使用缓存状态（快速）
 4. **生成新鲜** - 如果过期，运行git命令并扫描故事
@@ -200,7 +200,7 @@ git log -2 --oneline --no-decorate
 ### 缓存策略
 
 - **缓存TTL:** 60秒（可配置）
-- **缓存位置:** `.aios/project-status.yaml`
+- **缓存位置:** `.aiox/project-status.yaml`
 - **缓存格式:** YAML，包含状态对象 + 时间戳
 - **失效:** TTL过期后自动
 
@@ -213,7 +213,7 @@ git log -2 --oneline --no-decorate
 
 ## 受影响的Agent
 
-所有11个AIOS Agent都显示项目状态：
+所有11个AIOX Agent都显示项目状态：
 
 1. **@dev** (Dex - Builder)
 2. **@po** (Pax - Balancer)
@@ -225,7 +225,7 @@ git log -2 --oneline --no-decorate
 8. **@devops** (Gage - Operator)
 9. **@data-engineer** (Dara - Sage)
 10. **@ux-design-expert** (Uma - Empathizer)
-11. **@aios-master** (Orion - Orchestrator)
+11. **@aiox-master** (Orion - Orchestrator)
 
 ---
 
@@ -238,7 +238,7 @@ git log -2 --oneline --no-decorate
 **检查:**
 1. `projectStatus.enabled: true` 在 core-config.yaml 中？
 2. 这是git仓库吗？ (`git rev-parse --is-inside-work-tree`)
-3. `.aios-core/infrastructure/scripts/project-status-loader.js` 存在吗？
+3. `.aiox-core/infrastructure/scripts/project-status-loader.js` 存在吗？
 4. Agent激活输出中有错误吗？
 
 **解决方案:**
@@ -257,7 +257,7 @@ git log -2 --oneline --no-decorate
 **解决方案:**
 ```bash
 # 手动清除缓存
-rm .aios/project-status.yaml
+rm .aiox/project-status.yaml
 
 # 或重启agent会话
 ```
@@ -326,7 +326,7 @@ projectStatus:
 ### 编程式访问
 
 ```javascript
-const { loadProjectStatus, formatStatusDisplay } = require('./.aios-core/infrastructure/scripts/project-status-loader.js');
+const { loadProjectStatus, formatStatusDisplay } = require('./.aiox-core/infrastructure/scripts/project-status-loader.js');
 
 // 获取原始状态对象
 const status = await loadProjectStatus();
@@ -337,7 +337,7 @@ const display = formatStatusDisplay(status);
 console.log(display);
 
 // 手动清除缓存
-const { clearCache } = require('./.aios-core/infrastructure/scripts/project-status-loader.js');
+const { clearCache } = require('./.aiox-core/infrastructure/scripts/project-status-loader.js');
 await clearCache();
 ```
 
@@ -355,7 +355,7 @@ await clearCache();
 
 2. **清除缓存:**
    ```bash
-   rm .aios/project-status.yaml
+   rm .aiox/project-status.yaml
    ```
 
 3. **重启agent** - 新激活不会显示状态
@@ -366,16 +366,16 @@ await clearCache();
 
 ```bash
 # 移除脚本
-rm .aios-core/infrastructure/scripts/project-status-loader.js
+rm .aiox-core/infrastructure/scripts/project-status-loader.js
 
 # 移除task
-rm .aios-core/tasks/init-project-status.md
+rm .aiox-core/tasks/init-project-status.md
 
 # 移除缓存
-rm .aios/project-status.yaml
+rm .aiox/project-status.yaml
 
 # 移除测试
-rm .aios-core/infrastructure/scripts/__tests__/project-status-loader.test.js
+rm .aiox-core/infrastructure/scripts/__tests__/project-status-loader.test.js
 
 # 从core-config.yaml移除配置部分
 # (手动编辑文件)
@@ -448,17 +448,17 @@ A: 是的，在所有平台上都经过测试。
 A: 暂时不行。格式在 `project-status-loader.js:formatStatusDisplay()` 中是固定的。
 
 **Q: 缓存在agent之间共享吗?**
-A: 是的，所有agent使用相同的缓存文件 (`.aios/project-status.yaml`)。
+A: 是的，所有agent使用相同的缓存文件 (`.aiox/project-status.yaml`)。
 
 ---
 
 ## 相关文档
 
-- **Story:** `docs/stories/aios migration/story-6.1.2.4-project-status-context.md`
-- **配置:** `.aios-core/core-config.yaml` (projectStatus部分)
-- **脚本:** `.aios-core/infrastructure/scripts/project-status-loader.js`
-- **Init Task:** `.aios-core/tasks/init-project-status.md`
-- **测试:** `.aios-core/infrastructure/scripts/__tests__/project-status-loader.test.js`
+- **Story:** `docs/stories/aiox migration/story-6.1.2.4-project-status-context.md`
+- **配置:** `.aiox-core/core-config.yaml` (projectStatus部分)
+- **脚本:** `.aiox-core/infrastructure/scripts/project-status-loader.js`
+- **Init Task:** `.aiox-core/tasks/init-project-status.md`
+- **测试:** `.aiox-core/infrastructure/scripts/__tests__/project-status-loader.test.js`
 
 ---
 

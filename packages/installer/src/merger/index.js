@@ -1,13 +1,13 @@
 /**
- * @fileoverview Smart Merge Module for AIOS Installer
+ * @fileoverview Smart Merge Module for AIOX Installer
  *
  * This module provides intelligent merging capabilities for configuration files
- * during AIOS installation in brownfield projects. Instead of overwriting
+ * during AIOX installation in brownfield projects. Instead of overwriting
  * existing files, it can merge new content while preserving user customizations.
  *
  * Supported file types:
  * - .env files: Key-based merge (adds new variables, preserves existing)
- * - .md files: Section-based merge using AIOS-MANAGED markers
+ * - .md files: Section-based merge using AIOX-MANAGED markers
  * - .yaml/.yml files: Deep merge with target-wins (Phase 1 — Story INS-4.7)
  *
  * @module merger
@@ -44,7 +44,7 @@ const { parseEnvFile } = require('./parsers/env-parser.js');
 const {
   parseMarkdownSections,
   slugify,
-  hasAiosMarkers,
+  hasAioxMarkers,
 } = require('./parsers/markdown-section-parser.js');
 
 module.exports = {
@@ -70,5 +70,5 @@ module.exports = {
   parseEnvFile,
   parseMarkdownSections,
   slugify,
-  hasAiosMarkers,
+  hasAioxMarkers,
 };

@@ -1,6 +1,6 @@
 <!-- 翻译: ZH-CN | 原文: /docs/en/architecture/tech-stack.md | 同步: 2026-02-22 -->
 
-# AIOS 技术栈
+# AIOX 技术栈
 
 > 🌐 [EN](../../architecture/tech-stack.md) | [PT](../../pt/architecture/tech-stack.md) | **ZH** | [ES](../../es/architecture/tech-stack.md)
 
@@ -14,12 +14,12 @@
 
 ---
 
-# AIOS 技术栈
+# AIOX 技术栈
 
 **版本:** 1.1
 **最后更新:** 2025-12-14
 **状态:** 已弃用 - 参见 docs/framework/tech-stack.md
-**迁移通知:** 本文档将在 2026 Q2 迁移到 `SynkraAI/aios-core` 仓库 (参见决策 005)
+**迁移通知:** 本文档将在 2026 Q2 迁移到 `SynkraAI/aiox-core` 仓库 (参见决策 005)
 
 ---
 
@@ -39,7 +39,7 @@
 
 ## 概述
 
-AIOS 构建在现代 JavaScript/TypeScript 和 Node.js 运行时上，优化用于开发具有交互式 UX 和代理编排功能的跨平台 CLI。
+AIOX 构建在现代 JavaScript/TypeScript 和 Node.js 运行时上，优化用于开发具有交互式 UX 和代理编排功能的跨平台 CLI。
 
 **理念:**
 
@@ -536,7 +536,7 @@ npm run publish:stable         # 发布为 latest 标签
 
 ### MCP 服务器
 
-AIOS 与 Model Context Protocol (MCP) 服务器集成:
+AIOX 与 Model Context Protocol (MCP) 服务器集成:
 
 ```yaml
 MCP 服务器:
@@ -729,7 +729,7 @@ Yolo 模式: ~100ms (跳过验证)
 ### 内存使用
 
 ```yaml
-基线: 30MB (Node.js + AIOS core)
+基线: 30MB (Node.js + AIOX core)
 代理执行: +10MB (每个代理)
 故事处理: +20MB (markdown 解析)
 峰值: ~100MB (典型工作流)
@@ -771,10 +771,10 @@ Node.js: nvm、apt、yum 或官方二进制文件
 ## 环境变量
 
 ```bash
-# AIOS 配置
-AIOS_DEBUG=true                    # 启用调试日志
-AIOS_CONFIG_PATH=/custom/path      # 自定义配置位置
-AIOS_YOLO_MODE=true               # 强制 yolo 模式
+# AIOX 配置
+AIOX_DEBUG=true                    # 启用调试日志
+AIOX_CONFIG_PATH=/custom/path      # 自定义配置位置
+AIOX_YOLO_MODE=true               # 强制 yolo 模式
 
 # Node.js
 NODE_ENV=production                # 生产模式
@@ -801,8 +801,8 @@ SUPABASE_ACCESS_TOKEN=xxx         # Supabase CLI 身份验证
 | 版本 | 日期       | 更改                                                                          | 作者             |
 | ---- | ---------- | ----------------------------------------------------------------------------- | ---------------- |
 | 1.0  | 2025-01-15 | 初始技术栈文档                                                                | Aria (architect) |
-| 1.1  | 2025-12-14 | 更新对 SynkraAI/aios-core 的迁移通知、semantic-release 到 v25.0.2 [故事 6.10] | Dex (dev)        |
+| 1.1  | 2025-12-14 | 更新对 SynkraAI/aiox-core 的迁移通知、semantic-release 到 v25.0.2 [故事 6.10] | Dex (dev)        |
 
 ---
 
-_这是 AIOS 框架的官方模式。所有技术选择应与本栈保持一致。_
+_这是 AIOX 框架的官方模式。所有技术选择应与本栈保持一致。_

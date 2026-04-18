@@ -32,20 +32,20 @@ const REPORT_PATH = path.join(PROJECT_ROOT, 'docs', 'qa', 'NOG-17-pipeline-audit
 // ---------------------------------------------------------------------------
 // Imports (resolved from project root to use absolute paths)
 // ---------------------------------------------------------------------------
-const { SynapseEngine } = require(path.join(PROJECT_ROOT, '.aios-core', 'core', 'synapse', 'engine.js'));
-const { parseManifest } = require(path.join(PROJECT_ROOT, '.aios-core', 'core', 'synapse', 'domain', 'domain-loader.js'));
-const { estimateTokens } = require(path.join(PROJECT_ROOT, '.aios-core', 'core', 'synapse', 'utils', 'tokens.js'));
+const { SynapseEngine } = require(path.join(PROJECT_ROOT, '.aiox-core', 'core', 'synapse', 'engine.js'));
+const { parseManifest } = require(path.join(PROJECT_ROOT, '.aiox-core', 'core', 'synapse', 'domain', 'domain-loader.js'));
+const { estimateTokens } = require(path.join(PROJECT_ROOT, '.aiox-core', 'core', 'synapse', 'utils', 'tokens.js'));
 const {
   estimateContextPercent,
   calculateBracket,
   getActiveLayers,
   getTokenBudget,
-} = require(path.join(PROJECT_ROOT, '.aios-core', 'core', 'synapse', 'context', 'context-tracker.js'));
-const GitConfigDetector = require(path.join(PROJECT_ROOT, '.aios-core', 'infrastructure', 'scripts', 'git-config-detector.js'));
+} = require(path.join(PROJECT_ROOT, '.aiox-core', 'core', 'synapse', 'context', 'context-tracker.js'));
+const GitConfigDetector = require(path.join(PROJECT_ROOT, '.aiox-core', 'infrastructure', 'scripts', 'git-config-detector.js'));
 
 let UnifiedActivationPipeline;
 try {
-  const uapModule = require(path.join(PROJECT_ROOT, '.aios-core', 'development', 'scripts', 'unified-activation-pipeline.js'));
+  const uapModule = require(path.join(PROJECT_ROOT, '.aiox-core', 'development', 'scripts', 'unified-activation-pipeline.js'));
   UnifiedActivationPipeline = uapModule.UnifiedActivationPipeline || uapModule;
 } catch (err) {
   // May fail if dependencies not fully loaded in test context
@@ -54,7 +54,7 @@ try {
 
 let ProjectStatusLoader;
 try {
-  ProjectStatusLoader = require(path.join(PROJECT_ROOT, '.aios-core', 'infrastructure', 'scripts', 'project-status-loader.js'));
+  ProjectStatusLoader = require(path.join(PROJECT_ROOT, '.aiox-core', 'infrastructure', 'scripts', 'project-status-loader.js'));
 } catch (err) {
   ProjectStatusLoader = null;
 }
@@ -876,7 +876,7 @@ function generateReport(auditData, classifications) {
 
 ## Executive Summary
 
-This audit measures every stage of the AIOS activation pipeline (UAP + SYNAPSE + Session + Git Detection)
+This audit measures every stage of the AIOX activation pipeline (UAP + SYNAPSE + Session + Git Detection)
 with sub-millisecond precision, classifying each feature as ESSENTIAL, USEFUL, COSMETIC, or OVERHEAD.
 
 `;

@@ -1,4 +1,4 @@
-# AIOS 工作流指南
+# AIOX 工作流指南
 
 **版本:** 1.0.0
 **最后更新:** 2026-02-02
@@ -8,7 +8,7 @@
 
 ## 概述
 
-AIOS 工作流是一系列精心编排的代理活动序列，可以自动化复杂的开发流程。它为常见的开发场景提供了结构化、可重复的模式。
+AIOX 工作流是一系列精心编排的代理活动序列，可以自动化复杂的开发流程。它为常见的开发场景提供了结构化、可重复的模式。
 
 ### 核心概念
 
@@ -223,7 +223,7 @@ workflow:
 ### 第5步: 输出位置
 
 工作流根据上下文保存:
-- **核心**: `.aios-core/development/workflows/{name}.yaml`
+- **核心**: `.aiox-core/development/workflows/{name}.yaml`
 - **Squad**: `squads/{squad}/workflows/{name}.yaml`
 - **混合**: `squads/{squad}/workflows/{name}.yaml`
 
@@ -259,7 +259,7 @@ workflow:
 
 ### 工作流状态
 
-状态持久化在`.aios/{instance-id}-state.yaml`:
+状态持久化在`.aiox/{instance-id}-state.yaml`:
 
 ```yaml
 instance_id: "wf-abc123"
@@ -284,7 +284,7 @@ steps:
 工作流在Claude Code会话之间持久化:
 
 1. 用户启动新会话
-2. 激活@aios-master
+2. 激活@aiox-master
 3. 运行`*run-workflow {name} continue`
 4. 系统加载状态，显示当前步骤
 5. 用户执行步骤
@@ -294,7 +294,7 @@ steps:
 
 ## 工作流模式
 
-AIOS根据命令历史检测常见的工作流模式:
+AIOX根据命令历史检测常见的工作流模式:
 
 ### 检测到的模式
 
@@ -347,7 +347,7 @@ AIOS根据命令历史检测常见的工作流模式:
 | **范围** | 多个步骤，多个代理 | 单个步骤，单个代理 |
 | **状态** | 在会话间持久化 | 无状态 |
 | **用例** | 复杂流程 | 原子操作 |
-| **位置** | `.aios-core/development/workflows/` | `.aios-core/development/tasks/` |
+| **位置** | `.aiox-core/development/workflows/` | `.aiox-core/development/tasks/` |
 
 ---
 
@@ -378,13 +378,13 @@ AIOS根据命令历史检测常见的工作流模式:
 
 ```bash
 # 列出可用工作流
-ls .aios-core/development/workflows/
+ls .aiox-core/development/workflows/
 
 # 验证工作流
 *validate-workflow {name}
 
 # 查看工作流详情
-cat .aios-core/development/workflows/{name}.yaml
+cat .aiox-core/development/workflows/{name}.yaml
 ```
 
 ---
@@ -393,7 +393,7 @@ cat .aios-core/development/workflows/{name}.yaml
 
 有关每个工作流的完整文档，包括详细的分步指南、流程图和实现细节，请参阅:
 
-- [AIOS工作流](../aios-workflows/README.md) - 每个工作流的完整文档
+- [AIOX工作流](../aiox-workflows/README.md) - 每个工作流的完整文档
 
 ---
 
@@ -405,4 +405,4 @@ cat .aios-core/development/workflows/{name}.yaml
 
 ---
 
-*AIOS工作流指南 v1.0 - 协调AI-人工协作*
+*AIOX工作流指南 v1.0 - 协调AI-人工协作*

@@ -1,10 +1,10 @@
-# Getting Started with Synkra AIOS
+# Getting Started with Synkra AIOX
 
 > **EN** | [PT](./pt/getting-started.md) | [ES](./es/getting-started.md)
 
 ---
 
-Welcome to Synkra AIOS. This guide is optimized for first-value in 10 minutes.
+Welcome to Synkra AIOX. This guide is optimized for first-value in 10 minutes.
 
 ## Table of Contents
 
@@ -22,29 +22,29 @@ Welcome to Synkra AIOS. This guide is optimized for first-value in 10 minutes.
 
 Use this exact flow if you are new:
 
-### Step 1: Install AIOS
+### Step 1: Install AIOX
 
 ```bash
 # New project
-npx aios-core init my-first-project
+npx aiox-core init my-first-project
 cd my-first-project
 
 # Existing project
 # cd existing-project
-# npx aios-core install
+# npx aiox-core install
 ```
 
 ### Step 2: Pick your IDE activation path
 
 - Claude Code: `/agent-name`
-- Gemini CLI: `/aios-menu` then `/aios-<agent>`
-- Codex CLI: `/skills` then `aios-<agent-id>`
+- Gemini CLI: `/aiox-menu` then `/aiox-<agent>`
+- Codex CLI: `/skills` then `aiox-<agent-id>`
 - Cursor/Copilot/AntiGravity: follow constraints in `docs/ide-integration.md`
 
 ### Step 3: Validate first value
 
 First value is achieved when all 3 conditions are true:
-1. You activate one AIOS agent.
+1. You activate one AIOX agent.
 2. You receive a valid greeting/activation response.
 3. You run one starter command (`*help` or equivalent) and get useful output.
 
@@ -62,12 +62,12 @@ PASS rule: complete all 3 conditions in <= 10 minutes.
 
 ```bash
 # Create a new project
-npx aios-core init my-first-project
+npx aiox-core init my-first-project
 
 # Navigate to your project
 cd my-first-project
 
-# Start using AIOS agents in your IDE
+# Start using AIOX agents in your IDE
 # (see Step 2 above for IDE-specific activation)
 ```
 
@@ -75,17 +75,17 @@ cd my-first-project
 
 ```bash
 # 1. Create new project with custom template
-npx aios-core init my-project --template enterprise
+npx aiox-core init my-project --template enterprise
 
 # 2. Install in existing project
 cd existing-project
-npx aios-core install
+npx aiox-core install
 
 # 3. Force installation in non-empty directory
-npx aios-core init my-project --force
+npx aiox-core init my-project --force
 
 # 4. Skip dependency installation (manual install later)
-npx aios-core init my-project --skip-install
+npx aiox-core init my-project --skip-install
 ```
 
 ## Your First Project
@@ -96,7 +96,7 @@ After installation, your project will include:
 
 ```
 my-first-project/
-├── .aios-core/                 # AIOS framework core
+├── .aiox-core/                 # AIOX framework core
 │   ├── core/                   # Orchestration, memory, config
 │   ├── data/                   # Knowledge base, entity registry
 │   ├── development/            # Agents, tasks, templates, scripts
@@ -113,17 +113,17 @@ my-first-project/
 
 ### Configuration
 
-AIOS configuration lives in `.aios-core/core/config/`. The installer handles initial setup. To verify your installation:
+AIOX configuration lives in `.aiox-core/core/config/`. The installer handles initial setup. To verify your installation:
 
 ```bash
-npx aios-core doctor
+npx aiox-core doctor
 ```
 
 ## Basic Commands
 
 ### Agent Activation
 
-AIOS agents are activated through your IDE. Once activated, agents respond to commands prefixed with `*`:
+AIOX agents are activated through your IDE. Once activated, agents respond to commands prefixed with `*`:
 
 ```bash
 # Universal commands (work in any agent)
@@ -168,15 +168,15 @@ AIOS agents are activated through your IDE. Once activated, agents respond to co
 
 ## IDE Compatibility
 
-Not all IDEs support AIOS features equally. See the full comparison at [`docs/ide-integration.md`](./ide-integration.md).
+Not all IDEs support AIOX features equally. See the full comparison at [`docs/ide-integration.md`](./ide-integration.md).
 
 Summary:
 
 | IDE/CLI | Overall Status | How to Activate |
 | --- | --- | --- |
 | Claude Code | Works | `/agent-name` commands |
-| Gemini CLI | Works | `/aios-menu` then `/aios-<agent>` |
-| Codex CLI | Limited | `/skills` then `aios-<agent-id>` |
+| Gemini CLI | Works | `/aiox-menu` then `/aiox-<agent>` |
+| Codex CLI | Limited | `/skills` then `aiox-<agent-id>` |
 | Cursor | Limited | `@agent` + synced rules |
 | GitHub Copilot | Limited | chat modes + repo instructions |
 | AntiGravity | Limited | workflow-driven activation |
@@ -186,7 +186,7 @@ Summary:
 
 ## Brownfield: Existing Projects
 
-Already have a codebase? AIOS handles brownfield projects with a dedicated workflow.
+Already have a codebase? AIOX handles brownfield projects with a dedicated workflow.
 
 ### Quick Brownfield Setup
 
@@ -194,18 +194,18 @@ Already have a codebase? AIOS handles brownfield projects with a dedicated workf
 # Navigate to your existing project
 cd my-existing-project
 
-# Install AIOS (non-destructive, preserves your config)
-npx aios-core install
+# Install AIOX (non-destructive, preserves your config)
+npx aiox-core install
 
 # Run doctor to verify compatibility
-npx aios-core doctor
+npx aiox-core doctor
 ```
 
 ### What Happens on First Run
 
-When you first activate an AIOS agent in an existing project:
+When you first activate an AIOX agent in an existing project:
 
-1. **Detection**: AIOS detects code but no AIOS docs
+1. **Detection**: AIOX detects code but no AIOX docs
 2. **Offer**: "I can analyze your codebase. This takes 4-8 hours."
 3. **Discovery**: Multi-agent technical debt assessment (optional)
 4. **Output**: System architecture docs + technical debt report
@@ -221,15 +221,15 @@ When you first activate an AIOS agent in an existing project:
 
 ### Safety Guarantees
 
-- **Non-destructive**: AIOS creates files, never overwrites existing
-- **Rollback**: `git checkout HEAD~1 -- .` restores pre-AIOS state
+- **Non-destructive**: AIOX creates files, never overwrites existing
+- **Rollback**: `git checkout HEAD~1 -- .` restores pre-AIOX state
 - **Config preservation**: Your `.eslintrc`, `tsconfig.json`, etc. stay intact
 
 ### Resources
 
-- **[Working in the Brownfield Guide](.aios-core/working-in-the-brownfield.md)** - Complete brownfield documentation
-- **[Compatibility Checklist](.aios-core/development/checklists/brownfield-compatibility-checklist.md)** - Pre/post migration checks
-- **[Risk Report Template](.aios-core/product/templates/brownfield-risk-report-tmpl.yaml)** - Phase-by-phase risk assessment
+- **[Working in the Brownfield Guide](.aiox-core/working-in-the-brownfield.md)** - Complete brownfield documentation
+- **[Compatibility Checklist](.aiox-core/development/checklists/brownfield-compatibility-checklist.md)** - Pre/post migration checks
+- **[Risk Report Template](.aiox-core/product/templates/brownfield-risk-report-tmpl.yaml)** - Phase-by-phase risk assessment
 
 ---
 
@@ -252,7 +252,7 @@ npm run lint && npm run typecheck && npm test
 
 ### Story-Driven Development
 
-All AIOS development follows stories in `docs/stories/`. Each story contains:
+All AIOX development follows stories in `docs/stories/`. Each story contains:
 - Acceptance criteria with checkboxes
 - Tasks mapped to specific ACs
 - CodeRabbit integration for automated review
@@ -262,7 +262,7 @@ See the [User Guide](./guides/user-guide.md) for the complete workflow.
 
 ### Squad Expansions
 
-Squads extend AIOS beyond software development into any domain. See [Squads Guide](./guides/squads-guide.md).
+Squads extend AIOX beyond software development into any domain. See [Squads Guide](./guides/squads-guide.md).
 
 ## Troubleshooting
 
@@ -273,10 +273,10 @@ Squads extend AIOS beyond software development into any domain. See [Squads Guid
 node --version  # Should be >= 18.0.0
 
 # Run diagnostics
-npx aios-core doctor
+npx aiox-core doctor
 
 # Auto-fix common issues
-npx aios-core doctor --fix
+npx aiox-core doctor --fix
 ```
 
 ### Agent Not Responding
@@ -303,9 +303,9 @@ npm run validate:parity
 - **[User Guide](./guides/user-guide.md)** - Complete workflow from planning to delivery
 - **[IDE Integration](./ide-integration.md)** - Detailed setup per IDE
 - **[Architecture](./architecture/ARCHITECTURE-INDEX.md)** - Technical deep dive
-- **[Squads Guide](./guides/squads-guide.md)** - Extend AIOS to any domain
+- **[Squads Guide](./guides/squads-guide.md)** - Extend AIOX to any domain
 - **[Troubleshooting](./troubleshooting.md)** - Common issues and solutions
 
 ---
 
-_Synkra AIOS Getting Started Guide v4.2.11_
+_Synkra AIOX Getting Started Guide v4.2.11_

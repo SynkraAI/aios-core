@@ -4,9 +4,10 @@
   Última sincronización: 2026-02-23
 -->
 
-# Documentación de Synkra AIOS
+# Documentación de Synkra AIOX
 
 > 🌐 [EN](../README.md) | [PT](../pt/README.md) | **ES** | [ZH](../zh/README.md)
+
 > **Sistema Orquestado por IA para Desarrollo Full Stack**
 
 ---
@@ -69,8 +70,8 @@ docs/
 - [Guia de Instalação](../pt/installation/README.md)
 - [Visão Geral da Arquitetura](../pt/architecture/ARCHITECTURE-INDEX.md)
 - [Referência de Agentes](../pt/agent-reference-guide.md)
-- [Documentação do Sistema de Agentes](../aios-agent-flows/README.md)
-- [Documentação de Workflows](../aios-workflows/README.md)
+- [Documentação do Sistema de Agentes](../aiox-agent-flows/README.md)
+- [Documentação de Workflows](../aiox-workflows/README.md)
 - [Solução de Problemas](../pt/troubleshooting.md)
 
 ### Español
@@ -79,8 +80,8 @@ docs/
 - [Guía de Instalación](./installation/README.md)
 - [Visión General de la Arquitectura](./architecture/ARCHITECTURE-INDEX.md)
 - [Referencia de Agentes](./agent-reference-guide.md)
-- [Documentación del Sistema de Agentes](./aios-agent-flows/README.md)
-- [Documentación de Workflows](./aios-workflows/README.md)
+- [Documentación del Sistema de Agentes](./aiox-agent-flows/README.md)
+- [Documentación de Workflows](./aiox-workflows/README.md)
 - [Solución de Problemas](./troubleshooting.md)
 
 ### 中文（简体）
@@ -88,7 +89,7 @@ docs/
 - [快速入门](../zh/getting-started.md)
 - [安装指南](../zh/installation/README.md)
 - [架构总览](../zh/architecture/ARCHITECTURE-INDEX.md)
-- [代理参考](../zh/meta-agent-commands.md)
+- [代理参考](../zh/agent-reference-guide.md)
 - [故障排查](../zh/troubleshooting.md)
 
 ---
@@ -115,19 +116,19 @@ Seguimos prácticas estándar de la industria para i18n:
 
 | Sección         | EN  | PT  | ES  | ZH  |
 | --------------- | --- | --- | --- | --- |
-| Getting Started | ✅  | ✅  | ✅  | ✅  |
-| Guides          | ✅  | ✅  | ✅  | ✅  |
-| Installation    | ✅  | ✅  | ✅  | ✅  |
-| Architecture    | ✅  | ✅  | ✅  | ✅  |
-| Framework       | ✅  | ✅  | ✅  | ✅  |
+| Getting Started | ✅  | ✅  | ✅  | 🟡  |
+| Guides          | ✅  | ✅  | ✅  | 🟡  |
+| Installation    | ✅  | ✅  | ✅  | 🟡  |
+| Architecture    | ✅  | ✅  | ✅  | 🟡  |
+| Framework       | ✅  | ✅  | ✅  | 🟡  |
 | Platforms       | ✅  | ✅  | ✅  | ❌  |
 
 ---
 
 ## 📄 Licencia
 
-Esta documentación es parte de Synkra AIOS, licenciada bajo [Licencia MIT](../../LICENSE).
+Esta documentación es parte de Synkra AIOX, licenciada bajo [Licencia MIT](../../LICENSE).
 
 ---
 
-_Synkra AIOS - Orquestando IA para un Mejor Desarrollo de Software_
+_Synkra AIOX - Orquestando IA para un Mejor Desarrollo de Software_

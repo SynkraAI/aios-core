@@ -1,4 +1,4 @@
-# AIOS Git 工作流指南
+# AIOX Git 工作流指南
 
 > 🌐 [EN](../git-workflow-guide.md) | [PT](../pt/git-workflow-guide.md) | [ES](../es/git-workflow-guide.md)
 
@@ -20,7 +20,7 @@ _Story: 2.2-git-workflow-implementation.yaml_
 
 ## 概述
 
-Synkra AIOS 实现了**纵深防御**验证策略，具有三个渐进式层级，可以提早发现问题并确保代码质量在合并之前。
+Synkra AIOX 实现了**纵深防御**验证策略，具有三个渐进式层级，可以提早发现问题并确保代码质量在合并之前。
 
 ### 为什么是三层？
 
@@ -273,11 +273,11 @@ git commit --no-verify
 
 ```bash
 # 手动验证
-node .aios-core/utils/aios-validator.js pre-push
-node .aios-core/utils/aios-validator.js stories
+node .aiox-core/utils/aiox-validator.js pre-push
+node .aiox-core/utils/aiox-validator.js stories
 
 # 验证单个故事
-node .aios-core/utils/aios-validator.js story docs/stories/1.1-story.yaml
+node .aiox-core/utils/aiox-validator.js story docs/stories/1.1-story.yaml
 
 # 跳过钩子（不推荐）
 git push --no-verify
@@ -285,7 +285,7 @@ git push --no-verify
 
 ### 故事验证器
 
-**位置：** `.aios-core/utils/aios-validator.js`
+**位置：** `.aiox-core/utils/aiox-validator.js`
 
 **功能：**
 
@@ -438,7 +438,7 @@ dev_agent_record:
 
 ```yaml
 - name: Validate story checkboxes
-  run: node .aios-core/utils/aios-validator.js stories
+  run: node .aiox-core/utils/aiox-validator.js stories
 ```
 
 - 在 Ubuntu 最新版本上运行
@@ -632,13 +632,13 @@ git commit -m "fix: resolve type errors"
 
 ```bash
 # 检查故事
-node .aios-core/utils/aios-validator.js stories
+node .aiox-core/utils/aiox-validator.js stories
 
 # 修复故事文件
 code docs/stories/X.X-story.yaml
 
 # 验证修复
-node .aios-core/utils/aios-validator.js story docs/stories/X.X-story.yaml
+node .aiox-core/utils/aiox-validator.js story docs/stories/X.X-story.yaml
 
 # 提交修复
 git add docs/stories/
@@ -932,7 +932,7 @@ git commit -m "docs: update [skip ci]"
 1. **创建验证器函数：**
 
 ```javascript
-// .aios-core/utils/custom-validator.js
+// .aiox-core/utils/custom-validator.js
 module.exports = async function validateCustom() {
   // 您的验证逻辑
   return { success: true, errors: [] };
@@ -943,8 +943,8 @@ module.exports = async function validateCustom() {
 
 ```bash
 # .husky/pre-commit
-node .aios-core/utils/aios-validator.js pre-commit
-node .aios-core/utils/custom-validator.js
+node .aiox-core/utils/aiox-validator.js pre-commit
+node .aiox-core/utils/custom-validator.js
 ```
 
 3. **添加到 CI：**
@@ -952,7 +952,7 @@ node .aios-core/utils/custom-validator.js
 ```yaml
 # .github/workflows/ci.yml
 - name: Custom validation
-  run: node .aios-core/utils/custom-validator.js
+  run: node .aiox-core/utils/custom-validator.js
 ```
 
 ### Monorepo 支持
@@ -977,12 +977,12 @@ strategy:
 
 ## 参考
 
-- **AIOS 验证器：** [.aios-core/utils/aios-validator.js](../.aios-core/utils/aios-validator.js)
+- **AIOX 验证器：** [.aiox-core/utils/aiox-validator.js](../.aiox-core/utils/aiox-validator.js)
 - **CI 工作流：** [.github/workflows/ci.yml](../.github/workflows/ci.yml)
 
 ---
 
 **有疑问？有问题吗？**
 
-- [打开问题](https://github.com/SynkraAI/aios-core/issues)
+- [打开问题](https://github.com/SynkraAI/aiox-core/issues)
 - [加入 Discord](https://discord.gg/gk8jAdXWmj)

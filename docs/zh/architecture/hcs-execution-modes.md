@@ -16,7 +16,7 @@
 
 ## 执行摘要
 
-本文档定义了 AIOS 健康检查系统 (HCS) 的执行模式,基于 Kubernetes、VS Code、Terraform、npm/yarn 和 CLI "doctor" 模式(Flutter、Homebrew、WP-CLI)的行业最佳实践研究。
+本文档定义了 AIOX 健康检查系统 (HCS) 的执行模式,基于 Kubernetes、VS Code、Terraform、npm/yarn 和 CLI "doctor" 模式(Flutter、Homebrew、WP-CLI)的行业最佳实践研究。
 
 ### 主要建议
 
@@ -37,7 +37,7 @@
 | **CI 计划**              | Cron/工作流    | 60-300s  | 无                         | 持续监控       | ✅ **次模式**      |
 | **merge 后触发**         | PR 合并        | 60-120s  | 无                         | 合并后验证     | ✅ **第三模式**    |
 | **IDE 后台**             | 保存/间隔      | 5-15s    | 细微指示器                 | 实时反馈       | ⚠️ 仅高级用户     |
-| **安装/启动时**          | `npx aios install` | 60-120s | 预期的                 | 设置验证       | ✅ **强制**        |
+| **安装/启动时**          | `npx aiox install` | 60-120s | 预期的                 | 设置验证       | ✅ **强制**        |
 
 ---
 

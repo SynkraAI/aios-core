@@ -5,5 +5,5 @@
 # Bypass: git commit --no-verify
 node bin/utils/framework-guard.js
 
-# Keep install-manifest.yaml synchronized whenever .aios-core files are committed.
+# Keep install-manifest.yaml synchronized whenever .aiox-core files are committed.
 node scripts/ensure-manifest.js

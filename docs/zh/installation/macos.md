@@ -4,7 +4,7 @@
   最后同步：2026-02-22
 -->
 
-# Synkra AIOS macOS 安装指南
+# Synkra AIOX macOS 安装指南
 
 > 🌐 [EN](../../installation/macos.md) | [PT](../pt/installation/macos.md) | [ES](../es/installation/macos.md) | **ZH**
 
@@ -70,7 +70,7 @@ sudo port install gh
 
 3. 运行安装程序：
    ```bash
-   npx github:SynkraAI/aios-core install
+   npx github:SynkraAI/aiox-core install
    ```
 
 ### 安装程序的作用
@@ -95,7 +95,7 @@ sudo port install gh
 
 ### Claude Code
 
-1. 命令安装到 `.claude/commands/AIOS/`
+1. 命令安装到 `.claude/commands/AIOX/`
 2. 使用 `/agent-name` 激活 Agent
 
 
@@ -112,7 +112,7 @@ sudo port install gh
 sudo chown -R $(whoami) ~/.npm
 
 # 修复项目权限
-sudo chown -R $(whoami) .aios-core
+sudo chown -R $(whoami) .aiox-core
 ```
 
 ### GitHub CLI 身份验证
@@ -148,14 +148,14 @@ macOS 文件系统默认可能不区分大小写。如果遇到问题：
    diskutil info / | grep "File System"
    ```
 
-2. Synkra AIOS 会自动处理区分大小写和不区分大小写的文件系统
+2. Synkra AIOX 会自动处理区分大小写和不区分大小写的文件系统
 
 ## 更新
 
 要更新现有安装：
 
 ```bash
-npx github:SynkraAI/aios-core install
+npx github:SynkraAI/aiox-core install
 ```
 
 更新程序将：

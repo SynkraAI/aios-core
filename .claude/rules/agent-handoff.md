@@ -2,12 +2,12 @@
 
 ## Purpose
 
-Prevent context window accumulation when switching between AIOS agents (`@agent` commands). Each agent switch compacts the previous agent's full persona into a structured handoff artifact (~379 tokens) instead of retaining the full definition (~3-5K tokens).
+Prevent context window accumulation when switching between AIOX agents (`@agent` commands). Each agent switch compacts the previous agent's full persona into a structured handoff artifact (~379 tokens) instead of retaining the full definition (~3-5K tokens).
 
 ## When This Applies
 
 This protocol activates whenever:
-1. A user invokes a new agent via `@agent-name` or `/AIOS:agents:agent-name`
+1. A user invokes a new agent via `@agent-name` or `/AIOX:agents:agent-name`
 2. The current session already has a different agent active
 
 ## Handoff Protocol
@@ -74,11 +74,11 @@ The incoming agent receives:
 
 ## Storage
 
-Handoff artifacts are stored at `.aios/handoffs/` (runtime, gitignored). Format: `handoff-{from}-to-{to}-{timestamp}.yaml`.
+Handoff artifacts are stored at `.aiox/handoffs/` (runtime, gitignored). Format: `handoff-{from}-to-{to}-{timestamp}.yaml`.
 
 ## Template Reference
 
-Full template: `.aios-core/development/templates/agent-handoff-tmpl.yaml`
+Full template: `.aiox-core/development/templates/agent-handoff-tmpl.yaml`
 
 ## Example
 

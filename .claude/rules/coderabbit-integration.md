@@ -1,6 +1,6 @@
 ---
 paths:
-  - ".aios-core/**"
+  - ".aiox-core/**"
   - "tests/**"
   - "packages/**"
   - "bin/**"
@@ -65,13 +65,13 @@ behavior:
 
 ```bash
 # Self-healing mode (automatic in dev tasks)
-wsl bash -c 'cd /mnt/c/.../aios-core && ~/.local/bin/coderabbit --severity CRITICAL,HIGH --auto-fix'
+wsl bash -c 'cd /mnt/c/.../aiox-core && ~/.local/bin/coderabbit --severity CRITICAL,HIGH --auto-fix'
 
 # Manual review
-wsl bash -c 'cd /mnt/c/.../aios-core && ~/.local/bin/coderabbit -t uncommitted'
+wsl bash -c 'cd /mnt/c/.../aiox-core && ~/.local/bin/coderabbit -t uncommitted'
 
 # Prompt-only mode
-wsl bash -c 'cd /mnt/c/.../aios-core && ~/.local/bin/coderabbit --prompt-only -t uncommitted'
+wsl bash -c 'cd /mnt/c/.../aiox-core && ~/.local/bin/coderabbit --prompt-only -t uncommitted'
 ```
 
 ## Integration Points
@@ -98,4 +98,4 @@ CodeRabbit reports saved to: `docs/qa/coderabbit-reports/`
 
 ## Configuration Reference
 
-Full config in `.aios-core/core-config.yaml` under `coderabbit_integration` section.
+Full config in `.aiox-core/core-config.yaml` under `coderabbit_integration` section.

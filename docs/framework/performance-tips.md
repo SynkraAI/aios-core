@@ -1,4 +1,4 @@
-# AIOS Performance Tips
+# AIOX Performance Tips
 
 **Version:** 1.0
 **Last Updated:** 2026-02-21
@@ -12,9 +12,9 @@
 
 Git's built-in `fsmonitor` feature uses a filesystem watcher daemon to track file changes, so `git status` doesn't need to scan the entire working directory. This can reduce `git status` time from **50-200ms to <10ms**.
 
-### Why it matters for AIOS
+### Why it matters for AIOX
 
-The AIOS Unified Activation Pipeline runs `git status` during agent activation to detect modified files and project state. On large repositories, this can cause the `projectStatus` loader to timeout (~60% timeout rate observed). Enabling fsmonitor dramatically reduces this latency.
+The AIOX Unified Activation Pipeline runs `git status` during agent activation to detect modified files and project state. On large repositories, this can cause the `projectStatus` loader to timeout (~60% timeout rate observed). Enabling fsmonitor dramatically reduces this latency.
 
 ### Requirements
 
@@ -47,10 +47,10 @@ git fsmonitor--daemon stop
 
 ### Diagnostics
 
-Run `aios doctor` to check fsmonitor status:
+Run `aiox doctor` to check fsmonitor status:
 
 ```bash
-npx aios-core doctor
+npx aiox-core doctor
 ```
 
 The doctor will report:
@@ -73,4 +73,4 @@ The doctor will report:
 
 ---
 
-_This is an official AIOS framework standard._
+_This is an official AIOX framework standard._

@@ -1,10 +1,10 @@
-# AGENTS.md - Synkra AIOS
+# AGENTS.md - Synkra AIOX
 
 Este arquivo configura o comportamento esperado de agentes no Codex CLI neste repositorio.
 
 ## Constitution
 
-Siga `.aios-core/constitution.md` como fonte de verdade:
+Siga `.aiox-core/constitution.md` como fonte de verdade:
 - CLI First
 - Agent Authority
 - Story-Driven Development
@@ -29,7 +29,7 @@ npm test
 
 ## Estrutura Principal
 
-- Core framework: `.aios-core/`
+- Core framework: `.aiox-core/`
 - CLI: `bin/`
 - Pacotes: `packages/`
 - Testes: `tests/`
@@ -50,24 +50,24 @@ npm test
 ## Agent Shortcuts (Codex)
 
 Preferencia de ativacao no Codex CLI:
-1. Use `/skills` e selecione `aios-<agent-id>` vindo de `.codex/skills` (ex.: `aios-architect`)
+1. Use `/skills` e selecione `aiox-<agent-id>` vindo de `.codex/skills` (ex.: `aiox-architect`)
 2. Se preferir, use os atalhos abaixo (`@architect`, `/architect`, etc.)
 
-Quando a mensagem do usuario for um atalho de agente, carregue o arquivo correspondente em `.aios-core/development/agents/` (fallback: `.codex/agents/`), renderize o greeting via `generate-greeting.js` e assuma a persona ate receber `*exit`.
+Quando a mensagem do usuario for um atalho de agente, carregue o arquivo correspondente em `.aiox-core/development/agents/` (fallback: `.codex/agents/`), renderize o greeting via `generate-greeting.js` e assuma a persona ate receber `*exit`.
 
 Atalhos aceitos por agente:
-- `@aios-master`, `/aios-master`, `/aios-master.md` -> `.aios-core/development/agents/aios-master.md`
-- `@analyst`, `/analyst`, `/analyst.md` -> `.aios-core/development/agents/analyst.md`
-- `@architect`, `/architect`, `/architect.md` -> `.aios-core/development/agents/architect.md`
-- `@data-engineer`, `/data-engineer`, `/data-engineer.md` -> `.aios-core/development/agents/data-engineer.md`
-- `@dev`, `/dev`, `/dev.md` -> `.aios-core/development/agents/dev.md`
-- `@devops`, `/devops`, `/devops.md` -> `.aios-core/development/agents/devops.md`
-- `@pm`, `/pm`, `/pm.md` -> `.aios-core/development/agents/pm.md`
-- `@po`, `/po`, `/po.md` -> `.aios-core/development/agents/po.md`
-- `@qa`, `/qa`, `/qa.md` -> `.aios-core/development/agents/qa.md`
-- `@sm`, `/sm`, `/sm.md` -> `.aios-core/development/agents/sm.md`
-- `@squad-creator`, `/squad-creator`, `/squad-creator.md` -> `.aios-core/development/agents/squad-creator.md`
-- `@ux-design-expert`, `/ux-design-expert`, `/ux-design-expert.md` -> `.aios-core/development/agents/ux-design-expert.md`
+- `@aiox-master`, `/aiox-master`, `/aiox-master.md` -> `.aiox-core/development/agents/aiox-master.md`
+- `@analyst`, `/analyst`, `/analyst.md` -> `.aiox-core/development/agents/analyst.md`
+- `@architect`, `/architect`, `/architect.md` -> `.aiox-core/development/agents/architect.md`
+- `@data-engineer`, `/data-engineer`, `/data-engineer.md` -> `.aiox-core/development/agents/data-engineer.md`
+- `@dev`, `/dev`, `/dev.md` -> `.aiox-core/development/agents/dev.md`
+- `@devops`, `/devops`, `/devops.md` -> `.aiox-core/development/agents/devops.md`
+- `@pm`, `/pm`, `/pm.md` -> `.aiox-core/development/agents/pm.md`
+- `@po`, `/po`, `/po.md` -> `.aiox-core/development/agents/po.md`
+- `@qa`, `/qa`, `/qa.md` -> `.aiox-core/development/agents/qa.md`
+- `@sm`, `/sm`, `/sm.md` -> `.aiox-core/development/agents/sm.md`
+- `@squad-creator`, `/squad-creator`, `/squad-creator.md` -> `.aiox-core/development/agents/squad-creator.md`
+- `@ux-design-expert`, `/ux-design-expert`, `/ux-design-expert.md` -> `.aiox-core/development/agents/ux-design-expert.md`
 
 Resposta esperada ao ativar atalho:
 1. Confirmar agente ativado

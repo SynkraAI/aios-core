@@ -12,14 +12,14 @@ const {
   expandExceptionPaths,
   generatePermissions,
   writeSettingsJson,
-} = require('../../../../../.aios-core/infrastructure/scripts/generate-settings-json');
+} = require('../../../../../.aiox-core/infrastructure/scripts/generate-settings-json');
 
 function createTempProject(boundary, existingSettings) {
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'gen-settings-'));
 
   // Create core-config.yaml with boundary section
-  const aiosCoreDir = path.join(tmpDir, '.aios-core');
-  fs.mkdirSync(aiosCoreDir, { recursive: true });
+  const aioxCoreDir = path.join(tmpDir, '.aiox-core');
+  fs.mkdirSync(aioxCoreDir, { recursive: true });
 
   const yamlContent = [
     'boundary:',
@@ -30,11 +30,11 @@ function createTempProject(boundary, existingSettings) {
     ...boundary.exceptions.map(p => `    - ${p}`),
   ].join('\n') + '\n';
 
-  fs.writeFileSync(path.join(tmpDir, '.aios-core', 'core-config.yaml'), yamlContent, 'utf8');
+  fs.writeFileSync(path.join(tmpDir, '.aiox-core', 'core-config.yaml'), yamlContent, 'utf8');
 
   // Create directory structure for expansion tests
-  if (boundary.protected.includes('.aios-core/core/**')) {
-    const coreDir = path.join(tmpDir, '.aios-core', 'core');
+  if (boundary.protected.includes('.aiox-core/core/**')) {
+    const coreDir = path.join(tmpDir, '.aiox-core', 'core');
     fs.mkdirSync(coreDir, { recursive: true });
     fs.mkdirSync(path.join(coreDir, 'utils'), { recursive: true });
     fs.mkdirSync(path.join(coreDir, 'events'), { recursive: true });
@@ -65,17 +65,17 @@ describe('generate-settings-json', () => {
     test('reads boundary config from core-config.yaml', () => {
       const tmpDir = createTempProject({
         frameworkProtection: true,
-        protected: ['.aios-core/core/**', 'bin/aios.js'],
-        exceptions: ['.aios-core/data/**'],
+        protected: ['.aiox-core/core/**', 'bin/aiox.js'],
+        exceptions: ['.aiox-core/data/**'],
       });
 
       try {
         const config = readBoundaryConfig(tmpDir);
 
         expect(config.frameworkProtection).toBe(true);
-        expect(config.protected).toContain('.aios-core/core/**');
-        expect(config.protected).toContain('bin/aios.js');
-        expect(config.exceptions).toContain('.aios-core/data/**');
+        expect(config.protected).toContain('.aiox-core/core/**');
+        expect(config.protected).toContain('bin/aiox.js');
+        expect(config.exceptions).toContain('.aiox-core/data/**');
       } finally {
         cleanupTempProject(tmpDir);
       }
@@ -118,38 +118,38 @@ describe('generate-settings-json', () => {
     test('generates deny rules covering all protected paths', () => {
       const tmpDir = createTempProject({
         frameworkProtection: true,
-        protected: ['.aios-core/core/**', '.aios-core/infrastructure/**', 'bin/aios.js'],
-        exceptions: ['.aios-core/data/**'],
+        protected: ['.aiox-core/core/**', '.aiox-core/infrastructure/**', 'bin/aiox.js'],
+        exceptions: ['.aiox-core/data/**'],
       });
 
       // Create infrastructure dir (no expansion for non-core paths)
-      fs.mkdirSync(path.join(tmpDir, '.aios-core', 'infrastructure'), { recursive: true });
+      fs.mkdirSync(path.join(tmpDir, '.aiox-core', 'infrastructure'), { recursive: true });
 
       try {
         const boundary = readBoundaryConfig(tmpDir);
         const permissions = generatePermissions(boundary, tmpDir);
 
-        // Should have deny rules for core subdirs (events/**, utils/**, index.js) + infrastructure/** + bin/aios.js
+        // Should have deny rules for core subdirs (events/**, utils/**, index.js) + infrastructure/** + bin/aiox.js
         expect(permissions.deny.length).toBeGreaterThan(0);
 
         // Core expansion: events/**, utils/**, index.js → 6 deny rules (3 paths x 2 tools)
-        expect(permissions.deny).toContain('Edit(.aios-core/core/events/**)');
-        expect(permissions.deny).toContain('Write(.aios-core/core/events/**)');
-        expect(permissions.deny).toContain('Edit(.aios-core/core/utils/**)');
-        expect(permissions.deny).toContain('Write(.aios-core/core/utils/**)');
-        expect(permissions.deny).toContain('Edit(.aios-core/core/index.js)');
-        expect(permissions.deny).toContain('Write(.aios-core/core/index.js)');
+        expect(permissions.deny).toContain('Edit(.aiox-core/core/events/**)');
+        expect(permissions.deny).toContain('Write(.aiox-core/core/events/**)');
+        expect(permissions.deny).toContain('Edit(.aiox-core/core/utils/**)');
+        expect(permissions.deny).toContain('Write(.aiox-core/core/utils/**)');
+        expect(permissions.deny).toContain('Edit(.aiox-core/core/index.js)');
+        expect(permissions.deny).toContain('Write(.aiox-core/core/index.js)');
 
         // Non-core paths stay as globs
-        expect(permissions.deny).toContain('Edit(.aios-core/infrastructure/**)');
-        expect(permissions.deny).toContain('Write(.aios-core/infrastructure/**)');
-        expect(permissions.deny).toContain('Edit(bin/aios.js)');
-        expect(permissions.deny).toContain('Write(bin/aios.js)');
+        expect(permissions.deny).toContain('Edit(.aiox-core/infrastructure/**)');
+        expect(permissions.deny).toContain('Write(.aiox-core/infrastructure/**)');
+        expect(permissions.deny).toContain('Edit(bin/aiox.js)');
+        expect(permissions.deny).toContain('Write(bin/aiox.js)');
 
         // Allow rules from exceptions
-        expect(permissions.allow).toContain('Edit(.aios-core/data/**)');
-        expect(permissions.allow).toContain('Write(.aios-core/data/**)');
-        expect(permissions.allow).toContain('Read(.aios-core/**)');
+        expect(permissions.allow).toContain('Edit(.aiox-core/data/**)');
+        expect(permissions.allow).toContain('Write(.aiox-core/data/**)');
+        expect(permissions.allow).toContain('Read(.aiox-core/**)');
       } finally {
         cleanupTempProject(tmpDir);
       }
@@ -164,15 +164,15 @@ describe('generate-settings-json', () => {
 
       // Verify all 9 config paths are covered
       const protectedRoots = [
-        '.aios-core/core/',
-        '.aios-core/development/tasks/',
-        '.aios-core/development/templates/',
-        '.aios-core/development/checklists/',
-        '.aios-core/development/workflows/',
-        '.aios-core/infrastructure/',
-        '.aios-core/constitution.md',
-        'bin/aios.js',
-        'bin/aios-init.js',
+        '.aiox-core/core/',
+        '.aiox-core/development/tasks/',
+        '.aiox-core/development/templates/',
+        '.aiox-core/development/checklists/',
+        '.aiox-core/development/workflows/',
+        '.aiox-core/infrastructure/',
+        '.aiox-core/constitution.md',
+        'bin/aiox.js',
+        'bin/aiox-init.js',
       ];
 
       for (const root of protectedRoots) {
@@ -191,8 +191,8 @@ describe('generate-settings-json', () => {
     test('produces no boundary deny rules', () => {
       const boundary = {
         frameworkProtection: false,
-        protected: ['.aios-core/core/**', '.aios-core/infrastructure/**'],
-        exceptions: ['.aios-core/data/**'],
+        protected: ['.aiox-core/core/**', '.aiox-core/infrastructure/**'],
+        exceptions: ['.aiox-core/data/**'],
       };
 
       const permissions = generatePermissions(boundary, '/tmp');
@@ -206,8 +206,8 @@ describe('generate-settings-json', () => {
     test('running generator twice produces identical output', () => {
       const tmpDir = createTempProject({
         frameworkProtection: true,
-        protected: ['.aios-core/core/**', 'bin/aios.js'],
-        exceptions: ['.aios-core/data/**'],
+        protected: ['.aiox-core/core/**', 'bin/aiox.js'],
+        exceptions: ['.aiox-core/data/**'],
       });
 
       try {
@@ -228,8 +228,8 @@ describe('generate-settings-json', () => {
     test('JSON output is valid and parseable', () => {
       const tmpDir = createTempProject({
         frameworkProtection: true,
-        protected: ['.aios-core/core/**'],
-        exceptions: ['.aios-core/data/**'],
+        protected: ['.aiox-core/core/**'],
+        exceptions: ['.aiox-core/data/**'],
       });
 
       try {
@@ -253,7 +253,7 @@ describe('generate-settings-json', () => {
       const tmpDir = createTempProject(
         {
           frameworkProtection: true,
-          protected: ['bin/aios.js'],
+          protected: ['bin/aiox.js'],
           exceptions: [],
         },
         { language: 'pt', customSetting: true }
@@ -277,7 +277,7 @@ describe('generate-settings-json', () => {
       const tmpDir = createTempProject(
         {
           frameworkProtection: false,
-          protected: ['bin/aios.js'],
+          protected: ['bin/aiox.js'],
           exceptions: [],
         },
         { language: 'pt', permissions: { deny: ['old-rule'], allow: [] } }

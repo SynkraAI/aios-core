@@ -4,11 +4,11 @@
 
 ---
 
-如何将旧版Squad迁移到AIOS 2.1格式。
+如何将旧版Squad迁移到AIOX 2.1格式。
 
 ## 概述
 
-AIOS 2.1引入了新的Squad格式，具有以下特性：
+AIOX 2.1引入了新的Squad格式，具有以下特性：
 - 任务优先的架构
 - JSON Schema验证
 - 三层级分发
@@ -23,8 +23,8 @@ AIOS 2.1引入了新的Squad格式，具有以下特性：
 | 指示器 | 旧版 | 当前 (2.1+) |
 |--------|------|-------------|
 | 清单文件 | `config.yaml` | `squad.yaml` |
-| AIOS类型字段 | 缺失 | `aios.type: squad` |
-| 最低版本 | 缺失 | `aios.minVersion: "2.1.0"` |
+| AIOX类型字段 | 缺失 | `aiox.type: squad` |
+| 最低版本 | 缺失 | `aiox.minVersion: "2.1.0"` |
 | 结构 | Agent优先 | Task优先 |
 
 ### 检查命令
@@ -78,7 +78,7 @@ config.yaml → squad.yaml
 
 ```yaml
 # 如果缺失，将添加这些字段
-aios:
+aiox:
   minVersion: "2.1.0"
   type: squad
 ```
@@ -192,7 +192,7 @@ my-squad/
 ```
 
 **结果：**
-- 将缺失的 `aios` 字段添加到清单
+- 将缺失的 `aiox` 字段添加到清单
 - 转换保留的YAML文件
 - 跳过已迁移的文件
 
@@ -223,7 +223,7 @@ cp -r ./squads/my-squad/.backup/pre-migration-2025-12-26/. ./squads/my-squad/
 ### 编程式回滚
 
 ```javascript
-const { SquadMigrator } = require('./.aios-core/development/scripts/squad');
+const { SquadMigrator } = require('./.aiox-core/development/scripts/squad');
 
 const migrator = new SquadMigrator();
 await migrator.rollback('./squads/my-squad');
@@ -245,7 +245,7 @@ name: my-squad
 version: 1.0.0
 description: 我的Squad
 
-aios:
+aiox:
   minVersion: "2.1.0"
   type: squad
 
@@ -292,8 +292,8 @@ components:
 迁移后，验证：
 
 - [ ] `squad.yaml` 存在且有效
-- [ ] `aios.type` 是 `"squad"`
-- [ ] `aios.minVersion` 是 `"2.1.0"` 或更高
+- [ ] `aiox.type` 是 `"squad"`
+- [ ] `aiox.minVersion` 是 `"2.1.0"` 或更高
 - [ ] 所有agent位于 `agents/` 文件夹中
 - [ ] 所有task位于 `tasks/` 文件夹中
 - [ ] Agent文件采用Markdown格式
@@ -303,7 +303,7 @@ components:
 ## 编程式迁移
 
 ```javascript
-const { SquadMigrator } = require('./.aios-core/development/scripts/squad');
+const { SquadMigrator } = require('./.aiox-core/development/scripts/squad');
 
 const migrator = new SquadMigrator({
   verbose: true,
@@ -329,7 +329,7 @@ console.log(result);
 
 - [Squad开发指南](./squads-guide.md)
 - [Squad贡献指南](./contributing-squads.md)
-- [@squad-creator Agent](../../.aios-core/development/agents/squad-creator.md)
+- [@squad-creator Agent](../../.aiox-core/development/agents/squad-creator.md)
 
 ---
 

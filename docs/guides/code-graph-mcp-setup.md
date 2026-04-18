@@ -1,6 +1,6 @@
 # Code Graph MCP — Setup Guide
 
-Setup guide para instalacao, configuracao e validacao do Code Graph MCP como provider de code intelligence no AIOS.
+Setup guide para instalacao, configuracao e validacao do Code Graph MCP como provider de code intelligence no AIOX.
 
 ---
 

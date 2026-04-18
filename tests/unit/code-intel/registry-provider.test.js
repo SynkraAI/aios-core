@@ -16,10 +16,10 @@ const fs = require('fs');
 // We need to mock fs for degradation tests but use real fs for loading tests
 // Use a strategy: create temp YAML files for test fixtures
 
-const { RegistryProvider, LAYER_PRIORITY } = require('../../../.aios-core/core/code-intel/providers/registry-provider');
-const { CodeIntelProvider } = require('../../../.aios-core/core/code-intel/providers/provider-interface');
-const { CodeGraphProvider } = require('../../../.aios-core/core/code-intel/providers/code-graph-provider');
-const { CodeIntelClient, CB_CLOSED } = require('../../../.aios-core/core/code-intel/code-intel-client');
+const { RegistryProvider, LAYER_PRIORITY } = require('../../../.aiox-core/core/code-intel/providers/registry-provider');
+const { CodeIntelProvider } = require('../../../.aiox-core/core/code-intel/providers/provider-interface');
+const { CodeGraphProvider } = require('../../../.aiox-core/core/code-intel/providers/code-graph-provider');
+const { CodeIntelClient, CB_CLOSED } = require('../../../.aiox-core/core/code-intel/code-intel-client');
 
 jest.setTimeout(30000);
 
@@ -43,7 +43,7 @@ beforeAll(() => {
 entities:
   tasks:
     create-story:
-      path: .aios-core/development/tasks/create-story.md
+      path: .aiox-core/development/tasks/create-story.md
       layer: L2
       type: task
       purpose: Create a new user story
@@ -56,7 +56,7 @@ entities:
       dependencies:
         - story-template
     validate-story:
-      path: .aios-core/development/tasks/validate-story.md
+      path: .aiox-core/development/tasks/validate-story.md
       layer: L2
       type: task
       purpose: Validate story quality and completeness
@@ -69,7 +69,7 @@ entities:
         - create-story
   agents:
     dev-agent:
-      path: .aios-core/development/agents/dev.md
+      path: .aiox-core/development/agents/dev.md
       layer: L2
       type: agent
       purpose: Full stack developer agent
@@ -81,7 +81,7 @@ entities:
       dependencies:
         - create-story
     sm-agent:
-      path: .aios-core/development/agents/sm.md
+      path: .aiox-core/development/agents/sm.md
       layer: L2
       type: agent
       purpose: Scrum Master agent
@@ -92,7 +92,7 @@ entities:
       dependencies: []
   templates:
     story-template:
-      path: .aios-core/development/templates/story-tmpl.yaml
+      path: .aiox-core/development/templates/story-tmpl.yaml
       layer: L2
       type: template
       purpose: Story creation template
@@ -104,7 +104,7 @@ entities:
       dependencies: []
   core:
     code-intel-client:
-      path: .aios-core/core/code-intel/code-intel-client.js
+      path: .aiox-core/core/code-intel/code-intel-client.js
       layer: L1
       type: module
       purpose: Central entry point for code intelligence
@@ -133,7 +133,7 @@ entities:
 entities:
   tasks:
     yaml-validator:
-      path: .aios-core/development/tasks/yaml-validator.md
+      path: .aiox-core/development/tasks/yaml-validator.md
       layer: L2
       type: task
       purpose: Validate YAML files
@@ -143,7 +143,7 @@ entities:
       usedBy: []
       dependencies: []
     index:
-      path: .aios-core/development/tasks/index.md
+      path: .aiox-core/development/tasks/index.md
       layer: L2
       type: task
       purpose: Task index file
@@ -153,7 +153,7 @@ entities:
       dependencies: []
   scripts:
     yaml-validator:
-      path: .aios-core/development/scripts/yaml-validator.js
+      path: .aiox-core/development/scripts/yaml-validator.js
       layer: L2
       type: script
       purpose: YAML validation script
@@ -164,7 +164,7 @@ entities:
       usedBy: []
       dependencies: []
     backup-manager:
-      path: .aios-core/development/scripts/backup-manager.js
+      path: .aiox-core/development/scripts/backup-manager.js
       layer: L2
       type: script
       purpose: Backup management script
@@ -175,7 +175,7 @@ entities:
       dependencies: []
   core:
     yaml-validator:
-      path: .aios-core/core/yaml-validator.js
+      path: .aiox-core/core/yaml-validator.js
       layer: L1
       type: module
       purpose: Core YAML validation module
@@ -186,7 +186,7 @@ entities:
       usedBy: []
       dependencies: []
     index:
-      path: .aios-core/core/index.js
+      path: .aiox-core/core/index.js
       layer: L1
       type: module
       purpose: Core index module
@@ -196,7 +196,7 @@ entities:
       usedBy: []
       dependencies: []
     backup-manager:
-      path: .aios-core/core/backup-manager.js
+      path: .aiox-core/core/backup-manager.js
       layer: L1
       type: module
       purpose: Core backup manager
@@ -207,7 +207,7 @@ entities:
       dependencies: []
   templates:
     yaml-validator:
-      path: .aios-core/development/templates/yaml-validator.yaml
+      path: .aiox-core/development/templates/yaml-validator.yaml
       layer: L3
       type: template
       purpose: YAML validator template
@@ -217,7 +217,7 @@ entities:
       usedBy: []
       dependencies: []
     index:
-      path: .aios-core/development/templates/index.yaml
+      path: .aiox-core/development/templates/index.yaml
       layer: L3
       type: template
       purpose: Template index
@@ -227,7 +227,7 @@ entities:
       usedBy: []
       dependencies: []
     backup-manager:
-      path: .aios-core/development/templates/backup-manager.yaml
+      path: .aiox-core/development/templates/backup-manager.yaml
       layer: L3
       type: template
       purpose: Backup manager template
@@ -308,7 +308,7 @@ describe('RegistryProvider — 5 Implemented Primitives', () => {
     test('finds entity by exact name', async () => {
       const result = await provider.findDefinition('create-story');
       expect(result).not.toBeNull();
-      expect(result.file).toBe('.aios-core/development/tasks/create-story.md');
+      expect(result.file).toBe('.aiox-core/development/tasks/create-story.md');
       expect(result.line).toBe(1);
       expect(result.column).toBe(0);
       expect(result.context).toBeTruthy();
@@ -317,7 +317,7 @@ describe('RegistryProvider — 5 Implemented Primitives', () => {
     test('finds entity by case-insensitive name', async () => {
       const result = await provider.findDefinition('Create-Story');
       expect(result).not.toBeNull();
-      expect(result.file).toBe('.aios-core/development/tasks/create-story.md');
+      expect(result.file).toBe('.aiox-core/development/tasks/create-story.md');
     });
 
     test('returns null for non-existent symbol', async () => {
@@ -345,7 +345,7 @@ describe('RegistryProvider — 5 Implemented Primitives', () => {
       expect(result.length).toBeGreaterThan(0);
       // create-story depends on story-template
       const paths = result.map(r => r.file);
-      expect(paths).toContain('.aios-core/development/tasks/create-story.md');
+      expect(paths).toContain('.aiox-core/development/tasks/create-story.md');
     });
 
     test('returns null for entity with no references', async () => {
@@ -467,7 +467,7 @@ describe('RegistryProvider — Fuzzy Matching', () => {
   test('exact name match has highest priority', async () => {
     const result = await provider.findDefinition('create-story');
     expect(result).not.toBeNull();
-    expect(result.file).toBe('.aios-core/development/tasks/create-story.md');
+    expect(result.file).toBe('.aiox-core/development/tasks/create-story.md');
   });
 
   test('path-contains match works', async () => {
@@ -482,7 +482,7 @@ describe('RegistryProvider — Fuzzy Matching', () => {
     const result = await provider.findDefinition('draft');
     expect(result).not.toBeNull();
     // 'draft' is a keyword of 'create-story'
-    expect(result.file).toBe('.aios-core/development/tasks/create-story.md');
+    expect(result.file).toBe('.aiox-core/development/tasks/create-story.md');
   });
 });
 
@@ -503,27 +503,27 @@ describe('RegistryProvider — Entity Name Disambiguation', () => {
     const result = await provider.findDefinition('yaml-validator');
     expect(result).not.toBeNull();
     // L1 (core) should win over L2 (tasks/scripts) and L3 (templates) due to layer priority
-    expect(result.file).toBe('.aios-core/core/yaml-validator.js');
+    expect(result.file).toBe('.aiox-core/core/yaml-validator.js');
   });
 
   test('index has 3 entries, all preserved', async () => {
     const result = await provider.findDefinition('index');
     expect(result).not.toBeNull();
     // L1 core should win
-    expect(result.file).toBe('.aios-core/core/index.js');
+    expect(result.file).toBe('.aiox-core/core/index.js');
   });
 
   test('backup-manager has 3 entries, L1 wins', async () => {
     const result = await provider.findDefinition('backup-manager');
     expect(result).not.toBeNull();
-    expect(result.file).toBe('.aios-core/core/backup-manager.js');
+    expect(result.file).toBe('.aiox-core/core/backup-manager.js');
   });
 
   test('disambiguation scoring: L1 > L2 > L3', async () => {
     // yaml-validator exists in L1 (core), L2 (tasks, scripts), L3 (templates)
     // L1 should always win
     const result = await provider.findDefinition('yaml-validator');
-    expect(result.file).toContain('.aios-core/core/');
+    expect(result.file).toContain('.aiox-core/core/');
   });
 });
 

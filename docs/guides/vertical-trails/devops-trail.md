@@ -1,6 +1,6 @@
 # Trilha @devops: Do Problema ao Output Validado
 
-> **Story:** AIOS-DIFF-4.3.1
+> **Story:** AIOX-DIFF-4.3.1
 > **Agente:** @devops (Gage)
 > **Tempo estimado:** 20-40 minutos
 
@@ -24,7 +24,7 @@ OUTPUT: Repo configurado + Pipeline ativo + Push com gates verdes
 
 ### Cenário
 
-Você está em um projeto AIOS e precisa:
+Você está em um projeto AIOX e precisa:
 1. Configurar repositório GitHub
 2. Criar pipeline CI/CD (GitHub Actions)
 3. Fazer push seguro com quality gates
@@ -33,8 +33,8 @@ Você está em um projeto AIOS e precisa:
 ### Pré-requisitos
 
 ```bash
-# Projeto AIOS inicializado
-npx aios-core doctor  # deve retornar healthy
+# Projeto AIOX inicializado
+npx aiox-core doctor  # deve retornar healthy
 
 # GitHub CLI autenticado
 gh auth status  # deve mostrar usuário logado
@@ -75,7 +75,7 @@ Quick commands:
 **Interação:**
 ```
 Gage: Qual nome do repositório?
-Você: my-aios-project
+Você: my-aiox-project
 
 Gage: Visibilidade?
 Você: private
@@ -91,7 +91,7 @@ Você: sim
 ```
 🔧 Configurando repositório GitHub...
 
-✅ Repositório criado: github.com/seu-user/my-aios-project
+✅ Repositório criado: github.com/seu-user/my-aiox-project
 ✅ Branch protection configurada em main
   - Require PR reviews: 1
   - Require status checks: lint, test
@@ -240,7 +240,7 @@ Pushing to origin/main...
   ✅ Push successful
 
 📋 CI Pipeline triggered:
-  https://github.com/seu-user/my-aios-project/actions/runs/xxxxx
+  https://github.com/seu-user/my-aiox-project/actions/runs/xxxxx
 ```
 
 ---
@@ -310,7 +310,7 @@ Suggested bump: minor (1.1.0)
 ✅ GitHub Release published
 
 Release URL:
-  https://github.com/seu-user/my-aios-project/releases/tag/v1.1.0
+  https://github.com/seu-user/my-aiox-project/releases/tag/v1.1.0
 ```
 
 ---
@@ -381,5 +381,5 @@ gh auth login
 
 ---
 
-*Trilha criada para Story AIOS-DIFF-4.3.1*
+*Trilha criada para Story AIOX-DIFF-4.3.1*
 *-- Gage, automatizando tudo*

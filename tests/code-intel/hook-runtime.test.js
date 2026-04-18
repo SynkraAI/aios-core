@@ -2,7 +2,7 @@
 
 const path = require('path');
 const { resolveCodeIntel, formatAsXml, escapeXml, _resetForTesting } = require(
-  path.join(__dirname, '..', '..', '.aios-core', 'core', 'code-intel', 'hook-runtime.js'),
+  path.join(__dirname, '..', '..', '.aiox-core', 'core', 'code-intel', 'hook-runtime.js'),
 );
 
 const PROJECT_ROOT = path.join(__dirname, '..', '..');
@@ -26,7 +26,7 @@ describe('code-intel hook-runtime', () => {
     it('returns entity data for a known registry path', async () => {
       // Use a path known to exist in entity-registry.yaml
       const result = await resolveCodeIntel(
-        '.aios-core/development/tasks/create-next-story.md',
+        '.aiox-core/development/tasks/create-next-story.md',
         PROJECT_ROOT,
       );
 
@@ -51,7 +51,7 @@ describe('code-intel hook-runtime', () => {
     });
 
     it('handles absolute paths by normalizing to relative', async () => {
-      const absPath = path.join(PROJECT_ROOT, '.aios-core', 'development', 'tasks', 'create-next-story.md');
+      const absPath = path.join(PROJECT_ROOT, '.aiox-core', 'development', 'tasks', 'create-next-story.md');
       const result = await resolveCodeIntel(absPath, PROJECT_ROOT);
 
       // Should resolve the same as relative path
@@ -61,7 +61,7 @@ describe('code-intel hook-runtime', () => {
     it('completes within 500ms', async () => {
       const start = Date.now();
       await resolveCodeIntel(
-        '.aios-core/development/tasks/create-next-story.md',
+        '.aiox-core/development/tasks/create-next-story.md',
         PROJECT_ROOT,
       );
       const elapsed = Date.now() - start;
@@ -82,7 +82,7 @@ describe('code-intel hook-runtime', () => {
     it('generates valid XML with entity data', () => {
       const intel = {
         entity: {
-          file: '.aios-core/core/some-module.js',
+          file: '.aiox-core/core/some-module.js',
           context: 'A test module for unit tests',
         },
         references: null,
@@ -95,7 +95,7 @@ describe('code-intel hook-runtime', () => {
       expect(xml).toContain('</code-intel-context>');
       expect(xml).toContain('<target-file>some-module.js</target-file>');
       expect(xml).toContain('<existing-entity>');
-      expect(xml).toContain('<path>.aios-core/core/some-module.js</path>');
+      expect(xml).toContain('<path>.aiox-core/core/some-module.js</path>');
       expect(xml).toContain('<purpose>A test module for unit tests</purpose>');
     });
 

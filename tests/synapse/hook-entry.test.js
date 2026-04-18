@@ -67,7 +67,7 @@ function createMockProject(opts = {}) {
     fs.mkdirSync(path.join(tmpDir, '.synapse', 'sessions'), { recursive: true });
   }
 
-  const engineDir = path.join(tmpDir, '.aios-core', 'core', 'synapse');
+  const engineDir = path.join(tmpDir, '.aiox-core', 'core', 'synapse');
   fs.mkdirSync(engineDir, { recursive: true });
 
   const engineCode = opts.engineCode || `
@@ -141,6 +141,7 @@ describe('SYNAPSE Hook Entry Point (synapse-engine.cjs)', () => {
 
       const output = JSON.parse(stdout);
       expect(output).toHaveProperty('hookSpecificOutput');
+      expect(output.hookSpecificOutput).toHaveProperty('hookEventName', 'UserPromptSubmit');
       expect(output.hookSpecificOutput).toHaveProperty('additionalContext');
     });
 
@@ -209,10 +210,11 @@ describe('SYNAPSE Hook Entry Point (synapse-engine.cjs)', () => {
       expect(stdout).toBe('');
     });
 
-    test('logs error to stderr with [synapse-hook] prefix on invalid JSON', async () => {
-      const { stderr } = await runHook('not valid json');
+    test('exits silently without stderr on invalid JSON (silent exit policy)', async () => {
+      const { stderr, code } = await runHook('not valid json');
 
-      expect(stderr).toContain('[synapse-hook]');
+      expect(code).toBe(0);
+      expect(stderr).toBe('');
     });
 
     test('exits silently when engine.process() throws', async () => {
@@ -230,7 +232,7 @@ describe('SYNAPSE Hook Entry Point (synapse-engine.cjs)', () => {
 
       expect(code).toBe(0);
       expect(stdout).toBe('');
-      expect(stderr).toContain('[synapse-hook]');
+      expect(stderr).toBe('');
     });
 
     test('exits silently when SynapseEngine constructor throws', async () => {
@@ -273,15 +275,16 @@ describe('SYNAPSE Hook Entry Point (synapse-engine.cjs)', () => {
   // ==========================================================================
 
   describe('output format', () => {
-    test('output matches { hookSpecificOutput: { additionalContext: string } }', async () => {
+    test('output matches { hookSpecificOutput: { hookEventName, additionalContext } }', async () => {
       tmpDir = createMockProject();
       const input = buildInput(tmpDir);
       const { stdout } = await runHook(input);
 
       const output = JSON.parse(stdout);
+      expect(output.hookSpecificOutput.hookEventName).toBe('UserPromptSubmit');
       expect(typeof output.hookSpecificOutput.additionalContext).toBe('string');
       expect(Object.keys(output)).toEqual(['hookSpecificOutput']);
-      expect(Object.keys(output.hookSpecificOutput)).toEqual(['additionalContext']);
+      expect(Object.keys(output.hookSpecificOutput)).toEqual(['hookEventName', 'additionalContext']);
     });
 
     test('additionalContext is empty string when engine returns no xml', async () => {
@@ -335,7 +338,8 @@ describe('SYNAPSE Hook Entry Point (synapse-engine.cjs)', () => {
       tmpDir = createMockProject({
         sessionCode: `
           function loadSession() { return null; }
-          module.exports = { loadSession };
+          function createSession() { return null; }
+          module.exports = { loadSession, createSession };
         `,
         engineCode: `
           class SynapseEngine {
@@ -563,7 +567,8 @@ describe('SYNAPSE Hook Entry Point (synapse-engine.cjs)', () => {
       tmpDir = createMockProject({
         sessionCode: `
           function loadSession() { return null; }
-          module.exports = { loadSession };
+          function createSession() { return null; }
+          module.exports = { loadSession, createSession };
         `,
         engineCode: `
           class SynapseEngine {
@@ -607,15 +612,11 @@ describe('SYNAPSE Hook Entry Point (synapse-engine.cjs)', () => {
   describe('run() entry point', () => {
     const hookModule = require('../../.claude/hooks/synapse-engine.cjs');
 
-    test('run() sets safety timeout, catches errors, and exits with 0', async () => {
-      const exitSpy = jest.spyOn(process, 'exit').mockImplementation(() => {});
+    test('run() sets safety timeout, catches errors, and sets exitCode 0', async () => {
       const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
       const { Readable } = require('stream');
       const originalStdin = process.stdin;
-
-      // Temporarily clear JEST_WORKER_ID so safeExit() calls process.exit()
-      const savedWorkerId = process.env.JEST_WORKER_ID;
-      delete process.env.JEST_WORKER_ID;
+      const originalExitCode = process.exitCode;
 
       const mockStdin = new Readable({ read() {} });
       Object.defineProperty(process, 'stdin', { value: mockStdin, writable: true });
@@ -627,16 +628,11 @@ describe('SYNAPSE Hook Entry Point (synapse-engine.cjs)', () => {
         // Wait for async catch handler to complete
         await new Promise((r) => setTimeout(r, 50));
 
-        expect(exitSpy).toHaveBeenCalledWith(0);
-        expect(errorSpy).toHaveBeenCalledWith(
-          expect.stringContaining('[synapse-hook]'),
-        );
+        expect(process.exitCode).toBe(0);
+        // Silent exit policy: no stderr output (prevents "hook error" in Claude Code UI)
+        expect(errorSpy).not.toHaveBeenCalled();
       } finally {
-        // Restore JEST_WORKER_ID before restoring other mocks
-        if (savedWorkerId !== undefined) {
-          process.env.JEST_WORKER_ID = savedWorkerId;
-        }
-        exitSpy.mockRestore();
+        process.exitCode = originalExitCode;
         errorSpy.mockRestore();
         Object.defineProperty(process, 'stdin', { value: originalStdin, writable: true });
       }
@@ -664,10 +660,10 @@ describe('SYNAPSE Hook Entry Point (synapse-engine.cjs)', () => {
       expect(content).toContain('.synapse/cache/');
     });
 
-    test('.gitignore has exception for synapse-engine.cjs hook', () => {
+    test('.gitignore has exception for hooks directory', () => {
       const gitignorePath = path.resolve(__dirname, '../../.gitignore');
       const content = fs.readFileSync(gitignorePath, 'utf8');
-      expect(content).toContain('!.claude/hooks/synapse-engine.cjs');
+      expect(content).toContain('!.claude/hooks/');
     });
   });
 });

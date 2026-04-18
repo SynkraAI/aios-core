@@ -1,6 +1,6 @@
 'use strict';
 
-const { buildLayerContext } = require('../../.aios-core/core/synapse/context/context-builder');
+const { buildLayerContext } = require('../../.aiox-core/core/synapse/context/context-builder');
 
 describe('buildLayerContext', () => {
   it('builds normalized context with defaults', () => {

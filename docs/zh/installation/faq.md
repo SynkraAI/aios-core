@@ -1,6 +1,6 @@
 <!-- 翻译：zh-CN 原文：/docs/installation/faq.md 最后同步：2026-02-22 -->
 
-# Synkra AIOS 常见问题
+# Synkra AIOX 常见问题
 
 > 🌐 [EN](../../installation/faq.md) | [PT](../pt/installation/faq.md) | [ES](../es/installation/faq.md)
 
@@ -25,7 +25,7 @@
 
 ### 问题 1：为什么使用 npx 而不是 npm install -g？
 
-**答案:** 我们推荐使用 `npx @synkra/aios-core install` 而不是全局安装，原因如下：
+**答案:** 我们推荐使用 `npx @synkra/aiox-core install` 而不是全局安装，原因如下：
 
 1. **始终最新版本**: npx 自动获取最新版本
 2. **无全局污染**: 不会添加到全局 npm 包
@@ -36,8 +36,8 @@
 **如果您更喜欢全局安装：**
 
 ```bash
-npm install -g @synkra/aios-core
-@synkra/aios-core install
+npm install -g @synkra/aiox-core
+@synkra/aiox-core install
 ```
 
 ---
@@ -63,20 +63,20 @@ npm --version   # 应为 9+
 
 ---
 
-### 问题 3：我可以在现有项目中安装 AIOS 吗？
+### 问题 3：我可以在现有项目中安装 AIOX 吗？
 
-**答案:** 可以！AIOS 为绿地和棕地项目设计。
+**答案:** 可以！AIOX 为绿地和棕地项目设计。
 
 **对于现有项目：**
 
 ```bash
 cd /path/to/existing-project
-npx @synkra/aios-core install
+npx @synkra/aiox-core install
 ```
 
 安装程序将：
 
-- 创建 `.aios-core/` 目录（框架文件）
+- 创建 `.aiox-core/` 目录（框架文件）
 - 创建 IDE 配置（`.claude/`、`.cursor/` 等）
 - 不修改您的现有源代码
 - 不覆盖现有文档，除非您选择
@@ -104,13 +104,13 @@ npx @synkra/aios-core install
 
 ---
 
-### 问题 5：AIOS 在我的项目中创建了哪些文件？
+### 问题 5：AIOX 在我的项目中创建了哪些文件？
 
-**答案:** AIOS 创建以下结构：
+**答案:** AIOX 创建以下结构：
 
 ```
 your-project/
-├── .aios-core/                 # 框架核心（200+ 文件）
+├── .aiox-core/                 # 框架核心（200+ 文件）
 │   ├── agents/                 # 11+ 个代理定义
 │   ├── tasks/                  # 60+ 个任务工作流
 │   ├── templates/              # 20+ 个文档模板
@@ -119,7 +119,7 @@ your-project/
 │   └── core-config.yaml        # 框架配置
 │
 ├── .claude/                    # Claude Code（如果选中）
-│   └── commands/AIOS/agents/   # 代理斜杠命令
+│   └── commands/AIOX/agents/   # 代理斜杠命令
 │
 ├── .cursor/                    # Cursor（如果选中）
 │   └── rules/                  # 代理规则
@@ -137,24 +137,24 @@ your-project/
 
 ## 更新与维护
 
-### 问题 6：如何将 AIOS 更新到最新版本？
+### 问题 6：如何将 AIOX 更新到最新版本？
 
 **答案:**
 
 ```bash
 # 通过 npx 更新（推荐）
-npx @synkra/aios-core update
+npx @synkra/aiox-core update
 
 # 或重新安装最新版本
-npx @synkra/aios-core install --force-upgrade
+npx @synkra/aiox-core install --force-upgrade
 
 # 检查当前版本
-npx @synkra/aios-core status
+npx @synkra/aiox-core status
 ```
 
 **更新的内容：**
 
-- `.aios-core/` 文件（代理、任务、模板）
+- `.aiox-core/` 文件（代理、任务、模板）
 - IDE 配置
 - 启动 Squad（如果安装）
 
@@ -172,15 +172,15 @@ npx @synkra/aios-core status
 
 | 更新类型        | 频率       | 命令                           |
 | --------------- | ---------- | ------------------------------ |
-| **安全补丁**    | 立即       | `npx @synkra/aios-core update` |
-| **次要更新**    | 每月       | `npx @synkra/aios-core update` |
+| **安全补丁**    | 立即       | `npx @synkra/aiox-core update` |
+| **次要更新**    | 每月       | `npx @synkra/aiox-core update` |
 | **主要版本**    | 每季度     | 先查看变更日志                 |
 
 **检查更新：**
 
 ```bash
-npm show @synkra/aios-core version
-npx @synkra/aios-core status
+npm show @synkra/aiox-core version
+npx @synkra/aiox-core status
 ```
 
 ---
@@ -192,29 +192,29 @@ npx @synkra/aios-core status
 **选项 1：重新安装特定版本**
 
 ```bash
-npx @synkra/aios-core@1.1.0 install --force-upgrade
+npx @synkra/aiox-core@1.1.0 install --force-upgrade
 ```
 
 **选项 2：使用 Git 恢复**
 
 ```bash
-# 如果 .aios-core 在 git 中跟踪
-git checkout HEAD~1 -- .aios-core/
+# 如果 .aiox-core 在 git 中跟踪
+git checkout HEAD~1 -- .aiox-core/
 ```
 
 **选项 3：从备份恢复**
 
 ```bash
 # 安装程序创建备份
-mv .aios-core .aios-core.failed
-mv .aios-core.backup .aios-core
+mv .aiox-core .aiox-core.failed
+mv .aiox-core.backup .aiox-core
 ```
 
 ---
 
 ## 离线与隔离环境使用
 
-### 问题 9：我可以在没有互联网的情况下使用 AIOS 吗？
+### 问题 9：我可以在没有互联网的情况下使用 AIOX 吗？
 
 **答案:** 可以，但需要一些准备：
 
@@ -222,19 +222,19 @@ mv .aios-core.backup .aios-core
 
 ```bash
 # 联网时安装一次
-npx @synkra/aios-core install
+npx @synkra/aiox-core install
 
 # 打包以供离线使用
-tar -czvf aios-offline.tar.gz .aios-core/ .claude/ .cursor/
+tar -czvf aiox-offline.tar.gz .aiox-core/ .claude/ .cursor/
 ```
 
 **在隔离机器上：**
 
 ```bash
 # 解压软件包
-tar -xzvf aios-offline.tar.gz
+tar -xzvf aiox-offline.tar.gz
 
-# AIOS 代理可在没有互联网的情况下工作
+# AIOX 代理可在没有互联网的情况下工作
 # （它们不需要外部 API 调用）
 ```
 
@@ -246,7 +246,7 @@ tar -xzvf aios-offline.tar.gz
 
 ---
 
-### 问题 10：我如何将 AIOS 转移到隔离环境？
+### 问题 10：我如何将 AIOX 转移到隔离环境？
 
 **答案:**
 
@@ -254,9 +254,9 @@ tar -xzvf aios-offline.tar.gz
 
    ```bash
    # 安装并打包
-   npx @synkra/aios-core install
+   npx @synkra/aiox-core install
    cd your-project
-   tar -czvf aios-transfer.tar.gz .aios-core/ .claude/ .cursor/ docs/
+   tar -czvf aiox-transfer.tar.gz .aiox-core/ .claude/ .cursor/ docs/
    ```
 
 2. **通过 USB、安全传输等转移归档文件**
@@ -265,7 +265,7 @@ tar -xzvf aios-offline.tar.gz
 
    ```bash
    cd your-project
-   tar -xzvf aios-transfer.tar.gz
+   tar -xzvf aiox-transfer.tar.gz
    ```
 
 4. **如果需要，手动配置 IDE**（路径可能不同）
@@ -274,7 +274,7 @@ tar -xzvf aios-offline.tar.gz
 
 ## IDE 与配置
 
-### 问题 11：AIOS 支持哪些 IDE？
+### 问题 11：AIOX 支持哪些 IDE？
 
 **答案:**
 
@@ -289,7 +289,7 @@ tar -xzvf aios-offline.tar.gz
 
 ---
 
-### 问题 12：我可以为多个 IDE 配置 AIOS 吗？
+### 问题 12：我可以为多个 IDE 配置 AIOX 吗？
 
 **答案:** 可以！在安装过程中选择多个 IDE：
 
@@ -304,7 +304,7 @@ tar -xzvf aios-offline.tar.gz
 **命令行：**
 
 ```bash
-npx @synkra/aios-core install --ide cursor,claude-code
+npx @synkra/aiox-core install --ide cursor,claude-code
 ```
 
 每个 IDE 获得其自己的配置目录：
@@ -314,11 +314,11 @@ npx @synkra/aios-core install --ide cursor,claude-code
 
 ---
 
-### 问题 13：我如何为新团队成员配置 AIOS？
+### 问题 13：我如何为新团队成员配置 AIOX？
 
 **答案:**
 
-如果 `.aios-core/` 已提交到您的仓库：
+如果 `.aiox-core/` 已提交到您的仓库：
 
 ```bash
 # 新团队成员只需克隆
@@ -326,18 +326,18 @@ git clone your-repo
 cd your-repo
 
 # 可选择配置他们喜欢的 IDE
-npx @synkra/aios-core install --ide cursor
+npx @synkra/aiox-core install --ide cursor
 ```
 
-如果 `.aios-core/` 未提交：
+如果 `.aiox-core/` 未提交：
 
 ```bash
 git clone your-repo
 cd your-repo
-npx @synkra/aios-core install
+npx @synkra/aiox-core install
 ```
 
-**最佳实践:** 将 `.aios-core/` 提交到您的仓库以共享一致的代理配置。
+**最佳实践:** 将 `.aiox-core/` 提交到您的仓库以共享一致的代理配置。
 
 ---
 
@@ -345,7 +345,7 @@ npx @synkra/aios-core install
 
 ### 问题 14：包含了哪些代理？
 
-**答案:** AIOS 包括 11+ 个专门代理：
+**答案:** AIOX 包括 11+ 个专门代理：
 
 | 代理           | 角色             | 最适合的工作                      |
 | -------------- | ---------------- | --------------------------------- |
@@ -370,7 +370,7 @@ npx @synkra/aios-core install
 1. **复制现有代理：**
 
    ```bash
-   cp .aios-core/agents/dev.md .aios-core/agents/my-agent.md
+   cp .aiox-core/agents/dev.md .aiox-core/agents/my-agent.md
    ```
 
 2. **编辑 YAML 前置：**
@@ -390,7 +390,7 @@ npx @synkra/aios-core install
 3. **添加到 IDE 配置：**
 
    ```bash
-   npx @synkra/aios-core install --ide claude-code
+   npx @synkra/aiox-core install --ide claude-code
    ```
 
 4. **激活:** `/my-agent` 或 `@my-agent`
@@ -431,7 +431,7 @@ npx @synkra/aios-core install
 
 ### 问题 17：什么是 Squad？
 
-**答案:** 启动 Squad 是可选的扩展，用于扩展 AIOS 功能：
+**答案:** 启动 Squad 是可选的扩展，用于扩展 AIOX 功能：
 
 | 包            | 功能                                                      |
 | -------------- | --------------------------------------------------------- |
@@ -440,13 +440,13 @@ npx @synkra/aios-core install
 **安装 Squad：**
 
 ```bash
-npx @synkra/aios-core install --Squads hybrid-ops
+npx @synkra/aiox-core install --Squads hybrid-ops
 ```
 
 **列出可用的 Squad：**
 
 ```bash
-npx @synkra/aios-core install
+npx @synkra/aiox-core install
 ```
 
 ---
@@ -476,7 +476,7 @@ name: my-expansion
 version: 1.0.0
 description: My custom Squad
 dependencies:
-  aios-core: ">=1.0.0"
+  aiox-core: ">=1.0.0"
 agents:
   - my-agent
 tasks:
@@ -487,14 +487,14 @@ tasks:
 
 ## 高级用法
 
-### 问题 19：如何将 AIOS 与 CI/CD 集成？
+### 问题 19：如何将 AIOX 与 CI/CD 集成？
 
 **答案:**
 
 **GitHub Actions 示例：**
 
 ```yaml
-name: CI with AIOS
+name: CI with AIOX
 on: [push]
 jobs:
   test:
@@ -504,7 +504,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "18"
-      - run: npx @synkra/aios-core install --full --ide claude-code
+      - run: npx @synkra/aiox-core install --full --ide claude-code
       - run: npm test
 ```
 
@@ -514,7 +514,7 @@ jobs:
 test:
   image: node:18
   script:
-    - npx @synkra/aios-core install --full
+    - npx @synkra/aiox-core install --full
     - npm test
 ```
 
@@ -553,11 +553,11 @@ projectStatus:
 
 ---
 
-### 问题 21：我如何为 AIOS 做贡献？
+### 问题 21：我如何为 AIOX 做贡献？
 
 **答案:**
 
-1. **Fork 仓库:** https://github.com/SynkraAI/aios-core
+1. **Fork 仓库:** https://github.com/SynkraAI/aiox-core
 
 2. **创建功能分支：**
 
@@ -593,8 +593,8 @@ projectStatus:
 | --------------- | ------------------------------------------------------ |
 | **文档**        | `docs/` 在您的项目中                                   |
 | **故障排除**    | [troubleshooting.md](./troubleshooting.md)             |
-| **GitHub Issues** | https://github.com/SynkraAI/aios-core/issues |
-| **源代码**      | https://github.com/SynkraAI/aios-core        |
+| **GitHub Issues** | https://github.com/SynkraAI/aiox-core/issues |
+| **源代码**      | https://github.com/SynkraAI/aiox-core        |
 
 **在寻求帮助之前：**
 

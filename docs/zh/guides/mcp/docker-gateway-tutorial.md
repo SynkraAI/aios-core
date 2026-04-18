@@ -333,4 +333,4 @@ echo "~/.docker/mcp/" >> ~/.gitignore_global
 
 ---
 
-_Docker Gateway MCP 教程 v1.0.0 - AIOS 框架_
+_Docker Gateway MCP 教程 v1.0.0 - AIOX 框架_

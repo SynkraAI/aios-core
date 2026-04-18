@@ -5,16 +5,16 @@
  * lookup by id/domain/severity/tag, healable checks, stats, and clear.
  */
 
-const { BaseCheck, CheckSeverity, CheckDomain } = require('../../../.aios-core/core/health-check/base-check');
+const { BaseCheck, CheckSeverity, CheckDomain } = require('../../../.aiox-core/core/health-check/base-check');
 
 // Mock the built-in check modules to prevent loading real files
-jest.mock('../../../.aios-core/core/health-check/checks/project', () => ({}), { virtual: true });
-jest.mock('../../../.aios-core/core/health-check/checks/local', () => ({}), { virtual: true });
-jest.mock('../../../.aios-core/core/health-check/checks/repository', () => ({}), { virtual: true });
-jest.mock('../../../.aios-core/core/health-check/checks/deployment', () => ({}), { virtual: true });
-jest.mock('../../../.aios-core/core/health-check/checks/services', () => ({}), { virtual: true });
+jest.mock('../../../.aiox-core/core/health-check/checks/project', () => ({}), { virtual: true });
+jest.mock('../../../.aiox-core/core/health-check/checks/local', () => ({}), { virtual: true });
+jest.mock('../../../.aiox-core/core/health-check/checks/repository', () => ({}), { virtual: true });
+jest.mock('../../../.aiox-core/core/health-check/checks/deployment', () => ({}), { virtual: true });
+jest.mock('../../../.aiox-core/core/health-check/checks/services', () => ({}), { virtual: true });
 
-const CheckRegistry = require('../../../.aios-core/core/health-check/check-registry');
+const CheckRegistry = require('../../../.aiox-core/core/health-check/check-registry');
 
 // Test check subclasses
 class ProjectCheck extends BaseCheck {

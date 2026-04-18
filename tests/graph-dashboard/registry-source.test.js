@@ -2,7 +2,7 @@
 
 let mockRegistryData = null;
 
-jest.mock('../../.aios-core/core/ids/registry-loader', () => ({
+jest.mock('../../.aiox-core/core/ids/registry-loader', () => ({
   RegistryLoader: jest.fn().mockImplementation(() => ({
     load: () => {
       if (mockRegistryData === 'THROW') {
@@ -13,7 +13,7 @@ jest.mock('../../.aios-core/core/ids/registry-loader', () => ({
   })),
 }));
 
-const { RegistrySource } = require('../../.aios-core/core/graph-dashboard/data-sources/registry-source');
+const { RegistrySource } = require('../../.aiox-core/core/graph-dashboard/data-sources/registry-source');
 
 describe('RegistrySource', () => {
   let source;

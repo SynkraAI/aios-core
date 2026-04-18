@@ -4,7 +4,7 @@
   最后同步：2026-02-22
 -->
 
-# Synkra AIOS 安装文档
+# Synkra AIOX 安装文档
 
 > 🌐 [EN](../../installation/README.md) | [PT](../pt/installation/README.md) | [ES](../es/installation/README.md) | **ZH**
 
@@ -15,7 +15,7 @@
 
 ## 概述
 
-本目录包含 Synkra AIOS 的完整安装和设置文档。
+本目录包含 Synkra AIOX 的完整安装和设置文档。
 
 ---
 
@@ -44,20 +44,20 @@
 ### 新安装
 
 ```bash
-npx @synkra/aios-core install
+npx @synkra/aiox-core install
 ```
 
 ### 升级
 
 ```bash
-npx @synkra/aios-core install --force-upgrade
+npx @synkra/aiox-core install --force-upgrade
 ```
 
 ### 遇到问题？
 
 1. 查看[故障排除指南](./troubleshooting.md)
 2. 搜索[常见问题](./faq.md)
-3. 提交 [GitHub Issue](https://github.com/SynkraAI/aios-core/issues)
+3. 提交 [GitHub Issue](https://github.com/SynkraAI/aiox-core/issues)
 
 ---
 
@@ -102,5 +102,5 @@ npx @synkra/aios-core install --force-upgrade
 
 ## 支持
 
-- **GitHub Issues**: [@synkra/aios-core/issues](https://github.com/SynkraAI/aios-core/issues)
+- **GitHub Issues**: [@synkra/aiox-core/issues](https://github.com/SynkraAI/aiox-core/issues)
 - **文档**: [docs/](../)

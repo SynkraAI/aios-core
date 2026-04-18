@@ -1,10 +1,10 @@
-# AIOS 指南
+# AIOX 指南
 
 > **[EN](../../guides/README.md)** | **[PT](../../pt/guides/README.md)** | **[ES](../../es/guides/README.md)** | **ZH**
 
 ---
 
-Synkra AIOS 系统指南的完整文档索引。
+Synkra AIOX 系统指南的完整文档索引。
 
 ---
 
@@ -36,7 +36,7 @@ Synkra AIOS 系统指南的完整文档索引。
 | **[MCP 全局设置指南](./mcp-global-setup.md)**                   | 全局 MCP 服务器配置    | 10分钟 | 所有用户 |
 | **[MCP API 密钥管理](../architecture/mcp-api-keys-management.md)** | 安全凭证处理           | 10分钟 | DevOps |
 
-> **注：** 1MCP 文档已弃用。AIOS 现在独占使用 Docker MCP 工具包（故事 5.11）。存档文档位于 `.github/deprecated-docs/guides/`。
+> **注：** 1MCP 文档已弃用。AIOX 现在独占使用 Docker MCP 工具包（故事 5.11）。存档文档位于 `.github/deprecated-docs/guides/`。
 
 ---
 

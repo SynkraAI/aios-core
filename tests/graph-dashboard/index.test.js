@@ -1,6 +1,6 @@
 'use strict';
 
-jest.mock('../../.aios-core/core/graph-dashboard/data-sources/code-intel-source', () => ({
+jest.mock('../../.aiox-core/core/graph-dashboard/data-sources/code-intel-source', () => ({
   CodeIntelSource: jest.fn().mockImplementation(() => ({
     getData: jest.fn().mockResolvedValue({
       nodes: [{ id: 'a', label: 'a', type: 'task', path: 'a.md', category: 'tasks' }],
@@ -12,7 +12,7 @@ jest.mock('../../.aios-core/core/graph-dashboard/data-sources/code-intel-source'
   })),
 }));
 
-const { getGraphData, renderTree, run, CodeIntelSource } = require('../../.aios-core/core/graph-dashboard');
+const { getGraphData, renderTree, run, CodeIntelSource } = require('../../.aiox-core/core/graph-dashboard');
 
 describe('graph-dashboard index', () => {
   it('should export getGraphData as a function', () => {

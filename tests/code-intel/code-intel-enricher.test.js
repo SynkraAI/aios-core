@@ -1,6 +1,6 @@
 'use strict';
 
-const { CodeIntelEnricher } = require('../../.aios-core/core/code-intel/code-intel-enricher');
+const { CodeIntelEnricher } = require('../../.aiox-core/core/code-intel/code-intel-enricher');
 
 describe('CodeIntelEnricher', () => {
   let enricher;

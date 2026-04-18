@@ -4,7 +4,7 @@
 
 ---
 
-使用 AIOS 设置基于 Docker 的 MCP（模型上下文协议）服务器的指南。
+使用 AIOX 设置基于 Docker 的 MCP（模型上下文协议）服务器的指南。
 
 **版本：** 2.1.0
 **最后更新：** 2026-01-28
@@ -17,7 +17,7 @@
 
 - **Docker Desktop** 已安装并运行
 - **Node.js** 18+ 已安装
-- **AIOS** 项目已初始化
+- **AIOX** 项目已初始化
 - 所需 MCP 服务的 API 密钥（EXA、Apify 等）
 
 ---
@@ -38,23 +38,23 @@ docker mcp --version
 
 ```bash
 # 创建全局 MCP 结构
-aios mcp setup
+aiox mcp setup
 ```
 
 这会创建：
 
-- `~/.aios/mcp/` - MCP 配置目录
-- `~/.aios/mcp/global-config.json` - 主配置文件
-- `~/.aios/mcp/servers/` - 单个服务器配置
-- `~/.aios/credentials/` - 安全凭证存储
+- `~/.aiox/mcp/` - MCP 配置目录
+- `~/.aiox/mcp/global-config.json` - 主配置文件
+- `~/.aiox/mcp/servers/` - 单个服务器配置
+- `~/.aiox/credentials/` - 安全凭证存储
 
 ### 步骤 3：添加 MCP 服务器
 
 ```bash
 # 从模板添加服务器
-aios mcp add context7
-aios mcp add exa
-aios mcp add github
+aiox mcp add context7
+aiox mcp add exa
+aiox mcp add github
 ```
 
 ---
@@ -63,7 +63,7 @@ aios mcp add github
 
 ### MCP 架构
 
-AIOS 使用 Docker MCP 工具包作为主要 MCP 基础设施。
+AIOX 使用 Docker MCP 工具包作为主要 MCP 基础设施。
 
 ### 可用的 MCP
 
@@ -71,7 +71,7 @@ AIOS 使用 Docker MCP 工具包作为主要 MCP 基础设施。
 
 ```bash
 # 添加 Context7
-aios mcp add context7
+aiox mcp add context7
 ```
 
 **用于：**
@@ -83,7 +83,7 @@ aios mcp add context7
 
 ```bash
 # 添加 EXA
-aios mcp add exa
+aiox mcp add exa
 
 # 设置 API 密钥
 export EXA_API_KEY="your-api-key"
@@ -99,7 +99,7 @@ export EXA_API_KEY="your-api-key"
 
 ```bash
 # 添加 Apify
-aios mcp add apify
+aiox mcp add apify
 
 # 设置 API 令牌
 export APIFY_TOKEN="your-token"
@@ -118,37 +118,37 @@ export APIFY_TOKEN="your-token"
 
 ```bash
 # 初始化全局 MCP 配置
-aios mcp setup
+aiox mcp setup
 
 # 强制重新创建（备份现有）
-aios mcp setup --force
+aiox mcp setup --force
 ```
 
 ### 服务器管理
 
 ```bash
 # 从模板添加服务器
-aios mcp add <server-name>
+aiox mcp add <server-name>
 
 # 删除服务器
-aios mcp remove <server-name>
+aiox mcp remove <server-name>
 
 # 启用/禁用服务器
-aios mcp enable <server-name>
-aios mcp disable <server-name>
+aiox mcp enable <server-name>
+aiox mcp disable <server-name>
 ```
 
 ### 状态和列表
 
 ```bash
 # 列出已配置的服务器
-aios mcp list
+aiox mcp list
 
 # 显示详细状态
-aios mcp status
+aiox mcp status
 
 # 同步到项目
-aios mcp sync
+aiox mcp sync
 ```
 
 ---
@@ -177,13 +177,13 @@ $env:APIFY_TOKEN = "your-apify-token"
 
 ```bash
 # 添加凭证
-aios mcp credential set EXA_API_KEY "your-api-key"
+aiox mcp credential set EXA_API_KEY "your-api-key"
 
 # 获取凭证
-aios mcp credential get EXA_API_KEY
+aiox mcp credential get EXA_API_KEY
 
 # 列表凭证（已屏蔽）
-aios mcp credential list
+aiox mcp credential list
 ```
 
 ---
@@ -204,13 +204,13 @@ aios mcp credential list
 
 ```bash
 # 重置全局配置
-aios mcp setup --force
+aiox mcp setup --force
 
 # 清理缓存
-rm -rf ~/.aios/mcp/cache/*
+rm -rf ~/.aiox/mcp/cache/*
 
 # 验证配置
-aios mcp status --verbose
+aiox mcp status --verbose
 ```
 
 ---
@@ -223,4 +223,4 @@ aios mcp status --verbose
 
 ---
 
-_Synkra AIOS Docker MCP 设置指南 v4.2.11_
+_Synkra AIOX Docker MCP 设置指南 v4.2.11_

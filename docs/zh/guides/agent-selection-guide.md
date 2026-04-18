@@ -46,7 +46,7 @@
 | **@po** (Pax) | 🎯 | 待办事项管理、验收标准、优先级排序 | 史诗创建、架构 |
 | **@ux-design-expert** (Nova) | 🎨 | UI/UX设计、线框图、设计系统 | 实现 |
 | **@devops** (Gage) | ⚙️ | Git操作、PR创建、部署、CI/CD、工作树管理、迁移 | 本地Git、实现 |
-| **@aios-master** (Orion) | 👑 | 框架开发、多代理编排 | 日常任务（使用专门代理） |
+| **@aiox-master** (Orion) | 👑 | 框架开发、多代理编排 | 日常任务（使用专门代理） |
 
 ---
 
@@ -154,7 +154,7 @@
 | 命令 | 描述 |
 |------|------|
 | `*capture-insights` | 捕获会话洞察（发现、模式、陷阱） |
-| `*list-gotchas` | 列出.aios/gotchas.md中的已知陷阱 |
+| `*list-gotchas` | 列出.aiox/gotchas.md中的已知陷阱 |
 
 ---
 

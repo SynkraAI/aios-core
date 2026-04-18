@@ -1,6 +1,6 @@
 # Trilha @squad-creator: Do Problema ao Output Validado
 
-> **Story:** AIOS-DIFF-4.3.1
+> **Story:** AIOX-DIFF-4.3.1
 > **Agente:** @squad-creator (Craft)
 > **Tempo estimado:** 30-45 minutos
 
@@ -33,8 +33,8 @@ Você precisa criar um squad para automação de marketing com:
 ### Pré-requisitos
 
 ```bash
-# Projeto AIOS inicializado
-npx aios-core doctor  # deve retornar healthy
+# Projeto AIOX inicializado
+npx aiox-core doctor  # deve retornar healthy
 
 # Diretório squads existe
 ls squads/  # ou será criado automaticamente
@@ -246,7 +246,7 @@ Agora você pode ativar os agentes do squad:
 # Em Claude Code
 /marketing-automation:content-creator
 
-# Ou via comando AIOS
+# Ou via comando AIOX
 @marketing-automation/content-creator
 *generate-post "Lançamento do produto X"
 ```
@@ -275,7 +275,7 @@ version: 1.0.0
 short-title: Marketing Automation Squad
 description: Automação de criação de conteúdo e análise de métricas
 
-aios:
+aiox:
   minVersion: "4.0.0"
   type: squad
 
@@ -412,5 +412,5 @@ cat squads/my-squad/squad.yaml
 
 ---
 
-*Trilha criada para Story AIOS-DIFF-4.3.1*
+*Trilha criada para Story AIOX-DIFF-4.3.1*
 *-- Craft, sempre estruturando*

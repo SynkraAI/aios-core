@@ -19,12 +19,12 @@ const {
   _resetForTesting,
   RegistryProvider,
   CodeIntelClient,
-} = require('../../../.aios-core/core/code-intel/index');
+} = require('../../../.aiox-core/core/code-intel/index');
 
 jest.setTimeout(30000);
 
 const PROJECT_ROOT = path.resolve(__dirname, '..', '..', '..');
-const REAL_REGISTRY_PATH = path.join(PROJECT_ROOT, '.aios-core', 'data', 'entity-registry.yaml');
+const REAL_REGISTRY_PATH = path.join(PROJECT_ROOT, '.aiox-core', 'data', 'entity-registry.yaml');
 
 // Only run integration tests if the real entity-registry.yaml exists
 const registryExists = fs.existsSync(REAL_REGISTRY_PATH);

@@ -10,7 +10,7 @@
 
 ---
 
-Synkra AIOS 所有元代理命令的完整参考指南。
+Synkra AIOX 所有元代理命令的完整参考指南。
 
 ## 目录
 
@@ -715,7 +715,7 @@ Synkra AIOS 所有元代理命令的完整参考指南。
 
 ### *update
 
-更新 Synkra AIOS。
+更新 Synkra AIOX。
 
 ```bash
 *update [options]
@@ -937,10 +937,10 @@ Synkra AIOS 所有元代理命令的完整参考指南。
 ```bash
 *interactive
 
-AIOS> create-agent helper
-AIOS> activate helper
-AIOS> helper translate "Hello" --to spanish
-AIOS> exit
+AIOX> create-agent helper
+AIOX> activate helper
+AIOX> helper translate "Hello" --to spanish
+AIOX> exit
 ```
 
 ## 环境变量
@@ -948,12 +948,12 @@ AIOS> exit
 使用环境变量控制行为：
 
 ```bash
-AIOS_AI_PROVIDER=openai          # AI 提供商
-AIOS_AI_MODEL=gpt-4             # AI 模型
-AIOS_LOG_LEVEL=debug            # 日志级别
-AIOS_TELEMETRY=disabled         # 遥测设置
-AIOS_TIMEOUT=30000             # 命令超时（毫秒）
-AIOS_MEMORY_CACHE=true         # 内存缓存
+AIOX_AI_PROVIDER=openai          # AI 提供商
+AIOX_AI_MODEL=gpt-4             # AI 模型
+AIOX_LOG_LEVEL=debug            # 日志级别
+AIOX_TELEMETRY=disabled         # 遥测设置
+AIOX_TIMEOUT=30000             # 命令超时（毫秒）
+AIOX_MEMORY_CACHE=true         # 内存缓存
 ```
 
 ## 错误处理

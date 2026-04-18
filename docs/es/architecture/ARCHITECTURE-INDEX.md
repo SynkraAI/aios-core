@@ -1,4 +1,4 @@
-# AIOS Architecture Documentation Index
+# AIOX Architecture Documentation Index
 
 > 🌐 [EN](../../architecture/ARCHITECTURE-INDEX.md) | [PT](../../pt/architecture/ARCHITECTURE-INDEX.md) | **ES**
 
@@ -12,7 +12,7 @@
 
 ## 📋 Document Navigation
 
-This index provides navigation to all architecture documentation for AIOS v4.
+This index provides navigation to all architecture documentation for AIOX v4.
 
 > **Note:** Official framework documentation (coding-standards, tech-stack, source-tree) has been consolidated in `docs/framework/`. See [Framework README](../framework/README.md) for details.
 
@@ -39,7 +39,7 @@ docs/architecture/
 
 | Document | Description | Status |
 |----------|-------------|--------|
-| [High-Level Architecture](./high-level-architecture.md) | Overview of AIOS v4 architecture | ✅ Current |
+| [High-Level Architecture](./high-level-architecture.md) | Overview of AIOX v4 architecture | ✅ Current |
 | [Module System](./module-system.md) | 4-module modular architecture | ✅ Current |
 | [Memory Layer](./memory-layer.md) | Memory system architecture | ✅ Current |
 
@@ -112,12 +112,12 @@ docs/architecture/
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│                     AIOS v4 ARCHITECTURE                              │
+│                     AIOX v4 ARCHITECTURE                              │
 │                                                                         │
 │   ┌─────────────────────────────────────────────────────────────────┐   │
 │   │                    MULTI-REPO STRUCTURE                          │   │
 │   │                                                                  │   │
-│   │   SynkraAI/aios-core ◄───── Central Hub                       │   │
+│   │   SynkraAI/aiox-core ◄───── Central Hub                       │   │
 │   │          │                    - Framework core                   │   │
 │   │          │                    - 11 base agents                   │   │
 │   │          │                    - Discussions hub                  │   │
@@ -125,14 +125,14 @@ docs/architecture/
 │   │   ┌──────┴───────┐                                               │   │
 │   │   │              │                                               │   │
 │   │   ▼              ▼                                               │   │
-│   │ aios-squads   mcp-ecosystem                                      │   │
+│   │ aiox-squads   mcp-ecosystem                                      │   │
 │   │ (MIT)         (Apache 2.0)                                       │   │
 │   └─────────────────────────────────────────────────────────────────┘   │
 │                                                                         │
 │   ┌─────────────────────────────────────────────────────────────────┐   │
 │   │                    MODULAR ARCHITECTURE                          │   │
 │   │                                                                  │   │
-│   │   .aios-core/                                                    │   │
+│   │   .aiox-core/                                                    │   │
 │   │   ├── core/           ← Framework foundations                    │   │
 │   │   ├── development/    ← Agents, tasks, workflows                 │   │
 │   │   ├── product/        ← Templates, checklists                    │   │

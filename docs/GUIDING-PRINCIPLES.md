@@ -1,10 +1,10 @@
-# AIOS Method Guiding Principles
+# AIOX Method Guiding Principles
 
 > 🌐 **EN** | [PT](./pt/GUIDING-PRINCIPLES.md) | [ES](./es/GUIDING-PRINCIPLES.md)
 
 ---
 
-The AIOS Method is a natural language framework for AI-assisted software development. These principles ensure contributions maintain the method's effectiveness.
+The AIOX Method is a natural language framework for AI-assisted software development. These principles ensure contributions maintain the method's effectiveness.
 
 ## Core Principles
 
@@ -69,7 +69,7 @@ See [Squads Overview](./guides/squads-overview.md) for detailed examples and ide
 
 ### Template Rules
 
-Templates follow the [AIOS Document Template](../common/utils/aios-doc-template.md) specification using YAML format:
+Templates follow the [AIOX Document Template](../common/utils/aiox-doc-template.md) specification using YAML format:
 
 1. **Structure**: Templates are defined in YAML with clear metadata, workflow configuration, and section hierarchy
 2. **Separation of Concerns**: Instructions for LLMs are in `instruction` fields, separate from content

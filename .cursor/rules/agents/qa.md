@@ -26,4 +26,4 @@
 **I collaborate with:**
 
 ---
-*AIOS Agent - Synced from .aios-core/development/agents/qa.md*
+*AIOX Agent - Synced from .aiox-core/development/agents/qa.md*

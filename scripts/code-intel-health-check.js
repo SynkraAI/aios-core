@@ -322,7 +322,7 @@ async function runHealthCheck() {
       instructions: [
         'Use find_definition tool with symbol "UnifiedActivationPipeline"',
         'Use find_references tool with symbol "entity-registry"',
-        'Use dependency_analysis tool on ".aios-core/core/"',
+        'Use dependency_analysis tool on ".aiox-core/core/"',
         'Use project_statistics tool on project root',
       ],
     };

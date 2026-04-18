@@ -17,7 +17,7 @@ const fs = require('fs');
 
 const PROJECT_ROOT = path.resolve(__dirname, '..', '..', '..');
 const SYNAPSE_PATH = path.join(PROJECT_ROOT, '.synapse');
-const ENGINE_PATH = path.join(PROJECT_ROOT, '.aios-core', 'core', 'synapse', 'engine.js');
+const ENGINE_PATH = path.join(PROJECT_ROOT, '.aiox-core', 'core', 'synapse', 'engine.js');
 
 const synapseExists = fs.existsSync(SYNAPSE_PATH);
 const engineExists = fs.existsSync(ENGINE_PATH);
@@ -46,13 +46,13 @@ function makeSession(promptCount) {
 }
 
 describeIfReady('SYNAPSE E2E: Bracket Scenarios', () => {
-  /** @type {import('../../../.aios-core/core/synapse/engine').SynapseEngine} */
+  /** @type {import('../../../.aiox-core/core/synapse/engine').SynapseEngine} */
   let engine;
 
   beforeAll(() => {
     const { SynapseEngine } = require(ENGINE_PATH);
     const { parseManifest } = require(
-      path.join(PROJECT_ROOT, '.aios-core', 'core', 'synapse', 'domain', 'domain-loader.js'),
+      path.join(PROJECT_ROOT, '.aiox-core', 'core', 'synapse', 'domain', 'domain-loader.js'),
     );
 
     const manifestPath = path.join(SYNAPSE_PATH, 'manifest');

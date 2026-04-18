@@ -4,10 +4,10 @@ const fs = require('fs-extra');
 const os = require('os');
 const path = require('path');
 
-const { commandValidate } = require('../../.aios-core/infrastructure/scripts/ide-sync/index');
-const { parseAllAgents } = require('../../.aios-core/infrastructure/scripts/ide-sync/agent-parser');
-const claudeTransformer = require('../../.aios-core/infrastructure/scripts/ide-sync/transformers/claude-code');
-const { syncGeminiCommands } = require('../../.aios-core/infrastructure/scripts/ide-sync/gemini-commands');
+const { commandValidate } = require('../../.aiox-core/infrastructure/scripts/ide-sync/index');
+const { parseAllAgents } = require('../../.aiox-core/infrastructure/scripts/ide-sync/agent-parser');
+const claudeTransformer = require('../../.aiox-core/infrastructure/scripts/ide-sync/transformers/claude-code');
+const { syncGeminiCommands } = require('../../.aiox-core/infrastructure/scripts/ide-sync/gemini-commands');
 
 describe('ide-sync commandValidate --ide filter', () => {
   let tmpRoot;
@@ -18,21 +18,21 @@ describe('ide-sync commandValidate --ide filter', () => {
     previousCwd = process.cwd();
     process.chdir(tmpRoot);
 
-    await fs.ensureDir(path.join(tmpRoot, '.aios-core'));
+    await fs.ensureDir(path.join(tmpRoot, '.aiox-core'));
     await fs.writeFile(
-      path.join(tmpRoot, '.aios-core', 'core-config.yaml'),
+      path.join(tmpRoot, '.aiox-core', 'core-config.yaml'),
       [
         'ideSync:',
         '  enabled: true',
-        '  source: .aios-core/development/agents',
+        '  source: .aiox-core/development/agents',
         '  targets:',
         '    claude-code:',
         '      enabled: true',
-        '      path: .claude/commands/AIOS/agents',
+        '      path: .claude/commands/AIOX/agents',
         '      format: full-markdown-yaml',
         '    gemini:',
         '      enabled: true',
-        '      path: .gemini/rules/AIOS/agents',
+        '      path: .gemini/rules/AIOX/agents',
         '      format: full-markdown-yaml',
         '  redirects: {}',
       ].join('\n'),
@@ -40,16 +40,16 @@ describe('ide-sync commandValidate --ide filter', () => {
     );
 
     await fs.copy(
-      path.join(previousCwd, '.aios-core', 'development', 'agents'),
-      path.join(tmpRoot, '.aios-core', 'development', 'agents'),
+      path.join(previousCwd, '.aiox-core', 'development', 'agents'),
+      path.join(tmpRoot, '.aiox-core', 'development', 'agents'),
     );
 
-    await fs.ensureDir(path.join(tmpRoot, '.gemini', 'rules', 'AIOS', 'agents'));
-    const agents = parseAllAgents(path.join(tmpRoot, '.aios-core', 'development', 'agents'));
+    await fs.ensureDir(path.join(tmpRoot, '.gemini', 'rules', 'AIOX', 'agents'));
+    const agents = parseAllAgents(path.join(tmpRoot, '.aiox-core', 'development', 'agents'));
     for (const agent of agents) {
       const content = claudeTransformer.transform(agent);
       await fs.writeFile(
-        path.join(tmpRoot, '.gemini', 'rules', 'AIOS', 'agents', agent.filename),
+        path.join(tmpRoot, '.gemini', 'rules', 'AIOX', 'agents', agent.filename),
         content,
         'utf8',
       );

@@ -1,10 +1,10 @@
-# AIOS服务发现指南
+# AIOX服务发现指南
 
 > **[EN](../../guides/service-discovery.md)** | [PT](../../pt/guides/service-discovery.md) | [ES](../../es/guides/service-discovery.md) | **中文 (ZH)**
 
 ---
 
-> 如何在AIOS框架中发现、查询和使用工作者。
+> 如何在AIOX框架中发现、查询和使用工作者。
 
 **版本:** 2.1.0
 **最后更新:** 2025-12-01
@@ -13,7 +13,7 @@
 
 ## 概述
 
-服务发现系统能够在AIOS框架中找到和使用工作者（任务、模板、脚本、工作流）。**服务注册表**是包含所有可用工作者元数据的中央目录。
+服务发现系统能够在AIOX框架中找到和使用工作者（任务、模板、脚本、工作流）。**服务注册表**是包含所有可用工作者元数据的中央目录。
 
 ### 关键概念
 
@@ -31,7 +31,7 @@
 ### 加载注册表
 
 ```javascript
-const { getRegistry, loadRegistry } = require('./.aios-core/core/registry/registry-loader');
+const { getRegistry, loadRegistry } = require('./.aiox-core/core/registry/registry-loader');
 
 // 快速加载（返回注册表数据）
 const registry = await loadRegistry();
@@ -55,7 +55,7 @@ console.log(worker);
 //   id: 'create-story',
 //   name: '创建故事',
 //   category: 'task',
-//   path: '.aios-core/development/tasks/po-create-story.md',
+//   path: '.aiox-core/development/tasks/po-create-story.md',
 //   tags: ['task', 'creation', 'story', 'product'],
 //   agents: ['po']
 // }
@@ -131,25 +131,25 @@ const count = await registry.count();
 
 ## CLI命令
 
-### `aios discover`
+### `aiox discover`
 
 在注册表中搜索工作者。
 
 ```bash
 # 按文本搜索
-aios discover "create story"
+aiox discover "create story"
 
 # 按类别搜索
-aios discover --category task
+aiox discover --category task
 
 # 按标签搜索
-aios discover --tag testing
+aiox discover --tag testing
 
 # 按代理搜索
-aios discover --agent dev
+aiox discover --agent dev
 
 # 组合过滤
-aios discover --category task --tag development --agent dev
+aiox discover --category task --tag development --agent dev
 ```
 
 **输出:**
@@ -158,28 +158,28 @@ aios discover --category task --tag development --agent dev
 找到5个与"create story"匹配的工作者:
 
   [task] po-create-story
-         路径: .aios-core/development/tasks/po-create-story.md
+         路径: .aiox-core/development/tasks/po-create-story.md
          标签: task, creation, story, product
          代理: po
 
   [task] dev-create-brownfield-story
-         路径: .aios-core/development/tasks/dev-create-brownfield-story.md
+         路径: .aiox-core/development/tasks/dev-create-brownfield-story.md
          标签: task, creation, brownfield
          代理: dev
 
   ...
 ```
 
-### `aios info`
+### `aiox info`
 
 获取特定工作者的详细信息。
 
 ```bash
 # 按ID获取工作者信息
-aios info create-story
+aiox info create-story
 
 # 按完整路径获取工作者信息
-aios info --path .aios-core/development/tasks/po-create-story.md
+aiox info --path .aiox-core/development/tasks/po-create-story.md
 ```
 
 **输出:**
@@ -189,7 +189,7 @@ aios info --path .aios-core/development/tasks/po-create-story.md
 ========================
 名称:        创建故事
 类别:    任务
-路径:        .aios-core/development/tasks/po-create-story.md
+路径:        .aiox-core/development/tasks/po-create-story.md
 
 描述:
   从模板创建新用户故事，具有适当的格式
@@ -215,22 +215,22 @@ aios info --path .aios-core/development/tasks/po-create-story.md
   可并行化: 否
 ```
 
-### `aios list`
+### `aiox list`
 
 按类别或代理列出工作者。
 
 ```bash
 # 列出所有任务
-aios list tasks
+aiox list tasks
 
 # 列出所有模板
-aios list templates
+aiox list templates
 
 # 列出代理的工作者
-aios list --agent dev
+aiox list --agent dev
 
 # 列出分页结果
-aios list tasks --page 1 --limit 20
+aiox list tasks --page 1 --limit 20
 ```
 
 ---
@@ -264,7 +264,7 @@ steps:
     action: template-render
 ```
 
-**位置:** `.aios-core/development/tasks/`
+**位置:** `.aiox-core/development/tasks/`
 
 ### 模板
 
@@ -278,7 +278,7 @@ steps:
 | `component-react-tmpl.tsx` | React组件模板  |
 | `ide-rules/*.md`           | IDE特定规则        |
 
-**位置:** `.aios-core/product/templates/`
+**位置:** `.aiox-core/product/templates/`
 
 ### 脚本
 
@@ -291,7 +291,7 @@ steps:
 | `git-wrapper.js`      | Git操作            |
 | `security-checker.js` | 安全验证       |
 
-**位置:** `.aios-core/infrastructure/scripts/`
+**位置:** `.aiox-core/infrastructure/scripts/`
 
 ### 工作流
 
@@ -304,7 +304,7 @@ steps:
 | `greenfield-service.yaml`   | 新后端服务           |
 | `brownfield-ui.yaml`        | 现有前端增强 |
 
-**位置:** `.aios-core/development/workflows/`
+**位置:** `.aiox-core/development/workflows/`
 
 ### 检查清单
 
@@ -317,7 +317,7 @@ steps:
 | `architect-checklist.md` | 架构审查      |
 | `release-checklist.md`   | 发布验证       |
 
-**位置:** `.aios-core/product/checklists/`
+**位置:** `.aiox-core/product/checklists/`
 
 ---
 
@@ -329,17 +329,17 @@ steps:
 
 ```bash
 # 重建注册表
-node .aios-core/core/registry/build-registry.js
+node .aiox-core/core/registry/build-registry.js
 ```
 
 构建器扫描:
 
-- `.aios-core/development/tasks/**/*.md`
-- `.aios-core/product/templates/**/*`
-- `.aios-core/infrastructure/scripts/**/*.js`
-- `.aios-core/product/checklists/**/*.md`
-- `.aios-core/development/workflows/**/*.yaml`
-- `.aios-core/core/data/**/*`
+- `.aiox-core/development/tasks/**/*.md`
+- `.aiox-core/product/templates/**/*`
+- `.aiox-core/infrastructure/scripts/**/*.js`
+- `.aiox-core/product/checklists/**/*.md`
+- `.aiox-core/development/workflows/**/*.yaml`
+- `.aiox-core/core/data/**/*`
 
 ### 工作者条目架构
 
@@ -353,7 +353,7 @@ node .aios-core/core/registry/build-registry.js
   "inputs": ["story-title", "epic-id"],
   "outputs": ["story-file-path"],
   "tags": ["task", "creation", "story", "product"],
-  "path": ".aios-core/development/tasks/po-create-story.md",
+  "path": ".aiox-core/development/tasks/po-create-story.md",
   "taskFormat": "TASK-FORMAT-V1",
   "executorTypes": ["Agent", "Worker"],
   "performance": {
@@ -404,7 +404,7 @@ const isCached = registry.isCached();
 ### 查找代理的所有任务
 
 ```javascript
-const { getRegistry } = require('./.aios-core/core/registry/registry-loader');
+const { getRegistry } = require('./.aiox-core/core/registry/registry-loader');
 
 async function getAgentTasks(agentId) {
   const registry = getRegistry();
@@ -421,8 +421,8 @@ console.log(`Dev代理有 ${devTasks.length} 个任务`);
 ### 搜索并执行任务
 
 ```javascript
-const { getRegistry } = require('./.aios-core/core/registry/registry-loader');
-const { TaskExecutor } = require('./.aios-core/development/scripts/task-executor');
+const { getRegistry } = require('./.aiox-core/core/registry/registry-loader');
+const { TaskExecutor } = require('./.aiox-core/development/scripts/task-executor');
 
 async function findAndExecute(searchTerm, inputs) {
   const registry = getRegistry();
@@ -450,7 +450,7 @@ await findAndExecute('create story', {
 ### 按类别列出工作者
 
 ```javascript
-const { getRegistry } = require('./.aios-core/core/registry/registry-loader');
+const { getRegistry } = require('./.aiox-core/core/registry/registry-loader');
 
 async function listByCategory() {
   const registry = getRegistry();
@@ -478,13 +478,13 @@ async function listByCategory() {
 
 ```bash
 # 验证注册表文件是否存在
-ls .aios-core/core/registry/service-registry.json
+ls .aiox-core/core/registry/service-registry.json
 
 # 重建注册表
-node .aios-core/core/registry/build-registry.js
+node .aiox-core/core/registry/build-registry.js
 
 # 验证注册表
-node .aios-core/core/registry/validate-registry.js
+node .aiox-core/core/registry/validate-registry.js
 ```
 
 ### 找不到工作者
@@ -515,4 +515,4 @@ await registry.load(true);
 
 ---
 
-_Synkra AIOS v4 服务发现指南_
+_Synkra AIOX v4 服务发现指南_

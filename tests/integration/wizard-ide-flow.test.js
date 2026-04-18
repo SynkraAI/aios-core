@@ -4,7 +4,7 @@
  * Story 1.4: IDE Selection
  * Tests complete flow from selection to config generation
  *
- * Synkra AIOS v2.1 supports 6 IDEs:
+ * Synkra AIOX v2.1 supports 6 IDEs:
  * - Claude Code, Codex CLI, Gemini CLI, Cursor, GitHub Copilot, AntiGravity
  */
 
@@ -51,9 +51,9 @@ describe('Wizard IDE Flow Integration', () => {
       const agentFolder = path.join(testDir, '.cursor', 'rules');
       expect(await fs.pathExists(agentFolder)).toBe(true);
 
-      // Verify content has AIOS branding
+      // Verify content has AIOX branding
       const content = await fs.readFile(configPath, 'utf8');
-      expect(content).toContain('Synkra AIOS');
+      expect(content).toContain('Synkra AIOX');
       expect(content).toContain('Development Rules');
     });
 
@@ -81,7 +81,7 @@ describe('Wizard IDE Flow Integration', () => {
 
       // Verify agent folders were created
       expect(await fs.pathExists(path.join(testDir, '.cursor', 'rules'))).toBe(true);
-      expect(await fs.pathExists(path.join(testDir, '.gemini', 'rules', 'AIOS', 'agents'))).toBe(true);
+      expect(await fs.pathExists(path.join(testDir, '.gemini', 'rules', 'AIOX', 'agents'))).toBe(true);
       expect(await fs.pathExists(path.join(testDir, '.github', 'agents'))).toBe(true);
     });
 
@@ -169,12 +169,12 @@ describe('Wizard IDE Flow Integration', () => {
 
       // Check Cursor content (now in .cursor/rules.md)
       const cursorContent = await fs.readFile(path.join(testDir, '.cursor', 'rules.md'), 'utf8');
-      expect(cursorContent).toContain('Synkra AIOS');
+      expect(cursorContent).toContain('Synkra AIOX');
       expect(cursorContent).toContain('Story-Driven Development');
 
       // Check Gemini content
       const geminiContent = await fs.readFile(path.join(testDir, '.gemini', 'rules.md'), 'utf8');
-      expect(geminiContent).toContain('Synkra AIOS');
+      expect(geminiContent).toContain('Synkra AIOX');
     });
 
     it('should generate Claude Code config as recommended', async () => {
@@ -194,7 +194,7 @@ describe('Wizard IDE Flow Integration', () => {
       expect(await fs.pathExists(claudePath)).toBe(true);
 
       const content = await fs.readFile(claudePath, 'utf8');
-      expect(content).toContain('Synkra AIOS');
+      expect(content).toContain('Synkra AIOX');
     });
 
     it('should generate Gemini settings and hooks for lifecycle integration', async () => {
@@ -286,8 +286,8 @@ describe('Wizard IDE Flow Integration', () => {
       const configPath = path.join(testDir, '.cursor', 'rules.md');
       const content = await fs.readFile(configPath, 'utf8');
 
-      // Template should be generated with AIOS content
-      expect(content).toContain('Synkra AIOS');
+      // Template should be generated with AIOX content
+      expect(content).toContain('Synkra AIOX');
       expect(content).toContain('Development Rules');
       expect(content).toContain('Story-Driven Development');
       expect(content).not.toContain('{{'); // No uninterpolated variables
@@ -306,7 +306,7 @@ describe('Wizard IDE Flow Integration', () => {
       const content = await fs.readFile(configPath, 'utf8');
 
       // Template should be generated without errors
-      expect(content).toContain('Synkra AIOS');
+      expect(content).toContain('Synkra AIOX');
       expect(content).toContain('Development Rules');
     });
   });

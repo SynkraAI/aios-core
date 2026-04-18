@@ -16,19 +16,19 @@ const os = require('os');
 
 // Collectors under test
 const { collectQualityMetrics, BRACKET_ACTIVE_LAYERS, MAX_STALENESS_MS } = require(
-  '../../../.aios-core/core/synapse/diagnostics/collectors/quality-collector',
+  '../../../.aiox-core/core/synapse/diagnostics/collectors/quality-collector',
 );
 const { collectConsistencyMetrics, MAX_TIMESTAMP_GAP_MS } = require(
-  '../../../.aios-core/core/synapse/diagnostics/collectors/consistency-collector',
+  '../../../.aiox-core/core/synapse/diagnostics/collectors/consistency-collector',
 );
 const { collectOutputAnalysis, UAP_OUTPUT_EXPECTATIONS } = require(
-  '../../../.aios-core/core/synapse/diagnostics/collectors/output-analyzer',
+  '../../../.aiox-core/core/synapse/diagnostics/collectors/output-analyzer',
 );
 const { collectRelevanceMatrix, IMPORTANCE } = require(
-  '../../../.aios-core/core/synapse/diagnostics/collectors/relevance-matrix',
+  '../../../.aiox-core/core/synapse/diagnostics/collectors/relevance-matrix',
 );
 const { getActiveLayers } = require(
-  '../../../.aios-core/core/synapse/context/context-tracker',
+  '../../../.aiox-core/core/synapse/context/context-tracker',
 );
 
 // Helpers
@@ -168,7 +168,7 @@ describe('Issue #2: Timestamp gap between UAP and Hook should allow > 30s', () =
 describe('Issue #3: hookBootMs should propagate from hook to engine metrics', () => {
   test('engine._persistHookMetrics receives config with _hookBootTime', () => {
     // Verify the flow: hook passes _hookBootTime → engine.process → _persistHookMetrics
-    const { SynapseEngine } = require('../../../.aios-core/core/synapse/engine');
+    const { SynapseEngine } = require('../../../.aiox-core/core/synapse/engine');
     const project = createTempProject();
 
     try {

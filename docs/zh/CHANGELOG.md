@@ -11,7 +11,7 @@
 
 ---
 
-Synkra AIOS 的所有重要变更都将记录在此文件中。
+Synkra AIOX 的所有重要变更都将记录在此文件中。
 
 本格式基于 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)，
 本项目遵循 [语义化版本](https://semver.org/spec/v2.0.0.html)。
@@ -22,7 +22,7 @@ Synkra AIOS 的所有重要变更都将记录在此文件中。
 
 ### 新增
 
-- **AIOS 自主开发引擎 (ADE)**：完整的自主开发系统，包含 7 个 Epic：
+- **AIOX 自主开发引擎 (ADE)**：完整的自主开发系统，包含 7 个 Epic：
   - **Epic 1 - Worktree Manager**：用于并行 story 开发的 Git worktree 隔离
   - **Epic 2 - Migration V2→V3**：autoClaude V3 格式及能力标志
   - **Epic 3 - Spec Pipeline**：将需求转换为可执行规范
@@ -78,7 +78,7 @@ Synkra AIOS 的所有重要变更都将记录在此文件中。
 ### 变更
 
 - **代理格式**：所有 12 个代理已迁移到 autoClaude V3 格式及能力标志
-- **代理同步**：所有代理现在在 `.aios-core/development/agents/` 和 `.claude/commands/AIOS/agents/` 之间同步
+- **代理同步**：所有代理现在在 `.aiox-core/development/agents/` 和 `.claude/commands/AIOX/agents/` 之间同步
 
 ### 修复
 
@@ -108,14 +108,14 @@ Synkra AIOS 的所有重要变更都将记录在此文件中。
 
 ### 变更
 
-- **目录结构**：`.legacy-core/` 重命名为 `.aios-core/`
+- **目录结构**：`.legacy-core/` 重命名为 `.aiox-core/`
 - **配置格式**：增强 `core-config.yaml`，新增 git、projectStatus 和 sharding 选项部分
 - **代理格式**：更新代理 YAML schema，含 persona_profile、commands visibility 和 whenToUse 字段
-- **IDE 配置**：Claude Code 代理移至 `.claude/commands/AIOS/agents/`
+- **IDE 配置**：Claude Code 代理移至 `.claude/commands/AIOX/agents/`
 - **文件位置**：
   - `docs/architecture/coding-standards.md` → `docs/framework/coding-standards.md`
   - `docs/architecture/tech-stack.md` → `docs/framework/tech-stack.md`
-  - `.aios-core/utils/` → `.aios-core/scripts/`
+  - `.aiox-core/utils/` → `.aiox-core/scripts/`
 
 ### 修复
 
@@ -126,7 +126,7 @@ Synkra AIOS 的所有重要变更都将记录在此文件中。
 
 ### 废弃
 
-- 手动安装流程（改用 `npx @synkra/aios-core install`）
+- 手动安装流程（改用 `npx @synkra/aiox-core install`）
 - `.legacy-core/` 目录名称（自动迁移）
 
 ### 安全
@@ -140,7 +140,7 @@ Synkra AIOS 的所有重要变更都将记录在此文件中。
 
 ### 新增
 
-- Synkra AIOS 首次公开发布
+- Synkra AIOX 首次公开发布
 - 11 个专业 AI 代理（dev、qa、architect、pm、po、sm、analyst、ux-expert、data-engineer、devops、db-sage）
 - 任务工作流系统，含 60+ 个预构建任务
 - 模板系统，含 20+ 个文档模板
@@ -172,12 +172,12 @@ Synkra AIOS 的所有重要变更都将记录在此文件中。
 **快速升级：**
 
 ```bash
-npx @synkra/aios-core install --force-upgrade
+npx @synkra/aiox-core install --force-upgrade
 ```
 
 **主要变更：**
 
-1. 目录重命名：`.legacy-core/` → `.aios-core/`
+1. 目录重命名：`.legacy-core/` → `.aiox-core/`
 2. 使用新字段更新 `core-config.yaml`
 3. 重新运行 IDE 配置
 
@@ -187,5 +187,5 @@ npx @synkra/aios-core install --force-upgrade
 
 - [故障排除](./installation/troubleshooting.md)
 - [FAQ](./installation/faq.md)
-- [GitHub 仓库](https://github.com/SynkraAI/aios-core)
-- [Issue 追踪器](https://github.com/SynkraAI/aios-core/issues)
+- [GitHub 仓库](https://github.com/SynkraAI/aiox-core)
+- [Issue 追踪器](https://github.com/SynkraAI/aiox-core/issues)

@@ -6,8 +6,8 @@ body:
   - type: markdown
     attributes:
       value: |
-        Use this template to propose test coverage for aios-core modules.
-        Related to [Issue #52](https://github.com/SynkraAI/aios-core/issues/52) (global test coverage improvement).
+        Use this template to propose test coverage for aiox-core modules.
+        Related to [Issue #52](https://github.com/SynkraAI/aiox-core/issues/52) (global test coverage improvement).
 
   - type: textarea
     id: modules
@@ -15,8 +15,8 @@ body:
       label: Modules to Test
       description: List the modules/files that need test coverage.
       placeholder: |
-        - `.aios-core/core/orchestration/agent-invoker.js`
-        - `.aios-core/core/orchestration/gate-evaluator.js`
+        - `.aiox-core/core/orchestration/agent-invoker.js`
+        - `.aiox-core/core/orchestration/gate-evaluator.js`
     validations:
       required: true
 
@@ -43,10 +43,10 @@ body:
     attributes:
       label: Area
       options:
-        - "Core (.aios-core/core/)"
-        - "Health Check (.aios-core/core/health-check/)"
-        - "Orchestration (.aios-core/core/orchestration/)"
-        - "Config (.aios-core/core/config/)"
+        - "Core (.aiox-core/core/)"
+        - "Health Check (.aiox-core/core/health-check/)"
+        - "Orchestration (.aiox-core/core/orchestration/)"
+        - "Config (.aiox-core/core/config/)"
         - "SYNAPSE"
         - "CLI / Installer"
         - "Infrastructure"

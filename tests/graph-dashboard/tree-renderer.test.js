@@ -5,7 +5,7 @@ const {
   MAX_ITEMS_PER_BRANCH,
   UNICODE_CHARS,
   ASCII_CHARS,
-} = require('../../.aios-core/core/graph-dashboard/renderers/tree-renderer');
+} = require('../../.aiox-core/core/graph-dashboard/renderers/tree-renderer');
 
 describe('tree-renderer', () => {
   const makeGraphData = (nodes = [], edges = [], opts = {}) => ({

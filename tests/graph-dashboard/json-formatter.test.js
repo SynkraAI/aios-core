@@ -1,6 +1,6 @@
 'use strict';
 
-const { formatAsJson } = require('../../.aios-core/core/graph-dashboard/formatters/json-formatter');
+const { formatAsJson } = require('../../.aiox-core/core/graph-dashboard/formatters/json-formatter');
 
 const SAMPLE_GRAPH = {
   nodes: [

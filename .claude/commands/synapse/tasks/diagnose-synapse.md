@@ -9,7 +9,7 @@ Execute the following steps in order:
 ### Step 1: Run Diagnostics Script
 
 ```bash
-node -e "const {runDiagnostics}=require('./.aios-core/core/synapse/diagnostics/synapse-diagnostics');console.log(runDiagnostics(process.cwd()))"
+node -e "const {runDiagnostics}=require('./.aiox-core/core/synapse/diagnostics/synapse-diagnostics');console.log(runDiagnostics(process.cwd()))"
 ```
 
 ### Step 2: Display Report
@@ -226,7 +226,7 @@ This diagnostic checks:
 
 - **Timing hooks**: `~/.claude/hooks/timing-logger.js` (PreToolUse/PostToolUse)
 - **Timing analyzer**: `~/.claude/hooks/analyze-timing.js` (CLI report)
-- **SYNAPSE diagnostics**: `.aios-core/core/synapse/diagnostics/synapse-diagnostics.js`
+- **SYNAPSE diagnostics**: `.aiox-core/core/synapse/diagnostics/synapse-diagnostics.js`
 
 ## Quick Commands
 

@@ -4,7 +4,7 @@
 
 ---
 
-本指南提供了从您的系统中卸载 Synkra AIOS 的全面说明。
+本指南提供了从您的系统中卸载 Synkra AIOX 的全面说明。
 
 ## 目录
 
@@ -22,7 +22,7 @@
 
 ### 重要考虑事项
 
-⚠️ **警告**：卸载 Synkra AIOS 将：
+⚠️ **警告**：卸载 Synkra AIOX 将：
 
 - 删除所有框架文件
 - 删除代理配置（除非保留）
@@ -43,33 +43,33 @@
 
 ```bash
 # 创建完整备份
-npx @synkra/aios-core backup --complete
+npx @synkra/aiox-core backup --complete
 
 # 或手动备份重要目录
-tar -czf aios-backup-$(date +%Y%m%d).tar.gz \
-  .aios/ \
+tar -czf aiox-backup-$(date +%Y%m%d).tar.gz \
+  .aiox/ \
   agents/ \
   workflows/ \
   tasks/ \
-  --exclude=.aios/logs \
-  --exclude=.aios/cache
+  --exclude=.aiox/logs \
+  --exclude=.aiox/cache
 ```
 
 ## 快速卸载
 
 ### 使用内置卸载程序
 
-卸载 Synkra AIOS 的最快方法：
+卸载 Synkra AIOX 的最快方法：
 
 ```bash
 # 基本卸载（保留用户数据）
-npx @synkra/aios-core uninstall
+npx @synkra/aiox-core uninstall
 
 # 完全卸载（删除所有内容）
-npx @synkra/aios-core uninstall --complete
+npx @synkra/aiox-core uninstall --complete
 
 # 卸载并保留数据
-npx @synkra/aios-core uninstall --keep-data
+npx @synkra/aiox-core uninstall --keep-data
 ```
 
 ### 交互式卸载
@@ -77,7 +77,7 @@ npx @synkra/aios-core uninstall --keep-data
 对于引导式卸载：
 
 ```bash
-npx @synkra/aios-core uninstall --interactive
+npx @synkra/aiox-core uninstall --interactive
 ```
 
 这会提示您：
@@ -121,14 +121,14 @@ npx @synkra/aios-core uninstall --interactive
 
 ```bash
 # 完全移除
-npx @synkra/aios-core uninstall --complete --no-backup
+npx @synkra/aiox-core uninstall --complete --no-backup
 ```
 
 ### 步骤 4：删除全局安装
 
 ```bash
 # 删除全局 npm 包
-npm uninstall -g @synkra/aios-core
+npm uninstall -g @synkra/aiox-core
 
 # 删除 npx 缓存
 npm cache clean --force
@@ -140,27 +140,27 @@ npm cache clean --force
 
 ```powershell
 # 删除 AppData 文件
-Remove-Item -Recurse -Force "$env:APPDATA\@synkra/aios-core"
+Remove-Item -Recurse -Force "$env:APPDATA\@synkra/aiox-core"
 
 # 删除临时文件
-Remove-Item -Recurse -Force "$env:TEMP\aios-*"
+Remove-Item -Recurse -Force "$env:TEMP\aiox-*"
 
 # 删除注册表条目（如果有）
-Remove-Item -Path "HKCU:\Software\Synkra AIOS" -Recurse
+Remove-Item -Path "HKCU:\Software\Synkra AIOX" -Recurse
 ```
 
 #### macOS/Linux
 
 ```bash
 # 删除配置文件
-rm -rf ~/.aios
-rm -rf ~/.config/@synkra/aios-core
+rm -rf ~/.aiox
+rm -rf ~/.config/@synkra/aiox-core
 
 # 删除缓存
-rm -rf ~/.cache/@synkra/aios-core
+rm -rf ~/.cache/@synkra/aiox-core
 
 # 删除临时文件
-rm -rf /tmp/aios-*
+rm -rf /tmp/aiox-*
 ```
 
 ## 选择性卸载
@@ -169,13 +169,13 @@ rm -rf /tmp/aios-*
 
 ```bash
 # 仅删除代理
-npx @synkra/aios-core uninstall agents
+npx @synkra/aiox-core uninstall agents
 
 # 仅删除工作流
-npx @synkra/aios-core uninstall workflows
+npx @synkra/aiox-core uninstall workflows
 
 # 删除内存层
-npx @synkra/aios-core uninstall memory-layer
+npx @synkra/aiox-core uninstall memory-layer
 
 # 删除特定代理
 *uninstall agent-name
@@ -204,15 +204,15 @@ rm -rf templates/custom/
 
    ```bash
    # 复制自定义代理
-   cp -r agents/custom/ ~/aios-backup/agents/
+   cp -r agents/custom/ ~/aiox-backup/agents/
    ```
 
 2. **工作流和任务**
 
    ```bash
    # 复制工作流
-   cp -r workflows/ ~/aios-backup/workflows/
-   cp -r tasks/ ~/aios-backup/tasks/
+   cp -r workflows/ ~/aiox-backup/workflows/
+   cp -r tasks/ ~/aiox-backup/tasks/
    ```
 
 3. **内存数据**
@@ -220,21 +220,21 @@ rm -rf templates/custom/
    ```bash
    # 导出内存数据库
    *memory export --format sqlite \
-     --destination ~/aios-backup/memory.db
+     --destination ~/aiox-backup/memory.db
    ```
 
 4. **配置**
 
    ```bash
    # 复制所有配置文件
-   cp .aios/config.json ~/aios-backup/
-   cp .env ~/aios-backup/
+   cp .aiox/config.json ~/aiox-backup/
+   cp .env ~/aiox-backup/
    ```
 
 5. **自定义代码**
    ```bash
    # 查找并备份自定义文件
-   find . -name "*.custom.*" -exec cp {} ~/aios-backup/custom/ \;
+   find . -name "*.custom.*" -exec cp {} ~/aiox-backup/custom/ \;
    ```
 
 ## 清洁系统移除
@@ -243,11 +243,11 @@ rm -rf templates/custom/
 
 ```bash
 #!/bin/bash
-echo "Synkra AIOS 完全卸载"
+echo "Synkra AIOX 完全卸载"
 echo "================================="
 
 # 确认
-read -p "这将删除所有 Synkra AIOS 数据。继续吗？(y/N) " -n 1 -r
+read -p "这将删除所有 Synkra AIOX 数据。继续吗？(y/N) " -n 1 -r
 echo
 if [[ ! $REPLY =~ ^[Yy]$ ]]; then
     exit 1
@@ -255,28 +255,28 @@ fi
 
 # 停止所有进程
 echo "停止所有进程..."
-pkill -f "@synkra/aios-core" || true
-pkill -f "aios-developer" || true
+pkill -f "@synkra/aiox-core" || true
+pkill -f "aiox-developer" || true
 
 # 删除项目文件
 echo "删除项目文件..."
-rm -rf .aios/
+rm -rf .aiox/
 rm -rf agents/
 rm -rf workflows/
 rm -rf tasks/
 rm -rf templates/
 rm -rf Squads/
-rm -rf node_modules/@synkra/aios-core/
+rm -rf node_modules/@synkra/aiox-core/
 
 # 删除全局文件
 echo "删除全局文件..."
-npm uninstall -g @synkra/aios-core
+npm uninstall -g @synkra/aiox-core
 
 # 删除用户数据
 echo "删除用户数据..."
-rm -rf ~/.aios
-rm -rf ~/.config/@synkra/aios-core
-rm -rf ~/.cache/@synkra/aios-core
+rm -rf ~/.aiox
+rm -rf ~/.config/@synkra/aiox-core
+rm -rf ~/.cache/@synkra/aiox-core
 
 # 清理 npm 缓存
 echo "清理 npm 缓存..."
@@ -284,9 +284,9 @@ npm cache clean --force
 
 # 从 package.json 中删除
 echo "更新 package.json..."
-npm uninstall @synkra/aios-core/core
-npm uninstall @synkra/aios-core/memory
-npm uninstall @synkra/aios-core/meta-agent
+npm uninstall @synkra/aiox-core/core
+npm uninstall @synkra/aiox-core/memory
+npm uninstall @synkra/aiox-core/meta-agent
 
 echo "卸载完成！"
 ```
@@ -299,10 +299,10 @@ echo "卸载完成！"
 
 ```bash
 # Linux/macOS
-sudo npx @synkra/aios-core uninstall --complete
+sudo npx @synkra/aiox-core uninstall --complete
 
 # Windows（以管理员身份运行）
-npx @synkra/aios-core uninstall --complete
+npx @synkra/aiox-core uninstall --complete
 ```
 
 #### 2. 进程仍在运行
@@ -311,16 +311,16 @@ npx @synkra/aios-core uninstall --complete
 # 强制停止所有进程
 # Linux/macOS
 killall -9 node
-killall -9 @synkra/aios-core
+killall -9 @synkra/aiox-core
 
 # Windows
 taskkill /F /IM node.exe
-taskkill /F /IM @synkra/aios-core.exe
+taskkill /F /IM @synkra/aiox-core.exe
 ```
 
 ## 卸载验证检查清单
 
-- [ ] 所有 AIOS 进程已停止
+- [ ] 所有 AIOX 进程已停止
 - [ ] 项目文件已删除
 - [ ] 全局 npm 包已卸载
 - [ ] 用户配置文件已删除
@@ -328,7 +328,7 @@ taskkill /F /IM @synkra/aios-core.exe
 - [ ] 环境变量已删除
 - [ ] 注册表条目已清理 (Windows)
 - [ ] Git 存储库已更新
-- [ ] 未找到剩余 AIOS 文件
+- [ ] 未找到剩余 AIOX 文件
 - [ ] 系统 PATH 已更新
 
 ## 获取帮助
@@ -336,8 +336,8 @@ taskkill /F /IM @synkra/aios-core.exe
 如果您在卸载期间遇到问题：
 
 1. **检查文档**
-   - [FAQ](https://github.com/SynkraAI/aios-core/wiki/faq#uninstall)
-   - [故障排除](https://github.com/SynkraAI/aios-core/wiki/troubleshooting)
+   - [FAQ](https://github.com/SynkraAI/aiox-core/wiki/faq#uninstall)
+   - [故障排除](https://github.com/SynkraAI/aiox-core/wiki/troubleshooting)
 
 2. **社区支持**
    - Discord：#uninstall-help

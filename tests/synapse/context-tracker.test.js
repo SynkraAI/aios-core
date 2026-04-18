@@ -16,7 +16,7 @@ const {
   TOKEN_BUDGETS,
   DEFAULTS,
   XML_SAFETY_MULTIPLIER,
-} = require('../../.aios-core/core/synapse/context/context-tracker');
+} = require('../../.aiox-core/core/synapse/context/context-tracker');
 
 // =============================================================================
 // calculateBracket
@@ -455,7 +455,7 @@ describe('AC8: zero external dependencies', () => {
     const fs = require('fs');
     const path = require('path');
     const source = fs.readFileSync(
-      path.join(__dirname, '../../.aios-core/core/synapse/context/context-tracker.js'),
+      path.join(__dirname, '../../.aiox-core/core/synapse/context/context-tracker.js'),
       'utf8',
     );
     // Should not have any require() calls (only module.exports)

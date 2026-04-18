@@ -11,7 +11,7 @@
 
 ## 背景
 
-在[当前状态审计](./ADR-COLLAB-1-current-state-audit.md)之后，本文档提议具体的配置更改，以启用对 AIOS 的安全外部贡献。
+在[当前状态审计](./ADR-COLLAB-1-current-state-audit.md)之后，本文档提议具体的配置更改，以启用对 AIOX 的安全外部贡献。
 
 ---
 
@@ -69,7 +69,7 @@ branch_protection:
 **实施命令:**
 
 ```bash
-gh api repos/SynkraAI/aios-core/branches/main/protection -X PUT \
+gh api repos/SynkraAI/aiox-core/branches/main/protection -X PUT \
   -F required_status_checks='{"strict":true,"contexts":["lint","typecheck","build","test","validation-summary"]}' \
   -F enforce_admins=false \
   -F required_pull_request_reviews='{"dismiss_stale_reviews":true,"require_code_owner_reviews":true,"required_approving_review_count":1}' \
@@ -85,7 +85,7 @@ gh api repos/SynkraAI/aios-core/branches/main/protection -X PUT \
 
 ```yaml
 # yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
-# AIOS CodeRabbit 配置
+# AIOX CodeRabbit 配置
 # Story: COLLAB-1
 
 language: 'en-US'
@@ -110,29 +110,29 @@ reviews:
   # 按路径的审查指令
   path_instructions:
     # 代理定义 - 严格验证
-    '.aios-core/development/agents/**':
-      - '验证代理是否遵循 AIOS 代理 YAML 结构（persona_profile、commands、dependencies）'
+    '.aiox-core/development/agents/**':
+      - '验证代理是否遵循 AIOX 代理 YAML 结构（persona_profile、commands、dependencies）'
       - '检查 persona_profile 是否包含 archetype、communication style 和 greeting_levels'
       - '验证所有列出的命令是否有对应的任务依赖'
       - '确保代理对命令有适当的可见性元数据'
       - '检查安全性：无硬编码凭据或敏感数据'
 
     # 任务定义
-    '.aios-core/development/tasks/**':
-      - '验证任务是否遵循 AIOS 任务格式，包含清晰的引导点'
+    '.aiox-core/development/tasks/**':
+      - '验证任务是否遵循 AIOX 任务格式，包含清晰的引导点'
       - '检查交付物是否定义明确'
       - '验证引用的依赖是否存在于代码库中'
       - '确保任务有适当的错误处理指导'
 
     # 工作流定义
-    '.aios-core/development/workflows/**':
+    '.aiox-core/development/workflows/**':
       - '验证工作流 YAML 结构是否有效'
       - '检查步骤顺序和依赖是否有逻辑意义'
       - '验证引用的代理和任务是否存在'
 
     # 模板文件
-    '.aios-core/product/templates/**':
-      - '确保模板遵循 AIOS 模板约定'
+    '.aiox-core/product/templates/**':
+      - '确保模板遵循 AIOX 模板约定'
       - '检查占位符语法是否一致'
       - '验证模板生成有效输出'
 
@@ -148,7 +148,7 @@ reviews:
       - '检查 async/await 最佳实践'
       - '验证错误处理是否全面'
       - '查找潜在的安全漏洞'
-      - '确保代码遵循 AIOS 编码标准'
+      - '确保代码遵循 AIOX 编码标准'
 
     '**/*.ts':
       - '验证 TypeScript 类型是否正确定义'
@@ -197,7 +197,7 @@ abort_on_close: true
 **文件:** `.github/CODEOWNERS`
 
 ```codeowners
-# AIOS Code Owners
+# AIOX Code Owners
 # Story: COLLAB-1
 # 最后更新: 2025-12-30
 #
@@ -214,21 +214,21 @@ abort_on_close: true
 # 框架核心
 # ============================================
 # 代理定义 - 需要核心团队审查
-.aios-core/development/agents/ @SynkraAI/core-team
+.aiox-core/development/agents/ @SynkraAI/core-team
 
 # 任务定义 - 需要核心团队审查
-.aios-core/development/tasks/ @SynkraAI/core-team
+.aiox-core/development/tasks/ @SynkraAI/core-team
 
 # 工作流定义 - 需要核心团队审查
-.aios-core/development/workflows/ @SynkraAI/core-team
+.aiox-core/development/workflows/ @SynkraAI/core-team
 
 # 模板 - 需要架构师/核心团队审查
-.aios-core/product/templates/ @SynkraAI/core-team
+.aiox-core/product/templates/ @SynkraAI/core-team
 templates/ @SynkraAI/core-team
 
 # 核心工具 - 需要高级审查
-.aios-core/core/ @SynkraAI/core-team
-.aios-core/cli/ @SynkraAI/core-team
+.aiox-core/core/ @SynkraAI/core-team
+.aiox-core/cli/ @SynkraAI/core-team
 
 # ============================================
 # 基础设施
@@ -240,7 +240,7 @@ templates/ @SynkraAI/core-team
 .docker/ @SynkraAI/devops
 
 # 配置文件
-.aios-core/core-config.yaml @SynkraAI/core-team
+.aiox-core/core-config.yaml @SynkraAI/core-team
 package.json @SynkraAI/maintainers
 package-lock.json @SynkraAI/maintainers
 
@@ -324,7 +324,7 @@ docs/guides/ @SynkraAI/maintainers
 
 #### 必需
 
-- [ ] 代理遵循 AIOS 代理 YAML 结构
+- [ ] 代理遵循 AIOX 代理 YAML 结构
 - [ ] `persona_profile` 完整（archetype、communication、greeting_levels）
 - [ ] 所有命令都有对应的任务依赖
 - [ ] 无硬编码凭据或敏感数据
@@ -370,7 +370,7 @@ _提交此 PR，即表示我确认已阅读[贡献指南](../../../../CONTRIBUTI
 
 #### 必需
 
-- [ ] 任务遵循 AIOS 任务格式
+- [ ] 任务遵循 AIOX 任务格式
 - [ ] 引导点清晰可操作
 - [ ] 交付物定义明确
 - [ ] 包含错误处理指导
@@ -444,10 +444,10 @@ _提交此 PR，即表示我确认已阅读[贡献指南](../../../../CONTRIBUTI
 
 ```bash
 # 移除所有分支保护（仅紧急情况）
-gh api -X DELETE repos/SynkraAI/aios-core/branches/main/protection
+gh api -X DELETE repos/SynkraAI/aiox-core/branches/main/protection
 
 # 恢复最小保护
-gh api repos/SynkraAI/aios-core/branches/main/protection -X PUT \
+gh api repos/SynkraAI/aiox-core/branches/main/protection -X PUT \
   -F required_status_checks='{"strict":true,"contexts":["lint","typecheck","build"]}' \
   -F enforce_admins=false \
   -F required_pull_request_reviews='{"dismiss_stale_reviews":true,"require_code_owner_reviews":false,"required_approving_review_count":0}' \

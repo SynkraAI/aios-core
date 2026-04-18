@@ -28,9 +28,9 @@
 
 ### 扩展点模式
 
-集成遵循 AIOS Open Core 模型:
-- **aios-core:** UnifiedActivationPipeline 中的扩展点 (本指南)
-- **aios-pro:** 记忆智能实现 (检索, 评分, 学习)
+集成遵循 AIOX Open Core 模型:
+- **aiox-core:** UnifiedActivationPipeline 中的扩展点 (本指南)
+- **aiox-pro:** 记忆智能实现 (检索, 评分, 学习)
 
 ```
 UnifiedActivationPipeline (Tier 2 Enrich)
@@ -230,7 +230,7 @@ const defaultBudget = 2000;
 在代理配置中配置每代理预算:
 
 ```yaml
-# .aios-core/development/agents/dev.md
+# .aiox-core/development/agents/dev.md
 agent:
   id: dev
   config:
@@ -273,7 +273,7 @@ isProAvailable() === false
 
 ```javascript
 isProAvailable() === true
-// 但 .aios/session-digests/ 为空
+// 但 .aiox/session-digests/ 为空
 ```
 
 **行为:**
@@ -285,7 +285,7 @@ isProAvailable() === true
 
 ```javascript
 isProAvailable() === true
-// 且 .aios/session-digests/ 包含记忆摘要
+// 且 .aiox/session-digests/ 包含记忆摘要
 ```
 
 **行为:**
@@ -401,7 +401,7 @@ console.log('记忆启用:', featureGate.isAvailable('pro.memory.extended'));
 
 // 检查摘要目录
 const fs = require('fs');
-const digests = fs.readdirSync('.aios/session-digests');
+const digests = fs.readdirSync('.aiox/session-digests');
 console.log('摘要:', digests.length);
 ```
 
@@ -419,7 +419,7 @@ result.metrics.loaders.memories.duration > 500
 ```
 
 **解决方案:**
-1. 减少摘要数量 (将旧摘要归档到 `.aios/session-digests/archive/`)
+1. 减少摘要数量 (将旧摘要归档到 `.aiox/session-digests/archive/`)
 2. 增加超时 (在 `unified-activation-pipeline.js` 中): `memoryTimeout = 1000`
 3. 重建记忆索引: `node pro/memory/rebuild-index.js`
 

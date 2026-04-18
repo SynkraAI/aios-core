@@ -1,6 +1,6 @@
 <!-- 翻译: ZH-CN | 原文: /docs/en/architecture/high-level-architecture.md | 同步时间: 2026-01-26 -->
 
-# AIOS v4 高级架构
+# AIOX v4 高级架构
 
 > 🌐 [EN](../../architecture/high-level-architecture.md) | [PT](../../pt/architecture/high-level-architecture.md) | [ES](../../es/architecture/high-level-architecture.md) | **ZH-CN**
 
@@ -27,7 +27,7 @@
 
 ## 概览
 
-**AIOS（AI 操作系统）** 是用于 AI 代理、工作者和人类在复杂软件开发工作流中进行编排的精巧框架。v2.1 版本引入了具有 4 个模块的模块化架构、多仓库策略和 3 层质量门槛。
+**AIOX（AI 操作系统）** 是用于 AI 代理、工作者和人类在复杂软件开发工作流中进行编排的精巧框架。v2.1 版本引入了具有 4 个模块的模块化架构、多仓库策略和 3 层质量门槛。
 
 ### v4.2 主要功能
 
@@ -49,12 +49,12 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│                     AIOS v4 框架                                       │
+│                     AIOX v4 框架                                       │
 │                     ═══════════════                                     │
 │                                                                         │
 │   ┌─────────────────────────────────────────────────────────────────┐   │
 │   │                        CLI / 工具                              │   │
-│   │  (aios agents, aios tasks, aios squads, aios workflow)          │   │
+│   │  (aiox agents, aiox tasks, aiox squads, aiox workflow)          │   │
 │   └─────────────────────────────────────────────────────────────────┘   │
 │                                │                                        │
 │          ┌────────────────────┼────────────────────┐                   │
@@ -149,7 +149,7 @@
 │                                                                         │
 │   ┌────────────────────┐     ┌────────────────────┐                    │
 │   │  SynkraAI/         │     │  SynkraAI/         │                    │
-│   │  aios-core         │     │  aios-squads       │                    │
+│   │  aiox-core         │     │  aiox-squads       │                    │
 │   │  (MIT)  │◄────│  (MIT)             │                    │
 │   │                    │     │                    │                    │
 │   │  • 核心框架        │     │  • ETL Squad       │                    │
@@ -188,11 +188,11 @@
 
 | 包 | 注册表 | 许可证 |
 | --- | --- | --- |
-| `@aios/core` | npm 公开 | MIT |
-| `@aios/squad-etl` | npm 公开 | MIT |
-| `@aios/squad-creator` | npm 公开 | MIT |
-| `@aios/squad-mmos` | npm 公开 | MIT |
-| `@aios/mcp-presets` | npm 公开 | Apache 2.0 |
+| `@aiox/core` | npm 公开 | MIT |
+| `@aiox/squad-etl` | npm 公开 | MIT |
+| `@aiox/squad-creator` | npm 公开 | MIT |
+| `@aiox/squad-mmos` | npm 公开 | MIT |
+| `@aiox/mcp-presets` | npm 公开 | Apache 2.0 |
 
 ---
 
@@ -215,8 +215,8 @@
 ### 当前结构 (v4)
 
 ```
-@synkra/aios-core/
-├── .aios-core/                    # 框架层
+@synkra/aiox-core/
+├── .aiox-core/                    # 框架层
 │   ├── core/                      # 核心模块（基础）
 │   │   ├── config/                # 配置管理
 │   │   ├── registry/              # 服务发现
@@ -269,10 +269,10 @@
 
 | 模块 | 路径 | 目的 | 主要内容 |
 | --- | --- | --- | --- |
-| **核心** | `.aios-core/core/` | 框架基础 | 配置、注册表、QG、MCP、会话 |
-| **开发** | `.aios-core/development/` | 开发制品 | 代理、任务、工作流、脚本 |
-| **产品** | `.aios-core/product/` | PM 制品 | 模板、检查表、数据 |
-| **基础设施** | `.aios-core/infrastructure/` | 系统配置 | 脚本、工具、集成 |
+| **核心** | `.aiox-core/core/` | 框架基础 | 配置、注册表、QG、MCP、会话 |
+| **开发** | `.aiox-core/development/` | 开发制品 | 代理、任务、工作流、脚本 |
+| **产品** | `.aiox-core/product/` | PM 制品 | 模板、检查表、数据 |
+| **基础设施** | `.aiox-core/infrastructure/` | 系统配置 | 脚本、工具、集成 |
 
 ### 代理系统
 
@@ -288,7 +288,7 @@
 | Dara | `data-engineer` | 架构师 | 数据工程 |
 | Felix | `devops` | 优化者 | CI/CD 和操作 |
 | Uma | `ux-expert` | 创造者 | 用户体验 |
-| Pax | `aios-master` | 编排者 | 框架编排 |
+| Pax | `aiox-master` | 编排者 | 框架编排 |
 
 ---
 
@@ -346,7 +346,7 @@
 
 - [模块系统](./module-system.md) - 模块详细架构
 - [ARCHITECTURE-INDEX.md](./ARCHITECTURE-INDEX.md) - 完整文档索引
-- [AIOS-LIVRO-DE-OURO-V2.1-COMPLETE.md](../../../.aios-core/docs/standards/AIOS-LIVRO-DE-OURO-V2.1-COMPLETE.md) - 框架完整指南
+- [AIOX-LIVRO-DE-OURO-V2.1-COMPLETE.md](../../../.aiox-core/docs/standards/AIOX-LIVRO-DE-OURO-V2.1-COMPLETE.md) - 框架完整指南
 
 ---
 

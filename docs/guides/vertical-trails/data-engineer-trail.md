@@ -1,6 +1,6 @@
 # Trilha @data-engineer: Do Problema ao Output Validado
 
-> **Story:** AIOS-DIFF-4.3.1
+> **Story:** AIOX-DIFF-4.3.1
 > **Agente:** @data-engineer (Dara)
 > **Tempo estimado:** 30-60 minutos
 
@@ -33,8 +33,8 @@ Você está em um projeto novo e precisa:
 ### Pré-requisitos
 
 ```bash
-# Projeto AIOS inicializado
-npx aios-core doctor  # deve retornar healthy
+# Projeto AIOX inicializado
+npx aiox-core doctor  # deve retornar healthy
 
 # Supabase configurado (ou PostgreSQL local)
 echo $SUPABASE_DB_URL  # deve ter valor
@@ -312,5 +312,5 @@ CREATE POLICY "Users can update own data"
 
 ---
 
-*Trilha criada para Story AIOS-DIFF-4.3.1*
+*Trilha criada para Story AIOX-DIFF-4.3.1*
 *-- Dara, arquitetando dados*

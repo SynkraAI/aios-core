@@ -1,4 +1,4 @@
-# Synkra AIOS Installation Documentation
+# Synkra AIOX Installation Documentation
 
 > 🌐 **EN** | [PT](../pt/installation/README.md) | [ES](../es/installation/README.md)
 
@@ -9,7 +9,7 @@
 
 ## Overview
 
-This directory contains comprehensive installation and setup documentation for Synkra AIOS.
+This directory contains comprehensive installation and setup documentation for Synkra AIOX.
 
 ---
 
@@ -38,20 +38,20 @@ This directory contains comprehensive installation and setup documentation for S
 ### New Installation
 
 ```bash
-npx aios-core install
+npx aiox-core install
 ```
 
 ### Upgrading
 
 ```bash
-npx aios-core install --force-upgrade
+npx aiox-core install --force-upgrade
 ```
 
 ### Having Issues?
 
 1. Check [Troubleshooting Guide](./troubleshooting.md)
 2. Search [FAQ](./faq.md)
-3. Open a [GitHub Issue](https://github.com/SynkraAI/aios-core/issues)
+3. Open a [GitHub Issue](https://github.com/SynkraAI/aiox-core/issues)
 
 ---
 
@@ -96,5 +96,5 @@ npx aios-core install --force-upgrade
 
 ## Support
 
-- **GitHub Issues**: [aios-core/issues](https://github.com/SynkraAI/aios-core/issues)
+- **GitHub Issues**: [aiox-core/issues](https://github.com/SynkraAI/aiox-core/issues)
 - **Documentation**: [docs/](../)

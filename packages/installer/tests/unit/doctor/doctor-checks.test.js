@@ -1,6 +1,6 @@
 /**
  * Unit Tests: Doctor Check Modules
- * Story INS-4.1: aios doctor rewrite
+ * Story INS-4.1: aiox doctor rewrite
  * Story INS-4.8: 3 new checks (skills-count, commands-count, hooks-claude-count)
  *
  * Tests all 15 check modules individually with mocked filesystem.
@@ -12,22 +12,22 @@ const fs = require('fs');
 // Mock fs for controlled test scenarios
 jest.mock('fs');
 
-const nodeVersionCheck = require('../../../../../.aios-core/core/doctor/checks/node-version');
-const npmPackagesCheck = require('../../../../../.aios-core/core/doctor/checks/npm-packages');
-const settingsJsonCheck = require('../../../../../.aios-core/core/doctor/checks/settings-json');
-const rulesFilesCheck = require('../../../../../.aios-core/core/doctor/checks/rules-files');
-const agentMemoryCheck = require('../../../../../.aios-core/core/doctor/checks/agent-memory');
-const entityRegistryCheck = require('../../../../../.aios-core/core/doctor/checks/entity-registry');
-const gitHooksCheck = require('../../../../../.aios-core/core/doctor/checks/git-hooks');
-const coreConfigCheck = require('../../../../../.aios-core/core/doctor/checks/core-config');
-const claudeMdCheck = require('../../../../../.aios-core/core/doctor/checks/claude-md');
-const graphDashboardCheck = require('../../../../../.aios-core/core/doctor/checks/graph-dashboard');
-const codeIntelCheck = require('../../../../../.aios-core/core/doctor/checks/code-intel');
-const ideSyncCheck = require('../../../../../.aios-core/core/doctor/checks/ide-sync');
-const skillsCountCheck = require('../../../../../.aios-core/core/doctor/checks/skills-count');
-const commandsCountCheck = require('../../../../../.aios-core/core/doctor/checks/commands-count');
-const hooksClaudeCountCheck = require('../../../../../.aios-core/core/doctor/checks/hooks-claude-count');
-const { loadChecks } = require('../../../../../.aios-core/core/doctor/checks');
+const nodeVersionCheck = require('../../../../../.aiox-core/core/doctor/checks/node-version');
+const npmPackagesCheck = require('../../../../../.aiox-core/core/doctor/checks/npm-packages');
+const settingsJsonCheck = require('../../../../../.aiox-core/core/doctor/checks/settings-json');
+const rulesFilesCheck = require('../../../../../.aiox-core/core/doctor/checks/rules-files');
+const agentMemoryCheck = require('../../../../../.aiox-core/core/doctor/checks/agent-memory');
+const entityRegistryCheck = require('../../../../../.aiox-core/core/doctor/checks/entity-registry');
+const gitHooksCheck = require('../../../../../.aiox-core/core/doctor/checks/git-hooks');
+const coreConfigCheck = require('../../../../../.aiox-core/core/doctor/checks/core-config');
+const claudeMdCheck = require('../../../../../.aiox-core/core/doctor/checks/claude-md');
+const graphDashboardCheck = require('../../../../../.aiox-core/core/doctor/checks/graph-dashboard');
+const codeIntelCheck = require('../../../../../.aiox-core/core/doctor/checks/code-intel');
+const ideSyncCheck = require('../../../../../.aiox-core/core/doctor/checks/ide-sync');
+const skillsCountCheck = require('../../../../../.aiox-core/core/doctor/checks/skills-count');
+const commandsCountCheck = require('../../../../../.aiox-core/core/doctor/checks/commands-count');
+const hooksClaudeCountCheck = require('../../../../../.aiox-core/core/doctor/checks/hooks-claude-count');
+const { loadChecks } = require('../../../../../.aiox-core/core/doctor/checks');
 
 const mockContext = {
   projectRoot: '/mock/project',
@@ -69,11 +69,11 @@ describe('settings-json check', () => {
     fs.existsSync.mockReturnValue(true);
     const mockSettings = {
       permissions: {
-        deny: new Array(50).fill('Edit(.aios-core/core/)'),
+        deny: new Array(50).fill('Edit(.aiox-core/core/)'),
         allow: ['Edit(docs/)'],
       },
     };
-    const coreConfig = 'boundary:\n  protected:\n    - .aios-core/core/**\n  exceptions:\n    - agents/MEMORY.md';
+    const coreConfig = 'boundary:\n  protected:\n    - .aiox-core/core/**\n  exceptions:\n    - agents/MEMORY.md';
     fs.readFileSync.mockImplementation((p) => {
       if (p.includes('settings.json')) return JSON.stringify(mockSettings);
       if (p.includes('core-config')) return coreConfig;
@@ -108,7 +108,7 @@ describe('settings-json check', () => {
         allow: [],
       },
     };
-    const coreConfig = 'boundary:\n  protected:\n    - .aios-core/core/**\n    - bin/aios.js\n  exceptions:\n    - test';
+    const coreConfig = 'boundary:\n  protected:\n    - .aiox-core/core/**\n    - bin/aiox.js\n  exceptions:\n    - test';
     fs.readFileSync.mockImplementation((p) => {
       if (p.includes('settings.json')) return JSON.stringify(mockSettings);
       if (p.includes('core-config')) return coreConfig;
@@ -312,7 +312,7 @@ describe('code-intel check', () => {
     fs.statSync.mockImplementation(realFs.statSync);
 
     // Only run if entity-registry actually exists (skip in CI without registry)
-    const registryPath = path.join(realProjectRoot, '.aios-core', 'data', 'entity-registry.yaml');
+    const registryPath = path.join(realProjectRoot, '.aiox-core', 'data', 'entity-registry.yaml');
     if (!realFs.existsSync(registryPath)) {
       return; // skip — no registry available
     }
@@ -421,7 +421,7 @@ describe('skills-count check', () => {
 
     const result = await skillsCountCheck.run(mockContext);
     expect(result.status).toBe('FAIL');
-    expect(result.fixCommand).toBe('npx aios-core install --force');
+    expect(result.fixCommand).toBe('npx aiox-core install --force');
   });
 
   it('should FAIL when skills directory missing', async () => {
@@ -571,7 +571,7 @@ describe('health-check.yaml task (INS-4.8)', () => {
   it('should NOT have *doctor alias', () => {
     const realFs = jest.requireActual('fs');
     const yaml = realFs.readFileSync(
-      path.join(__dirname, '..', '..', '..', '..', '..', '.aios-core', 'development', 'tasks', 'health-check.yaml'),
+      path.join(__dirname, '..', '..', '..', '..', '..', '.aiox-core', 'development', 'tasks', 'health-check.yaml'),
       'utf8',
     );
     // Verify *doctor is not in the aliases list (only *hc should be)
@@ -581,20 +581,20 @@ describe('health-check.yaml task (INS-4.8)', () => {
     expect(aliasMatch[1]).toContain('*hc');
   });
 
-  it('should reference aios doctor --json in instructions', () => {
+  it('should reference aiox doctor --json in instructions', () => {
     const realFs = jest.requireActual('fs');
     const yaml = realFs.readFileSync(
-      path.join(__dirname, '..', '..', '..', '..', '..', '.aios-core', 'development', 'tasks', 'health-check.yaml'),
+      path.join(__dirname, '..', '..', '..', '..', '..', '.aiox-core', 'development', 'tasks', 'health-check.yaml'),
       'utf8',
     );
-    expect(yaml).toContain('aios doctor --json');
-    expect(yaml).toContain('npx aios-core doctor --json');
+    expect(yaml).toContain('aiox doctor --json');
+    expect(yaml).toContain('npx aiox-core doctor --json');
   });
 
   it('should have governance_map with all 15 checks', () => {
     const realFs = jest.requireActual('fs');
     const yaml = realFs.readFileSync(
-      path.join(__dirname, '..', '..', '..', '..', '..', '.aios-core', 'development', 'tasks', 'health-check.yaml'),
+      path.join(__dirname, '..', '..', '..', '..', '..', '.aiox-core', 'development', 'tasks', 'health-check.yaml'),
       'utf8',
     );
     const expectedChecks = [

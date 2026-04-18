@@ -1,10 +1,10 @@
-# Synkra AIOS 安全最佳实践
+# Synkra AIOX 安全最佳实践
 
 > 🌐 [EN](../security-best-practices.md) | [PT](../pt/security-best-practices.md) | [ES](../es/security-best-practices.md)
 
 ---
 
-本指南为在生产环境中部署和维护 Synkra AIOS 提供了全面的安全建议。
+本指南为在生产环境中部署和维护 Synkra AIOX 提供了全面的安全建议。
 
 ## 目录
 
@@ -21,7 +21,7 @@
 
 ## 安全架构概述
 
-Synkra AIOS 实现了多层安全方法：
+Synkra AIOX 实现了多层安全方法：
 
 ```
 ┌─────────────────────────────────────────┐
@@ -217,7 +217,7 @@ CORS_ORIGIN=https://yourdomain.com
 # 审计日志
 AUDIT_LOG_ENABLED=true
 AUDIT_LOG_LEVEL=info
-AUDIT_LOG_FILE=/var/log/aios/audit.log
+AUDIT_LOG_FILE=/var/log/aiox/audit.log
 ```
 
 ### 文件权限
@@ -225,10 +225,10 @@ AUDIT_LOG_FILE=/var/log/aios/audit.log
 ```bash
 # 安全文件权限
 chmod 600 .env
-chmod 600 .aios/config.json
-chmod 600 .aios/users.json
-chmod 600 .aios/sessions.json
-chmod 700 .aios/
+chmod 600 .aiox/config.json
+chmod 600 .aiox/users.json
+chmod 600 .aiox/sessions.json
+chmod 700 .aiox/
 chmod 700 security/
 ```
 
@@ -607,4 +607,4 @@ const emergencyConfig = {
 
 **记住**：安全不是一次性的实现，而是一个持续的过程。定期审查、更新和改进对于维护安全系统至关重要。
 
-如有问题或安全问题，请联系：security@synkra/aios-core.dev
+如有问题或安全问题，请联系：security@synkra/aiox-core.dev

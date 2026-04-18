@@ -17,7 +17,7 @@
 
 | 方面         | 值                             |
 | ------------ | ------------------------------ |
-| 框架         | AIOS-FullStack                 |
+| 框架         | AIOX-FullStack                 |
 | 主要语言     | TypeScript/JavaScript          |
 | Squad 系统   | v4.2 (Task-First 架构)         |
 | 现有任务     | 8 个 squad-creator 任务        |
@@ -35,7 +35,7 @@
 | **名称**       | Craft                                      |
 | **职位**       | Squad Creator                              |
 | **图标**       | 🏗️                                         |
-| **文件**       | `.aios-core/development/agents/squad-creator.md` |
+| **文件**       | `.aiox-core/development/agents/squad-creator.md` |
 
 ### 现有任务
 
@@ -47,7 +47,7 @@
 | `*list-squads`     | squad-creator-list.md        | ✅ 就绪     | 列出本地 squads  |
 | `*migrate-squad`   | squad-creator-migrate.md     | ✅ 就绪     | 迁移旧格式       |
 | `*download-squad`  | squad-creator-download.md    | ⏳ 占位符   | 从注册表下载     |
-| `*publish-squad`   | squad-creator-publish.md     | ⏳ 占位符   | 发布到 aios-squads |
+| `*publish-squad`   | squad-creator-publish.md     | ⏳ 占位符   | 发布到 aiox-squads |
 | `*sync-squad-synkra` | squad-creator-sync-synkra.md | ⏳ 占位符  | 同步到市场       |
 
 ### 现有脚本
@@ -60,7 +60,7 @@
 | SquadDesigner   | squad-designer.js    | 从文档设计       |
 | SquadMigrator   | squad-migrator.js    | 迁移旧格式       |
 | SquadDownloader | squad-downloader.js  | 从注册表下载     |
-| SquadPublisher  | squad-publisher.js   | 发布到 aios-squads |
+| SquadPublisher  | squad-publisher.js   | 发布到 aiox-squads |
 
 ---
 

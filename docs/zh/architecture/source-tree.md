@@ -1,6 +1,6 @@
 <!-- 翻译: ZH-CN | 原始: /docs/pt/architecture/source-tree.md | 同步: 2026-02-22 -->
 
-# AIOS 代码树结构
+# AIOX 代码树结构
 
 > 🌐 [EN](../../architecture/source-tree.md) | [PT](../../pt/architecture/source-tree.md) | **ZH**
 
@@ -14,20 +14,20 @@
 
 ---
 
-# AIOS 代码树结构
+# AIOX 代码树结构
 
 **版本**: 1.1
 **最后更新**: 2025-12-14
 **状态**: 已弃用 - 请查看 docs/framework/source-tree.md
-**迁移通知**: 此文档将在 Q2 2026 迁移到 `SynkraAI/aios-core` 存储库（参见决策 005）
+**迁移通知**: 此文档将在 Q2 2026 迁移到 `SynkraAI/aiox-core` 存储库（参见决策 005）
 
 ---
 
 ## 📋 目录
 
 - [概述](#概述)
-- [当前结构 (aios-core Brownfield)](#当前结构-aios-core-brownfield)
-- [框架核心 (.aios-core/)](#框架核心-aios-core)
+- [当前结构 (aiox-core Brownfield)](#当前结构-aiox-core-brownfield)
+- [框架核心 (.aiox-core/)](#框架核心-aiox-core)
 - [文档 (docs/)](#文档-docs)
 - [Squad 系统](#squad-系统)
 - [未来结构 (Q2 2026 迁移后)](#未来结构-q2-2026-迁移后)
@@ -38,9 +38,9 @@
 
 ## 概述
 
-AIOS 使用**双层架构**:
+AIOX 使用**双层架构**:
 
-1. **框架核心** (`.aios-core/`) - 可移植框架组件
+1. **框架核心** (`.aiox-core/`) - 可移植框架组件
 2. **项目工作空间** (根目录) - 特定项目实现
 
 **理念**:
@@ -51,11 +51,11 @@ AIOS 使用**双层架构**:
 
 ---
 
-## 当前结构 (aios-core Brownfield)
+## 当前结构 (aiox-core Brownfield)
 
 ```
-aios-core/                             # 根目录 (brownfield 项目)
-├── .aios-core/                        # 框架核心 (可移植)
+aiox-core/                             # 根目录 (brownfield 项目)
+├── .aiox-core/                        # 框架核心 (可移植)
 │   ├── core/                          # 框架必要组件 (v4)
 │   │   ├── config/                    # 配置系统
 │   │   ├── data/                      # 核心知识库
@@ -88,8 +88,8 @@ aios-core/                             # 根目录 (brownfield 项目)
 │   └── squad/                         # Squad 模板用于扩展 (见 docs/guides/squads-guide.md)
 │
 ├── bin/                               # CLI 可执行文件
-│   ├── @synkra/aios-core.js              # 主 CLI 入口点
-│   └── aios-minimal.js                # 最小 CLI
+│   ├── @synkra/aiox-core.js              # 主 CLI 入口点
+│   └── aiox-minimal.js                # 最小 CLI
 │
 ├── tools/                             # 构建和实用工具
 │   ├── cli.js                         # CLI 构建器
@@ -125,16 +125,16 @@ aios-core/                             # 根目录 (brownfield 项目)
 
 ---
 
-## 框架核心 (.aios-core/)
+## 框架核心 (.aiox-core/)
 
-**目的**: 可在任何 AIOS 项目中工作的可移植框架组件。
+**目的**: 可在任何 AIOX 项目中工作的可移植框架组件。
 
 ### 目录结构
 
 ```
-.aios-core/
+.aiox-core/
 ├── agents/                            # 145 个代理定义
-│   ├── aios-master.md                 # 主编排器
+│   ├── aiox-master.md                 # 主编排器
 │   ├── dev.md                         # 开发代理
 │   ├── qa.md                          # QA 工程师代理
 │   ├── architect.md                   # 系统架构师代理
@@ -188,7 +188,7 @@ aios-core/                             # 根目录 (brownfield 项目)
 │   └── change-checklist.md            # 变更管理清单
 │
 ├── data/                              # 6 个知识库文件
-│   ├── aios-kb.md                     # AIOS 知识库
+│   ├── aiox-kb.md                     # AIOX 知识库
 │   ├── technical-preferences.md       # 技术栈偏好
 │   ├── elicitation-methods.md         # 启发方法
 │   ├── brainstorming-techniques.md    # 头脑风暴方法
@@ -231,37 +231,37 @@ aios-core/                             # 根目录 (brownfield 项目)
 
 ```yaml
 Agents:
-  位置: .aios-core/agents/
+  位置: .aiox-core/agents/
   格式: Markdown + YAML frontmatter
   命名: {agent-name}.md (kebab-case)
   示例: developer.md, qa-engineer.md
 
 Tasks:
-  位置: .aios-core/tasks/
+  位置: .aiox-core/tasks/
   格式: Workflow Markdown
   命名: {task-name}.md (kebab-case)
   示例: create-next-story.md, develop-story.md
 
 Templates:
-  位置: .aios-core/product/templates/
+  位置: .aiox-core/product/templates/
   格式: YAML 或 Markdown
   命名: {template-name}-tmpl.{yaml|md}
   示例: story-tmpl.yaml, prd-tmpl.md
 
 Workflows:
-  位置: .aios-core/workflows/
+  位置: .aiox-core/workflows/
   格式: YAML
   命名: {workflow-type}-{scope}.yaml
   示例: greenfield-fullstack.yaml, brownfield-service.yaml
 
 Checklists:
-  位置: .aios-core/product/checklists/
+  位置: .aiox-core/product/checklists/
   格式: Markdown
   命名: {checklist-name}-checklist.md
   示例: story-draft-checklist.md, architect-checklist.md
 
 Utilities:
-  位置: .aios-core/utils/
+  位置: .aiox-core/utils/
   格式: JavaScript (CommonJS)
   命名: {utility-name}.js (kebab-case)
   示例: component-generator.js, story-manager.js
@@ -290,7 +290,7 @@ docs/
 │   └── README.md                      # 迁移通知
 │
 ├── stories/                           # 开发故事
-│   ├── aios migration/                # AIOS 迁移故事
+│   ├── aiox migration/                # AIOX 迁移故事
 │   │   ├── story-6.1.2.1.md
 │   │   ├── story-6.1.2.2.md
 │   │   ├── story-6.1.2.3.md
@@ -365,7 +365,7 @@ docs/
 
 ### 概述
 
-Squad 是添加专用功能到 AIOS 的模块化扩展。不同于已弃用的 Squad，Squad 遵循标准化模板结构。
+Squad 是添加专用功能到 AIOX 的模块化扩展。不同于已弃用的 Squad，Squad 遵循标准化模板结构。
 
 ### Squad 模板位置
 
@@ -392,7 +392,7 @@ templates/squad/                       # 创建扩展的 Squad 模板
 
 ```bash
 # 计划中的 CLI (未来):
-npx create-aios-squad my-squad-name
+npx create-aiox-squad my-squad-name
 
 # 当前方法:
 cp -r templates/squad/ squads/my-squad-name/
@@ -422,7 +422,7 @@ workflows:
 
 # 依赖关系
 dependencies:
-  aios-core: '>=2.1.0'
+  aiox-core: '>=2.1.0'
 ```
 
 ### Squad 迁移
@@ -440,10 +440,10 @@ dependencies:
 
 **决策 005 定义 5 个单独存储库**:
 
-### 存储库 1: SynkraAI/aios-core (MIT)
+### 存储库 1: SynkraAI/aiox-core (MIT)
 
 ```
-aios-core/
+aiox-core/
 ├── src/                               # 源代码
 │   ├── core/                          # 核心编排引擎
 │   │   ├── agent-executor.js
@@ -454,7 +454,7 @@ aios-core/
 │   │   └── ide/                       # IDE 集成
 │   └── cli/                           # CLI 接口
 │
-├── .aios-core/                        # 框架资产 (当前结构)
+├── .aiox-core/                        # 框架资产 (当前结构)
 │   ├── agents/
 │   ├── tasks/
 │   ├── templates/
@@ -481,7 +481,7 @@ aios-core/
 
 ```
 squads/
-├── verified/                          # AIOS 审核的 Squad
+├── verified/                          # AIOX 审核的 Squad
 │   ├── github-devops/
 │   ├── db-sage/
 │   └── coderabbit-workflow/
@@ -496,7 +496,7 @@ squads/
 │   └── agent-squad/
 │
 └── tools/                             # Squad 开发工具
-    └── create-aios-squad/
+    └── create-aiox-squad/
 ```
 
 ### 存储库 3: SynkraAI/mcp-ecosystem (Apache 2.0)
@@ -504,9 +504,9 @@ squads/
 ```
 mcp-ecosystem/
 ├── presets/                           # MCP 预设 (Docker MCP Toolkit)
-│   ├── aios-dev/
-│   ├── aios-research/
-│   └── aios-docker/
+│   ├── aiox-dev/
+│   ├── aiox-research/
+│   └── aiox-docker/
 │
 ├── mcps/                              # MCP 基础配置
 │   ├── exa/
@@ -561,9 +561,9 @@ mmos/
 
 ```yaml
 目录: kebab-case (小写，用连字符分隔)
-  ✅ .aios-core/
+  ✅ .aiox-core/
   ✅ Squads/
-  ❌ .AIOS-Core/
+  ❌ .AIOX-Core/
   ❌ legacy-packs/
 
 文件 (代码): kebab-case + 扩展名
@@ -617,24 +617,24 @@ Epic:
 
 ```yaml
 # 我在创建新代理:
-位置: .aios-core/agents/{agent-name}.md
-示例: .aios-core/agents/security-expert.md
+位置: .aiox-core/agents/{agent-name}.md
+示例: .aiox-core/agents/security-expert.md
 
 # 我在创建新任务:
-位置: .aios-core/tasks/{task-name}.md
-示例: .aios-core/tasks/deploy-to-production.md
+位置: .aiox-core/tasks/{task-name}.md
+示例: .aiox-core/tasks/deploy-to-production.md
 
 # 我在创建新工作流:
-位置: .aios-core/workflows/{workflow-name}.yaml
-示例: .aios-core/workflows/continuous-deployment.yaml
+位置: .aiox-core/workflows/{workflow-name}.yaml
+示例: .aiox-core/workflows/continuous-deployment.yaml
 
 # 我在创建新模板:
-位置: .aios-core/product/templates/{template-name}-tmpl.{yaml|md}
-示例: .aios-core/product/templates/deployment-plan-tmpl.yaml
+位置: .aiox-core/product/templates/{template-name}-tmpl.{yaml|md}
+示例: .aiox-core/product/templates/deployment-plan-tmpl.yaml
 
 # 我在编写故事:
 位置: docs/stories/{epic-context}/{story-file}.md
-示例: docs/stories/aios migration/story-6.1.2.6.md
+示例: docs/stories/aiox migration/story-6.1.2.6.md
 
 # 我在记录架构决策:
 位置: docs/architecture/project-decisions/{decision-file}.md
@@ -645,8 +645,8 @@ Epic:
 示例: docs/framework/agent-development-guide.md
 
 # 我在创建实用脚本:
-位置: .aios-core/utils/{utility-name}.js
-示例: .aios-core/utils/performance-monitor.js
+位置: .aiox-core/utils/{utility-name}.js
+示例: .aiox-core/utils/performance-monitor.js
 
 # 我在创建测试:
 位置: tests/{type}/{test-name}.test.js
@@ -709,4 +709,4 @@ outputs/                               # 运行时输出 (gitignored)
 
 ---
 
-_这是 AIOS 框架的官方模式。所有文件放置应遵循此结构。_
+_这是 AIOX 框架的官方模式。所有文件放置应遵循此结构。_

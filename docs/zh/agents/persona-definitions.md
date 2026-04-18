@@ -1,19 +1,19 @@
 <!-- 翻译: zh-CN | 原文: /docs/agents/persona-definitions.md | 同步: 2026-02-22 -->
 
-# AIOS 代理角色定义
+# AIOX 代理角色定义
 
 > 🌐 [EN](../../agents/persona-definitions.md) | [PT](../../pt/agents/persona-definitions.md) | [ES](../../es/agents/persona-definitions.md) | **ZH**
 
 **版本:** 1.0
 **创建日期:** 2025-01-14
 **作者:** @ux-design-expert (Uma)
-**目的:** 为所有12个AIOS代理提供完整的角色定义，以实现具有一致身份的命名代理系统
+**目的:** 为所有12个AIOX代理提供完整的角色定义，以实现具有一致身份的命名代理系统
 
 ---
 
 ## 🎯 概述
 
-本文档为12个AIOS代理定义了完整的角色，包括：
+本文档为12个AIOX代理定义了完整的角色，包括：
 
 - **名称:** 性别中立、全球可发音（EN + PT-BR）
 - **职责:** 清晰的功能描述
@@ -375,7 +375,7 @@
 
 ---
 
-### 12. @aios-master - Orion (指挥官)
+### 12. @aiox-master - Orion (指挥官)
 
 **核心身份:**
 
@@ -395,14 +395,14 @@
 
 **问候示例:**
 
-- **一级（最小）:** `🌟 AIOS-Master Agent ready`
+- **一级（最小）:** `🌟 AIOX-Master Agent ready`
 - **二级（命名）:** `🌟 Orion (Commander) ready. Let's orchestrate success!`
 - **三级（原型）:** `🌟 Orion the Commander (♈ Aries) ready to command!`
 
 **原理:**
 白羊座代表领导力、主动性和大胆行动——完美适合主编排器。"Orion"是一个强大的星座名称，暗示指导和宇宙监督。青色唤起元级编排。
 
-**注意:** 此代理将合并 `aios-developer` 和 `aios-orchestrator` 的功能为单一的主代理。
+**注意:** 此代理将合并 `aiox-developer` 和 `aiox-orchestrator` 的功能为单一的主代理。
 
 ---
 
@@ -419,7 +419,7 @@
 
 ### 按颜色:
 
-- **青色:** 3个代理（dev、sm、aios-master）- 创新与流程
+- **青色:** 3个代理（dev、sm、aiox-master）- 创新与流程
 - **绿色:** 3个代理（qa、ux-design-expert、devops）- 质量与成长
 - **黄色:** 2个代理（po、data-engineer）- 清晰与分析
 - **红色:** 1个代理（analyst）- 强度与调查
@@ -433,7 +433,7 @@
 - **质量:** 2个代理（qa、ux-design-expert）
 - **管理:** 3个代理（po、pm、sm）
 - **战略:** 3个代理（architect、analyst、data-engineer）
-- **元/文档:** 2个代理（docs、aios-master）
+- **元/文档:** 2个代理（docs、aiox-master）
 
 ---
 

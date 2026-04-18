@@ -26,8 +26,8 @@ Generic checklist execution engine. Validates work against any `.md` checklist w
 
 Parse `$ARGUMENTS` for checklist name. Search in order:
 
-1. `.aios-core/development/checklists/{name}.md`
-2. `.aios-core/development/checklists/{name}`
+1. `.aiox-core/development/checklists/{name}.md`
+2. `.aiox-core/development/checklists/{name}`
 3. Fuzzy match if exact not found (e.g., "dod" → "story-dod-checklist.md")
 
 If no checklist specified or multiple matches, present numbered options list.

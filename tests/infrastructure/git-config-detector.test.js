@@ -15,7 +15,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Import the class under test
-const GitConfigDetector = require('../../.aios-core/infrastructure/scripts/git-config-detector');
+const GitConfigDetector = require('../../.aiox-core/infrastructure/scripts/git-config-detector');
 
 describe('GitConfigDetector — _detectBranchDirect()', () => {
   let detector;

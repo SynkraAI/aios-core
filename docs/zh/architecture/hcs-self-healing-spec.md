@@ -16,7 +16,7 @@
 
 ## 执行摘要
 
-本文档指定了 AIOS 健康检查系统 (HCS) 的自动恢复能力。自动恢复允许系统自动纠正某些问题,同时保持安全性和用户控制。
+本文档指定了 AIOX 健康检查系统 (HCS) 的自动恢复能力。自动恢复允许系统自动纠正某些问题,同时保持安全性和用户控制。
 
 ### 基本原则
 
@@ -59,8 +59,8 @@
 
 | 操作                | 描述                                      | 备份 |
 | ------------------- | ----------------------------------------- | ---- |
-| `recreate_config`   | 从模板重新创建缺失的 `.aios/config.yaml` | 是   |
-| `clear_cache`       | 清除 `.aios/cache/` 中的过期缓存文件     | 是   |
+| `recreate_config`   | 从模板重新创建缺失的 `.aiox/config.yaml` | 是   |
+| `clear_cache`       | 清除 `.aiox/cache/` 中的过期缓存文件     | 是   |
 | `create_dirs`       | 创建缺失的框架目录                        | 否   |
 | `fix_permissions`   | 修复框架文件权限                          | 是   |
 | `regenerate_lockfile` | 再生成包锁文件完整性                     | 是   |
@@ -117,7 +117,7 @@
 neverAutoFix:
   files:
     - '**/*.{js,ts,jsx,tsx,py,go,rs}' # 源代码
-    - '**/*.{json,yaml,yml}' # 用户配置(out of .aios/)
+    - '**/*.{json,yaml,yml}' # 用户配置(out of .aiox/)
     - '.env*' # 环境文件
     - '**/secrets/**' # 密钥
     - '**/credentials*' # 凭证

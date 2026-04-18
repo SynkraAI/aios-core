@@ -1,6 +1,6 @@
 <!-- 翻译：zh-CN 原文：/docs/installation/linux.md 最后同步：2026-02-22 -->
 
-# Synkra AIOS Linux 安装指南
+# Synkra AIOX Linux 安装指南
 
 > 🌐 [EN](../../installation/linux.md) | [PT](../pt/installation/linux.md) | [ES](../es/installation/linux.md)
 
@@ -155,7 +155,7 @@ sudo pacman -S base-devel
 3. 运行安装程序：
 
    ```bash
-   npx github:SynkraAI/aios-core install
+   npx github:SynkraAI/aiox-core install
    ```
 
 ### 手动安装
@@ -164,16 +164,16 @@ sudo pacman -S base-devel
 
 ```bash
 # 克隆仓库
-git clone https://github.com/SynkraAI/aios-core.git ~/.aios-core-source
+git clone https://github.com/SynkraAI/aiox-core.git ~/.aiox-core-source
 
 # 导航到源目录
-cd ~/.aios-core-source
+cd ~/.aiox-core-source
 
 # 安装依赖
 npm install
 
 # 为您的项目运行安装程序
-node bin/aios-init.js ~/projects/my-project
+node bin/aiox-init.js ~/projects/my-project
 ```
 
 ### 安装程序的作用
@@ -215,13 +215,13 @@ node bin/aios-init.js ~/projects/my-project
    npm install -g @anthropic-ai/claude-code
    ```
 
-2. 命令安装到 `.claude/commands/AIOS/`
+2. 命令安装到 `.claude/commands/AIOX/`
 3. 使用 `/agent-name` 激活代理
 
 ### VS Code（使用 Continue 扩展）
 
 1. 安装 Continue 扩展
-2. 在 `.continue/` 中配置 AIOS 规则
+2. 在 `.continue/` 中配置 AIOX 规则
 
 ---
 
@@ -251,7 +251,7 @@ npm config set prefix '~/.local'
 export PATH="$HOME/.local/bin:$PATH"
 
 # 选项 2：修复项目权限
-chmod -R u+rwX .aios-core
+chmod -R u+rwX .aiox-core
 chmod -R u+rwX .claude
 ```
 
@@ -330,9 +330,9 @@ export NVM_DIR="$HOME/.nvm"
 # npm 全局包
 export PATH="$HOME/.npm-global/bin:$PATH"
 
-# AIOS 配置
-export AIOS_HOME="$HOME/.aios-core"
-export PATH="$AIOS_HOME/bin:$PATH"
+# AIOX 配置
+export AIOX_HOME="$HOME/.aiox-core"
+export PATH="$AIOX_HOME/bin:$PATH"
 
 # 编辑器偏好设置（用于 git 提交等）
 export EDITOR=vim  # 或 code, nano 等
@@ -340,13 +340,13 @@ export EDITOR=vim  # 或 code, nano 等
 
 ### XDG Base Directory 合规性
 
-Synkra AIOS 遵守 XDG 目录：
+Synkra AIOX 遵守 XDG 目录：
 
 ```bash
-# 数据文件：~/.local/share/aios/
-# 配置文件：~/.config/aios/
-# 缓存：~/.cache/aios/
-# 状态：~/.local/state/aios/
+# 数据文件：~/.local/share/aiox/
+# 配置文件：~/.config/aiox/
+# 缓存：~/.cache/aiox/
+# 状态：~/.local/state/aiox/
 ```
 
 ---
@@ -357,19 +357,19 @@ Synkra AIOS 遵守 XDG 目录：
 
 ```bash
 # 使用 npx（推荐）
-npx github:SynkraAI/aios-core install
+npx github:SynkraAI/aiox-core install
 
 # 手动更新
-cd ~/.aios-core-source
+cd ~/.aiox-core-source
 git pull
 npm install
-node bin/aios-init.js ~/projects/my-project --update
+node bin/aiox-init.js ~/projects/my-project --update
 ```
 
 更新程序将：
 
 - 检测现有安装
-- 将任何自定义备份到 `.aios-backup/`
+- 将任何自定义备份到 `.aiox-backup/`
 - 仅更新已更改的文件
 - 保留您的配置
 
@@ -382,11 +382,11 @@ node bin/aios-init.js ~/projects/my-project --update
 快速卸载：
 
 ```bash
-# 从项目中删除 AIOS
-rm -rf .aios-core .claude/commands/AIOS
+# 从项目中删除 AIOX
+rm -rf .aiox-core .claude/commands/AIOX
 
 # 删除全局安装
-rm -rf ~/.aios-core-source ~/.npm-global/lib/node_modules/@synkra
+rm -rf ~/.aiox-core-source ~/.npm-global/lib/node_modules/@synkra
 ```
 
 ---
@@ -444,4 +444,4 @@ rm -rf ~/.aios-core-source ~/.npm-global/lib/node_modules/@synkra
 - [故障排除指南](troubleshooting.md)
 - [常见问题](faq.md)
 - [Discord 社区](https://discord.gg/gk8jAdXWmj)
-- [GitHub Issues](https://github.com/SynkraAI/aios-core/issues)
+- [GitHub Issues](https://github.com/SynkraAI/aiox-core/issues)

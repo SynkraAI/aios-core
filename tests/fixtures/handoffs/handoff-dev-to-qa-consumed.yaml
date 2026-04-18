@@ -12,7 +12,7 @@ handoff:
     - Implemented workflow-chains.yaml
     - Added step 5.5 to all agents
   files_modified:
-    - .aios-core/data/workflow-chains.yaml
+    - .aiox-core/data/workflow-chains.yaml
   blockers: []
   next_action: Review story implementation
   consumed: true

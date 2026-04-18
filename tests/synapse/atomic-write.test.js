@@ -8,7 +8,7 @@
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
-const { atomicWriteSync } = require('../../.aios-core/core/synapse/utils/atomic-write');
+const { atomicWriteSync } = require('../../.aiox-core/core/synapse/utils/atomic-write');
 
 describe('atomicWriteSync', () => {
   let tmpDir;

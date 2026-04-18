@@ -16,7 +16,7 @@ const path = require('path');
 
 // Mock parseManifest before requiring manifest-collector
 jest.mock(
-  '../../../.aios-core/core/synapse/domain/domain-loader',
+  '../../../.aiox-core/core/synapse/domain/domain-loader',
   () => ({
     parseManifest: jest.fn(),
     loadDomainFile: jest.fn(() => []),
@@ -29,12 +29,12 @@ jest.mock(
   })
 );
 
-const { collectHookStatus } = require('../../../.aios-core/core/synapse/diagnostics/collectors/hook-collector');
-const { collectSessionStatus } = require('../../../.aios-core/core/synapse/diagnostics/collectors/session-collector');
-const { collectManifestIntegrity } = require('../../../.aios-core/core/synapse/diagnostics/collectors/manifest-collector');
-const { collectPipelineSimulation } = require('../../../.aios-core/core/synapse/diagnostics/collectors/pipeline-collector');
-const { collectUapBridgeStatus } = require('../../../.aios-core/core/synapse/diagnostics/collectors/uap-collector');
-const { parseManifest } = require('../../../.aios-core/core/synapse/domain/domain-loader');
+const { collectHookStatus } = require('../../../.aiox-core/core/synapse/diagnostics/collectors/hook-collector');
+const { collectSessionStatus } = require('../../../.aiox-core/core/synapse/diagnostics/collectors/session-collector');
+const { collectManifestIntegrity } = require('../../../.aiox-core/core/synapse/diagnostics/collectors/manifest-collector');
+const { collectPipelineSimulation } = require('../../../.aiox-core/core/synapse/diagnostics/collectors/pipeline-collector');
+const { collectUapBridgeStatus } = require('../../../.aiox-core/core/synapse/diagnostics/collectors/uap-collector');
+const { parseManifest } = require('../../../.aiox-core/core/synapse/domain/domain-loader');
 
 // ---------------------------------------------------------------------------
 // Helpers

@@ -15,7 +15,7 @@
 
 ## 执行摘要
 
-本文档为所有 AIOS 代理定义了清晰的责任界限，特别关注:
+本文档为所有 AIOX 代理定义了清晰的责任界限，特别关注:
 1. **GitHub DevOps 集中化** - 仅 @github-devops 可推送到远程存储库
 2. **数据架构专业化** - @data-architect 管理数据库/数据科学
 3. **分支管理划分** - @sm (本地) vs @github-devops (远程)
@@ -50,13 +50,13 @@
 
 1. **Git 前推送钩子** (主要应用)
    - 位置: `.git/hooks/pre-push`
-   - 检查: 环境变量 `$AIOS_ACTIVE_AGENT`
+   - 检查: 环境变量 `$AIOX_ACTIVE_AGENT`
    - 动作: 如果 agent != "github-devops" 则阻止推送
 
 2. **环境变量** (运行时检测)
    ```bash
-   export AIOS_ACTIVE_AGENT="github-devops"
-   export AIOS_GIT_PUSH_ALLOWED="true"
+   export AIOX_ACTIVE_AGENT="github-devops"
+   export AIOX_GIT_PUSH_ALLOWED="true"
    ```
 
 3. **代理定义** (文档 + 限制)
@@ -378,7 +378,7 @@ gh pr merge
 
 - [ ] **创建 Git 前推送钩子**
   - 位置: `.git/hooks/pre-push`
-  - 内容: 检查 `$AIOS_ACTIVE_AGENT`，如果 != "github-devops" 则阻止
+  - 内容: 检查 `$AIOX_ACTIVE_AGENT`，如果 != "github-devops" 则阻止
   - 使其可执行: `chmod +x .git/hooks/pre-push`
 
 - [ ] **更新所有代理定义** (完成 ✅)
@@ -390,8 +390,8 @@ gh pr merge
   - [x] @data-architect - 创建有数据专业化
 
 - [ ] **更新代理激活脚本**
-  - 添加环境变量配置: `AIOS_ACTIVE_AGENT={agent_id}`
-  - 适当设置 `AIOS_GIT_PUSH_ALLOWED`
+  - 添加环境变量配置: `AIOX_ACTIVE_AGENT={agent_id}`
+  - 适当设置 `AIOX_GIT_PUSH_ALLOWED`
 
 - [ ] **IDE 配置** (.claude/settings.json)
   - 为每个代理添加 `agents.{id}.blockedOperations`

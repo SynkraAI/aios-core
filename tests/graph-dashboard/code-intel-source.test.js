@@ -8,18 +8,18 @@ const mockClient = {
   analyzeDependencies: jest.fn().mockImplementation(async () => mockAnalyzeResult),
 };
 
-jest.mock('../../.aios-core/core/code-intel', () => ({
+jest.mock('../../.aiox-core/core/code-intel', () => ({
   getClient: () => mockClient,
   isCodeIntelAvailable: () => mockIsAvailable,
 }));
 
-jest.mock('../../.aios-core/core/ids/registry-loader', () => ({
+jest.mock('../../.aiox-core/core/ids/registry-loader', () => ({
   RegistryLoader: jest.fn().mockImplementation(() => ({
     load: () => mockRegistryData,
   })),
 }));
 
-const { CodeIntelSource, _classifyScript, _detectCategory } = require('../../.aios-core/core/graph-dashboard/data-sources/code-intel-source');
+const { CodeIntelSource, _classifyScript, _detectCategory } = require('../../.aiox-core/core/graph-dashboard/data-sources/code-intel-source');
 
 describe('CodeIntelSource', () => {
   let source;
@@ -169,7 +169,7 @@ describe('CodeIntelSource', () => {
   describe('getData - registry fallback error', () => {
     it('should return empty graph when RegistryLoader throws', async () => {
       mockRegistryData = null;
-      const { RegistryLoader } = require('../../.aios-core/core/ids/registry-loader');
+      const { RegistryLoader } = require('../../.aiox-core/core/ids/registry-loader');
       RegistryLoader.mockImplementationOnce(() => ({
         load: () => { throw new Error('Registry file missing'); },
       }));
@@ -197,15 +197,15 @@ describe('CodeIntelSource', () => {
 
   describe('_classifyScript', () => {
     it('should classify development scripts as scripts/task', () => {
-      expect(_classifyScript('.aios-core/development/scripts/build.js')).toBe('scripts/task');
+      expect(_classifyScript('.aiox-core/development/scripts/build.js')).toBe('scripts/task');
     });
 
     it('should classify core scripts as scripts/engine', () => {
-      expect(_classifyScript('.aios-core/core/graph-dashboard/cli.js')).toBe('scripts/engine');
+      expect(_classifyScript('.aiox-core/core/graph-dashboard/cli.js')).toBe('scripts/engine');
     });
 
     it('should classify infrastructure scripts as scripts/infra', () => {
-      expect(_classifyScript('.aios-core/infrastructure/ci/deploy.js')).toBe('scripts/infra');
+      expect(_classifyScript('.aiox-core/infrastructure/ci/deploy.js')).toBe('scripts/infra');
     });
 
     it('should default to scripts/task for unknown paths', () => {
@@ -215,34 +215,34 @@ describe('CodeIntelSource', () => {
 
   describe('_detectCategory', () => {
     it('should detect checklists from path', () => {
-      expect(_detectCategory('other', '.aios-core/development/checklists/pre-push.md')).toBe('checklists');
+      expect(_detectCategory('other', '.aiox-core/development/checklists/pre-push.md')).toBe('checklists');
     });
 
     it('should detect workflows from path', () => {
-      expect(_detectCategory('other', '.aios-core/development/workflows/deploy.yaml')).toBe('workflows');
+      expect(_detectCategory('other', '.aiox-core/development/workflows/deploy.yaml')).toBe('workflows');
     });
 
     it('should detect utils from path', () => {
-      expect(_detectCategory('other', '.aios-core/utils/helper.js')).toBe('utils');
+      expect(_detectCategory('other', '.aiox-core/utils/helper.js')).toBe('utils');
     });
 
     it('should detect data from path', () => {
-      expect(_detectCategory('other', '.aios-core/data/entity-registry.yaml')).toBe('data');
+      expect(_detectCategory('other', '.aiox-core/data/entity-registry.yaml')).toBe('data');
     });
 
     it('should detect tools from path', () => {
-      expect(_detectCategory('other', '.aios-core/development/tools/coderabbit.md')).toBe('tools');
+      expect(_detectCategory('other', '.aiox-core/development/tools/coderabbit.md')).toBe('tools');
     });
 
     it('should subcategorize scripts by directory', () => {
-      expect(_detectCategory('scripts', '.aios-core/development/scripts/build.js')).toBe('scripts/task');
-      expect(_detectCategory('scripts', '.aios-core/core/code-intel/index.js')).toBe('scripts/engine');
-      expect(_detectCategory('scripts', '.aios-core/infrastructure/ci/lint.js')).toBe('scripts/infra');
+      expect(_detectCategory('scripts', '.aiox-core/development/scripts/build.js')).toBe('scripts/task');
+      expect(_detectCategory('scripts', '.aiox-core/core/code-intel/index.js')).toBe('scripts/engine');
+      expect(_detectCategory('scripts', '.aiox-core/infrastructure/ci/lint.js')).toBe('scripts/infra');
     });
 
     it('should return base category when no path match', () => {
-      expect(_detectCategory('agents', '.aios-core/development/agents/dev.md')).toBe('agents');
-      expect(_detectCategory('tasks', '.aios-core/development/tasks/build.md')).toBe('tasks');
+      expect(_detectCategory('agents', '.aiox-core/development/agents/dev.md')).toBe('agents');
+      expect(_detectCategory('tasks', '.aiox-core/development/tasks/build.md')).toBe('tasks');
     });
 
     it('should handle empty path gracefully', () => {
@@ -257,11 +257,11 @@ describe('CodeIntelSource', () => {
         metadata: { entityCount: 2 },
         entities: {
           scripts: {
-            'build-script': { path: '.aios-core/development/scripts/build.js', type: 'script', dependencies: [] },
-            'engine-script': { path: '.aios-core/core/graph-dashboard/cli.js', type: 'script', dependencies: [] },
+            'build-script': { path: '.aiox-core/development/scripts/build.js', type: 'script', dependencies: [] },
+            'engine-script': { path: '.aiox-core/core/graph-dashboard/cli.js', type: 'script', dependencies: [] },
           },
           other: {
-            'my-checklist': { path: '.aios-core/development/checklists/pre-push.md', type: 'checklist', dependencies: [] },
+            'my-checklist': { path: '.aiox-core/development/checklists/pre-push.md', type: 'checklist', dependencies: [] },
           },
         },
       };
@@ -283,11 +283,11 @@ describe('CodeIntelSource', () => {
         metadata: { entityCount: 3 },
         entities: {
           agents: {
-            'dev-agent': { path: '.aios-core/agents/dev.md', type: 'agent', lifecycle: 'production', dependencies: [], usedBy: [] },
-            'old-agent': { path: '.aios-core/agents/old.md', type: 'agent', lifecycle: 'deprecated', dependencies: [], usedBy: [] },
+            'dev-agent': { path: '.aiox-core/agents/dev.md', type: 'agent', lifecycle: 'production', dependencies: [], usedBy: [] },
+            'old-agent': { path: '.aiox-core/agents/old.md', type: 'agent', lifecycle: 'deprecated', dependencies: [], usedBy: [] },
           },
           tasks: {
-            'orphan-task': { path: '.aios-core/tasks/orphan.md', type: 'task', lifecycle: 'orphan', dependencies: [], usedBy: [] },
+            'orphan-task': { path: '.aiox-core/tasks/orphan.md', type: 'task', lifecycle: 'orphan', dependencies: [], usedBy: [] },
           },
         },
       };
@@ -307,7 +307,7 @@ describe('CodeIntelSource', () => {
         metadata: { entityCount: 1 },
         entities: {
           agents: {
-            'no-lifecycle': { path: '.aios-core/agents/test.md', type: 'agent', dependencies: [], usedBy: [] },
+            'no-lifecycle': { path: '.aiox-core/agents/test.md', type: 'agent', dependencies: [], usedBy: [] },
           },
         },
       };

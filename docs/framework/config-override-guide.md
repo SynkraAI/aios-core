@@ -1,23 +1,23 @@
 # Configuration Override Guide
 
-Reference documentation for the AIOS layered config system (ADR-PRO-002).
+Reference documentation for the AIOX layered config system (ADR-PRO-002).
 
 ---
 
 ## Config Hierarchy
 
 ```
-L1 Framework (.aios-core/framework-config.yaml)   — Read-only, shipped with npm
+L1 Framework (.aiox-core/framework-config.yaml)   — Read-only, shipped with npm
   ↓ deep merge
-L2 Project (.aios-core/project-config.yaml)        — Team-shared, committed
+L2 Project (.aiox-core/project-config.yaml)        — Team-shared, committed
   ↓ deep merge
 Pro Extension (pro/pro-config.yaml)                 — Optional Pro submodule
   ↓ deep merge
-L3 App ({appDir}/aios-app.config.yaml)             — Monorepo app-specific
+L3 App ({appDir}/aiox-app.config.yaml)             — Monorepo app-specific
   ↓ deep merge
-L4 Local (.aios-core/local-config.yaml)            — Machine-specific, gitignored
+L4 Local (.aiox-core/local-config.yaml)            — Machine-specific, gitignored
   ↓ deep merge
-L5 User (~/.aios/user-config.yaml)                 — Cross-project user prefs
+L5 User (~/.aiox/user-config.yaml)                 — Cross-project user prefs
 ```
 
 Higher levels override lower levels. See `merge-utils.js` for merge semantics.
@@ -55,16 +55,16 @@ This appends `my-custom-helper` to the L1 default helpers array.
 
 | Key | Type | Default | Override Level | Description |
 |-----|------|---------|---------------|-------------|
-| `metadata.name` | string | `"Synkra AIOS"` | Never | Framework name |
+| `metadata.name` | string | `"Synkra AIOX"` | Never | Framework name |
 | `metadata.framework_version` | string | `"4.0.0"` | Never | Framework version |
 | `markdownExploder` | boolean | `true` | L2+ | Enable markdown exploder |
-| `resource_locations.agents_dir` | string | `.aios-core/development/agents` | L2+ | Agent definitions path |
-| `resource_locations.tasks_dir` | string | `.aios-core/development/tasks` | L2+ | Task definitions path |
-| `resource_locations.templates_dir` | string | `.aios-core/development/templates` | L2+ | Templates path |
-| `resource_locations.checklists_dir` | string | `.aios-core/development/checklists` | L2+ | Checklists path |
-| `resource_locations.tools_dir` | string | `.aios-core/tools` | L2+ | Tools path |
+| `resource_locations.agents_dir` | string | `.aiox-core/development/agents` | L2+ | Agent definitions path |
+| `resource_locations.tasks_dir` | string | `.aiox-core/development/tasks` | L2+ | Task definitions path |
+| `resource_locations.templates_dir` | string | `.aiox-core/development/templates` | L2+ | Templates path |
+| `resource_locations.checklists_dir` | string | `.aiox-core/development/checklists` | L2+ | Checklists path |
+| `resource_locations.tools_dir` | string | `.aiox-core/tools` | L2+ | Tools path |
 | `resource_locations.scripts.*` | string | various | L2+ | Script paths by category |
-| `resource_locations.data_dir` | string | `.aios-core/data` | L2+ | Data directory |
+| `resource_locations.data_dir` | string | `.aiox-core/data` | L2+ | Data directory |
 | `performance_defaults.lazy_loading.enabled` | boolean | `true` | L2+ | Lazy loading toggle |
 | `performance_defaults.lazy_loading.heavy_sections` | array | `[pvMindContext, squads, registry]` | L2+ | Sections to lazy-load |
 | `performance_defaults.git.cache_time_seconds` | integer | `300` | L4+ | Git cache TTL |
@@ -77,7 +77,7 @@ This appends `my-custom-helper` to the L1 default helpers array.
 
 | Key | Type | Description |
 |-----|------|-------------|
-| `project.type` | string | `EXISTING_AIOS`, `NEW_PROJECT`, `BROWNFIELD` |
+| `project.type` | string | `EXISTING_AIOX`, `NEW_PROJECT`, `BROWNFIELD` |
 | `project.version` | string | Project config version |
 | `documentation_paths.stories_dir` | string | Stories directory |
 | `documentation_paths.dev_load_always_files` | array | Files loaded on dev activation |
@@ -102,7 +102,7 @@ This appends `my-custom-helper` to the L1 default helpers array.
 | `ide.editor` | string | IDE preference |
 | `mcp.docker_gateway.enabled` | boolean | Docker MCP toggle |
 
-### L5 User Keys (~/.aios/user-config.yaml)
+### L5 User Keys (~/.aiox/user-config.yaml)
 
 | Key | Type | Description |
 |-----|------|-------------|
@@ -166,7 +166,7 @@ Schemas validate configs at load time via Ajv. Invalid configs produce warnings 
 project-config.yaml inválido: campo 'boundary/frameworkProtection' must be boolean
 ```
 
-Schema files: `.aios-core/core/config/schemas/`
+Schema files: `.aiox-core/core/config/schemas/`
 
 ---
 

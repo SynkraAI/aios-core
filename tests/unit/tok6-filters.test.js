@@ -8,10 +8,10 @@
 
 'use strict';
 
-const { filterContent, stripHtml, truncateAtBoundary, extractFields, CHARS_PER_TOKEN } = require('../../.aios-core/utils/filters/content-filter');
-const { filterSchema, projectFields } = require('../../.aios-core/utils/filters/schema-filter');
-const { filterFields } = require('../../.aios-core/utils/filters/field-filter');
-const { applyFilter, loadFilterConfig } = require('../../.aios-core/utils/filters/index');
+const { filterContent, stripHtml, truncateAtBoundary, extractFields, CHARS_PER_TOKEN } = require('../../.aiox-core/utils/filters/content-filter');
+const { filterSchema, projectFields } = require('../../.aiox-core/utils/filters/schema-filter');
+const { filterFields } = require('../../.aiox-core/utils/filters/field-filter');
+const { applyFilter, loadFilterConfig } = require('../../.aiox-core/utils/filters/index');
 const path = require('path');
 
 // =============================================================================
@@ -201,14 +201,14 @@ describe('schema-filter.js', () => {
 // =============================================================================
 describe('constants.js', () => {
   it('exports CHARS_PER_TOKEN as 4', () => {
-    const { CHARS_PER_TOKEN } = require('../../.aios-core/utils/filters/constants');
+    const { CHARS_PER_TOKEN } = require('../../.aiox-core/utils/filters/constants');
     expect(CHARS_PER_TOKEN).toBe(4);
   });
 
   it('is the same value used by content-filter and schema-filter', () => {
-    const { CHARS_PER_TOKEN: contentCPT } = require('../../.aios-core/utils/filters/content-filter');
-    const { CHARS_PER_TOKEN: schemaCPT } = require('../../.aios-core/utils/filters/schema-filter');
-    const { CHARS_PER_TOKEN: sharedCPT } = require('../../.aios-core/utils/filters/constants');
+    const { CHARS_PER_TOKEN: contentCPT } = require('../../.aiox-core/utils/filters/content-filter');
+    const { CHARS_PER_TOKEN: schemaCPT } = require('../../.aiox-core/utils/filters/schema-filter');
+    const { CHARS_PER_TOKEN: sharedCPT } = require('../../.aiox-core/utils/filters/constants');
     expect(contentCPT).toBe(sharedCPT);
     expect(schemaCPT).toBe(sharedCPT);
   });
@@ -289,7 +289,7 @@ describe('field-filter.js', () => {
 // index.js tests
 // =============================================================================
 describe('index.js (filter dispatcher)', () => {
-  const registryPath = path.join(__dirname, '..', '..', '.aios-core', 'data', 'tool-registry.yaml');
+  const registryPath = path.join(__dirname, '..', '..', '.aiox-core', 'data', 'tool-registry.yaml');
 
   describe('loadFilterConfig', () => {
     it('loads filter config for exa from registry', () => {

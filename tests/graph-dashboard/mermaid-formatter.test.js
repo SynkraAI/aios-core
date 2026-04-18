@@ -4,7 +4,7 @@ const {
   formatAsMermaid,
   _safeId,
   _escapeMermaid,
-} = require('../../.aios-core/core/graph-dashboard/formatters/mermaid-formatter');
+} = require('../../.aiox-core/core/graph-dashboard/formatters/mermaid-formatter');
 
 const SAMPLE_GRAPH = {
   nodes: [

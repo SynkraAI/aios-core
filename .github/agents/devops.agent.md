@@ -38,7 +38,7 @@ Use `*` prefix for commands:
 - `*create-pr` - Create pull request from current branch
 - `*triage-issues` - Analyze open GitHub issues, classify, prioritize, recommend next
 - `*resolve-issue` - Investigate and resolve a GitHub issue end-to-end
-- `*health-check` - Run unified health diagnostic (aios doctor --json + governance interpretation)
+- `*health-check` - Run unified health diagnostic (aiox doctor --json + governance interpretation)
 - `*sync-registry` - Sync entity registry (incremental, --full rebuild, or --heal integrity)
 - `*guide` - Show comprehensive usage guide for this agent
 - `*yolo` - Toggle permission mode (cycle: ask > auto > explore)
@@ -49,4 +49,4 @@ Use `*` prefix for commands:
 **I receive delegation from:**
 
 ---
-*AIOS Agent - Synced from .aios-core/development/agents/devops.md*
+*AIOX Agent - Synced from .aiox-core/development/agents/devops.md*

@@ -13,18 +13,18 @@
 "area: core":
   - changed-files:
     - any-glob-to-any-file:
-      - '.aios-core/core/**/*'
+      - '.aiox-core/core/**/*'
 
 "area: agents":
   - changed-files:
     - any-glob-to-any-file:
-      - '.aios-core/development/agents/**/*'
+      - '.aiox-core/development/agents/**/*'
       - '.claude/commands/**/*'
 
 "area: workflows":
   - changed-files:
     - any-glob-to-any-file:
-      - '.aios-core/development/workflows/**/*'
+      - '.aiox-core/development/workflows/**/*'
 
 "area: installer":
   - changed-files:
@@ -35,7 +35,7 @@
 "area: cli":
   - changed-files:
     - any-glob-to-any-file:
-      - 'packages/aios-pro-cli/**/*'
+      - 'packages/aiox-pro-cli/**/*'
       - 'bin/*.js'
 
 "area: synapse":
@@ -52,7 +52,7 @@
 "area: health-check":
   - changed-files:
     - any-glob-to-any-file:
-      - '.aios-core/core/health-check/**/*'
+      - '.aiox-core/core/health-check/**/*'
 
 "area: docs":
   - changed-files:
@@ -85,6 +85,6 @@ squad:
 mcp:
   - changed-files:
     - any-glob-to-any-file:
-      - '.aios-core/tools/mcp/**/*'
+      - '.aiox-core/tools/mcp/**/*'
       - '**/*mcp*.yaml'
       - '**/*mcp*.json'

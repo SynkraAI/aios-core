@@ -9,7 +9,7 @@ const {
   _renderFailures,
   _renderCacheEntries,
   _renderUptime,
-} = require('../../.aios-core/core/graph-dashboard/renderers/status-renderer');
+} = require('../../.aiox-core/core/graph-dashboard/renderers/status-renderer');
 
 const SAMPLE_METRICS_ACTIVE = {
   cacheHits: 89,

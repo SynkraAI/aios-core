@@ -13,7 +13,7 @@ const path = require('path');
 const mockCommandSync = jest.fn();
 const mockCommandValidate = jest.fn();
 
-jest.mock('../../../../../.aios-core/infrastructure/scripts/ide-sync/index', () => ({
+jest.mock('../../../../../.aiox-core/infrastructure/scripts/ide-sync/index', () => ({
   commandSync: mockCommandSync,
   commandValidate: mockCommandValidate,
 }));
@@ -34,7 +34,7 @@ describe('IDE Sync Integration (Story INS-4.5)', () => {
   describe('AC1: IDE sync called via adapter pattern', () => {
     test('wizard imports commandSync and commandValidate from ide-sync', () => {
       expect(wizardSource).toContain(
-        "const { commandSync, commandValidate } = require('../../../../.aios-core/infrastructure/scripts/ide-sync/index')"
+        "const { commandSync, commandValidate } = require('../../../../.aiox-core/infrastructure/scripts/ide-sync/index')"
       );
     });
 
@@ -77,8 +77,8 @@ describe('IDE Sync Integration (Story INS-4.5)', () => {
       expect(wizardSource).toContain("answers.ideSyncStatus = 'failed'");
     });
 
-    test('failure message suggests aios doctor --fix', () => {
-      expect(wizardSource).toContain("aios doctor --fix");
+    test('failure message suggests aiox doctor --fix', () => {
+      expect(wizardSource).toContain("aiox doctor --fix");
     });
 
     test('install summary includes sync status on success', () => {

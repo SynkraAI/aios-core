@@ -1,6 +1,6 @@
 'use strict';
 
-const { formatAsDot, _escapeDot } = require('../../.aios-core/core/graph-dashboard/formatters/dot-formatter');
+const { formatAsDot, _escapeDot } = require('../../.aiox-core/core/graph-dashboard/formatters/dot-formatter');
 
 const SAMPLE_GRAPH = {
   nodes: [

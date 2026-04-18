@@ -1,4 +1,4 @@
-# AIOS Dashboard - 实时可观测性架构
+# AIOX Dashboard - 实时可观测性架构
 
 > [EN](../../architecture/dashboard-realtime.md) | [PT](../../pt/architecture/dashboard-realtime.md) | [ES](../../es/architecture/dashboard-realtime.md) | **ZH**
 
@@ -27,7 +27,7 @@
 
 ## 概述
 
-本文档描述了 AIOS Dashboard **实时可观测性**的架构，允许用户以最大的视觉细节跟踪 CLI 中执行的命令。
+本文档描述了 AIOX Dashboard **实时可观测性**的架构，允许用户以最大的视觉细节跟踪 CLI 中执行的命令。
 
 ### 主要用例
 
@@ -105,7 +105,7 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│                         CLI / AIOS 代理                                  │
+│                         CLI / AIOX 代理                                  │
 │  ┌─────────────────────────────────────────────────────────────────┐    │
 │  │                      Claude Code 会话                            │    │
 │  │  @architect → *create-architecture → [思考中...] → [文件操作]    │    │
@@ -114,7 +114,7 @@
 │                                   │ 发射事件                             │
 │                                   ▼                                      │
 │  ┌─────────────────────────────────────────────────────────────────┐    │
-│  │               .aios/dashboard/events.jsonl (仅追加)              │    │
+│  │               .aiox/dashboard/events.jsonl (仅追加)              │    │
 │  │  {"type":"agent:activated","agent":"architect","ts":"..."}      │    │
 │  │  {"type":"command:start","cmd":"*create-architecture","ts":"..."}│   │
 │  │  {"type":"command:complete","cmd":"*create","success":true,"ts":""}│ │
@@ -161,13 +161,13 @@
 ### 位置
 
 ```
-.aios-core/core/events/dashboard-emitter.ts
+.aiox-core/core/events/dashboard-emitter.ts
 ```
 
 ### 接口
 
 ```typescript
-// .aios-core/core/events/types.ts
+// .aiox-core/core/events/types.ts
 
 /**
  * 仅高级事件 (决策 #2)
@@ -207,7 +207,7 @@ export interface DashboardEvent {
 ### 文件位置
 
 ```
-.aios/dashboard/events.jsonl
+.aiox/dashboard/events.jsonl
 ```
 
 ### 格式
@@ -240,7 +240,7 @@ JSON Lines (JSONL) - 每行一个 JSON 对象，仅追加。
   "timestamp": "...",
   "agentId": "architect",
   "data": {
-    "storyId": "AIOS-123",
+    "storyId": "AIOX-123",
     "oldStatus": "in-progress",
     "newStatus": "review"
   }
@@ -412,4 +412,4 @@ const DEFAULT_RETENTION: EventRetentionSettings = {
 
 ---
 
-_文档由 @architect (Aria) 生成 - AIOS Core v2.0_
+_文档由 @architect (Aria) 生成 - AIOX Core v2.0_

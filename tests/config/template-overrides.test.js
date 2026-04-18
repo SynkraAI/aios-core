@@ -9,7 +9,7 @@ const {
   getTemplateOverrides,
   isSectionOptional,
   KNOWN_STORY_SECTIONS,
-} = require('../../.aios-core/core/config/template-overrides');
+} = require('../../.aiox-core/core/config/template-overrides');
 
 describe('template-overrides — consumer helper', () => {
   describe('getTemplateOverrides', () => {

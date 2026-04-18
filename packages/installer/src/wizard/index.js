@@ -1,5 +1,5 @@
 /**
- * AIOS Interactive Wizard - Main Entry Point
+ * AIOX Interactive Wizard - Main Entry Point
  *
  * Story 1.2: Interactive Wizard Foundation
  * Provides core wizard functionality with visual feedback and navigation
@@ -11,7 +11,7 @@ const inquirer = require('inquirer');
 const path = require('path');
 const fse = require('fs-extra');
 const { execSync } = require('child_process');
-const { colors } = require('../utils/aios-colors');
+const { colors } = require('../utils/aiox-colors');
 const {
   getLanguageQuestion,
   getUserProfileQuestion,
@@ -29,11 +29,11 @@ const {
 const {
   installDependencies,
 } = require('../installer/dependency-installer');
-const { commandSync, commandValidate } = require('../../../../.aios-core/infrastructure/scripts/ide-sync/index');
+const { commandSync, commandValidate } = require('../../../../.aiox-core/infrastructure/scripts/ide-sync/index');
 const {
-  installAiosCore,
+  installAioxCore,
   hasPackageJson,
-} = require('../installer/aios-core-installer');
+} = require('../installer/aiox-core-installer');
 const {
   validateInstallation,
   displayValidationReport,
@@ -42,7 +42,7 @@ const {
 const {
   installLLMRouting,
   isLLMRoutingInstalled,
-} = require('../../../../.aios-core/infrastructure/scripts/llm-routing/install-llm-routing');
+} = require('../../../../.aiox-core/infrastructure/scripts/llm-routing/install-llm-routing');
 
 // DISABLED: Legacy installation block superseded by squads flow (OSR-8)
 // /**
@@ -84,7 +84,7 @@ const {
  * @returns {Promise<string|null>} Existing user profile or null
  */
 async function getExistingUserProfile(targetDir = process.cwd()) {
-  const coreConfigPath = path.join(targetDir, '.aios-core', 'core-config.yaml');
+  const coreConfigPath = path.join(targetDir, '.aiox-core', 'core-config.yaml');
 
   try {
     if (await fse.pathExists(coreConfigPath)) {
@@ -247,7 +247,7 @@ async function runWizard(options = {}) {
     // Setup graceful cancellation
     setupCancellationHandler();
 
-    // Show welcome message with AIOS branding
+    // Show welcome message with AIOX branding
     if (!options.quiet) {
       showWelcome();
     }
@@ -329,35 +329,35 @@ async function runWizard(options = {}) {
       }
     }
 
-    // Story 1.4: Install AIOS core framework (agents, tasks, workflows, templates)
-    console.log('\n📦 Installing AIOS core framework...');
-    let aiosCoreResult = null;
+    // Story 1.4: Install AIOX core framework (agents, tasks, workflows, templates)
+    console.log('\n📦 Installing AIOX core framework...');
+    let aioxCoreResult = null;
     try {
-      aiosCoreResult = await installAiosCore({
+      aioxCoreResult = await installAioxCore({
         targetDir: process.cwd(),
         onProgress: (_status) => {
           // Silent progress - spinner handles feedback
         },
       });
 
-      if (aiosCoreResult.success) {
-        console.log(`✅ AIOS core installed (${aiosCoreResult.installedFolders.length} folders)`);
+      if (aioxCoreResult.success) {
+        console.log(`✅ AIOX core installed (${aioxCoreResult.installedFolders.length} folders)`);
         console.log(
-          `   - Agents: ${aiosCoreResult.installedFolders.includes('agents') ? '✓' : '⨉'}`,
+          `   - Agents: ${aioxCoreResult.installedFolders.includes('agents') ? '✓' : '⨉'}`,
         );
-        console.log(`   - Tasks: ${aiosCoreResult.installedFolders.includes('tasks') ? '✓' : '⨉'}`);
+        console.log(`   - Tasks: ${aioxCoreResult.installedFolders.includes('tasks') ? '✓' : '⨉'}`);
         console.log(
-          `   - Workflows: ${aiosCoreResult.installedFolders.includes('workflows') ? '✓' : '⨉'}`,
+          `   - Workflows: ${aioxCoreResult.installedFolders.includes('workflows') ? '✓' : '⨉'}`,
         );
         console.log(
-          `   - Templates: ${aiosCoreResult.installedFolders.includes('templates') ? '✓' : '⨉'}`,
+          `   - Templates: ${aioxCoreResult.installedFolders.includes('templates') ? '✓' : '⨉'}`,
         );
       }
-      answers.aiosCoreInstalled = true;
-      answers.aiosCoreResult = aiosCoreResult;
+      answers.aioxCoreInstalled = true;
+      answers.aioxCoreResult = aioxCoreResult;
     } catch (error) {
-      console.error('\n⚠️  AIOS core installation failed:', error.message);
-      answers.aiosCoreInstalled = false;
+      console.error('\n⚠️  AIOX core installation failed:', error.message);
+      answers.aioxCoreInstalled = false;
     }
 
     // Install Tech Preset if selected
@@ -367,8 +367,8 @@ async function runWizard(options = {}) {
       try {
         // Find tech-presets source directory
         const possiblePresetDirs = [
-          path.join(__dirname, '..', '..', '.aios-core', 'data', 'tech-presets'),
-          path.join(process.cwd(), '.aios-core', 'data', 'tech-presets'),
+          path.join(__dirname, '..', '..', '.aiox-core', 'data', 'tech-presets'),
+          path.join(process.cwd(), '.aiox-core', 'data', 'tech-presets'),
         ];
 
         let sourcePresetDir = null;
@@ -383,11 +383,11 @@ async function runWizard(options = {}) {
           const presetFile = path.join(sourcePresetDir, `${answers.selectedTechPreset}.md`);
 
           if (fse.existsSync(presetFile)) {
-            // Copy preset to project's .aios-core/data/tech-presets/
-            const targetPresetDir = path.join(process.cwd(), '.aios-core', 'data', 'tech-presets');
+            // Copy preset to project's .aiox-core/data/tech-presets/
+            const targetPresetDir = path.join(process.cwd(), '.aiox-core', 'data', 'tech-presets');
             await fse.ensureDir(targetPresetDir);
 
-            // BUG-5 fix (INS-1): Guard against source === dest (e.g., running inside aios-core repo)
+            // BUG-5 fix (INS-1): Guard against source === dest (e.g., running inside aiox-core repo)
             const targetPresetFile = path.join(targetPresetDir, `${answers.selectedTechPreset}.md`);
             const sourceResolved = path.resolve(presetFile);
             const targetResolved = path.resolve(targetPresetFile);
@@ -410,7 +410,7 @@ async function runWizard(options = {}) {
               // Update technical-preferences.md to mark the selected preset
               const techPrefsFile = path.join(
                 process.cwd(),
-                '.aios-core',
+                '.aiox-core',
                 'data',
                 'technical-preferences.md',
               );
@@ -442,7 +442,7 @@ async function runWizard(options = {}) {
 
             console.log(`   ✅ Tech Preset: ${answers.selectedTechPreset}`);
             console.log(
-              `   📁 Location: .aios-core/data/tech-presets/${answers.selectedTechPreset}.md`,
+              `   📁 Location: .aiox-core/data/tech-presets/${answers.selectedTechPreset}.md`,
             );
             answers.techPresetInstalled = true;
             answers.techPresetResult = { preset: answers.selectedTechPreset, success: true };
@@ -490,10 +490,10 @@ async function runWizard(options = {}) {
       // Legacy per-squad IDE copy path removed; sync pipeline handles IDE propagation.
     }
 
-    // Story INS-4.3: Wire settings.json boundary generator after .aios-core/ copy
+    // Story INS-4.3: Wire settings.json boundary generator after .aiox-core/ copy
     console.log('\n🔒 Generating boundary rules...');
     try {
-      const settingsGenerator = require('../../../../.aios-core/infrastructure/scripts/generate-settings-json');
+      const settingsGenerator = require('../../../../.aiox-core/infrastructure/scripts/generate-settings-json');
       settingsGenerator.generate(process.cwd());
       const settingsContent = await fse.readFile(path.join(process.cwd(), '.claude', 'settings.json'), 'utf8').catch(() => '{}');
       const settingsParsed = JSON.parse(settingsContent);
@@ -502,7 +502,7 @@ async function runWizard(options = {}) {
       answers.settingsGenerated = true;
       answers.settingsDenyCount = denyCount;
     } catch (error) {
-      console.warn(`⚠️  settings.json generation failed: ${error.message} — run 'aios doctor --fix' post-install`);
+      console.warn(`⚠️  settings.json generation failed: ${error.message} — run 'aiox doctor --fix' post-install`);
       answers.settingsGenerated = false;
     }
 
@@ -560,10 +560,10 @@ async function runWizard(options = {}) {
         console.log = _origLog;
       }
       if (answers.ideSyncValidation === 'drift') {
-        console.warn('⚠️  IDE sync validation: drift detected — run \'aios doctor --fix\' post-install');
+        console.warn('⚠️  IDE sync validation: drift detected — run \'aiox doctor --fix\' post-install');
       }
     } catch (syncError) {
-      console.warn(`⚠️  IDE sync failed: ${syncError.message} — run 'aios doctor --fix' post-install`);
+      console.warn(`⚠️  IDE sync failed: ${syncError.message} — run 'aiox doctor --fix' post-install`);
       answers.ideSyncStatus = 'failed';
       answers.ideSyncValidation = 'skipped';
     } finally {
@@ -572,22 +572,22 @@ async function runWizard(options = {}) {
 
     // Story INS-4.6: Entity Registry Bootstrap — populate entity-registry.yaml on install
     // Story INS-4.12: Fix module resolution + bootstrap timing
-    // Bootstrap runs AFTER .aios-core deps are installed (aios-core-installer.js:324-345)
-    // NODE_PATH ensures spawned scripts can resolve packages from .aios-core/node_modules/
+    // Bootstrap runs AFTER .aiox-core deps are installed (aiox-core-installer.js:324-345)
+    // NODE_PATH ensures spawned scripts can resolve packages from .aiox-core/node_modules/
     console.log('\n📇 Bootstrapping entity registry...');
     try {
-      const registryScript = path.join(process.cwd(), '.aios-core', 'development', 'scripts', 'populate-entity-registry.js');
+      const registryScript = path.join(process.cwd(), '.aiox-core', 'development', 'scripts', 'populate-entity-registry.js');
       if (fse.existsSync(registryScript)) {
-        // INS-4.12 AC3: Guard — skip bootstrap if .aios-core deps are not installed
-        const aiosCoreNodeModules = path.join(process.cwd(), '.aios-core', 'node_modules');
-        if (!fse.existsSync(aiosCoreNodeModules)) {
-          console.warn('⚠️  .aios-core/node_modules/ not found — skipping entity registry bootstrap');
-          console.warn('   Run: cd .aios-core && npm install --production');
+        // INS-4.12 AC3: Guard — skip bootstrap if .aiox-core deps are not installed
+        const aioxCoreNodeModules = path.join(process.cwd(), '.aiox-core', 'node_modules');
+        if (!fse.existsSync(aioxCoreNodeModules)) {
+          console.warn('⚠️  .aiox-core/node_modules/ not found — skipping entity registry bootstrap');
+          console.warn('   Run: cd .aiox-core && npm install --production');
           answers.entityRegistryStatus = 'skipped-no-deps';
         } else {
-        // INS-4.12 AC2: Set NODE_PATH so spawned scripts resolve deps from .aios-core/node_modules/
+        // INS-4.12 AC2: Set NODE_PATH so spawned scripts resolve deps from .aiox-core/node_modules/
           const parentNodeModules = path.join(process.cwd(), 'node_modules');
-          const nodePath = [aiosCoreNodeModules, parentNodeModules].join(path.delimiter);
+          const nodePath = [aioxCoreNodeModules, parentNodeModules].join(path.delimiter);
           const startMs = Date.now();
           execSync(`node "${registryScript}"`, {
             cwd: process.cwd(),
@@ -599,7 +599,7 @@ async function runWizard(options = {}) {
           const elapsedMs = Date.now() - startMs;
 
           // Read entity count from generated registry
-          const registryPath = path.join(process.cwd(), '.aios-core', 'data', 'entity-registry.yaml');
+          const registryPath = path.join(process.cwd(), '.aiox-core', 'data', 'entity-registry.yaml');
           let entityCount = 0;
           if (fse.existsSync(registryPath)) {
             const registryContent = fse.readFileSync(registryPath, 'utf8');
@@ -617,7 +617,7 @@ async function runWizard(options = {}) {
         answers.entityRegistryStatus = 'skipped';
       }
     } catch (error) {
-      console.warn(`⚠️  Entity registry bootstrap failed: ${error.message} — run 'aios doctor' post-install`);
+      console.warn(`⚠️  Entity registry bootstrap failed: ${error.message} — run 'aiox doctor' post-install`);
       answers.entityRegistryStatus = 'failed';
     }
 
@@ -650,7 +650,7 @@ async function runWizard(options = {}) {
         console.log('\n✅ Environment configuration complete!');
         console.log('  - .env file created');
         console.log('  - .env.example file created');
-        console.log('  - .aios-core/core-config.yaml created');
+        console.log('  - .aiox-core/core-config.yaml created');
         if (envResult.gitignoreUpdated) {
           console.log('  - .gitignore updated');
         }
@@ -789,7 +789,7 @@ async function runWizard(options = {}) {
     //     } else {
     //       console.error('\n⚠️  Some MCPs failed to install:');
     //       mcpResult.errors.forEach(err => console.error(`  - ${err}`));
-    //       console.log('\n💡 Check .aios/install-errors.log for details');
+    //       console.log('\n💡 Check .aiox/install-errors.log for details');
     //     }
     //
     //     // Store MCP result for validation
@@ -841,12 +841,12 @@ async function runWizard(options = {}) {
       try {
         const { runProWizard } = require('./pro-setup');
         const isCI = process.env.CI === 'true' || !process.stdout.isTTY;
-        const hasProKey = !!process.env.AIOS_PRO_KEY;
+        const hasProKey = !!process.env.AIOX_PRO_KEY;
 
         const proOptions = { targetDir: process.cwd() };
 
         if (isCI && hasProKey) {
-          // CI mode: auto-run if AIOS_PRO_KEY is set
+          // CI mode: auto-run if AIOX_PRO_KEY is set
           console.log('\n🔑 Pro license key detected, running Pro setup...');
           const proResult = await runProWizard({ ...proOptions, quiet: true });
           answers.proInstalled = proResult.success;
@@ -915,13 +915,13 @@ async function runWizard(options = {}) {
           files: {
             ideConfigs: ideConfigResult?.files || [],
             env: '.env',
-            coreConfig: '.aios-core/core-config.yaml',
+            coreConfig: '.aiox-core/core-config.yaml',
             mcpConfig: '.mcp.json',
           },
           configs: {
             env: answers.envResult,
             mcps: answers.mcpResult,
-            coreConfig: '.aios-core/core-config.yaml',
+            coreConfig: '.aiox-core/core-config.yaml',
           },
           mcps: answers.mcpResult,
           dependencies: answers.depsResult,
@@ -943,7 +943,7 @@ async function runWizard(options = {}) {
       answers.validationResult = validation;
     } catch (error) {
       console.error('\n⚠️  Validation failed:', error.message);
-      console.log('Installation may be incomplete. Check logs in .aios/ directory.');
+      console.log('Installation may be incomplete. Check logs in .aiox/ directory.');
     }
 
     // Show completion

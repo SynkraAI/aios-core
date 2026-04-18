@@ -1,6 +1,6 @@
 <!-- 翻译：zh-CN 原文：/docs/installation/windows.md 最后同步：2026-02-22 -->
 
-# Synkra AIOS Windows 安装指南
+# Synkra AIOX Windows 安装指南
 
 > 🌐 [EN](../../installation/windows.md) | [PT](../pt/installation/windows.md) | [ES](../es/installation/windows.md)
 
@@ -148,7 +148,7 @@ winget install Microsoft.WindowsTerminal
 3. 运行安装程序：
 
    ```powershell
-   npx github:SynkraAI/aios-core install
+   npx github:SynkraAI/aiox-core install
    ```
 
 ### 安装程序的作用
@@ -184,13 +184,13 @@ winget install Microsoft.WindowsTerminal
    npm install -g @anthropic-ai/claude-code
    ```
 
-2. 命令安装到 `.claude\commands\AIOS\`
+2. 命令安装到 `.claude\commands\AIOX\`
 3. 使用 `/agent-name` 激活代理
 
 ### VS Code
 
 1. 从市场安装 Continue 扩展
-2. AIOS 可以通过 `.continue\` 配置集成
+2. AIOX 可以通过 `.continue\` 配置集成
 
 ---
 
@@ -335,7 +335,7 @@ wsl --install -d Ubuntu
 # 提示时重启计算机
 ```
 
-### 使用 WSL 配置 AIOS
+### 使用 WSL 配置 AIOX
 
 ```bash
 # 在 WSL 内，遵循 Linux 安装指南
@@ -401,11 +401,11 @@ npm config set @company:registry https://npm.company.com/
 
 ```powershell
 # 使用 npx（推荐）
-npx github:SynkraAI/aios-core install
+npx github:SynkraAI/aiox-core install
 
 # 更新程序将：
 # - 检测现有安装
-# - 将自定义备份到 .aios-backup\
+# - 将自定义备份到 .aiox-backup\
 # - 仅更新已更改的文件
 # - 保留配置
 ```
@@ -419,12 +419,12 @@ npx github:SynkraAI/aios-core install
 通过 PowerShell 快速卸载：
 
 ```powershell
-# 从项目中删除 AIOS
-Remove-Item -Recurse -Force .aios-core
-Remove-Item -Recurse -Force .claude\commands\AIOS
+# 从项目中删除 AIOX
+Remove-Item -Recurse -Force .aiox-core
+Remove-Item -Recurse -Force .claude\commands\AIOX
 
 # 删除全局 npm 包
-npm uninstall -g @synkra/aios
+npm uninstall -g @synkra/aiox
 ```
 
 ---
@@ -472,4 +472,4 @@ npm uninstall -g @synkra/aios
 - [故障排除指南](troubleshooting.md)
 - [常见问题](faq.md)
 - [Discord 社区](https://discord.gg/gk8jAdXWmj)
-- [GitHub Issues](https://github.com/SynkraAI/aios-core/issues)
+- [GitHub Issues](https://github.com/SynkraAI/aiox-core/issues)

@@ -1,6 +1,6 @@
 <!-- 翻译: ZH-CN | 原始: /docs/pt/architecture/coding-standards.md | 同步: 2026-02-22 -->
 
-# AIOS 编码标准
+# AIOX 编码标准
 
 > 🌐 [EN](../../architecture/coding-standards.md) | [PT](../../pt/architecture/coding-standards.md) | **ZH**
 
@@ -14,12 +14,12 @@
 
 ---
 
-# AIOS 编码标准
+# AIOX 编码标准
 
 **版本**: 1.1
 **最后更新**: 2025-12-14
 **状态**: 已弃用 - 请查看 docs/framework/coding-standards.md
-**迁移通知**: 此文档将在 Q2 2026 迁移到 `SynkraAI/aios-core` 存储库 (见决策 005)
+**迁移通知**: 此文档将在 Q2 2026 迁移到 `SynkraAI/aiox-core` 存储库 (见决策 005)
 
 ---
 
@@ -39,7 +39,7 @@
 
 ## 概述
 
-本文档定义了 AIOS 框架开发的官方编码标准。所有代码贡献必须遵守这些标准以确保一致性、可维护性和质量。
+本文档定义了 AIOX 框架开发的官方编码标准。所有代码贡献必须遵守这些标准以确保一致性、可维护性和质量。
 
 **应用**:
 
@@ -251,7 +251,7 @@ async function executeTask(taskName) {
 ### 目录结构
 
 ```
-.aios-core/
+.aiox-core/
 ├── agents/              # 代理定义 (YAML + Markdown)
 ├── tasks/               # 任务工作流 (Markdown)
 ├── templates/           # 文档模板 (YAML/Markdown)
@@ -549,7 +549,7 @@ if (!taskSchema.validate(taskData)) {
 
 ```javascript
 /**
- * 加载并执行 AIOS 代理
+ * 加载并执行 AIOX 代理
  *
  * @param {string} agentId - 代理的唯一标识符
  * @param {Object} args - 代理执行参数
@@ -599,7 +599,7 @@ if (yoloMode) {
 ```markdown
 # Agent Executor
 
-**目的**: 加载并执行带有配置管理的 AIOS 代理。
+**目的**: 加载并执行带有配置管理的 AIOX 代理。
 
 ## 使用
 
@@ -789,7 +789,7 @@ function executeCommand(command) {
 const path = require('path');
 
 function loadFile(filePath) {
-  const basePath = path.resolve(__dirname, '.aios-core');
+  const basePath = path.resolve(__dirname, '.aiox-core');
   const resolvedPath = path.resolve(basePath, filePath);
 
   // 防止目录遍历
@@ -884,7 +884,7 @@ jobs:
 | 版本 | 日期       | 变更                                                        | 作者            |
 | ---- | ---------- | ----------------------------------------------------------- | --------------- |
 | 1.0  | 2025-01-15 | 编码标准初始文档                                           | Aria (architect)|
-| 1.1  | 2025-12-14 | 更新迁移通知为 SynkraAI/aios-core [Story 6.10]  | Dex (dev)       |
+| 1.1  | 2025-12-14 | 更新迁移通知为 SynkraAI/aiox-core [Story 6.10]  | Dex (dev)       |
 
 ---
 
@@ -895,4 +895,4 @@ jobs:
 
 ---
 
-_这是 AIOS 框架的官方标准。所有代码贡献必须符合这些标准。_
+_这是 AIOX 框架的官方标准。所有代码贡献必须符合这些标准。_

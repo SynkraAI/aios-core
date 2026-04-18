@@ -2,7 +2,7 @@
  * Pro Installation Wizard with License Gate
  *
  * 3-step wizard: (1) License Gate, (2) Install/Scaffold, (3) Verify
- * Supports interactive mode, CI mode (AIOS_PRO_KEY/AIOS_PRO_EMAIL env vars), and lazy import.
+ * Supports interactive mode, CI mode (AIOX_PRO_KEY/AIOX_PRO_EMAIL env vars), and lazy import.
  *
  * License Gate supports two activation methods:
  * - Email + Password authentication (recommended, PRO-11)
@@ -16,7 +16,7 @@
 'use strict';
 
 const { createSpinner, showSuccess, showError, showWarning, showInfo } = require('./feedback');
-const { colors, status } = require('../utils/aios-colors');
+const { colors, status } = require('../utils/aiox-colors');
 const { t, tf } = require('./i18n');
 
 /**
@@ -34,7 +34,174 @@ try {
 /**
  * License server base URL (same source of truth as license-api.js CONFIG.BASE_URL).
  */
-const LICENSE_SERVER_URL = process.env.AIOS_LICENSE_API_URL || 'https://aios-license-server.vercel.app';
+const LICENSE_SERVER_URL = process.env.AIOX_LICENSE_API_URL || 'https://aiox-license-server.vercel.app';
+
+/**
+ * Inline License Client — lightweight HTTP client for pre-bootstrap license checks.
+ *
+ * Used when @aiox-fullstack/pro is not yet installed (first install scenario).
+ * Implements the same interface subset as LicenseApiClient using Node.js native https.
+ */
+class InlineLicenseClient {
+  constructor(baseUrl = LICENSE_SERVER_URL) {
+    this.baseUrl = baseUrl;
+  }
+
+  /**
+   * Make an HTTPS request and return parsed JSON.
+   * @param {string} method - HTTP method
+   * @param {string} urlPath - URL path (e.g., '/api/v1/auth/check-email')
+   * @param {Object} [body] - JSON body for POST requests
+   * @param {Object} [headers] - Additional headers
+   * @returns {Promise<Object>} Parsed JSON response
+   */
+  _request(method, urlPath, body, headers = {}) {
+    return new Promise((resolve, reject) => {
+      const https = require('https');
+      const url = new URL(urlPath, this.baseUrl);
+
+      const options = {
+        hostname: url.hostname,
+        port: url.port || 443,
+        path: url.pathname + url.search,
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+          'User-Agent': 'aiox-installer',
+          ...headers,
+        },
+        timeout: 15000,
+      };
+
+      const req = https.request(options, (res) => {
+        let data = '';
+        res.on('data', (chunk) => { data += chunk; });
+        res.on('end', () => {
+          try {
+            const parsed = JSON.parse(data);
+            if (res.statusCode >= 400) {
+              const err = new Error(parsed.message || `HTTP ${res.statusCode}`);
+              err.code = parsed.code;
+              reject(err);
+            } else {
+              resolve(parsed);
+            }
+          } catch {
+            reject(new Error(`Invalid JSON response (HTTP ${res.statusCode})`));
+          }
+        });
+      });
+
+      req.on('error', (err) => {
+        const networkErr = new Error(err.message);
+        networkErr.code = 'NETWORK_ERROR';
+        reject(networkErr);
+      });
+
+      req.on('timeout', () => {
+        req.destroy();
+        const timeoutErr = new Error('Request timeout');
+        timeoutErr.code = 'NETWORK_ERROR';
+        reject(timeoutErr);
+      });
+
+      if (body) {
+        req.write(JSON.stringify(body));
+      }
+      req.end();
+    });
+  }
+
+  /** @returns {Promise<boolean>} true if license server is reachable */
+  async isOnline() {
+    try {
+      await this._request('GET', '/health');
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  /**
+   * Check if email is a buyer and has an account.
+   * @param {string} email
+   * @returns {Promise<{isBuyer: boolean, hasAccount: boolean}>}
+   */
+  async checkEmail(email) {
+    return this._request('POST', '/api/v1/auth/check-email', { email });
+  }
+
+  /**
+   * Login with email and password.
+   * @param {string} email
+   * @param {string} password
+   * @returns {Promise<{sessionToken: string, emailVerified: boolean}>}
+   */
+  async login(email, password) {
+    return this._request('POST', '/api/v1/auth/login', { email, password });
+  }
+
+  /**
+   * Create a new account.
+   * @param {string} email
+   * @param {string} password
+   * @returns {Promise<Object>}
+   */
+  async signup(email, password) {
+    return this._request('POST', '/api/v1/auth/signup', { email, password });
+  }
+
+  /**
+   * Activate Pro using an authenticated session.
+   * @param {string} token - Session token
+   * @param {string} machineId - Machine fingerprint
+   * @param {string} version - aiox-core version
+   * @returns {Promise<Object>} Activation result
+   */
+  async activateByAuth(token, machineId, version) {
+    return this._request('POST', '/api/v1/auth/activate-pro', {
+      machineId,
+      version,
+    }, {
+      Authorization: `Bearer ${token}`,
+    });
+  }
+
+  /**
+   * Activate Pro using a license key (legacy flow).
+   * @param {string} licenseKey - License key
+   * @param {string} machineId - Machine fingerprint
+   * @param {string} version - aiox-core version
+   * @returns {Promise<Object>} Activation result
+   */
+  async activate(licenseKey, machineId, version) {
+    return this._request('POST', '/api/v1/licenses/activate', {
+      key: licenseKey,
+      machineId,
+      version,
+    });
+  }
+
+  /**
+   * Check if user's email has been verified.
+   * @param {string} sessionToken - Session token
+   * @returns {Promise<{verified: boolean}>}
+   */
+  async checkEmailVerified(sessionToken) {
+    return this._request('GET', '/api/v1/auth/email-verified', null, {
+      Authorization: `Bearer ${sessionToken}`,
+    });
+  }
+
+  /**
+   * Resend verification email.
+   * @param {string} email - User email
+   * @returns {Promise<Object>}
+   */
+  async resendVerification(email) {
+    return this._request('POST', '/api/v1/auth/resend-verification', { email });
+  }
+}
 
 /**
  * License key format: PRO-XXXX-XXXX-XXXX-XXXX
@@ -150,14 +317,14 @@ function showStep(current, total, label) {
  *
  * Resolution order:
  * 1. Relative path (framework-dev mode: ../../../../pro/license/{name})
- * 2. @aios-fullstack/pro package (brownfield: node_modules/@aios-fullstack/pro/license/{name})
- * 3. Absolute path via aios-core in node_modules (brownfield upgrade)
- * 4. Absolute path via @aios-fullstack/pro in user project (npx context)
+ * 2. @aiox-fullstack/pro package (brownfield: node_modules/@aiox-fullstack/pro/license/{name})
+ * 3. Absolute path via aiox-core in node_modules (brownfield upgrade)
+ * 4. Absolute path via @aiox-fullstack/pro in user project (npx context)
  *
- * Path 4 is critical for npx execution: when running `npx aios-core install`,
+ * Path 4 is critical for npx execution: when running `npx aiox-core install`,
  * require() resolves from the npx temp directory, not process.cwd(). After
- * bootstrap installs @aios-fullstack/pro in the user's project, only an
- * absolute path to process.cwd()/node_modules/@aios-fullstack/pro/... works.
+ * bootstrap installs @aiox-fullstack/pro in the user's project, only an
+ * absolute path to process.cwd()/node_modules/@aiox-fullstack/pro/... works.
  *
  * @param {string} moduleName - Module filename without extension (e.g., 'license-api')
  * @returns {Object|null} Loaded module or null
@@ -170,21 +337,21 @@ function loadProModule(moduleName) {
     return require(`../../../../pro/license/${moduleName}`);
   } catch { /* not available */ }
 
-  // 2. @aios-fullstack/pro package (works when aios-core is a local dependency)
+  // 2. @aiox-fullstack/pro package (works when aiox-core is a local dependency)
   try {
-    return require(`@aios-fullstack/pro/license/${moduleName}`);
+    return require(`@aiox-fullstack/pro/license/${moduleName}`);
   } catch { /* not available */ }
 
-  // 3. aios-core in node_modules (brownfield upgrade from >= v4.2.15)
+  // 3. aiox-core in node_modules (brownfield upgrade from >= v4.2.15)
   try {
-    const absPath = path.join(process.cwd(), 'node_modules', 'aios-core', 'pro', 'license', moduleName);
+    const absPath = path.join(process.cwd(), 'node_modules', 'aiox-core', 'pro', 'license', moduleName);
     return require(absPath);
   } catch { /* not available */ }
 
-  // 4. @aios-fullstack/pro in user project (npx context — require resolves from
+  // 4. @aiox-fullstack/pro in user project (npx context — require resolves from
   //    temp dir, so we need absolute path to where bootstrap installed the package)
   try {
-    const absPath = path.join(process.cwd(), 'node_modules', '@aios-fullstack', 'pro', 'license', moduleName);
+    const absPath = path.join(process.cwd(), 'node_modules', '@aiox-fullstack', 'pro', 'license', moduleName);
     return require(absPath);
   } catch { /* not available */ }
 
@@ -212,6 +379,27 @@ function loadFeatureGate() {
 }
 
 /**
+ * Get a license API client instance.
+ *
+ * Prefers the full LicenseApiClient from @aiox-fullstack/pro when available.
+ * Falls back to InlineLicenseClient (native https) for pre-bootstrap scenarios.
+ *
+ * @returns {Object} Client instance with isOnline, checkEmail, login, signup, activateByAuth
+ */
+function getLicenseClient() {
+  const loader = module.exports._testing ? module.exports._testing.loadLicenseApi : loadLicenseApi;
+  const licenseModule = loader();
+
+  if (licenseModule) {
+    const { LicenseApiClient } = licenseModule;
+    return new LicenseApiClient();
+  }
+
+  // Fallback: use inline client for pre-bootstrap (no @aiox-fullstack/pro yet)
+  return new InlineLicenseClient();
+}
+
+/**
  * Try to load the pro scaffolder via lazy import.
  *
  * @returns {{ scaffoldProContent: Function }|null} Scaffolder or null
@@ -231,7 +419,7 @@ function loadProScaffolder() {
  * 1. Email + Password authentication (recommended, PRO-11)
  * 2. License key (legacy, PRO-6)
  *
- * In CI mode, reads from AIOS_PRO_EMAIL + AIOS_PRO_PASSWORD or AIOS_PRO_KEY env vars.
+ * In CI mode, reads from AIOX_PRO_EMAIL + AIOX_PRO_PASSWORD or AIOX_PRO_KEY env vars.
  * In interactive mode, prompts user to choose method.
  *
  * @param {Object} [options={}] - Options
@@ -291,15 +479,15 @@ async function stepLicenseGate(options = {}) {
 /**
  * CI mode license gate — reads from env vars.
  *
- * Priority: AIOS_PRO_EMAIL + AIOS_PRO_PASSWORD > AIOS_PRO_KEY
+ * Priority: AIOX_PRO_EMAIL + AIOX_PRO_PASSWORD > AIOX_PRO_KEY
  *
  * @param {Object} options - Options with possible pre-provided credentials
  * @returns {Promise<Object>} Result with { success, key, activationResult }
  */
 async function stepLicenseGateCI(options) {
-  const email = options.email || process.env.AIOS_PRO_EMAIL;
-  const password = options.password || process.env.AIOS_PRO_PASSWORD;
-  const key = options.key || process.env.AIOS_PRO_KEY;
+  const email = options.email || process.env.AIOX_PRO_EMAIL;
+  const password = options.password || process.env.AIOX_PRO_PASSWORD;
+  const key = options.key || process.env.AIOX_PRO_KEY;
 
   // Prefer email auth over key
   if (email && password) {
@@ -351,18 +539,7 @@ async function stepLicenseGateWithEmail() {
   const trimmedEmail = email.trim();
 
   // Step 2: Check buyer status + account existence
-  const loader = module.exports._testing ? module.exports._testing.loadLicenseApi : loadLicenseApi;
-  const licenseModule = loader();
-
-  if (!licenseModule) {
-    return {
-      success: false,
-      error: t('proModuleNotAvailable'),
-    };
-  }
-
-  const { LicenseApiClient } = licenseModule;
-  const client = new LicenseApiClient();
+  const client = getLicenseClient();
 
   // Check connectivity
   const online = await client.isOnline();
@@ -389,7 +566,7 @@ async function stepLicenseGateWithEmail() {
     checkSpinner.fail(t('proNoAccess'));
     console.log('');
     showInfo(t('proContactSupport'));
-    showInfo('  Issues: https://github.com/SynkraAI/aios-core/issues');
+    showInfo('  Issues: https://github.com/SynkraAI/aiox-core/issues');
     showInfo('  ' + t('proPurchase'));
     return { success: false, error: t('proEmailNotBuyer') };
   }
@@ -481,11 +658,11 @@ async function loginWithRetry(client, email) {
         const remaining = MAX_RETRIES - attempt;
         if (remaining > 0) {
           spinner.fail(`Incorrect password. ${remaining} attempt${remaining > 1 ? 's' : ''} remaining.`);
-          showInfo('Forgot your password? Visit https://aios-license-server.vercel.app/reset-password');
+          showInfo('Forgot your password? Visit https://aiox-license-server.vercel.app/reset-password');
         } else {
           spinner.fail('Maximum login attempts reached.');
-          showInfo('Forgot your password? Visit https://aios-license-server.vercel.app/reset-password');
-          showInfo('Or open an issue: https://github.com/SynkraAI/aios-core/issues');
+          showInfo('Forgot your password? Visit https://aiox-license-server.vercel.app/reset-password');
+          showInfo('Or open an issue: https://github.com/SynkraAI/aiox-core/issues');
           return { success: false, error: 'Maximum login attempts reached.' };
         }
       } else if (loginError.code === 'AUTH_RATE_LIMITED') {
@@ -630,18 +807,7 @@ async function createAccountFlow(client, email) {
  * @returns {Promise<Object>} Result with { success, key, activationResult }
  */
 async function authenticateWithEmail(email, password) {
-  const loader = module.exports._testing ? module.exports._testing.loadLicenseApi : loadLicenseApi;
-  const licenseModule = loader();
-
-  if (!licenseModule) {
-    return {
-      success: false,
-      error: t('proModuleNotAvailable'),
-    };
-  }
-
-  const { LicenseApiClient } = licenseModule;
-  const client = new LicenseApiClient();
+  const client = getLicenseClient();
 
   // Check connectivity
   const online = await client.isOnline();
@@ -827,19 +993,19 @@ async function activateProByAuth(client, sessionToken) {
       .digest('hex')
       .substring(0, 32);
 
-    // Read aios-core version
-    let aiosCoreVersion = 'unknown';
+    // Read aiox-core version
+    let aioxCoreVersion = 'unknown';
     try {
       const path = require('path');
       const fs = require('fs');
       const pkgPath = path.join(__dirname, '..', '..', '..', '..', 'package.json');
       const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
-      aiosCoreVersion = pkg.version || 'unknown';
+      aioxCoreVersion = pkg.version || 'unknown';
     } catch {
       // Keep 'unknown'
     }
 
-    const activationResult = await client.activateByAuth(sessionToken, machineId, aiosCoreVersion);
+    const activationResult = await client.activateByAuth(sessionToken, machineId, aioxCoreVersion);
 
     spinner.succeed(tf('proSubscriptionConfirmed', { key: maskLicenseKey(activationResult.key) }));
     return { success: true, key: activationResult.key, activationResult };
@@ -947,19 +1113,7 @@ async function stepLicenseGateWithKey(key) {
  * @returns {Promise<Object>} Result with { success, data?, error? }
  */
 async function validateKeyWithApi(key) {
-  // Use exports._testing for testability (allows mock injection)
-  const loader = module.exports._testing ? module.exports._testing.loadLicenseApi : loadLicenseApi;
-  const licenseModule = loader();
-
-  if (!licenseModule) {
-    return {
-      success: false,
-      error: t('proModuleNotAvailable'),
-    };
-  }
-
-  const { LicenseApiClient } = licenseModule;
-  const client = new LicenseApiClient();
+  const client = getLicenseClient();
 
   try {
     // Check if API is reachable
@@ -981,19 +1135,19 @@ async function validateKeyWithApi(key) {
       .digest('hex')
       .substring(0, 32);
 
-    // Read aios-core version
-    let aiosCoreVersion = 'unknown';
+    // Read aiox-core version
+    let aioxCoreVersion = 'unknown';
     try {
       const path = require('path');
       const fs = require('fs');
       const pkgPath = path.join(__dirname, '..', '..', '..', '..', 'package.json');
       const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
-      aiosCoreVersion = pkg.version || 'unknown';
+      aioxCoreVersion = pkg.version || 'unknown';
     } catch {
       // Keep 'unknown'
     }
 
-    const activationResult = await client.activate(key, machineId, aiosCoreVersion);
+    const activationResult = await client.activate(key, machineId, aioxCoreVersion);
 
     return { success: true, data: activationResult };
   } catch (error) {
@@ -1036,50 +1190,23 @@ async function stepInstallScaffold(targetDir, options = {}) {
 
   const path = require('path');
   const fs = require('fs');
-  const { execSync } = require('child_process');
 
-  const proSourceDir = path.join(targetDir, 'node_modules', '@aios-fullstack', 'pro');
+  // Resolve pro source directory from multiple locations:
+  // 1. Bundled in aiox-core package (pro/ submodule — npx and local dev)
+  // 2. @aiox-fullstack/pro in node_modules (legacy brownfield)
+  const bundledProDir = path.resolve(__dirname, '..', '..', '..', '..', 'pro');
+  const npmProDir = path.join(targetDir, 'node_modules', '@aiox-fullstack', 'pro');
 
-  // Step 2a: Ensure package.json exists (greenfield projects)
-  const packageJsonPath = path.join(targetDir, 'package.json');
-  if (!fs.existsSync(packageJsonPath)) {
-    const initSpinner = createSpinner(t('proInitPackageJson'));
-    initSpinner.start();
-    try {
-      execSync('npm init -y', { cwd: targetDir, stdio: 'pipe' });
-      initSpinner.succeed(t('proPackageJsonCreated'));
-    } catch (err) {
-      initSpinner.fail(t('proPackageJsonFailed'));
-      return { success: false, error: tf('proNpmInitFailed', { message: err.message }) };
-    }
-  }
-
-  // Step 2b: Install @aios-fullstack/pro if not present
-  if (!fs.existsSync(proSourceDir)) {
-    const installSpinner = createSpinner(t('proInstallingPackage'));
-    installSpinner.start();
-    try {
-      execSync('npm install @aios-fullstack/pro', {
-        cwd: targetDir,
-        stdio: 'pipe',
-        timeout: 120000,
-      });
-      installSpinner.succeed(t('proPackageInstalled'));
-    } catch (err) {
-      installSpinner.fail(t('proPackageInstallFailed'));
-      return {
-        success: false,
-        error: tf('proNpmInstallFailed', { message: err.message }),
-      };
-    }
-
-    // Validate installation
-    if (!fs.existsSync(proSourceDir)) {
-      return {
-        success: false,
-        error: t('proPackageNotFound'),
-      };
-    }
+  let proSourceDir;
+  if (fs.existsSync(bundledProDir) && fs.existsSync(path.join(bundledProDir, 'squads'))) {
+    proSourceDir = bundledProDir;
+  } else if (fs.existsSync(npmProDir)) {
+    proSourceDir = npmProDir;
+  } else {
+    return {
+      success: false,
+      error: t('proPackageNotFound'),
+    };
   }
 
   // Step 2c: Scaffold pro content
@@ -1232,53 +1359,11 @@ async function runProWizard(options = {}) {
     showProHeader();
   }
 
-  // Pre-check: If license module is not available (brownfield upgrade from older version),
-  // install @aios-fullstack/pro first to get the license API, then proceed with gate.
-  if (!loadLicenseApi()) {
-    const fs = require('fs');
-    const path = require('path');
-    const { execSync } = require('child_process');
-
-    showInfo(t('proModuleBootstrap'));
-
-    // Ensure package.json exists
-    const packageJsonPath = path.join(targetDir, 'package.json');
-    if (!fs.existsSync(packageJsonPath)) {
-      execSync('npm init -y', { cwd: targetDir, stdio: 'pipe' });
-    }
-
-    // Install @aios-fullstack/pro to get license module
-    const proDir = path.join(targetDir, 'node_modules', '@aios-fullstack', 'pro');
-    if (!fs.existsSync(proDir)) {
-      const installSpinner = createSpinner(t('proInstallingPackage'));
-      installSpinner.start();
-      try {
-        execSync('npm install @aios-fullstack/pro', {
-          cwd: targetDir,
-          stdio: 'pipe',
-          timeout: 120000,
-        });
-        installSpinner.succeed(t('proPackageInstalled'));
-      } catch (err) {
-        installSpinner.fail(t('proPackageInstallFailed'));
-        result.error = tf('proNpmInstallFailed', { message: err.message });
-        return result;
-      }
-    }
-
-    // Clear require cache so loadLicenseApi() picks up newly installed module
-    Object.keys(require.cache).forEach((key) => {
-      if (key.includes('license-api') || key.includes('@aios-fullstack')) {
-        delete require.cache[key];
-      }
-    });
-  }
-
-  // Step 1: License Gate
+  // Step 1: License Gate (uses InlineLicenseClient if @aiox-fullstack/pro not yet installed)
   const licenseResult = await stepLicenseGate({
-    key: options.key || process.env.AIOS_PRO_KEY,
-    email: options.email || process.env.AIOS_PRO_EMAIL,
-    password: options.password || process.env.AIOS_PRO_PASSWORD,
+    key: options.key || process.env.AIOX_PRO_KEY,
+    email: options.email || process.env.AIOX_PRO_EMAIL,
+    password: options.password || process.env.AIOX_PRO_PASSWORD,
   });
 
   if (!licenseResult.success) {
@@ -1341,6 +1426,8 @@ module.exports = {
     loadLicenseApi,
     loadFeatureGate,
     loadProScaffolder,
+    getLicenseClient,
+    InlineLicenseClient,
     LICENSE_SERVER_URL,
     MAX_RETRIES,
     LICENSE_KEY_PATTERN,

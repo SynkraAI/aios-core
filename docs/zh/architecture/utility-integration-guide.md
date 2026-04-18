@@ -9,13 +9,13 @@
 **版本:** 1.0.0
 **创建于:** 2025-10-29
 **作者:** Sarah (@po)、Winston (@architect)
-**目的:** 为在 AIOS 框架中集成工具脚本定义模式
+**目的:** 为在 AIOX 框架中集成工具脚本定义模式
 
 ---
 
 ## 什么是工具集成?
 
-**定义:** 工具集成是使孤立工具脚本**可发现、文档化和可用**的过程，位于 AIOS 框架内。
+**定义:** 工具集成是使孤立工具脚本**可发现、文档化和可用**的过程，位于 AIOX 框架内。
 
 工具被认为**完全集成**当:
 1. ✅ **已注册** 在 core-config.yaml 中
@@ -41,7 +41,7 @@
 **示例: util-batch-creator**
 
 ```yaml
-# .aios-core/agents/dev.yaml
+# .aiox-core/agents/dev.yaml
 id: dev
 name: 开发代理
 dependencies:
@@ -51,9 +51,9 @@ dependencies:
 ```
 
 **修改的文件:**
-- `.aios-core/agents/{agent}.yaml` (添加到 dependencies.utils)
-- `.aios-core/core-config.yaml` (如必要则注册)
-- `.aios-core/utils/README.md` (记录工具)
+- `.aiox-core/agents/{agent}.yaml` (添加到 dependencies.utils)
+- `.aiox-core/core-config.yaml` (如必要则注册)
+- `.aiox-core/utils/README.md` (记录工具)
 
 ---
 
@@ -71,7 +71,7 @@ dependencies:
 **示例: util-commit-message-generator**
 
 ```yaml
-# .aios-core/tasks/generate-commit-message.md
+# .aiox-core/tasks/generate-commit-message.md
 id: generate-commit-message
 name: 生成提交信息
 execution:
@@ -84,10 +84,10 @@ execution:
 ```
 
 **修改的文件:**
-- `.aios-core/tasks/{task}.md` (添加 execution.utils)
-- `.aios-core/agents/{agent}.yaml` (添加任务到 executes 列表)
-- `.aios-core/core-config.yaml` (如必要则注册)
-- `.aios-core/utils/README.md` (记录工具)
+- `.aiox-core/tasks/{task}.md` (添加 execution.utils)
+- `.aiox-core/agents/{agent}.yaml` (添加任务到 executes 列表)
+- `.aiox-core/core-config.yaml` (如必要则注册)
+- `.aiox-core/utils/README.md` (记录工具)
 
 ---
 
@@ -104,16 +104,16 @@ execution:
 **示例: util-elicitation-engine**
 
 ```yaml
-# .aios-core/core-config.yaml
+# .aiox-core/core-config.yaml
 utils:
   framework:
     - elicitation-engine  # 用于代理创建工作流
-    - aios-validator
+    - aiox-validator
 ```
 
 **修改的文件:**
-- `.aios-core/core-config.yaml` (在框架中注册)
-- `.aios-core/utils/README.md` (记录为框架工具)
+- `.aiox-core/core-config.yaml` (在框架中注册)
+- `.aiox-core/utils/README.md` (记录为框架工具)
 - 框架文档 (如适用)
 
 ---
@@ -131,7 +131,7 @@ utils:
 **示例: util-documentation-synchronizer**
 
 ```yaml
-# .aios-core/agents/architect.yaml
+# .aiox-core/agents/architect.yaml
 dependencies:
   utils:
     - documentation-synchronizer  # 保持文档与代码同步
@@ -139,10 +139,10 @@ dependencies:
 ```
 
 **修改的文件:**
-- `.aios-core/agents/{agent}.yaml`
-- `.aios-core/tasks/{task}.md` (如创建任务)
-- `.aios-core/core-config.yaml`
-- `.aios-core/utils/README.md`
+- `.aiox-core/agents/{agent}.yaml`
+- `.aiox-core/tasks/{task}.md` (如创建任务)
+- `.aiox-core/core-config.yaml`
+- `.aiox-core/utils/README.md`
 
 ---
 
@@ -188,7 +188,7 @@ dependencies:
 ### 类别 1: 代码质量
 **目的:** 分析、改进、验证代码
 **模式:** 代理辅助工具 (代理 dev、qa)
-**示例:** aios-validator、code-quality-improver、coverage-analyzer
+**示例:** aiox-validator、code-quality-improver、coverage-analyzer
 
 ### 类别 2: Git/工作流
 **目的:** Git 操作、工作流自动化
@@ -219,7 +219,7 @@ dependencies:
 **1. 加载测试**
 ```javascript
 // 验证工具加载无错误
-const utility = require('.aios-core/utils/{utility-name}');
+const utility = require('.aiox-core/utils/{utility-name}');
 // 不应抛出错误
 ```
 
@@ -260,7 +260,7 @@ const agent = loadAgent('agent-name');
 
 **集成模式:** {模式-名称}
 
-**位置:** `.aios-core/utils/{name}.js`
+**位置:** `.aiox-core/utils/{name}.js`
 
 **使用示例:**
 \`\`\`javascript
@@ -290,7 +290,7 @@ utils:
   # 框架基础设施工具
   framework:
     - elicitation-engine
-    - aios-validator
+    - aiox-validator
 
   # 分析/文档工具
   analyzers:

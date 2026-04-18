@@ -1,6 +1,6 @@
 <!-- 翻译: ZH-CN | 原文: /docs/en/architecture/ARCHITECTURE-INDEX.md | 同步时间: 2026-01-26 -->
 
-# AIOS 架构文档索引
+# AIOX 架构文档索引
 
 > 🌐 [EN](../../architecture/ARCHITECTURE-INDEX.md) | [PT](../../pt/architecture/ARCHITECTURE-INDEX.md) | [ES](../../es/architecture/ARCHITECTURE-INDEX.md) | **ZH-CN**
 
@@ -14,7 +14,7 @@
 
 ## 📋 文档导航
 
-本索引为 AIOS v4 的所有架构文档提供导航。
+本索引为 AIOX v4 的所有架构文档提供导航。
 
 > **注意:** 官方框架文档（编码标准、技术栈、源代码树）已合并到 `docs/framework/`。详见 [Framework README](../framework/README.md)。
 
@@ -41,7 +41,7 @@ docs/architecture/
 
 | 文档 | 描述 | 状态 |
 |------|------|------|
-| [高级架构](./high-level-architecture.md) | AIOS v4 架构概览 | ✅ 当前版本 |
+| [高级架构](./high-level-architecture.md) | AIOX v4 架构概览 | ✅ 当前版本 |
 | [模块系统](./module-system.md) | 4 模块模块化架构 | ✅ 当前版本 |
 | [内存层](./memory-layer.md) | 内存系统架构 | ✅ 当前版本 |
 
@@ -114,12 +114,12 @@ docs/architecture/
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│                     AIOS v4 架构                                       │
+│                     AIOX v4 架构                                       │
 │                                                                         │
 │   ┌─────────────────────────────────────────────────────────────────┐   │
 │   │                    多仓库结构                                    │   │
 │   │                                                                  │   │
-│   │   SynkraAI/aios-core ◄───── 中央枢纽                           │   │
+│   │   SynkraAI/aiox-core ◄───── 中央枢纽                           │   │
 │   │          │                    - 框架核心                        │   │
 │   │          │                    - 11 个基础代理                   │   │
 │   │          │                    - 讨论中心                        │   │
@@ -127,14 +127,14 @@ docs/architecture/
 │   │   ┌──────┴───────┐                                               │   │
 │   │   │              │                                               │   │
 │   │   ▼              ▼                                               │   │
-│   │ aios-squads   mcp-ecosystem                                      │   │
+│   │ aiox-squads   mcp-ecosystem                                      │   │
 │   │ (MIT)         (Apache 2.0)                                       │   │
 │   └─────────────────────────────────────────────────────────────────┘   │
 │                                                                         │
 │   ┌─────────────────────────────────────────────────────────────────┐   │
 │   │                    模块化架构                                    │   │
 │   │                                                                  │   │
-│   │   .aios-core/                                                    │   │
+│   │   .aiox-core/                                                    │   │
 │   │   ├── core/           ← 框架基础                                │   │
 │   │   ├── development/    ← 代理、任务、工作流                      │   │
 │   │   ├── product/        ← 模板、检查列表                          │   │

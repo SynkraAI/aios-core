@@ -4,7 +4,7 @@
   Última sincronização: 2026-02-23
 -->
 
-# Documentação Synkra AIOS
+# Documentação Synkra AIOX
 
 > 🌐 [EN](../README.md) | **PT** | [ES](../es/README.md) | [ZH](../zh/README.md)
 
@@ -70,8 +70,8 @@ docs/
 - [Guia de Instalação](./installation/README.md)
 - [Visão Geral da Arquitetura](./architecture/ARCHITECTURE-INDEX.md)
 - [Referência de Agentes](./agent-reference-guide.md)
-- [Documentação do Sistema de Agentes](../aios-agent-flows/README.md)
-- [Documentação de Workflows](../aios-workflows/README.md)
+- [Documentação do Sistema de Agentes](../aiox-agent-flows/README.md)
+- [Documentação de Workflows](../aiox-workflows/README.md)
 - [Solução de Problemas](./troubleshooting.md)
 
 ### Español
@@ -80,8 +80,8 @@ docs/
 - [Guía de Instalación](../es/installation/README.md)
 - [Visión General de la Arquitectura](../es/architecture/ARCHITECTURE-INDEX.md)
 - [Referencia de Agentes](../es/agent-reference-guide.md)
-- [Documentación del Sistema de Agentes](../es/aios-agent-flows/README.md)
-- [Documentación de Workflows](../es/aios-workflows/README.md)
+- [Documentación del Sistema de Agentes](../es/aiox-agent-flows/README.md)
+- [Documentación de Workflows](../es/aiox-workflows/README.md)
 - [Solución de Problemas](../es/troubleshooting.md)
 
 ### 中文（简体）
@@ -127,8 +127,8 @@ Seguimos práticas i18n padrão da indústria:
 
 ## 📄 Licença
 
-Esta documentação faz parte do Synkra AIOS, licenciado sob [Licença MIT](../../LICENSE).
+Esta documentação faz parte do Synkra AIOX, licenciado sob [Licença MIT](../../LICENSE).
 
 ---
 
-_Synkra AIOS - Orquestrando IA para Melhor Desenvolvimento de Software_
+_Synkra AIOX - Orquestrando IA para Melhor Desenvolvimento de Software_

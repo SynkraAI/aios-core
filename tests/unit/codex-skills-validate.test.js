@@ -4,8 +4,8 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 
-const { syncSkills } = require('../../.aios-core/infrastructure/scripts/codex-skills-sync/index');
-const { validateCodexSkills } = require('../../.aios-core/infrastructure/scripts/codex-skills-sync/validate');
+const { syncSkills } = require('../../.aiox-core/infrastructure/scripts/codex-skills-sync/index');
+const { validateCodexSkills } = require('../../.aiox-core/infrastructure/scripts/codex-skills-sync/validate');
 
 describe('Codex Skills Validator', () => {
   let tmpRoot;
@@ -14,8 +14,8 @@ describe('Codex Skills Validator', () => {
   let expectedAgentCount;
 
   beforeEach(() => {
-    tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'aios-codex-validate-'));
-    sourceDir = path.join(process.cwd(), '.aios-core', 'development', 'agents');
+    tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'aiox-codex-validate-'));
+    sourceDir = path.join(process.cwd(), '.aiox-core', 'development', 'agents');
     skillsDir = path.join(tmpRoot, '.codex', 'skills');
     expectedAgentCount = fs.readdirSync(sourceDir).filter(name => name.endsWith('.md')).length;
   });
@@ -41,7 +41,7 @@ describe('Codex Skills Validator', () => {
 
   it('fails when a generated skill is missing', () => {
     syncSkills({ sourceDir, localSkillsDir: skillsDir, dryRun: false });
-    fs.rmSync(path.join(skillsDir, 'aios-architect', 'SKILL.md'), { force: true });
+    fs.rmSync(path.join(skillsDir, 'aiox-architect', 'SKILL.md'), { force: true });
 
     const result = validateCodexSkills({
       projectRoot: tmpRoot,
@@ -56,7 +56,7 @@ describe('Codex Skills Validator', () => {
 
   it('fails when greeting command is removed from a skill', () => {
     syncSkills({ sourceDir, localSkillsDir: skillsDir, dryRun: false });
-    const target = path.join(skillsDir, 'aios-dev', 'SKILL.md');
+    const target = path.join(skillsDir, 'aiox-dev', 'SKILL.md');
     const original = fs.readFileSync(target, 'utf8');
     fs.writeFileSync(target, original.replace('generate-greeting.js dev', 'generate-greeting.js'), 'utf8');
 
@@ -71,9 +71,9 @@ describe('Codex Skills Validator', () => {
     expect(result.errors.some(error => error.includes('missing canonical greeting command'))).toBe(true);
   });
 
-  it('fails in strict mode when orphaned aios-* skill dir exists', () => {
+  it('fails in strict mode when orphaned aiox-* skill dir exists', () => {
     syncSkills({ sourceDir, localSkillsDir: skillsDir, dryRun: false });
-    const orphanPath = path.join(skillsDir, 'aios-legacy');
+    const orphanPath = path.join(skillsDir, 'aiox-legacy');
     fs.mkdirSync(orphanPath, { recursive: true });
     fs.writeFileSync(path.join(orphanPath, 'SKILL.md'), '# legacy', 'utf8');
 
@@ -85,6 +85,6 @@ describe('Codex Skills Validator', () => {
     });
 
     expect(result.ok).toBe(false);
-    expect(result.orphaned).toContain('aios-legacy');
+    expect(result.orphaned).toContain('aiox-legacy');
   });
 });

@@ -6,11 +6,11 @@ const path = require('path');
 
 const {
   WorkflowStateManager,
-} = require('../../.aios-core/development/scripts/workflow-state-manager');
+} = require('../../.aiox-core/development/scripts/workflow-state-manager');
 
 describe('WorkflowStateManager runtime-first recommendations', () => {
   it('creates state with version metadata', async () => {
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), 'aios-wsm-'));
+    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), 'aiox-wsm-'));
     const manager = new WorkflowStateManager({ basePath: tmp });
 
     const workflowData = {

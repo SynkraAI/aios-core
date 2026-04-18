@@ -3,19 +3,19 @@
 const fs = require('fs');
 const path = require('path');
 const yaml = require('js-yaml');
-const { RegistrySyncer, inferRole, ROLE_MAP } = require('../../.aios-core/core/code-intel/registry-syncer');
+const { RegistrySyncer, inferRole, ROLE_MAP } = require('../../.aiox-core/core/code-intel/registry-syncer');
 
 // Mock fs module for controlled testing
 jest.mock('fs');
 
 // Mock code-intel index (fallback check)
-jest.mock('../../.aios-core/core/code-intel', () => ({
+jest.mock('../../.aiox-core/core/code-intel', () => ({
   getClient: jest.fn(),
   isCodeIntelAvailable: jest.fn().mockReturnValue(false),
 }));
 
 // Mock registry-loader
-jest.mock('../../.aios-core/core/ids/registry-loader', () => {
+jest.mock('../../.aiox-core/core/ids/registry-loader', () => {
   const DEFAULT_REGISTRY_PATH = '/mock/entity-registry.yaml';
   return {
     RegistryLoader: jest.fn().mockImplementation(() => ({
@@ -24,7 +24,7 @@ jest.mock('../../.aios-core/core/ids/registry-loader', () => {
         entities: {
           tasks: {
             'dev-develop-story': {
-              path: '.aios-core/development/tasks/dev-develop-story.md',
+              path: '.aiox-core/development/tasks/dev-develop-story.md',
               type: 'task',
               purpose: 'Develop story',
               keywords: ['develop', 'story'],
@@ -32,7 +32,7 @@ jest.mock('../../.aios-core/core/ids/registry-loader', () => {
               dependencies: [],
             },
             'create-next-story': {
-              path: '.aios-core/development/tasks/create-next-story.md',
+              path: '.aiox-core/development/tasks/create-next-story.md',
               type: 'task',
               purpose: 'Create next story',
               keywords: ['create', 'story'],
@@ -42,7 +42,7 @@ jest.mock('../../.aios-core/core/ids/registry-loader', () => {
           },
           scripts: {
             'greeting-builder': {
-              path: '.aios-core/development/scripts/greeting-builder.js',
+              path: '.aiox-core/development/scripts/greeting-builder.js',
               type: 'script',
               purpose: 'Build agent greetings',
               keywords: ['greeting', 'builder'],
@@ -61,7 +61,7 @@ jest.mock('../../.aios-core/core/ids/registry-loader', () => {
 function createMockClient(overrides = {}) {
   return {
     findReferences: jest.fn().mockResolvedValue([
-      { file: '.aios-core/development/tasks/create-next-story.md' },
+      { file: '.aiox-core/development/tasks/create-next-story.md' },
     ]),
     analyzeDependencies: jest.fn().mockResolvedValue({
       dependencies: [
@@ -126,7 +126,7 @@ describe('RegistrySyncer', () => {
     it('should populate usedBy with entity IDs from findReferences', async () => {
       const mockClient = createMockClient({
         findReferences: jest.fn().mockResolvedValue([
-          { file: '.aios-core/development/tasks/create-next-story.md' },
+          { file: '.aiox-core/development/tasks/create-next-story.md' },
         ]),
       });
       const syncer = createSyncer({ client: mockClient });
@@ -141,8 +141,8 @@ describe('RegistrySyncer', () => {
     it('should deduplicate usedBy entries', async () => {
       const mockClient = createMockClient({
         findReferences: jest.fn().mockResolvedValue([
-          { file: '.aios-core/development/tasks/create-next-story.md' },
-          { file: '.aios-core/development/tasks/create-next-story.md' }, // Duplicate
+          { file: '.aiox-core/development/tasks/create-next-story.md' },
+          { file: '.aiox-core/development/tasks/create-next-story.md' }, // Duplicate
         ]),
       });
       const syncer = createSyncer({ client: mockClient });
@@ -150,7 +150,7 @@ describe('RegistrySyncer', () => {
       const entities = {
         tasks: {
           'test-entity': {
-            path: '.aios-core/development/tasks/test.md',
+            path: '.aiox-core/development/tasks/test.md',
             usedBy: [],
             dependencies: [],
           },
@@ -188,7 +188,7 @@ describe('RegistrySyncer', () => {
         id: 'greeting-builder',
         category: 'scripts',
         data: {
-          path: '.aios-core/development/scripts/greeting-builder.js',
+          path: '.aiox-core/development/scripts/greeting-builder.js',
           usedBy: [],
           dependencies: [],
         },
@@ -209,7 +209,7 @@ describe('RegistrySyncer', () => {
         id: 'dev-develop-story',
         category: 'tasks',
         data: {
-          path: '.aios-core/development/tasks/dev-develop-story.md',
+          path: '.aiox-core/development/tasks/dev-develop-story.md',
           usedBy: [],
           dependencies: [],
         },
@@ -230,7 +230,7 @@ describe('RegistrySyncer', () => {
         id: 'dev-develop-story',
         category: 'tasks',
         data: {
-          path: '.aios-core/development/tasks/dev-develop-story.md',
+          path: '.aiox-core/development/tasks/dev-develop-story.md',
           usedBy: [],
           dependencies: [],
         },
@@ -253,8 +253,8 @@ describe('RegistrySyncer', () => {
     it('should set callerCount based on usedBy length', async () => {
       const mockClient = createMockClient({
         findReferences: jest.fn().mockResolvedValue([
-          { file: '.aios-core/development/tasks/create-next-story.md' },
-          { file: '.aios-core/development/scripts/greeting-builder.js' },
+          { file: '.aiox-core/development/tasks/create-next-story.md' },
+          { file: '.aiox-core/development/scripts/greeting-builder.js' },
         ]),
       });
       const syncer = createSyncer({ client: mockClient });
@@ -262,17 +262,17 @@ describe('RegistrySyncer', () => {
       const entities = {
         tasks: {
           'test-entity': {
-            path: '.aios-core/development/tasks/test.md',
+            path: '.aiox-core/development/tasks/test.md',
             usedBy: [],
             dependencies: [],
           },
           'create-next-story': {
-            path: '.aios-core/development/tasks/create-next-story.md',
+            path: '.aiox-core/development/tasks/create-next-story.md',
           },
         },
         scripts: {
           'greeting-builder': {
-            path: '.aios-core/development/scripts/greeting-builder.js',
+            path: '.aiox-core/development/scripts/greeting-builder.js',
           },
         },
       };
@@ -294,7 +294,7 @@ describe('RegistrySyncer', () => {
       const entity = {
         id: 'test',
         category: 'tasks',
-        data: { path: '.aios-core/development/tasks/test.md', usedBy: [], dependencies: [] },
+        data: { path: '.aiox-core/development/tasks/test.md', usedBy: [], dependencies: [] },
       };
 
       await syncer.syncEntity(entity, {}, true);
@@ -338,7 +338,7 @@ describe('RegistrySyncer', () => {
         id: 'dev-develop-story',
         category: 'tasks',
         data: {
-          path: '.aios-core/development/tasks/dev-develop-story.md',
+          path: '.aiox-core/development/tasks/dev-develop-story.md',
           usedBy: [],
           dependencies: [],
           codeIntelMetadata: {
@@ -364,7 +364,7 @@ describe('RegistrySyncer', () => {
         id: 'dev-develop-story',
         category: 'tasks',
         data: {
-          path: '.aios-core/development/tasks/dev-develop-story.md',
+          path: '.aiox-core/development/tasks/dev-develop-story.md',
           usedBy: [],
           dependencies: [],
           // No codeIntelMetadata
@@ -383,7 +383,7 @@ describe('RegistrySyncer', () => {
         id: 'dev-develop-story',
         category: 'tasks',
         data: {
-          path: '.aios-core/development/tasks/dev-develop-story.md',
+          path: '.aiox-core/development/tasks/dev-develop-story.md',
           usedBy: [],
           dependencies: [],
           codeIntelMetadata: { callerCount: 0, role: 'task', provider: 'code-graph' },
@@ -467,13 +467,13 @@ describe('RegistrySyncer', () => {
   // inferRole tests
   describe('inferRole', () => {
     it('should infer role from path patterns', () => {
-      expect(inferRole('.aios-core/development/tasks/dev.md')).toBe('task');
-      expect(inferRole('.aios-core/development/agents/dev.md')).toBe('agent');
-      expect(inferRole('.aios-core/development/workflows/sdc.yaml')).toBe('workflow');
-      expect(inferRole('.aios-core/development/scripts/build.js')).toBe('script');
-      expect(inferRole('.aios-core/core/utils/helper.js')).toBe('module');
-      expect(inferRole('.aios-core/data/entity-registry.yaml')).toBe('config');
-      expect(inferRole('.aios-core/product/templates/prd.yaml')).toBe('template');
+      expect(inferRole('.aiox-core/development/tasks/dev.md')).toBe('task');
+      expect(inferRole('.aiox-core/development/agents/dev.md')).toBe('agent');
+      expect(inferRole('.aiox-core/development/workflows/sdc.yaml')).toBe('workflow');
+      expect(inferRole('.aiox-core/development/scripts/build.js')).toBe('script');
+      expect(inferRole('.aiox-core/core/utils/helper.js')).toBe('module');
+      expect(inferRole('.aiox-core/data/entity-registry.yaml')).toBe('config');
+      expect(inferRole('.aiox-core/product/templates/prd.yaml')).toBe('template');
     });
 
     it('should return "unknown" for unmatched paths', () => {

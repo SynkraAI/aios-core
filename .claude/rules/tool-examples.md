@@ -24,8 +24,8 @@ Use for repository state, history, and branch management.
 
 ### coderabbit — Automated Code Review
 Use before commits and PRs for quality validation. Runs in WSL.
-- **Pre-commit:** `wsl bash -c 'cd /mnt/c/.../aios-core && ~/.local/bin/coderabbit --prompt-only -t uncommitted'`
-- **Pre-PR:** `wsl bash -c 'cd /mnt/c/.../aios-core && ~/.local/bin/coderabbit --prompt-only --base main'`
+- **Pre-commit:** `wsl bash -c 'cd /mnt/c/.../aiox-core && ~/.local/bin/coderabbit --prompt-only -t uncommitted'`
+- **Pre-PR:** `wsl bash -c 'cd /mnt/c/.../aiox-core && ~/.local/bin/coderabbit --prompt-only --base main'`
 
 ### browser — Web Testing
 Use for UI validation, console checks, and web interaction.
@@ -60,5 +60,5 @@ Use for managing Docker-based MCP servers. `@devops` manages infrastructure.
 
 ## Reference
 
-Full examples registry: `.aios-core/data/mcp-tool-examples.yaml`
-Tool registry: `.aios-core/data/tool-registry.yaml`
+Full examples registry: `.aiox-core/data/mcp-tool-examples.yaml`
+Tool registry: `.aiox-core/data/tool-registry.yaml`

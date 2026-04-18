@@ -11,7 +11,7 @@ const fs = require('fs');
 const yaml = require('js-yaml');
 
 const REPO_ROOT = path.resolve(__dirname, '../..');
-const REGISTRY_PATH = path.resolve(REPO_ROOT, '.aios-core/data/entity-registry.yaml');
+const REGISTRY_PATH = path.resolve(REPO_ROOT, '.aiox-core/data/entity-registry.yaml');
 
 // Load registry once for all test suites
 const registryContent = fs.readFileSync(REGISTRY_PATH, 'utf8');
@@ -78,7 +78,7 @@ describe('Layer Integration — Entity Registry', () => {
 describe('Layer Preservation — Registry Healer (AC: 6)', () => {
   test('healer _healIssue only heals known fields, does not strip layer', () => {
     // Verify by reading healer source — it only handles specific ruleIds
-    const healerPath = path.resolve(REPO_ROOT, '.aios-core/core/ids/registry-healer.js');
+    const healerPath = path.resolve(REPO_ROOT, '.aiox-core/core/ids/registry-healer.js');
     const healerContent = fs.readFileSync(healerPath, 'utf8');
 
     // The healer only heals specific rules: checksum-mismatch, orphaned-usedBy,
@@ -106,7 +106,7 @@ describe('Layer Preservation — Registry Healer (AC: 6)', () => {
     // Functional test: simulate what _healChecksum does to an entity object
     // and verify the layer field survives the mutation
     const testEntity = {
-      path: '.aios-core/core/ids/layer-classifier.js',
+      path: '.aiox-core/core/ids/layer-classifier.js',
       layer: 'L1',
       type: 'module',
       purpose: 'Layer classification',
@@ -130,7 +130,7 @@ describe('Layer Preservation — Registry Healer (AC: 6)', () => {
   test('healer functional: healing keywords preserves layer field (C3)', () => {
     // Simulate _healMissingKeywords behavior
     const testEntity = {
-      path: '.aios-core/data/entity-registry.yaml',
+      path: '.aiox-core/data/entity-registry.yaml',
       layer: 'L3',
       type: 'data',
       keywords: [],

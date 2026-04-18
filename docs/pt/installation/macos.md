@@ -4,7 +4,7 @@
   Última sincronização: 2026-01-26
 -->
 
-# Guia de Instalação para macOS - Synkra AIOS
+# Guia de Instalação para macOS - Synkra AIOX
 
 > 🌐 [EN](../../installation/macos.md) | **PT** | [ES](../../es/installation/macos.md)
 
@@ -72,7 +72,7 @@ Baixe em [cli.github.com](https://cli.github.com/)
 
 3. Execute o instalador:
    ```bash
-   npx github:SynkraAI/aios-core install
+   npx github:SynkraAI/aiox-core install
    ```
 
 ### O Que o Instalador Faz
@@ -97,7 +97,7 @@ O instalador automaticamente:
 
 ### Claude Code
 
-1. Os comandos são instalados em `.claude/commands/AIOS/`
+1. Os comandos são instalados em `.claude/commands/AIOX/`
 2. Use `/agent-name` para ativar agentes
 
 
@@ -114,7 +114,7 @@ Se você encontrar erros de permissão:
 sudo chown -R $(whoami) ~/.npm
 
 # Corrigir permissões do projeto
-sudo chown -R $(whoami) .aios-core
+sudo chown -R $(whoami) .aiox-core
 ```
 
 ### Autenticação do GitHub CLI
@@ -150,14 +150,14 @@ Os sistemas de arquivos do macOS podem ser case-insensitive por padrão. Se voc�
    diskutil info / | grep "File System"
    ```
 
-2. O Synkra AIOS lida automaticamente com sistemas de arquivos case-sensitive e case-insensitive
+2. O Synkra AIOX lida automaticamente com sistemas de arquivos case-sensitive e case-insensitive
 
 ## Atualização
 
 Para atualizar uma instalação existente:
 
 ```bash
-npx github:SynkraAI/aios-core install
+npx github:SynkraAI/aiox-core install
 ```
 
 O atualizador irá:

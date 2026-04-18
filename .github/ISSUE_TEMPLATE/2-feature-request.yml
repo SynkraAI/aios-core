@@ -1,5 +1,5 @@
 name: Feature Request
-description: Suggest a new feature or improvement for aios-core
+description: Suggest a new feature or improvement for aiox-core
 title: "[Feature]: "
 labels: ["type: feature", "status: needs-triage"]
 body:
@@ -38,15 +38,15 @@ body:
     id: area
     attributes:
       label: Package / Area
-      description: Which part of aios-core should this feature belong to?
+      description: Which part of aiox-core should this feature belong to?
       options:
-        - "Core Framework (.aios-core/core/)"
+        - "Core Framework (.aiox-core/core/)"
         - "Installer (packages/installer/)"
-        - "CLI (bin/, packages/aios-pro-cli/)"
+        - "CLI (bin/, packages/aiox-pro-cli/)"
         - "SYNAPSE Context Engine"
         - "Health Check System"
-        - "Agent System (.aios-core/development/agents/)"
-        - "Task System (.aios-core/development/tasks/)"
+        - "Agent System (.aiox-core/development/agents/)"
+        - "Task System (.aiox-core/development/tasks/)"
         - "Memory / Knowledge Base"
         - "Pro Features"
         - "Documentation"

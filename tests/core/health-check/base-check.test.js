@@ -6,7 +6,7 @@
  * metadata, and healing support.
  */
 
-const { BaseCheck, CheckSeverity, CheckStatus, CheckDomain } = require('../../../.aios-core/core/health-check/base-check');
+const { BaseCheck, CheckSeverity, CheckStatus, CheckDomain } = require('../../../.aiox-core/core/health-check/base-check');
 
 // Concrete subclass for testing
 class TestCheck extends BaseCheck {

@@ -1,8 +1,8 @@
-# Contributing to Synkra AIOS
+# Contributing to Synkra AIOX
 
 > **[Versao em Portugues](docs/pt/contributing.md)**
 
-Welcome to AIOS! Thank you for your interest in contributing. This guide will help you understand our development workflow, contribution process, and how to submit your changes.
+Welcome to AIOX! Thank you for your interest in contributing. This guide will help you understand our development workflow, contribution process, and how to submit your changes.
 
 ## Table of Contents
 
@@ -29,11 +29,11 @@ Welcome to AIOS! Thank you for your interest in contributing. This guide will he
 
 ```bash
 # Fork via GitHub UI, then clone your fork
-git clone https://github.com/YOUR_USERNAME/aios-core.git
-cd aios-core
+git clone https://github.com/YOUR_USERNAME/aiox-core.git
+cd aiox-core
 
 # Add upstream remote
-git remote add upstream https://github.com/SynkraAI/aios-core.git
+git remote add upstream https://github.com/SynkraAI/aiox-core.git
 ```
 
 ### 2. Set Up Development Environment
@@ -145,7 +145,7 @@ Agents are AI personas with specific expertise and commands.
 ### Agent File Location
 
 ```
-.aios-core/development/agents/your-agent.md
+.aiox-core/development/agents/your-agent.md
 ```
 
 ### Required Agent Structure
@@ -219,7 +219,7 @@ Tasks are executable workflows that agents can run.
 ### Task File Location
 
 ```
-.aios-core/development/tasks/your-task.md
+.aiox-core/development/tasks/your-task.md
 ```
 
 ### Required Task Structure
@@ -321,7 +321,7 @@ tasks:
 
 - [Squads Guide](docs/guides/squads-guide.md) - Complete documentation
 - [Squad Template](templates/squad/) - Start from a working template
-- [Squad Discussions](https://github.com/SynkraAI/aios-core/discussions/categories/ideas) - Share ideas
+- [Squad Discussions](https://github.com/SynkraAI/aiox-core/discussions/categories/ideas) - Share ideas
 
 ---
 
@@ -346,7 +346,7 @@ When you submit a PR, the following checks run automatically:
 
 - Code quality and best practices
 - Security concerns
-- AIOS-specific patterns (agents, tasks, workflows)
+- AIOX-specific patterns (agents, tasks, workflows)
 - Performance issues
 
 **Severity Levels:**
@@ -385,7 +385,7 @@ After automated checks pass, a maintainer will:
 
 ## Validation System
 
-AIOS implements a **Defense in Depth** strategy with 3 validation layers:
+AIOX implements a **Defense in Depth** strategy with 3 validation layers:
 
 ### Layer 1: Pre-commit (Local)
 
@@ -443,11 +443,11 @@ Critical paths require approval from `@Pedrovaleriolopez` or `@oalanicolas` (mai
 
 | Path | Why |
 |------|-----|
-| `.aios-core/core/orchestration/` | Orchestration layer (MasterOrchestrator, GateEvaluator) |
-| `.aios-core/core/execution/` | Execution engine (WaveExecutor, ParallelExecutor) |
+| `.aiox-core/core/orchestration/` | Orchestration layer (MasterOrchestrator, GateEvaluator) |
+| `.aiox-core/core/execution/` | Execution engine (WaveExecutor, ParallelExecutor) |
 | `packages/` | Installer, CLI, shared libraries |
 | `.github/` | CI/CD workflows, branch protection |
-| `.aios-core/core-config.yaml` | Framework configuration |
+| `.aiox-core/core-config.yaml` | Framework configuration |
 
 All other paths require review from any maintainer (`@Pedrovaleriolopez` or `@oalanicolas`).
 
@@ -474,7 +474,7 @@ See [`.github/CODEOWNERS`](.github/CODEOWNERS) for the full ownership map.
 ### File Organization
 
 ```
-.aios-core/
+.aiox-core/
 ├── development/
 │   ├── agents/      # Agent definitions
 │   ├── tasks/       # Task workflows
@@ -573,23 +573,23 @@ Common fixes:
 
 ## Getting Help
 
-- **GitHub Issues:** [Open an issue](https://github.com/SynkraAI/aios-core/issues)
-- **Discussions:** [Start a discussion](https://github.com/SynkraAI/aios-core/discussions)
+- **GitHub Issues:** [Open an issue](https://github.com/SynkraAI/aiox-core/issues)
+- **Discussions:** [Start a discussion](https://github.com/SynkraAI/aiox-core/discussions)
 - **Community:** [COMMUNITY.md](COMMUNITY.md)
 
 ---
 
 ## Working with Pro
 
-AIOS uses an Open Core model with a private `pro/` git submodule (see [ADR-PRO-001](docs/architecture/adr/adr-pro-001-repository-strategy.md)).
+AIOX uses an Open Core model with a private `pro/` git submodule (see [ADR-PRO-001](docs/architecture/adr/adr-pro-001-repository-strategy.md)).
 
 ### For Open-Source Contributors
 
 **You do NOT need the pro/ submodule.** The standard clone works perfectly:
 
 ```bash
-git clone https://github.com/SynkraAI/aios-core.git
-cd aios-core
+git clone https://github.com/SynkraAI/aiox-core.git
+cd aiox-core
 npm install && npm test  # All tests pass without pro/
 ```
 
@@ -601,11 +601,11 @@ When forking and syncing with upstream, **do NOT use `--recurse-submodules`**:
 
 ```bash
 # Fork via GitHub UI, then clone (without submodules)
-git clone https://github.com/<your-fork>/aios-core.git
-cd aios-core
+git clone https://github.com/<your-fork>/aiox-core.git
+cd aiox-core
 
 # Add upstream and sync
-git remote add upstream https://github.com/SynkraAI/aios-core.git
+git remote add upstream https://github.com/SynkraAI/aiox-core.git
 git fetch upstream
 git rebase upstream/main
 
@@ -640,19 +640,19 @@ git config submodule.pro.active false
 
 ```bash
 # Clone with submodule
-git clone --recurse-submodules https://github.com/SynkraAI/aios-core.git
+git clone --recurse-submodules https://github.com/SynkraAI/aiox-core.git
 
 # Or add to existing clone
 git submodule update --init pro
 ```
 
-**Push order:** Always push `pro/` changes first, then `aios-core`.
+**Push order:** Always push `pro/` changes first, then `aiox-core`.
 
 ### Future: CLI Setup
 
 ```bash
 # Coming in a future release
-aios setup --pro
+aiox setup --pro
 ```
 
 For the complete developer workflow guide, see [Pro Developer Workflow](docs/guides/workflows/pro-developer-workflow.md).
@@ -668,4 +668,4 @@ For the complete developer workflow guide, see [Pro Developer Workflow](docs/gui
 
 ---
 
-**Thank you for contributing to Synkra AIOS!**
+**Thank you for contributing to Synkra AIOX!**

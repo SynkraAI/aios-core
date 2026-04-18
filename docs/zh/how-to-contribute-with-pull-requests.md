@@ -16,17 +16,17 @@
 
 **提交 PR 之前必须做的事情：**
 
-- **对于错误修复**：使用[错误报告模板](https://github.com/SynkraAIinc/@synkra/aios-core/issues/new?template=bug_report.md)创建一个问题
+- **对于错误修复**：使用[错误报告模板](https://github.com/SynkraAIinc/@synkra/aiox-core/issues/new?template=bug_report.md)创建一个问题
 - **对于新功能**：
   1. 在 Discord 的[#general-dev 频道](https://discord.gg/gk8jAdXWmj)中讨论
-  2. 使用[功能请求模板](https://github.com/SynkraAIinc/@synkra/aios-core/issues/new?template=feature_request.md)创建一个问题
+  2. 使用[功能请求模板](https://github.com/SynkraAIinc/@synkra/aiox-core/issues/new?template=feature_request.md)创建一个问题
 - **对于大的更改**：始终先开一个问题来讨论对齐
 
 ## 分步指南
 
 ### 1. Fork 存储库
 
-1. 进入 [Synkra AIOS 存储库](https://github.com/SynkraAIinc/@synkra/aios-core)
+1. 进入 [Synkra AIOX 存储库](https://github.com/SynkraAIinc/@synkra/aiox-core)
 2. 单击右上角的"Fork"按钮
 3. 这会创建您自己的项目副本
 
@@ -34,8 +34,8 @@
 
 ```bash
 # 将 YOUR-USERNAME 替换为您的实际 GitHub 用户名
-git clone https://github.com/YOUR-USERNAME/@synkra/aios-core.git
-cd @synkra/aios-core
+git clone https://github.com/YOUR-USERNAME/@synkra/aiox-core.git
+cd @synkra/aiox-core
 ```
 
 ### 3. 创建新分支
@@ -135,8 +135,8 @@ git push origin fix/typo-in-readme
 
 ## 需要帮助？
 
-- 🐛 使用[错误报告模板](https://github.com/SynkraAIinc/@synkra/aios-core/issues/new?template=bug_report.md)报告错误
-- 💡 使用[功能请求模板](https://github.com/SynkraAIinc/@synkra/aios-core/issues/new?template=feature_request.md)建议功能
+- 🐛 使用[错误报告模板](https://github.com/SynkraAIinc/@synkra/aiox-core/issues/new?template=bug_report.md)报告错误
+- 💡 使用[功能请求模板](https://github.com/SynkraAIinc/@synkra/aiox-core/issues/new?template=feature_request.md)建议功能
 - 📖 阅读完整的[贡献指南](../CONTRIBUTING.md)
 
 ## 示例：好 vs 坏 PR

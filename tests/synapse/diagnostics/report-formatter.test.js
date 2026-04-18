@@ -17,7 +17,7 @@
 // jest.mock for report-formatter is hoisted for Part 2 (orchestrator tests).
 // We use requireActual here to get the REAL formatReport for Part 1.
 const { formatReport } = jest.requireActual(
-  '../../../.aios-core/core/synapse/diagnostics/report-formatter',
+  '../../../.aiox-core/core/synapse/diagnostics/report-formatter',
 );
 
 /**
@@ -567,23 +567,23 @@ describe('formatReport()', () => {
 // Part 2: Synapse Diagnostics Orchestrator Tests
 // ---------------------------------------------------------------------------
 
-jest.mock('../../../.aios-core/core/synapse/diagnostics/collectors/hook-collector');
-jest.mock('../../../.aios-core/core/synapse/diagnostics/collectors/session-collector');
-jest.mock('../../../.aios-core/core/synapse/diagnostics/collectors/manifest-collector');
-jest.mock('../../../.aios-core/core/synapse/diagnostics/collectors/pipeline-collector');
-jest.mock('../../../.aios-core/core/synapse/diagnostics/collectors/uap-collector');
-jest.mock('../../../.aios-core/core/synapse/diagnostics/report-formatter');
-jest.mock('../../../.aios-core/core/synapse/domain/domain-loader');
+jest.mock('../../../.aiox-core/core/synapse/diagnostics/collectors/hook-collector');
+jest.mock('../../../.aiox-core/core/synapse/diagnostics/collectors/session-collector');
+jest.mock('../../../.aiox-core/core/synapse/diagnostics/collectors/manifest-collector');
+jest.mock('../../../.aiox-core/core/synapse/diagnostics/collectors/pipeline-collector');
+jest.mock('../../../.aiox-core/core/synapse/diagnostics/collectors/uap-collector');
+jest.mock('../../../.aiox-core/core/synapse/diagnostics/report-formatter');
+jest.mock('../../../.aiox-core/core/synapse/domain/domain-loader');
 
-const { collectHookStatus } = require('../../../.aios-core/core/synapse/diagnostics/collectors/hook-collector');
-const { collectSessionStatus } = require('../../../.aios-core/core/synapse/diagnostics/collectors/session-collector');
-const { collectManifestIntegrity } = require('../../../.aios-core/core/synapse/diagnostics/collectors/manifest-collector');
-const { collectPipelineSimulation } = require('../../../.aios-core/core/synapse/diagnostics/collectors/pipeline-collector');
-const { collectUapBridgeStatus } = require('../../../.aios-core/core/synapse/diagnostics/collectors/uap-collector');
-const { formatReport: mockFormatReport } = require('../../../.aios-core/core/synapse/diagnostics/report-formatter');
-const { parseManifest } = require('../../../.aios-core/core/synapse/domain/domain-loader');
+const { collectHookStatus } = require('../../../.aiox-core/core/synapse/diagnostics/collectors/hook-collector');
+const { collectSessionStatus } = require('../../../.aiox-core/core/synapse/diagnostics/collectors/session-collector');
+const { collectManifestIntegrity } = require('../../../.aiox-core/core/synapse/diagnostics/collectors/manifest-collector');
+const { collectPipelineSimulation } = require('../../../.aiox-core/core/synapse/diagnostics/collectors/pipeline-collector');
+const { collectUapBridgeStatus } = require('../../../.aiox-core/core/synapse/diagnostics/collectors/uap-collector');
+const { formatReport: mockFormatReport } = require('../../../.aiox-core/core/synapse/diagnostics/report-formatter');
+const { parseManifest } = require('../../../.aiox-core/core/synapse/domain/domain-loader');
 
-const { runDiagnostics, runDiagnosticsRaw } = require('../../../.aios-core/core/synapse/diagnostics/synapse-diagnostics');
+const { runDiagnostics, runDiagnosticsRaw } = require('../../../.aiox-core/core/synapse/diagnostics/synapse-diagnostics');
 
 describe('synapse-diagnostics orchestrator', () => {
   const projectRoot = '/fake/project';

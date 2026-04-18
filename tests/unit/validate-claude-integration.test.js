@@ -6,7 +6,7 @@ const path = require('path');
 
 const {
   validateClaudeIntegration,
-} = require('../../.aios-core/infrastructure/scripts/validate-claude-integration');
+} = require('../../.aiox-core/infrastructure/scripts/validate-claude-integration');
 
 describe('validate-claude-integration', () => {
   let tmpRoot;
@@ -27,8 +27,8 @@ describe('validate-claude-integration', () => {
   it('passes when required Claude files exist', () => {
     write(path.join(tmpRoot, '.claude', 'CLAUDE.md'), '# rules');
     write(path.join(tmpRoot, '.claude', 'hooks', 'hook.js'), '');
-    write(path.join(tmpRoot, '.claude', 'commands', 'AIOS', 'agents', 'dev.md'), '# dev');
-    write(path.join(tmpRoot, '.aios-core', 'development', 'agents', 'dev.md'), '# dev');
+    write(path.join(tmpRoot, '.claude', 'commands', 'AIOX', 'agents', 'dev.md'), '# dev');
+    write(path.join(tmpRoot, '.aiox-core', 'development', 'agents', 'dev.md'), '# dev');
 
     const result = validateClaudeIntegration({ projectRoot: tmpRoot });
     expect(result.ok).toBe(true);

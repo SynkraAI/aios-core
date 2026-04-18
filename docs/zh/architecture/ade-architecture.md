@@ -24,7 +24,7 @@
 
 ## 概述
 
-**自主开发引擎 (ADE)** 是 AIOS 用于自主开发工作流的基础设施。它使 AI 代理能够通过智能管道、自愈循环和持久学习独立工作。
+**自主开发引擎 (ADE)** 是 AIOX 用于自主开发工作流的基础设施。它使 AI 代理能够通过智能管道、自愈循环和持久学习独立工作。
 
 ### 核心能力
 
@@ -42,7 +42,7 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                           AIOS 框架                                          │
+│                           AIOX 框架                                          │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
 │  ┌────────────────────────────────────────────────────────────────────────┐ │
@@ -57,7 +57,7 @@
 │  │         │                │                │                │          │ │
 │  │         ▼                ▼                ▼                ▼          │ │
 │  │  ┌─────────────────────────────────────────────────────────────────┐  │ │
-│  │  │                     运行时状态 .aios/                           │  │ │
+│  │  │                     运行时状态 .aiox/                           │  │ │
 │  │  └─────────────────────────────────────────────────────────────────┘  │ │
 │  │         │                │                │                │          │ │
 │  │         ▼                ▼                ▼                ▼          │ │
@@ -88,7 +88,7 @@
 
 ### 2. 状态持久化
 
-所有 ADE 状态都持久化在 `.aios/` 中用于:
+所有 ADE 状态都持久化在 `.aiox/` 中用于:
 
 - 会话恢复
 - 进度跟踪
@@ -120,7 +120,7 @@
 
 ```
 组件: worktree-manager.js
-位置: .aios-core/infrastructure/scripts/
+位置: .aiox-core/infrastructure/scripts/
 
 流程:
   1. Story 开始 → 创建 worktree
@@ -141,9 +141,9 @@
 
 ```
 组件: project-status-loader.js
-位置: .aios-core/infrastructure/scripts/
+位置: .aiox-core/infrastructure/scripts/
 
-状态文件: .aios/project-status.yaml
+状态文件: .aiox/project-status.yaml
 ```
 
 **状态 Schema:**
@@ -329,10 +329,10 @@ stories:
 
 | 类型         | 描述                    | 存储                              |
 | ------------ | ----------------------- | --------------------------------- |
-| 代码模式     | 来自代码库的可重用模式  | .aios/patterns/code-patterns.json |
-| 陷阱         | 已知问题和解决方案      | .aios/patterns/gotchas.json       |
-| 会话洞察     | 会话期间的发现          | .aios/sessions/                   |
-| 代码库地图   | 项目结构分析            | .aios/codebase-map.json           |
+| 代码模式     | 来自代码库的可重用模式  | .aiox/patterns/code-patterns.json |
+| 陷阱         | 已知问题和解决方案      | .aiox/patterns/gotchas.json       |
+| 会话洞察     | 会话期间的发现          | .aiox/sessions/                   |
+| 代码库地图   | 项目结构分析            | .aiox/codebase-map.json           |
 
 ---
 
@@ -363,7 +363,7 @@ stories:
 
 ### 主配置
 
-位于 `.aios-core/core-config.yaml`:
+位于 `.aiox-core/core-config.yaml`:
 
 ```yaml
 ade:
@@ -386,7 +386,7 @@ ade:
 
   memoryLayer:
     enabled: true
-    patternStore: .aios/patterns/
+    patternStore: .aiox/patterns/
     sessionCapture: true
 
   selfHealing:
@@ -404,7 +404,7 @@ WIS 基于学习的模式提供智能建议。
 ### 组件
 
 ```
-.aios-core/workflow-intelligence/
+.aiox-core/workflow-intelligence/
 ├── engine/
 │   ├── confidence-scorer.js   # 模式置信度评分
 │   ├── output-formatter.js    # 输出格式化
@@ -471,4 +471,4 @@ strategies:
 
 ---
 
-_这是记录自主开发引擎的官方 AIOS 框架标准。_
+_这是记录自主开发引擎的官方 AIOX 框架标准。_

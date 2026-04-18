@@ -9,7 +9,7 @@
 
 const inquirer = require('inquirer');
 const { getIDEChoices, getIDEKeys } = require('../config/ide-configs');
-const { colors } = require('../utils/aios-colors');
+const { colors } = require('../utils/aiox-colors');
 const { t } = require('./i18n');
 
 /**

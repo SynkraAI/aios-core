@@ -179,7 +179,7 @@ tools/quality-dashboard/dist/index.html
 指标存储在:
 
 ```
-.aios/data/quality-metrics.json
+.aiox/data/quality-metrics.json
 ```
 
 ### 数据格式
@@ -247,14 +247,14 @@ tools/quality-dashboard/dist/index.html
 仪表板从公共文件夹读取指标。要更新:
 
 ```bash
-# 从.aios/data同步到仪表板
+# 从.aiox/data同步到仪表板
 npm run sync-metrics
 
 # 或使用组合命令
 npm run dev:sync
 ```
 
-这会复制 `.aios/data/quality-metrics.json` 到 `tools/quality-dashboard/public/.aios/data/`。
+这会复制 `.aiox/data/quality-metrics.json` 到 `tools/quality-dashboard/public/.aiox/data/`。
 
 ---
 
@@ -330,10 +330,10 @@ npm run sync-metrics
 
 ```bash
 # 检查指标文件是否存在
-ls -la .aios/data/quality-metrics.json
+ls -la .aiox/data/quality-metrics.json
 
 # 如果缺失，用示例数据初始化
-npx aios metrics seed
+npx aiox metrics seed
 ```
 
 ### 图表未呈现
@@ -358,4 +358,4 @@ npx aios metrics seed
 
 ---
 
-_Synkra AIOS质量门禁仪表板 v1.0_
+_Synkra AIOX质量门禁仪表板 v1.0_

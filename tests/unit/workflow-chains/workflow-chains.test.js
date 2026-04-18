@@ -5,11 +5,11 @@ const path = require('path');
 const yaml = require('js-yaml');
 
 const CHAINS_PATH = path.join(
-  __dirname, '..', '..', '..', '.aios-core', 'data', 'workflow-chains.yaml',
+  __dirname, '..', '..', '..', '.aiox-core', 'data', 'workflow-chains.yaml',
 );
 
 const AGENTS_DIR = path.join(
-  __dirname, '..', '..', '..', '.aios-core', 'development', 'agents',
+  __dirname, '..', '..', '..', '.aiox-core', 'development', 'agents',
 );
 
 const FIXTURES_DIR = path.join(__dirname, '..', '..', 'fixtures', 'handoffs');
@@ -17,7 +17,7 @@ const FIXTURES_DIR = path.join(__dirname, '..', '..', 'fixtures', 'handoffs');
 const KNOWN_AGENTS = [
   '@sm', '@po', '@dev', '@qa', '@devops', '@pm',
   '@architect', '@analyst', '@data-engineer', '@ux-design-expert',
-  '@squad-creator', '@aios-master',
+  '@squad-creator', '@aiox-master',
 ];
 
 describe('Workflow Chains (Story WIS-16)', () => {
@@ -66,7 +66,7 @@ describe('Workflow Chains (Story WIS-16)', () => {
       }
     });
 
-    test('all agents in chains are known AIOS agents', () => {
+    test('all agents in chains are known AIOX agents', () => {
       for (const workflow of chainsData.workflows) {
         for (const step of workflow.chain) {
           expect(KNOWN_AGENTS).toContain(step.agent);
@@ -283,7 +283,7 @@ describe('Workflow Chains (Story WIS-16)', () => {
 
   describe('task handoff sections (AC3)', () => {
     const TASKS_DIR = path.join(
-      __dirname, '..', '..', '..', '.aios-core', 'development', 'tasks',
+      __dirname, '..', '..', '..', '.aiox-core', 'development', 'tasks',
     );
 
     test('at least 20 tasks have ## Handoff section', () => {
@@ -315,7 +315,7 @@ describe('Workflow Chains (Story WIS-16)', () => {
     const agentFiles = [
       'dev.md', 'qa.md', 'devops.md', 'architect.md', 'pm.md', 'po.md',
       'sm.md', 'analyst.md', 'data-engineer.md', 'ux-design-expert.md',
-      'squad-creator.md', 'aios-master.md',
+      'squad-creator.md', 'aiox-master.md',
     ];
 
     test.each(agentFiles)('%s contains step 5.5 handoff suggestion', (file) => {

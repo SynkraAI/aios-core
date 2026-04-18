@@ -1,14 +1,14 @@
-# AIOS Roadmap
+# AIOX Roadmap
 
 > 🇧🇷 [Versão em Português](ROADMAP-PT.md)
 
-This document outlines the planned development direction for AIOS.
+This document outlines the planned development direction for AIOX.
 
 > For detailed tracking, see our [GitHub Project](https://github.com/orgs/SynkraAI/projects/1)
 
 ## Vision
 
-AIOS aims to be the most comprehensive open-source AI agent framework, enabling developers to build sophisticated AI-powered applications with specialized agent teams (Squads) and seamless IDE integration.
+AIOX aims to be the most comprehensive open-source AI agent framework, enabling developers to build sophisticated AI-powered applications with specialized agent teams (Squads) and seamless IDE integration.
 
 ## Current Focus (Q1 2026)
 
@@ -36,7 +36,7 @@ Core framework stabilization and community infrastructure:
 
 ### P0 Strategic Focus: Learning Curve Reduction
 
-Primary objective for AIOS 4.0.x execution:
+Primary objective for AIOX 4.0.x execution:
 
 - onboarding-first experience (single "start here" path)
 - time-to-first-value <= 10 minutes for new users
@@ -44,8 +44,8 @@ Primary objective for AIOS 4.0.x execution:
 - runtime-guided next action (state-driven, not command-list driven)
 
 Tracking reference:
-- `docs/strategy/AIOS-LEARNING-CURVE-FOCUS-4.0.4.md`
-- `docs/strategy/AIOS-DIFFERENTIATION-PLAN-4.0.4.md`
+- `docs/strategy/AIOX-LEARNING-CURVE-FOCUS-4.0.4.md`
+- `docs/strategy/AIOX-DIFFERENTIATION-PLAN-4.0.4.md`
 
 Execution gates:
 - P0 gate: onboarding metric + clear IDE matrix + first-value flow + smoke tests
@@ -81,11 +81,11 @@ We welcome community input on our direction! Here's how to participate:
 
 ### 1. Vote on Ideas
 
-React with :+1: on existing [Ideas in Discussions](https://github.com/SynkraAI/aios-core/discussions/categories/ideas) to show support.
+React with :+1: on existing [Ideas in Discussions](https://github.com/SynkraAI/aiox-core/discussions/categories/ideas) to show support.
 
 ### 2. Propose Features
 
-Have a new idea? Open an [Idea Discussion](https://github.com/SynkraAI/aios-core/discussions/new?category=ideas) to share it with the community.
+Have a new idea? Open an [Idea Discussion](https://github.com/SynkraAI/aiox-core/discussions/new?category=ideas) to share it with the community.
 
 ### 3. Write an RFC
 
@@ -108,7 +108,7 @@ This roadmap is reviewed and updated monthly by the project maintainers.
 2. Update status of completed/in-progress items
 3. Add newly approved features from community discussions
 4. Remove cancelled or deprioritized items
-5. Communicate significant changes via [Announcements](https://github.com/SynkraAI/aios-core/discussions/categories/announcements)
+5. Communicate significant changes via [Announcements](https://github.com/SynkraAI/aiox-core/discussions/categories/announcements)
 
 **Responsible:** @pm (Morgan) or @po (Pax) agents, with maintainer oversight.
 
@@ -118,7 +118,7 @@ This public roadmap is synchronized with our internal sprint planning:
 
 | Public Roadmap | Internal Tracking |
 |----------------|-------------------|
-| [GitHub Project](https://github.com/orgs/SynkraAI/projects/1) | `docs/strategy/AIOS-DIFFERENTIATION-PLAN-4.0.4.md` |
+| [GitHub Project](https://github.com/orgs/SynkraAI/projects/1) | `docs/strategy/AIOX-DIFFERENTIATION-PLAN-4.0.4.md` |
 | High-level features | Detailed stories per sprint |
 | Quarterly timeline | Sprint-based execution |
 

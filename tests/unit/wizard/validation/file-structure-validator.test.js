@@ -25,7 +25,7 @@ describe('File Structure Validator', () => {
       const fileContext = {
         ideConfigs: ['.cursor/settings.json', '.github/copilot-instructions.md'],
         env: '.env',
-        coreConfig: '.aios-core/core-config.yaml',
+        coreConfig: '.aiox-core/core-config.yaml',
         mcpConfig: '.mcp.json',
       };
 
@@ -63,10 +63,10 @@ describe('File Structure Validator', () => {
 
     it('should return errors when core-config.yaml is missing', async () => {
       // Given
-      fs.existsSync.mockImplementation((path) => path !== '.aios-core/core-config.yaml');
+      fs.existsSync.mockImplementation((path) => path !== '.aiox-core/core-config.yaml');
 
       const fileContext = {
-        coreConfig: '.aios-core/core-config.yaml',
+        coreConfig: '.aiox-core/core-config.yaml',
       };
 
       // When

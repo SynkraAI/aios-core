@@ -1,6 +1,6 @@
 'use strict';
 
-jest.mock('../../.aios-core/development/scripts/unified-activation-pipeline', () => ({
+jest.mock('../../.aiox-core/development/scripts/unified-activation-pipeline', () => ({
   UnifiedActivationPipeline: jest.fn().mockImplementation(() => ({
     activate: jest.fn(async () => ({
       greeting: 'ok',
@@ -12,8 +12,8 @@ jest.mock('../../.aios-core/development/scripts/unified-activation-pipeline', ()
   })),
 }));
 
-const { ActivationRuntime, activateAgent } = require('../../.aios-core/development/scripts/activation-runtime');
-const { UnifiedActivationPipeline } = require('../../.aios-core/development/scripts/unified-activation-pipeline');
+const { ActivationRuntime, activateAgent } = require('../../.aiox-core/development/scripts/activation-runtime');
+const { UnifiedActivationPipeline } = require('../../.aiox-core/development/scripts/unified-activation-pipeline');
 
 describe('ActivationRuntime', () => {
   beforeEach(() => {

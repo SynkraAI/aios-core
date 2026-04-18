@@ -1,11 +1,11 @@
-# Integracao AIOS com Codex CLI (Estado Atual)
+# Integracao AIOX com Codex CLI (Estado Atual)
 
-Este documento descreve o estado operacional atual da integracao AIOS + Codex CLI no AIOS `4.2.11`.
+Este documento descreve o estado operacional atual da integracao AIOX + Codex CLI no AIOX `4.2.11`.
 O foco aqui nao e historico: e operacao pratica, compatibilidade real e como manter sem regressao.
 
 ## Resumo Executivo
 
-O Codex hoje e alvo de primeira classe no AIOS:
+O Codex hoje e alvo de primeira classe no AIOX:
 
 - `AGENTS.md` como contrato operacional do projeto no Codex
 - suporte oficial no installer/sync (`codex` em `ide-configs`)
@@ -14,14 +14,14 @@ O Codex hoje e alvo de primeira classe no AIOS:
 - validadores dedicados para detectar drift rapidamente
 - suporte a notify command e hooks de ferramenta em releases recentes do Codex CLI
 
-Em termos praticos: Codex esta no mesmo trilho arquitetural das integracoes principais do AIOS, sem caminho paralelo legado.
+Em termos praticos: Codex esta no mesmo trilho arquitetural das integracoes principais do AIOX, sem caminho paralelo legado.
 
-## Status de Compatibilidade (AIOS 4.2)
+## Status de Compatibilidade (AIOX 4.2)
 
 | O que você quer fazer | Funciona no Codex? | Como fazer |
 | --- | --- | --- |
-| Ativar agentes AIOS | Works | `/skills` depois escolha `aios-<agent-id>` |
-| Sincronizar e validar arquivos AIOS | Works | `npm run sync:ide:codex` e `npm run validate:codex-sync` |
+| Ativar agentes AIOX | Works | `/skills` depois escolha `aiox-<agent-id>` |
+| Sincronizar e validar arquivos AIOX | Works | `npm run sync:ide:codex` e `npm run validate:codex-sync` |
 | Checagens automáticas antes/depois de ações | Limited | Rode `npm run validate:parity` manualmente; parte da automação depende de disciplina no fluxo |
 
 Regra prática para iniciantes:
@@ -32,19 +32,19 @@ Regra prática para iniciantes:
 
 ### Fonte de verdade
 
-- Agentes canonicos: `.aios-core/development/agents/*.md`
+- Agentes canonicos: `.aiox-core/development/agents/*.md`
 - Regras de projeto Codex: `AGENTS.md`
 
 ### Pipeline de ativacao
 
-- Runtime: `.aios-core/development/scripts/activation-runtime.js`
-- Entrada de greeting: `.aios-core/development/scripts/generate-greeting.js`
+- Runtime: `.aiox-core/development/scripts/activation-runtime.js`
+- Entrada de greeting: `.aiox-core/development/scripts/generate-greeting.js`
 - Contrato: skills e atalhos carregam agente canonico e renderizam greeting via pipeline unificado
 
 ### Artefatos Codex no projeto
 
 - Agentes auxiliares: `.codex/agents/`
-- Skills locais: `.codex/skills/aios-*/SKILL.md`
+- Skills locais: `.codex/skills/aiox-*/SKILL.md`
 
 ## Fluxo Operacional Recomendado
 
@@ -57,7 +57,7 @@ Regra prática para iniciantes:
    - `npm run validate:codex-integration`
    - `npm run validate:codex-skills`
    - `npm run validate:paths`
-4. No Codex, usar `/skills` e escolher `aios-<agent-id>` como ativacao padrao.
+4. No Codex, usar `/skills` e escolher `aiox-<agent-id>` como ativacao padrao.
 
 Fallback: atalhos definidos em `AGENTS.md` (`@architect`, `/architect`, etc.).
 
@@ -78,9 +78,9 @@ Comando consolidado de paridade:
 
 ### Validadores
 
-- Integracao estrutural: `.aios-core/infrastructure/scripts/validate-codex-integration.js`
-- Skills: `.aios-core/infrastructure/scripts/codex-skills-sync/validate.js`
-- Paths/contratos: `.aios-core/infrastructure/scripts/validate-paths.js`
+- Integracao estrutural: `.aiox-core/infrastructure/scripts/validate-codex-integration.js`
+- Skills: `.aiox-core/infrastructure/scripts/codex-skills-sync/validate.js`
+- Paths/contratos: `.aiox-core/infrastructure/scripts/validate-paths.js`
 
 ### Smoke test rapido
 
@@ -97,16 +97,16 @@ Criterio de sucesso:
 
 - `AGENTS.md` presente e coerente
 - `.codex/agents/*.md` existente
-- `.codex/skills/aios-*/SKILL.md` existente
+- `.codex/skills/aiox-*/SKILL.md` existente
 - validadores sem erro
 
-## Recursos Recentes do Codex (AIOS 4.0)
+## Recursos Recentes do Codex (AIOX 4.0)
 
 - `notify` command configuravel no `config.toml`
 - aprovacoes por preset (`suggest`/`auto-edit`/`full-auto`)
 - hooks de ferramenta e de execucao de comandos em evolucao no CLI
 
-No AIOS, o caminho recomendado continua: `AGENTS.md` + `/skills` + MCP + scripts de sync/validacao.
+No AIOX, o caminho recomendado continua: `AGENTS.md` + `/skills` + MCP + scripts de sync/validacao.
 
 ## Limitacoes de Hooks no Codex (Impacto Real)
 
@@ -114,11 +114,11 @@ Mesmo com melhorias recentes, o Codex ainda nao replica 1:1 o lifecycle de hooks
 
 Impactos praticos:
 
-- menor automacao de eventos de ciclo de sessao (`SessionStart/SessionEnd`) no padrao AIOS
+- menor automacao de eventos de ciclo de sessao (`SessionStart/SessionEnd`) no padrao AIOX
 - menor capacidade de enforcement automatico em `beforeTool/afterTool`
 - trilha automatica de auditoria menos rica quando comparada ao fluxo com hooks completos
 
-Mitigacao operacional no AIOS:
+Mitigacao operacional no AIOX:
 
 - fortalecer `AGENTS.md` como contrato de execucao
 - usar `/skills` como ativacao padrao de agentes
@@ -143,7 +143,7 @@ Causa tipica:
 
 Correcao:
 - sempre gerar greeting via `generate-greeting.js` (runtime unificado)
-- garantir skill apontando para agente canonico em `.aios-core/development/agents/`
+- garantir skill apontando para agente canonico em `.aiox-core/development/agents/`
 
 ### Drift entre agente canonico e skill
 

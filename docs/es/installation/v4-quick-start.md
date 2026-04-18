@@ -1,4 +1,4 @@
-# Guía de Inicio Rápido AIOS v4
+# Guía de Inicio Rápido AIOX v4
 
 > 🌐 [EN](../../installation/v4-quick-start.md) | [PT](../../pt/installation/v4-quick-start.md) | **ES**
 
@@ -22,24 +22,24 @@ Antes de comenzar, asegúrate de tener:
 
 ---
 
-## Paso 1: Instalar AIOS Core
+## Paso 1: Instalar AIOX Core
 
 ### Opción A: Wizard de Instalación npx (Recomendado)
 
 ```bash
 # Ejecutar el wizard de instalación interactivo
-npx aios-core@latest
+npx aiox-core@latest
 
 # O crear un nuevo proyecto con nombre específico
-npx aios-core@latest init mi-proyecto
+npx aiox-core@latest init mi-proyecto
 cd mi-proyecto
 ```
 
 ### Opción B: Clonar Repositorio (Desarrollo)
 
 ```bash
-git clone https://github.com/SynkraAI/aios-core.git
-cd aios-core
+git clone https://github.com/SynkraAI/aiox-core.git
+cd aiox-core
 npm install
 ```
 
@@ -50,30 +50,30 @@ npm install
 Ejecuta el comando de diagnóstico:
 
 ```bash
-npx aios-core@latest doctor
+npx aiox-core@latest doctor
 ```
 
 O si está instalado globalmente:
 
 ```bash
-aios doctor
+aiox doctor
 ```
 
 ### Verificación Manual
 
 ```bash
 # Verificar que la estructura core existe
-ls -la .aios-core/
+ls -la .aiox-core/
 
 # Verificar directorios principales
-ls .aios-core/core/
-ls .aios-core/development/agents/
+ls .aiox-core/core/
+ls .aiox-core/development/agents/
 ```
 
 Estructura esperada:
 
 ```
-.aios-core/
+.aiox-core/
 ├── core/               # Core del framework (registry, health-check, orchestration)
 ├── development/        # Agentes, tareas, workflows
 ├── product/            # Templates, checklists
@@ -84,16 +84,16 @@ Estructura esperada:
 
 ## Paso 3: Activar Tu Primer Agente
 
-AIOS usa agentes especializados para diferentes tareas. En tu IDE con IA o Claude Code CLI, escribe:
+AIOX usa agentes especializados para diferentes tareas. En tu IDE con IA o Claude Code CLI, escribe:
 
 ```
-@aios-master
+@aiox-master
 ```
 
 El agente te saludará y mostrará comandos disponibles:
 
 ```
-🎯 AIOS Master listo!
+🎯 AIOX Master listo!
 Escribe *help para ver comandos disponibles.
 ```
 
@@ -136,7 +136,7 @@ El agente desarrollador (Dex) se activará con un saludo mostrando:
 
 ## Paso 5: Crear Tu Primera Story
 
-Las stories dirigen el desarrollo en AIOS. Activa el Product Owner y crea una:
+Las stories dirigen el desarrollo en AIOX. Activa el Product Owner y crea una:
 
 ```
 @po *create-story
@@ -167,22 +167,22 @@ Todos los comandos de agente usan el prefijo `*`:
 
 ```bash
 # Instalación y setup
-npx aios-core@latest           # Ejecutar wizard
-npx aios-core@latest doctor    # Ejecutar diagnósticos
-npx aios-core@latest info      # Mostrar info del sistema
+npx aiox-core@latest           # Ejecutar wizard
+npx aiox-core@latest doctor    # Ejecutar diagnósticos
+npx aiox-core@latest info      # Mostrar info del sistema
 
 # Desarrollo
 npm run lint                           # Verificar estilo de código
 npm run typecheck                      # Verificar tipos TypeScript
 npm test                               # Ejecutar pruebas unitarias
-npm run validate:structure             # Validar estructura AIOS
+npm run validate:structure             # Validar estructura AIOX
 ```
 
 ### Estructura del Proyecto
 
 ```
 tu-proyecto/
-├── .aios-core/                    # Core del framework
+├── .aiox-core/                    # Core del framework
 │   ├── core/                      # Módulos core
 │   │   ├── registry/              # Registro de servicios (200+ workers)
 │   │   ├── health-check/          # Sistema de health check
@@ -200,7 +200,7 @@ tu-proyecto/
 │       ├── integrations/          # Adaptadores de PM tools
 │       └── templates/             # Templates de configuración
 ├── .claude/                       # Configuración Claude Code
-│   ├── commands/AIOS/agents/      # Skills de agentes
+│   ├── commands/AIOX/agents/      # Skills de agentes
 │   └── rules/                     # Reglas de agentes
 ├── docs/                          # Documentación
 │   └── stories/                   # Stories de desarrollo
@@ -213,7 +213,7 @@ tu-proyecto/
 
 1. **Lee la guía completa:** [Comenzando](../getting-started.md)
 2. **Entiende la arquitectura:** [Arquitectura Core](../core-architecture.md)
-3. **Aprende sobre agentes:** [Definiciones de Agentes](../../../.aios-core/development/agents/)
+3. **Aprende sobre agentes:** [Definiciones de Agentes](../../../.aiox-core/development/agents/)
 4. **Únete a la comunidad:** [Discord](https://discord.gg/gk8jAdXWmj)
 
 ---
@@ -234,7 +234,7 @@ npm cache clean --force
 
 1. Asegúrate de estar en un IDE con IA (Cursor, VS Code con Claude, etc.) o Claude Code CLI
 2. Verifica que estás usando sintaxis correcta: `@nombre-del-agente`
-3. Verifica que el archivo del agente existe: `ls .aios-core/development/agents/`
+3. Verifica que el archivo del agente existe: `ls .aiox-core/development/agents/`
 
 ### Errores de permisos
 
@@ -246,24 +246,24 @@ sudo chown -R $(whoami) ~/.npm
 # nvm, fnm, o volta
 ```
 
-### Estructura AIOS no encontrada
+### Estructura AIOX no encontrada
 
 ```bash
-# Reinstalar AIOS en el proyecto actual
-npx aios-core@latest install
+# Reinstalar AIOX en el proyecto actual
+npx aiox-core@latest install
 
 # O clonar de nuevo
-git clone https://github.com/SynkraAI/aios-core.git
+git clone https://github.com/SynkraAI/aiox-core.git
 ```
 
 ---
 
 ## Obtener Ayuda
 
-- **Documentación:** [Repositorio GitHub](https://github.com/SynkraAI/aios-core)
-- **GitHub Issues:** [github.com/SynkraAI/aios-core/issues](https://github.com/SynkraAI/aios-core/issues)
+- **Documentación:** [Repositorio GitHub](https://github.com/SynkraAI/aiox-core)
+- **GitHub Issues:** [github.com/SynkraAI/aiox-core/issues](https://github.com/SynkraAI/aiox-core/issues)
 - **Comunidad Discord:** [discord.gg/gk8jAdXWmj](https://discord.gg/gk8jAdXWmj)
 
 ---
 
-**¡Bienvenido a AIOS! ¡Feliz coding!**
+**¡Bienvenido a AIOX! ¡Feliz coding!**

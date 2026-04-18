@@ -10,15 +10,15 @@
 
 如需讨论、问题和社区互动，请访问我们的中央枢纽：
 
-👉 **[AIOS 社区讨论](https://github.com/SynkraAI/aios-core/discussions)**
+👉 **[AIOX 社区讨论](https://github.com/SynkraAI/aiox-core/discussions)**
 
 | 需要                         | 前往位置                                                                                                    |
 | ---------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| 🔧 **MCP 问题?**        | 使用 ["MCP 生态" 类别](https://github.com/SynkraAI/aios-core/discussions/categories/mcp-ecosystem) |
-| 💡 **功能创意?**        | 在 ["创意" 中启动讨论](https://github.com/SynkraAI/aios-core/discussions/categories/ideas)            |
+| 🔧 **MCP 问题?**        | 使用 ["MCP 生态" 类别](https://github.com/SynkraAI/aiox-core/discussions/categories/mcp-ecosystem) |
+| 💡 **功能创意?**        | 在 ["创意" 中启动讨论](https://github.com/SynkraAI/aiox-core/discussions/categories/ideas)            |
 | 🐛 **发现错误?**          | [在此仓库中打开 issue](https://github.com/SynkraAI/mcp-ecosystem/issues/new/choose)            |
-| 🙏 **需要帮助?**            | 在 ["问答" 中提问](https://github.com/SynkraAI/aios-core/discussions/categories/q-a)                               |
-| 🙌 **创建了什么酷的东西?** | 在 ["展示和讲述" 中分享](https://github.com/SynkraAI/aios-core/discussions/categories/show-and-tell)         |
+| 🙏 **需要帮助?**            | 在 ["问答" 中提问](https://github.com/SynkraAI/aiox-core/discussions/categories/q-a)                               |
+| 🙌 **创建了什么酷的东西?** | 在 ["展示和讲述" 中分享](https://github.com/SynkraAI/aiox-core/discussions/categories/show-and-tell)         |
 
 ### 此仓库中的内容
 
@@ -42,7 +42,7 @@
 
 1. 检查现有的 [MCP 提案](https://github.com/SynkraAI/mcp-ecosystem/labels/mcp-server)
 2. 使用 `mcp-server` 标签打开 issue
-3. 在 [MCP 生态类别](https://github.com/SynkraAI/aios-core/discussions/categories/mcp-ecosystem) 中讨论
+3. 在 [MCP 生态类别](https://github.com/SynkraAI/aiox-core/discussions/categories/mcp-ecosystem) 中讨论
 
 ---
 

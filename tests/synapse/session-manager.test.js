@@ -21,7 +21,7 @@ const {
   generateTitle,
   ensureGitignore,
   SCHEMA_VERSION,
-} = require('../../.aios-core/core/synapse/session/session-manager');
+} = require('../../.aiox-core/core/synapse/session/session-manager');
 
 let tmpDir;
 let sessionsDir;

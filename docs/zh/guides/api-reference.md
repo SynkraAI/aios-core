@@ -1,10 +1,10 @@
-# AIOS API 参考
+# AIOX API 参考
 
 > **[EN](../../guides/api-reference.md)** | **[PT](../../pt/guides/api-reference.md)** | **[ES](../../es/guides/api-reference.md)** | **ZH**
 
 ---
 
-Synkra AIOS 完整 API 参考 - AI 编排全栈开发系统。
+Synkra AIOX 完整 API 参考 - AI 编排全栈开发系统。
 
 **版本：** 2.1.0
 **最后更新：** 2026-01-29
@@ -29,14 +29,14 @@ Synkra AIOS 完整 API 参考 - AI 编排全栈开发系统。
 
 ### API 架构
 
-AIOS 通过两个主要机制提供统一 API 来与专业 AI 代理交互：
+AIOX 通过两个主要机制提供统一 API 来与专业 AI 代理交互：
 
 1. **代理激活** - 使用 `@` 前缀激活专业代理
 2. **命令执行** - 使用 `*` 前缀执行代理命令
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                      AIOS API 层                             │
+│                      AIOX API 层                             │
 ├─────────────────────────────────────────────────────────────┤
 │  @agent         →  激活代理角色                               │
 │  *command       →  执行代理命令                               │
@@ -47,7 +47,7 @@ AIOS 通过两个主要机制提供统一 API 来与专业 AI 代理交互：
 ┌─────────────────────────────────────────────────────────────┐
 │                    代理解析                                  │
 ├─────────────────────────────────────────────────────────────┤
-│  .aios-core/development/agents/{agent-id}.md                 │
+│  .aiox-core/development/agents/{agent-id}.md                 │
 │  依赖项：任务、模板、检查清单、脚本                           │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -87,13 +87,13 @@ AIOS 通过两个主要机制提供统一 API 来与专业 AI 代理交互：
 | `@data-engineer` | Dara   | Architect| 数据库架构、迁移、查询           |
 | `@devops`        | Gage   | Optimizer| CI/CD、部署、git 操作             |
 | `@ux-expert`     | Uma    | Creator | UI/UX 设计、线框图                 |
-| `@aios-master`   | Orion  | Orchestrator| 框架编排、元操作             |
+| `@aiox-master`   | Orion  | Orchestrator| 框架编排、元操作             |
 
 ### 激活行为
 
 激活代理时：
 
-1. 从 `.aios-core/development/agents/{id}.md` 加载代理定义文件
+1. 从 `.aiox-core/development/agents/{id}.md` 加载代理定义文件
 2. 采用角色（语气、词汇、问候）
 3. 基于会话类型显示上下文问候
 4. 代理停止并等待用户输入
@@ -155,7 +155,7 @@ AIOS 通过两个主要机制提供统一 API 来与专业 AI 代理交互：
 *develop story-1.2.3
     │
     ▼
-.aios-core/development/tasks/dev-develop-story.md
+.aiox-core/development/tasks/dev-develop-story.md
     │
     ▼
 带参数的任务执行：{ story: "story-1.2.3" }
@@ -245,7 +245,7 @@ AIOS 通过两个主要机制提供统一 API 来与专业 AI 代理交互：
 
 ```bash
 # 启动工作流
-@aios-master *workflow greenfield-fullstack
+@aiox-master *workflow greenfield-fullstack
 
 # 带参数
 *workflow brownfield-service --target=./services/auth
@@ -332,7 +332,7 @@ phases:
 
 | 类别                 | 描述                         | 解决方案                           |
 | -------------------- | ---------------------------- | ---------------------------------- |
-| `AGENT_NOT_FOUND`    | 缺少代理定义                 | 检查 `.aios-core/development/agents/` |
+| `AGENT_NOT_FOUND`    | 缺少代理定义                 | 检查 `.aiox-core/development/agents/` |
 | `TASK_NOT_FOUND`     | 缺少任务定义                 | 检查代理依赖项                     |
 | `STORY_NOT_FOUND`    | 找不到故事文件               | 验证 `docs/stories/` 路径          |
 | `VALIDATION_FAILED`  | 前提条件不符                 | 检查先决条件                       |
@@ -387,7 +387,7 @@ Claude Code 是主要支持的 IDE，拥有完整集成：
 /dev          → 激活 @dev 代理
 /qa           → 激活 @qa 代理
 /architect    → 激活 @architect 代理
-/aios-master  → 激活 @aios-master 代理
+/aiox-master  → 激活 @aiox-master 代理
 ```
 
 ---
@@ -424,4 +424,4 @@ Claude Code 是主要支持的 IDE，拥有完整集成：
 
 ---
 
-_Synkra AIOS API 参考 v4.0.4_
+_Synkra AIOX API 参考 v4.0.4_

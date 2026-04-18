@@ -10,7 +10,7 @@
 
 ## 概述
 
-AIOS-Core 使用 GitHub Actions 进行持续集成和部署。本文档描述了故事 6.1 中实现的优化工作流架构。
+AIOX-Core 使用 GitHub Actions 进行持续集成和部署。本文档描述了故事 6.1 中实现的优化工作流架构。
 
 ## 工作流层级
 
@@ -64,7 +64,7 @@ concurrency:
 paths-ignore:
   - 'docs/**'
   - '*.md'
-  - '.aios/**'
+  - '.aiox/**'
   - 'squads/**'
   - 'LICENSE'
   - '.gitignore'

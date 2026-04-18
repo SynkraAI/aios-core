@@ -1,6 +1,6 @@
 'use strict';
 
-jest.mock('../../.aios-core/core/graph-dashboard/data-sources/code-intel-source', () => ({
+jest.mock('../../.aiox-core/core/graph-dashboard/data-sources/code-intel-source', () => ({
   CodeIntelSource: jest.fn().mockImplementation(() => ({
     getData: jest.fn().mockResolvedValue({
       nodes: [
@@ -15,7 +15,7 @@ jest.mock('../../.aios-core/core/graph-dashboard/data-sources/code-intel-source'
   })),
 }));
 
-jest.mock('../../.aios-core/core/graph-dashboard/data-sources/registry-source', () => ({
+jest.mock('../../.aiox-core/core/graph-dashboard/data-sources/registry-source', () => ({
   RegistrySource: jest.fn().mockImplementation(() => ({
     getData: jest.fn().mockResolvedValue({
       totalEntities: 42,
@@ -27,7 +27,7 @@ jest.mock('../../.aios-core/core/graph-dashboard/data-sources/registry-source', 
   })),
 }));
 
-jest.mock('../../.aios-core/core/graph-dashboard/data-sources/metrics-source', () => ({
+jest.mock('../../.aiox-core/core/graph-dashboard/data-sources/metrics-source', () => ({
   MetricsSource: jest.fn().mockImplementation(() => ({
     getData: jest.fn().mockResolvedValue({
       cacheHits: 89,
@@ -42,7 +42,7 @@ jest.mock('../../.aios-core/core/graph-dashboard/data-sources/metrics-source', (
   })),
 }));
 
-const { handleSummary, handleDeps, FORMAT_MAP, VALID_FORMATS } = require('../../.aios-core/core/graph-dashboard/cli');
+const { handleSummary, handleDeps, FORMAT_MAP, VALID_FORMATS } = require('../../.aiox-core/core/graph-dashboard/cli');
 
 describe('cli-summary', () => {
   let stdoutWriteSpy;
@@ -62,7 +62,7 @@ describe('cli-summary', () => {
       await handleSummary({});
       const output = stdoutWriteSpy.mock.calls[0][0];
 
-      expect(output).toContain('AIOS Graph Dashboard');
+      expect(output).toContain('AIOX Graph Dashboard');
       expect(output).toContain('Dependency Graph');
       expect(output).toContain('Entity Statistics');
       expect(output).toContain('Provider Status');

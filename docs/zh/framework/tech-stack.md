@@ -1,13 +1,13 @@
 <!-- 翻译：zh-CN 原文：/docs/framework/tech-stack.md 最后同步：2026-02-22 -->
 
-# AIOS 技术栈
+# AIOX 技术栈
 
 > [EN](../../framework/tech-stack.md) | [PT](../../pt/framework/tech-stack.md) | [ES](../../es/framework/tech-stack.md) | **ZH**
 
 **版本:** 1.1
 **最后更新:** 2025-12-14
 **状态:** 官方框架标准
-**迁移通知:** 本文档将于2026年第二季度迁移到 `SynkraAI/aios-core` 仓库（参见 Decision 005）
+**迁移通知:** 本文档将于2026年第二季度迁移到 `SynkraAI/aiox-core` 仓库（参见 Decision 005）
 
 ---
 
@@ -27,7 +27,7 @@
 
 ## 概述
 
-AIOS 基于现代 JavaScript/TypeScript 和 Node.js 运行时构建，针对跨平台 CLI 开发进行了优化，具有交互式用户体验和代理编排能力。
+AIOX 基于现代 JavaScript/TypeScript 和 Node.js 运行时构建，针对跨平台 CLI 开发进行了优化，具有交互式用户体验和代理编排能力。
 
 **理念:**
 
@@ -524,7 +524,7 @@ npm run publish:stable         # 发布最新标签
 
 ### MCP 服务器
 
-AIOS 与 Model Context Protocol (MCP) 服务器集成：
+AIOX 与 Model Context Protocol (MCP) 服务器集成：
 
 ```yaml
 MCP Servers:
@@ -717,7 +717,7 @@ Optimization Strategy:
 ### 内存使用
 
 ```yaml
-Baseline: 30MB (Node.js + AIOS core)
+Baseline: 30MB (Node.js + AIOX core)
 Agent Execution: +10MB (per agent)
 Story Processing: +20MB (markdown parsing)
 Peak: ~100MB (typical workflow)
@@ -759,10 +759,10 @@ Node.js: nvm, apt, yum, or official binaries
 ## 环境变量
 
 ```bash
-# AIOS 配置
-AIOS_DEBUG=true                    # 启用调试日志
-AIOS_CONFIG_PATH=/custom/path      # 自定义配置位置
-AIOS_YOLO_MODE=true               # 强制 yolo 模式
+# AIOX 配置
+AIOX_DEBUG=true                    # 启用调试日志
+AIOX_CONFIG_PATH=/custom/path      # 自定义配置位置
+AIOX_YOLO_MODE=true               # 强制 yolo 模式
 
 # Node.js
 NODE_ENV=production                # 生产模式
@@ -789,8 +789,8 @@ SUPABASE_ACCESS_TOKEN=xxx         # Supabase CLI 认证
 | 版本 | 日期 | 变更 | 作者 |
 | ---- | ---- | ---- | ---- |
 | 1.0 | 2025-01-15 | 初始技术栈文档 | Aria (architect) |
-| 1.1 | 2025-12-14 | 更新迁移通知至 SynkraAI/aios-core，semantic-release 至 v25.0.2 [Story 6.10] | Dex (dev) |
+| 1.1 | 2025-12-14 | 更新迁移通知至 SynkraAI/aiox-core，semantic-release 至 v25.0.2 [Story 6.10] | Dex (dev) |
 
 ---
 
-_这是官方 AIOS 框架标准。所有技术选型必须与此技术栈保持一致。_
+_这是官方 AIOX 框架标准。所有技术选型必须与此技术栈保持一致。_

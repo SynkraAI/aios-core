@@ -300,9 +300,9 @@ spec-critique  # @qa - 验证质量
 
 ## 相关文档
 
-- PRD: `docs/prd/aios-autonomous-development-engine.md`
+- PRD: `docs/prd/aiox-autonomous-development-engine.md`
 - Auto-Claude 分析: `docs/architecture/AUTO-CLAUDE-ANALYSIS-COMPLETE.md`
-- Epic Stories: `docs/stories/aios-core-ade/epic-3-spec-pipeline.md`
+- Epic Stories: `docs/stories/aiox-core-ade/epic-3-spec-pipeline.md`
 
 ---
 

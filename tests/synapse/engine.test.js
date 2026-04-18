@@ -15,7 +15,7 @@ jest.setTimeout(30000);
 // ---------------------------------------------------------------------------
 
 // Mock context-tracker (SYN-3)
-jest.mock('../../.aios-core/core/synapse/context/context-tracker', () => ({
+jest.mock('../../.aiox-core/core/synapse/context/context-tracker', () => ({
   estimateContextPercent: jest.fn(() => 85),
   calculateBracket: jest.fn(() => 'FRESH'),
   getActiveLayers: jest.fn(() => ({ layers: [0, 1, 2, 7], memoryHints: false, handoffWarning: false })),
@@ -25,14 +25,14 @@ jest.mock('../../.aios-core/core/synapse/context/context-tracker', () => ({
 }));
 
 // Mock formatter
-jest.mock('../../.aios-core/core/synapse/output/formatter', () => ({
+jest.mock('../../.aiox-core/core/synapse/output/formatter', () => ({
   formatSynapseRules: jest.fn(() => '<synapse-rules>\nmocked\n</synapse-rules>'),
 }));
 
 // Mock layer modules — provide fake layer classes
 const mockLayerModules = {};
 
-jest.mock('../../.aios-core/core/synapse/layers/l0-constitution', () => {
+jest.mock('../../.aiox-core/core/synapse/layers/l0-constitution', () => {
   const cls = class MockL0 {
     constructor() { this.name = 'constitution'; this.layer = 0; this.timeout = 5; }
     _safeProcess(ctx) { return { rules: ['ART.I: CLI First'], metadata: { layer: 0, source: 'constitution' } }; }
@@ -41,7 +41,7 @@ jest.mock('../../.aios-core/core/synapse/layers/l0-constitution', () => {
   return cls;
 }, { virtual: true });
 
-jest.mock('../../.aios-core/core/synapse/layers/l1-global', () => {
+jest.mock('../../.aiox-core/core/synapse/layers/l1-global', () => {
   const cls = class MockL1 {
     constructor() { this.name = 'global'; this.layer = 1; this.timeout = 10; }
     _safeProcess(ctx) { return { rules: ['Global rule 1'], metadata: { layer: 1, source: 'global' } }; }
@@ -50,7 +50,7 @@ jest.mock('../../.aios-core/core/synapse/layers/l1-global', () => {
   return cls;
 }, { virtual: true });
 
-jest.mock('../../.aios-core/core/synapse/layers/l2-agent', () => {
+jest.mock('../../.aiox-core/core/synapse/layers/l2-agent', () => {
   const cls = class MockL2 {
     constructor() { this.name = 'agent'; this.layer = 2; this.timeout = 10; }
     _safeProcess(ctx) { return { rules: ['Agent rule 1'], metadata: { layer: 2, source: 'agent' } }; }
@@ -59,7 +59,7 @@ jest.mock('../../.aios-core/core/synapse/layers/l2-agent', () => {
   return cls;
 }, { virtual: true });
 
-jest.mock('../../.aios-core/core/synapse/layers/l3-workflow', () => {
+jest.mock('../../.aiox-core/core/synapse/layers/l3-workflow', () => {
   const cls = class MockL3 {
     constructor() { this.name = 'workflow'; this.layer = 3; this.timeout = 10; }
     _safeProcess(ctx) { return { rules: ['Workflow rule 1'], metadata: { layer: 3, source: 'workflow' } }; }
@@ -69,25 +69,25 @@ jest.mock('../../.aios-core/core/synapse/layers/l3-workflow', () => {
 }, { virtual: true });
 
 // L4-L7: simulate missing modules (MODULE_NOT_FOUND with proper code)
-jest.mock('../../.aios-core/core/synapse/layers/l4-task', () => {
+jest.mock('../../.aiox-core/core/synapse/layers/l4-task', () => {
   const err = new Error("Cannot find module './layers/l4-task'");
   err.code = 'MODULE_NOT_FOUND';
   throw err;
 }, { virtual: true });
 
-jest.mock('../../.aios-core/core/synapse/layers/l5-squad', () => {
+jest.mock('../../.aiox-core/core/synapse/layers/l5-squad', () => {
   const err = new Error("Cannot find module './layers/l5-squad'");
   err.code = 'MODULE_NOT_FOUND';
   throw err;
 }, { virtual: true });
 
-jest.mock('../../.aios-core/core/synapse/layers/l6-keyword', () => {
+jest.mock('../../.aiox-core/core/synapse/layers/l6-keyword', () => {
   const err = new Error("Cannot find module './layers/l6-keyword'");
   err.code = 'MODULE_NOT_FOUND';
   throw err;
 }, { virtual: true });
 
-jest.mock('../../.aios-core/core/synapse/layers/l7-star-command', () => {
+jest.mock('../../.aiox-core/core/synapse/layers/l7-star-command', () => {
   const err = new Error("Cannot find module './layers/l7-star-command'");
   err.code = 'MODULE_NOT_FOUND';
   throw err;
@@ -95,7 +95,7 @@ jest.mock('../../.aios-core/core/synapse/layers/l7-star-command', () => {
 
 // Mock memory bridge (SYN-10)
 const mockGetMemoryHints = jest.fn(() => Promise.resolve([]));
-jest.mock('../../.aios-core/core/synapse/memory/memory-bridge', () => ({
+jest.mock('../../.aiox-core/core/synapse/memory/memory-bridge', () => ({
   MemoryBridge: jest.fn().mockImplementation(() => ({
     getMemoryHints: mockGetMemoryHints,
     clearCache: jest.fn(),
@@ -109,9 +109,9 @@ jest.mock('../../.aios-core/core/synapse/memory/memory-bridge', () => ({
 // Imports (after mocks)
 // ---------------------------------------------------------------------------
 
-const { SynapseEngine, PipelineMetrics, PIPELINE_TIMEOUT_MS } = require('../../.aios-core/core/synapse/engine');
-const contextTracker = require('../../.aios-core/core/synapse/context/context-tracker');
-const formatter = require('../../.aios-core/core/synapse/output/formatter');
+const { SynapseEngine, PipelineMetrics, PIPELINE_TIMEOUT_MS } = require('../../.aiox-core/core/synapse/engine');
+const contextTracker = require('../../.aiox-core/core/synapse/context/context-tracker');
+const formatter = require('../../.aiox-core/core/synapse/output/formatter');
 
 // =============================================================================
 // PipelineMetrics

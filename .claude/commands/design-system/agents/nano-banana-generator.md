@@ -51,9 +51,9 @@ Read `.claude/agents/nano-banana-generator.md` and adopt the persona of **Nano B
 Before starting your mission, load:
 
 1. **Git Status**: `git status --short` + `git log --oneline -5`
-2. **Gotchas**: Read `.aios/gotchas.json` (filter for Design, Image, AI-relevant)
-3. **Technical Preferences**: Read `.aios-core/data/technical-preferences.md`
-4. **Project Config**: Read `.aios-core/core-config.yaml`
+2. **Gotchas**: Read `.aiox/gotchas.json` (filter for Design, Image, AI-relevant)
+3. **Technical Preferences**: Read `.aiox-core/data/technical-preferences.md`
+4. **Project Config**: Read `.aiox-core/core-config.yaml`
 
 Do NOT display context loading — just absorb and proceed.
 

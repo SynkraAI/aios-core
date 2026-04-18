@@ -2,16 +2,16 @@
 
 const {
   CodeIntelClient,
-} = require('../../.aios-core/core/code-intel/code-intel-client');
+} = require('../../.aiox-core/core/code-intel/code-intel-client');
 const {
   CodeIntelEnricher,
-} = require('../../.aios-core/core/code-intel/code-intel-enricher');
+} = require('../../.aiox-core/core/code-intel/code-intel-enricher');
 const {
   isCodeIntelAvailable,
   enrichWithCodeIntel,
   getClient,
   _resetForTesting,
-} = require('../../.aios-core/core/code-intel');
+} = require('../../.aiox-core/core/code-intel');
 
 describe('Fallback Graceful (AC4, NFR-1, NFR-4)', () => {
   describe('CodeIntelClient without provider', () => {
@@ -210,7 +210,7 @@ describe('Fallback Graceful (AC4, NFR-1, NFR-4)', () => {
   describe('Regression: existing tasks not broken (NFR-4)', () => {
     it('should be possible to require the module without errors', () => {
       expect(() => {
-        require('../../.aios-core/core/code-intel');
+        require('../../.aiox-core/core/code-intel');
       }).not.toThrow();
     });
 

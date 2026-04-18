@@ -1,12 +1,12 @@
 <!-- 翻译: ZH-CN | 原文: /docs/en/architecture/module-system.md | 同步时间: 2026-01-26 -->
 
-# AIOS 模块系统架构
+# AIOX 模块系统架构
 
 > 🌐 [EN](../../architecture/module-system.md) | [PT](../../pt/architecture/module-system.md) | [ES](../../es/architecture/module-system.md) | **ZH-CN**
 
 ---
 
-> Synkra AIOS v4.2 模块化架构完整指南。
+> Synkra AIOX v4.2 模块化架构完整指南。
 
 **版本:** 2.1.0
 **上次更新:** 2025-12-01
@@ -39,10 +39,10 @@ v4.2 模块化架构解决了 v2.0 扁平结构的几个挑战：
 
 ## 模块结构
 
-Synkra AIOS 将 `.aios-core/` 目录组织为四个主要模块：
+Synkra AIOX 将 `.aiox-core/` 目录组织为四个主要模块：
 
 ```
-.aios-core/
+.aiox-core/
 ├── core/              # 框架基础
 ├── development/       # 开发制品
 ├── product/           # 用户导向模板
@@ -53,7 +53,7 @@ Synkra AIOS 将 `.aios-core/` 目录组织为四个主要模块：
 
 ```mermaid
 graph TB
-    subgraph "AIOS v4 框架"
+    subgraph "AIOX v4 框架"
         CLI[CLI / 工具]
 
         subgraph "产品模块"
@@ -104,7 +104,7 @@ graph TB
 
 ## 核心模块
 
-**路径:** `.aios-core/core/`
+**路径:** `.aiox-core/core/`
 **目的:** 框架基础 - 配置、会话、询问和本质运行时组件。
 
 ### 内容
@@ -112,7 +112,7 @@ graph TB
 | 目录 | 内容 | 描述 |
 | --- | --- | --- |
 | `config/` | `config-cache.js`、`config-loader.js` | 带 TTL 缓存的配置管理 |
-| `data/` | `aios-kb.md`、`workflow-patterns.yaml` | 框架知识库 |
+| `data/` | `aiox-kb.md`、`workflow-patterns.yaml` | 框架知识库 |
 | `docs/` | 内部文档 | 组件指南、故障排除 |
 | `elicitation/` | `elicitation-engine.js`、`session-manager.js` | 交互式提示系统 |
 | `session/` | `context-detector.js`、`context-loader.js` | 会话上下文管理 |
@@ -127,19 +127,19 @@ graph TB
 
 ```javascript
 // 配置
-const { loadAgentConfig, globalConfigCache } = require('./.aios-core/core');
+const { loadAgentConfig, globalConfigCache } = require('./.aiox-core/core');
 
 // 会话
-const { ContextDetector, SessionContextLoader } = require('./.aios-core/core');
+const { ContextDetector, SessionContextLoader } = require('./.aiox-core/core');
 
 // 询问
-const { ElicitationEngine, ElicitationSessionManager } = require('./.aios-core/core');
+const { ElicitationEngine, ElicitationSessionManager } = require('./.aiox-core/core');
 
 // 注册表
-const { getRegistry, loadRegistry } = require('./.aios-core/core/registry/registry-loader');
+const { getRegistry, loadRegistry } = require('./.aiox-core/core/registry/registry-loader');
 
 // 质量门槛
-const QualityGateManager = require('./.aios-core/core/quality-gates/quality-gate-manager');
+const QualityGateManager = require('./.aiox-core/core/quality-gates/quality-gate-manager');
 ```
 
 ### 依赖项
@@ -151,7 +151,7 @@ const QualityGateManager = require('./.aios-core/core/quality-gates/quality-gate
 
 ## 开发模块
 
-**路径:** `.aios-core/development/`
+**路径:** `.aiox-core/development/`
 **目的:** 代理相关资产 - 代理定义、任务、工作流和开发脚本。
 
 ### 内容
@@ -168,7 +168,7 @@ const QualityGateManager = require('./.aios-core/core/quality-gates/quality-gate
 
 | 代理 | ID | 责任 |
 | --- | --- | --- |
-| AIOS 主代理 | `aios-master` | 框架编排 |
+| AIOX 主代理 | `aiox-master` | 框架编排 |
 | 开发者 | `dev` | 代码实现 |
 | QA | `qa` | 质量保证 |
 | 架构师 | `architect` | 技术架构 |
@@ -198,7 +198,7 @@ const QualityGateManager = require('./.aios-core/core/quality-gates/quality-gate
 
 ## 产品模块
 
-**路径:** `.aios-core/product/`
+**路径:** `.aiox-core/product/`
 **目的:** PM/PO 资产 - 模板、检查表和文档生成参考数据。
 
 ### 内容
@@ -237,7 +237,7 @@ const QualityGateManager = require('./.aios-core/core/quality-gates/quality-gate
 
 ## 基础设施模块
 
-**路径:** `.aios-core/infrastructure/`
+**路径:** `.aiox-core/infrastructure/`
 **目的:** 系统配置 - 脚本、工具和外部集成。
 
 ### 内容
@@ -356,13 +356,13 @@ graph LR
 
 ```bash
 # 预演显示变化
-aios migrate --dry-run
+aiox migrate --dry-run
 
 # 执行迁移
-aios migrate --from=2.0 --to=2.1
+aiox migrate --from=2.0 --to=2.1
 
 # 验证迁移
-aios migrate --validate
+aiox migrate --validate
 ```
 
 详见 [迁移指南](../../migration/migration-guide.md) 了解详细说明。
@@ -379,4 +379,4 @@ aios migrate --validate
 
 ---
 
-_Synkra AIOS v4 模块系统架构_
+_Synkra AIOX v4 模块系统架构_

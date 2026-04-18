@@ -1,6 +1,6 @@
 <!-- 翻译：zh-CN 原文：/docs/installation/troubleshooting.md 最后同步：2026-02-22 -->
 
-# Synkra AIOS 故障排除指南
+# Synkra AIOX 故障排除指南
 
 > 🌐 [EN](../../installation/troubleshooting.md) | [PT](../pt/installation/troubleshooting.md) | [ES](../es/installation/troubleshooting.md)
 
@@ -28,7 +28,7 @@
 首先运行此诊断命令来确定常见问题：
 
 ```bash
-npx @synkra/aios-core status
+npx @synkra/aiox-core status
 ```
 
 如果状态命令失败，请根据您的错误消息浏览以下部分。
@@ -37,7 +37,7 @@ npx @synkra/aios-core status
 
 ## 安装问题
 
-### 问题 1："npx @synkra/aios-core is not recognized"
+### 问题 1："npx @synkra/aiox-core is not recognized"
 
 **症状:**
 
@@ -75,7 +75,7 @@ npm --version
 
 Current directory: /Users/username
 
-Synkra AIOS should be installed in your project directory,
+Synkra AIOX should be installed in your project directory,
 not in your home directory or temporary locations.
 ```
 
@@ -88,7 +88,7 @@ not in your home directory or temporary locations.
 cd /path/to/your/project
 
 # 然后运行安装程序
-npx @synkra/aios-core install
+npx @synkra/aiox-core install
 ```
 
 ---
@@ -113,7 +113,7 @@ mkdir -p /path/to/your/project
 cd /path/to/your/project
 
 # 运行安装程序
-npx @synkra/aios-core install
+npx @synkra/aiox-core install
 ```
 
 ---
@@ -123,7 +123,7 @@ npx @synkra/aios-core install
 **症状:**
 
 ```
-Error: Synkra AIOS requires Node.js 18.0.0 or higher
+Error: Synkra AIOX requires Node.js 18.0.0 or higher
 Current version: 14.17.0
 ```
 
@@ -150,7 +150,7 @@ nvm use 18
 
 ```
 npm ERR! code E404
-npm ERR! 404 Not Found - GET https://registry.npmjs.org/@synkra/aios-core
+npm ERR! 404 Not Found - GET https://registry.npmjs.org/@synkra/aiox-core
 ```
 
 **原因:** npm 注册表上找不到包（网络问题或拼写错误）。
@@ -169,7 +169,7 @@ npm config get registry
 npm config set registry https://registry.npmjs.org/
 
 # 重试安装
-npx @synkra/aios-core install
+npx @synkra/aiox-core install
 ```
 
 ---
@@ -194,7 +194,7 @@ export PATH=~/.npm-global/bin:$PATH
 # 将 export 行添加到 ~/.bashrc 或 ~/.zshrc
 
 # 选项 2：使用 npx 而不是全局安装（推荐）
-npx @synkra/aios-core install
+npx @synkra/aiox-core install
 
 # 选项 3：使用 nvm 管理 Node.js
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
@@ -212,7 +212,7 @@ nvm install 18
 ```
 npm ERR! code ETIMEDOUT
 npm ERR! errno ETIMEDOUT
-npm ERR! network request to https://registry.npmjs.org/@synkra/aios-core failed
+npm ERR! network request to https://registry.npmjs.org/@synkra/aiox-core failed
 ```
 
 **原因:** 网络连接问题、防火墙或代理阻止 npm。
@@ -231,7 +231,7 @@ npm config set https-proxy http://proxy.company.com:8080
 npm config set strict-ssl false
 
 # 以详细日志重试
-npm install @synkra/aios-core --verbose
+npm install @synkra/aiox-core --verbose
 ```
 
 ---
@@ -258,7 +258,7 @@ npm config set strict-ssl false
 
 # 验证并重试
 npm config get strict-ssl
-npx @synkra/aios-core install
+npx @synkra/aiox-core install
 ```
 
 ---
@@ -288,7 +288,7 @@ npm ERR! network This is a problem related to network connectivity.
 
 # 使用更长的超时重试
 npm config set fetch-timeout 60000
-npx @synkra/aios-core install
+npx @synkra/aiox-core install
 ```
 
 ---
@@ -318,7 +318,7 @@ lsof +D /path/to/project
 kill -9 <PID>
 
 # 尝试再次安装
-npx @synkra/aios-core install
+npx @synkra/aiox-core install
 ```
 
 ---
@@ -345,7 +345,7 @@ mount | grep /path/to/project
 
 # 改为安装到可写目录
 cd ~/projects/my-project
-npx @synkra/aios-core install
+npx @synkra/aiox-core install
 ```
 
 ---
@@ -355,7 +355,7 @@ npx @synkra/aios-core install
 **症状:**
 
 ```
-Error: ENOTEMPTY: directory not empty, rmdir '.aios-core'
+Error: ENOTEMPTY: directory not empty, rmdir '.aiox-core'
 ```
 
 **原因:** 现有安装有修改过的文件。
@@ -364,13 +364,13 @@ Error: ENOTEMPTY: directory not empty, rmdir '.aios-core'
 
 ```bash
 # 备份现有安装
-mv .aios-core .aios-core.backup
+mv .aiox-core .aiox-core.backup
 
 # 使用强制标志运行安装程序
-npx @synkra/aios-core install --force-upgrade
+npx @synkra/aiox-core install --force-upgrade
 
 # 如果需要，从备份恢复自定义文件
-cp .aios-core.backup/custom-files/* .aios-core/
+cp .aiox-core.backup/custom-files/* .aiox-core/
 ```
 
 ---
@@ -398,7 +398,7 @@ Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 # 或改用 CMD
 cmd
-npx @synkra/aios-core install
+npx @synkra/aiox-core install
 ```
 
 #### 问题 14："Path too long"
@@ -418,7 +418,7 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Control\FileSystem" /v LongPathsEnabled /
 
 # 或使用更短的项目路径
 cd C:\dev\proj
-npx @synkra/aios-core install
+npx @synkra/aiox-core install
 ```
 
 #### 问题 15："npm not found in Git Bash"
@@ -459,7 +459,7 @@ xcode-select --install
 
 # 按照安装对话框进行操作
 # 然后重试
-npx @synkra/aios-core install
+npx @synkra/aiox-core install
 ```
 
 #### 问题 17："Apple Silicon (M1/M2) compatibility"
@@ -481,7 +481,7 @@ softwareupdate --install-rosetta
 # 使用 Node.js 的 x86 版本（如果需要）
 arch -x86_64 /bin/bash
 nvm install 18
-npx @synkra/aios-core install
+npx @synkra/aiox-core install
 ```
 
 ---
@@ -508,7 +508,7 @@ sudo dnf install vips-devel
 
 # 清除 npm 缓存并重新安装
 npm cache clean --force
-npx @synkra/aios-core install
+npx @synkra/aiox-core install
 ```
 
 #### 问题 19："GLIBC version too old"
@@ -548,7 +548,7 @@ nvm use 16
 
    ```bash
    # Claude Code
-   ls .claude/commands/AIOS/agents/
+   ls .claude/commands/AIOX/agents/
 
    # Cursor
    ls .cursor/rules/
@@ -557,7 +557,7 @@ nvm use 16
 3. 检查 IDE 设置允许自定义命令
 4. 为特定 IDE 重新运行安装：
    ```bash
-   npx @synkra/aios-core install --ide claude-code
+   npx @synkra/aiox-core install --ide claude-code
    ```
 
 ---
@@ -582,20 +582,20 @@ nvm use 16
 **症状:**
 
 ```
-Error: Agent 'dev' not found in .aios-core/agents/
+Error: Agent 'dev' not found in .aiox-core/agents/
 ```
 
 **解决方案:**
 
 ```bash
 # 验证代理文件存在
-ls .aios-core/agents/
+ls .aiox-core/agents/
 
 # 如果缺失，重新安装核心
-npx @synkra/aios-core install --full
+npx @synkra/aiox-core install --full
 
 # 检查 core-config.yaml 有效
-cat .aios-core/core-config.yaml
+cat .aiox-core/core-config.yaml
 ```
 
 ---
@@ -612,7 +612,7 @@ YAMLException: bad indentation of a mapping entry
 
 ```bash
 # 验证 YAML 语法
-npx yaml-lint .aios-core/agents/dev.md
+npx yaml-lint .aiox-core/agents/dev.md
 
 # 常见修复：
 # - 使用空格，不使用制表符
@@ -620,8 +620,8 @@ npx yaml-lint .aios-core/agents/dev.md
 # - 检查字符串中的特殊字符（使用引号）
 
 # 重新安装以获取干净的代理文件
-mv .aios-core/agents/dev.md .aios-core/agents/dev.md.backup
-npx @synkra/aios-core install --full
+mv .aiox-core/agents/dev.md .aiox-core/agents/dev.md.backup
+npx @synkra/aiox-core install --full
 ```
 
 ---
@@ -631,17 +631,17 @@ npx @synkra/aios-core install --full
 ### 通用诊断
 
 ```bash
-# 检查 AIOS 安装状态
-npx @synkra/aios-core status
+# 检查 AIOX 安装状态
+npx @synkra/aiox-core status
 
 # 列出可用的 Squad
-npx @synkra/aios-core install
+npx @synkra/aiox-core install
 
 # 更新现有安装
-npx @synkra/aios-core update
+npx @synkra/aiox-core update
 
 # 显示详细日志
-npx @synkra/aios-core install --verbose
+npx @synkra/aiox-core install --verbose
 ```
 
 ### 系统信息
@@ -664,15 +664,15 @@ df -h .
 ### 文件验证
 
 ```bash
-# 验证 .aios-core 结构
-find .aios-core -type f | wc -l
+# 验证 .aiox-core 结构
+find .aiox-core -type f | wc -l
 # 预期：200+ 文件
 
 # 检查损坏的 YAML
-for f in .aios-core/**/*.yaml; do npx yaml-lint "$f"; done
+for f in .aiox-core/**/*.yaml; do npx yaml-lint "$f"; done
 
 # 验证权限
-ls -la .aios-core/
+ls -la .aiox-core/
 ```
 
 ---
@@ -681,9 +681,9 @@ ls -la .aios-core/
 
 ### 请求帮助前
 
-1. 运行 `npx @synkra/aios-core status` 并记录输出
+1. 运行 `npx @synkra/aiox-core status` 并记录输出
 2. 查看此故障排除指南
-3. 搜索现有 [GitHub 问题](https://github.com/SynkraAI/aios-core/issues)
+3. 搜索现有 [GitHub 问题](https://github.com/SynkraAI/aiox-core/issues)
 
 ### 错误报告中包含的信息
 
@@ -718,7 +718,7 @@ ls -la .aios-core/
 
 ### 支持渠道
 
-- **GitHub Issues**: [@synkra/aios-core/issues](https://github.com/SynkraAI/aios-core/issues)
+- **GitHub Issues**: [@synkra/aiox-core/issues](https://github.com/SynkraAI/aiox-core/issues)
 - **文档**: [docs/installation/](./README.md)
 - **FAQ**: [faq.md](./faq.md)
 

@@ -31,7 +31,7 @@ const {
   AGENT_SECTOR_PREFERENCES,
   BRACKET_CONFIG,
   DEFAULT_SECTORS,
-} = require('../../.aios-core/core/synapse/memory/synapse-memory-provider');
+} = require('../../.aiox-core/core/synapse/memory/synapse-memory-provider');
 
 // =============================================================================
 // SynapseMemoryProvider

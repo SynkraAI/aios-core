@@ -13,7 +13,7 @@
 
 ## 报告漏洞
 
-我们在 SynkraAI 非常重视安全。如果您在 AIOS 中发现安全漏洞，请负责任地报告。
+我们在 SynkraAI 非常重视安全。如果您在 AIOX 中发现安全漏洞，请负责任地报告。
 
 ### 如何报告
 
@@ -22,7 +22,7 @@
 而是请通过以下其中一个渠道报告安全漏洞：
 
 1. **GitHub 安全公告**（首选）
-   - 前往 [安全公告](https://github.com/SynkraAI/aios-core/security/advisories)
+   - 前往 [安全公告](https://github.com/SynkraAI/aiox-core/security/advisories)
    - 点击"报告漏洞"
    - 填写详细信息表单
 
@@ -61,7 +61,7 @@
 
 ## 安全最佳实践
 
-使用 AIOS 框架时，我们建议：
+使用 AIOX 框架时，我们建议：
 
 ### 环境变量
 
@@ -92,7 +92,7 @@
 
 ### 框架架构
 
-AIOS 框架执行 AI 生成的代码和命令。用户应该：
+AIOX 框架执行 AI 生成的代码和命令。用户应该：
 
 - 了解 AI 代理可以执行任意代码
 - 对不受信任的环境使用适当的沙盒
@@ -100,7 +100,7 @@ AIOS 框架执行 AI 生成的代码和命令。用户应该：
 
 ### 数据处理
 
-- AIOS 可能通过 AI 提供商处理敏感数据
+- AIOX 可能通过 AI 提供商处理敏感数据
 - 审查您的 AI 提供商的数据处理政策
 - 使用 AI 功能时考虑数据分类
 
@@ -108,7 +108,7 @@ AIOS 框架执行 AI 生成的代码和命令。用户应该：
 
 安全更新通过以下方式宣布：
 
-- [GitHub 安全公告](https://github.com/SynkraAI/aios-core/security/advisories)
+- [GitHub 安全公告](https://github.com/SynkraAI/aiox-core/security/advisories)
 - [CHANGELOG.md](../CHANGELOG.md)
 - GitHub 发布
 

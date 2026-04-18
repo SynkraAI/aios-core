@@ -4,13 +4,13 @@
   Última sincronización: 2026-01-26
 -->
 
-# Guías de AIOS
+# Guías de AIOX
 
 > 🌐 [EN](../../guides/README.md) | [PT](../../pt/guides/README.md) | **ES**
 
 ---
 
-Índice completo de documentación para las guías del sistema AIOS.
+Índice completo de documentación para las guías del sistema AIOX.
 
 ---
 
@@ -42,7 +42,7 @@ Use el agente DevOps: `@devops` luego `*setup-mcp-docker`
 | **[Guía de Configuración Global de MCP](./mcp-global-setup.md)**               | Configuración global de servidor MCP | 10 min | Todos los usuarios |
 | **[Gestión de Claves API de MCP](../architecture/mcp-api-keys-management.md)** | Manejo seguro de credenciales        | 10 min | DevOps             |
 
-> **Nota:** La documentación de 1MCP ha sido descontinuada. AIOS ahora usa Docker MCP Toolkit exclusivamente (Story 5.11). Los documentos archivados están disponibles en `.github/deprecated-docs/guides/`.
+> **Nota:** La documentación de 1MCP ha sido descontinuada. AIOX ahora usa Docker MCP Toolkit exclusivamente (Story 5.11). Los documentos archivados están disponibles en `.github/deprecated-docs/guides/`.
 
 ---
 

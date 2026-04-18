@@ -38,7 +38,7 @@ git commit -m "feat: add team collaboration mode"
 git push
 
 # 就这样！发布会自动发生
-# 用户现在可以运行：npx @synkra/aios-core（并获得新版本）
+# 用户现在可以运行：npx @synkra/aiox-core（并获得新版本）
 ```
 
 ### 不触发发布的提交

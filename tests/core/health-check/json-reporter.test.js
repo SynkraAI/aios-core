@@ -5,7 +5,7 @@
  * auto-fix formatting, tech debt extraction, sanitization of secrets.
  */
 
-const JSONReporter = require('../../../.aios-core/core/health-check/reporters/json');
+const JSONReporter = require('../../../.aiox-core/core/health-check/reporters/json');
 
 describe('JSONReporter', () => {
   let reporter;

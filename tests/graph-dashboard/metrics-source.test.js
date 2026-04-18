@@ -7,12 +7,12 @@ const mockClient = {
   getMetrics: jest.fn().mockImplementation(() => mockMetricsResult),
 };
 
-jest.mock('../../.aios-core/core/code-intel', () => ({
+jest.mock('../../.aiox-core/core/code-intel', () => ({
   getClient: () => mockClient,
   isCodeIntelAvailable: () => mockIsAvailable,
 }));
 
-const { MetricsSource } = require('../../.aios-core/core/graph-dashboard/data-sources/metrics-source');
+const { MetricsSource } = require('../../.aiox-core/core/graph-dashboard/data-sources/metrics-source');
 
 describe('MetricsSource', () => {
   let source;

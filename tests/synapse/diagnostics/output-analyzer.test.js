@@ -12,7 +12,7 @@ const os = require('os');
 const path = require('path');
 
 const { collectOutputAnalysis, UAP_OUTPUT_EXPECTATIONS } = require(
-  '../../../.aios-core/core/synapse/diagnostics/collectors/output-analyzer',
+  '../../../.aiox-core/core/synapse/diagnostics/collectors/output-analyzer',
 );
 
 let tmpDir;

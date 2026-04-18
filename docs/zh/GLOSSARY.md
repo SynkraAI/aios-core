@@ -1,6 +1,6 @@
-# Synkra AIOS 术语表
+# Synkra AIOX 术语表
 
-> 本术语表定义了 Synkra AIOS 文档中使用的核心术语的标准中文翻译。
+> 本术语表定义了 Synkra AIOX 文档中使用的核心术语的标准中文翻译。
 
 ---
 
@@ -10,7 +10,7 @@
 |------|----------|----------|------|
 | **Agent** | 代理 | 代理 | AI 驱动的专业角色，负责特定领域任务 |
 | **Meta-Agent** | 元代理 | 元代理 | 协调其他代理的主控制代理 |
-| **AIOS Master** | AIOS 主控 | AIOS 主控 | 系统的顶级协调代理 |
+| **AIOX Master** | AIOX 主控 | AIOX 主控 | 系统的顶级协调代理 |
 | **Squad** | 小队 | 小隊 | 一组协作代理的集合 |
 | **Persona** | 角色 / 人格 | 角色 / 人格 | 代理的性格和专业特征定义 |
 
@@ -43,7 +43,7 @@
 | 英文 | 简体中文 | 繁体中文 | 定义 |
 |------|----------|----------|------|
 | **Memory Layer** | 记忆层 | 記憶層 | 存储和检索上下文信息的系统 |
-| **Constitution** | 宪法 / 准则 | 憲法 / 準則 | AIOS 的核心规则和原则 |
+| **Constitution** | 宪法 / 准则 | 憲法 / 準則 | AIOX 的核心规则和原则 |
 | **Orchestration** | 编排 | 編排 | 协调多个代理的过程 |
 | **Hook** | 钩子 | 鉤子 | 事件触发的回调函数 |
 | **MCP** | MCP | MCP | Model Context Protocol（不翻译） |
@@ -116,7 +116,7 @@
 以下术语在中文文档中保持英文：
 
 - **Synkra** - 品牌名
-- **AIOS** - 系统名称
+- **AIOX** - 系统名称
 - **Claude** - AI 模型名
 - **MCP** - 协议名
 - **SYNAPSE** - 系统名
@@ -151,19 +151,19 @@
 ### 3. 命令和路径
 ```markdown
 # 正确
-运行 `npx aios-core init` 初始化项目
+运行 `npx aiox-core init` 初始化项目
 
 # 错误
-运行 `npx aios-core 初始化` 初始化项目
+运行 `npx aiox-core 初始化` 初始化项目
 ```
 
 ### 4. 变量和参数
 ```markdown
 # 正确
-设置 `AIOS_DEBUG=true` 启用调试模式
+设置 `AIOX_DEBUG=true` 启用调试模式
 
 # 错误
-设置 `AIOS_调试=真` 启用调试模式
+设置 `AIOX_调试=真` 启用调试模式
 ```
 
 ---
@@ -176,4 +176,4 @@
 
 ---
 
-*Synkra AIOS 术语表 v1.0*
+*Synkra AIOX 术语表 v1.0*

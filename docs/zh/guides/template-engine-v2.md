@@ -4,7 +4,7 @@
 
 ---
 
-> 用于Synkra AIOS的文档生成和变量替换引擎。
+> 用于Synkra AIOX的文档生成和变量替换引擎。
 
 **版本:** 2.0
 **最后更新:** 2025-12-05
@@ -13,7 +13,7 @@
 
 ## 概述
 
-模板引擎提供了一致的方式来生成文档（PRD、ADR、故事等），具有变量替换、条件和循环功能。它为AIOS中的所有文档生成任务提供支持。
+模板引擎提供了一致的方式来生成文档（PRD、ADR、故事等），具有变量替换、条件和循环功能。它为AIOX中的所有文档生成任务提供支持。
 
 ### 关键功能
 
@@ -32,7 +32,7 @@
 ### 基本用法
 
 ```javascript
-const TemplateEngine = require('./.aios-core/infrastructure/scripts/template-engine');
+const TemplateEngine = require('./.aiox-core/infrastructure/scripts/template-engine');
 
 const engine = new TemplateEngine();
 
@@ -77,7 +77,7 @@ console.log(output);
 ### TemplateEngine类
 
 ```javascript
-const TemplateEngine = require('./.aios-core/infrastructure/scripts/template-engine');
+const TemplateEngine = require('./.aiox-core/infrastructure/scripts/template-engine');
 const engine = new TemplateEngine();
 ```
 
@@ -111,7 +111,7 @@ const result = engine.process('你好, {{NAME}}!', { NAME: '世界' });
 **返回:** `Promise<string>` - 处理后的模板
 
 ```javascript
-const result = await engine.loadAndProcess('.aios-core/product/templates/story-tmpl.md', {
+const result = await engine.loadAndProcess('.aiox-core/product/templates/story-tmpl.md', {
   STORY_ID: '3.12',
   TITLE: '文档',
 });
@@ -192,7 +192,7 @@ const safeInput = engine.escapeInput(userProvidedValue);
 ```javascript
 const variables = {
   project: {
-    name: 'AIOS',
+    name: 'AIOX',
     owner: {
       name: '佩德罗',
       email: 'pedro@example.com',
@@ -283,7 +283,7 @@ const variables = {
 所有模板存储在:
 
 ```
-.aios-core/product/templates/
+.aiox-core/product/templates/
 ```
 
 ---
@@ -475,4 +475,4 @@ console.log('验证结果:', validation);
 
 ---
 
-_Synkra AIOS模板引擎 v2.0_
+_Synkra AIOX模板引擎 v2.0_

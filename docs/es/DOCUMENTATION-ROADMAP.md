@@ -4,7 +4,7 @@
   Última sincronización: 2026-01-28
 -->
 
-# Hoja de Ruta de Documentación de AIOS
+# Hoja de Ruta de Documentación de AIOX
 
 > 🌐 [EN](../DOCUMENTATION-ROADMAP.md) | [PT](../pt/DOCUMENTATION-ROADMAP.md) | **ES**
 
@@ -109,8 +109,8 @@ Estos documentos deben **fusionarse en documentación existente**:
 | `technical-review-greeting-system-unification.md` | `guides/contextual-greeting-system-guide.md` | Agregar sección técnica              |
 | `hybrid-ops-pv-mind-integration.md`               | `architecture/high-level-architecture.md`    | Agregar sección de integración       |
 | `repository-migration-plan.md`                    | `migration-guide.md`                         | Agregar sección de migración de repo |
-| `internal-tools-analysis.md`                      | `.aios-core/infrastructure/tools/README.md`  | Referencia existente                 |
-| `.aios-core/core/registry/README.md`              | **YA EXISTE**                                | No se necesita acción                |
+| `internal-tools-analysis.md`                      | `.aiox-core/infrastructure/tools/README.md`  | Referencia existente                 |
+| `.aiox-core/core/registry/README.md`              | **YA EXISTE**                                | No se necesita acción                |
 
 ---
 

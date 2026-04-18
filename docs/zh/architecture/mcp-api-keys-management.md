@@ -14,13 +14,13 @@
 
 ## 概述
 
-本文档描述在 AIOS 中管理 Model Context Protocol (MCP) 服务器使用的 API 密钥的最佳实践。正确的 API 密钥管理对安全和运营完整性至关重要。
+本文档描述在 AIOX 中管理 Model Context Protocol (MCP) 服务器使用的 API 密钥的最佳实践。正确的 API 密钥管理对安全和运营完整性至关重要。
 
 ---
 
-## AIOS 中的 MCP 架构
+## AIOX 中的 MCP 架构
 
-AIOS 使用 Docker MCP Toolkit 作为主要的 MCP 基础设施:
+AIOX 使用 Docker MCP Toolkit 作为主要的 MCP 基础设施:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -107,7 +107,7 @@ APIFY_API_TOKEN=你的-apify-token
 
 ---
 
-## AIOS 中的 MCP 治理
+## AIOX 中的 MCP 治理
 
 **重要:** 所有 MCP 基础设施管理由 **DevOps 代理 (@devops / Gage)** 专门处理。
 

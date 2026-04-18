@@ -1,6 +1,6 @@
 'use strict';
 
-const { CodeGraphProvider, TOOL_MAP } = require('../../.aios-core/core/code-intel/providers/code-graph-provider');
+const { CodeGraphProvider, TOOL_MAP } = require('../../.aiox-core/core/code-intel/providers/code-graph-provider');
 
 describe('CodeGraphProvider', () => {
   let provider;

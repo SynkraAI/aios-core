@@ -1,6 +1,6 @@
 ---
 paths:
-  - ".aios-core/**"
+  - ".aiox-core/**"
   - "packages/**"
   - "bin/**"
 ---

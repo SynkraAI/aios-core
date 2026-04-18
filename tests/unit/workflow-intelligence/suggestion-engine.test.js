@@ -12,7 +12,7 @@ describe('SuggestionEngine (Unit)', () => {
   let SuggestionEngine, createSuggestionEngine;
 
   beforeAll(() => {
-    const module = require('../../../.aios-core/workflow-intelligence/engine/suggestion-engine');
+    const module = require('../../../.aiox-core/workflow-intelligence/engine/suggestion-engine');
     SuggestionEngine = module.SuggestionEngine;
     createSuggestionEngine = module.createSuggestionEngine;
   });

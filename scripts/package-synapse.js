@@ -14,7 +14,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
+const { execFileSync } = require('child_process');
 
 const ROOT = path.resolve(__dirname, '..');
 const OUT_DIR = path.join(ROOT, '.synapse-package');
@@ -24,39 +24,39 @@ const ZIP_NAME = 'synapse-package.zip';
 
 const FILES = {
   // Core Engine
-  'core/engine.js': '.aios-core/core/synapse/engine.js',
-  'core/context/context-tracker.js': '.aios-core/core/synapse/context/context-tracker.js',
-  'core/domain/domain-loader.js': '.aios-core/core/synapse/domain/domain-loader.js',
-  'core/layers/layer-processor.js': '.aios-core/core/synapse/layers/layer-processor.js',
-  'core/layers/l0-constitution.js': '.aios-core/core/synapse/layers/l0-constitution.js',
-  'core/layers/l1-global.js': '.aios-core/core/synapse/layers/l1-global.js',
-  'core/layers/l2-agent.js': '.aios-core/core/synapse/layers/l2-agent.js',
-  'core/layers/l3-workflow.js': '.aios-core/core/synapse/layers/l3-workflow.js',
-  'core/layers/l4-task.js': '.aios-core/core/synapse/layers/l4-task.js',
-  'core/layers/l5-squad.js': '.aios-core/core/synapse/layers/l5-squad.js',
-  'core/layers/l6-keyword.js': '.aios-core/core/synapse/layers/l6-keyword.js',
-  'core/layers/l7-star-command.js': '.aios-core/core/synapse/layers/l7-star-command.js',
-  'core/memory/memory-bridge.js': '.aios-core/core/synapse/memory/memory-bridge.js',
-  'core/output/formatter.js': '.aios-core/core/synapse/output/formatter.js',
-  'core/session/session-manager.js': '.aios-core/core/synapse/session/session-manager.js',
-  'core/scripts/generate-constitution.js': '.aios-core/core/synapse/scripts/generate-constitution.js',
-  'core/utils/paths.js': '.aios-core/core/synapse/utils/paths.js',
-  'core/utils/tokens.js': '.aios-core/core/synapse/utils/tokens.js',
+  'core/engine.js': '.aiox-core/core/synapse/engine.js',
+  'core/context/context-tracker.js': '.aiox-core/core/synapse/context/context-tracker.js',
+  'core/domain/domain-loader.js': '.aiox-core/core/synapse/domain/domain-loader.js',
+  'core/layers/layer-processor.js': '.aiox-core/core/synapse/layers/layer-processor.js',
+  'core/layers/l0-constitution.js': '.aiox-core/core/synapse/layers/l0-constitution.js',
+  'core/layers/l1-global.js': '.aiox-core/core/synapse/layers/l1-global.js',
+  'core/layers/l2-agent.js': '.aiox-core/core/synapse/layers/l2-agent.js',
+  'core/layers/l3-workflow.js': '.aiox-core/core/synapse/layers/l3-workflow.js',
+  'core/layers/l4-task.js': '.aiox-core/core/synapse/layers/l4-task.js',
+  'core/layers/l5-squad.js': '.aiox-core/core/synapse/layers/l5-squad.js',
+  'core/layers/l6-keyword.js': '.aiox-core/core/synapse/layers/l6-keyword.js',
+  'core/layers/l7-star-command.js': '.aiox-core/core/synapse/layers/l7-star-command.js',
+  'core/memory/memory-bridge.js': '.aiox-core/core/synapse/memory/memory-bridge.js',
+  'core/output/formatter.js': '.aiox-core/core/synapse/output/formatter.js',
+  'core/session/session-manager.js': '.aiox-core/core/synapse/session/session-manager.js',
+  'core/scripts/generate-constitution.js': '.aiox-core/core/synapse/scripts/generate-constitution.js',
+  'core/utils/paths.js': '.aiox-core/core/synapse/utils/paths.js',
+  'core/utils/tokens.js': '.aiox-core/core/synapse/utils/tokens.js',
 
   // Diagnostics
-  'core/diagnostics/synapse-diagnostics.js': '.aios-core/core/synapse/diagnostics/synapse-diagnostics.js',
-  'core/diagnostics/report-formatter.js': '.aios-core/core/synapse/diagnostics/report-formatter.js',
-  'core/diagnostics/collectors/safe-read-json.js': '.aios-core/core/synapse/diagnostics/collectors/safe-read-json.js',
-  'core/diagnostics/collectors/hook-collector.js': '.aios-core/core/synapse/diagnostics/collectors/hook-collector.js',
-  'core/diagnostics/collectors/session-collector.js': '.aios-core/core/synapse/diagnostics/collectors/session-collector.js',
-  'core/diagnostics/collectors/manifest-collector.js': '.aios-core/core/synapse/diagnostics/collectors/manifest-collector.js',
-  'core/diagnostics/collectors/pipeline-collector.js': '.aios-core/core/synapse/diagnostics/collectors/pipeline-collector.js',
-  'core/diagnostics/collectors/uap-collector.js': '.aios-core/core/synapse/diagnostics/collectors/uap-collector.js',
-  'core/diagnostics/collectors/timing-collector.js': '.aios-core/core/synapse/diagnostics/collectors/timing-collector.js',
-  'core/diagnostics/collectors/quality-collector.js': '.aios-core/core/synapse/diagnostics/collectors/quality-collector.js',
-  'core/diagnostics/collectors/consistency-collector.js': '.aios-core/core/synapse/diagnostics/collectors/consistency-collector.js',
-  'core/diagnostics/collectors/output-analyzer.js': '.aios-core/core/synapse/diagnostics/collectors/output-analyzer.js',
-  'core/diagnostics/collectors/relevance-matrix.js': '.aios-core/core/synapse/diagnostics/collectors/relevance-matrix.js',
+  'core/diagnostics/synapse-diagnostics.js': '.aiox-core/core/synapse/diagnostics/synapse-diagnostics.js',
+  'core/diagnostics/report-formatter.js': '.aiox-core/core/synapse/diagnostics/report-formatter.js',
+  'core/diagnostics/collectors/safe-read-json.js': '.aiox-core/core/synapse/diagnostics/collectors/safe-read-json.js',
+  'core/diagnostics/collectors/hook-collector.js': '.aiox-core/core/synapse/diagnostics/collectors/hook-collector.js',
+  'core/diagnostics/collectors/session-collector.js': '.aiox-core/core/synapse/diagnostics/collectors/session-collector.js',
+  'core/diagnostics/collectors/manifest-collector.js': '.aiox-core/core/synapse/diagnostics/collectors/manifest-collector.js',
+  'core/diagnostics/collectors/pipeline-collector.js': '.aiox-core/core/synapse/diagnostics/collectors/pipeline-collector.js',
+  'core/diagnostics/collectors/uap-collector.js': '.aiox-core/core/synapse/diagnostics/collectors/uap-collector.js',
+  'core/diagnostics/collectors/timing-collector.js': '.aiox-core/core/synapse/diagnostics/collectors/timing-collector.js',
+  'core/diagnostics/collectors/quality-collector.js': '.aiox-core/core/synapse/diagnostics/collectors/quality-collector.js',
+  'core/diagnostics/collectors/consistency-collector.js': '.aiox-core/core/synapse/diagnostics/collectors/consistency-collector.js',
+  'core/diagnostics/collectors/output-analyzer.js': '.aiox-core/core/synapse/diagnostics/collectors/output-analyzer.js',
+  'core/diagnostics/collectors/relevance-matrix.js': '.aiox-core/core/synapse/diagnostics/collectors/relevance-matrix.js',
 
   // Hook Entry Point
   'hook/synapse-engine.cjs': '.claude/hooks/synapse-engine.cjs',
@@ -93,7 +93,7 @@ const RUNTIME_DOMAINS = [
   'manifest', 'constitution', 'global', 'context', 'commands',
   'agent-dev', 'agent-qa', 'agent-architect', 'agent-pm', 'agent-po',
   'agent-sm', 'agent-devops', 'agent-analyst', 'agent-data-engineer',
-  'agent-ux', 'agent-aios-master', 'agent-squad-creator',
+  'agent-ux', 'agent-aiox-master', 'agent-squad-creator',
   'workflow-story-dev', 'workflow-epic-create', 'workflow-arch-review',
 ];
 
@@ -151,10 +151,10 @@ function main() {
 
   try {
     // Use PowerShell Compress-Archive on Windows
-    execSync(
-      `powershell -Command "Compress-Archive -Path '${OUT_DIR}\\*' -DestinationPath '${zipPath}' -Force"`,
-      { stdio: 'inherit' },
-    );
+    execFileSync('powershell', [
+      '-Command',
+      `Compress-Archive -Path '${OUT_DIR}\\*' -DestinationPath '${zipPath}' -Force`,
+    ], { stdio: 'inherit' });
     console.log(`\nZIP created: ${ZIP_NAME}`);
     console.log(`Size: ${(fs.statSync(zipPath).size / 1024).toFixed(1)} KB`);
   } catch (err) {
@@ -188,14 +188,14 @@ function generateReadme(outDir) {
 ## What is SYNAPSE?
 
 SYNAPSE (Synkra Adaptive Processing & State Engine) is the JIT context injection
-engine for AIOS. On every user prompt, it injects \`<synapse-rules>\` with adaptive
+engine for AIOX. On every user prompt, it injects \`<synapse-rules>\` with adaptive
 contextual rules through an 8-layer pipeline.
 
 ## Prerequisites
 
 - **Node.js** 18+
 - **Claude Code** CLI with hook support
-- **AIOS Core** installed (\`npx aios-core install\`)
+- **AIOX Core** installed (\`npx aiox-core install\`)
 
 ## Quick Install
 
@@ -204,7 +204,7 @@ contextual rules through an 8-layer pipeline.
 Copy the \`core/\` directory to your project:
 
 \`\`\`
-cp -r core/ <your-project>/.aios-core/core/synapse/
+cp -r core/ <your-project>/.aiox-core/core/synapse/
 \`\`\`
 
 ### 2. Copy Hook Entry Point
@@ -293,7 +293,7 @@ Expected: 749+ tests passing.
 \`\`\`
 synapse-package/
 ├── README-INSTALL.md          # This file
-├── core/                      # Engine source (.aios-core/core/synapse/)
+├── core/                      # Engine source (.aiox-core/core/synapse/)
 │   ├── engine.js              # Main orchestrator
 │   ├── context/               # Bracket tracker
 │   ├── domain/                # Manifest + domain loader
@@ -314,7 +314,7 @@ synapse-package/
 
 ---
 
-*SYNAPSE Context Engine v2.0 — Synkra AIOS*
+*SYNAPSE Context Engine v2.0 — Synkra AIOX*
 *Generated: ${new Date().toISOString().split('T')[0]}*
 `;
 

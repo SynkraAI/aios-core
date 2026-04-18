@@ -1,6 +1,6 @@
-# AIOS Glossary
+# AIOX Glossary
 
-Official terminology for AIOS 4.x differentiation.
+Official terminology for AIOX 4.x differentiation.
 
 ## Official Terms
 

@@ -200,11 +200,11 @@ describe('YamlMerger (Story INS-4.7)', () => {
   describe('AC4: User config preservation', () => {
     test('custom pvMindContext.location preserved after upgrade', async () => {
       const source = yaml.dump({
-        project: { type: 'EXISTING_AIOS', version: '2.2.0' },
+        project: { type: 'EXISTING_AIOX', version: '2.2.0' },
         pvMindContext: { location: 'default' },
       });
       const target = yaml.dump({
-        project: { type: 'EXISTING_AIOS', version: '2.1.0' },
+        project: { type: 'EXISTING_AIOX', version: '2.1.0' },
         pvMindContext: { location: '/my/custom/path' },
       });
 
@@ -236,13 +236,13 @@ describe('YamlMerger (Story INS-4.7)', () => {
       const source = yaml.dump({
         boundary: {
           frameworkProtection: true,
-          protected: ['.aios-core/core/'],
+          protected: ['.aiox-core/core/'],
         },
       });
       const target = yaml.dump({
         boundary: {
           frameworkProtection: false,
-          protected: ['.aios-core/core/', 'my-custom-path/'],
+          protected: ['.aiox-core/core/', 'my-custom-path/'],
           exceptions: ['my-exception/'],
         },
       });

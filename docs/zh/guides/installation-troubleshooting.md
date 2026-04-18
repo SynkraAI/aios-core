@@ -1,4 +1,4 @@
-# AIOS-Core 安装和故障排除指南
+# AIOX-Core 安装和故障排除指南
 
 > [EN](../../guides/installation-troubleshooting.md) | [PT](../../pt/guides/installation-troubleshooting.md) | [ES](../../es/guides/installation-troubleshooting.md) | **ZH**
 
@@ -7,10 +7,10 @@
 ## 快速开始
 
 ```bash
-npx aios-core@latest
+npx aiox-core@latest
 ```
 
-此命令下载并运行最新版本的 AIOS-Core 安装程序。
+此命令下载并运行最新版本的 AIOX-Core 安装程序。
 
 ## 系统要求
 
@@ -34,29 +34,29 @@ npx aios-core@latest
 
 ```bash
 # 在当前目录安装
-npx aios-core@latest
+npx aiox-core@latest
 
 # 安装特定版本
-npx aios-core@2.2.0
+npx aiox-core@2.2.0
 
 # 显示版本
-npx aios-core@latest --version
+npx aiox-core@latest --version
 
 # 显示帮助
-npx aios-core@latest --help
+npx aiox-core@latest --help
 ```
 
 ### 方法 2: 从 GitHub
 
 ```bash
-npx github:SynkraAI/aios-core install
+npx github:SynkraAI/aiox-core install
 ```
 
 ### 方法 3: 全局安装
 
 ```bash
-npm install -g aios-core
-aios-core
+npm install -g aiox-core
+aiox-core
 ```
 
 ---
@@ -67,17 +67,17 @@ aios-core
 
 ### Windows (CMD)
 ```cmd
-curl -o diagnose.cmd https://raw.githubusercontent.com/SynkraAI/aios-core/main/tools/quick-diagnose.cmd && diagnose.cmd
+curl -o diagnose.cmd https://raw.githubusercontent.com/SynkraAI/aiox-core/main/tools/quick-diagnose.cmd && diagnose.cmd
 ```
 
 ### Windows (PowerShell)
 ```powershell
-irm https://raw.githubusercontent.com/SynkraAI/aios-core/main/tools/quick-diagnose.ps1 | iex
+irm https://raw.githubusercontent.com/SynkraAI/aiox-core/main/tools/quick-diagnose.ps1 | iex
 ```
 
 ### macOS/Linux
 ```bash
-curl -fsSL https://raw.githubusercontent.com/SynkraAI/aios-core/main/tools/diagnose-installation.js | node
+curl -fsSL https://raw.githubusercontent.com/SynkraAI/aiox-core/main/tools/diagnose-installation.js | node
 ```
 
 ---
@@ -219,7 +219,7 @@ npm cache clean --force
 rm -rf node_modules
 
 # 重试
-npx aios-core@latest
+npx aiox-core@latest
 ```
 
 ---
@@ -247,10 +247,10 @@ npm config set cafile /path/to/certificate.pem
 npx clear-npx-cache
 
 # 或强制新下载
-npx --ignore-existing aios-core@latest
+npx --ignore-existing aiox-core@latest
 
 # 或使用特定版本
-npx aios-core@2.2.0
+npx aiox-core@2.2.0
 ```
 
 ---
@@ -270,10 +270,10 @@ npm --version
 npx --version
 
 # 4. 检查 npm 注册表访问
-npm view aios-core version
+npm view aiox-core version
 
 # 5. 测试安装
-npx aios-core@latest --version
+npx aiox-core@latest --version
 ```
 
 **预期输出:**
@@ -291,9 +291,9 @@ v22.x.x (或 v18+/v20+)
 
 如果您仍然遇到问题:
 
-1. **GitHub Issues**: https://github.com/SynkraAI/aios-core/issues
-2. **运行诊断**: `npx aios-core@latest doctor`
-3. **检查系统信息**: `npx aios-core@latest info`
+1. **GitHub Issues**: https://github.com/SynkraAI/aiox-core/issues
+2. **运行诊断**: `npx aiox-core@latest doctor`
+3. **检查系统信息**: `npx aiox-core@latest info`
 
 报告问题时，请包含:
 - 操作系统和版本
@@ -308,14 +308,14 @@ v22.x.x (或 v18+/v20+)
 
 | 命令                             | 描述                    |
 | -------------------------------- | ----------------------- |
-| `npx aios-core@latest`           | 安装/运行向导            |
-| `npx aios-core@latest --version` | 显示版本                 |
-| `npx aios-core@latest --help`    | 显示帮助                 |
-| `npx aios-core@latest install`   | 在当前目录安装           |
-| `npx aios-core@latest init <名称>` | 创建新项目             |
-| `npx aios-core@latest doctor`    | 运行诊断                 |
-| `npx aios-core@latest info`      | 显示系统信息             |
+| `npx aiox-core@latest`           | 安装/运行向导            |
+| `npx aiox-core@latest --version` | 显示版本                 |
+| `npx aiox-core@latest --help`    | 显示帮助                 |
+| `npx aiox-core@latest install`   | 在当前目录安装           |
+| `npx aiox-core@latest init <名称>` | 创建新项目             |
+| `npx aiox-core@latest doctor`    | 运行诊断                 |
+| `npx aiox-core@latest info`      | 显示系统信息             |
 
 ---
 
-*最后更新: 2025年12月 | AIOS-Core v2.2.0*
+*最后更新: 2025年12月 | AIOX-Core v2.2.0*

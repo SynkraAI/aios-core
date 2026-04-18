@@ -30,7 +30,7 @@
 
 ### 1. 分支保护设置
 
-**来源:** `gh api repos/SynkraAI/aios-core/branches/main/protection`
+**来源:** `gh api repos/SynkraAI/aiox-core/branches/main/protection`
 
 ```json
 {
@@ -67,11 +67,11 @@
 
 ### 2. 仓库设置
 
-**来源:** `gh api repos/SynkraAI/aios-core`
+**来源:** `gh api repos/SynkraAI/aiox-core`
 
 ```json
 {
-  "name": "aios-core",
+  "name": "aiox-core",
   "default_branch": "main",
   "visibility": "public",
   "allow_forking": true,
@@ -84,7 +84,7 @@
 
 ### 3. GitHub Actions 工作流
 
-**来源:** `gh api repos/SynkraAI/aios-core/actions/workflows`
+**来源:** `gh api repos/SynkraAI/aiox-core/actions/workflows`
 
 | 工作流 | 状态 | 路径 |
 | --- | --- | --- |
@@ -201,7 +201,7 @@
 **命令:**
 
 ```bash
-gh api repos/SynkraAI/aios-core/branches/main/protection -X PUT \
+gh api repos/SynkraAI/aiox-core/branches/main/protection -X PUT \
   -F required_status_checks='{"strict":true,"contexts":["lint","typecheck","build","test"]}' \
   -F enforce_admins=false \
   -F required_pull_request_reviews='{"dismiss_stale_reviews":true,"require_code_owner_reviews":true,"required_approving_review_count":1}' \
@@ -210,7 +210,7 @@ gh api repos/SynkraAI/aios-core/branches/main/protection -X PUT \
 
 ### 第二阶段: 短期（高）
 
-1. 创建包含 AIOS 特定规则的 `.coderabbit.yaml`
+1. 创建包含 AIOX 特定规则的 `.coderabbit.yaml`
 2. 更新 CODEOWNERS 添加细粒度路径
 
 ### 第三阶段: 中期（中）
@@ -224,8 +224,8 @@ gh api repos/SynkraAI/aios-core/branches/main/protection -X PUT \
 
 导出的配置保存在：
 
-- `.aios/audit/branch-protection.json`
-- `.aios/audit/repo-settings.json`
+- `.aiox/audit/branch-protection.json`
+- `.aiox/audit/repo-settings.json`
 
 ---
 

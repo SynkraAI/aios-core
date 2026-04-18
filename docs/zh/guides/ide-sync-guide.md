@@ -4,11 +4,11 @@
 
 ---
 
-在多个IDE配置中同步AIOS代理、任务、工作流和检查清单。
+在多个IDE配置中同步AIOX代理、任务、工作流和检查清单。
 
 ## 概述
 
-`*command` 任务自动化AIOS组件到所有配置的IDE目录（`.claude/`、`.cursor/`、`.gemini/` 等）的同步，省去手动复制操作。
+`*command` 任务自动化AIOX组件到所有配置的IDE目录（`.claude/`、`.cursor/`、`.gemini/` 等）的同步，省去手动复制操作。
 
 ## 快速开始
 
@@ -17,12 +17,12 @@
 将模板复制到项目根目录:
 
 ```bash
-cp .aios-core/infrastructure/templates/aios-sync.yaml.template .aios-sync.yaml
+cp .aiox-core/infrastructure/templates/aiox-sync.yaml.template .aiox-sync.yaml
 ```
 
 ### 2. 配置IDE
 
-编辑 `.aios-sync.yaml` 启用您的IDE:
+编辑 `.aiox-sync.yaml` 启用您的IDE:
 
 ```yaml
 active_ides:
@@ -80,7 +80,7 @@ squads/legal/agents/legal-chief.md
 ┌─────────────────────────────────────────────────────┐
 │                 *command sync                        │
 │                                                      │
-│  1. 读取 .aios-sync.yaml 配置                        │
+│  1. 读取 .aiox-sync.yaml 配置                        │
 │  2. 检查组件是否存在于 squads/                       │
 │  3. 应用包装转换（如果需要）                        │
 │  4. 复制到每个活跃IDE的目标                          │
@@ -133,7 +133,7 @@ alwaysApply: false
 
 ```
 your-project/
-├── .aios-sync.yaml           # 同步配置
+├── .aiox-sync.yaml           # 同步配置
 ├── squads/                   # 真实来源
 │   └── legal/
 │       ├── config.yaml
@@ -175,7 +175,7 @@ your-project/
 警告: 对于 'new-squad' 没有小队别名
 ```
 
-**解决方案**: 将别名添加到 `.aios-sync.yaml`:
+**解决方案**: 将别名添加到 `.aiox-sync.yaml`:
 
 ```yaml
 squad_aliases:
@@ -190,4 +190,4 @@ squad_aliases:
 
 - [小队概览](./squads-overview.md)
 - [代理参考指南](../agent-reference-guide.md)
-- [AIOS架构](../core-architecture.md)
+- [AIOX架构](../core-architecture.md)

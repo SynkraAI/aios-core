@@ -68,7 +68,7 @@ curl -X POST https://api.synkra.ai/api/squads/sync \
       "name": "my-squad",
       "version": "1.0.0",
       "description": "我的优秀squad",
-      "aios": {
+      "aiox": {
         "minVersion": "2.1.0",
         "type": "squad"
       },
@@ -352,7 +352,7 @@ curl https://api.synkra.ai/api/squads/550e8400-e29b-41d4-a716-446655440000
     "manifest": {
       "name": "devops-squad",
       "version": "2.1.0",
-      "aios": {
+      "aiox": {
         "minVersion": "2.1.0",
         "type": "squad"
       },
@@ -497,7 +497,7 @@ curl -X POST https://api.synkra.ai/api/squads/validate \
   "data": {
     "valid": true,
     "errors": [],
-    "warnings": ["Missing recommended field: description", "Missing aios.minVersion field"]
+    "warnings": ["Missing recommended field: description", "Missing aiox.minVersion field"]
   }
 }
 ```
@@ -625,7 +625,7 @@ export SYNKRA_API_TOKEN="sk_your_api_key"
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"squadData\": {\n    \"name\": \"my-squad\",\n    \"version\": \"1.0.0\",\n    \"description\": \"My squad\",\n    \"aios\": {\n      \"minVersion\": \"2.1.0\",\n      \"type\": \"squad\"\n    }\n  },\n  \"isPublic\": false\n}"
+              "raw": "{\n  \"squadData\": {\n    \"name\": \"my-squad\",\n    \"version\": \"1.0.0\",\n    \"description\": \"My squad\",\n    \"aiox\": {\n      \"minVersion\": \"2.1.0\",\n      \"type\": \"squad\"\n    }\n  },\n  \"isPublic\": false\n}"
             }
           }
         },
@@ -746,7 +746,7 @@ export SYNKRA_API_TOKEN="sk_your_api_key"
 
 - [Squads开发指南](../guides/squads-guide.md)
 - [贡献Squads](../guides/contributing-squads.md)
-- [@squad-creator代理](../../../.aios-core/development/agents/squad-creator.md)
+- [@squad-creator代理](../../../.aiox-core/development/agents/squad-creator.md)
 
 ---
 

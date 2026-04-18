@@ -1,36 +1,36 @@
-# Synkra AIOS: Universal AI Agent Framework 🚀
+# AIOX Squad: Artificial Intelligence Orchestration eXperience
 
 > 🌍 **[English](README.en.md)** | [Português](README.md)
 
-[![NPM Version](https://img.shields.io/npm/v/aios-core.svg)](https://www.npmjs.com/package/aios-core)
+[![NPM Version](https://img.shields.io/npm/v/aiox-core.svg)](https://www.npmjs.com/package/aiox-core)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org/)
-[![CI](https://github.com/SynkraAI/aios-core/actions/workflows/ci.yml/badge.svg)](https://github.com/SynkraAI/aios-core/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/SynkraAI/aios-core/branch/main/graph/badge.svg)](https://codecov.io/gh/SynkraAI/aios-core)
-[![Documentation](https://img.shields.io/badge/docs-available-orange.svg)](https://synkra.ai)
+[![CI](https://github.com/SynkraAI/aiox-core/actions/workflows/ci.yml/badge.svg)](https://github.com/SynkraAI/aiox-core/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/SynkraAI/aiox-core/branch/main/graph/badge.svg)](https://codecov.io/gh/SynkraAI/aiox-core)
+[![Documentation](https://img.shields.io/badge/docs-available-orange.svg)](https://aioxsquad.ai)
 [![Open Source](https://img.shields.io/badge/Open%20Source-Yes-success.svg)](LICENSE)
 [![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](CONTRIBUTING.md)
 [![Code of Conduct](https://img.shields.io/badge/code%20of%20conduct-Contributor%20Covenant-blue.svg)](CODE_OF_CONDUCT.md)
 
-AI-Powered Self-Modifying Development Framework. Founded on Agent-Driven Agile Development, offering revolutionary capabilities for AI-driven development and much more. Transform any domain with specialized AI expertise: software development, entertainment, creative writing, business strategy, personal wellness, and more.
+> **Giving people back the power to create** — Open source AI orchestration framework that gives control back to those who dare to build. Specialized agents, workflows, and CLI First experience for any domain.
 
 ## Start Here (10 Min)
 
-If this is your first time with AIOS, follow this linear path:
+If this is your first time with AIOX, follow this linear path:
 
 1. Install in a new or existing project:
 ```bash
 # new project
-npx aios-core init my-project
+npx aiox-core init my-project
 
 # existing project
 cd your-project
-npx aios-core install
+npx aiox-core install
 ```
 2. Choose your IDE/CLI and the activation path:
 - Claude Code: `/agent-name`
-- Gemini CLI: `/aios-menu` → `/aios-<agent>`
-- Codex CLI: `/skills` → `aios-<agent-id>`
+- Gemini CLI: `/aiox-menu` → `/aiox-<agent>`
+- Codex CLI: `/skills` → `aiox-<agent-id>`
 - Cursor/Copilot/AntiGravity: follow the limits and workarounds in `docs/ide-integration.md`
 3. Activate 1 agent and confirm the greeting.
 4. Run 1 initial command (`*help` or equivalent) to validate first-value.
@@ -38,9 +38,9 @@ npx aios-core install
 First-value definition (binary): agent activation + valid greeting + initial command with useful output in <= 10 minutes.
 
 
-## IDE Hook Compatibility (AIOS 4.2 Reality)
+## IDE Hook Compatibility (AIOX 4.2 Reality)
 
-Many advanced AIOS features depend on lifecycle events (hooks). The table below shows the actual parity between IDEs/platforms:
+Many advanced AIOX features depend on lifecycle events (hooks). The table below shows the actual parity between IDEs/platforms:
 
 | IDE/CLI | Hook Parity vs Claude | Practical Impact |
 | --- | --- | --- |
@@ -53,21 +53,11 @@ Many advanced AIOS features depend on lifecycle events (hooks). The table below 
 
 Detailed impacts and mitigation: `docs/ide-integration.md`.
 
-## Acknowledgments & Attribution
-
-Synkra AIOS was originally derived from the [BMad Method](https://github.com/bmad-code-org/BMAD-METHOD), created by [Brian Madison](https://github.com/bmadcode) (BMad Code, LLC). We gratefully acknowledge the BMad Method for providing the foundation from which this project began.
-
-**Important:** This project is **NOT affiliated with, endorsed by, or sanctioned by** the BMad Method or BMad Code, LLC. Contributors appearing in the git history from the original BMad Method repository do not imply active participation in or endorsement of Synkra AIOS.
-
-Since its origin, AIOS has evolved significantly with its own architecture, terminology, and features (v4.x+), and does not depend on BMad for current operation. The BMad Method remains an excellent framework in its own right — please visit the [official BMad Method repository](https://github.com/bmad-code-org/BMAD-METHOD) to learn more.
-
-BMad, BMad Method, and BMad Core are trademarks of BMad Code, LLC. See [TRADEMARK.md](https://github.com/bmad-code-org/BMAD-METHOD/blob/main/TRADEMARK.md) for usage guidelines.
-
 ## Overview
 
 ### Architectural Premise: CLI First
 
-Synkra AIOS follows a clear priority hierarchy:
+AIOX follows a clear priority hierarchy:
 
 ```text
 CLI First → Observability Second → UI Third
@@ -88,7 +78,7 @@ CLI First → Observability Second → UI Third
 
 ---
 
-**The Two Key Innovations of Synkra AIOS:**
+**The Two Key Innovations of AIOX:**
 
 **1. Agentic Planning:** Dedicated agents (analyst, pm, architect) collaborate with you to create detailed, consistent PRD and Architecture documents. Through advanced prompt engineering and human-in-the-loop refinement, these planning agents produce comprehensive specifications that go far beyond generic AI task generation.
 
@@ -116,32 +106,32 @@ This two-phase approach eliminates both **planning inconsistency** and **context
 
 ## Quick Navigation
 
-### Understanding the AIOS Workflow
+### Understanding the AIOX Workflow
 
-**Before diving in, review these critical workflow diagrams that explain how AIOS works:**
+**Before diving in, review these critical workflow diagrams that explain how AIOX works:**
 
 1. **[Planning Workflow (Web Interface)](docs/guides/user-guide.md#the-planning-workflow-web-ui)** - How to create PRD and Architecture documents
 2. **[Core Development Cycle (IDE)](docs/guides/user-guide.md#the-core-development-cycle-ide)** - How the sm, dev, and qa agents collaborate through story files
 
-> ⚠️ **These diagrams explain 90% of the confusion about the Synkra AIOS Agentic Agile workflow** - Understanding PRD+Architecture creation and the sm/dev/qa workflow and how agents pass notes through story files is essential - and it also explains why this is NOT taskmaster or just a simple task runner!
+> ⚠️ **These diagrams explain 90% of the confusion about the AIOX Agentic Agile workflow** - Understanding PRD+Architecture creation and the sm/dev/qa workflow and how agents pass notes through story files is essential - and it also explains why this is NOT taskmaster or just a simple task runner!
 
 ### What would you like to do?
 
 - **[Install and Build software with a Full Stack AI Agile Team](#quick-start)** → Quick Start Instructions
-- **[Learn how to use AIOS](docs/guides/user-guide.md)** → Complete user guide and walkthrough
+- **[Learn how to use AIOX](docs/guides/user-guide.md)** → Complete user guide and walkthrough
 - **[See available AI agents](#available-agents)** → Specialized roles for your team
 - **[Explore non-technical uses](#-beyond-software-development---squads)** → Creative writing, business, wellness, education
 - **[Create my own AI agents](#creating-your-own-squad)** → Build agents for your domain
 - **[Browse ready-made Squads](docs/guides/squads-overview.md)** → See how to create and use AI agent teams
 - **[Understand the architecture](docs/architecture/ARCHITECTURE-INDEX.md)** → Deep technical dive
-- **[Report issues](https://github.com/SynkraAI/aios-core/issues)** → Bug reports and feature requests
+- **[Report issues](https://github.com/SynkraAI/aiox-core/issues)** → Bug reports and feature requests
 
-## Important: Keep Your AIOS Installation Updated
+## Important: Keep Your AIOX Installation Updated
 
-**Stay up to date effortlessly!** To update your existing AIOS installation:
+**Stay up to date effortlessly!** To update your existing AIOX installation:
 
 ```bash
-npx aios-core@latest install
+npx aiox-core@latest install
 ```
 
 This will:
@@ -157,23 +147,23 @@ This makes it easy to benefit from the latest improvements, bug fixes, and new a
 
 ### 🚀 Installation via NPX (Recommended)
 
-**Install Synkra AIOS with a single command:**
+**Install AIOX with a single command:**
 
 ```bash
 # Create a new project with modern interactive wizard
-npx aios-core init my-project
+npx aiox-core init my-project
 
 # Or install in an existing project
 cd your-project
-npx aios-core install
+npx aiox-core install
 
 # Or use a specific version
-npx aios-core@latest init my-project
+npx aiox-core@latest init my-project
 ```
 
 ### ✨ Modern Installation Wizard
 
-Synkra AIOS now includes a cutting-edge interactive installation experience, inspired by modern tools like Vite and Next.js:
+AIOX now includes a cutting-edge interactive installation experience, inspired by modern tools like Vite and Next.js:
 
 **Interactive Installer Features:**
 
@@ -191,7 +181,7 @@ Synkra AIOS now includes a cutting-edge interactive installation experience, ins
 - ✅ Download of the latest version from NPM
 - ✅ Modern interactive installation wizard
 - ✅ Automatic IDE configuration (Codex CLI, Cursor, or Claude Code)
-- ✅ Configuration of all AIOS agents and workflows
+- ✅ Configuration of all AIOX agents and workflows
 - ✅ Creation of necessary configuration files
 - ✅ Meta-agent system initialization
 - ✅ System health checks
@@ -203,16 +193,16 @@ Synkra AIOS now includes a cutting-edge interactive installation experience, ins
 
 ### Updating an Existing Installation
 
-If you already have AIOS installed:
+If you already have AIOX installed:
 
 ```bash
-npx aios-core@latest install
+npx aiox-core@latest install
 # The installer will detect your existing installation and update it
 ```
 
-### Configure Your IDE for AIOS Development
+### Configure Your IDE for AIOX Development
 
-Synkra AIOS includes pre-configured IDE rules to enhance your development experience:
+AIOX includes pre-configured IDE rules to enhance your development experience:
 
 #### For Cursor:
 
@@ -229,7 +219,7 @@ Synkra AIOS includes pre-configured IDE rules to enhance your development experi
 
 #### For Codex CLI:
 
-- ✅ First-class integration in AIOS 4.2 (shared activation and greeting pipeline)
+- ✅ First-class integration in AIOX 4.2 (shared activation and greeting pipeline)
 - ✅ Already configured! The `AGENTS.md` file at the root is loaded automatically
 - Optional: sync auxiliary agents with `npm run sync:ide:codex`
 - Recommended in this repository: generate and version local skills with `npm run sync:skills:codex`
@@ -240,9 +230,9 @@ Synkra AIOS includes pre-configured IDE rules to enhance your development experi
 #### For Gemini CLI:
 
 - ✅ Rules and agents syncable with `npm run sync:ide:gemini`
-- Generated files in `.gemini/rules.md`, `.gemini/rules/AIOS/agents/`, and `.gemini/commands/*.toml`
+- Generated files in `.gemini/rules.md`, `.gemini/rules/AIOX/agents/`, and `.gemini/commands/*.toml`
 - ✅ Local hooks and settings in the installation flow (`.gemini/hooks/` + `.gemini/settings.json`)
-- ✅ Quick activation via slash commands (`/aios-menu`, `/aios-dev`, `/aios-architect`, etc.)
+- ✅ Quick activation via slash commands (`/aiox-menu`, `/aiox-dev`, `/aiox-architect`, etc.)
 - Dedicated validation: `npm run validate:gemini-sync && npm run validate:gemini-integration`
 - Multi-IDE parity in one command: `npm run validate:parity`
 
@@ -252,43 +242,43 @@ These rules provide:
 - 📋 Story-driven development workflow
 - ✅ Automatic checkbox tracking
 - 🧪 Testing and validation patterns
-- 📝 AIOS-specific code patterns
+- 📝 AIOX-specific code patterns
 
 ### Fastest Start with Web Interface (2 minutes)
 
-1. **Install AIOS**: Run `npx aios-core init my-project`
+1. **Install AIOX**: Run `npx aiox-core init my-project`
 2. **Configure your IDE**: Follow the setup instructions for Codex CLI, Cursor, or Claude Code
 3. **Start Planning**: Activate an agent like `@analyst` to begin creating your briefing
-4. **Use AIOS commands**: Type `*help` to see available commands
+4. **Use AIOX commands**: Type `*help` to see available commands
 5. **Follow the flow**: See the [User Guide](docs/guides/user-guide.md) for more details
 
 ### CLI Command Reference
 
-Synkra AIOS offers a modern, cross-platform CLI with intuitive commands:
+AIOX offers a modern, cross-platform CLI with intuitive commands:
 
 ```bash
 # Project Management (with interactive wizard)
-npx aios-core init <project-name> [options]
+npx aiox-core init <project-name> [options]
   --force              Force creation in non-empty directory
   --skip-install       Skip npm dependency installation
   --template <name>    Use specific template (default, minimal, enterprise)
 
 # Installation and Configuration (with modern prompts)
-npx aios-core install [options]
+npx aiox-core install [options]
   --force              Overwrite existing configuration
   --quiet              Minimal output during installation
   --dry-run            Simulate installation without modifying files
 
 # System Commands
-npx aios-core --version   Display installed version
-npx aios-core --help      Display detailed help
-npx aios-core info        Display system information
-npx aios-core doctor      Run system diagnostics
-npx aios-core doctor --fix Automatically fix detected issues
+npx aiox-core --version   Display installed version
+npx aiox-core --help      Display detailed help
+npx aiox-core info        Display system information
+npx aiox-core doctor      Run system diagnostics
+npx aiox-core doctor --fix Automatically fix detected issues
 
 # Maintenance
-npx aios-core update      Update to latest version
-npx aios-core uninstall   Remove Synkra AIOS
+npx aiox-core update      Update to latest version
+npx aiox-core uninstall   Remove AIOX
 ```
 
 **CLI Features:**
@@ -304,9 +294,9 @@ npx aios-core uninstall   Remove Synkra AIOS
 #### Full Interactive Installation
 
 ```bash
-$ npx aios-core install
+$ npx aiox-core install
 
-🚀 Synkra AIOS Installation
+🚀 AIOX Installation
 
 ◆ What is your project name?
 │  my-awesome-project
@@ -342,26 +332,26 @@ $ npx aios-core install
 
 Next steps:
   cd my-awesome-project
-  aios-core doctor     # Verify installation
-  aios-core --help     # See available commands
+  aiox-core doctor     # Verify installation
+  aiox-core --help     # See available commands
 ```
 
 #### Silent Installation (CI/CD)
 
 ```bash
 # Automated installation without prompts
-$ npx aios-core install --quiet --force
-✔ Synkra AIOS installed successfully
+$ npx aiox-core install --quiet --force
+✔ AIOX installed successfully
 ```
 
 #### Installation Simulation (Dry-Run)
 
 ```bash
 # Test installation without modifying files
-$ npx aios-core install --dry-run
+$ npx aiox-core install --dry-run
 
 [DRY RUN] Would create: ./my-project/
-[DRY RUN] Would copy: .aios-core/ (45 files)
+[DRY RUN] Would copy: .aiox-core/ (45 files)
 [DRY RUN] Would initialize: Git repository
 [DRY RUN] Would install: npm dependencies
 ✔ Dry run completed - no files were modified
@@ -370,18 +360,18 @@ $ npx aios-core install --dry-run
 #### System Diagnostics
 
 ```bash
-$ npx aios-core doctor
+$ npx aiox-core doctor
 
-🏥 AIOS System Diagnostics
+🏥 AIOX System Diagnostics
 
 ✔ Node.js version: v20.10.0 (meets requirement: >=18.0.0)
 ✔ npm version: 10.2.3
 ✔ Git installed: version 2.43.0
 ✔ GitHub CLI: gh 2.40.1
-✔ Synkra AIOS: v4.2.11
+✔ AIOX: v4.2.11
 
 Configuration:
-✔ .aios-core/ directory exists
+✔ .aiox-core/ directory exists
 ✔ Agent files: 11 found
 ✔ Workflow files: 8 found
 ✔ Templates: 15 found
@@ -399,24 +389,24 @@ Dependencies:
 #### Get Help
 
 ```bash
-$ npx aios-core --help
+$ npx aiox-core --help
 
-Usage: aios-core [options] [command]
+Usage: aiox-core [options] [command]
 
-Synkra AIOS: AI-Orchestrated System for Full Stack Development
+AIOX: AI-Orchestrated System for Full Stack Development
 
 Options:
   -V, --version                output the version number
   -h, --help                   display help for command
 
 Commands:
-  init <project-name>          Create new AIOS project with interactive wizard
-  install [options]            Install AIOS in current directory
+  init <project-name>          Create new AIOX project with interactive wizard
+  install [options]            Install AIOX in current directory
   info                         Display system information
   doctor [options]             Run system diagnostics and health checks
   help [command]               display help for command
 
-Run 'aios-core <command> --help' for detailed information about each command.
+Run 'aiox-core <command> --help' for detailed information about each command.
 ```
 
 ### Alternative: Clone and Build
@@ -425,14 +415,14 @@ For contributors or advanced users who want to modify the source code:
 
 ```bash
 # Clone the repository
-git clone https://github.com/SynkraAI/aios-core.git
-cd aios-core
+git clone https://github.com/SynkraAI/aiox-core.git
+cd aiox-core
 
 # Install dependencies
 npm install
 
 # Run the installer
-npm run install:aios
+npm run install:aiox
 ```
 
 ### Quick Team Setup
@@ -440,27 +430,27 @@ npm run install:aios
 For team members joining the project:
 
 ```bash
-# Install AIOS in the project
-npx aios-core@latest install
+# Install AIOX in the project
+npx aiox-core@latest install
 
 # This will:
 # 1. Detect existing installation (if any)
-# 2. Install/update AIOS framework
+# 2. Install/update AIOX framework
 # 3. Configure agents and workflows
 ```
 
 ## 🌟 Beyond Software Development - Squads
 
-The AIOS natural language framework works in ANY domain. Squads provide specialized AI agents for creative writing, business strategy, health and wellness, education, and more. Additionally, Squads can expand the Synkra AIOS core with domain-specific functionality that isn't generic for all use cases. [See the Squads Guide](docs/guides/squads-guide.md) and learn to create your own!
+The AIOX natural language framework works in ANY domain. Squads provide specialized AI agents for creative writing, business strategy, health and wellness, education, and more. Additionally, Squads can expand the AIOX core with domain-specific functionality that isn't generic for all use cases. [See the Squads Guide](docs/guides/squads-guide.md) and learn to create your own!
 
 ## Available Agents
 
-Synkra AIOS comes with 12 specialized agents:
+AIOX comes with 12 specialized agents:
 
 ### Meta Agents
 
-- **aios-master** - Master orchestration agent (includes framework development capabilities)
-- **aios-orchestrator** - Workflow orchestrator and team coordination
+- **aiox-master** - Master orchestration agent (includes framework development capabilities)
+- **aiox-orchestrator** - Workflow orchestrator and team coordination
 
 ### Planning Agents (Web Interface)
 
@@ -484,23 +474,23 @@ Synkra AIOS comes with 12 specialized agents:
 
 - 📖 **[User Guide](docs/guides/user-guide.md)** - Complete walkthrough from conception to project completion
 - 🏗️ **[Core Architecture](docs/architecture/ARCHITECTURE-INDEX.md)** - Deep technical dive and system design
-- 🚀 **[Squads Guide](docs/guides/squads-guide.md)** - Extend AIOS to any domain beyond software development
+- 🚀 **[Squads Guide](docs/guides/squads-guide.md)** - Extend AIOX to any domain beyond software development
 
 ### Additional Documentation
 
 - 🤖 **[Squads Guide](docs/guides/squads-guide.md)** - Create and publish AI agent teams
 - 📋 **[Getting Started](docs/getting-started.md)** - Step-by-step tutorial for beginners
 - 🔧 **[Troubleshooting](docs/troubleshooting.md)** - Solutions for common issues
-- 🎯 **[Guiding Principles](docs/GUIDING-PRINCIPLES.md)** - AIOS philosophy and best practices
+- 🎯 **[Guiding Principles](docs/GUIDING-PRINCIPLES.md)** - AIOX philosophy and best practices
 - 🏛️ **[Architecture Overview](docs/architecture/ARCHITECTURE-INDEX.md)** - Detailed view of system architecture
-- ⚙️ **[Performance Tuning Guide](docs/performance-tuning-guide.md)** - Optimize your AIOS workflow
+- ⚙️ **[Performance Tuning Guide](docs/performance-tuning-guide.md)** - Optimize your AIOX workflow
 - 🔒 **[Security Best Practices](docs/security-best-practices.md)** - Security and data protection
 - 🔄 **[Migration Guide](docs/migration-guide.md)** - Migration from previous versions
 - 📦 **[Versioning and Releases](docs/versioning-and-releases.md)** - Versioning policy
 
-## 🤖 AIOS Autonomous Development Engine (ADE)
+## 🤖 AIOX Autonomous Development Engine (ADE)
 
-Synkra AIOS introduces the **Autonomous Development Engine (ADE)** - a complete system for autonomous development that transforms requirements into working code.
+AIOX introduces the **Autonomous Development Engine (ADE)** - a complete system for autonomous development that transforms requirements into working code.
 
 ### 🎯 What is ADE?
 
@@ -586,7 +576,7 @@ User Request → Spec Pipeline → Execution Engine → QA Review → Working Co
 
 ## Creating Your Own Squad
 
-Squads allow you to extend AIOS to any domain. Basic structure:
+Squads allow you to extend AIOX to any domain. Basic structure:
 
 ```text
 squads/your-squad/
@@ -608,18 +598,18 @@ Squads are modular AI agent teams. See the [Squads Overview](docs/guides/squads-
 
 ### External Squads
 
-- **[hybrid-ops](https://github.com/SynkraAI/aios-hybrid-ops-pedro-valerio)** - Human-agent hybrid operations (separate repository)
+- **[hybrid-ops](https://github.com/SynkraAI/aiox-hybrid-ops-pedro-valerio)** - Human-agent hybrid operations (separate repository)
 
-## AIOS Pro
+## AIOX Pro
 
-**AIOS Pro** (`@aios-fullstack/pro`) is the premium module of Synkra AIOS, offering advanced features for teams and larger-scale projects.
+**AIOX Pro** (`@aiox-fullstack/pro`) is the premium module of AIOX, offering advanced features for teams and larger-scale projects.
 
-> **Restricted availability:** AIOS Pro is available exclusively to members of the **AIOS Cohort Advanced**. [Learn more about the program](https://synkra.ai).
+> **Restricted availability:** AIOX Pro is available exclusively to members of the **AIOX Cohort Advanced**. [Learn more about the program](https://aioxsquad.ai).
 
 ### Installation
 
 ```bash
-npm install @aios-fullstack/pro
+npm install @aiox-fullstack/pro
 ```
 
 ### Premium Features
@@ -629,13 +619,13 @@ npm install @aios-fullstack/pro
 - **Metrics & Analytics** - Productivity dashboard and development metrics
 - **Enterprise Integrations** - Connectors for Jira, Linear, Notion, and more
 - **Layered Configuration** - L1-L4 configuration system with inheritance
-- **Licensing** - License management via `aios pro activate --key <KEY>`
+- **Licensing** - License management via `aiox pro activate --key <KEY>`
 
-For more information, run `npx aios-core pro --help` after installation.
+For more information, run `npx aiox-core pro --help` after installation.
 
 ## Support
 
-- 🐛 [Issue Tracker](https://github.com/SynkraAI/aios-core/issues) - Bug reports and feature requests
+- 🐛 [Issue Tracker](https://github.com/SynkraAI/aiox-core/issues) - Bug reports and feature requests
 - 💡 [Feature Process](docs/FEATURE_PROCESS.md) - How to propose new features
 - 📋 [How to Contribute](CONTRIBUTING.md)
 - 🗺️ [Roadmap](docs/roadmap.md) - See what we're building
@@ -643,7 +633,7 @@ For more information, run `npx aios-core pro --help` after installation.
 
 ## Git Workflow and Validation
 
-Synkra AIOS implements a multi-layer validation system to ensure code quality and consistency:
+AIOX implements a multi-layer validation system to ensure code quality and consistency:
 
 ### 🛡️ Defense in Depth - 3 Validation Layers
 
@@ -681,10 +671,10 @@ npm run typecheck      # TypeScript
 npm test              # Tests
 npm run test:coverage # Tests with coverage
 
-# AIOS Validator
-node .aios-core/utils/aios-validator.js pre-commit   # Pre-commit validation
-node .aios-core/utils/aios-validator.js pre-push     # Pre-push validation
-node .aios-core/utils/aios-validator.js stories      # Validate all stories
+# AIOX Validator
+node .aiox-core/utils/aiox-validator.js pre-commit   # Pre-commit validation
+node .aiox-core/utils/aiox-validator.js pre-push     # Pre-push validation
+node .aiox-core/utils/aiox-validator.js stories      # Validate all stories
 ```
 
 ### Branch Protection
@@ -732,16 +722,12 @@ See also:
 | **Roadmap**           | [Roadmap](docs/roadmap.md)                  | [PT-BR](docs/pt/roadmap.md)           |
 | **Changelog**         | [Version History](CHANGELOG.md)             | -                                     |
 
-## Acknowledgments
+## Contributors
 
-This project was originally derived from the [BMad Method](https://github.com/bmad-code-org/BMAD-METHOD) by [Brian Madison](https://github.com/bmadcode). We thank Brian and all BMad Method contributors for the original work that made this project possible.
-
-**Note:** Some contributors shown in the GitHub contributors graph are inherited from the original BMad Method git history and do not represent active participation in or endorsement of Synkra AIOS.
-
-[![Contributors](https://contrib.rocks/image?repo=SynkraAI/aios-core)](https://github.com/SynkraAI/aios-core/graphs/contributors)
+[![Contributors](https://contrib.rocks/image?repo=SynkraAI/aiox-core)](https://github.com/SynkraAI/aiox-core/graphs/contributors)
 
 <sub>Built with ❤️ for the AI-assisted development community</sub>
 
 ---
 
-**[⬆ Back to top](#synkra-aios-universal-ai-agent-framework-)**
+**[⬆ Back to top](#aiox-squad-artificial-intelligence-orchestration-experience)**

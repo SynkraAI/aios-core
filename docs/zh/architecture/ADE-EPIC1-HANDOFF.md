@@ -19,13 +19,13 @@ Epic 1 (Worktree Manager) **100% 完成**并通过 QA Gate。通过 Git worktree
 
 | 工件                     | 路径                                                          | 类型      | 状态 |
 | ------------------------ | ------------------------------------------------------------- | --------- | ---- |
-| worktree-manager.js      | `.aios-core/infrastructure/scripts/worktree-manager.js`       | JS 脚本   | ✅   |
-| story-worktree-hooks.js  | `.aios-core/infrastructure/scripts/story-worktree-hooks.js`   | JS 脚本   | ✅   |
-| project-status-loader.js | `.aios-core/infrastructure/scripts/project-status-loader.js`  | JS 脚本   | ✅   |
-| auto-worktree.yaml       | `.aios-core/development/workflows/auto-worktree.yaml`         | 工作流    | ✅   |
-| worktree-create.md       | `.aios-core/development/tasks/worktree-create.md`             | 任务      | ✅   |
-| worktree-list.md         | `.aios-core/development/tasks/worktree-list.md`               | 任务      | ✅   |
-| worktree-merge.md        | `.aios-core/development/tasks/worktree-merge.md`              | 任务      | ✅   |
+| worktree-manager.js      | `.aiox-core/infrastructure/scripts/worktree-manager.js`       | JS 脚本   | ✅   |
+| story-worktree-hooks.js  | `.aiox-core/infrastructure/scripts/story-worktree-hooks.js`   | JS 脚本   | ✅   |
+| project-status-loader.js | `.aiox-core/infrastructure/scripts/project-status-loader.js`  | JS 脚本   | ✅   |
+| auto-worktree.yaml       | `.aiox-core/development/workflows/auto-worktree.yaml`         | 工作流    | ✅   |
+| worktree-create.md       | `.aiox-core/development/tasks/worktree-create.md`             | 任务      | ✅   |
+| worktree-list.md         | `.aiox-core/development/tasks/worktree-list.md`               | 任务      | ✅   |
+| worktree-merge.md        | `.aiox-core/development/tasks/worktree-merge.md`              | 任务      | ✅   |
 
 ---
 
@@ -48,7 +48,7 @@ Epic 1 (Worktree Manager) **100% 完成**并通过 QA Gate。通过 Git worktree
 ### WorktreeManager 类
 
 ```javascript
-const { WorktreeManager } = require('.aios-core/infrastructure/scripts/worktree-manager.js');
+const { WorktreeManager } = require('.aiox-core/infrastructure/scripts/worktree-manager.js');
 
 const manager = new WorktreeManager(projectRoot);
 
@@ -69,8 +69,8 @@ await manager.cleanup();
 
 ## 集成点
 
-- **status.json**: Worktree 状态跟踪在 `.aios/status.json`
-- **Dashboard**: WorktreeManager API 被 AIOS Dashboard 消费
+- **status.json**: Worktree 状态跟踪在 `.aiox/status.json`
+- **Dashboard**: WorktreeManager API 被 AIOX Dashboard 消费
 - **Epic 4**: Execution Engine 使用 worktrees 进行隔离开发
 
 ---

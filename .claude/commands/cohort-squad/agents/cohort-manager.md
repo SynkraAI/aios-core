@@ -142,4 +142,4 @@ dependencies:
 
 ---
 ---
-*AIOS Squad Agent - cohort-squad (PRIVATE, LOCAL ONLY)*
+*AIOX Squad Agent - cohort-squad (PRIVATE, LOCAL ONLY)*

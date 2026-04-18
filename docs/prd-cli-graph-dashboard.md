@@ -36,7 +36,7 @@ Este PRD define um CLI Graph Dashboard que expõe essa riqueza de dados de forma
 - **FR6:** O sistema deve mostrar status do provider code-intel (ativo/inativo, circuit breaker state, failures, uptime) (`isCodeIntelAvailable` + CB → status widget)
 - **FR7:** O sistema deve suportar output em múltiplos formatos: ASCII (padrão), DOT (Graphviz), Mermaid (docs), JSON (processamento programático)
 - **FR8:** O sistema deve suportar modo `--watch` para atualização em tempo real do dashboard
-- **FR9:** O sistema deve funcionar como CLI command (`aios graph`) com sub-comandos: `--deps`, `--blast <file>`, `--stats`, `--watch`
+- **FR9:** O sistema deve funcionar como CLI command (`aiox graph`) com sub-comandos: `--deps`, `--blast <file>`, `--stats`, `--watch`
 - **FR10:** O sistema deve fornecer fallback para dados estáticos do entity-registry quando o Code Graph MCP estiver offline
 
 ### Non Functional
@@ -54,7 +54,7 @@ Este PRD define um CLI Graph Dashboard que expõe essa riqueza de dados de forma
 
 ### Repository Structure: Monorepo
 
-O CLI Graph Dashboard será adicionado ao monorepo existente `aios-core`, como um novo módulo em `.aios-core/core/graph-dashboard/` com entrypoint em `bin/aios-graph.js`.
+O CLI Graph Dashboard será adicionado ao monorepo existente `aiox-core`, como um novo módulo em `.aiox-core/core/graph-dashboard/` com entrypoint em `bin/aiox-graph.js`.
 
 ### Service Architecture
 
@@ -77,7 +77,7 @@ Unit + Integration tests. Unit tests para cada widget/data-source adapter. Integ
 
 ## Epic List
 
-### Epic 1: MVP — ASCII Text Output (`aios graph`)
+### Epic 1: MVP — ASCII Text Output (`aiox graph`)
 
 **Goal:** Entregar visualização básica do dependency graph e entity stats como output ASCII no terminal, sem dependências TUI pesadas.
 
@@ -93,27 +93,27 @@ Unit + Integration tests. Unit tests para cada widget/data-source adapter. Integ
 
 ## Epic 1: MVP — ASCII Text Output
 
-**Goal:** Estabelecer o CLI command `aios graph` com output ASCII do dependency graph e entity stats. Entrega valor imediato com zero dependências TUI pesadas — apenas `asciichart` para line charts simples. Este é o fundamento sobre o qual os epics seguintes construirão.
+**Goal:** Estabelecer o CLI command `aiox graph` com output ASCII do dependency graph e entity stats. Entrega valor imediato com zero dependências TUI pesadas — apenas `asciichart` para line charts simples. Este é o fundamento sobre o qual os epics seguintes construirão.
 
 ### Story 1.1: CLI Entrypoint e Dependency Tree ASCII
 
-**As a** developer using AIOS,
-**I want** to run `aios graph --deps` in the terminal,
+**As a** developer using AIOX,
+**I want** to run `aiox graph --deps` in the terminal,
 **so that** I can see the dependency tree of code-intel entities as ASCII text.
 
 #### Acceptance Criteria
 
-1. Comando `npx aios-core graph` existe e é executável
+1. Comando `npx aiox-core graph` existe e é executável
 2. Flag `--deps` renderiza dependency tree como texto indentado com box-drawing characters (`├─`, `└─`, `│`)
 3. Dados vêm de `analyzeDependencies()` do code-intel module
 4. Fallback para entity-registry.yaml quando Code Graph MCP está offline
-5. Output é válido para pipe (`aios graph --deps | grep helper`)
+5. Output é válido para pipe (`aiox graph --deps | grep helper`)
 6. Testes unitários cobrem: tree rendering, fallback data, empty graph
 
 ### Story 1.2: Entity Stats e Cache Metrics ASCII
 
-**As a** developer using AIOS,
-**I want** to run `aios graph --stats` to see entity statistics and cache metrics,
+**As a** developer using AIOX,
+**I want** to run `aiox graph --stats` to see entity statistics and cache metrics,
 **so that** I can monitor the health of the code intelligence system.
 
 #### Acceptance Criteria
@@ -127,13 +127,13 @@ Unit + Integration tests. Unit tests para cada widget/data-source adapter. Integ
 
 ### Story 1.3: Provider Status e Output Formats
 
-**As a** developer using AIOS,
+**As a** developer using AIOX,
 **I want** to see provider status and export graph data in different formats,
 **so that** I can integrate with other tools and monitor system health.
 
 #### Acceptance Criteria
 
-1. Sem flags adicionais, `aios graph` mostra summary view (dependency tree + stats + provider status)
+1. Sem flags adicionais, `aiox graph` mostra summary view (dependency tree + stats + provider status)
 2. Provider status mostra: Code Graph MCP (ACTIVE/OFFLINE), Circuit Breaker state, failure count
 3. Flag `--format=json` output JSON estruturado do dependency graph
 4. Flag `--format=dot` output formato DOT para Graphviz
@@ -148,13 +148,13 @@ Unit + Integration tests. Unit tests para cada widget/data-source adapter. Integ
 
 ### Story 2.1: Dashboard Layout e Dependency Tree Widget
 
-**As a** developer using AIOS,
+**As a** developer using AIOX,
 **I want** an interactive dashboard with a dependency tree I can expand/collapse,
 **so that** I can explore code relationships visually in the terminal.
 
 #### Acceptance Criteria
 
-1. `aios graph --interactive` abre dashboard blessed-contrib fullscreen
+1. `aiox graph --interactive` abre dashboard blessed-contrib fullscreen
 2. Grid layout com áreas definidas: tree (esquerda), stats (direita-topo), charts (direita-baixo)
 3. Tree widget renderiza dependency graph com expand/collapse via Enter
 4. Navegação por teclado (arrows, Enter, q para sair)
@@ -163,7 +163,7 @@ Unit + Integration tests. Unit tests para cada widget/data-source adapter. Integ
 
 ### Story 2.2: Métricas e Status Widgets
 
-**As a** developer using AIOS,
+**As a** developer using AIOX,
 **I want** to see cache metrics, latency charts and provider status in the dashboard,
 **so that** I have a complete view of the code intelligence system health.
 
@@ -178,7 +178,7 @@ Unit + Integration tests. Unit tests para cada widget/data-source adapter. Integ
 
 ### Story 2.3: Data Source Adapters
 
-**As a** developer using AIOS,
+**As a** developer using AIOX,
 **I want** reliable data adapters that transform code-intel data for dashboard widgets,
 **so that** the dashboard always shows accurate and up-to-date information.
 
@@ -195,11 +195,11 @@ Unit + Integration tests. Unit tests para cada widget/data-source adapter. Integ
 
 ## Epic 3: Real-time & Advanced Visualization
 
-**Goal:** Adicionar modo watch para updates automáticos, blast radius interativo para qualquer arquivo, e comandos de agente (`*graph`) para integração no workflow dos agentes AIOS.
+**Goal:** Adicionar modo watch para updates automáticos, blast radius interativo para qualquer arquivo, e comandos de agente (`*graph`) para integração no workflow dos agentes AIOX.
 
 ### Story 3.1: Watch Mode e Auto-refresh
 
-**As a** developer using AIOS,
+**As a** developer using AIOX,
 **I want** the dashboard to auto-refresh every N seconds,
 **so that** I can monitor the system in real-time while developing.
 
@@ -214,13 +214,13 @@ Unit + Integration tests. Unit tests para cada widget/data-source adapter. Integ
 
 ### Story 3.2: Blast Radius Interativo
 
-**As a** developer using AIOS,
+**As a** developer using AIOX,
 **I want** to select any file and see its blast radius visually,
 **so that** I can understand the impact of changes before making them.
 
 #### Acceptance Criteria
 
-1. `aios graph --blast <file>` mostra blast radius de um arquivo específico
+1. `aiox graph --blast <file>` mostra blast radius de um arquivo específico
 2. No dashboard interativo, selecionar nó no tree mostra blast radius no painel direito
 3. Blast radius inclui: direct consumers, indirect affected, risk level (gauge)
 4. Risk levels: LOW (0-3 affected), MEDIUM (4-8), HIGH (9+) com cores
@@ -229,7 +229,7 @@ Unit + Integration tests. Unit tests para cada widget/data-source adapter. Integ
 
 ### Story 3.3: Agent Commands Integration
 
-**As a** developer using AIOS,
+**As a** developer using AIOX,
 **I want** to use graph commands within agent sessions,
 **so that** I can visualize code relationships without leaving my current workflow.
 
@@ -267,7 +267,7 @@ Unit + Integration tests. Unit tests para cada widget/data-source adapter. Integ
 
 ### Architect Prompt
 
-> @architect — Crie a arquitetura técnica detalhada para o CLI Graph Dashboard usando este PRD como input. Foco em: (1) estrutura de módulos dentro de `.aios-core/core/graph-dashboard/`, (2) data source adapters para code-intel e entity-registry, (3) widget composition pattern com blessed-contrib, (4) CLI command routing via `bin/aios-graph.js`, (5) fallback strategy quando Code Graph MCP está offline. Reference: `docs/research/2026-02-21-cli-graph-dashboard/03-recommendations.md` para stack recomendado.
+> @architect — Crie a arquitetura técnica detalhada para o CLI Graph Dashboard usando este PRD como input. Foco em: (1) estrutura de módulos dentro de `.aiox-core/core/graph-dashboard/`, (2) data source adapters para code-intel e entity-registry, (3) widget composition pattern com blessed-contrib, (4) CLI command routing via `bin/aiox-graph.js`, (5) fallback strategy quando Code Graph MCP está offline. Reference: `docs/research/2026-02-21-cli-graph-dashboard/03-recommendations.md` para stack recomendado.
 
 ---
 

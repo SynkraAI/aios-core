@@ -25,7 +25,7 @@ const path = require('path');
 /**
  * IDE Configuration Metadata
  *
- * Synkra AIOS v4 supports 6 main IDEs:
+ * Synkra AIOX v4 supports 6 main IDEs:
  * - Claude Code (Anthropic's official CLI) - Recommended
  * - Codex CLI (OpenAI coding CLI)
  * - Gemini CLI (Google AI coding CLI)
@@ -42,7 +42,7 @@ const IDE_CONFIGS = {
     requiresDirectory: true,
     format: 'text',
     recommended: true,
-    agentFolder: path.join('.claude', 'commands', 'AIOS', 'agents'),
+    agentFolder: path.join('.claude', 'commands', 'AIOX', 'agents'),
   },
   codex: {
     name: 'Codex CLI',
@@ -61,7 +61,7 @@ const IDE_CONFIGS = {
     template: 'ide-rules/gemini-rules.md',
     requiresDirectory: true,
     format: 'text',
-    agentFolder: path.join('.gemini', 'rules', 'AIOS', 'agents'),
+    agentFolder: path.join('.gemini', 'rules', 'AIOX', 'agents'),
   },
   cursor: {
     name: 'Cursor',
@@ -129,7 +129,7 @@ function isValidIDE(ideKey) {
  * @returns {Array<{name: string, value: string, checked?: boolean}>} Inquirer-compatible choices
  */
 function getIDEChoices() {
-  const { colors } = require('../utils/aios-colors');
+  const { colors } = require('../utils/aiox-colors');
   const { t } = require('../wizard/i18n');
 
   return getIDEKeys().map((key) => {

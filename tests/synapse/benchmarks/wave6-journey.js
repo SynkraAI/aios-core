@@ -36,13 +36,13 @@ const DEFAULT_AGENTS = ['dev', 'qa', 'architect', 'devops', 'sm', 'po'];
 // ---------------------------------------------------------------------------
 
 const { UnifiedActivationPipeline } = require(
-  path.join(PROJECT_ROOT, '.aios-core', 'development', 'scripts', 'unified-activation-pipeline.js'),
+  path.join(PROJECT_ROOT, '.aiox-core', 'development', 'scripts', 'unified-activation-pipeline.js'),
 );
 const { collectTimingMetrics } = require(
-  path.join(PROJECT_ROOT, '.aios-core', 'core', 'synapse', 'diagnostics', 'collectors', 'timing-collector.js'),
+  path.join(PROJECT_ROOT, '.aiox-core', 'core', 'synapse', 'diagnostics', 'collectors', 'timing-collector.js'),
 );
 const { safeReadJson } = require(
-  path.join(PROJECT_ROOT, '.aios-core', 'core', 'synapse', 'diagnostics', 'collectors', 'safe-read-json.js'),
+  path.join(PROJECT_ROOT, '.aiox-core', 'core', 'synapse', 'diagnostics', 'collectors', 'safe-read-json.js'),
 );
 const { calcStats } = require(
   path.join(PROJECT_ROOT, 'tests', 'synapse', 'benchmarks', 'pipeline-benchmark.js'),
@@ -90,7 +90,7 @@ function getGitInfo() {
 
 function checkCodeIntel() {
   try {
-    const codeIntel = require(path.join(PROJECT_ROOT, '.aios-core', 'core', 'code-intel', 'index.js'));
+    const codeIntel = require(path.join(PROJECT_ROOT, '.aiox-core', 'core', 'code-intel', 'index.js'));
     // Initialize singleton so isCodeIntelAvailable works
     try { codeIntel.getClient(); } catch { /* provider may not be running */ }
     const available = codeIntel.isCodeIntelAvailable();

@@ -6,7 +6,7 @@ const path = require('path');
 
 const {
   validateCodexIntegration,
-} = require('../../.aios-core/infrastructure/scripts/validate-codex-integration');
+} = require('../../.aiox-core/infrastructure/scripts/validate-codex-integration');
 
 describe('validate-codex-integration', () => {
   let tmpRoot;
@@ -27,8 +27,8 @@ describe('validate-codex-integration', () => {
   it('passes when required Codex files exist', () => {
     write(path.join(tmpRoot, 'AGENTS.md'), '# rules');
     write(path.join(tmpRoot, '.codex', 'agents', 'dev.md'), '# dev');
-    write(path.join(tmpRoot, '.codex', 'skills', 'aios-dev', 'SKILL.md'), '# skill');
-    write(path.join(tmpRoot, '.aios-core', 'development', 'agents', 'dev.md'), '# dev');
+    write(path.join(tmpRoot, '.codex', 'skills', 'aiox-dev', 'SKILL.md'), '# skill');
+    write(path.join(tmpRoot, '.aiox-core', 'development', 'agents', 'dev.md'), '# dev');
 
     const result = validateCodexIntegration({ projectRoot: tmpRoot });
     expect(result.ok).toBe(true);

@@ -168,7 +168,7 @@ plan/
 ## 编程式使用
 
 ```javascript
-const { BuildStateManager, BuildStatus } = require('.aios-core/core/execution/build-state-manager');
+const { BuildStateManager, BuildStatus } = require('.aiox-core/core/execution/build-state-manager');
 
 // 创建管理器
 const manager = new BuildStateManager('story-8.4', {

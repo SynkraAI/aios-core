@@ -1,12 +1,12 @@
 ---
 paths:
-  - .aios-core/data/tool-registry.yaml
+  - .aiox-core/data/tool-registry.yaml
   - .mcp.json
 ---
 # Tool Response Filtering — Dynamic Token Reduction
 
 When processing responses from MCP tools or large web fetches, apply the filter
-configuration defined in `.aios-core/data/tool-registry.yaml` for the tool that
+configuration defined in `.aiox-core/data/tool-registry.yaml` for the tool that
 produced the response. This reduces context token consumption without losing
 task-relevant information.
 
@@ -53,5 +53,5 @@ full unfiltered response. Never produce an empty result from filtering.
 
 This is a zero-overhead optimization. The filter is applied during your
 reasoning step — no external scripts are invoked. The utility scripts at
-`.aios-core/utils/filters/` are available for batch post-processing of
+`.aiox-core/utils/filters/` are available for batch post-processing of
 saved responses but are NOT required during normal tool use.

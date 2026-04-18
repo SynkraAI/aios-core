@@ -4,14 +4,14 @@ const fs = require('fs-extra');
 const os = require('os');
 const path = require('path');
 
-const WorkflowOrchestrator = require('../../../.aios-core/core/orchestration/workflow-orchestrator');
+const WorkflowOrchestrator = require('../../../.aiox-core/core/orchestration/workflow-orchestrator');
 
 describe('WorkflowOrchestrator execution profile propagation', () => {
   let tempDir;
   let workflowPath;
 
   beforeEach(async () => {
-    tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'aios-workflow-profile-'));
+    tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'aiox-workflow-profile-'));
     workflowPath = path.join(tempDir, 'workflow.yaml');
 
     await fs.writeFile(

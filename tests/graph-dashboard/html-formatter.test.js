@@ -11,14 +11,14 @@ const {
   CATEGORY_COLORS,
   DEFAULT_COLOR,
   LIFECYCLE_STYLES,
-} = require('../../.aios-core/core/graph-dashboard/formatters/html-formatter');
+} = require('../../.aiox-core/core/graph-dashboard/formatters/html-formatter');
 
 const MOCK_GRAPH_DATA = {
   nodes: [
-    { id: 'dev', label: 'dev', group: 'agents', path: '.aios-core/agents/dev.md', lifecycle: 'production' },
-    { id: 'task-a', label: 'task-a', group: 'tasks', path: '.aios-core/tasks/task-a.md', lifecycle: 'production' },
-    { id: 'tmpl-story', label: 'story-tmpl', group: 'templates', path: '.aios-core/templates/story-tmpl.yaml', lifecycle: 'experimental' },
-    { id: 'script-1', label: 'build.js', group: 'scripts', path: '.aios-core/scripts/build.js', lifecycle: 'orphan' },
+    { id: 'dev', label: 'dev', group: 'agents', path: '.aiox-core/agents/dev.md', lifecycle: 'production' },
+    { id: 'task-a', label: 'task-a', group: 'tasks', path: '.aiox-core/tasks/task-a.md', lifecycle: 'production' },
+    { id: 'tmpl-story', label: 'story-tmpl', group: 'templates', path: '.aiox-core/templates/story-tmpl.yaml', lifecycle: 'experimental' },
+    { id: 'script-1', label: 'build.js', group: 'scripts', path: '.aiox-core/scripts/build.js', lifecycle: 'orphan' },
   ],
   edges: [
     { from: 'dev', to: 'task-a' },
@@ -185,7 +185,7 @@ describe('html-formatter', () => {
     it('should include path property on nodes', () => {
       const nodes = _buildVisNodes(MOCK_GRAPH_DATA.nodes);
       const devNode = nodes.find((n) => n.id === 'dev');
-      expect(devNode.path).toBe('.aios-core/agents/dev.md');
+      expect(devNode.path).toBe('.aiox-core/agents/dev.md');
     });
 
     it('should use default color for unknown category', () => {
@@ -888,30 +888,30 @@ describe('html-formatter', () => {
 
   describe('CLI integration (FORMAT_MAP)', () => {
     it('should have html in FORMAT_MAP', () => {
-      const { FORMAT_MAP } = require('../../.aios-core/core/graph-dashboard/cli');
+      const { FORMAT_MAP } = require('../../.aiox-core/core/graph-dashboard/cli');
       expect(FORMAT_MAP.html).toBe(formatAsHtml);
     });
 
     it('should have html in VALID_FORMATS', () => {
-      const { VALID_FORMATS } = require('../../.aios-core/core/graph-dashboard/cli');
+      const { VALID_FORMATS } = require('../../.aiox-core/core/graph-dashboard/cli');
       expect(VALID_FORMATS).toContain('html');
     });
 
     it('should have html in WATCH_FORMAT_MAP', () => {
-      const { WATCH_FORMAT_MAP } = require('../../.aios-core/core/graph-dashboard/cli');
+      const { WATCH_FORMAT_MAP } = require('../../.aiox-core/core/graph-dashboard/cli');
       expect(WATCH_FORMAT_MAP.html).toBeDefined();
       expect(WATCH_FORMAT_MAP.html.filename).toBe('graph.html');
     });
 
     it('should parse --format=html correctly', () => {
-      const { parseArgs } = require('../../.aios-core/core/graph-dashboard/cli');
+      const { parseArgs } = require('../../.aiox-core/core/graph-dashboard/cli');
       const args = parseArgs(['--deps', '--format=html']);
       expect(args.format).toBe('html');
       expect(args.command).toBe('--deps');
     });
 
     it('should parse --format html correctly', () => {
-      const { parseArgs } = require('../../.aios-core/core/graph-dashboard/cli');
+      const { parseArgs } = require('../../.aiox-core/core/graph-dashboard/cli');
       const args = parseArgs(['--deps', '--format', 'html']);
       expect(args.format).toBe('html');
     });

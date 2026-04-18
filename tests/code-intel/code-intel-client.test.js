@@ -8,7 +8,7 @@ const {
   CB_CLOSED,
   CB_OPEN,
   CB_HALF_OPEN,
-} = require('../../.aios-core/core/code-intel/code-intel-client');
+} = require('../../.aiox-core/core/code-intel/code-intel-client');
 
 describe('CodeIntelClient', () => {
   let client;

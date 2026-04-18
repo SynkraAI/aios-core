@@ -259,7 +259,7 @@ execute_command:
 
 ---
 
-## 与 AIOS 集成
+## 与 AIOX 集成
 
 ### 工具选择优先级
 
@@ -365,4 +365,4 @@ npm install -g @anthropic/desktop-commander@latest
 
 ---
 
-_Desktop Commander MCP 指南 v1.0.0 - AIOS 框架_
+_Desktop Commander MCP 指南 v1.0.0 - AIOX 框架_

@@ -4,7 +4,7 @@
 
 ---
 
-Guia para integrar o AIOS com IDEs e plataformas de desenvolvimento com IA suportadas.
+Guia para integrar o AIOX com IDEs e plataformas de desenvolvimento com IA suportadas.
 
 **Versão:** 2.1.0
 **Última Atualização:** 2026-01-28
@@ -13,7 +13,7 @@ Guia para integrar o AIOS com IDEs e plataformas de desenvolvimento com IA supor
 
 ## IDEs Suportadas
 
-O AIOS suporta 6 plataformas de desenvolvimento com IA. Escolha a que melhor se adapta ao seu fluxo de trabalho.
+O AIOX suporta 6 plataformas de desenvolvimento com IA. Escolha a que melhor se adapta ao seu fluxo de trabalho.
 
 ### Tabela de Comparação Rápida
 
@@ -29,9 +29,9 @@ O AIOS suporta 6 plataformas de desenvolvimento com IA. Escolha a que melhor se 
 
 ### Paridade de Hooks e Impacto Funcional
 
-| IDE | Paridade de Hooks vs Claude | O que degrada sem hooks completos | Mitigação no AIOS |
+| IDE | Paridade de Hooks vs Claude | O que degrada sem hooks completos | Mitigação no AIOX |
 | --- | --- | --- | --- |
-| Claude Code | Completa | Nenhum (comportamento de referência) | Hooks nativos + pipeline completo do AIOS |
+| Claude Code | Completa | Nenhum (comportamento de referência) | Hooks nativos + pipeline completo do AIOX |
 | Gemini CLI | Alta | Pequenas diferenças de modelo de eventos | Hooks nativos do Gemini + mapeamento unificado |
 | Codex CLI | Limitada/parcial | Menor automação de ciclo de sessão e menor enforcement pre/post-tool | `AGENTS.md` + `/skills` + MCP + scripts de sync/validação |
 | Cursor | Sem hooks de ciclo equivalentes | Sem interceptação nativa pre/post-tool e trilha automática mais fraca | Regras sincronizadas + MCP + disciplina de workflow |
@@ -57,11 +57,11 @@ O AIOS suporta 6 plataformas de desenvolvimento com IA. Escolha a que melhor se 
 
 ### Claude Code
 
-**Nível de Recomendação:** Melhor integração com AIOS
+**Nível de Recomendação:** Melhor integração com AIOX
 
 ```yaml
 config_file: .claude/CLAUDE.md
-agent_folder: .claude/commands/AIOS/agents
+agent_folder: .claude/commands/AIOX/agents
 activation: /agent-name (slash commands)
 format: full-markdown-yaml
 mcp_support: native
@@ -75,7 +75,7 @@ special_features:
 
 **Configuração:**
 
-1. AIOS cria automaticamente o diretório `.claude/` durante a inicialização
+1. AIOX cria automaticamente o diretório `.claude/` durante a inicialização
 2. Agentes ficam disponíveis como slash commands: `/dev`, `/qa`, `/architect`
 3. Configure servidores MCP em `~/.claude.json`
 
@@ -86,7 +86,7 @@ special_features:
 npm run sync:ide
 
 # Verificar configuração
-ls -la .claude/commands/AIOS/agents/
+ls -la .claude/commands/AIOX/agents/
 ```
 
 ---
@@ -114,7 +114,7 @@ special_features:
 1. Mantenha `AGENTS.md` na raiz do repositório
 2. Execute `npm run sync:ide:codex`
 3. Execute `npm run sync:skills:codex`
-4. Use `/skills` e selecione `aios-<agent-id>`
+4. Use `/skills` e selecione `aiox-<agent-id>`
 5. Use `sync:skills:codex:global` só quando quiser instalação global
 
 ```bash
@@ -146,7 +146,7 @@ special_features:
 
 **Configuração:**
 
-1. AIOS cria o diretório `.cursor/` durante a inicialização
+1. AIOX cria o diretório `.cursor/` durante a inicialização
 2. Agentes ativados com @mention: `@dev`, `@qa`
 3. Regras sincronizadas para `.cursor/rules/`
 
@@ -194,7 +194,7 @@ special_features:
 **Configuração:**
 
 1. Habilite GitHub Copilot em seu repositório
-2. AIOS cria `.github/copilot-instructions.md`
+2. AIOX cria `.github/copilot-instructions.md`
 3. Instruções de agentes sincronizadas
 
 **Configuração:**
@@ -228,7 +228,7 @@ special_features:
 
 **Configuração:**
 
-1. AIOS cria o diretório `.antigravity/`
+1. AIOX cria o diretório `.antigravity/`
 2. Configure credenciais do Google Cloud
 3. Agentes sincronizados como workflows
 
@@ -240,7 +240,7 @@ special_features:
 
 ```yaml
 config_file: .gemini/rules.md
-agent_folder: .gemini/rules/AIOS/agents
+agent_folder: .gemini/rules/AIOX/agents
 activation: prompt mention
 format: text
 mcp_support: native
@@ -259,12 +259,12 @@ special_features:
 
 ### Como Funciona a Sincronização
 
-O AIOS mantém uma única fonte de verdade para definições de agentes e as sincroniza com todas as IDEs configuradas:
+O AIOX mantém uma única fonte de verdade para definições de agentes e as sincroniza com todas as IDEs configuradas:
 
 ```
 ┌─────────────────────────────────────────────────────┐
-│                    AIOS Core                         │
-│  .aios-core/development/agents/  (Source of Truth)  │
+│                    AIOX Core                         │
+│  .aiox-core/development/agents/  (Source of Truth)  │
 │                        │                             │
 │            ┌───────────┼───────────┐                │
 │            ▼           ▼           ▼                │
@@ -295,14 +295,14 @@ npm run sync:ide
 
 ### Sincronização Automática
 
-O AIOS pode ser configurado para sincronizar automaticamente quando houver mudanças nos agentes:
+O AIOX pode ser configurado para sincronizar automaticamente quando houver mudanças nos agentes:
 
 ```yaml
-# .aios-core/core/config/sync.yaml
+# .aiox-core/core/config/sync.yaml
 auto_sync:
   enabled: true
   watch_paths:
-    - .aios-core/development/agents/
+    - .aiox-core/development/agents/
   platforms:
     - claude
     - codex
@@ -318,7 +318,7 @@ auto_sync:
 
 ```bash
 # Verificar se o agente existe na fonte
-ls .aios-core/development/agents/
+ls .aiox-core/development/agents/
 
 # Sincronizar e validar
 npm run sync:ide
@@ -326,7 +326,7 @@ npm run sync:ide:check
 
 # Verificar diretório específico da plataforma
 ls .cursor/rules/  # Para Cursor
-ls .claude/commands/AIOS/agents/  # Para Claude Code
+ls .claude/commands/AIOX/agents/  # Para Claude Code
 ```
 
 ### Conflitos de Sincronização
@@ -344,7 +344,7 @@ npm run sync:ide
 
 ```bash
 # Verificar status do MCP
-aios mcp status
+aiox mcp status
 
 # Verificar configuração MCP para a IDE
 cat ~/.claude.json  # Para Claude Code
@@ -369,7 +369,7 @@ Use este guia para escolher a plataforma certa:
 
 ```
 Você usa Claude/Anthropic API?
-├── Sim --> Claude Code (Melhor integração com AIOS)
+├── Sim --> Claude Code (Melhor integração com AIOX)
 └── Não
     └── Você prefere VS Code?
         ├── Sim --> Quer uma extensão?
@@ -397,7 +397,7 @@ cp -r .cursor/rules/ ./rules-backup/
 npm run sync:ide
 
 # Verificar migração
-diff -r ./rules-backup/ .claude/commands/AIOS/agents/
+diff -r ./rules-backup/ .claude/commands/AIOX/agents/
 ```
 
 ### De Claude Code para Cursor
@@ -422,4 +422,4 @@ npm run sync:ide:cursor
 
 ---
 
-_Guia de Integração com IDEs do Synkra AIOS v4.0_
+_Guia de Integração com IDEs do Synkra AIOX v4.0_

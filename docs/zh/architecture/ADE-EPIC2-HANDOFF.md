@@ -19,11 +19,11 @@ Epic 2 (V2→V3 迁移) **100% 完成**并通过 QA Gate。将所有代理和任
 
 | 工件                 | 路径                                                      | 类型        | 状态 |
 | -------------------- | --------------------------------------------------------- | ----------- | ---- |
-| asset-inventory.js   | `.aios-core/infrastructure/scripts/asset-inventory.js`    | JS 脚本     | ✅   |
-| path-analyzer.js     | `.aios-core/infrastructure/scripts/path-analyzer.js`      | JS 脚本     | ✅   |
-| migrate-agent.js     | `.aios-core/infrastructure/scripts/migrate-agent.js`      | JS 脚本     | ✅   |
-| agent-v3-schema.json | `.aios-core/infrastructure/schemas/agent-v3-schema.json`  | JSON Schema | ✅   |
-| task-v3-schema.json  | `.aios-core/infrastructure/schemas/task-v3-schema.json`   | JSON Schema | ✅   |
+| asset-inventory.js   | `.aiox-core/infrastructure/scripts/asset-inventory.js`    | JS 脚本     | ✅   |
+| path-analyzer.js     | `.aiox-core/infrastructure/scripts/path-analyzer.js`      | JS 脚本     | ✅   |
+| migrate-agent.js     | `.aiox-core/infrastructure/scripts/migrate-agent.js`      | JS 脚本     | ✅   |
+| agent-v3-schema.json | `.aiox-core/infrastructure/schemas/agent-v3-schema.json`  | JSON Schema | ✅   |
+| task-v3-schema.json  | `.aiox-core/infrastructure/schemas/task-v3-schema.json`   | JSON Schema | ✅   |
 
 ---
 
@@ -92,7 +92,7 @@ autoClaude:
 
 - **12 个代理**迁移到 V3 格式
 - **所有代理**拥有 `autoClaude.version: "3.0"`
-- **所有代理**同步到 `.claude/commands/AIOS/agents/`
+- **所有代理**同步到 `.claude/commands/AIOX/agents/`
 
 ---
 

@@ -12,33 +12,33 @@
 
 ## 概述
 
-上下文问候系统是一项 UX 改进，使 AIOS 代理的问候变得智能和自适应，根据会话上下文显示相关信息和命令。
+上下文问候系统是一项 UX 改进，使 AIOX 代理的问候变得智能和自适应，根据会话上下文显示相关信息和命令。
 
 ## 已实现的内容
 
 ### 核心组件 (Story 6.1.2.5)
 
-1. **ContextDetector** (`.aios-core/core/session/context-detector.js`)
+1. **ContextDetector** (`.aiox-core/core/session/context-detector.js`)
    - 检测会话类型: `new`、`existing` 或 `workflow`
    - 混合方法: 对话历史 (首选) + 会话文件 (后备)
    - 非活动会话 TTL 1 小时
 
-2. **GitConfigDetector** (`.aios-core/infrastructure/scripts/git-config-detector.js`)
+2. **GitConfigDetector** (`.aiox-core/infrastructure/scripts/git-config-detector.js`)
    - 检测项目的 git 配置
    - TTL 5 分钟的缓存
    - 1000ms 超时保护
 
-3. **GreetingBuilder** (`.aios-core/development/scripts/greeting-builder.js`)
+3. **GreetingBuilder** (`.aiox-core/development/scripts/greeting-builder.js`)
    - 根据会话类型构建上下文问候
    - 按可见性过滤命令 (full/quick/key)
    - 150ms 超时并优雅回退
 
-4. **WorkflowNavigator** (`.aios-core/development/scripts/workflow-navigator.js`)
+4. **WorkflowNavigator** (`.aiox-core/development/scripts/workflow-navigator.js`)
    - 检测当前工作流状态
    - 根据状态建议下一个命令
    - 预填充带上下文的命令 (story path, branch)
 
-5. **工作流模式** (`.aios-core/data/workflow-patterns.yaml`)
+5. **工作流模式** (`.aiox-core/data/workflow-patterns.yaml`)
    - 定义了 10 个常见工作流
    - 带下一步建议的状态转换
    - 根据实际项目使用验证的模式
@@ -237,7 +237,7 @@ story_development:
 ### 选项 1: 自动测试脚本
 
 ```bash
-node .aios-core/development/scripts/test-greeting-system.js
+node .aiox-core/development/scripts/test-greeting-system.js
 ```
 
 此脚本测试 4 种场景:
@@ -249,7 +249,7 @@ node .aios-core/development/scripts/test-greeting-system.js
 ### 选项 2: Node REPL 手动测试
 
 ```javascript
-const GreetingBuilder = require('./.aios-core/development/scripts/greeting-builder');
+const GreetingBuilder = require('./.aiox-core/development/scripts/greeting-builder');
 const builder = new GreetingBuilder();
 
 // 模拟代理
@@ -285,14 +285,14 @@ builder.buildGreeting(mockAgent, { conversationHistory: [] })
 ## 相关文件
 
 ### 核心脚本
-- `.aios-core/core/session/context-detector.js` - 会话类型检测
-- `.aios-core/infrastructure/scripts/git-config-detector.js` - Git 配置检测
-- `.aios-core/development/scripts/greeting-builder.js` - 问候构建
-- `.aios-core/development/scripts/workflow-navigator.js` - 工作流导航
-- `.aios-core/development/scripts/agent-exit-hooks.js` - 退出钩子 (用于持久化)
+- `.aiox-core/core/session/context-detector.js` - 会话类型检测
+- `.aiox-core/infrastructure/scripts/git-config-detector.js` - Git 配置检测
+- `.aiox-core/development/scripts/greeting-builder.js` - 问候构建
+- `.aiox-core/development/scripts/workflow-navigator.js` - 工作流导航
+- `.aiox-core/development/scripts/agent-exit-hooks.js` - 退出钩子 (用于持久化)
 
 ### 数据文件
-- `.aios-core/data/workflow-patterns.yaml` - 工作流定义
+- `.aiox-core/data/workflow-patterns.yaml` - 工作流定义
 
 ### 测试
 - `tests/unit/context-detector.test.js` - 23 个测试
@@ -301,12 +301,12 @@ builder.buildGreeting(mockAgent, { conversationHistory: [] })
 - `tests/integration/performance.test.js` - 性能验证
 
 ### 配置
-- `.aios-core/core-config.yaml` - 全局配置 (git + agentIdentity 部分)
+- `.aiox-core/core-config.yaml` - 全局配置 (git + agentIdentity 部分)
 
 ### 代理 (已更新)
-- `.aios-core/agents/dev.md` - ✅ 命令可见性元数据
-- `.aios-core/agents/po.md` - ✅ 命令可见性元数据
-- `.aios-core/agents/*.md` - ⏳ 剩余 9 个代理 (待更新)
+- `.aiox-core/agents/dev.md` - ✅ 命令可见性元数据
+- `.aiox-core/agents/po.md` - ✅ 命令可见性元数据
+- `.aiox-core/agents/*.md` - ⏳ 剩余 9 个代理 (待更新)
 
 ## 下一步
 
@@ -363,7 +363,7 @@ A: 与激活流程的集成尚未实现。组件存在但尚未自动调用。
 A: 在未来的故事中 (可能是 6.1.4 或 6.1.6)。取决于代理配置系统。
 
 **Q: 如何现在测试?**
-A: 使用测试脚本: `node .aios-core/development/scripts/test-greeting-system.js`
+A: 使用测试脚本: `node .aiox-core/development/scripts/test-greeting-system.js`
 
 **Q: 如果代理没有可见性元数据会发生什么?**
 A: 回退: 显示所有命令 (最多 12)。不会破坏任何东西。

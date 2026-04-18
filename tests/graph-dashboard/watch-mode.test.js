@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 
-jest.mock('../../.aios-core/core/graph-dashboard/data-sources/code-intel-source', () => ({
+jest.mock('../../.aiox-core/core/graph-dashboard/data-sources/code-intel-source', () => ({
   CodeIntelSource: jest.fn().mockImplementation(() => ({
     getData: jest.fn().mockResolvedValue({
       nodes: [
@@ -18,13 +18,13 @@ jest.mock('../../.aios-core/core/graph-dashboard/data-sources/code-intel-source'
   })),
 }));
 
-const { parseArgs, handleWatch, WATCH_FORMAT_MAP } = require('../../.aios-core/core/graph-dashboard/cli');
+const { parseArgs, handleWatch, WATCH_FORMAT_MAP } = require('../../.aiox-core/core/graph-dashboard/cli');
 
 describe('watch-mode', () => {
   let consoleLogSpy;
   let consoleErrorSpy;
   let watchState;
-  const testOutputDir = path.resolve(process.cwd(), '.aios');
+  const testOutputDir = path.resolve(process.cwd(), '.aiox');
 
   beforeEach(() => {
     consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
@@ -145,8 +145,8 @@ describe('watch-mode', () => {
       expect(consoleLogSpy).toHaveBeenCalledTimes(2); // initial + 1 tick
     });
 
-    it('should create .aios directory if it does not exist', async () => {
-      // .aios should be created by handleWatch
+    it('should create .aiox directory if it does not exist', async () => {
+      // .aiox should be created by handleWatch
       watchState = await handleWatch({ format: 'dot', interval: 5 });
 
       expect(fs.existsSync(testOutputDir)).toBe(true);

@@ -104,7 +104,7 @@
 ### 新任务文件
 
 ```
-.aios-core/development/tasks/
+.aiox-core/development/tasks/
 ├── squad-creator-analyze.md     # 新增: *analyze-squad
 └── squad-creator-extend.md      # 新增: *extend-squad
 ```
@@ -112,7 +112,7 @@
 ### 新脚本文件
 
 ```
-.aios-core/development/scripts/squad/
+.aiox-core/development/scripts/squad/
 ├── squad-analyzer.js            # 新增: 分析逻辑
 └── squad-extender.js            # 新增: 扩展逻辑
 ```
@@ -120,8 +120,8 @@
 ### 更新的文件
 
 ```
-.aios-core/development/agents/squad-creator.md  # 添加新命令
-.aios-core/schemas/squad-schema.json            # (无需更改)
+.aiox-core/development/agents/squad-creator.md  # 添加新命令
+.aiox-core/schemas/squad-schema.json            # (无需更改)
 ```
 
 ---

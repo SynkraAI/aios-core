@@ -20,7 +20,7 @@ const {
   HOOK_RUBRIC,
   BRACKET_ACTIVE_LAYERS,
   MAX_STALENESS_MS,
-} = require('../../../.aios-core/core/synapse/diagnostics/collectors/quality-collector');
+} = require('../../../.aiox-core/core/synapse/diagnostics/collectors/quality-collector');
 
 // ---------------------------------------------------------------------------
 // Helpers

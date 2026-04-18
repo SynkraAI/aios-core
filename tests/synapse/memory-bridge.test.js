@@ -18,7 +18,7 @@ jest.setTimeout(10000);
 const mockGetMemories = jest.fn(() => Promise.resolve([]));
 const mockClearCache = jest.fn();
 
-jest.mock('../../.aios-core/core/synapse/memory/synapse-memory-provider', () => ({
+jest.mock('../../.aiox-core/core/synapse/memory/synapse-memory-provider', () => ({
   SynapseMemoryProvider: jest.fn().mockImplementation(() => ({
     getMemories: mockGetMemories,
     clearCache: mockClearCache,
@@ -29,7 +29,7 @@ jest.mock('../../.aios-core/core/synapse/memory/synapse-memory-provider', () => 
 // Import (after mocks)
 // ---------------------------------------------------------------------------
 
-const { MemoryBridge, BRACKET_LAYER_MAP, BRIDGE_TIMEOUT_MS } = require('../../.aios-core/core/synapse/memory/memory-bridge');
+const { MemoryBridge, BRACKET_LAYER_MAP, BRIDGE_TIMEOUT_MS } = require('../../.aiox-core/core/synapse/memory/memory-bridge');
 
 // =============================================================================
 // MemoryBridge

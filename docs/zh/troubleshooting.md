@@ -1,12 +1,12 @@
 <!-- 翻译：zh-CN 原文：/docs/troubleshooting.md 最后同步：2026-02-22 -->
 
-# Synkra AIOS 故障排除指南
+# Synkra AIOX 故障排除指南
 
 > 🌐 [EN](../troubleshooting.md) | [PT](../pt/troubleshooting.md) | [ES](../es/troubleshooting.md) | **ZH**
 
 ---
 
-这份全面指南可帮助您诊断和解决 Synkra AIOS 的常见问题。
+这份全面指南可帮助您诊断和解决 Synkra AIOX 的常见问题。
 
 ## 目录
 
@@ -29,16 +29,16 @@
 
 ```bash
 # 基本诊断
-npx @synkra/aios-core doctor
+npx @synkra/aiox-core doctor
 
 # 自动修复常见问题
-npx @synkra/aios-core doctor --fix
+npx @synkra/aiox-core doctor --fix
 
 # 详细输出
-npx @synkra/aios-core doctor --verbose
+npx @synkra/aiox-core doctor --verbose
 
 # 检查特定组件
-npx @synkra/aios-core doctor --component memory-layer
+npx @synkra/aiox-core doctor --component memory-layer
 ```
 
 ### 常见快速修复
@@ -54,7 +54,7 @@ npx @synkra/aios-core doctor --component memory-layer
 *config --reset
 
 # 更新到最新版本
-npx @synkra/aios-core update
+npx @synkra/aiox-core update
 ```
 
 ## 安装问题
@@ -75,7 +75,7 @@ npm --version
 npm install -g npx
 
 # 或直接使用 npm
-npm exec @synkra/aios-core init my-project
+npm exec @synkra/aiox-core init my-project
 ```
 
 ### 问题：安装失败，权限错误
@@ -106,7 +106,7 @@ source ~/.bashrc
 ```bash
 # 在用户目录中安装
 cd ~
-npx @synkra/aios-core init my-project
+npx @synkra/aiox-core init my-project
 ```
 
 ### 问题：Node.js 版本错误
@@ -156,7 +156,7 @@ npm cache clean --force
 npm config set fetch-timeout 60000
 
 # 跳过依赖安装
-npx @synkra/aios-core init my-project --skip-install
+npx @synkra/aiox-core init my-project --skip-install
 
 # 然后手动安装
 cd my-project
@@ -203,14 +203,14 @@ Error: Failed to initialize meta-agent
 1. **检查配置：**
 ```bash
 # 验证配置存在
-ls -la .aios/config.json
+ls -la .aiox/config.json
 
 # 验证配置
-npx @synkra/aios-core doctor --component config
+npx @synkra/aiox-core doctor --component config
 
 # 如果损坏则重置
-rm .aios/config.json
-npx @synkra/aios-core doctor --fix
+rm .aiox/config.json
+npx @synkra/aiox-core doctor --fix
 ```
 
 2. **检查依赖：**
@@ -266,7 +266,7 @@ create-agent my-agent   # ✗ 错误
 
 # 或重启元代理
 exit
-npx @synkra/aios-core
+npx @synkra/aiox-core
 ```
 
 ### 问题：代理创建失败
@@ -329,7 +329,7 @@ rm agents/duplicate-agent.yaml
 2. **验证内存配置：**
 ```bash
 # 检查配置
-cat .aios/memory-config.json
+cat .aiox/memory-config.json
 
 # 重置为默认值
 *memory reset-config
@@ -354,7 +354,7 @@ cat .aios/memory-config.json
 
 1. **调整内存设置：**
 ```javascript
-// 编辑 .aios/memory-config.json
+// 编辑 .aiox/memory-config.json
 {
   "maxDocuments": 5000,      // 从 10000 减少
   "chunkSize": 256,          // 从 512 减少
@@ -378,7 +378,7 @@ cat .aios/memory-config.json
 export NODE_OPTIONS="--max-old-space-size=1024"
 
 # 以有限内存运行
-npx @synkra/aios-core
+npx @synkra/aiox-core
 ```
 
 ### 问题：LlamaIndex 错误
@@ -402,7 +402,7 @@ curl https://api.openai.com/v1/models \
 
 2. **使用本地嵌入：**
 ```javascript
-// .aios/memory-config.json
+// .aiox/memory-config.json
 {
   "embedModel": "local",
   "localModelPath": "./models/embeddings"
@@ -439,7 +439,7 @@ npm install llamaindex@latest
 
 2. **优化配置：**
 ```javascript
-// .aios/config.json
+// .aiox/config.json
 {
   "performance": {
     "enableCache": true,
@@ -629,7 +629,7 @@ cat .gitignore | grep .env
 
 # 如果缺少则添加
 echo ".env" >> .gitignore
-echo ".aios/logs/" >> .gitignore
+echo ".aiox/logs/" >> .gitignore
 ```
 
 2. **启用安全模式：**
@@ -644,7 +644,7 @@ echo ".aios/logs/" >> .gitignore
 # 从提供商生成新密钥
 # 更新 .env 文件
 # 清除日志
-rm -rf .aios/logs/*
+rm -rf .aiox/logs/*
 ```
 
 ## 平台特定问题
@@ -664,7 +664,7 @@ New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" `
 
 # 或使用更短的路径
 cd C:\
-npx @synkra/aios-core init myapp
+npx @synkra/aiox-core init myapp
 ```
 
 #### 问题：脚本已禁用
@@ -693,7 +693,7 @@ xcode-select --install
 
 #### 问题：Gatekeeper 阻止执行
 ```
-Error: "@synkra/aios-core" cannot be opened
+Error: "@synkra/aiox-core" cannot be opened
 ```
 
 **解决方案：**
@@ -702,7 +702,7 @@ Error: "@synkra/aios-core" cannot be opened
 sudo spctl --master-disable
 
 # 或删除隔离
-xattr -d com.apple.quarantine /usr/local/bin/@synkra/aios-core
+xattr -d com.apple.quarantine /usr/local/bin/@synkra/aiox-core
 ```
 
 ### Linux 问题
@@ -731,21 +731,21 @@ sudo pacman -S openssl
 
 ```bash
 # 完整的调试输出
-export DEBUG=aios:*
-npx @synkra/aios-core
+export DEBUG=aiox:*
+npx @synkra/aiox-core
 
 # 特定组件
-export DEBUG=aios:memory,aios:agent
+export DEBUG=aiox:memory,aiox:agent
 ```
 
 ### 分析日志
 
 ```bash
 # 查看最近的日志
-tail -f .aios/logs/aios.log
+tail -f .aiox/logs/aiox.log
 
 # 搜索错误
-grep -i error .aios/logs/*.log
+grep -i error .aiox/logs/*.log
 
 # 查看结构化日志
 *logs --format json --level error
@@ -755,13 +755,13 @@ grep -i error .aios/logs/*.log
 
 ```bash
 # 生成完整诊断
-npx @synkra/aios-core doctor --report diagnostic.json
+npx @synkra/aiox-core doctor --report diagnostic.json
 
 # 包括系统信息
-npx @synkra/aios-core info --detailed >> diagnostic.json
+npx @synkra/aiox-core info --detailed >> diagnostic.json
 
 # 创建支持包
-tar -czf aios-support.tar.gz .aios/logs diagnostic.json
+tar -czf aiox-support.tar.gz .aiox/logs diagnostic.json
 ```
 
 ### 性能分析
@@ -771,14 +771,14 @@ tar -czf aios-support.tar.gz .aios/logs diagnostic.json
 {
   "debug": {
     "profiling": true,
-    "profileOutput": ".aios/profiles/"
+    "profileOutput": ".aiox/profiles/"
   }
 }
 ```
 
 ```bash
 # 分析配置文件
-*debug analyze-profile .aios/profiles/latest.cpuprofile
+*debug analyze-profile .aiox/profiles/latest.cpuprofile
 ```
 
 ### 内存转储分析
@@ -800,18 +800,18 @@ tar -czf aios-support.tar.gz .aios/logs diagnostic.json
 
 1. **运行诊断：**
    ```bash
-   npx @synkra/aios-core doctor --verbose > diagnostic.log
+   npx @synkra/aiox-core doctor --verbose > diagnostic.log
    ```
 
 2. **收集信息：**
    - Node.js 版本：`node --version`
    - NPM 版本：`npm --version`
    - OS 和版本：`uname -a` 或 `ver`
-   - AIOS 版本：`npx @synkra/aios-core version`
+   - AIOX 版本：`npx @synkra/aiox-core version`
 
 3. **检查现有问题：**
-   - [GitHub Issues](https://github.com/@synkra/aios-core/@synkra/aios-core/issues)
-   - [讨论](https://github.com/@synkra/aios-core/@synkra/aios-core/discussions)
+   - [GitHub Issues](https://github.com/@synkra/aiox-core/@synkra/aiox-core/issues)
+   - [讨论](https://github.com/@synkra/aiox-core/@synkra/aiox-core/discussions)
 
 ### 社区支持
 
@@ -822,7 +822,7 @@ tar -czf aios-support.tar.gz .aios/logs diagnostic.json
 
 - **GitHub 讨论**：技术问题和功能请求
 
-- **Stack Overflow**：使用 `@synkra/aios-core` 标签提问
+- **Stack Overflow**：使用 `@synkra/aiox-core` 标签提问
 
 ### 报告错误
 
@@ -832,10 +832,10 @@ tar -czf aios-support.tar.gz .aios/logs diagnostic.json
 ## 环境
 - OS: macOS 13.0
 - Node: 18.17.0
-- AIOS: 1.0.0
+- AIOX: 1.0.0
 
 ## 重现步骤
-1. 运行 `npx @synkra/aios-core init test`
+1. 运行 `npx @synkra/aiox-core init test`
 2. 选择"企业"模板
 3. 安装过程中出错
 
@@ -858,24 +858,24 @@ Error: Cannot find module 'inquirer'
 
 ```bash
 # 备份当前状态
-cp -r .aios .aios.backup
+cp -r .aiox .aiox.backup
 
 # 完全重置
-rm -rf .aios node_modules package-lock.json
+rm -rf .aiox node_modules package-lock.json
 npm cache clean --force
 
 # 新鲜安装
 npm install
-npx @synkra/aios-core doctor --fix
+npx @synkra/aiox-core doctor --fix
 
 # 如果需要则恢复数据
-cp .aios.backup/memory.db .aios/
+cp .aiox.backup/memory.db .aiox/
 ```
 
 ---
 
 **记住**：大多数问题可以通过以下方式解决：
-1. `npx @synkra/aios-core doctor --fix`
+1. `npx @synkra/aiox-core doctor --fix`
 2. 清除缓存
 3. 更新到最新版本
 4. 检查权限

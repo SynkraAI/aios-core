@@ -19,15 +19,15 @@ function shouldCheckManifest(stagedFiles) {
   if (stagedFiles.length === 0) return false;
 
   return stagedFiles.some((file) => {
-    if (file === '.aios-core/install-manifest.yaml') return false;
-    return file.startsWith('.aios-core/');
+    if (file === '.aiox-core/install-manifest.yaml') return false;
+    return file.startsWith('.aiox-core/');
   });
 }
 
 async function main() {
   const stagedFiles = getStagedFiles();
   if (!shouldCheckManifest(stagedFiles)) {
-    console.log('ℹ️ manifest: no .aios-core changes staged, skipping check');
+    console.log('ℹ️ manifest: no .aiox-core changes staged, skipping check');
     return;
   }
 
@@ -40,7 +40,7 @@ async function main() {
   console.log('🔄 manifest: outdated, regenerating...');
   const manifest = await generateManifest();
   await writeManifest(manifest);
-  execSync('git add .aios-core/install-manifest.yaml', { stdio: 'inherit' });
+  execSync('git add .aiox-core/install-manifest.yaml', { stdio: 'inherit' });
   console.log('✅ manifest: regenerated and staged');
 }
 

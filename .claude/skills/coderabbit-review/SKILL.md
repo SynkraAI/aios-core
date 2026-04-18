@@ -33,7 +33,7 @@ Parse `$ARGUMENTS` to determine review scope:
 ### 2. Build WSL Command
 
 ```bash
-wsl bash -c 'cd /mnt/c/Users/AllFluence-User/Workspaces/AIOS/SynkraAI/aios-core && ~/.local/bin/coderabbit {flags}'
+wsl bash -c 'cd /mnt/c/Users/AllFluence-User/Workspaces/AIOX/SynkraAI/aiox-core && ~/.local/bin/coderabbit {flags}'
 ```
 
 **Timeout:** 15 minutes (900000ms) — CodeRabbit reviews take 7-30 min.

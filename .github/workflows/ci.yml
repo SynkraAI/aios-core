@@ -33,7 +33,7 @@ jobs:
       stories: ${{ steps.filter.outputs.stories }}
     steps:
       # NOTE: No 'submodules' parameter — pro/ submodule is intentionally
-      # NOT checked out. aios-core MUST work standalone without pro/.
+      # NOT checked out. aiox-core MUST work standalone without pro/.
       # See ADR-PRO-001 and Story PRO-5 (AC-7).
       - uses: actions/checkout@v4
       - uses: dorny/paths-filter@v3
@@ -42,7 +42,7 @@ jobs:
           filters: |
             code:
               - 'src/**'
-              - '.aios-core/**'
+              - '.aiox-core/**'
               - 'bin/**'
               - 'packages/**'
               - 'scripts/**'
@@ -181,6 +181,7 @@ jobs:
         uses: codecov/codecov-action@v4
         if: always()
         with:
+          token: ${{ secrets.CODECOV_TOKEN }}
           files: ./coverage/lcov.info
           flags: unittests
           name: codecov-umbrella
@@ -209,7 +210,7 @@ jobs:
         run: npm ci
 
       - name: Validate story checkboxes
-        run: node .aios-core/utils/aios-validator.js stories
+        run: node .aiox-core/utils/aiox-validator.js stories
 
   manifest-validation:
     name: Install Manifest Validation
@@ -323,7 +324,7 @@ jobs:
     steps:
       - name: Check all jobs
         run: |
-          echo "=== AIOS CI Validation Summary ==="
+          echo "=== AIOX CI Validation Summary ==="
           echo ""
           echo "📋 Change Detection:"
           echo "  Code changed: ${{ needs.changes.outputs.code }}"
@@ -397,7 +398,7 @@ jobs:
 
           # Dependency Validation (INS-4.12): fail if ran and didn't succeed
           if [ "${{ needs.dependency-validation.result }}" == "failure" ]; then
-            echo "❌ Dependency validation failed - .aios-core/package.json incomplete"
+            echo "❌ Dependency validation failed - .aiox-core/package.json incomplete"
             FAILED=true
           fi
 
@@ -447,7 +448,7 @@ jobs:
           time npm run typecheck || true
 
           echo -e "\nStory validation time:"
-          time node .aios-core/utils/aios-validator.js stories || true
+          time node .aiox-core/utils/aiox-validator.js stories || true
         continue-on-error: true
 
   # SYNAPSE context engine benchmarks + E2E tests (Story SYN-12)
@@ -521,11 +522,11 @@ jobs:
 
       - name: Test CLI basic commands
         run: |
-          npx aios-core --version || echo "CLI version check skipped"
-          npx aios-core --help || echo "CLI help check skipped"
+          npx aiox-core --version || echo "CLI version check skipped"
+          npx aiox-core --help || echo "CLI help check skipped"
         continue-on-error: true
 
-  # INS-4.12: Dependency graph validation — ensures .aios-core/package.json is complete
+  # INS-4.12: Dependency graph validation — ensures .aiox-core/package.json is complete
   dependency-validation:
     name: Dependency Validation
     needs: changes
@@ -547,8 +548,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Validate .aios-core dependency completeness
-        run: node scripts/validate-aios-core-deps.js
+      - name: Validate .aiox-core dependency completeness
+        run: node scripts/validate-aiox-core-deps.js
 
   # INS-4.12: Brownfield install test — simulates npm install in existing project
   brownfield-install-test:
@@ -572,7 +573,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Pack aios-core
+      - name: Pack aiox-core
         run: npm pack
 
       - name: Create brownfield test project
@@ -581,36 +582,36 @@ jobs:
           cd /tmp/brownfield-test
           npm init -y
 
-      - name: Install aios-core in brownfield project
+      - name: Install aiox-core in brownfield project
         run: |
           cd /tmp/brownfield-test
-          TARBALL=$(ls ${{ github.workspace }}/aios-core-*.tgz)
+          TARBALL=$(ls ${{ github.workspace }}/aiox-core-*.tgz)
           npm install "$TARBALL"
 
-      - name: Verify .aios-core dependencies installable
+      - name: Verify .aiox-core dependencies installable
         run: |
           cd /tmp/brownfield-test
-          AIOS_CORE_DIR="node_modules/aios-core/.aios-core"
-          if [ -f "$AIOS_CORE_DIR/package.json" ]; then
-            cd "$AIOS_CORE_DIR"
+          AIOX_CORE_DIR="node_modules/aiox-core/.aiox-core"
+          if [ -f "$AIOX_CORE_DIR/package.json" ]; then
+            cd "$AIOX_CORE_DIR"
             npm install --production --ignore-scripts
-            echo "✅ .aios-core dependencies installed successfully"
+            echo "✅ .aiox-core dependencies installed successfully"
           else
-            echo "⚠️ .aios-core/package.json not found in installed package"
+            echo "⚠️ .aiox-core/package.json not found in installed package"
             exit 1
           fi
 
       - name: Verify key modules resolvable
         run: |
           cd /tmp/brownfield-test
-          AIOS_NODE_MODULES="node_modules/aios-core/.aios-core/node_modules"
+          AIOX_NODE_MODULES="node_modules/aiox-core/.aiox-core/node_modules"
           MISSING=0
 
           for pkg in fast-glob fs-extra js-yaml semver ajv tar chalk; do
-            if [ -d "$AIOS_NODE_MODULES/$pkg" ]; then
-              echo "✅ $pkg found in .aios-core/node_modules/"
+            if [ -d "$AIOX_NODE_MODULES/$pkg" ]; then
+              echo "✅ $pkg found in .aiox-core/node_modules/"
             else
-              echo "❌ $pkg MISSING from .aios-core/node_modules/"
+              echo "❌ $pkg MISSING from .aiox-core/node_modules/"
               MISSING=1
             fi
           done
@@ -646,20 +647,20 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Verify wizard path in aios.js
+      - name: Verify wizard path in aiox.js
         run: |
           echo "=== Installer Smoke Test ==="
           echo ""
-          echo "Checking bin/aios.js uses correct wizard path..."
+          echo "Checking bin/aiox.js uses correct wizard path..."
 
           # The wizard path should point to packages/installer/src/wizard/index.js
-          if grep -q "packages.*installer.*src.*wizard" bin/aios.js; then
-            echo "✅ bin/aios.js uses correct wizard path (packages/installer/src/wizard)"
+          if grep -q "packages.*installer.*src.*wizard" bin/aiox.js; then
+            echo "✅ bin/aiox.js uses correct wizard path (packages/installer/src/wizard)"
           else
-            echo "❌ ERROR: bin/aios.js does NOT reference packages/installer/src/wizard"
+            echo "❌ ERROR: bin/aiox.js does NOT reference packages/installer/src/wizard"
             echo ""
-            echo "Current wizard references in bin/aios.js:"
-            grep -n "wizard" bin/aios.js || echo "No wizard references found"
+            echo "Current wizard references in bin/aiox.js:"
+            grep -n "wizard" bin/aiox.js || echo "No wizard references found"
             echo ""
             echo "This is a CRITICAL error - wrong installer will be used!"
             exit 1
@@ -679,17 +680,17 @@ jobs:
             exit 1
           fi
 
-      - name: Verify aios-minimal.js uses router
+      - name: Verify aiox-minimal.js uses router
         run: |
-          echo "Checking bin/aios-minimal.js uses main router..."
+          echo "Checking bin/aiox-minimal.js uses main router..."
 
-          if grep -q "aios\.js" bin/aios-minimal.js; then
-            echo "✅ bin/aios-minimal.js forwards to aios.js router"
+          if grep -q "aiox\.js" bin/aiox-minimal.js; then
+            echo "✅ bin/aiox-minimal.js forwards to aiox.js router"
           else
-            echo "⚠️  WARNING: bin/aios-minimal.js may not use the main router"
+            echo "⚠️  WARNING: bin/aiox-minimal.js may not use the main router"
             echo ""
             echo "Current content:"
-            cat bin/aios-minimal.js
+            cat bin/aiox-minimal.js
           fi
 
       - name: Verify package.json files field
@@ -697,7 +698,7 @@ jobs:
           echo "Checking package.json includes all required paths..."
 
           # Check for required paths in files field
-          REQUIRED_PATHS=("bin/" "packages/" ".aios-core/")
+          REQUIRED_PATHS=("bin/" "packages/" ".aiox-core/")
 
           for path in "${REQUIRED_PATHS[@]}"; do
             if grep -q "\"$path\"" package.json; then

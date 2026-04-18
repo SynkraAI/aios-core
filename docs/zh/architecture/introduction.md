@@ -6,11 +6,11 @@
 
 ---
 
-本文档记录了 **Synkra AIOS** 代码库的当前状态，作为 **Synkra AIOS 第 1 阶段（MVP 至 FR4）** 的参考架构。它描述了将在其上构建新功能的现有模式、组件和技术。
+本文档记录了 **Synkra AIOX** 代码库的当前状态，作为 **Synkra AIOX 第 1 阶段（MVP 至 FR4）** 的参考架构。它描述了将在其上构建新功能的现有模式、组件和技术。
 
 ## 文档范围
 
-Synkra AIOS 框架的综合文档，作为 AIOS MVP 的基线，包括：品牌重塑、IDE 设置工作流、使用 LlamaIndex 的内存层和元代理 `aios-developer`。
+Synkra AIOX 框架的综合文档，作为 AIOX MVP 的基线，包括：品牌重塑、IDE 设置工作流、使用 LlamaIndex 的内存层和元代理 `aiox-developer`。
 
 ## 更新日志
 

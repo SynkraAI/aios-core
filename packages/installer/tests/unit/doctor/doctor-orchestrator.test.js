@@ -1,6 +1,6 @@
 /**
  * Unit Tests: Doctor Orchestrator
- * Story INS-4.1: aios doctor rewrite
+ * Story INS-4.1: aiox doctor rewrite
  *
  * Tests for options forwarding, output format, and fix/dry-run behavior.
  */
@@ -8,7 +8,7 @@
 const path = require('path');
 
 // Use real modules for orchestrator testing (checks will hit real filesystem)
-const { runDoctorChecks, DOCTOR_VERSION } = require('../../../../../.aios-core/core/doctor');
+const { runDoctorChecks, DOCTOR_VERSION } = require('../../../../../.aiox-core/core/doctor');
 
 const projectRoot = path.resolve(__dirname, '..', '..', '..', '..', '..');
 
@@ -42,7 +42,7 @@ describe('Doctor Orchestrator', () => {
 
     it('should produce text when json option is false', async () => {
       const result = await runDoctorChecks({ json: false, projectRoot });
-      expect(result.formatted).toContain('AIOS Doctor');
+      expect(result.formatted).toContain('AIOX Doctor');
       expect(result.formatted).toContain('Summary:');
     });
   });

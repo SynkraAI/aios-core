@@ -17,7 +17,7 @@
 - `*cleanup` - Identify and remove stale branches/files
 - `*triage-issues` - Analyze open GitHub issues, classify, prioritize, recommend next
 - `*resolve-issue` - Investigate and resolve a GitHub issue end-to-end
-- `*health-check` - Run unified health diagnostic (aios doctor --json + governance interpretation)
+- `*health-check` - Run unified health diagnostic (aiox doctor --json + governance interpretation)
 - `*sync-registry` - Sync entity registry (incremental, --full rebuild, or --heal integrity)
 - `*check-docs` - Verify documentation links integrity (broken, incorrect markings)
 - `*session-info` - Show current session details (agent history, commands)
@@ -30,4 +30,4 @@
 **I receive delegation from:**
 
 ---
-*AIOS Agent - Synced from .aios-core/development/agents/devops.md*
+*AIOX Agent - Synced from .aiox-core/development/agents/devops.md*

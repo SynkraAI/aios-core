@@ -12,7 +12,7 @@ const {
   truncateText,
   buildGeminiCommandFiles,
   syncGeminiCommands,
-} = require('../../.aios-core/infrastructure/scripts/ide-sync/gemini-commands');
+} = require('../../.aiox-core/infrastructure/scripts/ide-sync/gemini-commands');
 
 describe('gemini command sync', () => {
   let tmpRoot;
@@ -26,10 +26,10 @@ describe('gemini command sync', () => {
   });
 
   it('normalizes command slugs and menu names', () => {
-    expect(commandSlugForAgent('aios-master')).toBe('master');
+    expect(commandSlugForAgent('aiox-master')).toBe('master');
     expect(commandSlugForAgent('dev')).toBe('dev');
-    expect(menuCommandName('aios-master')).toBe('/aios-master');
-    expect(menuCommandName('dev')).toBe('/aios-dev');
+    expect(menuCommandName('aiox-master')).toBe('/aiox-master');
+    expect(menuCommandName('dev')).toBe('/aiox-dev');
   });
 
   it('builds menu + one command per agent', () => {
@@ -40,10 +40,10 @@ describe('gemini command sync', () => {
     ];
     const files = buildGeminiCommandFiles(agents);
 
-    expect(files.find((f) => f.filename === 'aios-menu.toml')).toBeDefined();
-    expect(files.find((f) => f.filename === 'aios-dev.toml')).toBeDefined();
-    expect(files.find((f) => f.filename === 'aios-architect.toml')).toBeDefined();
-    expect(files.find((f) => f.filename === 'aios-qa.toml')).toBeDefined();
+    expect(files.find((f) => f.filename === 'aiox-menu.toml')).toBeDefined();
+    expect(files.find((f) => f.filename === 'aiox-dev.toml')).toBeDefined();
+    expect(files.find((f) => f.filename === 'aiox-architect.toml')).toBeDefined();
+    expect(files.find((f) => f.filename === 'aiox-qa.toml')).toBeDefined();
     expect(files).toHaveLength(4);
   });
 
@@ -59,14 +59,14 @@ describe('gemini command sync', () => {
       },
     ]);
 
-    const dev = files.find((f) => f.filename === 'aios-dev.toml');
+    const dev = files.find((f) => f.filename === 'aiox-dev.toml');
     expect(dev.content).toContain('description = "Full Stack Developer (Use para implementação e debugging)"');
   });
 
   it('falls back to generic description when metadata is missing', () => {
     const files = buildGeminiCommandFiles([{ id: 'dev', error: null, agent: null }]);
-    const dev = files.find((f) => f.filename === 'aios-dev.toml');
-    expect(dev.content).toContain('description = "Ativar agente AIOS dev"');
+    const dev = files.find((f) => f.filename === 'aiox-dev.toml');
+    expect(dev.content).toContain('description = "Ativar agente AIOX dev"');
   });
 
   it('buildAgentDescription handles multiline text', () => {
@@ -99,8 +99,8 @@ describe('gemini command sync', () => {
     const result = syncGeminiCommands(agents, tmpRoot, { dryRun: false });
 
     expect(result.files.length).toBe(3);
-    expect(fs.existsSync(path.join(tmpRoot, '.gemini', 'commands', 'aios-menu.toml'))).toBe(true);
-    expect(fs.existsSync(path.join(tmpRoot, '.gemini', 'commands', 'aios-dev.toml'))).toBe(true);
-    expect(fs.existsSync(path.join(tmpRoot, '.gemini', 'commands', 'aios-qa.toml'))).toBe(true);
+    expect(fs.existsSync(path.join(tmpRoot, '.gemini', 'commands', 'aiox-menu.toml'))).toBe(true);
+    expect(fs.existsSync(path.join(tmpRoot, '.gemini', 'commands', 'aiox-dev.toml'))).toBe(true);
+    expect(fs.existsSync(path.join(tmpRoot, '.gemini', 'commands', 'aiox-qa.toml'))).toBe(true);
   });
 });

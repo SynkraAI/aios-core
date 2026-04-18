@@ -5,11 +5,11 @@ const path = require('path');
 const { MarkdownMerger } = require('../../../src/merger/strategies/markdown-merger.js');
 const {
   parseMarkdownSections,
-  hasAiosMarkers,
+  hasAioxMarkers,
 } = require('../../../src/merger/parsers/markdown-section-parser.js');
 
 const TEMPLATE_PATH = path.join(
-  __dirname, '..', '..', '..', '..', '..', '.aios-core',
+  __dirname, '..', '..', '..', '..', '..', '.aiox-core',
   'product', 'templates', 'ide-rules', 'claude-rules.md'
 );
 
@@ -20,39 +20,39 @@ describe('CLAUDE.md Template v5 (Story INS-4.4)', () => {
     templateContent = fs.readFileSync(TEMPLATE_PATH, 'utf8');
   });
 
-  describe('template has 4 new sections with AIOS-MANAGED markers', () => {
-    test('template file exists and has AIOS markers', () => {
+  describe('template has 4 new sections with AIOX-MANAGED markers', () => {
+    test('template file exists and has AIOX markers', () => {
       expect(templateContent).toBeTruthy();
-      expect(hasAiosMarkers(templateContent)).toBe(true);
+      expect(hasAioxMarkers(templateContent)).toBe(true);
     });
 
     test('contains framework-boundary section', () => {
-      expect(templateContent).toContain('<!-- AIOS-MANAGED-START: framework-boundary -->');
-      expect(templateContent).toContain('<!-- AIOS-MANAGED-END: framework-boundary -->');
+      expect(templateContent).toContain('<!-- AIOX-MANAGED-START: framework-boundary -->');
+      expect(templateContent).toContain('<!-- AIOX-MANAGED-END: framework-boundary -->');
       expect(templateContent).toContain('## Framework vs Project Boundary');
     });
 
     test('contains rules-system section', () => {
-      expect(templateContent).toContain('<!-- AIOS-MANAGED-START: rules-system -->');
-      expect(templateContent).toContain('<!-- AIOS-MANAGED-END: rules-system -->');
+      expect(templateContent).toContain('<!-- AIOX-MANAGED-START: rules-system -->');
+      expect(templateContent).toContain('<!-- AIOX-MANAGED-END: rules-system -->');
       expect(templateContent).toContain('## Rules System');
     });
 
     test('contains code-intelligence section', () => {
-      expect(templateContent).toContain('<!-- AIOS-MANAGED-START: code-intelligence -->');
-      expect(templateContent).toContain('<!-- AIOS-MANAGED-END: code-intelligence -->');
+      expect(templateContent).toContain('<!-- AIOX-MANAGED-START: code-intelligence -->');
+      expect(templateContent).toContain('<!-- AIOX-MANAGED-END: code-intelligence -->');
       expect(templateContent).toContain('## Code Intelligence');
     });
 
     test('contains graph-dashboard section', () => {
-      expect(templateContent).toContain('<!-- AIOS-MANAGED-START: graph-dashboard -->');
-      expect(templateContent).toContain('<!-- AIOS-MANAGED-END: graph-dashboard -->');
+      expect(templateContent).toContain('<!-- AIOX-MANAGED-START: graph-dashboard -->');
+      expect(templateContent).toContain('<!-- AIOX-MANAGED-END: graph-dashboard -->');
       expect(templateContent).toContain('## Graph Dashboard');
     });
 
-    test('template has exactly 11 AIOS-MANAGED sections total', () => {
-      const startMatches = templateContent.match(/<!-- AIOS-MANAGED-START:/g);
-      const endMatches = templateContent.match(/<!-- AIOS-MANAGED-END:/g);
+    test('template has exactly 11 AIOX-MANAGED sections total', () => {
+      const startMatches = templateContent.match(/<!-- AIOX-MANAGED-START:/g);
+      const endMatches = templateContent.match(/<!-- AIOX-MANAGED-END:/g);
       expect(startMatches.length).toBe(11);
       expect(endMatches.length).toBe(11);
     });
@@ -91,21 +91,21 @@ describe('CLAUDE.md Template v5 (Story INS-4.4)', () => {
     });
 
     test('graph-dashboard has CLI commands', () => {
-      expect(templateContent).toContain('aios graph --deps');
+      expect(templateContent).toContain('aiox graph --deps');
       expect(templateContent).toContain('--format=json');
       expect(templateContent).toContain('--format=html');
       expect(templateContent).toContain('--watch');
-      expect(templateContent).toContain('aios graph --stats');
+      expect(templateContent).toContain('aiox graph --stats');
     });
   });
 
   describe('existing sections preserved', () => {
-    test('original 5 AIOS-MANAGED sections still present', () => {
-      expect(templateContent).toContain('<!-- AIOS-MANAGED-START: core-framework -->');
-      expect(templateContent).toContain('<!-- AIOS-MANAGED-START: agent-system -->');
-      expect(templateContent).toContain('<!-- AIOS-MANAGED-START: framework-structure -->');
-      expect(templateContent).toContain('<!-- AIOS-MANAGED-START: aios-patterns -->');
-      expect(templateContent).toContain('<!-- AIOS-MANAGED-START: common-commands -->');
+    test('original 5 AIOX-MANAGED sections still present', () => {
+      expect(templateContent).toContain('<!-- AIOX-MANAGED-START: core-framework -->');
+      expect(templateContent).toContain('<!-- AIOX-MANAGED-START: agent-system -->');
+      expect(templateContent).toContain('<!-- AIOX-MANAGED-START: framework-structure -->');
+      expect(templateContent).toContain('<!-- AIOX-MANAGED-START: aiox-patterns -->');
+      expect(templateContent).toContain('<!-- AIOX-MANAGED-START: common-commands -->');
     });
 
     test('non-managed sections still present', () => {
@@ -124,12 +124,12 @@ describe('CLAUDE.md Template v5 (Story INS-4.4)', () => {
     });
 
     test('upgrade adds 4 new sections to CLAUDE.md without them', async () => {
-      const existingClaudeMd = `# Synkra AIOS
+      const existingClaudeMd = `# Synkra AIOX
 
-<!-- AIOS-MANAGED-START: core-framework -->
+<!-- AIOX-MANAGED-START: core-framework -->
 ## Core Framework Understanding
 Old core content
-<!-- AIOS-MANAGED-END: core-framework -->
+<!-- AIOX-MANAGED-END: core-framework -->
 
 ## My Custom Section
 User content that must be preserved`;
@@ -153,10 +153,10 @@ User content that must be preserved`;
     test('upgrade preserves custom PROJECT-CUSTOMIZED content', async () => {
       const existingClaudeMd = `# My Project Rules
 
-<!-- AIOS-MANAGED-START: core-framework -->
+<!-- AIOX-MANAGED-START: core-framework -->
 ## Core Framework Understanding
 Core content
-<!-- AIOS-MANAGED-END: core-framework -->
+<!-- AIOX-MANAGED-END: core-framework -->
 
 ## Padroes de Codigo
 My custom coding standards here
@@ -173,15 +173,15 @@ My custom testing rules`;
       expect(result.content).toContain('My custom testing rules');
 
       // Managed sections updated
-      expect(result.content).toContain('<!-- AIOS-MANAGED-START: framework-boundary -->');
+      expect(result.content).toContain('<!-- AIOX-MANAGED-START: framework-boundary -->');
     });
   });
 
   describe('section order in template', () => {
     test('4 new sections come after framework-structure and before workflow-execution', () => {
-      const frameworkStructureEnd = templateContent.indexOf('<!-- AIOS-MANAGED-END: framework-structure -->');
-      const frameworkBoundaryStart = templateContent.indexOf('<!-- AIOS-MANAGED-START: framework-boundary -->');
-      const graphDashboardEnd = templateContent.indexOf('<!-- AIOS-MANAGED-END: graph-dashboard -->');
+      const frameworkStructureEnd = templateContent.indexOf('<!-- AIOX-MANAGED-END: framework-structure -->');
+      const frameworkBoundaryStart = templateContent.indexOf('<!-- AIOX-MANAGED-START: framework-boundary -->');
+      const graphDashboardEnd = templateContent.indexOf('<!-- AIOX-MANAGED-END: graph-dashboard -->');
       const workflowExecution = templateContent.indexOf('## Workflow Execution');
 
       expect(frameworkStructureEnd).toBeLessThan(frameworkBoundaryStart);

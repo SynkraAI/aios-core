@@ -1,5 +1,5 @@
 name: Bug Report
-description: Report a bug in aios-core
+description: Report a bug in aiox-core
 title: "[Bug]: "
 labels: ["type: bug", "status: needs-triage"]
 body:
@@ -57,9 +57,9 @@ body:
     attributes:
       label: Affected Area
       options:
-        - "Core Framework (.aios-core/core/)"
+        - "Core Framework (.aiox-core/core/)"
         - "Installer (packages/installer/)"
-        - "CLI (bin/, packages/aios-pro-cli/)"
+        - "CLI (bin/, packages/aiox-pro-cli/)"
         - "SYNAPSE Context Engine"
         - "Health Check System"
         - "Pro Features"
@@ -72,8 +72,8 @@ body:
   - type: input
     id: version
     attributes:
-      label: AIOS Version
-      description: "Run `npx aios-core info` to find your version."
+      label: AIOX Version
+      description: "Run `npx aiox-core info` to find your version."
       placeholder: "e.g., 4.2.13"
     validations:
       required: true

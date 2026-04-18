@@ -1,12 +1,12 @@
 # 权限模式指南
 
-> 控制AIOS代理对您系统的自主权。
+> 控制AIOX代理对您系统的自主权。
 
 ---
 
 ## 概述
 
-权限模式让您控制AIOS代理拥有的自主权级别。无论您是探索新代码库还是运行完全自主的构建，都有适合您工作流的模式。
+权限模式让您控制AIOX代理拥有的自主权级别。无论您是探索新代码库还是运行完全自主的构建，都有适合您工作流的模式。
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -142,7 +142,7 @@
 
 ## 配置
 
-模式持久化在`.aios/config.yaml`:
+模式持久化在`.aiox/config.yaml`:
 
 ```yaml
 permissions:
@@ -237,11 +237,11 @@ TRUNCATE
 在自动化中设置模式:
 
 ```yaml
-# .github/workflows/aios.yml
-- name: 运行AIOS
+# .github/workflows/aiox.yml
+- name: 运行AIOX
   run: |
-    echo "permissions:\n  mode: auto" > .aios/config.yaml
-    aios run build
+    echo "permissions:\n  mode: auto" > .aiox/config.yaml
+    aiox run build
 ```
 
 ### 对于团队
@@ -264,10 +264,10 @@ TRUNCATE
 
 ### 模式不持久化
 
-检查`.aios/config.yaml`存在且可写:
+检查`.aiox/config.yaml`存在且可写:
 
 ```bash
-ls -la .aios/config.yaml
+ls -la .aiox/config.yaml
 ```
 
 ### 确认过于频繁
@@ -285,7 +285,7 @@ ls -la .aios/config.yaml
 ## API参考
 
 ```javascript
-const { PermissionMode, OperationGuard } = require('./.aios-core/core/permissions');
+const { PermissionMode, OperationGuard } = require('./.aiox-core/core/permissions');
 
 // 加载当前模式
 const mode = new PermissionMode();

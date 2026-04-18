@@ -104,7 +104,7 @@
 ### Nuevos Archivos de Tareas
 
 ```
-.aios-core/development/tasks/
+.aiox-core/development/tasks/
 ├── squad-creator-analyze.md     # NUEVO: *analyze-squad
 └── squad-creator-extend.md      # NUEVO: *extend-squad
 ```
@@ -112,7 +112,7 @@
 ### Nuevos Archivos de Scripts
 
 ```
-.aios-core/development/scripts/squad/
+.aiox-core/development/scripts/squad/
 ├── squad-analyzer.js            # NUEVO: Logica de analisis
 └── squad-extender.js            # NUEVO: Logica de extension
 ```
@@ -120,8 +120,8 @@
 ### Archivos Actualizados
 
 ```
-.aios-core/development/agents/squad-creator.md  # Agregar nuevos comandos
-.aios-core/schemas/squad-schema.json            # (sin cambios necesarios)
+.aiox-core/development/agents/squad-creator.md  # Agregar nuevos comandos
+.aiox-core/schemas/squad-schema.json            # (sin cambios necesarios)
 ```
 
 ---

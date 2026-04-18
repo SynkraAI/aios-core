@@ -23,7 +23,7 @@ const {
   SENTINEL_VALUES,
   EXTERNAL_TOOLS,
   DEPRECATED_PATTERNS,
-} = require('../../../.aios-core/development/scripts/populate-entity-registry');
+} = require('../../../.aiox-core/development/scripts/populate-entity-registry');
 
 const FIXTURES = path.resolve(__dirname, 'fixtures');
 
@@ -370,7 +370,7 @@ describe('populate-entity-registry (AC: 3, 4, 12)', () => {
       const entities = {
         tasks: {
           'task-a': {
-            path: '.aios-core/development/tasks/task-a.md',
+            path: '.aiox-core/development/tasks/task-a.md',
             type: 'task',
             dependencies: ['util-x'],
             usedBy: [],
@@ -378,7 +378,7 @@ describe('populate-entity-registry (AC: 3, 4, 12)', () => {
         },
         utils: {
           'util-x': {
-            path: '.aios-core/core/utils/util-x.js',
+            path: '.aiox-core/core/utils/util-x.js',
             type: 'util',
             dependencies: [],
             usedBy: [],
@@ -410,7 +410,7 @@ describe('populate-entity-registry (AC: 3, 4, 12)', () => {
       const entities = {
         tasks: {
           'my-task': {
-            path: '.aios-core/development/tasks/my-task.md',
+            path: '.aiox-core/development/tasks/my-task.md',
             type: 'task',
             dependencies: ['helper.js'],
             usedBy: [],
@@ -418,7 +418,7 @@ describe('populate-entity-registry (AC: 3, 4, 12)', () => {
         },
         scripts: {
           helper: {
-            path: '.aios-core/development/scripts/helper.js',
+            path: '.aiox-core/development/scripts/helper.js',
             type: 'script',
             dependencies: [],
             usedBy: [],
@@ -521,10 +521,10 @@ describe('populate-entity-registry (AC: 3, 4, 12)', () => {
     it('builds index from entity IDs, filenames, and basenames', () => {
       const entities = {
         tasks: {
-          'task-a': { path: '.aios-core/development/tasks/task-a.md', dependencies: [], usedBy: [] },
+          'task-a': { path: '.aiox-core/development/tasks/task-a.md', dependencies: [], usedBy: [] },
         },
         scripts: {
-          helper: { path: '.aios-core/development/scripts/helper.js', dependencies: [], usedBy: [] },
+          helper: { path: '.aiox-core/development/scripts/helper.js', dependencies: [], usedBy: [] },
         },
       };
       const index = buildNameIndex(entities);
@@ -564,7 +564,7 @@ describe('populate-entity-registry (AC: 3, 4, 12)', () => {
 
   describe('regression: real deps preserved (NOG-16A AC6)', () => {
     it('dev agent still has 40+ dependencies after filtering (all extractors combined)', () => {
-      const devAgentPath = path.resolve(__dirname, '../../../.aios-core/development/agents/dev.md');
+      const devAgentPath = path.resolve(__dirname, '../../../.aiox-core/development/agents/dev.md');
       if (!fs.existsSync(devAgentPath)) return;
 
       const content = fs.readFileSync(devAgentPath, 'utf8');
