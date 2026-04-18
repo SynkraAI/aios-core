@@ -501,9 +501,18 @@ The subtask is complete only when verification passes.
   }
 
   /**
-   * Run Claude CLI with prompt
+   * Run Claude CLI with prompt delivered via stdin.
+   * 
+   * @param {string} prompt - The prompt to execute
+   * @param {string} workDir - Working directory for execution
+   * @param {Object} config - Orchestrator configuration
+   * @returns {Promise<Object>} - Execution result with stdout and exit code
    */
   async runClaudeCLI(prompt, workDir, config) {
+    if (!prompt || typeof prompt !== 'string') {
+      throw new Error('runClaudeCLI requires a non-empty string prompt');
+    }
+
     return new Promise((resolve, reject) => {
       const args = [
         '--print', // Non-interactive mode
@@ -514,21 +523,46 @@ The subtask is complete only when verification passes.
         args.push('--model', config.claudeModel);
       }
 
-      // Escape prompt for shell
-      const escapedPrompt = prompt.replace(/'/g, "'\\''");
-
-      const fullCommand = `echo '${escapedPrompt}' | claude ${args.join(' ')}`;
-
       this.log(`Running Claude CLI in ${workDir}`, 'debug');
 
-      const child = spawn('sh', ['-c', fullCommand], {
+      const child = spawn('claude', args, {
         cwd: workDir,
         env: { ...process.env },
         timeout: config.subtaskTimeout,
+        stdio: ['pipe', 'pipe', 'pipe'],
       });
 
       let stdout = '';
       let stderr = '';
+      let stdinError = null;
+      let hasError = false;
+
+      child.on('error', (error) => {
+        hasError = true;
+        reject(error);
+      });
+
+      // Prevent unhandled stream errors if the pipe breaks or process exits early
+      child.stdin.on('error', (err) => {
+        stdinError = err;
+        this.log(`Claude stdin stream error: ${err.message}`, 'debug');
+      });
+
+      // Write prompt via stdin to avoid shell-related issues and command injection
+      if (child.stdin.writable) {
+        child.stdin.write(prompt);
+        child.stdin.end();
+      } else {
+        // If stdin is not writable, the process might have failed to start or exited immediately
+        // We wait a bit for 'error' event to fire if it's a spawn error (like ENOENT)
+        setImmediate(() => {
+          if (!hasError) {
+            if (child.kill) child.kill();
+            reject(new Error('Claude stdin was not writable immediately after spawn'));
+          }
+        });
+        return;
+      }
 
       child.stdout.on('data', (data) => {
         stdout += data.toString();
@@ -544,16 +578,18 @@ The subtask is complete only when verification passes.
         }
       });
 
-      child.on('close', (code) => {
-        if (code === 0) {
+      child.on('close', (code, signal) => {
+        if (hasError) return; // Already rejected in 'error' handler
+
+        if (stdinError) {
+          reject(new Error(`Claude CLI stdin write failed (prompt not delivered): ${stdinError.message}`));
+        } else if (code === 0) {
           resolve({ stdout, stderr, code });
+        } else if (signal) {
+          reject(new Error(`Claude CLI killed by signal ${signal} (timeout or external kill): ${stderr}`));
         } else {
           reject(new Error(`Claude CLI exited with code ${code}: ${stderr}`));
         }
-      });
-
-      child.on('error', (error) => {
-        reject(error);
       });
     });
   }
