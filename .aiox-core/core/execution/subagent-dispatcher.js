@@ -666,11 +666,16 @@ class SubagentDispatcher extends EventEmitter {
         timeout: this.claudeTimeout,
       });
 
+      let stdout = '';
+      let stderr = '';
+      let stdinError = null;
+      let hasError = false;
+
       child.on('error', (error) => {
+        hasError = true;
         reject(error);
       });
 
-      let stdinError = null;
       // Prevent unhandled stream errors if the pipe breaks or process exits early
       child.stdin.on('error', (err) => {
         stdinError = err;
@@ -682,13 +687,16 @@ class SubagentDispatcher extends EventEmitter {
         child.stdin.write(prompt);
         child.stdin.end();
       } else {
-        child.kill();
-        reject(new Error('Claude stdin was not writable immediately after spawn'));
+        // If stdin is not writable, the process might have failed to start or exited immediately
+        // We wait a bit for 'error' event to fire if it's a spawn error (like ENOENT)
+        setImmediate(() => {
+          if (!hasError) {
+            if (child.kill) child.kill();
+            reject(new Error('Claude stdin was not writable immediately after spawn'));
+          }
+        });
         return;
       }
-
-      let stdout = '';
-      let stderr = '';
 
       child.stdout.on('data', (data) => {
         stdout += data.toString();
@@ -699,6 +707,8 @@ class SubagentDispatcher extends EventEmitter {
       });
 
       child.on('close', (code, signal) => {
+        if (hasError) return; // Already rejected in 'error' handler
+
         if (stdinError) {
           reject(new Error(`Claude CLI stdin write failed (prompt not delivered): ${stdinError.message}`));
         } else if (code === 0) {

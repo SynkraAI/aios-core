@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.0.3
-generated_at: "2026-03-11T15:04:09.395Z"
+generated_at: "2026-04-18T04:12:10.295Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1090
 files:
@@ -401,9 +401,9 @@ files:
     type: core
     size: 34050
   - path: core/execution/build-orchestrator.js
-    hash: sha256:3698635011a845dfc43c46dfd7f15c0aa3ab488938ea3bd281de29157f5c4687
+    hash: sha256:24878fba391fe2ac055695fbc7fbc6cdc62fcc200b6e8e865e72757c0cbf03c4
     type: core
-    size: 31780
+    size: 33328
   - path: core/execution/build-state-manager.js
     hash: sha256:415fca3ad3d750db1f41f14f33971cf661ee9d6073a570175d695bb3c1be655c
     type: core
@@ -433,9 +433,9 @@ files:
     type: core
     size: 51556
   - path: core/execution/subagent-dispatcher.js
-    hash: sha256:7affbc04de9be2bc53427670009a885f0b35e1cc183f82c2e044abf9611344b6
+    hash: sha256:e7c803cab96b837cba5e8ca16790e4a9fd6c0b1137ae492dd8ab5cfe03bc4b9e
     type: core
-    size: 25738
+    size: 27350
   - path: core/execution/wave-executor.js
     hash: sha256:4e2324edb37ae0729062b5ac029f2891e050e7efd3a48d0f4a1dc4f227a6716b
     type: core

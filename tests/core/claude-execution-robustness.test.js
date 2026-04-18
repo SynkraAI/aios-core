@@ -4,8 +4,8 @@
  * Covers success scenarios, error handling, and input validation.
  */
 
-const { SubagentDispatcher } = require('../../.aios-core/core/execution/subagent-dispatcher');
-const { BuildOrchestrator } = require('../../.aios-core/core/execution/build-orchestrator');
+const { SubagentDispatcher } = require('../../.aiox-core/core/execution/subagent-dispatcher');
+const { BuildOrchestrator } = require('../../.aiox-core/core/execution/build-orchestrator');
 const { mockChildProcess, createMockMemoryQuery, createMockGotchasMemory } = require('./execution-test-helpers');
 const child_process = require('child_process');
 
