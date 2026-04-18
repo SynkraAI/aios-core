@@ -83,7 +83,11 @@ async function backupFile(filePath) {
 async function promptFileExists(filePath, options = {}) {
   const { projectType, forceMerge, noMerge } = options;
   const canMerge = !noMerge && hasMergeStrategy(filePath);
-  const isBrownfield = projectType === 'BROWNFIELD' || projectType === 'EXISTING_AIOX';
+  const normalizedProjectType = String(projectType || '').toLowerCase();
+  const isBrownfield =
+    normalizedProjectType === 'brownfield' ||
+    normalizedProjectType === 'existing_aiox' ||
+    normalizedProjectType === 'existing-aiox';
 
   // If force merge is set and merge is available, return merge directly
   if (forceMerge && canMerge) {
@@ -264,7 +268,7 @@ async function copyAgentFiles(projectRoot, agentFolder, ideConfig = null) {
           const targetPath = path.join(targetDir, filename);
           await fs.writeFile(targetPath, content, 'utf8');
           copiedFiles.push(targetPath);
-        } catch (transformError) {
+        } catch {
           // Fallback: copy raw file with .agent.md extension
           const targetPath = path.join(targetDir, `${agentName}.agent.md`);
           await fs.copy(sourcePath, targetPath);
