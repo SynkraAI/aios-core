@@ -53,18 +53,30 @@ Squad creator should treat these files as the authoritative seed set:
 Squad creator must create or register:
 
 1. A reusable DevOps task for Pro access grants.
-2. A reusable workflow that chains:
-   - preflight
-   - entitlement grant
-   - account setup
-   - API validation
-   - guided install validation
-3. Clear input schema:
-   - `target_email`
-   - `target_password`
-   - `reset_password`
-   - `run_guided_validation`
-4. A closeout/evidence template that never leaks full token or full license key.
+2. Dedicated point-action aliases for common support operations.
+3. A reusable workflow that chains:
+- preflight
+- entitlement grant
+- account setup
+- API validation
+- guided install validation
+4. Clear input schema:
+- `target_email`
+- `target_password`
+- `reset_password`
+- `run_guided_validation`
+5. A closeout/evidence template that never leaks full token or full license key.
+
+Minimum alias set now expected:
+
+- `*pro-access-grant`
+- `*pro-check-access`
+- `*pro-request-reset`
+- `*pro-resend-verification`
+- `*pro-reset-password`
+- `*pro-validate-login`
+- `*pro-verify-status`
+- `*pro-activate`
 
 ---
 

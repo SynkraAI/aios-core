@@ -86,6 +86,19 @@ Treat this as an upstream buyer validation issue.
 
 ## Step-By-Step Operator Runbook
 
+## Dedicated DevOps Aliases
+
+For repeat operations, prefer these `@devops` commands:
+
+- `@devops *pro-access-grant EMAIL SENHA`
+- `@devops *pro-check-access EMAIL`
+- `@devops *pro-request-reset EMAIL`
+- `@devops *pro-resend-verification EMAIL`
+- `@devops *pro-reset-password EMAIL NOVA_SENHA`
+- `@devops *pro-validate-login EMAIL SENHA`
+- `@devops *pro-verify-status ACCESS_TOKEN`
+- `@devops *pro-activate ACCESS_TOKEN [MACHINE_ID] [VERSION]`
+
 ### 1. Preflight
 
 Run:

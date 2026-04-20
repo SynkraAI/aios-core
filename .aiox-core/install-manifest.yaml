@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 5.0.3
-generated_at: "2026-04-20T20:30:22.668Z"
+generated_at: "2026-04-20T20:48:35.417Z"
 generator: scripts/generate-install-manifest.js
-file_count: 1091
+file_count: 1098
 files:
   - path: cli/commands/config/index.js
     hash: sha256:25c4b9bf4e0241abf7754b55153f49f1a214f1fb5fe904a576675634cb7b3da9
@@ -1221,9 +1221,9 @@ files:
     type: data
     size: 9575
   - path: data/entity-registry.yaml
-    hash: sha256:186cfa3d55db668681547c7f5d135e759163385d39a0dddc5ed8b2ed3a69aea7
+    hash: sha256:71931a4bd7813d22434079dd35705de28eb09598250e631e284034c7410a89c1
     type: data
-    size: 523448
+    size: 528975
   - path: data/learned-patterns.yaml
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data
@@ -1353,9 +1353,9 @@ files:
     type: agent
     size: 2486
   - path: development/agents/devops.md
-    hash: sha256:aeeea2052b1120b8e3f066af72f501aa37dbd23edba8e97727088a4fd0729e70
+    hash: sha256:5ee459c133748be93598d004a2ad46dfe0e9f51a95d554ff90cd378bf2cc617e
     type: agent
-    size: 23256
+    size: 25347
   - path: development/agents/devops/MEMORY.md
     hash: sha256:eb2ee887047c94db3441126cd0198cac44cec779026d7842a3a1c7eba936027f
     type: agent
@@ -2016,6 +2016,34 @@ files:
     hash: sha256:11d2b342a39a95acfbd5dbb7abe9c25a9511035b9ca46abac86ec40f60d6a011
     type: task
     size: 2585
+  - path: development/tasks/devops-pro-activate.md
+    hash: sha256:910a62a5dc9c9780a774da3d79b1b3fe3b5834ecf7f1c074775774a8bdfebd65
+    type: task
+    size: 918
+  - path: development/tasks/devops-pro-check-access.md
+    hash: sha256:4dcff883a824899c531841bcdcda8bb5767a57fb49e8ca242a14875f41e7c694
+    type: task
+    size: 784
+  - path: development/tasks/devops-pro-request-reset.md
+    hash: sha256:fdb5710a9c85e39750016cb3ac3e60a69396f2edaa1fc3180f0ebbf71e2c470c
+    type: task
+    size: 738
+  - path: development/tasks/devops-pro-resend-verification.md
+    hash: sha256:e6ed30bb1bd15d1d138f09e991ec227fda48f7b2bfef6be2f7a49bcb95ab9cd4
+    type: task
+    size: 672
+  - path: development/tasks/devops-pro-reset-password.md
+    hash: sha256:1f48dd5d1110529cc20b91f41c3ad4ac2e4a095040f0bbc1aa2641955fb2559c
+    type: task
+    size: 843
+  - path: development/tasks/devops-pro-validate-login.md
+    hash: sha256:b9321e184b4a1c7e003b363a857be01f953aebd467b898891b701880243265fe
+    type: task
+    size: 692
+  - path: development/tasks/devops-pro-verify-status.md
+    hash: sha256:c6fff732a41370c125e5507f9284a3b567b5472a788df0cd874ad4e6c801150d
+    type: task
+    size: 636
   - path: development/tasks/document-gotchas.md
     hash: sha256:84858f6252bc2a85beda75971fed74e087edee3bdd537eb29f43132f0141fbf5
     type: task

@@ -303,6 +303,13 @@ flowchart TD
 |---------|------|-----------|------|
 | `*environment-bootstrap` | environment-bootstrap.md | Bootstrap de novo projeto | Interactive |
 | `*pro-access-grant` | devops-pro-access-grant.md | Conceder/restaurar acesso AIOX Pro com validacao de API e installer | Interactive |
+| `*pro-check-access` | devops-pro-check-access.md | Consultar entitlement e existencia de conta | Interactive |
+| `*pro-request-reset` | devops-pro-request-reset.md | Disparar email de reset de senha | Interactive |
+| `*pro-resend-verification` | devops-pro-resend-verification.md | Reenviar verificacao de email | Interactive |
+| `*pro-reset-password` | devops-pro-reset-password.md | Trocar senha administrativamente e validar login | Interactive |
+| `*pro-validate-login` | devops-pro-validate-login.md | Validar login e emissao de token | Interactive |
+| `*pro-verify-status` | devops-pro-verify-status.md | Consultar estado de verificacao do email | Interactive |
+| `*pro-activate` | devops-pro-activate.md | Validar/restaurar ativacao Pro diretamente | Interactive |
 
 ---
 
@@ -626,6 +633,13 @@ npm audit --ignore-advisories=ADVISORY_ID
 
 # AIOX Pro
 @devops *pro-access-grant costa.wanderl@gmail.com AioxPro2026!
+@devops *pro-check-access costa.wanderl@gmail.com
+@devops *pro-request-reset costa.wanderl@gmail.com
+@devops *pro-resend-verification costa.wanderl@gmail.com
+@devops *pro-reset-password costa.wanderl@gmail.com NovaSenhaForte2026!
+@devops *pro-validate-login costa.wanderl@gmail.com AioxPro2026!
+@devops *pro-verify-status ACCESS_TOKEN
+@devops *pro-activate ACCESS_TOKEN
 
 # CI/CD
 @devops *ci-cd github-actions
