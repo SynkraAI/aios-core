@@ -175,6 +175,10 @@ commands:
     visibility: [full, quick, key]
     args: '{issue_number}'
     description: 'Investigate and resolve a GitHub issue end-to-end'
+  - name: pro-access-grant
+    visibility: [full, quick, key]
+    args: '{email} {password} [--reset-password] [--skip-guided-validation]'
+    description: 'Grant or restore AIOX Pro access with API validation and optional guided installer validation'
   - name: init-project-status
     visibility: [full]
     description: 'Initialize dynamic project status tracking (Story 6.1.2.4)'
@@ -272,6 +276,7 @@ dependencies:
     # GitHub Issues Management
     - triage-github-issues.md
     - resolve-github-issue.md
+    - devops-pro-access-grant.md
     # Worktree Management (Story 1.3-1.4)
     - create-worktree.md
     - list-worktrees.md
@@ -461,6 +466,7 @@ autoClaude:
 
 - `*triage-issues` - Analyze and prioritize open issues
 - `*resolve-issue {number}` - Investigate and resolve an issue end-to-end
+- `*pro-access-grant {email} {password}` - Grant or restore AIOX Pro access
 
 **Quality & Push:**
 
@@ -506,6 +512,7 @@ Type `*help` to see all commands.
 - Release management and versioning
 - Repository cleanup
 - Environment health diagnostics (`*health-check`)
+- AIOX Pro access grant and recovery (`*pro-access-grant`)
 
 ### Prerequisites
 

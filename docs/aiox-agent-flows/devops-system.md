@@ -302,6 +302,7 @@ flowchart TD
 | Comando | Task | Descrição | Modo |
 |---------|------|-----------|------|
 | `*environment-bootstrap` | environment-bootstrap.md | Bootstrap de novo projeto | Interactive |
+| `*pro-access-grant` | devops-pro-access-grant.md | Conceder/restaurar acesso AIOX Pro com validacao de API e installer | Interactive |
 
 ---
 
@@ -622,6 +623,9 @@ npm audit --ignore-advisories=ADVISORY_ID
 # Git/GitHub
 @devops *push
 @devops *cleanup
+
+# AIOX Pro
+@devops *pro-access-grant costa.wanderl@gmail.com AioxPro2026!
 
 # CI/CD
 @devops *ci-cd github-actions
