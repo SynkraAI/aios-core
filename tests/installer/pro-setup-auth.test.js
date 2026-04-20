@@ -7,6 +7,10 @@
 
 'use strict';
 
+const childProcess = require('child_process');
+const http = require('http');
+const fs = require('fs');
+const path = require('path');
 const proSetup = require('../../packages/installer/src/wizard/pro-setup');
 
 describe('pro-setup auth constants', () => {
@@ -144,5 +148,199 @@ describe('pro-setup backward compatibility (AC-7)', () => {
     expect(typeof proSetup._testing.waitForEmailVerification).toBe('function');
     expect(typeof proSetup._testing.activateProByAuth).toBe('function');
     expect(typeof proSetup._testing.stepLicenseGateCI).toBe('function');
+  });
+});
+
+describe('InlineLicenseClient current auth contract', () => {
+  let server;
+  let baseUrl;
+
+  function createMockServer(handler) {
+    return new Promise((resolve) => {
+      server = http.createServer(handler);
+      server.listen(0, '127.0.0.1', () => {
+        baseUrl = `http://127.0.0.1:${server.address().port}`;
+        resolve();
+      });
+    });
+  }
+
+  function closeMockServer() {
+    return new Promise((resolve) => {
+      if (server) {
+        if (typeof server.closeAllConnections === 'function') {
+          server.closeAllConnections();
+        }
+        server.close(() => resolve());
+      } else {
+        resolve();
+      }
+    });
+  }
+
+  afterEach(async () => {
+    await closeMockServer();
+  });
+
+  it('normalizes login accessToken to sessionToken for existing wizard flows', async () => {
+    await createMockServer((req, res) => {
+      expect(req.method).toBe('POST');
+      expect(req.url).toBe('/api/v1/auth/login');
+
+      let body = '';
+      req.on('data', (chunk) => (body += chunk));
+      req.on('end', () => {
+        expect(JSON.parse(body)).toEqual({
+          email: 'user@example.com',
+          password: 'TestPass123',
+        });
+
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({
+          accessToken: 'live-access-token',
+          refreshToken: 'refresh-token',
+          emailVerified: true,
+        }));
+      });
+    });
+
+    const client = new proSetup._testing.InlineLicenseClient(baseUrl);
+    const result = await client.login('user@example.com', 'TestPass123');
+
+    expect(result.accessToken).toBe('live-access-token');
+    expect(result.sessionToken).toBe('live-access-token');
+    expect(result.emailVerified).toBe(true);
+  });
+
+  it('uses POST /verify-status with accessToken body and normalizes emailVerified', async () => {
+    await createMockServer((req, res) => {
+      expect(req.method).toBe('POST');
+      expect(req.url).toBe('/api/v1/auth/verify-status');
+
+      let body = '';
+      req.on('data', (chunk) => (body += chunk));
+      req.on('end', () => {
+        expect(JSON.parse(body)).toEqual({ accessToken: 'live-access-token' });
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({
+          email: 'user@example.com',
+          emailVerified: true,
+        }));
+      });
+    });
+
+    const client = new proSetup._testing.InlineLicenseClient(baseUrl);
+    const result = await client.checkEmailVerified('live-access-token');
+
+    expect(result.email).toBe('user@example.com');
+    expect(result.verified).toBe(true);
+  });
+
+  it('sends accessToken to activate-pro and normalizes licenseKey to key', async () => {
+    await createMockServer((req, res) => {
+      expect(req.method).toBe('POST');
+      expect(req.url).toBe('/api/v1/auth/activate-pro');
+      expect(req.headers.authorization).toBe('Bearer live-access-token');
+
+      let body = '';
+      req.on('data', (chunk) => (body += chunk));
+      req.on('end', () => {
+        const parsed = JSON.parse(body);
+        expect(parsed.accessToken).toBe('live-access-token');
+        expect(parsed.machineId).toBe('machine-id');
+        expect(parsed.aioxCoreVersion).toBe('4.1.0');
+
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({
+          activated: true,
+          licenseKey: 'PRO-ABCD-1234-EFGH-5678',
+          features: ['pro'],
+        }));
+      });
+    });
+
+    const client = new proSetup._testing.InlineLicenseClient(baseUrl);
+    const result = await client.activateByAuth('live-access-token', 'machine-id', '4.1.0');
+
+    expect(result.key).toBe('PRO-ABCD-1234-EFGH-5678');
+    expect(result.licenseKey).toBe('PRO-ABCD-1234-EFGH-5678');
+  });
+});
+
+describe('resolveProSourceDir', () => {
+  const bundledProDir = path.resolve(__dirname, '../../pro');
+  const bundledSquadsDir = path.join(bundledProDir, 'squads');
+  const gitmodulesPath = path.resolve(__dirname, '../../.gitmodules');
+  const npmProDir = path.join('/tmp/aiox-project', 'node_modules', '@aiox-fullstack', 'pro');
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  it('prefers bundled pro content when available', () => {
+    jest.spyOn(fs, 'existsSync').mockImplementation((target) => target === bundledSquadsDir);
+
+    const result = proSetup._testing.resolveProSourceDir('/tmp/aiox-project');
+
+    expect(result).toEqual({ proSourceDir: bundledProDir });
+  });
+
+  it('bootstraps the pro submodule in source checkouts when needed', () => {
+    let squadsVisible = false;
+
+    jest.spyOn(fs, 'existsSync').mockImplementation((target) => {
+      if (target === bundledSquadsDir) {
+        return squadsVisible;
+      }
+      if (target === bundledProDir || target === gitmodulesPath) {
+        return true;
+      }
+      return false;
+    });
+
+    jest.spyOn(childProcess, 'execFileSync').mockImplementation(() => {
+      squadsVisible = true;
+      return Buffer.from('');
+    });
+
+    const result = proSetup._testing.resolveProSourceDir('/tmp/aiox-project');
+
+    expect(childProcess.execFileSync).toHaveBeenCalledWith(
+      'git',
+      ['submodule', 'update', '--init', '--recursive', 'pro'],
+      expect.objectContaining({
+        cwd: path.resolve(__dirname, '../..'),
+        stdio: 'ignore',
+      }),
+    );
+    expect(result).toEqual({ proSourceDir: bundledProDir });
+  });
+
+  it('falls back to target node_modules pro package when bundled content is unavailable', () => {
+    jest.spyOn(fs, 'existsSync').mockImplementation((target) => target === npmProDir);
+
+    const result = proSetup._testing.resolveProSourceDir('/tmp/aiox-project');
+
+    expect(result).toEqual({ proSourceDir: npmProDir });
+  });
+
+  it('returns bootstrapError when git submodule initialization fails', () => {
+    jest.spyOn(fs, 'existsSync').mockImplementation((target) => {
+      if (target === bundledProDir || target === gitmodulesPath) {
+        return true;
+      }
+      return false;
+    });
+
+    jest.spyOn(childProcess, 'execFileSync').mockImplementation(() => {
+      throw new Error('git unavailable');
+    });
+
+    const result = proSetup._testing.resolveProSourceDir('/tmp/aiox-project');
+
+    expect(result).toEqual({
+      proSourceDir: null,
+      bootstrapError: 'git unavailable',
+    });
   });
 });

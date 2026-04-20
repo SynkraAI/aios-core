@@ -22,7 +22,13 @@ const {
 const { setLanguage, t } = require('./i18n');
 const yaml = require('js-yaml');
 const { showWelcome, showCompletion, showCancellation } = require('./feedback');
-const { generateIDEConfigs, showSuccessSummary, copySkillFiles, copyExtraCommandFiles } = require('./ide-config-generator');
+const {
+  generateIDEConfigs,
+  showSuccessSummary,
+  copySkillFiles,
+  generateCodexSkills,
+  copyExtraCommandFiles,
+} = require('./ide-config-generator');
 const {
   configureEnvironment,
 } = require('../config/configure-environment');
@@ -522,6 +528,24 @@ async function runWizard(options = {}) {
       answers.skillsCopied = 0;
     }
 
+    // Local-first Codex flow: generate project-local /skills activators automatically
+    if ((answers.selectedIDEs || []).includes('codex')) {
+      console.log('\n🧠 Generating Codex skills...');
+      try {
+        const codexSkillsResult = generateCodexSkills(process.cwd());
+        if (codexSkillsResult.skipped) {
+          console.log('   ℹ️  Codex skills: canonical agent source not found (skipped)');
+        } else {
+          console.log(`✅ Codex skills: ${codexSkillsResult.count} generated`);
+        }
+        answers.codexSkillsGenerated = codexSkillsResult.count;
+        answers.codexSkillsSkipped = codexSkillsResult.skipped;
+      } catch (error) {
+        console.warn(`⚠️  Codex skills generation failed: ${error.message}`);
+        answers.codexSkillsGenerated = 0;
+      }
+    }
+
     // Story INS-4.3: Copy extra commands (Gap #12)
     console.log('\n📋 Copying extra commands...');
     try {
@@ -910,6 +934,14 @@ async function runWizard(options = {}) {
     console.log('\n🔍 Validating installation...\n');
 
     try {
+      const expectedSkillDirs = [];
+      if ((answers.selectedIDEs || []).includes('claude-code')) {
+        expectedSkillDirs.push('.claude/skills');
+      }
+      if ((answers.selectedIDEs || []).includes('codex')) {
+        expectedSkillDirs.push(path.join('.codex', 'skills'));
+      }
+
       const validation = await validateInstallation(
         {
           files: {
@@ -917,6 +949,7 @@ async function runWizard(options = {}) {
             env: '.env',
             coreConfig: '.aiox-core/core-config.yaml',
             mcpConfig: '.mcp.json',
+            skillDirs: expectedSkillDirs,
           },
           configs: {
             env: answers.envResult,

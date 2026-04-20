@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 5.0.3
-generated_at: "2026-03-11T15:04:09.395Z"
+generated_at: "2026-04-20T20:28:07.761Z"
 generator: scripts/generate-install-manifest.js
-file_count: 1090
+file_count: 1091
 files:
   - path: cli/commands/config/index.js
     hash: sha256:25c4b9bf4e0241abf7754b55153f49f1a214f1fb5fe904a576675634cb7b3da9
@@ -1221,9 +1221,9 @@ files:
     type: data
     size: 9575
   - path: data/entity-registry.yaml
-    hash: sha256:cc1bf74d3ef4e90b7a396d5b77259e540b2f9bd4a5b4b1da4977fe49ae83525d
+    hash: sha256:eb0f21c5c58867acccc47f942c99df7fcc38a19956be52d051ee7680239f9860
     type: data
-    size: 521869
+    size: 522782
   - path: data/learned-patterns.yaml
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data
@@ -2012,6 +2012,10 @@ files:
     hash: sha256:6dda51884ce7a5dd814d026aab3f2125d399e89b468b2125673c19ade9091ace
     type: task
     size: 11364
+  - path: development/tasks/devops-pro-access-grant.md
+    hash: sha256:11d2b342a39a95acfbd5dbb7abe9c25a9511035b9ca46abac86ec40f60d6a011
+    type: task
+    size: 2585
   - path: development/tasks/document-gotchas.md
     hash: sha256:84858f6252bc2a85beda75971fed74e087edee3bdd537eb29f43132f0141fbf5
     type: task

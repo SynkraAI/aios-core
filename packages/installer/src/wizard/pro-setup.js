@@ -57,12 +57,12 @@ class InlineLicenseClient {
    */
   _request(method, urlPath, body, headers = {}) {
     return new Promise((resolve, reject) => {
-      const https = require('https');
       const url = new URL(urlPath, this.baseUrl);
+      const transport = url.protocol === 'http:' ? require('http') : require('https');
 
       const options = {
         hostname: url.hostname,
-        port: url.port || 443,
+        port: url.port || (url.protocol === 'http:' ? 80 : 443),
         path: url.pathname + url.search,
         method,
         headers: {
@@ -73,7 +73,7 @@ class InlineLicenseClient {
         timeout: 15000,
       };
 
-      const req = https.request(options, (res) => {
+      const req = transport.request(options, (res) => {
         let data = '';
         res.on('data', (chunk) => { data += chunk; });
         res.on('end', () => {
@@ -135,10 +135,19 @@ class InlineLicenseClient {
    * Login with email and password.
    * @param {string} email
    * @param {string} password
-   * @returns {Promise<{sessionToken: string, emailVerified: boolean}>}
+   * @returns {Promise<{accessToken: string, sessionToken: string, emailVerified: boolean}>}
    */
   async login(email, password) {
-    return this._request('POST', '/api/v1/auth/login', { email, password });
+    return this._request('POST', '/api/v1/auth/login', { email, password })
+      .then((result) => {
+        const accessToken = result.accessToken || result.sessionToken;
+        return {
+          ...result,
+          accessToken,
+          // Backward-compatible alias for existing wizard flows.
+          sessionToken: accessToken,
+        };
+      });
   }
 
   /**
@@ -160,11 +169,17 @@ class InlineLicenseClient {
    */
   async activateByAuth(token, machineId, version) {
     return this._request('POST', '/api/v1/auth/activate-pro', {
+      accessToken: token,
       machineId,
       version,
+      aioxCoreVersion: version,
     }, {
+      // Preserve legacy compatibility with older server deployments.
       Authorization: `Bearer ${token}`,
-    });
+    }).then((result) => ({
+      ...result,
+      key: result.key || result.licenseKey,
+    }));
   }
 
   /**
@@ -184,13 +199,32 @@ class InlineLicenseClient {
 
   /**
    * Check if user's email has been verified.
-   * @param {string} sessionToken - Session token
+   * @param {string} accessToken - Session token
    * @returns {Promise<{verified: boolean}>}
    */
-  async checkEmailVerified(sessionToken) {
-    return this._request('GET', '/api/v1/auth/email-verified', null, {
-      Authorization: `Bearer ${sessionToken}`,
-    });
+  async checkEmailVerified(accessToken) {
+    try {
+      const result = await this._request('POST', '/api/v1/auth/verify-status', {
+        accessToken,
+      });
+      return {
+        ...result,
+        verified: result.verified ?? result.emailVerified,
+      };
+    } catch (error) {
+      // Older server versions used GET /email-verified with bearer auth.
+      if (!error.message || !error.message.includes('HTTP 404')) {
+        throw error;
+      }
+
+      const result = await this._request('GET', '/api/v1/auth/email-verified', null, {
+        Authorization: `Bearer ${accessToken}`,
+      });
+      return {
+        ...result,
+        verified: result.verified ?? result.emailVerified,
+      };
+    }
   }
 
   /**
@@ -410,6 +444,57 @@ function loadProScaffolder() {
   } catch {
     return null;
   }
+}
+
+/**
+ * Resolve the Pro content source directory.
+ *
+ * Priority:
+ * 1. Bundled pro/ content in the aiox-core checkout or package
+ * 2. Auto-initialize the git submodule when running from a source checkout
+ * 3. Installed @aiox-fullstack/pro package in the target project
+ *
+ * @param {string} targetDir - Project root directory
+ * @returns {{proSourceDir: string|null, bootstrapError?: string}} Resolution result
+ */
+function resolveProSourceDir(targetDir) {
+  const path = require('path');
+  const fs = require('fs');
+  const { execFileSync } = require('child_process');
+
+  const repoRoot = path.resolve(__dirname, '..', '..', '..', '..');
+  const bundledProDir = path.join(repoRoot, 'pro');
+  const npmProDir = path.join(targetDir, 'node_modules', '@aiox-fullstack', 'pro');
+  const bundledSquadsDir = path.join(bundledProDir, 'squads');
+  const gitmodulesPath = path.join(repoRoot, '.gitmodules');
+
+  if (fs.existsSync(bundledSquadsDir)) {
+    return { proSourceDir: bundledProDir };
+  }
+
+  if (fs.existsSync(gitmodulesPath) && fs.existsSync(bundledProDir)) {
+    try {
+      execFileSync('git', ['submodule', 'update', '--init', '--recursive', 'pro'], {
+        cwd: repoRoot,
+        stdio: 'ignore',
+      });
+
+      if (fs.existsSync(bundledSquadsDir)) {
+        return { proSourceDir: bundledProDir };
+      }
+    } catch (error) {
+      return {
+        proSourceDir: null,
+        bootstrapError: error.message || 'git submodule update failed',
+      };
+    }
+  }
+
+  if (fs.existsSync(npmProDir)) {
+    return { proSourceDir: npmProDir };
+  }
+
+  return { proSourceDir: null };
 }
 
 /**
@@ -1188,24 +1273,12 @@ async function validateKeyWithApi(key) {
 async function stepInstallScaffold(targetDir, options = {}) {
   showStep(2, 3, t('proContentInstallation'));
 
-  const path = require('path');
-  const fs = require('fs');
+  const { proSourceDir, bootstrapError } = resolveProSourceDir(targetDir);
 
-  // Resolve pro source directory from multiple locations:
-  // 1. Bundled in aiox-core package (pro/ submodule — npx and local dev)
-  // 2. @aiox-fullstack/pro in node_modules (legacy brownfield)
-  const bundledProDir = path.resolve(__dirname, '..', '..', '..', '..', 'pro');
-  const npmProDir = path.join(targetDir, 'node_modules', '@aiox-fullstack', 'pro');
-
-  let proSourceDir;
-  if (fs.existsSync(bundledProDir) && fs.existsSync(path.join(bundledProDir, 'squads'))) {
-    proSourceDir = bundledProDir;
-  } else if (fs.existsSync(npmProDir)) {
-    proSourceDir = npmProDir;
-  } else {
+  if (!proSourceDir) {
     return {
       success: false,
-      error: t('proPackageNotFound'),
+      error: bootstrapError ? `${t('proPackageNotFound')} ${bootstrapError}` : t('proPackageNotFound'),
     };
   }
 
@@ -1427,6 +1500,7 @@ module.exports = {
     loadFeatureGate,
     loadProScaffolder,
     getLicenseClient,
+    resolveProSourceDir,
     InlineLicenseClient,
     LICENSE_SERVER_URL,
     MAX_RETRIES,

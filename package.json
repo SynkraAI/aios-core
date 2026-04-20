@@ -18,6 +18,8 @@
     "packages/",
     ".aiox-core/",
     ".claude/CLAUDE.md",
+    ".claude/commands/",
+    ".claude/skills/",
     ".claude/rules/",
     ".claude/hooks/",
     "pro/license/",

@@ -16,6 +16,7 @@ const { spawnSync } = require('child_process');
 const { getIDEConfig } = require('../config/ide-configs');
 const { validateProjectName } = require('./validators');
 const { getMergeStrategy, hasMergeStrategy } = require('../merger/index.js');
+const { syncSkills } = require('../../../../.aiox-core/infrastructure/scripts/codex-skills-sync/index');
 
 /**
  * Render template with variables
@@ -1091,6 +1092,35 @@ async function copySkillFiles(projectRoot, _sourceRoot) {
 }
 
 /**
+ * Generate project-local Codex skills from canonical agent definitions.
+ * This repo uses local-first Codex activation, so installed projects must
+ * include `.codex/skills` without requiring a manual post-install sync.
+ * @param {string} projectRoot - Project root directory
+ * @returns {{count: number, skipped: boolean}} Generation result
+ */
+function generateCodexSkills(projectRoot) {
+  const sourceDir = path.join(projectRoot, '.aiox-core', 'development', 'agents');
+  const localSkillsDir = path.join(projectRoot, '.codex', 'skills');
+
+  if (!fs.existsSync(sourceDir)) {
+    return { count: 0, skipped: true };
+  }
+
+  const result = syncSkills({
+    projectRoot,
+    sourceDir,
+    localSkillsDir,
+    dryRun: false,
+    quiet: true,
+  });
+
+  return {
+    count: result.generated || 0,
+    skipped: false,
+  };
+}
+
+/**
  * Copy extra .claude/commands/ files during installation (Story INS-4.3, Gap #12)
  * Uses an allowlist of distributable top-level directories to prevent leaking
  * private squads or project-specific content into installed projects.
@@ -1176,6 +1206,7 @@ module.exports = {
   copyClaudeHooksFolder,
   createClaudeSettingsLocal,
   copySkillFiles,
+  generateCodexSkills,
   copyExtraCommandFiles,
   copyGeminiHooksFolder,
   createGeminiSettings,
