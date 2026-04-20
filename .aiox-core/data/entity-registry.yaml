@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-04-20T20:48:35.205Z'
+  lastUpdated: '2026-04-20T20:49:37.490Z'
   entityCount: 754
   checksumAlgorithm: sha256
   resolutionRate: 100
@@ -1884,17 +1884,13 @@ entities:
         - 'task:'
       usedBy:
         - devops
-      dependencies:
-        - devops
-      externalDeps: []
-      plannedDeps: []
-      lifecycle: production
+      dependencies: []
       adaptability:
         score: 0.8
         constraints: []
         extensionPoints: []
       checksum: sha256:910a62a5dc9c9780a774da3d79b1b3fe3b5834ecf7f1c074775774a8bdfebd65
-      lastVerified: '2026-04-20T20:48:35.000Z'
+      lastVerified: '2026-04-20T20:49:37.486Z'
     devops-pro-check-access:
       path: .aiox-core/development/tasks/devops-pro-check-access.md
       layer: L2
@@ -1908,17 +1904,13 @@ entities:
         - 'task:'
       usedBy:
         - devops
-      dependencies:
-        - devops
-      externalDeps: []
-      plannedDeps: []
-      lifecycle: production
+      dependencies: []
       adaptability:
         score: 0.8
         constraints: []
         extensionPoints: []
       checksum: sha256:4dcff883a824899c531841bcdcda8bb5767a57fb49e8ca242a14875f41e7c694
-      lastVerified: '2026-04-20T20:48:35.000Z'
+      lastVerified: '2026-04-20T20:49:37.486Z'
     devops-pro-request-reset:
       path: .aiox-core/development/tasks/devops-pro-request-reset.md
       layer: L2
@@ -1932,17 +1924,13 @@ entities:
         - 'task:'
       usedBy:
         - devops
-      dependencies:
-        - devops
-      externalDeps: []
-      plannedDeps: []
-      lifecycle: production
+      dependencies: []
       adaptability:
         score: 0.8
         constraints: []
         extensionPoints: []
       checksum: sha256:fdb5710a9c85e39750016cb3ac3e60a69396f2edaa1fc3180f0ebbf71e2c470c
-      lastVerified: '2026-04-20T20:48:35.000Z'
+      lastVerified: '2026-04-20T20:49:37.486Z'
     devops-pro-resend-verification:
       path: .aiox-core/development/tasks/devops-pro-resend-verification.md
       layer: L2
@@ -1956,17 +1944,13 @@ entities:
         - 'task:'
       usedBy:
         - devops
-      dependencies:
-        - devops
-      externalDeps: []
-      plannedDeps: []
-      lifecycle: production
+      dependencies: []
       adaptability:
         score: 0.8
         constraints: []
         extensionPoints: []
       checksum: sha256:e6ed30bb1bd15d1d138f09e991ec227fda48f7b2bfef6be2f7a49bcb95ab9cd4
-      lastVerified: '2026-04-20T20:48:35.000Z'
+      lastVerified: '2026-04-20T20:49:37.487Z'
     devops-pro-reset-password:
       path: .aiox-core/development/tasks/devops-pro-reset-password.md
       layer: L2
@@ -1980,17 +1964,13 @@ entities:
         - 'task:'
       usedBy:
         - devops
-      dependencies:
-        - devops
-      externalDeps: []
-      plannedDeps: []
-      lifecycle: production
+      dependencies: []
       adaptability:
         score: 0.8
         constraints: []
         extensionPoints: []
       checksum: sha256:1f48dd5d1110529cc20b91f41c3ad4ac2e4a095040f0bbc1aa2641955fb2559c
-      lastVerified: '2026-04-20T20:48:35.000Z'
+      lastVerified: '2026-04-20T20:49:37.487Z'
     devops-pro-validate-login:
       path: .aiox-core/development/tasks/devops-pro-validate-login.md
       layer: L2
@@ -2004,17 +1984,13 @@ entities:
         - 'task:'
       usedBy:
         - devops
-      dependencies:
-        - devops
-      externalDeps: []
-      plannedDeps: []
-      lifecycle: production
+      dependencies: []
       adaptability:
         score: 0.8
         constraints: []
         extensionPoints: []
       checksum: sha256:b9321e184b4a1c7e003b363a857be01f953aebd467b898891b701880243265fe
-      lastVerified: '2026-04-20T20:48:35.000Z'
+      lastVerified: '2026-04-20T20:49:37.487Z'
     devops-pro-verify-status:
       path: .aiox-core/development/tasks/devops-pro-verify-status.md
       layer: L2
@@ -2028,17 +2004,13 @@ entities:
         - 'task:'
       usedBy:
         - devops
-      dependencies:
-        - devops
-      externalDeps: []
-      plannedDeps: []
-      lifecycle: production
+      dependencies: []
       adaptability:
         score: 0.8
         constraints: []
         extensionPoints: []
       checksum: sha256:c6fff732a41370c125e5507f9284a3b567b5472a788df0cd874ad4e6c801150d
-      lastVerified: '2026-04-20T20:48:35.000Z'
+      lastVerified: '2026-04-20T20:49:37.487Z'
     document-gotchas:
       path: .aiox-core/development/tasks/document-gotchas.md
       layer: L2
@@ -13396,13 +13368,6 @@ entities:
         - brownfield-create-epic
         - create-worktree
         - devops-pro-access-grant
-        - devops-pro-activate
-        - devops-pro-check-access
-        - devops-pro-request-reset
-        - devops-pro-resend-verification
-        - devops-pro-reset-password
-        - devops-pro-validate-login
-        - devops-pro-verify-status
         - environment-bootstrap
         - execute-epic-plan
         - github-devops-pre-push-quality-gate
@@ -13476,7 +13441,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:5ee459c133748be93598d004a2ad46dfe0e9f51a95d554ff90cd378bf2cc617e
-      lastVerified: '2026-04-20T20:48:35.127Z'
+      lastVerified: '2026-04-20T20:49:37.484Z'
     pm:
       path: .aiox-core/development/agents/pm.md
       layer: L2
