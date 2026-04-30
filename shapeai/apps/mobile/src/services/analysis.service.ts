@@ -1,4 +1,5 @@
 import { apiGet, apiPost } from './api.client'
+import type { ReportSection } from '../components/report/ReportSectionCard'
 
 export interface StartAnalysisResponse {
   analysis_id: string
@@ -13,6 +14,45 @@ export interface AnalysisStatusResponse {
   workout_plan?: { weeks: unknown[] }
   created_at: string
   completed_at?: string
+}
+
+export interface BodyScores {
+  shoulders: number
+  chest: number
+  back: number
+  arms: number
+  core: number
+  legs: number
+  posture_score: number
+  symmetry_score: number
+}
+
+export interface WorkoutSession {
+  name: string
+  exercises: string[]
+}
+
+export interface WorkoutWeek {
+  week_number: number
+  sessions: WorkoutSession[]
+}
+
+export interface AnalysisResult {
+  id: string
+  status: 'completed'
+  scores: BodyScores
+  report: {
+    highlights: ReportSection[]
+    development_areas: ReportSection[]
+  }
+  workout_plan: {
+    weeks: WorkoutWeek[]
+  }
+  completed_at: string
+}
+
+export async function getAnalysisResult(analysisId: string): Promise<AnalysisResult> {
+  return apiGet<AnalysisResult>(`/analyses/${analysisId}`)
 }
 
 export async function startAnalysis(): Promise<StartAnalysisResponse> {

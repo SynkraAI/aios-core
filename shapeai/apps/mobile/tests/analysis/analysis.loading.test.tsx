@@ -50,7 +50,7 @@ describe('AnalysisLoadingScreen', () => {
     })
 
     const { findByText } = render(<AnalysisLoadingScreen />)
-    await findByText(/Análise falhou/i)
+    await findByText('Análise falhou')
   })
 
   it('exibe erro quando poll rejeita (timeout)', async () => {

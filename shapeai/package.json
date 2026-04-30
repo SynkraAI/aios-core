@@ -15,6 +15,7 @@
     "typecheck": "turbo run typecheck"
   },
   "devDependencies": {
+    "react-test-renderer": "19.2.5",
     "turbo": "^2.3.3",
     "typescript": "^5.7.2"
   },
