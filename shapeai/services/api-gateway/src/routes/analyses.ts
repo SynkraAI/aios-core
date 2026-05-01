@@ -158,6 +158,60 @@ export async function analysesRoutes(app: FastifyInstance) {
     }
   )
 
+  // POST /analyses/compare — comparativo entre 2 análises via Claude
+  app.post<{ Body: { analysis_id_1: string; analysis_id_2: string } }>(
+    '/analyses/compare',
+    { preHandler: requireAuth },
+    async (request, reply) => {
+      const { analysis_id_1, analysis_id_2 } = request.body
+      const userId = request.authUser.id
+
+      const { rows } = await pool.query(
+        `SELECT id, scores FROM analyses
+         WHERE id = ANY($1) AND user_id = $2 AND status = 'completed'`,
+        [[analysis_id_1, analysis_id_2], userId]
+      )
+
+      if (rows.length !== 2) {
+        return reply.status(403).send({ error: 'Analyses not found or not authorized' })
+      }
+
+      const a1 = rows.find((r: { id: string }) => r.id === analysis_id_1)
+      const a2 = rows.find((r: { id: string }) => r.id === analysis_id_2)
+
+      const claudeRes = await axios.post(
+        'https://api.anthropic.com/v1/messages',
+        {
+          model: 'claude-sonnet-4-6',
+          max_tokens: 1024,
+          system: 'Você é um coach de fitness profissional. Responda sempre em português brasileiro, de forma positiva e motivacional. Retorne apenas JSON válido, sem markdown.',
+          messages: [{
+            role: 'user',
+            content: `Compare estas duas análises de shape e retorne um JSON com:
+- "summary": string (1-2 frases resumindo a evolução)
+- "improvements": string[] (top 3 melhorias identificadas)
+- "needs_attention": string[] (top 2 áreas que ainda precisam de foco)
+
+Análise anterior: ${JSON.stringify(a1.scores)}
+Análise recente: ${JSON.stringify(a2.scores)}`
+          }]
+        },
+        {
+          headers: {
+            'x-api-key': process.env.ANTHROPIC_API_KEY ?? '',
+            'anthropic-version': '2023-06-01',
+            'content-type': 'application/json',
+          },
+        }
+      )
+
+      const raw: string = claudeRes.data.content[0].text
+      const clean = raw.replace(/```json|```/g, '').trim()
+      const result = JSON.parse(clean)
+      return reply.send(result)
+    }
+  )
+
   // POST /internal/analyses/:id/complete — callback do ai-engine
   app.post<{ Params: { id: string }; Body: {
     scores: Record<string, number>

@@ -5,6 +5,9 @@ interface Props {
   item: AnalysisSummary
   isLatest: boolean
   onPress?: () => void
+  isSelectMode?: boolean
+  isSelected?: boolean
+  onSelect?: () => void
 }
 
 function formatDate(iso: string): string {
@@ -15,18 +18,31 @@ function formatDate(iso: string): string {
   return `${dd}/${mm}/${yyyy}`
 }
 
-export function AnalysisHistoryItem({ item, isLatest, onPress }: Props) {
-  const isClickable = item.status === 'completed' && !!onPress
+export function AnalysisHistoryItem({ item, isLatest, onPress, isSelectMode, isSelected, onSelect }: Props) {
+  const isClickable = !isSelectMode && item.status === 'completed' && !!onPress
+  const isSelectable = isSelectMode && item.status === 'completed'
+
+  const handlePress = () => {
+    if (isSelectable && onSelect) onSelect()
+    else if (isClickable && onPress) onPress()
+  }
 
   return (
     <TouchableOpacity
-      style={styles.container}
-      onPress={isClickable ? onPress : undefined}
-      activeOpacity={isClickable ? 0.7 : 1}
+      style={[styles.container, isSelected && styles.containerSelected]}
+      onPress={handlePress}
+      activeOpacity={isClickable || isSelectable ? 0.7 : 1}
       testID={`history-item-${item.id}`}
     >
       <View style={styles.header}>
-        <Text style={styles.date}>{formatDate(item.created_at)}</Text>
+        <View style={styles.dateRow}>
+          {isSelectMode && item.status === 'completed' && (
+            <View style={[styles.checkbox, isSelected && styles.checkboxSelected]} testID={`checkbox-${item.id}`}>
+              {isSelected && <Text style={styles.checkmark}>✓</Text>}
+            </View>
+          )}
+          <Text style={styles.date}>{formatDate(item.created_at)}</Text>
+        </View>
         <View style={styles.badges}>
           {isLatest && item.status === 'completed' && (
             <View style={styles.badgeLatest}>
@@ -67,8 +83,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#222',
   },
+  containerSelected: { borderColor: '#4CAF50', backgroundColor: '#0D1F0D' },
   header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 },
+  dateRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   date: { fontSize: 15, fontWeight: '600', color: '#fff' },
+  checkbox: { width: 20, height: 20, borderRadius: 10, borderWidth: 2, borderColor: '#555', justifyContent: 'center', alignItems: 'center' },
+  checkboxSelected: { backgroundColor: '#4CAF50', borderColor: '#4CAF50' },
+  checkmark: { color: '#fff', fontSize: 12, fontWeight: '700' },
   badges: { flexDirection: 'row', gap: 6 },
   badgeLatest: { backgroundColor: '#4CAF50', paddingHorizontal: 8, paddingVertical: 3, borderRadius: 8 },
   badgeLatestText: { color: '#fff', fontSize: 11, fontWeight: '700' },

@@ -13,6 +13,8 @@ export default function HistoryScreen() {
   const [isLoadingMore, setIsLoadingMore] = useState(false)
   const [hasMore, setHasMore] = useState(false)
   const [page, setPage] = useState(1)
+  const [isSelectMode, setIsSelectMode] = useState(false)
+  const [selectedIds, setSelectedIds] = useState<string[]>([])
 
   const load = useCallback(async (resetPage = false) => {
     const targetPage = resetPage ? 1 : page
@@ -59,6 +61,27 @@ export default function HistoryScreen() {
     }
   }
 
+  const toggleSelectMode = () => {
+    setIsSelectMode(true)
+    setSelectedIds([])
+  }
+
+  const cancelSelectMode = () => {
+    setIsSelectMode(false)
+    setSelectedIds([])
+  }
+
+  const toggleSelect = (id: string) => {
+    setSelectedIds((prev) =>
+      prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]
+    )
+  }
+
+  const handleCompare = () => {
+    if (selectedIds.length !== 2) return
+    router.push(`/(app)/compare?id1=${selectedIds[0]}&id2=${selectedIds[1]}` as never)
+  }
+
   const latestCompletedId = analyses.find((a) => a.status === 'completed')?.id
 
   if (isLoading) {
@@ -84,7 +107,29 @@ export default function HistoryScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Histórico</Text>
+      <View style={styles.header}>
+        <Text style={styles.title}>Histórico</Text>
+        {isSelectMode ? (
+          <View style={styles.headerActions}>
+            <TouchableOpacity
+              style={[styles.compareButton, selectedIds.length !== 2 && styles.compareButtonDisabled]}
+              onPress={handleCompare}
+              disabled={selectedIds.length !== 2}
+              testID="btn-ver-comparativo"
+            >
+              <Text style={styles.compareButtonText}>Ver comparativo</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={cancelSelectMode} testID="btn-cancelar-selecao">
+              <Text style={styles.cancelText}>Cancelar</Text>
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <TouchableOpacity onPress={toggleSelectMode} testID="btn-comparar">
+            <Text style={styles.compareLink}>Comparar</Text>
+          </TouchableOpacity>
+        )}
+      </View>
+
       <FlatList
         data={analyses}
         keyExtractor={(item) => item.id}
@@ -92,6 +137,9 @@ export default function HistoryScreen() {
           <AnalysisHistoryItem
             item={item}
             isLatest={item.id === latestCompletedId}
+            isSelectMode={isSelectMode}
+            isSelected={selectedIds.includes(item.id)}
+            onSelect={() => toggleSelect(item.id)}
             onPress={
               item.status === 'completed'
                 ? () => router.push(`/(app)/analysis/${item.id}/report` as never)
@@ -122,7 +170,14 @@ export default function HistoryScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#0A0A0A' },
   centered: { flex: 1, backgroundColor: '#0A0A0A', justifyContent: 'center', alignItems: 'center', padding: 32 },
-  title: { fontSize: 24, fontWeight: 'bold', color: '#fff', padding: 24, paddingBottom: 12, paddingTop: 60 },
+  header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 24, paddingTop: 60, paddingBottom: 12 },
+  title: { fontSize: 24, fontWeight: 'bold', color: '#fff' },
+  headerActions: { flexDirection: 'row', alignItems: 'center', gap: 12 },
+  compareLink: { color: '#4CAF50', fontSize: 15, fontWeight: '600' },
+  compareButton: { backgroundColor: '#4CAF50', paddingHorizontal: 14, paddingVertical: 8, borderRadius: 10 },
+  compareButtonDisabled: { backgroundColor: '#1A3A1A', opacity: 0.5 },
+  compareButtonText: { color: '#fff', fontSize: 13, fontWeight: '700' },
+  cancelText: { color: '#888', fontSize: 14 },
   list: { paddingHorizontal: 16, paddingBottom: 32 },
   emptyIcon: { fontSize: 48, marginBottom: 16 },
   emptyTitle: { fontSize: 18, fontWeight: '600', color: '#fff', textAlign: 'center', marginBottom: 8 },

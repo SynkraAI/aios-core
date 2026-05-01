@@ -36,6 +36,10 @@ export default function AppLayout() {
         name="paywall"
         options={{ href: null }}
       />
+      <Tabs.Screen
+        name="compare"
+        options={{ href: null }}
+      />
     </Tabs>
   )
 }
