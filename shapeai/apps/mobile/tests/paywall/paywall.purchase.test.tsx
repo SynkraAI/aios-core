@@ -1,5 +1,6 @@
 import React from 'react'
 import { render, fireEvent, waitFor, act } from '@testing-library/react-native'
+import { Alert } from 'react-native'
 
 // Drena toda a fila de microtasks (Promise chains) antes de resolver
 const flushAllPromises = () => new Promise<void>(resolve => setImmediate(resolve))
@@ -105,5 +106,21 @@ describe('PaywallScreen — fluxo de compra', () => {
     const { getByTestId } = render(<PaywallScreen />)
     fireEvent.press(getByTestId('btn-gratis'))
     expect(mockReplace).toHaveBeenCalledWith('/(app)')
+  })
+
+  it('exibe Alert genérico em falha técnica de compra', async () => {
+    const alertSpy = jest.spyOn(Alert, 'alert')
+    mockPurchase.mockRejectedValueOnce(new Error('Network error'))
+
+    const { getByTestId } = render(<PaywallScreen />)
+    await act(flushAllPromises) // drena getOfferings → seta annualPkgRef
+
+    fireEvent.press(getByTestId('btn-assinar-pro'))
+
+    await waitFor(() => {
+      expect(alertSpy).toHaveBeenCalledWith('Erro na compra', expect.any(String))
+    })
+
+    alertSpy.mockRestore()
   })
 })
