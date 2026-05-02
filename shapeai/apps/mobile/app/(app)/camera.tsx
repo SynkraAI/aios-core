@@ -47,12 +47,16 @@ export default function CameraScreen() {
     const photo = await cameraRef.current.takePictureAsync({ quality: 0.8, base64: false })
     if (!photo) return
 
-    // Validação real de tamanho via expo-file-system
-    const info = await FileSystem.getInfoAsync(photo.uri)
-    const fileSize = (info as FileSystem.FileInfo & { size?: number }).size
-    if (fileSize && fileSize > MAX_FILE_SIZE_BYTES) {
-      Alert.alert('Foto muito grande', 'Cada foto deve ter no máximo 10 MB. Tente novamente.')
-      return
+    // Validação de tamanho — getInfoAsync com size:true (expo-file-system 19.x)
+    try {
+      const info = await FileSystem.getInfoAsync(photo.uri, { size: true })
+      const fileSize = info.exists && 'size' in info ? (info.size as number) : null
+      if (fileSize && fileSize > MAX_FILE_SIZE_BYTES) {
+        Alert.alert('Foto muito grande', 'Cada foto deve ter no máximo 10 MB. Tente novamente.')
+        return
+      }
+    } catch {
+      // size check indisponível neste ambiente — prosseguir
     }
 
     setPreviewUri(photo.uri)
