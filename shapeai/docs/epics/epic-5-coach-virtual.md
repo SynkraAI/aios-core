@@ -37,6 +37,7 @@ Um chat integrado ao app, alimentado pelo Claude AI, com **contexto completo** d
 | Plano de treino ativo | Última análise |
 | Objetivo (hipertrofia, fat loss, condicionamento) | Perfil |
 | Sexo, altura, peso | Perfil |
+| Persona escolhida (Rafael / Marina / Bruno) | Perfil |
 
 ---
 
@@ -98,18 +99,38 @@ Criar tela `/(app)/coach.tsx` com:
 - Design consistente com o resto do app (dark theme, verde #4CAF50)
 - Funciona sem análise prévia (mensagem de onboarding contextual)
 
-### Story 5.3 — System Prompt e Personalidade do Coach
-Definir e refinar o system prompt do Coach Virtual:
-- Tom: direto, motivacional, técnico mas acessível
+### Story 5.3 — Personas e System Prompt do Coach
+
+O usuário escolhe uma das 3 personas na tela de perfil ou no onboarding do chat.
+A escolha é salva em `user_profiles.coach_persona` e persiste entre sessões.
+
+**As 3 personas:**
+
+| Persona | Gênero | Tom | Tagline |
+|---------|--------|-----|---------|
+| **Rafael** | Masculino | Técnico e direto | *"Dados, progressão e resultado"* |
+| **Marina** | Feminino | Motivacional e empático | *"Seu ritmo, sua evolução"* |
+| **Bruno** | Masculino | Intenso e desafiador | *"Sem desculpas, só resultados"* |
+
+Cada persona tem um system prompt distinto que define:
+- Como o coach se apresenta pelo nome
+- Tom das respostas (técnico vs motivacional vs desafiador)
+- Forma de reagir ao progresso ("excelente dado" vs "você conseguiu!" vs "isso é o mínimo")
+- Forma de reagir à falta de treino ("ajuste o volume" vs "tudo bem, vamos retomar" vs "sem desculpas")
+
+**Regras comuns a todas as personas:**
 - Sempre referencia dados reais do usuário quando relevante
 - Não inventa dados — se não souber, diz que não sabe
 - Disclaimer automático para dúvidas médicas ("consulte um profissional")
 - Limita escopo a fitness, treino e atividade física (sem nutrição, sem medicina)
+- Respostas em português brasileiro, sem markdown excessivo
 
 **AC principais:**
-- Prompt testado com 10+ cenários de perguntas reais
-- Respostas em português brasileiro
-- Sem markdown excessivo na resposta (texto limpo para mobile)
+- Migration: `ALTER TABLE user_profiles ADD COLUMN coach_persona VARCHAR(10) DEFAULT 'rafael'`
+- Tela de seleção de persona com nome, tagline e exemplo de mensagem de cada uma
+- API `/chat` lê `coach_persona` do perfil e carrega o system prompt correspondente
+- Cada prompt testado com 10+ cenários de perguntas reais
+- Default: Rafael (para usuários sem preferência definida)
 
 ### Story 5.4 — Rate Limiting e Monetização
 Integrar o chat à camada de monetização:
