@@ -1,14 +1,17 @@
 export type AnalysisStatus = 'processing' | 'completed' | 'failed'
 
 export interface BodyScores {
-  shoulders: number
+  quadriceps: number
+  glutes: number
+  calves: number
+  biceps: number
+  triceps: number
   chest: number
-  back: number
-  arms: number
-  core: number
-  legs: number
-  posture_score: number
-  symmetry_score: number
+  abs: number
+  traps: number
+  lats: number
+  overall_score: number
+  body_fat_estimate_pct: number
 }
 
 export interface Analysis {
@@ -98,14 +101,15 @@ export interface AnalysisResult {
 }
 
 export const MUSCLE_EMOJI: Record<string, string> = {
-  shoulders: '🏋️',
-  chest: '💪',
-  back: '🔙',
-  arms: '💪',
-  core: '🎯',
-  legs: '🦵',
-  posture_score: '📐',
-  symmetry_score: '⚖️',
+  quadriceps: '🦵',
+  glutes: '🍑',
+  calves: '🦵',
+  biceps: '💪',
+  triceps: '💪',
+  chest: '🏋️',
+  abs: '🎯',
+  traps: '🔝',
+  lats: '🔙',
 }
 
 export function formatRest(seconds: number): string {
@@ -122,6 +126,9 @@ export function getScoreColor(score: number): string {
 }
 
 export function calculateOverallScore(scores: BodyScores): number {
-  const values = Object.values(scores)
-  return Math.round(values.reduce((sum, v) => sum + v, 0) / values.length)
+  return scores.overall_score ?? Math.round(
+    (scores.quadriceps + scores.glutes + scores.calves +
+     scores.biceps + scores.triceps + scores.chest +
+     scores.abs + scores.traps + scores.lats) / 9
+  )
 }

@@ -93,14 +93,18 @@ function buildUserContext(
       if (Array.isArray(bc.fat_areas) && bc.fat_areas.length > 0) {
         lines.push(`Gordura localizada: ${(bc.fat_areas as string[]).join(', ')}`)
       }
-      if (Array.isArray(bc.muscle_highlights) && bc.muscle_highlights.length > 0) {
-        lines.push(`Grupos mais desenvolvidos: ${(bc.muscle_highlights as string[]).join(', ')}`)
+      if (bc.strengths_summary) {
+        lines.push(`Pontos fortes: ${bc.strengths_summary}`)
       }
-      if (Array.isArray(bc.muscle_deficits) && bc.muscle_deficits.length > 0) {
-        lines.push(`Grupos a desenvolver: ${(bc.muscle_deficits as string[]).join(', ')}`)
+      if (bc.weaknesses_summary) {
+        lines.push(`Pontos a desenvolver: ${bc.weaknesses_summary}`)
       }
-      if (bc.proportional_notes) {
-        lines.push(`Análise proporcional: ${bc.proportional_notes}`)
+      const ms = bc.muscle_scores as Record<string, { score: number; note: string }> | null
+      if (ms) {
+        const scoreList = Object.entries(ms)
+          .map(([k, v]) => `${k}=${v.score}`)
+          .join(', ')
+        lines.push(`Scores musculares: ${scoreList}`)
       }
     }
 

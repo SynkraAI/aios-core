@@ -1,20 +1,19 @@
-import json
-import os
+import logging
 from typing import TypedDict
 
-import anthropic
+logger = logging.getLogger(__name__)
 
-client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
-
-SYSTEM_PROMPT = (
-    "Você é um especialista em avaliação física e composição corporal. "
-    "Analise os scores de composição corporal e gere um relatório estruturado em JSON com os campos:\n"
-    "- highlights: array de ReportSection com os 3 pontos fortes (score > 65)\n"
-    "- development_areas: array de ReportSection com os 3 grupos mais deficitários (score < 55)\n\n"
-    "Cada ReportSection tem: muscle_group (string em inglês), title (frase motivacional em PT-BR), "
-    "description (2-3 frases técnicas em PT-BR), score (inteiro 0-100).\n"
-    "Responda SOMENTE com JSON válido, sem markdown."
-)
+MUSCLE_LABELS: dict[str, str] = {
+    "quadriceps": "Quadríceps",
+    "glutes": "Glúteos",
+    "calves": "Panturrilhas",
+    "biceps": "Bíceps",
+    "triceps": "Tríceps",
+    "chest": "Peitoral",
+    "abs": "Abdômen",
+    "traps": "Trapézio",
+    "lats": "Dorsal",
+}
 
 
 class ReportSection(TypedDict):
@@ -29,37 +28,38 @@ class Report(TypedDict):
     development_areas: list
 
 
-def _validate_section(section: dict) -> ReportSection:
-    for field in ("muscle_group", "title", "description", "score"):
-        if field not in section:
-            raise ValueError(f"ReportSection missing required field: {field}")
-    return ReportSection(
-        muscle_group=str(section["muscle_group"]),
-        title=str(section["title"]),
-        description=str(section["description"]),
-        score=int(section["score"]),
+def generate_report(scores: dict, body_composition: dict, profile: dict) -> Report:
+    """Constrói highlights e development_areas direto dos muscle_scores do Vision."""
+    muscle_scores = body_composition.get("muscle_scores", {})
+
+    scored = sorted(
+        [
+            (k, v)
+            for k, v in muscle_scores.items()
+            if isinstance(v, dict) and "score" in v and k in MUSCLE_LABELS
+        ],
+        key=lambda x: x[1]["score"],
+        reverse=True,
     )
 
+    highlights: list[ReportSection] = [
+        ReportSection(
+            muscle_group=k,
+            title=f"{MUSCLE_LABELS[k]} em destaque",
+            description=str(v.get("note", "")),
+            score=int(v["score"]),
+        )
+        for k, v in scored[:3]
+    ]
 
-def generate_report(scores: dict, profile: dict) -> Report:
-    """Generate body analysis report via Claude with system-prompt caching."""
-    user_prompt = (
-        f"Scores de composição corporal:\n{json.dumps(scores, ensure_ascii=False)}\n\n"
-        f"Perfil: {profile.get('sex', '?')}, {profile.get('age', '?')} anos, "
-        f"objetivo: {profile.get('goal', 'geral')}, "
-        f"{profile.get('height_cm', '?')}cm, {profile.get('weight_kg', '?')}kg\n\n"
-        "Gere o relatório JSON com highlights e development_areas."
-    )
+    development_areas: list[ReportSection] = [
+        ReportSection(
+            muscle_group=k,
+            title=f"{MUSCLE_LABELS[k]} com potencial",
+            description=str(v.get("note", "")),
+            score=int(v["score"]),
+        )
+        for k, v in scored[-3:][::-1]
+    ]
 
-    response = client.messages.create(
-        model="claude-sonnet-4-6",
-        max_tokens=2048,
-        system=[{"type": "text", "text": SYSTEM_PROMPT, "cache_control": {"type": "ephemeral"}}],
-        messages=[{"role": "user", "content": user_prompt}],
-    )
-
-    data = json.loads(response.content[0].text)
-    return Report(
-        highlights=[_validate_section(s) for s in data.get("highlights", [])],
-        development_areas=[_validate_section(s) for s in data.get("development_areas", [])],
-    )
+    return Report(highlights=highlights, development_areas=development_areas)

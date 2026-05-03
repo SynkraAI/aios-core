@@ -5,10 +5,8 @@ import httpx
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
-from app.pipeline.mediapipe_processor import process_image
 from app.pipeline.plan_generator import generate_workout_plan
 from app.pipeline.report_generator import generate_report
-from app.pipeline.score_calculator import calculate_scores, neutral_scores
 from app.pipeline.vision_analyzer import analyze_body_vision
 from app.services.db_service import get_analysis, mark_failed, mark_photos_deleted
 from app.services.s3_service import delete_all_photos, download_photo
@@ -23,6 +21,18 @@ INTERNAL_SECRET = os.getenv("INTERNAL_SECRET", "")
 class AnalyzeRequest(BaseModel):
     analysis_id: str
     user_id: str
+
+
+def _build_scores(body_composition: dict) -> dict:
+    """Extrai scores numéricos de muscle_scores + métricas globais."""
+    muscle_scores = body_composition.get("muscle_scores", {})
+    scores: dict = {}
+    for group, data in muscle_scores.items():
+        if isinstance(data, dict) and "score" in data:
+            scores[group] = int(data["score"])
+    scores["overall_score"] = int(body_composition.get("overall_score", 50))
+    scores["body_fat_estimate_pct"] = float(body_composition.get("body_fat_estimate", 0.0))
+    return scores
 
 
 @router.post("/analyze")
@@ -51,35 +61,22 @@ async def analyze(request: AnalyzeRequest):
         front_bytes = download_photo(front_url)
         back_bytes = download_photo(back_url)
 
-        # 3. MediaPipe pose landmarks (com fallback silencioso)
-        try:
-            landmarks_front = process_image(front_bytes)
-            landmarks_back = process_image(back_bytes)
-            pose_ok = True
-        except ValueError:
-            logger.warning("[ai-engine] Pose not detected for %s — using neutral scores", analysis_id)
-            landmarks_front = {}
-            landmarks_back = {}
-            pose_ok = False
-
-        # 4. Claude Vision — análise visual de composição corporal
-        #    Executado ANTES de deletar as fotos
+        # 3. Claude Vision — análise completa com scores musculares
         logger.info("[ai-engine] Running Claude Vision analysis for %s", analysis_id)
         body_composition = analyze_body_vision(front_bytes, back_bytes, profile)
 
-        # 5. Geometric score calculation (agora com dados do perfil)
-        scores = calculate_scores(landmarks_front, landmarks_back, profile) if pose_ok else neutral_scores(profile)
-        scores_dict = scores.to_dict()
+        # 4. Build scores dict from vision output
+        scores_dict = _build_scores(dict(body_composition))
 
-        # 6. LGPD: deletar fotos ANTES de persistir resultado
+        # 5. LGPD: deletar fotos ANTES de persistir resultado
         delete_all_photos(front_url, back_url)
         mark_photos_deleted(analysis_id)
 
-        # 7. Gerar relatório e plano de treino com dados combinados
-        report = generate_report(scores_dict, body_composition, profile)
-        workout_plan = generate_workout_plan(scores_dict, body_composition, profile)
+        # 6. Gerar relatório e plano de treino
+        report = generate_report(scores_dict, dict(body_composition), profile)
+        workout_plan = generate_workout_plan(scores_dict, dict(body_composition), profile)
 
-        # 8. Callback ao API Gateway
+        # 7. Callback ao API Gateway
         async with httpx.AsyncClient(timeout=30) as http:
             resp = await http.post(
                 f"{API_GATEWAY_URL}/internal/analyses/{analysis_id}/complete",

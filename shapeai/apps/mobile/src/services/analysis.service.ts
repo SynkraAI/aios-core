@@ -17,20 +17,41 @@ export interface AnalysisStatusResponse {
   completed_at?: string
 }
 
+export interface MuscleScore {
+  score: number
+  note: string
+}
+
+export interface MuscleScores {
+  quadriceps: MuscleScore
+  glutes: MuscleScore
+  calves: MuscleScore
+  biceps: MuscleScore
+  triceps: MuscleScore
+  chest: MuscleScore
+  abs: MuscleScore
+  traps: MuscleScore
+  lats: MuscleScore
+}
+
 export interface BodyScores {
-  shoulders: number
+  quadriceps: number
+  glutes: number
+  calves: number
+  biceps: number
+  triceps: number
   chest: number
-  back: number
-  arms: number
-  core: number
-  legs: number
-  posture_score: number
-  symmetry_score: number
+  abs: number
+  traps: number
+  lats: number
+  overall_score: number
+  body_fat_estimate_pct: number
 }
 
 export interface WorkoutSession {
-  name: string
-  exercises: string[]
+  day: number
+  muscle_groups: string[]
+  exercises: Array<{ name: string; sets: number; reps: string; rest_seconds: number; notes?: string }>
 }
 
 export interface WorkoutWeek {
@@ -43,10 +64,11 @@ export interface BodyComposition {
   body_fat_category: string
   fat_distribution: string
   fat_areas: string[]
-  muscle_highlights: string[]
-  muscle_deficits: string[]
-  proportional_notes: string
   body_type: string
+  muscle_scores: MuscleScores
+  overall_score: number
+  strengths_summary: string
+  weaknesses_summary: string
   overall_assessment: string
 }
 

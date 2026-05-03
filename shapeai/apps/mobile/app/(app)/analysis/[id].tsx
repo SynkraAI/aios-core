@@ -4,9 +4,9 @@ import { useLocalSearchParams, router } from 'expo-router'
 import { pollAnalysis } from '../../../src/services/analysis.service'
 
 const STEPS = [
-  'Analisando postura...',
-  'Calculando scores...',
-  'Gerando relatório...',
+  'Analisando composição corporal...',
+  'Pontuando grupos musculares...',
+  'Gerando relatório personalizado...',
   'Criando plano de treino...',
 ]
 
@@ -14,6 +14,7 @@ export default function AnalysisLoadingScreen() {
   const { id } = useLocalSearchParams<{ id: string }>()
   const [stepIndex, setStepIndex] = useState(0)
   const [error, setError] = useState<string | null>(null)
+  const [analysisFailed, setAnalysisFailed] = useState(false)
 
   useEffect(() => {
     if (!id) return
@@ -29,7 +30,8 @@ export default function AnalysisLoadingScreen() {
         if (result.status === 'completed') {
           router.replace(`/(app)/analysis/${id}/report`)
         } else {
-          setError('A análise falhou. Tente novamente.')
+          setAnalysisFailed(true)
+          setError('Não foi possível detectar seu corpo nas fotos.')
         }
       })
       .catch((err: Error) => {
@@ -46,6 +48,16 @@ export default function AnalysisLoadingScreen() {
         <Text style={styles.errorEmoji}>⚠️</Text>
         <Text style={styles.errorTitle}>Análise falhou</Text>
         <Text style={styles.errorMessage}>{error}</Text>
+        {analysisFailed && (
+          <View style={styles.tipBox}>
+            <Text style={styles.tipTitle}>Dicas para uma boa foto:</Text>
+            <Text style={styles.tipItem}>• Corpo inteiramente visível do topo ao chão</Text>
+            <Text style={styles.tipItem}>• Boa iluminação (evite sombras fortes)</Text>
+            <Text style={styles.tipItem}>• Fundo neutro e sem outros objetos</Text>
+            <Text style={styles.tipItem}>• Roupas justas (mostra o contorno do corpo)</Text>
+            <Text style={styles.tipItem}>• Câmera na altura do peito, a ~2m de distância</Text>
+          </View>
+        )}
         <TouchableOpacity style={styles.button} onPress={() => router.replace('/(app)/camera')}>
           <Text style={styles.buttonText}>Tentar novamente</Text>
         </TouchableOpacity>
@@ -69,7 +81,18 @@ const styles = StyleSheet.create({
   subtitle: { color: '#555', fontSize: 14, textAlign: 'center' },
   errorEmoji: { fontSize: 48, marginBottom: 16 },
   errorTitle: { color: '#fff', fontSize: 22, fontWeight: 'bold', marginBottom: 8 },
-  errorMessage: { color: '#888', fontSize: 14, textAlign: 'center', marginBottom: 32 },
+  errorMessage: { color: '#888', fontSize: 14, textAlign: 'center', marginBottom: 20 },
+  tipBox: {
+    backgroundColor: '#111',
+    borderRadius: 12,
+    padding: 16,
+    marginBottom: 24,
+    borderWidth: 1,
+    borderColor: '#222',
+    alignSelf: 'stretch',
+  },
+  tipTitle: { color: '#4CAF50', fontSize: 13, fontWeight: '700', marginBottom: 10 },
+  tipItem: { color: '#aaa', fontSize: 13, lineHeight: 22 },
   button: { backgroundColor: '#4CAF50', borderRadius: 12, padding: 16, paddingHorizontal: 32 },
   buttonText: { color: '#fff', fontSize: 16, fontWeight: '600' },
 })

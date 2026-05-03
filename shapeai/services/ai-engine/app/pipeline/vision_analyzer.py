@@ -11,10 +11,11 @@ from PIL import Image
 logger = logging.getLogger(__name__)
 client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
-MAX_IMAGE_PX = 1024  # limita tamanho para reduzir tokens
+MAX_IMAGE_PX = 1024
+
 
 VISION_PROMPT = """\
-Você é um coach de fisiculturismo e avaliador físico com 20 anos de experiência.
+Você é um avaliador físico especialista com 20 anos de experiência em musculação e fisiculturismo.
 Analise estas duas fotos corporais (frente e costas) e retorne SOMENTE um JSON válido, sem markdown.
 
 Estrutura obrigatória:
@@ -22,15 +23,54 @@ Estrutura obrigatória:
   "body_fat_estimate": <float: percentual estimado de gordura, ex: 18.5>,
   "body_fat_category": <"muito_magro"|"magro"|"atlético"|"médio"|"acima_media"|"obeso">,
   "fat_distribution": <"uniforme"|"abdominal"|"membros_inferiores"|"flancos"|"generalizada">,
-  "fat_areas": [<regiões com gordura localizada visível, ex: "abdomen", "flancos", "coxa", "glúteos", "peitoral_inferior">],
-  "muscle_highlights": [<grupos musculares visivelmente mais desenvolvidos>],
-  "muscle_deficits": [<grupos musculares menos desenvolvidos em relação ao restante do físico>],
-  "proportional_notes": <string: análise de proporção e equilíbrio — ex: "Ombros e braços desenvolvidos criam desequilíbrio com peitoral menos volumoso">,
+  "fat_areas": [<regiões com gordura localizada visível, ex: "abdomen", "flancos", "coxas", "glúteos">],
   "body_type": <"ectomorfo"|"mesomorfo"|"endomorfo"|"misto">,
-  "overall_assessment": <string: avaliação em tom de coach profissional, 2-3 frases diretas e motivadoras>
+  "muscle_scores": {
+    "quadriceps": { "score": <int 0-100>, "note": <string: 1-2 frases específicas sobre este grupo> },
+    "glutes":     { "score": <int 0-100>, "note": <string> },
+    "calves":     { "score": <int 0-100>, "note": <string> },
+    "biceps":     { "score": <int 0-100>, "note": <string> },
+    "triceps":    { "score": <int 0-100>, "note": <string> },
+    "chest":      { "score": <int 0-100>, "note": <string> },
+    "abs":        { "score": <int 0-100>, "note": <string> },
+    "traps":      { "score": <int 0-100>, "note": <string> },
+    "lats":       { "score": <int 0-100>, "note": <string> }
+  },
+  "overall_score": <int 0-100: média ponderada de todos os grupos>,
+  "strengths_summary": <string: 2-3 frases sobre os pontos mais fortes do físico>,
+  "weaknesses_summary": <string: 2-3 frases sobre as principais áreas a desenvolver>,
+  "overall_assessment": <string: avaliação geral em tom de coach profissional, 2-3 frases motivadoras>
 }
 
-Seja específico, honesto e construtivo. Analise simetria, proporções, gordura localizada e desenvolvimento relativo entre grupos musculares."""
+Critérios de score muscular (0-100):
+- 0-30: pouco desenvolvido, sem volume ou definição visível
+- 31-50: abaixo da média, desenvolvimento inicial
+- 51-70: desenvolvimento moderado, dentro da média
+- 71-85: bem desenvolvido, boa volumetria e definição
+- 86-100: excelente, nível avançado/atlético
+
+Regras para as notas:
+- Seja específico: mencione volumetria, definição, inserções visíveis, cobertura de gordura quando relevante
+- Compare o grupo com o restante do físico (ex: "bíceps bem desenvolvidos em contraste com tríceps menos volumosos")
+- Foco no que é visível — não invente o que não pode ver
+- Todas as notas em português brasileiro"""
+
+
+class MuscleScore(TypedDict):
+    score: int
+    note: str
+
+
+class MuscleScores(TypedDict):
+    quadriceps: MuscleScore
+    glutes: MuscleScore
+    calves: MuscleScore
+    biceps: MuscleScore
+    triceps: MuscleScore
+    chest: MuscleScore
+    abs: MuscleScore
+    traps: MuscleScore
+    lats: MuscleScore
 
 
 class BodyComposition(TypedDict):
@@ -38,15 +78,20 @@ class BodyComposition(TypedDict):
     body_fat_category: str
     fat_distribution: str
     fat_areas: list
-    muscle_highlights: list
-    muscle_deficits: list
-    proportional_notes: str
     body_type: str
+    muscle_scores: MuscleScores
+    overall_score: int
+    strengths_summary: str
+    weaknesses_summary: str
     overall_assessment: str
 
 
+_NEUTRAL_MUSCLE: MuscleScore = {"score": 50, "note": "Análise visual não disponível para este grupo."}
+
+_MUSCLE_KEYS = ("quadriceps", "glutes", "calves", "biceps", "triceps", "chest", "abs", "traps", "lats")
+
+
 def _resize_image(image_bytes: bytes, max_px: int = MAX_IMAGE_PX) -> bytes:
-    """Redimensiona para max_px no maior lado mantendo proporção."""
     img = Image.open(io.BytesIO(image_bytes)).convert("RGB")
     w, h = img.size
     if max(w, h) > max_px:
@@ -62,7 +107,6 @@ def _to_base64(image_bytes: bytes) -> str:
 
 
 def _fallback_composition(profile: dict) -> BodyComposition:
-    """Fallback baseado no perfil quando a API de visão está indisponível."""
     sex = profile.get("sex", "M")
     height = float(profile.get("height_cm") or 170)
     weight = float(profile.get("weight_kg") or 75)
@@ -86,23 +130,26 @@ def _fallback_composition(profile: dict) -> BodyComposition:
     else:
         category = "obeso"
 
+    neutral_scores: MuscleScores = {k: dict(_NEUTRAL_MUSCLE) for k in _MUSCLE_KEYS}  # type: ignore[assignment]
+
     return BodyComposition(
         body_fat_estimate=round(fat, 1),
         body_fat_category=category,
         fat_distribution="uniforme",
         fat_areas=[],
-        muscle_highlights=[],
-        muscle_deficits=[],
-        proportional_notes="Análise visual não disponível. Estimativa baseada em dados do perfil.",
         body_type="misto",
-        overall_assessment="Continue focado no seu objetivo. Com dados visuais limitados, concentre-se em consistência e progressão.",
+        muscle_scores=neutral_scores,
+        overall_score=50,
+        strengths_summary="Análise visual não disponível. Dados baseados no perfil.",
+        weaknesses_summary="Para uma análise completa, envie novas fotos com boa iluminação e fundo neutro.",
+        overall_assessment="Continue focado no seu objetivo. Com dados visuais limitados, mantenha consistência e progressão.",
     )
 
 
 def analyze_body_vision(
     front_bytes: bytes, back_bytes: bytes, profile: dict
 ) -> BodyComposition:
-    """Analisa composição corporal usando Claude Vision."""
+    """Analisa composição corporal e pontuação muscular usando Claude Vision."""
     try:
         front_resized = _resize_image(front_bytes)
         back_resized = _resize_image(back_bytes)
@@ -116,7 +163,7 @@ def analyze_body_vision(
 
         response = client.messages.create(
             model="claude-sonnet-4-6",
-            max_tokens=1024,
+            max_tokens=2048,
             messages=[
                 {
                     "role": "user",
@@ -150,15 +197,25 @@ def analyze_body_vision(
         raw = raw.removeprefix("```json").removeprefix("```").removesuffix("```").strip()
         data = json.loads(raw)
 
+        raw_scores = data.get("muscle_scores", {})
+        muscle_scores: MuscleScores = {
+            k: MuscleScore(
+                score=int(raw_scores.get(k, {}).get("score", 50)),
+                note=str(raw_scores.get(k, {}).get("note", "")),
+            )
+            for k in _MUSCLE_KEYS  # type: ignore[misc]
+        }
+
         return BodyComposition(
             body_fat_estimate=float(data.get("body_fat_estimate", 20.0)),
             body_fat_category=str(data.get("body_fat_category", "médio")),
             fat_distribution=str(data.get("fat_distribution", "uniforme")),
             fat_areas=list(data.get("fat_areas", [])),
-            muscle_highlights=list(data.get("muscle_highlights", [])),
-            muscle_deficits=list(data.get("muscle_deficits", [])),
-            proportional_notes=str(data.get("proportional_notes", "")),
             body_type=str(data.get("body_type", "misto")),
+            muscle_scores=muscle_scores,
+            overall_score=int(data.get("overall_score", 50)),
+            strengths_summary=str(data.get("strengths_summary", "")),
+            weaknesses_summary=str(data.get("weaknesses_summary", "")),
             overall_assessment=str(data.get("overall_assessment", "")),
         )
 
