@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.0.3
-generated_at: "2026-05-03T04:49:16.173Z"
+generated_at: "2026-05-03T04:59:11.387Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1092
 files:
@@ -261,9 +261,9 @@ files:
     type: core
     size: 8156
   - path: core/config/schemas/framework-config.schema.json
-    hash: sha256:e68804d6765e33147c6b94a1d97461afbc8be1732bb1124194eab50f5cca3cdd
+    hash: sha256:900caf051d112c29e4c8faa296fb1d37a3e7160c50b6180d1c8f07950d0fbd68
     type: core
-    size: 5890
+    size: 5940
   - path: core/config/schemas/local-config.schema.json
     hash: sha256:0349e44aea7b3dfe051ce586eb201f25edab8a7ea6d054704034f877848aa43f
     type: core
@@ -1221,9 +1221,9 @@ files:
     type: data
     size: 9575
   - path: data/entity-registry.yaml
-    hash: sha256:c565372c5a7bee430e11b42cd5aa0c04d3e0290cf63a0b4df259d164a36ac8c9
+    hash: sha256:2eef1e0116c0f4e8780a9c6f2b2cb0d6cab23818b66be4688142e022a0e18a6c
     type: data
-    size: 522697
+    size: 523351
   - path: data/learned-patterns.yaml
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data
