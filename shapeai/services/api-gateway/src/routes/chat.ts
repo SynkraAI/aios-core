@@ -113,9 +113,24 @@ function buildUserContext(
       lines.push(`Áreas a trabalhar: ${devAreas.map((d) => d.title).join(', ')}`)
     }
 
-    const workoutWeeks = analysis.workout_weeks as unknown[]
+    type Exercise = { name: string; sets: number; reps: string; rest_seconds: number; notes?: string }
+    type Session = { day: number; muscle_groups: string[]; exercises: Exercise[] }
+    type Week = { week_number: number; sessions: Session[] }
+    const workoutWeeks = analysis.workout_weeks as Week[] | null
+
     if (workoutWeeks?.length) {
-      lines.push(`Plano de treino ativo: ${workoutWeeks.length} semanas configuradas`)
+      const DAY_NAME: Record<number, string> = { 1: 'Segunda', 2: 'Terça', 3: 'Quarta', 4: 'Quinta', 5: 'Sexta', 6: 'Sábado', 7: 'Domingo' }
+      lines.push(`Plano de treino: ${workoutWeeks.length} semanas. Semana 1:`)
+      const week1 = workoutWeeks[0]
+      for (const session of week1.sessions) {
+        const day = DAY_NAME[session.day] ?? `Dia ${session.day}`
+        const groups = session.muscle_groups.join(', ')
+        lines.push(`  ${day} (${groups}):`)
+        for (const ex of session.exercises) {
+          const note = ex.notes ? ` — ${ex.notes}` : ''
+          lines.push(`    • ${ex.name}: ${ex.sets}x${ex.reps}, ${ex.rest_seconds}s descanso${note}`)
+        }
+      }
     }
   } else {
     lines.push('O usuário ainda não realizou análise de shape. Use o perfil disponível para orientações.')

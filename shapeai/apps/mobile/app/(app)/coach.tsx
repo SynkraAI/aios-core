@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useRef, useCallback } from 'react'
 import {
   View,
   Text,
@@ -11,12 +11,27 @@ import {
   Platform,
   SafeAreaView,
 } from 'react-native'
+import type { TextStyle, StyleProp } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { router, useFocusEffect } from 'expo-router'
 import { getUserProfile } from '../../src/services/profile.service'
 import { sendChatMessage, getChatUsage } from '../../src/services/chat.service'
 import type { ChatUsage, ChatResponse, ChatLimitError, HistoryEntry } from '../../src/services/chat.service'
 import type { UserProfile } from '@shapeai/shared'
+
+// Renders **bold** segments inside a message bubble
+function InlineText({ text, style }: { text: string; style?: StyleProp<TextStyle> }) {
+  const parts = text.split(/\*\*/)
+  return (
+    <Text style={style}>
+      {parts.map((part, i) =>
+        i % 2 === 1
+          ? <Text key={i} style={{ fontWeight: 'bold' }}>{part}</Text>
+          : part
+      )}
+    </Text>
+  )
+}
 
 interface Message {
   id: string
@@ -170,9 +185,10 @@ export default function CoachScreen() {
               key={msg.id}
               style={[styles.bubble, msg.role === 'user' ? styles.userBubble : styles.coachBubble]}
             >
-              <Text style={[styles.bubbleText, msg.role === 'user' ? styles.userText : styles.coachText]}>
-                {msg.text}
-              </Text>
+              <InlineText
+                text={msg.text}
+                style={[styles.bubbleText, msg.role === 'user' ? styles.userText : styles.coachText]}
+              />
             </View>
           ))}
 
