@@ -141,6 +141,7 @@ commands:
     visibility: [full]
     description: 'Toggle permission mode (cycle: ask > auto > explore)'
   - name: exit
+    visibility: [full]
     description: 'Exit agent mode'
   - name: create
     visibility: [full, quick, key]
@@ -149,14 +150,19 @@ commands:
     visibility: [full, quick, key]
     description: 'Modify existing AIOX component'
   - name: update-manifest
+    visibility: [full]
     description: 'Update team manifest'
   - name: validate-component
+    visibility: [full]
     description: 'Validate component security and standards'
   - name: deprecate-component
+    visibility: [full]
     description: 'Deprecate component with migration path'
   - name: propose-modification
+    visibility: [full]
     description: 'Propose framework modifications'
   - name: undo-last
+    visibility: [full]
     description: 'Undo last framework modification'
   - name: validate-workflow
     args: '{name|path} [--strict] [--all]'
@@ -167,16 +173,20 @@ commands:
     description: 'Workflow execution: guided (persona-switch) or engine (real subagent spawning)'
     visibility: [full]
   - name: analyze-framework
+    visibility: [full]
     description: 'Analyze framework structure and patterns'
   - name: list-components
+    visibility: [full]
     description: 'List all framework components'
   - name: test-memory
+    visibility: [full]
     description: 'Test memory layer connection'
   - name: task
     visibility: [full, quick, key]
     description: 'Execute specific task (or list available)'
   - name: execute-checklist
     args: '{checklist}'
+    visibility: [full]
     description: 'Run checklist (or list available)'
 
   # Workflow & Planning (Consolidated - Story 6.1.2.3)
@@ -192,43 +202,56 @@ commands:
   # Document Operations
   - name: create-doc
     args: '{template}'
+    visibility: [full]
     description: 'Create document (or list templates)'
   - name: doc-out
+    visibility: [full]
     description: 'Output complete document'
   - name: shard-doc
     args: '{document} {destination}'
+    visibility: [full]
     description: 'Break document into parts'
   - name: document-project
+    visibility: [full]
     description: 'Generate project documentation'
   - name: add-tech-doc
     args: '{file-path} [preset-name]'
+    visibility: [full]
     description: 'Create tech-preset from documentation file'
 
   # Story Creation
   - name: create-next-story
+    visibility: [full]
     description: 'Create next user story'
   # NOTE: Epic/story creation delegated to @pm (brownfield-create-epic/story)
 
   # Facilitation
   - name: advanced-elicitation
+    visibility: [full]
     description: 'Execute advanced elicitation'
   - name: chat-mode
+    visibility: [full]
     description: 'Start conversational assistance'
   # NOTE: Brainstorming delegated to @analyst (*brainstorm)
 
   # Utilities
   - name: agent
     args: '{name}'
+    visibility: [full]
     description: 'Get info about specialized agent (use @ to transform)'
 
   # Tools
   - name: validate-agents
+    visibility: [full]
     description: 'Validate all agent definitions (YAML parse, required fields, dependencies, pipeline reference)'
   - name: correct-course
+    visibility: [full]
     description: 'Analyze and correct process/quality deviations'
   - name: index-docs
+    visibility: [full]
     description: 'Index documentation for search'
   - name: update-source-tree
+    visibility: [full]
     description: 'Validate data file governance (owners, fill rules, existence)'
   # NOTE: Test suite creation delegated to @qa (*create-suite)
   # NOTE: AI prompt generation delegated to @architect (*generate-ai-prompt)
@@ -236,21 +259,27 @@ commands:
   # IDS — Incremental Development System (Story IDS-7)
   - name: ids check
     args: '{intent} [--type {type}]'
+    visibility: [full]
     description: 'Pre-check registry for REUSE/ADAPT/CREATE recommendations (advisory)'
   - name: ids impact
     args: '{entity-id}'
+    visibility: [full]
     description: 'Impact analysis — direct/indirect consumers via usedBy BFS traversal'
   - name: ids register
     args: '{file-path} [--type {type}] [--agent {agent}]'
+    visibility: [full]
     description: 'Register new entity in registry after creation'
   - name: ids health
+    visibility: [full]
     description: 'Registry health check (graceful fallback if RegistryHealer unavailable)'
   - name: ids stats
+    visibility: [full]
     description: 'Registry statistics (entity count by type, categories, health score)'
 
   # Code Intelligence — Registry Enrichment (Story NOG-2)
   - name: sync-registry-intel
     args: '[--full]'
+    visibility: [full]
     description: 'Enrich entity registry with code intelligence data (usedBy, dependencies, codeIntelMetadata). Use --full to force full resync.'
 
 # IDS Pre-Action Hooks (Story IDS-7)

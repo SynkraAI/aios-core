@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.0.3
-generated_at: "2026-05-03T05:32:18.699Z"
+generated_at: "2026-05-03T05:38:51.109Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1092
 files:
@@ -1317,9 +1317,9 @@ files:
     type: development
     size: 5012
   - path: development/agents/aiox-master.md
-    hash: sha256:fb8a5277b347681165266c23d12f87b6a7b43e54e1793d926f4a7e76a291389d
+    hash: sha256:9a4cb19d885e13935ae464bbef0d9009feba21b6a14dcf75815de50901e3d065
     type: agent
-    size: 19730
+    size: 20397
   - path: development/agents/analyst.md
     hash: sha256:35150d764c6dc74bc02b61a4d613c9278e87ffb209403db23991339fdda4f8e2
     type: agent
