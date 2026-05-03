@@ -35,8 +35,8 @@ def _y(lm: dict, key: str) -> float:
 
 def _bmi_body_fat(profile: dict) -> float:
     """Estimativa de gordura via fórmula de Deurenberg (BMI + sexo)."""
-    height = profile.get("height_cm") or 170
-    weight = profile.get("weight_kg") or 75
+    height = float(profile.get("height_cm") or 170)
+    weight = float(profile.get("weight_kg") or 75)
     sex = profile.get("sex", "M")
     bmi = weight / ((height / 100) ** 2)
     # Deurenberg: BF% = 1.20×BMI + 0.23×age − 10.8×sex − 5.4  (sex: 1=M, 0=F)

@@ -43,8 +43,8 @@ async def analyze(request: AnalyzeRequest):
         profile = {
             "sex": analysis.get("sex"),
             "goal": analysis.get("goal"),
-            "height_cm": analysis.get("height_cm"),
-            "weight_kg": analysis.get("weight_kg"),
+            "height_cm": float(analysis["height_cm"]) if analysis.get("height_cm") is not None else None,
+            "weight_kg": float(analysis["weight_kg"]) if analysis.get("weight_kg") is not None else None,
         }
 
         # 2. Download photos
