@@ -25,26 +25,43 @@ const path = require('path');
 
 // Dynamic license path resolution — duplicates pattern from pro/index.js so
 // buyer.js can be loaded independently. Kept intentionally self-contained.
+//
+// Resolution order (matches pro/index.js and pro-setup.js):
+//   1. Bundled pro/ (framework-dev / npx context with submodule)
+//   2. npm canonical scope (@aiox-fullstack/pro) — preferred future state
+//   3. npm legacy scope (@aios-fullstack/pro) — fallback while npm rename in flight
+//   4. cwd node_modules under either scope
+const PRO_PACKAGE_CANONICAL = '@aiox-fullstack/pro';
+const PRO_PACKAGE_FALLBACK = '@aios-fullstack/pro';
+const PRO_PACKAGES = [PRO_PACKAGE_CANONICAL, PRO_PACKAGE_FALLBACK];
+
 function resolveLicensePath() {
   const relativePath = path.resolve(__dirname, '..', '..', '..', '..', 'pro', 'license');
   if (fs.existsSync(relativePath)) {
     return relativePath;
   }
 
-  try {
-    const proPkg = require.resolve('@aiox-fullstack/pro/package.json');
-    const proDir = path.dirname(proPkg);
-    const npmPath = path.join(proDir, 'license');
-    if (fs.existsSync(npmPath)) {
-      return npmPath;
+  // Try canonical first, then fallback scope via require.resolve
+  for (const pkgName of PRO_PACKAGES) {
+    try {
+      const proPkg = require.resolve(`${pkgName}/package.json`);
+      const proDir = path.dirname(proPkg);
+      const npmPath = path.join(proDir, 'license');
+      if (fs.existsSync(npmPath)) {
+        return npmPath;
+      }
+    } catch {
+      // package not installed under this scope — try next
     }
-  } catch {
-    // fall through
   }
 
-  const cwdPath = path.join(process.cwd(), 'node_modules', '@aiox-fullstack', 'pro', 'license');
-  if (fs.existsSync(cwdPath)) {
-    return cwdPath;
+  // cwd fallback (when require.resolve doesn't see the package, e.g., npx context)
+  for (const pkgName of PRO_PACKAGES) {
+    const [scope, pkg] = pkgName.split('/');
+    const cwdPath = path.join(process.cwd(), 'node_modules', scope, pkg, 'license');
+    if (fs.existsSync(cwdPath)) {
+      return cwdPath;
+    }
   }
 
   return relativePath;
@@ -58,7 +75,8 @@ function loadClient() {
     return licenseApi;
   } catch (error) {
     console.error('Erro: módulo AIOX Pro license não disponível.');
-    console.error('Instale: npm install @aiox-fullstack/pro');
+    console.error(`Instale: npm install ${PRO_PACKAGE_CANONICAL}`);
+    console.error(`(ou fallback: npm install ${PRO_PACKAGE_FALLBACK})`);
     console.error(`Detalhe: ${error.message}`);
     process.exit(2);
   }
