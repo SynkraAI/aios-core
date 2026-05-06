@@ -569,7 +569,7 @@ class AIOXUpdater {
 
       result.filesUpdated = updateApplied.filesUpdated;
       result.filesPreserved =
-        updateApplied.filesSkipped?.length || customizations.customized.length;
+        updateApplied.filesSkipped?.length ?? customizations.customized.length;
       this.lastSourcePackageRoot = updateApplied.sourcePackageRoot || this.lastSourcePackageRoot;
       this.lastSourceManifest = updateApplied.sourceManifest || this.lastSourceManifest;
 

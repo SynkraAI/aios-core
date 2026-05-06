@@ -35,6 +35,7 @@ const agentSet = (process.env.AIOX_E2E_AGENT_SET || 'dev,qa,aiox-master')
 const defaultCommandTimeoutMs = parseTimeoutEnv('AIOX_E2E_COMMAND_TIMEOUT_MS', 120000);
 const npmInstallTimeoutMs = parseTimeoutEnv('AIOX_E2E_NPM_INSTALL_TIMEOUT_MS', 420000);
 const npmInstallFlags = ['--no-audit', '--fund=false'];
+const npxBin = process.platform === 'win32' ? 'npx.cmd' : 'npx';
 
 const packDir = fs.mkdtempSync(path.join(os.tmpdir(), 'aiox-pack-'));
 const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'aiox-installed-skills-'));
@@ -87,7 +88,7 @@ function run(command, args, options = {}) {
 }
 
 function runInstalledCli(args, options = {}) {
-  return run('npx', ['--no-install', 'aiox-core', ...args], options);
+  return run(npxBin, ['--no-install', 'aiox-core', ...args], options);
 }
 
 function assertPathExists(relativePath, type = 'any') {
