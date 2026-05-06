@@ -178,9 +178,15 @@ async function main() {
     timeout: npmInstallTimeoutMs,
   });
 
-  const cliPath = path.join(projectRoot, packageInstallRelativePath, 'bin', 'aiox.js');
+  const cliPath = path.join(
+    projectRoot,
+    'node_modules',
+    '.bin',
+    `aiox-core${process.platform === 'win32' ? '.cmd' : ''}`
+  );
   const packagedCoreDir = path.join(projectRoot, packageInstallRelativePath, '.aiox-core');
   assertPathExists(path.join(packageInstallRelativePath, 'bin', 'aiox.js'), 'file');
+  assertPathExists(path.join('node_modules', '.bin', path.basename(cliPath)), 'file');
 
   log('Validating packaged .aiox-core dependencies');
   assertAbsolutePathExists(path.join(packagedCoreDir, 'package.json'), 'file');
@@ -193,7 +199,7 @@ async function main() {
   }
 
   log('Running installed aiox install in CI mode');
-  run('node', [cliPath, 'install', '--ci', '--yes', '--ide', 'claude-code'], {
+  run(cliPath, ['install', '--ci', '--yes', '--ide', 'claude-code'], {
     cwd: projectRoot,
     timeout: 240000,
     env: {

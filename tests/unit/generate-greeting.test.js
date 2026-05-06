@@ -11,15 +11,16 @@
 
 const path = require('path');
 
+const REPO_ROOT = path.resolve(__dirname, '..', '..');
 const SCRIPT_PATH = path.join(
-  process.cwd(),
+  REPO_ROOT,
   '.aiox-core',
   'development',
   'scripts',
   'generate-greeting.js'
 );
 const RUNTIME_PATH = path.join(
-  process.cwd(),
+  REPO_ROOT,
   '.aiox-core',
   'development',
   'scripts',
