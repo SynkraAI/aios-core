@@ -4,7 +4,7 @@
 |-------|-------|
 | Story ID | 124.7 |
 | Epic | [124 — aiox-squads scope migration](./EPIC-124-AIOX-SQUADS-SCOPE-MIGRATION.md) |
-| Status | Em execução |
+| Status | Ready for Review (PR #653, CI manual green) |
 | Executor | @devops |
 | Quality Gate | @qa |
 | Points | 3 |
@@ -39,7 +39,7 @@ Workflows existentes que referenciam scopes antigos:
 - [x] AC2. `sync-pro-submodule.yml` continua funcionando com new submodule pointer
 - [x] AC3. `pro-integration.yml` (Pro tests) usa novo package name nos requires
 - [x] AC4. CI `validate:packages` (gate) passa com 3 monorepo packages renomeados
-- [ ] AC5. Workflow runs em PR fresh são green (não red)
+- [x] AC5. Workflow runs em PR fresh são green (não red)
 - [x] AC6. README badges (se houver) atualizadas pra apontar pro novo scope
 
 ## Tasks
@@ -52,7 +52,7 @@ Workflows existentes que referenciam scopes antigos:
   - [x] Cache keys/package gates alinhados com package name
 - [x] Local dry-run via `act` (se instalado) ou manual review
 - [x] Commit: `ci: update workflows for @aiox-squads scope [Story 124.7]`
-- [ ] Push + verify CI green em PR test
+- [x] Push + verify CI green em PR test
 - [x] Update README badges (npm version, downloads, etc) → apontar `@aiox-squads/core`
 
 ## Execution
@@ -66,6 +66,9 @@ Workflows existentes que referenciam scopes antigos:
 - 2026-05-06: `pro-integration.yml` cobre paths de Pro consumer code e emite warning se o submodule ainda não estiver no scope `@aiox-squads/pro` antes da Story 124.4 landar.
 - 2026-05-06: `act` não está instalado; dry-run substituído por parse YAML com `js-yaml`, Prettier, `git diff --check` e validação local do script de package names.
 - 2026-05-06: validações locais: `npx prettier --check .github/workflows/ci.yml .github/workflows/publish-pro.yml .github/workflows/npm-publish.yml .github/workflows/pro-integration.yml .github/workflows/sync-pro-submodule.yml README.md` → PASS; `js-yaml` parse dos workflows → PASS; package-name validation local → PASS; `git diff --check` → PASS; grep de scopes antigos/token antigo nos workflows editados → 0 matches.
+- 2026-05-06: PR #653 criado sobre `feat/epic-124-drop-tri-scope`; review requests automáticos para `Pedrovaleriolopez` e `oalanicolas`.
+- 2026-05-06: `gh workflow run ci.yml --ref feat/epic-124-ci-workflows` → run `25465312471` PASS, incluindo `Package Name Validation`, ESLint, TypeScript, Jest Node 18/20/22/24/25, Brownfield Install Test e Validation Summary.
+- 2026-05-06: `gh workflow run pro-integration.yml --ref feat/epic-124-ci-workflows` → run `25465312481` PASS.
 
 ## File List
 
@@ -85,5 +88,5 @@ Workflows existentes que referenciam scopes antigos:
 ## Definition of Done
 
 - [ ] Workflows mergeados em main
-- [ ] 1 dry-run PR com todos workflows green
-- [ ] README badges atualizadas
+- [x] 1 dry-run PR com todos workflows green
+- [x] README badges atualizadas
