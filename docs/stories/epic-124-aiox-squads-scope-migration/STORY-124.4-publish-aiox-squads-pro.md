@@ -4,7 +4,7 @@
 |-------|-------|
 | Story ID | 124.4 |
 | Epic | [124 — aiox-squads scope migration](./EPIC-124-AIOX-SQUADS-SCOPE-MIGRATION.md) |
-| Status | In Progress — aiox-pro PR merged; npm publish pending |
+| Status | Ready for Review (PR #655; npm publish pending) |
 | Executor | @devops |
 | Quality Gate | @qa |
 | Points | 5 |
@@ -35,7 +35,7 @@ Cross-repo: precisa de PR no `SynkraAI/aiox-pro` (submodule) PRIMEIRO, depois up
 - [ ] AC4. `npm view @aiox-squads/pro version` retorna `0.4.0`
 - [x] AC5. Submodule pointer no aiox-core atualizado pro novo HEAD do aiox-pro/main
 - [ ] AC6. Smoke test via `tests/license/license-api-buyer.test.js` contra novo package
-- [ ] AC7. CI workflow `pro-integration.yml` continua passing com submodule pointer atualizado
+- [x] AC7. CI workflow `pro-integration.yml` continua passing com submodule pointer atualizado
 
 ## Tasks
 
@@ -62,6 +62,8 @@ Cross-repo: precisa de PR no `SynkraAI/aiox-pro` (submodule) PRIMEIRO, depois up
 - 2026-05-06: `pro` submodule em aiox-core atualizado para `9197e00ff59d19b1000e21a973f75bd71d2c221e`; `pro/package.json` confirma `@aiox-squads/pro@0.4.0`.
 - 2026-05-06: `npx jest tests/pro/pro-detector.test.js tests/pro/pro-updater.test.js tests/license/license-api-buyer.test.js --runInBand --forceExit` → PASS (2 suites, 32 tests; license buyer suite não executou neste checkout porque depende de package publicado/Pro package disponível via registry).
 - 2026-05-06: grep de runtime no `pro/` contra `@aios-fullstack|@aiox-fullstack` encontrou apenas nota histórica permitida no `pro/README.md`; `pro/package.json` e runtime apontam para `@aiox-squads/pro`.
+- 2026-05-06: PR #655 criado sobre `feat/epic-124-ci-workflows`; review requests automáticos para `Pedrovaleriolopez` e `oalanicolas`.
+- 2026-05-06: `gh workflow run pro-integration.yml --ref feat/epic-124-sync-pro-submodule` → run `25465961053` PASS.
 
 ## File List
 
