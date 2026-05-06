@@ -45,6 +45,7 @@ export interface BodyScores {
   abs: number
   traps: number
   lats: number
+  shoulders: number
   overall_score: number
   body_fat_estimate_pct: number
 }

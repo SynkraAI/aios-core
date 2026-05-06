@@ -385,12 +385,11 @@ const styles = StyleSheet.create({
 
   // Hero
   heroWrapper: {
-    width: '100%',
+    width: '120%',
     height: 320,
     borderRadius: 0,
     overflow: 'hidden',
     marginHorizontal: -20,
-    width: '120%',
   },
   heroImage: {
     ...StyleSheet.absoluteFillObject,
