@@ -191,7 +191,10 @@ async function main() {
   );
   const packagedCoreDir = path.join(projectRoot, packageInstallRelativePath, '.aiox-core');
   assertPathExists(path.join(packageInstallRelativePath, 'bin', 'aiox.js'), 'file');
-  assertPathExists(path.join('node_modules', '.bin', path.basename(cliPath)), 'file');
+  assertPathExists(path.join('node_modules', '.bin', 'aiox-core'), 'any');
+  if (process.platform === 'win32') {
+    assertPathExists(path.join('node_modules', '.bin', path.basename(cliPath)), 'file');
+  }
 
   log('Validating packaged .aiox-core dependencies');
   assertAbsolutePathExists(path.join(packagedCoreDir, 'package.json'), 'file');

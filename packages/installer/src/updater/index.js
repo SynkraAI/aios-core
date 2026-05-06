@@ -19,7 +19,7 @@
 const fs = require('fs-extra');
 const path = require('path');
 const https = require('https');
-const { execSync } = require('child_process');
+const { execFileSync } = require('child_process');
 const installerDir = path.join(__dirname, '..', 'installer');
 const { hashFile, hashesMatch } = require(path.join(installerDir, 'file-hasher'));
 const { PostInstallValidator, formatReport: formatValidationReport } = require(
@@ -42,9 +42,14 @@ function getPackageRoot(projectRoot, packageName) {
 }
 
 function findInstalledCorePackageRoot(projectRoot) {
-  return CORE_PACKAGE_CANDIDATES.map((packageName) =>
-    getPackageRoot(projectRoot, packageName)
-  ).find((packageRoot) => fs.existsSync(path.join(packageRoot, 'package.json')));
+  return findInstalledCorePackage(projectRoot)?.packageRoot || null;
+}
+
+function findInstalledCorePackage(projectRoot) {
+  return CORE_PACKAGE_CANDIDATES.map((packageName) => ({
+    packageName,
+    packageRoot: getPackageRoot(projectRoot, packageName),
+  })).find(({ packageRoot }) => fs.existsSync(path.join(packageRoot, 'package.json')));
 }
 
 function manifestToInstalledManifest(manifest) {
@@ -695,20 +700,26 @@ class AIOXUpdater {
     };
 
     try {
-      const previousPackageRoot = findInstalledCorePackageRoot(this.projectRoot);
+      const previousCorePackage = findInstalledCorePackage(this.projectRoot);
+      const previousPackageRoot = previousCorePackage?.packageRoot || null;
       const previousSourceManifest = previousPackageRoot
         ? loadSourceManifest(path.join(previousPackageRoot, '.aiox-core'))
         : null;
 
-      // Use npm to update the package
-      const cmd = `npm install ${CORE_PACKAGE_NAME}@${targetVersion} --save-exact`;
-      this.log(`Running: ${cmd}`);
-
-      execSync(cmd, {
+      const npmOptions = {
         cwd: this.projectRoot,
         stdio: this.options.verbose ? 'inherit' : 'pipe',
         timeout: 120000, // 2 minutes
-      });
+      };
+
+      if (previousCorePackage && previousCorePackage.packageName !== CORE_PACKAGE_NAME) {
+        this.log(`Running: npm uninstall ${previousCorePackage.packageName}`);
+        execFileSync('npm', ['uninstall', previousCorePackage.packageName], npmOptions);
+      }
+
+      const packageSpecifier = `${CORE_PACKAGE_NAME}@${targetVersion}`;
+      this.log(`Running: npm install ${packageSpecifier} --save-exact`);
+      execFileSync('npm', ['install', packageSpecifier, '--save-exact'], npmOptions);
 
       const sourcePackageRoot = getPackageRoot(this.projectRoot, CORE_PACKAGE_NAME);
       const sourceAioxCore = path.join(sourcePackageRoot, '.aiox-core');
