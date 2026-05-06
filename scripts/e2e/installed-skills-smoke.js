@@ -208,6 +208,8 @@ async function main() {
       AIOX_INSTALL_QUIET: '1',
     },
   });
+  // TODO(Story 124.7): add a hermetic `aiox update` smoke once the scoped
+  // package can be resolved from the publish workflow or a local registry.
 
   log('Validating installed skill and agent artifacts');
   assertPathExists('.aiox-core', 'dir');
