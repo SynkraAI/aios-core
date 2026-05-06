@@ -28,7 +28,9 @@ function loadProviderModule() {
       queryMemories: mockQueryMemories,
     })),
   });
-  const memoryLoaderExists = fs.existsSync(path.join(__dirname, '../../pro/memory/memory-loader.js'));
+  const memoryLoaderExists = fs.existsSync(
+    path.join(__dirname, '../../pro/memory/memory-loader.js')
+  );
 
   if (memoryLoaderExists) {
     jest.doMock('../../pro/memory/memory-loader', mockFactory);
@@ -52,13 +54,13 @@ describe('SynapseMemoryProvider', () => {
   let provider;
 
   beforeEach(() => {
-    ({
-      SynapseMemoryProvider,
-      AGENT_SECTOR_PREFERENCES,
-      BRACKET_CONFIG,
-      DEFAULT_SECTORS,
-    } = loadProviderModule());
+    ({ SynapseMemoryProvider, AGENT_SECTOR_PREFERENCES, BRACKET_CONFIG, DEFAULT_SECTORS } =
+      loadProviderModule());
+    mockQueryMemories = jest.fn(() => Promise.resolve([]));
     provider = new SynapseMemoryProvider();
+    provider._getLoader = () => ({
+      queryMemories: mockQueryMemories,
+    });
   });
 
   // -------------------------------------------------------------------------
@@ -84,30 +86,42 @@ describe('SynapseMemoryProvider', () => {
   describe('agent-scoped sector filtering', () => {
     test('@dev gets procedural + semantic sectors', async () => {
       await provider.getMemories('dev', 'MODERATE', 100);
-      expect(mockQueryMemories).toHaveBeenCalledWith('dev', expect.objectContaining({
-        sectors: ['procedural', 'semantic'],
-      }));
+      expect(mockQueryMemories).toHaveBeenCalledWith(
+        'dev',
+        expect.objectContaining({
+          sectors: ['procedural', 'semantic'],
+        })
+      );
     });
 
     test('@qa gets reflective + episodic sectors', async () => {
       await provider.getMemories('qa', 'MODERATE', 100);
-      expect(mockQueryMemories).toHaveBeenCalledWith('qa', expect.objectContaining({
-        sectors: ['reflective', 'episodic'],
-      }));
+      expect(mockQueryMemories).toHaveBeenCalledWith(
+        'qa',
+        expect.objectContaining({
+          sectors: ['reflective', 'episodic'],
+        })
+      );
     });
 
     test('@architect gets semantic + reflective sectors', async () => {
       await provider.getMemories('architect', 'MODERATE', 100);
-      expect(mockQueryMemories).toHaveBeenCalledWith('architect', expect.objectContaining({
-        sectors: ['semantic', 'reflective'],
-      }));
+      expect(mockQueryMemories).toHaveBeenCalledWith(
+        'architect',
+        expect.objectContaining({
+          sectors: ['semantic', 'reflective'],
+        })
+      );
     });
 
     test('unknown agent gets default sector (semantic)', async () => {
       await provider.getMemories('unknown-agent', 'MODERATE', 100);
-      expect(mockQueryMemories).toHaveBeenCalledWith('unknown-agent', expect.objectContaining({
-        sectors: ['semantic'],
-      }));
+      expect(mockQueryMemories).toHaveBeenCalledWith(
+        'unknown-agent',
+        expect.objectContaining({
+          sectors: ['semantic'],
+        })
+      );
     });
   });
 
@@ -117,9 +131,7 @@ describe('SynapseMemoryProvider', () => {
 
   describe('session-level caching', () => {
     test('caches results by agentId + bracket', async () => {
-      mockQueryMemories.mockResolvedValue([
-        { content: 'cached', relevance: 0.8 },
-      ]);
+      mockQueryMemories.mockResolvedValue([{ content: 'cached', relevance: 0.8 }]);
 
       const first = await provider.getMemories('dev', 'MODERATE', 100);
       const second = await provider.getMemories('dev', 'MODERATE', 100);
@@ -148,9 +160,7 @@ describe('SynapseMemoryProvider', () => {
     });
 
     test('clearCache empties the cache', async () => {
-      mockQueryMemories.mockResolvedValue([
-        { content: 'test', relevance: 0.5 },
-      ]);
+      mockQueryMemories.mockResolvedValue([{ content: 'test', relevance: 0.5 }]);
 
       await provider.getMemories('dev', 'MODERATE', 100);
       provider.clearCache();
@@ -167,29 +177,38 @@ describe('SynapseMemoryProvider', () => {
   describe('bracket configuration', () => {
     test('MODERATE uses layer 1, limit 3, minRelevance 0.7', async () => {
       await provider.getMemories('dev', 'MODERATE', 50);
-      expect(mockQueryMemories).toHaveBeenCalledWith('dev', expect.objectContaining({
-        layer: 1,
-        limit: 3,
-        minRelevance: 0.7,
-      }));
+      expect(mockQueryMemories).toHaveBeenCalledWith(
+        'dev',
+        expect.objectContaining({
+          layer: 1,
+          limit: 3,
+          minRelevance: 0.7,
+        })
+      );
     });
 
     test('DEPLETED uses layer 2, limit 5, minRelevance 0.5', async () => {
       await provider.getMemories('dev', 'DEPLETED', 200);
-      expect(mockQueryMemories).toHaveBeenCalledWith('dev', expect.objectContaining({
-        layer: 2,
-        limit: 5,
-        minRelevance: 0.5,
-      }));
+      expect(mockQueryMemories).toHaveBeenCalledWith(
+        'dev',
+        expect.objectContaining({
+          layer: 2,
+          limit: 5,
+          minRelevance: 0.5,
+        })
+      );
     });
 
     test('CRITICAL uses layer 3, limit 10, minRelevance 0.3', async () => {
       await provider.getMemories('dev', 'CRITICAL', 1000);
-      expect(mockQueryMemories).toHaveBeenCalledWith('dev', expect.objectContaining({
-        layer: 3,
-        limit: 10,
-        minRelevance: 0.3,
-      }));
+      expect(mockQueryMemories).toHaveBeenCalledWith(
+        'dev',
+        expect.objectContaining({
+          layer: 3,
+          limit: 10,
+          minRelevance: 0.3,
+        })
+      );
     });
 
     test('unknown bracket returns []', async () => {
@@ -238,9 +257,7 @@ describe('SynapseMemoryProvider', () => {
     });
 
     test('uses summary or title as fallback content', async () => {
-      mockQueryMemories.mockResolvedValue([
-        { summary: 'Summary text', relevance: 0.6 },
-      ]);
+      mockQueryMemories.mockResolvedValue([{ summary: 'Summary text', relevance: 0.6 }]);
 
       const hints = await provider.getMemories('dev', 'MODERATE', 100);
       expect(hints.length).toBe(1);
@@ -270,6 +287,11 @@ describe('SynapseMemoryProvider', () => {
 // =============================================================================
 
 describe('module exports', () => {
+  beforeAll(() => {
+    ({ SynapseMemoryProvider, AGENT_SECTOR_PREFERENCES, BRACKET_CONFIG, DEFAULT_SECTORS } =
+      loadProviderModule());
+  });
+
   test('BRACKET_CONFIG has MODERATE, DEPLETED, CRITICAL', () => {
     expect(BRACKET_CONFIG).toHaveProperty('MODERATE');
     expect(BRACKET_CONFIG).toHaveProperty('DEPLETED');
