@@ -614,7 +614,7 @@ O **AIOX Pro** é o módulo premium do AIOX, oferecendo funcionalidades avançad
 npx aiox-pro install
 ```
 
-### Atualização 5.0.8
+### Identificação Estável de Máquina (>= 5.0.8)
 
 O AIOX Pro agora usa o UUID nativo do sistema operacional para gerar `machineId`, preservando o hash SHA-256 e evitando consumo extra de assentos quando o macOS, VPNs ou redes Wi-Fi alteram o MAC/interface ativa.
 
