@@ -20,18 +20,18 @@ const fs = require('fs-extra');
 const path = require('path');
 const https = require('https');
 const { execSync } = require('child_process');
-const { hashFile, hashesMatch } = require('../installer/file-hasher');
-const {
-  PostInstallValidator,
-  formatReport: formatValidationReport,
-} = require('../installer/post-install-validator');
+const installerDir = path.join(__dirname, '..', 'installer');
+const { hashFile, hashesMatch } = require(path.join(installerDir, 'file-hasher'));
+const { PostInstallValidator, formatReport: formatValidationReport } = require(
+  path.join(installerDir, 'post-install-validator')
+);
 const {
   loadSourceManifest,
   loadInstalledManifest,
   generateUpgradeReport,
   applyUpgrade,
   updateInstalledManifest,
-} = require('../installer/brownfield-upgrader');
+} = require(path.join(installerDir, 'brownfield-upgrader'));
 
 const CORE_PACKAGE_NAME = '@aiox-squads/core';
 const LEGACY_CORE_PACKAGE_NAMES = ['aiox-core', '@synkra/aiox-core'];

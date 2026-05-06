@@ -86,6 +86,10 @@ function run(command, args, options = {}) {
   return result.stdout || '';
 }
 
+function runInstalledCli(args, options = {}) {
+  return run('npx', ['--no-install', 'aiox-core', ...args], options);
+}
+
 function assertPathExists(relativePath, type = 'any') {
   const absolutePath = path.join(projectRoot, relativePath);
   if (!fs.existsSync(absolutePath)) {
@@ -190,7 +194,7 @@ async function main() {
 
   log('Validating packaged .aiox-core dependencies');
   assertAbsolutePathExists(path.join(packagedCoreDir, 'package.json'), 'file');
-  run('npm', ['install', '--production', '--ignore-scripts', ...npmInstallFlags], {
+  run('npm', ['install', '--omit=dev', '--ignore-scripts', ...npmInstallFlags], {
     cwd: packagedCoreDir,
     timeout: npmInstallTimeoutMs,
   });
@@ -199,7 +203,7 @@ async function main() {
   }
 
   log('Running installed aiox install in CI mode');
-  run(cliPath, ['install', '--ci', '--yes', '--ide', 'claude-code'], {
+  runInstalledCli(['install', '--ci', '--yes', '--ide', 'claude-code'], {
     cwd: projectRoot,
     timeout: 240000,
     env: {
@@ -264,7 +268,7 @@ async function main() {
   }
 
   log('Running installed doctor --json');
-  const doctorOutput = run('node', [cliPath, 'doctor', '--json'], {
+  const doctorOutput = runInstalledCli(['doctor', '--json'], {
     cwd: projectRoot,
     timeout: 120000,
   });
