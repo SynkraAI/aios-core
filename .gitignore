@@ -148,6 +148,7 @@ aiox-core/*.map
 
 # Applications (separate deployments, NOT part of npm package)
 apps/
+!shapeai/apps/
 
 # External projects (separate repositories)
 aiox-guide-app/
