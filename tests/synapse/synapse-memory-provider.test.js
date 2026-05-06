@@ -8,30 +8,41 @@
  * @migrated INS-4.11 AC9 - Moved to open-source, removed feature gate
  */
 
+const fs = require('fs');
+const path = require('path');
+
 jest.setTimeout(10000);
 
-// ---------------------------------------------------------------------------
-// Mocks
-// ---------------------------------------------------------------------------
+let mockQueryMemories;
+let SynapseMemoryProvider;
+let AGENT_SECTOR_PREFERENCES;
+let BRACKET_CONFIG;
+let DEFAULT_SECTORS;
 
-const mockQueryMemories = jest.fn(() => Promise.resolve([]));
+function loadProviderModule() {
+  jest.resetModules();
+  mockQueryMemories = jest.fn(() => Promise.resolve([]));
 
-jest.mock('../../pro/memory/memory-loader', () => ({
-  MemoryLoader: jest.fn().mockImplementation(() => ({
-    queryMemories: mockQueryMemories,
-  })),
-}), { virtual: true });
+  const mockFactory = () => ({
+    MemoryLoader: jest.fn().mockImplementation(() => ({
+      queryMemories: mockQueryMemories,
+    })),
+  });
+  const memoryLoaderExists = fs.existsSync(path.join(__dirname, '../../pro/memory/memory-loader.js'));
 
-// ---------------------------------------------------------------------------
-// Import (after mocks)
-// ---------------------------------------------------------------------------
+  if (memoryLoaderExists) {
+    jest.doMock('../../pro/memory/memory-loader', mockFactory);
+  } else {
+    jest.doMock('../../pro/memory/memory-loader', mockFactory, { virtual: true });
+  }
 
-const {
-  SynapseMemoryProvider,
-  AGENT_SECTOR_PREFERENCES,
-  BRACKET_CONFIG,
-  DEFAULT_SECTORS,
-} = require('../../.aiox-core/core/synapse/memory/synapse-memory-provider');
+  let loadedModule;
+  jest.isolateModules(() => {
+    loadedModule = require('../../.aiox-core/core/synapse/memory/synapse-memory-provider');
+  });
+
+  return loadedModule;
+}
 
 // =============================================================================
 // SynapseMemoryProvider
@@ -41,8 +52,12 @@ describe('SynapseMemoryProvider', () => {
   let provider;
 
   beforeEach(() => {
-    mockQueryMemories.mockReset();
-    mockQueryMemories.mockResolvedValue([]);
+    ({
+      SynapseMemoryProvider,
+      AGENT_SECTOR_PREFERENCES,
+      BRACKET_CONFIG,
+      DEFAULT_SECTORS,
+    } = loadProviderModule());
     provider = new SynapseMemoryProvider();
   });
 

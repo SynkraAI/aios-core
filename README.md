@@ -604,15 +604,21 @@ Squads são equipes modulares de agentes IA. Veja a [Visão Geral de Squads](doc
 
 ## AIOX Pro
 
-O **AIOX Pro** (`@aiox-fullstack/pro`) é o módulo premium do AIOX, oferecendo funcionalidades avançadas para equipes e projetos de maior escala.
+O **AIOX Pro** é o módulo premium do AIOX, oferecendo funcionalidades avançadas para equipes e projetos de maior escala.
 
 > **Disponibilidade restrita:** O AIOX Pro está disponível exclusivamente para membros do **AIOX Cohort Advanced**. [Saiba mais sobre o programa](https://aioxsquad.ai).
 
 ### Instalação
 
 ```bash
-npm install @aiox-fullstack/pro
+npx aiox-pro install
 ```
+
+### Identificação Estável de Máquina (>= 5.0.8)
+
+O AIOX Pro agora usa o UUID nativo do sistema operacional para gerar `machineId`, preservando o hash SHA-256 e evitando consumo extra de assentos quando o macOS, VPNs ou redes Wi-Fi alteram o MAC/interface ativa.
+
+Caches locais de licença criados pelo algoritmo antigo são migrados automaticamente na próxima leitura. A janela de fallback legacy é de 90 dias; depois disso, instalações antigas precisam reativar online.
 
 ### Features Premium
 
