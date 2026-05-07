@@ -1,5 +1,5 @@
 /**
- * Pro Updater — update @aiox-fullstack/pro (or fallback @aios-fullstack/pro)
+ * Pro Updater — update @aiox-squads/pro with legacy package fallbacks.
  *
  * Handles:
  * - Detecting installed Pro version and source
@@ -21,7 +21,7 @@ const { createRequire } = require('module');
 const semver = require('semver');
 const { execSync } = require('child_process');
 
-const PRO_PACKAGES = ['@aiox-fullstack/pro', '@aios-fullstack/pro'];
+const PRO_PACKAGES = ['@aiox-squads/pro', '@aiox-fullstack/pro', '@aios-fullstack/pro'];
 const CORE_PACKAGES = ['@synkra/aiox-core', 'aiox-core'];
 const DEPENDENCY_FIELDS = ['dependencies', 'devDependencies', 'optionalDependencies', 'peerDependencies'];
 const CORE_PACKAGE_ROOT = path.resolve(__dirname, '..', '..', '..');

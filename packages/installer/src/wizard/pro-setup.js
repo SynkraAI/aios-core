@@ -39,7 +39,7 @@ const LICENSE_SERVER_URL = process.env.AIOX_LICENSE_API_URL || 'https://aiox-lic
 /**
  * Inline License Client — lightweight HTTP client for pre-bootstrap license checks.
  *
- * Used when @aiox-fullstack/pro is not yet installed (first install scenario).
+ * Used when @aiox-squads/pro is not yet installed (first install scenario).
  * Implements the same interface subset as LicenseApiClient using Node.js native https.
  */
 class InlineLicenseClient {
@@ -351,14 +351,14 @@ function showStep(current, total, label) {
  *
  * Resolution order:
  * 1. Relative path (framework-dev mode: ../../../../pro/license/{name})
- * 2. @aiox-fullstack/pro package (brownfield: node_modules/@aiox-fullstack/pro/license/{name})
+ * 2. @aiox-squads/pro package (brownfield: node_modules/@aiox-squads/pro/license/{name})
  * 3. Absolute path via aiox-core in node_modules (brownfield upgrade)
- * 4. Absolute path via @aiox-fullstack/pro in user project (npx context)
+ * 4. Absolute path via @aiox-squads/pro in user project (npx context)
  *
  * Path 4 is critical for npx execution: when running `npx aiox-core install`,
  * require() resolves from the npx temp directory, not process.cwd(). After
- * bootstrap installs @aiox-fullstack/pro in the user's project, only an
- * absolute path to process.cwd()/node_modules/@aiox-fullstack/pro/... works.
+ * bootstrap installs @aiox-squads/pro in the user's project, only an
+ * absolute path to process.cwd()/node_modules/@aiox-squads/pro/... works.
  *
  * @param {string} moduleName - Module filename without extension (e.g., 'license-api')
  * @returns {Object|null} Loaded module or null
@@ -387,8 +387,8 @@ function loadProModule(moduleName) {
     return frameworkModule;
   }
 
-  // 2. npm packages — try canonical then fallback
-  const npmScopes = ['@aiox-fullstack/pro', '@aios-fullstack/pro'];
+  // 2. npm packages — try canonical then fallbacks
+  const npmScopes = ['@aiox-squads/pro', '@aiox-fullstack/pro', '@aios-fullstack/pro'];
   for (const scope of npmScopes) {
     const requestPath = `${scope}/license/${moduleName}`;
     const loadedModule = tryRequire(requestPath);
@@ -406,7 +406,7 @@ function loadProModule(moduleName) {
 
   // 4. npm package in user project via absolute path (npx context — require resolves from
   //    temp dir, so we need absolute path to where bootstrap installed the package)
-  const absScopeDirs = ['@aiox-fullstack', '@aios-fullstack'];
+  const absScopeDirs = ['@aiox-squads', '@aiox-fullstack', '@aios-fullstack'];
   for (const scopeDir of absScopeDirs) {
     const absPath = path.join(process.cwd(), 'node_modules', scopeDir, 'pro', 'license', moduleName);
     const loadedModule = tryRequire(absPath);
@@ -492,7 +492,7 @@ function generateMachineId() {
 /**
  * Get a license API client instance.
  *
- * Prefers the full LicenseApiClient from @aiox-fullstack/pro when available.
+ * Prefers the full LicenseApiClient from @aiox-squads/pro when available.
  * Falls back to InlineLicenseClient (native https) for pre-bootstrap scenarios.
  *
  * @returns {Object} Client instance with isOnline, checkEmail, login, signup, activateByAuth
@@ -508,7 +508,7 @@ function getLicenseClient() {
     return new LicenseApiClient();
   }
 
-  // Fallback: use inline client for pre-bootstrap (no @aiox-fullstack/pro yet)
+  // Fallback: use inline client for pre-bootstrap (no @aiox-squads/pro yet)
   return new InlineLicenseClient();
 }
 
@@ -623,7 +623,7 @@ async function ensureKeyValidationParity(client, activationResult, machineId, ai
  * Priority:
  * 1. Bundled pro/ content in the aiox-core checkout or package
  * 2. Auto-initialize the git submodule when running from a source checkout
- * 3. Installed @aiox-fullstack/pro package in the target project
+ * 3. Installed @aiox-squads/pro package in the target project
  *
  * @param {string} targetDir - Project root directory
  * @returns {{proSourceDir: string|null, bootstrapError?: string}} Resolution result
@@ -635,7 +635,11 @@ function resolveProSourceDir(targetDir) {
 
   const repoRoot = path.resolve(__dirname, '..', '..', '..', '..');
   const bundledProDir = path.join(repoRoot, 'pro');
-  const npmProDir = path.join(targetDir, 'node_modules', '@aiox-fullstack', 'pro');
+  const npmProDirs = [
+    path.join(targetDir, 'node_modules', '@aiox-squads', 'pro'),
+    path.join(targetDir, 'node_modules', '@aiox-fullstack', 'pro'),
+    path.join(targetDir, 'node_modules', '@aios-fullstack', 'pro'),
+  ];
   const bundledSquadsDir = path.join(bundledProDir, 'squads');
   const gitmodulesPath = path.join(repoRoot, '.gitmodules');
 
@@ -661,8 +665,10 @@ function resolveProSourceDir(targetDir) {
     }
   }
 
-  if (fs.existsSync(npmProDir)) {
-    return { proSourceDir: npmProDir };
+  for (const npmProDir of npmProDirs) {
+    if (fs.existsSync(npmProDir)) {
+      return { proSourceDir: npmProDir };
+    }
   }
 
   return { proSourceDir: null };
@@ -1674,7 +1680,7 @@ async function runProWizard(options = {}) {
     showProHeader();
   }
 
-  // Step 1: License Gate (uses InlineLicenseClient if @aiox-fullstack/pro not yet installed)
+  // Step 1: License Gate (uses InlineLicenseClient if @aiox-squads/pro not yet installed)
   const licenseResult = await stepLicenseGate({
     key: options.key || process.env.AIOX_PRO_KEY,
     email: options.email || process.env.AIOX_PRO_EMAIL,

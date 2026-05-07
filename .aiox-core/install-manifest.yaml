@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.0.8
-generated_at: "2026-05-06T23:55:26.981Z"
+generated_at: "2026-05-07T00:14:42.841Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1103
 files:
@@ -101,13 +101,13 @@ files:
     type: cli
     size: 12326
   - path: cli/commands/pro/buyer.js
-    hash: sha256:e71066fefb12fd9da0cd2078f2a8c70a378322428a6a0422c8821a1024084057
+    hash: sha256:b866132041f28ab473e5b9df41e636ded1ba96ae278de02b1233993ee527ada9
     type: cli
-    size: 12292
+    size: 12335
   - path: cli/commands/pro/index.js
-    hash: sha256:c7fc2899b44b6ee69bf3851db5c9fe3d51e448a4ad0727020daeefe3ee8429c7
+    hash: sha256:d22457253ad517114883d38e2d8ddc2de6257fd2f9222c299b56f55eb6ad2ba9
     type: cli
-    size: 26195
+    size: 26295
   - path: cli/commands/qa/index.js
     hash: sha256:3a9e30419a66e56781f9b5dcddc8f4dd0ed24dabf8fe8c3005cd26f5cb02558f
     type: cli
@@ -973,9 +973,9 @@ files:
     type: core
     size: 7193
   - path: core/pro/pro-updater.js
-    hash: sha256:f4f2ec9bfe06921f559003e8e21a79d2ed9e9283488e3cceab7c6eb199f7f5d0
+    hash: sha256:4fbdf590f1685d835fa5bef8e2307708ab1eeb49f5ea177d4f79c1629e35670a
     type: core
-    size: 17473
+    size: 17487
   - path: core/quality-gates/base-layer.js
     hash: sha256:9a9a3921da08176b0bd44f338a59abc1f5107f3b1ee56571e840bf4e8ed233f4
     type: core
@@ -1229,9 +1229,9 @@ files:
     type: data
     size: 9590
   - path: data/entity-registry.yaml
-    hash: sha256:cc1bf74d3ef4e90b7a396d5b77259e540b2f9bd4a5b4b1da4977fe49ae83525d
+    hash: sha256:cb4f48b524af2cd998929cb203ba76b1938d960d5a052dbffbe4166d67eb9080
     type: data
-    size: 521869
+    size: 522342
   - path: data/learned-patterns.yaml
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data

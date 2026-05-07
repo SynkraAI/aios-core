@@ -42,6 +42,25 @@ function mockRegistryResponse(payload, statusCode = 200) {
   });
 }
 
+const PRO_PACKAGE_CANONICAL = '@aiox-squads/pro';
+
+function samePath(actual, expected) {
+  return path.normalize(String(actual)) === path.normalize(String(expected));
+}
+
+function portablePath(actual) {
+  return String(actual).replace(/\\/g, '/');
+}
+
+function isInstalledProPackageJson(actual) {
+  const [, packagePath] = PRO_PACKAGE_CANONICAL.split('@');
+  return portablePath(actual).endsWith(`/node_modules/@${packagePath}/package.json`);
+}
+
+function projectFile(projectRoot, ...segments) {
+  return path.join(path.resolve(projectRoot), ...segments);
+}
+
 describe('pro-updater', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -50,11 +69,11 @@ describe('pro-updater', () => {
   describe('getCoreVersion()', () => {
     it('should prefer .aiox-core/version.json when available', () => {
       const projectRoot = '/tmp/aiox-project';
-      const versionJsonPath = path.join(projectRoot, '.aiox-core', 'version.json');
+      const versionJsonPath = projectFile(projectRoot, '.aiox-core', 'version.json');
 
-      fs.existsSync.mockImplementation((targetPath) => targetPath === versionJsonPath);
+      fs.existsSync.mockImplementation((targetPath) => samePath(targetPath, versionJsonPath));
       fs.readFileSync.mockImplementation((targetPath) => {
-        if (targetPath === versionJsonPath) {
+        if (samePath(targetPath, versionJsonPath)) {
           return JSON.stringify({ version: '5.1.2' });
         }
         throw new Error(`Unexpected read: ${targetPath}`);
@@ -65,11 +84,11 @@ describe('pro-updater', () => {
 
     it('should read declared aiox-core dependency from the project manifest', () => {
       const projectRoot = '/tmp/aiox-project';
-      const packageJsonPath = path.join(projectRoot, 'package.json');
+      const packageJsonPath = projectFile(projectRoot, 'package.json');
 
-      fs.existsSync.mockImplementation((targetPath) => targetPath === packageJsonPath);
+      fs.existsSync.mockImplementation((targetPath) => samePath(targetPath, packageJsonPath));
       fs.readFileSync.mockImplementation((targetPath) => {
-        if (targetPath === packageJsonPath) {
+        if (samePath(targetPath, packageJsonPath)) {
           return JSON.stringify({
             name: 'my-app',
             dependencies: {
@@ -85,11 +104,11 @@ describe('pro-updater', () => {
 
     it('should read declared scoped aiox-core dependency from the project manifest', () => {
       const projectRoot = '/tmp/aiox-project';
-      const packageJsonPath = path.join(projectRoot, 'package.json');
+      const packageJsonPath = projectFile(projectRoot, 'package.json');
 
-      fs.existsSync.mockImplementation((targetPath) => targetPath === packageJsonPath);
+      fs.existsSync.mockImplementation((targetPath) => samePath(targetPath, packageJsonPath));
       fs.readFileSync.mockImplementation((targetPath) => {
-        if (targetPath === packageJsonPath) {
+        if (samePath(targetPath, packageJsonPath)) {
           return JSON.stringify({
             name: 'my-app',
             devDependencies: {
@@ -107,11 +126,11 @@ describe('pro-updater', () => {
   describe('detectCorePackageName()', () => {
     it('should detect the scoped core package from project dependencies', () => {
       const projectRoot = '/tmp/aiox-project';
-      const packageJsonPath = path.join(projectRoot, 'package.json');
+      const packageJsonPath = projectFile(projectRoot, 'package.json');
 
-      fs.existsSync.mockImplementation((targetPath) => targetPath === packageJsonPath);
+      fs.existsSync.mockImplementation((targetPath) => samePath(targetPath, packageJsonPath));
       fs.readFileSync.mockImplementation((targetPath) => {
-        if (targetPath === packageJsonPath) {
+        if (samePath(targetPath, packageJsonPath)) {
           return JSON.stringify({
             name: 'workspace-app',
             dependencies: {
@@ -139,7 +158,7 @@ describe('pro-updater', () => {
     it('should return null when the registry responds with a non-2xx status', async () => {
       mockRegistryResponse({ error: 'not found' }, 404);
 
-      await expect(fetchLatestFromNpm('@aiox-fullstack/pro')).resolves.toBeNull();
+      await expect(fetchLatestFromNpm(PRO_PACKAGE_CANONICAL)).resolves.toBeNull();
     });
   });
 
@@ -159,19 +178,18 @@ describe('pro-updater', () => {
 
     it('should use the detected scoped core package when includeCoreUpdate is requested in dry-run mode', async () => {
       const projectRoot = '/tmp/aiox-project';
-      const installedPackageJson = path.join(projectRoot, 'node_modules', '@aiox-fullstack', 'pro', 'package.json');
-      const packageJsonPath = path.join(projectRoot, 'package.json');
+      const packageJsonPath = projectFile(projectRoot, 'package.json');
 
       fs.statSync.mockReturnValue({ isDirectory: () => true });
       fs.existsSync.mockImplementation((targetPath) => (
-        targetPath === installedPackageJson
-        || targetPath === packageJsonPath
+        isInstalledProPackageJson(targetPath)
+        || samePath(targetPath, packageJsonPath)
       ));
       fs.readFileSync.mockImplementation((targetPath) => {
-        if (targetPath === installedPackageJson) {
+        if (isInstalledProPackageJson(targetPath)) {
           return JSON.stringify({ version: '0.3.0' });
         }
-        if (targetPath === packageJsonPath) {
+        if (samePath(targetPath, packageJsonPath)) {
           return JSON.stringify({
             name: 'workspace-app',
             dependencies: {
@@ -203,19 +221,18 @@ describe('pro-updater', () => {
 
     it('should honor scoped aiox-core peer dependencies when checking compatibility', async () => {
       const projectRoot = '/tmp/aiox-project';
-      const installedPackageJson = path.join(projectRoot, 'node_modules', '@aiox-fullstack', 'pro', 'package.json');
-      const versionJsonPath = path.join(projectRoot, '.aiox-core', 'version.json');
+      const versionJsonPath = projectFile(projectRoot, '.aiox-core', 'version.json');
 
       fs.statSync.mockReturnValue({ isDirectory: () => true });
       fs.existsSync.mockImplementation((targetPath) => (
-        targetPath === installedPackageJson
-        || targetPath === versionJsonPath
+        isInstalledProPackageJson(targetPath)
+        || samePath(targetPath, versionJsonPath)
       ));
       fs.readFileSync.mockImplementation((targetPath) => {
-        if (targetPath === installedPackageJson) {
+        if (isInstalledProPackageJson(targetPath)) {
           return JSON.stringify({ version: '0.3.0' });
         }
-        if (targetPath === versionJsonPath) {
+        if (samePath(targetPath, versionJsonPath)) {
           return JSON.stringify({ version: '5.0.4' });
         }
         throw new Error(`Unexpected read: ${targetPath}`);
@@ -244,20 +261,19 @@ describe('pro-updater', () => {
 
     it('should fail when the package update succeeds but re-scaffolding fails', async () => {
       const projectRoot = '/tmp/aiox-project';
-      const installedPackageJson = path.join(projectRoot, 'node_modules', '@aiox-fullstack', 'pro', 'package.json');
-      const versionJsonPath = path.join(projectRoot, '.aiox-core', 'version.json');
+      const versionJsonPath = projectFile(projectRoot, '.aiox-core', 'version.json');
       const scaffolderPath = 'aiox-core/installer/pro-scaffolder';
 
       fs.statSync.mockReturnValue({ isDirectory: () => true });
       fs.existsSync.mockImplementation((targetPath) => (
-        targetPath === installedPackageJson
-        || targetPath === versionJsonPath
+        isInstalledProPackageJson(targetPath)
+        || samePath(targetPath, versionJsonPath)
       ));
       fs.readFileSync.mockImplementation((targetPath) => {
-        if (targetPath === installedPackageJson) {
+        if (isInstalledProPackageJson(targetPath)) {
           return JSON.stringify({ version: '0.3.0' });
         }
-        if (targetPath === versionJsonPath) {
+        if (samePath(targetPath, versionJsonPath)) {
           return JSON.stringify({ version: '5.0.4' });
         }
         throw new Error(`Unexpected read: ${targetPath}`);
