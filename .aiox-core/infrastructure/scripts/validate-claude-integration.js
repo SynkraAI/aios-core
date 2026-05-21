@@ -10,14 +10,11 @@ const ALLOWED_NATIVE_SUBAGENTS = new Set([
   'aiox-data-engineer',
   'aiox-dev',
   'aiox-devops',
-  'aiox-master',
   'aiox-pm',
   'aiox-po',
   'aiox-qa',
   'aiox-sm',
-  'aiox-squad-creator',
   'aiox-ux',
-  'aiox-ux-design-expert',
 ]);
 
 const ALLOWED_CLAUDE_COMMAND_ENTRIES = new Set([
