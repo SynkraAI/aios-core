@@ -18,6 +18,20 @@ const os = require('os');
 const { DashboardEmitter, getDashboardEmitter } = require('../../../.aiox-core/core/events/dashboard-emitter');
 const { DashboardEventType } = require('../../../.aiox-core/core/events/types');
 
+const waitForPath = async (filePath, timeoutMs = 1000) => {
+  const deadline = Date.now() + timeoutMs;
+
+  while (Date.now() < deadline) {
+    if (await fs.pathExists(filePath)) {
+      return true;
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, 25));
+  }
+
+  return fs.pathExists(filePath);
+};
+
 describe('DashboardEmitter Bob-specific methods', () => {
   let emitter;
   let tempDir;
@@ -193,10 +207,7 @@ describe('DashboardEmitter Bob-specific methods', () => {
 
       await emitter.emit(DashboardEventType.BOB_PHASE_CHANGE, { phase: 'test' });
 
-      // Wait for async write
-      await new Promise((resolve) => setTimeout(resolve, 100));
-
-      const exists = await fs.pathExists(emitter.fallbackPath);
+      const exists = await waitForPath(emitter.fallbackPath);
       expect(exists).toBe(true);
 
       const content = await fs.readFile(emitter.fallbackPath, 'utf8');
