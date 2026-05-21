@@ -11,11 +11,14 @@ const ALLOWED_NATIVE_SUBAGENTS = new Set([
   'aiox-data-engineer',
   'aiox-dev',
   'aiox-devops',
+  'aiox-master',
   'aiox-pm',
   'aiox-po',
   'aiox-qa',
   'aiox-sm',
+  'aiox-squad-creator',
   'aiox-ux',
+  'aiox-ux-design-expert',
 ]);
 
 const ALLOWED_CLAUDE_COMMAND_ENTRIES = new Set([
@@ -30,8 +33,8 @@ const ALLOWED_CLAUDE_SKILL_ENTRIES = new Set([
   'apply-qa-fixes',
   'architect-first',
   'checklist-runner',
-  'close-story',
   'coderabbit-review',
+  'close-story',
   'develop-story',
   'full-sdc',
   'mcp-builder',
@@ -89,6 +92,7 @@ function listTopLevelNames(dirPath, projectRoot) {
       const relativePath = path.relative(projectRoot, path.join(dirPath, entry.name)).split(path.sep).join('/');
       return !isGitIgnored(projectRoot, relativePath);
     })
+  
     .map((entry) => entry.name)
     .sort();
 }
