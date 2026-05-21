@@ -1,6 +1,6 @@
 {
   "name": "@aiox-squads/installer",
-  "version": "3.3.8",
+  "version": "3.3.9",
   "description": "AIOX Installer - Automated setup wizard for AIOX projects (greenfield & brownfield)",
   "main": "src/index.js",
   "bin": {
@@ -42,6 +42,7 @@
     "fs-extra": "^11.3.2",
     "inquirer": "^8.2.6",
     "js-yaml": "^4.1.0",
+    "node-machine-id": "^1.1.12",
     "ora": "^5.4.1",
     "semver": "^7.7.2"
   },

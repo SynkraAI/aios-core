@@ -137,6 +137,7 @@ function resolveLicenseServerUrl(rawUrl = DEFAULT_LICENSE_SERVER_URL) {
 
 const LICENSE_SERVER_URL = resolveLicenseServerUrl(process.env.AIOX_LICENSE_API_URL);
 const PASSWORD_RESET_URL = new URL('/reset-password', LICENSE_SERVER_URL).toString();
+const MACHINE_ID_HASH_PREFIX = 'aiox-pro-native-machine-id:v1:';
 
 /**
  * Inline License Client — lightweight HTTP client for pre-bootstrap license checks.
@@ -612,6 +613,34 @@ function generateMachineId() {
     return licenseCryptoModule.generateMachineId();
   }
 
+  const nativeMachineId = generateNativeMachineId();
+  if (nativeMachineId) {
+    return nativeMachineId;
+  }
+
+  return generateLegacyMachineId();
+}
+
+function generateNativeMachineId() {
+  const crypto = require('crypto');
+  try {
+    const { machineIdSync } = require('node-machine-id');
+    const nativeMachineId = machineIdSync(true);
+
+    if (!nativeMachineId || typeof nativeMachineId !== 'string') {
+      throw new Error('Native machine id unavailable');
+    }
+
+    return crypto
+      .createHash('sha256')
+      .update(`${MACHINE_ID_HASH_PREFIX}${nativeMachineId}`)
+      .digest('hex');
+  } catch {
+    return null;
+  }
+}
+
+function generateLegacyMachineId() {
   const crypto = require('crypto');
   const os = require('os');
   const components = [];
@@ -2322,6 +2351,8 @@ module.exports = {
     resolveProSourceDir,
     InlineLicenseClient,
     generateMachineId,
+    generateNativeMachineId,
+    generateLegacyMachineId,
     persistLicenseCache,
     resolveLicenseServerUrl,
     resolveNpmInvocation,
