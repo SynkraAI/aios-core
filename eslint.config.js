@@ -16,6 +16,12 @@ module.exports = [
   {
     ignores: [
       '**/node_modules/**',
+      '**/.git',
+      '**/.git/**',
+      '**/.hg',
+      '**/.hg/**',
+      '**/.svn',
+      '**/.svn/**',
       '**/coverage/**',
       '**/build/**',
       '**/dist/**',

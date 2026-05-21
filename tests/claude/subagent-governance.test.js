@@ -7,6 +7,18 @@ const repoRoot = path.resolve(__dirname, '..', '..');
 const agentsDir = path.join(repoRoot, '.claude', 'agents');
 const authorityHookPath = path.join(repoRoot, '.claude', 'hooks', 'enforce-git-push-authority.cjs');
 const allowedColors = new Set(['red', 'blue', 'green', 'yellow', 'purple', 'orange', 'pink', 'cyan']);
+const expectedCoreNativeSubagents = [
+  'aiox-analyst.md',
+  'aiox-architect.md',
+  'aiox-data-engineer.md',
+  'aiox-dev.md',
+  'aiox-devops.md',
+  'aiox-pm.md',
+  'aiox-po.md',
+  'aiox-qa.md',
+  'aiox-sm.md',
+  'aiox-ux.md',
+];
 
 function readFrontmatter(filePath) {
   const content = fs.readFileSync(filePath, 'utf8');
@@ -31,7 +43,7 @@ describe('Claude native subagent governance', () => {
   it('keeps all native subagents compliant with supported frontmatter fields', () => {
     const files = fs.readdirSync(agentsDir).filter(file => file.endsWith('.md')).sort();
 
-    expect(files).toHaveLength(29);
+    expect(files).toEqual(expectedCoreNativeSubagents);
 
     for (const file of files) {
       const frontmatter = readFrontmatter(path.join(agentsDir, file));

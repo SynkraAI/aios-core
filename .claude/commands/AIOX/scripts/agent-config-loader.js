@@ -580,8 +580,9 @@ if (require.main === module) {
 
         case 'preload':
           const agents = agentId ? [agentId] : [
-            'aiox-master', 'dev', 'qa', 'architect', 'po', 'pm', 'sm',
-            'analyst', 'ux-expert', 'data-engineer', 'devops', 'db-sage', 'security',
+            'aiox-master', 'analyst', 'architect', 'data-engineer', 'dev',
+            'devops', 'pm', 'po', 'qa', 'sm', 'squad-creator',
+            'ux-design-expert',
           ];
 
           await preloadAgents(agents, coreConfig);

@@ -260,4 +260,40 @@ describe('Codex Skills Sync', () => {
     );
     expect(result.errors.join('\n')).toContain('Duplicate full skill payload');
   });
+
+  it('strict validation rejects unresolved generated squad skill directories', () => {
+    const localSkillsDir = path.join(tmpRoot, '.codex', 'skills');
+    syncSkills({
+      sourceDir: path.join(process.cwd(), '.aiox-core', 'development', 'agents'),
+      localSkillsDir,
+      dryRun: false,
+    });
+
+    const orphanDir = path.join(localSkillsDir, 'aiox-private-chief');
+    fs.mkdirSync(orphanDir, { recursive: true });
+    fs.writeFileSync(
+      path.join(orphanDir, 'SKILL.md'),
+      [
+        '---',
+        'name: aiox-private-chief',
+        'description: leaked squad skill',
+        '---',
+        '<!-- AIOX-CODEX-LOCAL-SKILLS: generated -->',
+        '',
+        'Load `squads/private-pro-only/agents/private-chief.md`.',
+        '',
+      ].join('\n'),
+      'utf8',
+    );
+
+    const result = validateCodexSkills({
+      sourceDir: path.join(process.cwd(), '.aiox-core', 'development', 'agents'),
+      skillsDir: localSkillsDir,
+      strict: true,
+    });
+
+    expect(result.ok).toBe(false);
+    expect(result.orphaned).toContain('aiox-private-chief');
+    expect(result.errors.join('\n')).toContain('Orphaned skill directory');
+  });
 });

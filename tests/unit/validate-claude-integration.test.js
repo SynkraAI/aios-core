@@ -70,4 +70,66 @@ describe('validate-claude-integration', () => {
     expect(result.ok).toBe(false);
     expect(result.errors.some((e) => e.includes('activation_type: pipeline'))).toBe(true);
   });
+
+  it('fails when non-core Claude native subagents are present', () => {
+    write(path.join(tmpRoot, '.claude', 'commands', 'AIOX', 'agents', 'dev.md'), '# dev');
+    write(
+      path.join(tmpRoot, '.claude', 'skills', 'AIOX', 'agents', 'dev', 'SKILL.md'),
+      '---\nactivation_type: pipeline\n---\n# dev',
+    );
+    write(path.join(tmpRoot, '.claude', 'agents', 'aiox-dev.md'), '# native dev');
+    write(path.join(tmpRoot, '.claude', 'agents', 'copy-chief.md'), '# leaked pro agent');
+    write(path.join(tmpRoot, '.aiox-core', 'development', 'agents', 'dev.md'), '# dev');
+
+    const result = validateClaudeIntegration({ projectRoot: tmpRoot });
+    expect(result.ok).toBe(false);
+    expect(result.errors.some((e) => e.includes('Disallowed Claude native subagent'))).toBe(true);
+    expect(result.errors.some((e) => e.includes('copy-chief'))).toBe(true);
+  });
+
+  it('fails when non-core Claude command namespaces are present', () => {
+    write(path.join(tmpRoot, '.claude', 'commands', 'AIOX', 'agents', 'dev.md'), '# dev');
+    write(path.join(tmpRoot, '.claude', 'commands', 'design-system', 'agents', 'brad-frost.md'), '# leaked');
+    write(
+      path.join(tmpRoot, '.claude', 'skills', 'AIOX', 'agents', 'dev', 'SKILL.md'),
+      '---\nactivation_type: pipeline\n---\n# dev',
+    );
+    write(path.join(tmpRoot, '.aiox-core', 'development', 'agents', 'dev.md'), '# dev');
+
+    const result = validateClaudeIntegration({ projectRoot: tmpRoot });
+    expect(result.ok).toBe(false);
+    expect(result.errors.some((e) => e.includes('Disallowed Claude command namespace'))).toBe(true);
+    expect(result.errors.some((e) => e.includes('design-system'))).toBe(true);
+  });
+
+  it('fails when non-core Claude skill artifacts are present', () => {
+    write(path.join(tmpRoot, '.claude', 'commands', 'AIOX', 'agents', 'dev.md'), '# dev');
+    write(
+      path.join(tmpRoot, '.claude', 'skills', 'AIOX', 'agents', 'dev', 'SKILL.md'),
+      '---\nactivation_type: pipeline\n---\n# dev',
+    );
+    write(path.join(tmpRoot, '.claude', 'skills', 'clone-mind.md'), '# leaked');
+    write(path.join(tmpRoot, '.aiox-core', 'development', 'agents', 'dev.md'), '# dev');
+
+    const result = validateClaudeIntegration({ projectRoot: tmpRoot });
+    expect(result.ok).toBe(false);
+    expect(result.errors.some((e) => e.includes('Disallowed Claude skill artifact'))).toBe(true);
+    expect(result.errors.some((e) => e.includes('clone-mind.md'))).toBe(true);
+  });
+
+  it('fails when non-core Claude agent memories are present', () => {
+    write(path.join(tmpRoot, '.claude', 'commands', 'AIOX', 'agents', 'dev.md'), '# dev');
+    write(
+      path.join(tmpRoot, '.claude', 'skills', 'AIOX', 'agents', 'dev', 'SKILL.md'),
+      '---\nactivation_type: pipeline\n---\n# dev',
+    );
+    write(path.join(tmpRoot, '.claude', 'agent-memory', 'aiox-dev', 'MEMORY.md'), '# allowed');
+    write(path.join(tmpRoot, '.claude', 'agent-memory', 'oalanicolas', 'MEMORY.md'), '# leaked');
+    write(path.join(tmpRoot, '.aiox-core', 'development', 'agents', 'dev.md'), '# dev');
+
+    const result = validateClaudeIntegration({ projectRoot: tmpRoot });
+    expect(result.ok).toBe(false);
+    expect(result.errors.some((e) => e.includes('Disallowed Claude agent memory namespace'))).toBe(true);
+    expect(result.errors.some((e) => e.includes('oalanicolas'))).toBe(true);
+  });
 });
