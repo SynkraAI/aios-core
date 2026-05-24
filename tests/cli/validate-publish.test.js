@@ -30,6 +30,13 @@ describe('Publish Safety Gate (Story INS-4.10 / PRO-13.5)', () => {
       expect(scriptSource).toContain('Public package excludes pro/ content');
     });
 
+    test('script requires metrics runtime files in npm pack output', () => {
+      expect(scriptSource).toContain('REQUIRED_PUBLIC_FILES');
+      expect(scriptSource).toContain('.aiox-core/quality/metrics-collector.js');
+      expect(scriptSource).toContain('.aiox-core/quality/seed-metrics.js');
+      expect(scriptSource).toContain('Public package includes metrics runtime files');
+    });
+
     test('legacy npm notice parser strips size prefixes before path checks', () => {
       expect(scriptSource).toContain('npm notice\\s+[\\d.]+[kMG]?B?\\s+(.+)');
     });
@@ -116,6 +123,7 @@ describe('Publish Safety Gate (Story INS-4.10 / PRO-13.5)', () => {
       });
       expect(result).toContain('PUBLISH SAFETY GATE: PASS');
       expect(result).toContain('PASS: Public package excludes pro/ content');
+      expect(result).toContain('PASS: Public package includes metrics runtime files');
     });
 
     test('script produces human-readable output with pass/fail indicators', () => {

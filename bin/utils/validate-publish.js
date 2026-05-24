@@ -21,6 +21,11 @@ const { execSync, execFileSync } = require('child_process');
 const PROJECT_ROOT = path.join(__dirname, '..', '..');
 const MIN_FILE_COUNT = 50;
 const PRO_PATH_PATTERN = /^pro(?:\/|$)/;
+const REQUIRED_PUBLIC_FILES = [
+  '.aiox-core/quality/metrics-collector.js',
+  '.aiox-core/quality/seed-metrics.js',
+  '.aiox-core/quality/schemas/quality-metrics.schema.json',
+];
 const DEFAULT_PACK_TIMEOUT_MS = 300000;
 const parsedPackTimeoutMs = Number.parseInt(
   process.env.AIOX_VALIDATE_PUBLISH_PACK_TIMEOUT_MS || '',
@@ -104,6 +109,22 @@ try {
     passed = false;
   } else {
     console.log('PASS: Public package excludes pro/ content');
+  }
+
+  const missingRequiredFiles = REQUIRED_PUBLIC_FILES.filter(
+    (filePath) => !packedFiles.includes(filePath),
+  );
+  if (missingRequiredFiles.length > 0) {
+    console.error(
+      `FAIL: Public package is missing ${missingRequiredFiles.length} required runtime file(s).`,
+    );
+    console.error('  Metrics CLI commands require these files at boot.');
+    for (const filePath of missingRequiredFiles) {
+      console.error(`  - ${filePath}`);
+    }
+    passed = false;
+  } else {
+    console.log('PASS: Public package includes metrics runtime files');
   }
 } catch (err) {
   console.error(`FAIL: npm pack --dry-run failed: ${err.message}`);
