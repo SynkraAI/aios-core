@@ -42,6 +42,24 @@ describe('Dependency Installer', () => {
   });
 
   describe('detectPackageManager (AC1)', () => {
+    it('should prefer packageManager field when present', () => {
+      fs.existsSync.mockImplementation((filePath) => filePath.endsWith('package.json'));
+      fs.readFileSync.mockReturnValue(JSON.stringify({ packageManager: 'pnpm@11.1.3' }));
+
+      const pm = detectPackageManager('/test/project');
+      expect(pm).toBe('pnpm');
+    });
+
+    it('should ignore unsupported packageManager field and fall back to lockfiles', () => {
+      fs.existsSync.mockImplementation((filePath) => (
+        filePath.endsWith('package.json') || filePath.endsWith('yarn.lock')
+      ));
+      fs.readFileSync.mockReturnValue(JSON.stringify({ packageManager: 'foo@1.0.0' }));
+
+      const pm = detectPackageManager('/test/project');
+      expect(pm).toBe('yarn');
+    });
+
     it('should detect bun from bun.lockb', () => {
       fs.existsSync.mockImplementation((filePath) => {
         return filePath.endsWith('bun.lockb');

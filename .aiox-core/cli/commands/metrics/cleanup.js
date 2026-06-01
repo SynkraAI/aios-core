@@ -9,7 +9,7 @@
  */
 
 const { Command } = require('commander');
-const { MetricsCollector } = require('../../../quality/metrics-collector');
+const { loadMetricsCollector } = require('./runtime');
 
 /**
  * Create the cleanup subcommand
@@ -26,6 +26,7 @@ function createCleanupCommand() {
     .action(async (options) => {
       try {
         const retentionDays = parseInt(options.retention, 10);
+        const { MetricsCollector } = loadMetricsCollector();
         const collector = new MetricsCollector({ retentionDays });
         const metrics = await collector.getMetrics();
 

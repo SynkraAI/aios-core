@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 5.2.7
-generated_at: "2026-05-31T23:32:34.066Z"
+generated_at: "2026-06-01T13:32:39.164Z"
 generator: scripts/generate-install-manifest.js
-file_count: 1129
+file_count: 1130
 files:
   - path: cli/commands/config/index.js
     hash: sha256:25c4b9bf4e0241abf7754b55153f49f1a214f1fb5fe904a576675634cb7b3da9
@@ -53,25 +53,29 @@ files:
     type: cli
     size: 5354
   - path: cli/commands/metrics/cleanup.js
-    hash: sha256:bd1670e7d17e5fd8f8c710d6c1ceb813e59143cf833b86f5f192b550d1dd6472
+    hash: sha256:e5f097a1e6988034c72da9597426eb4c959528e2cf43f4f209951ded2f70093a
     type: cli
-    size: 3064
+    size: 3104
   - path: cli/commands/metrics/index.js
     hash: sha256:3dcf7408f56478c76e7ad36778d8fa4421265724da2386ec9cd9947e2f8dadb6
     type: cli
     size: 1868
   - path: cli/commands/metrics/record.js
-    hash: sha256:84234cb023bc96f22c3fcc90aa3e2275df9c9798111892a85e9d2893fff36013
+    hash: sha256:87ffafa4e64a1ecaee5a77ca03c5fee25c923cef4a3bca541aeebd264eea8c47
     type: cli
-    size: 5666
+    size: 5705
+  - path: cli/commands/metrics/runtime.js
+    hash: sha256:b1f50b535f3f2940e566d6e334ef681b62bcbc885b689ceac03ca0a3108bcad0
+    type: cli
+    size: 913
   - path: cli/commands/metrics/seed.js
-    hash: sha256:e569a6a7245615d8eafd404e48eead41cf8a0a1499bdad31549fe68a5a7e7556
+    hash: sha256:7aa23ab43d2ff066b32759ce3a82f461a07d216d06adc456680b244e0b7952bd
     type: cli
-    size: 4984
+    size: 4968
   - path: cli/commands/metrics/show.js
-    hash: sha256:c2c1257ebddacdf6d15dc8b45a9cb3c3d2940a0cd3460fba94ab6fd8eeafd9dc
+    hash: sha256:7d0f94616be6d418d45cb7318f7d92dfcfa8c98281817b66185c64fb309cdde7
     type: cli
-    size: 7182
+    size: 7222
   - path: cli/commands/migrate/analyze.js
     hash: sha256:fad3740d9af0a4e9aa8b41a3ef4c6ff224e60aad810dc1ecf257a604a1c17c39
     type: cli

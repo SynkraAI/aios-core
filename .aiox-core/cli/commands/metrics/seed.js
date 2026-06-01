@@ -9,7 +9,7 @@
  */
 
 const { Command } = require('commander');
-const { seedMetrics } = require('../../../quality/seed-metrics');
+const { loadSeedMetricsModule } = require('./runtime');
 
 /**
  * Create the seed subcommand
@@ -27,6 +27,7 @@ function createSeedCommand() {
     .option('-v, --verbose', 'Show detailed output', false)
     .action(async (options) => {
       try {
+        const { seedMetrics, generateSeedData } = loadSeedMetricsModule();
         const seedOptions = {
           days: parseInt(options.days, 10),
           runsPerDay: parseInt(options.runs, 10),
@@ -41,7 +42,6 @@ function createSeedCommand() {
 
         if (options.dryRun) {
           // Generate but don't save
-          const { generateSeedData } = require('../../../quality/seed-metrics');
           const metrics = generateSeedData(seedOptions);
 
           console.log('\n📊 Generated Data Preview (dry run)');

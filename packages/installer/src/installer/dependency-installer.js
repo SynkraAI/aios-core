@@ -31,6 +31,25 @@ const LOCK_FILES = {
   'package-lock.json': 'npm',
 };
 
+function readPackageManagerField(projectPath) {
+  const packageJsonPath = path.join(projectPath, 'package.json');
+  if (!fs.existsSync(packageJsonPath)) {
+    return null;
+  }
+
+  try {
+    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+    if (typeof packageJson.packageManager !== 'string') {
+      return null;
+    }
+
+    const [packageManager] = packageJson.packageManager.split('@');
+    return packageManager || null;
+  } catch {
+    return null;
+  }
+}
+
 /**
  * Detect package manager from lock files
  *
@@ -42,6 +61,11 @@ const LOCK_FILES = {
  * console.log(pm); // 'npm'
  */
 function detectPackageManager(projectPath = process.cwd()) {
+  const configuredPackageManager = readPackageManagerField(projectPath);
+  if (configuredPackageManager && ALLOWED_PACKAGE_MANAGERS.includes(configuredPackageManager)) {
+    return configuredPackageManager;
+  }
+
   // Check for lock files in priority order
   for (const [lockFile, packageManager] of Object.entries(LOCK_FILES)) {
     const lockPath = path.join(projectPath, lockFile);

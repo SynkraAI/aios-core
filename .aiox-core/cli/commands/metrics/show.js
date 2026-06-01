@@ -9,7 +9,7 @@
  */
 
 const { Command } = require('commander');
-const { MetricsCollector } = require('../../../quality/metrics-collector');
+const { loadMetricsCollector } = require('./runtime');
 
 /**
  * Format percentage for display
@@ -67,6 +67,7 @@ function createShowCommand() {
     .option('-v, --verbose', 'Show detailed output', false)
     .action(async (options) => {
       try {
+        const { MetricsCollector } = loadMetricsCollector();
         const collector = new MetricsCollector();
         const metrics = await collector.getMetrics();
 

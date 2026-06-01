@@ -9,7 +9,7 @@
  */
 
 const { Command } = require('commander');
-const { MetricsCollector } = require('../../../quality/metrics-collector');
+const { loadMetricsCollector } = require('./runtime');
 
 /**
  * Create the record subcommand
@@ -39,8 +39,8 @@ function createRecordCommand() {
     .option('-v, --verbose', 'Show detailed output', false)
     .action(async (options) => {
       try {
+        const { MetricsCollector } = loadMetricsCollector();
         const collector = new MetricsCollector();
-
         const layerNum = parseInt(options.layer, 10);
         if (![1, 2, 3].includes(layerNum)) {
           console.error('❌ Error: Layer must be 1, 2, or 3');
