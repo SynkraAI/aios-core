@@ -31,6 +31,29 @@ const LOCK_FILES = {
   'package-lock.json': 'npm',
 };
 
+function parsePackageManagerField(projectPath) {
+  const packageJsonPath = path.join(projectPath, 'package.json');
+  if (!fs.existsSync(packageJsonPath)) {
+    return null;
+  }
+
+  try {
+    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+    const packageManagerField = typeof packageJson.packageManager === 'string'
+      ? packageJson.packageManager.trim()
+      : '';
+
+    if (!packageManagerField) {
+      return null;
+    }
+
+    const [packageManager] = packageManagerField.split('@');
+    return ALLOWED_PACKAGE_MANAGERS.includes(packageManager) ? packageManager : null;
+  } catch {
+    return null;
+  }
+}
+
 /**
  * Detect package manager from lock files
  *
@@ -42,6 +65,11 @@ const LOCK_FILES = {
  * console.log(pm); // 'npm'
  */
 function detectPackageManager(projectPath = process.cwd()) {
+  const packageManagerFromManifest = parsePackageManagerField(projectPath);
+  if (packageManagerFromManifest) {
+    return packageManagerFromManifest;
+  }
+
   // Check for lock files in priority order
   for (const [lockFile, packageManager] of Object.entries(LOCK_FILES)) {
     const lockPath = path.join(projectPath, lockFile);
@@ -332,6 +360,7 @@ module.exports = {
   validatePackageManager,
   hasExistingDependencies,
   installDependencies,
+  parsePackageManagerField,
   // Export for testing
   executeInstall,
   categorizeError,

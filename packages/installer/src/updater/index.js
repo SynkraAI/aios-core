@@ -22,6 +22,10 @@ const https = require('https');
 const { execFileSync } = require('child_process');
 const installerDir = path.join(__dirname, '..', 'installer');
 const { hashFile, hashesMatch } = require(path.join(installerDir, 'file-hasher'));
+const {
+  detectPackageManager,
+  validatePackageManager,
+} = require(path.join(installerDir, 'dependency-installer'));
 const { PostInstallValidator, formatReport: formatValidationReport } = require(
   path.join(installerDir, 'post-install-validator'),
 );
@@ -128,6 +132,42 @@ function selectInstalledManifest(projectManifest, packageManifest) {
       projectManifest.version,
     files: Array.from(mergedFiles.values()),
   };
+}
+
+function getPackageManagerCommand(packageManager, operation, packageSpecifier = null) {
+  validatePackageManager(packageManager);
+
+  if (operation === 'uninstall') {
+    if (!packageSpecifier) {
+      throw new Error('packageSpecifier is required for uninstall operations');
+    }
+
+    const uninstallCommands = {
+      npm: ['uninstall', packageSpecifier],
+      pnpm: ['remove', packageSpecifier],
+      yarn: ['remove', packageSpecifier],
+      bun: ['remove', packageSpecifier],
+    };
+
+    return uninstallCommands[packageManager];
+  }
+
+  if (operation === 'install') {
+    if (!packageSpecifier) {
+      throw new Error('packageSpecifier is required for install operations');
+    }
+
+    const installCommands = {
+      npm: ['install', packageSpecifier, '--save-exact'],
+      pnpm: ['add', packageSpecifier, '--save-exact'],
+      yarn: ['add', packageSpecifier, '--exact'],
+      bun: ['add', packageSpecifier, '--exact'],
+    };
+
+    return installCommands[packageManager];
+  }
+
+  throw new Error(`Unsupported package manager operation: ${operation}`);
 }
 
 /**
@@ -705,6 +745,7 @@ class AIOXUpdater {
       const previousSourceManifest = previousPackageRoot
         ? loadSourceManifest(path.join(previousPackageRoot, '.aiox-core'))
         : null;
+      const packageManager = detectPackageManager(this.projectRoot);
 
       const npmOptions = {
         cwd: this.projectRoot,
@@ -713,13 +754,19 @@ class AIOXUpdater {
       };
 
       if (previousCorePackage && previousCorePackage.packageName !== CORE_PACKAGE_NAME) {
-        this.log(`Running: npm uninstall ${previousCorePackage.packageName}`);
-        execFileSync('npm', ['uninstall', previousCorePackage.packageName], npmOptions);
+        const uninstallArgs = getPackageManagerCommand(
+          packageManager,
+          'uninstall',
+          previousCorePackage.packageName,
+        );
+        this.log(`Running: ${packageManager} ${uninstallArgs.join(' ')}`);
+        execFileSync(packageManager, uninstallArgs, npmOptions);
       }
 
       const packageSpecifier = `${CORE_PACKAGE_NAME}@${targetVersion}`;
-      this.log(`Running: npm install ${packageSpecifier} --save-exact`);
-      execFileSync('npm', ['install', packageSpecifier, '--save-exact'], npmOptions);
+      const installArgs = getPackageManagerCommand(packageManager, 'install', packageSpecifier);
+      this.log(`Running: ${packageManager} ${installArgs.join(' ')}`);
+      execFileSync(packageManager, installArgs, npmOptions);
 
       const sourcePackageRoot = getPackageRoot(this.projectRoot, CORE_PACKAGE_NAME);
       const sourceAioxCore = path.join(sourcePackageRoot, '.aiox-core');
@@ -982,4 +1029,5 @@ module.exports = {
   formatCheckResult,
   formatUpdateResult,
   selectInstalledManifest,
+  getPackageManagerCommand,
 };

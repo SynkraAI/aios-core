@@ -14,6 +14,7 @@ const {
   formatCheckResult,
   formatUpdateResult,
   selectInstalledManifest,
+  getPackageManagerCommand,
 } = require('../../packages/installer/src/updater');
 
 describe('AIOXUpdater', () => {
@@ -466,5 +467,49 @@ describe('formatUpdateResult', () => {
     const output = formatUpdateResult(result, { colors: false });
     expect(output).toContain('failed');
     expect(output).toContain('Connection timeout');
+  });
+});
+
+describe('getPackageManagerCommand', () => {
+  it('uses exact-version install semantics for supported package managers', () => {
+    expect(getPackageManagerCommand('npm', 'install', '@aiox-squads/core@5.2.9')).toEqual([
+      'install',
+      '@aiox-squads/core@5.2.9',
+      '--save-exact',
+    ]);
+    expect(getPackageManagerCommand('pnpm', 'install', '@aiox-squads/core@5.2.9')).toEqual([
+      'add',
+      '@aiox-squads/core@5.2.9',
+      '--save-exact',
+    ]);
+    expect(getPackageManagerCommand('yarn', 'install', '@aiox-squads/core@5.2.9')).toEqual([
+      'add',
+      '@aiox-squads/core@5.2.9',
+      '--exact',
+    ]);
+    expect(getPackageManagerCommand('bun', 'install', '@aiox-squads/core@5.2.9')).toEqual([
+      'add',
+      '@aiox-squads/core@5.2.9',
+      '--exact',
+    ]);
+  });
+
+  it('uses the matching uninstall command for supported package managers', () => {
+    expect(getPackageManagerCommand('npm', 'uninstall', 'aiox-core')).toEqual([
+      'uninstall',
+      'aiox-core',
+    ]);
+    expect(getPackageManagerCommand('pnpm', 'uninstall', 'aiox-core')).toEqual([
+      'remove',
+      'aiox-core',
+    ]);
+    expect(getPackageManagerCommand('yarn', 'uninstall', 'aiox-core')).toEqual([
+      'remove',
+      'aiox-core',
+    ]);
+    expect(getPackageManagerCommand('bun', 'uninstall', 'aiox-core')).toEqual([
+      'remove',
+      'aiox-core',
+    ]);
   });
 });

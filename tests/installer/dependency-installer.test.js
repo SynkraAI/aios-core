@@ -16,6 +16,7 @@ const {
   executeInstall,
   categorizeError,
   installWithRetry,
+  parsePackageManagerField,
 } = require('../../packages/installer/src/installer/dependency-installer');
 
 // Mock dependencies
@@ -78,6 +79,21 @@ describe('Dependency Installer', () => {
       expect(pm).toBe('npm');
     });
 
+    it('should prefer packageManager from package.json when present', () => {
+      fs.existsSync.mockImplementation((filePath) => {
+        return filePath.endsWith('package.json') || filePath.endsWith('package-lock.json');
+      });
+      fs.readFileSync.mockReturnValue(
+        JSON.stringify({
+          name: 'sample-project',
+          packageManager: 'pnpm@11.1.3',
+        }),
+      );
+
+      const pm = detectPackageManager('/test/project');
+      expect(pm).toBe('pnpm');
+    });
+
     it('should fallback to npm when no lock file exists', () => {
       fs.existsSync.mockReturnValue(false);
 
@@ -87,12 +103,35 @@ describe('Dependency Installer', () => {
 
     it('should respect priority order (bun > pnpm > yarn > npm)', () => {
       fs.existsSync.mockImplementation((filePath) => {
-        // Both pnpm and npm lock files exist
         return filePath.endsWith('pnpm-lock.yaml') || filePath.endsWith('package-lock.json');
       });
 
       const pm = detectPackageManager('/test/project');
-      expect(pm).toBe('pnpm'); // pnpm has higher priority
+      expect(pm).toBe('pnpm');
+    });
+  });
+
+  describe('parsePackageManagerField', () => {
+    it('should parse supported packageManager strings', () => {
+      fs.existsSync.mockReturnValue(true);
+      fs.readFileSync.mockReturnValue(
+        JSON.stringify({
+          packageManager: 'yarn@4.6.0',
+        }),
+      );
+
+      expect(parsePackageManagerField('/test/project')).toBe('yarn');
+    });
+
+    it('should return null for unsupported packageManager strings', () => {
+      fs.existsSync.mockReturnValue(true);
+      fs.readFileSync.mockReturnValue(
+        JSON.stringify({
+          packageManager: 'custompm@1.0.0',
+        }),
+      );
+
+      expect(parsePackageManagerField('/test/project')).toBeNull();
     });
   });
 
@@ -176,13 +215,11 @@ describe('Dependency Installer', () => {
 
       await executeInstall('npm', '/test/project');
 
-      // Windows requires shell: true because npm is actually npm.cmd
-      // Unix can use shell: false for better security
       const isWindows = process.platform === 'win32';
       expect(spawn).toHaveBeenCalledWith('npm', ['install'], {
         cwd: '/test/project',
         stdio: 'inherit',
-        shell: isWindows, // Windows needs shell, Unix doesn't
+        shell: isWindows,
       });
     });
 
@@ -281,27 +318,22 @@ describe('Dependency Installer', () => {
         return {
           on: jest.fn((event, callback) => {
             if (event === 'close') {
-              // First attempt fails, second succeeds
               setTimeout(() => callback(attempts < 2 ? 1 : 0), 10);
             }
           }),
         };
       });
 
-      // Use fake timers for faster test
       jest.useFakeTimers();
 
       const promise = installWithRetry('npm', '/test/project', 3, 1);
 
-      // Run all timers and wait for promises
       jest.runAllTimers();
-
-      // Restore real timers before awaiting
       jest.useRealTimers();
 
       const result = await promise;
 
-      expect(spawn).toHaveBeenCalledTimes(2); // First fail, then success
+      expect(spawn).toHaveBeenCalledTimes(2);
       expect(result.success).toBe(true);
     }, 15000);
 
@@ -366,7 +398,7 @@ describe('Dependency Installer', () => {
 
     it('should skip installation in offline mode (AC6)', async () => {
       fs.existsSync.mockImplementation(() => {
-        return true; // Both lock file and node_modules exist
+        return true;
       });
       fs.readdirSync.mockReturnValue(['lodash', 'express']);
 
