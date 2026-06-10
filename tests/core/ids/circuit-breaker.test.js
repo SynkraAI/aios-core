@@ -17,6 +17,7 @@ const {
 
 describe('CircuitBreaker', () => {
   let breaker;
+  const RESET_TIMEOUT_DELTA_MS = 1000;
 
   beforeEach(() => {
     breaker = new CircuitBreaker();
@@ -86,7 +87,7 @@ describe('CircuitBreaker', () => {
       expect(breaker.getState()).toBe(STATE_OPEN);
 
       // Simulate timeout passing
-      breaker._lastFailureTime = Date.now() - 61000;
+      breaker._lastFailureTime = Date.now() - (DEFAULT_RESET_TIMEOUT_MS + RESET_TIMEOUT_DELTA_MS);
 
       expect(breaker.isAllowed()).toBe(true);
       expect(breaker.getState()).toBe(STATE_HALF_OPEN);
@@ -226,7 +227,7 @@ describe('CircuitBreaker', () => {
       expect(breaker.getState()).toBe(STATE_OPEN);
 
       // 3. Wait and transition to HALF_OPEN
-      breaker._lastFailureTime = Date.now() - 61000;
+      breaker._lastFailureTime = Date.now() - (DEFAULT_RESET_TIMEOUT_MS + RESET_TIMEOUT_DELTA_MS);
       breaker.isAllowed();
       expect(breaker.getState()).toBe(STATE_HALF_OPEN);
 
@@ -242,7 +243,7 @@ describe('CircuitBreaker', () => {
 
     test('CLOSED -> OPEN -> HALF_OPEN -> OPEN (failure in half-open)', () => {
       for (let i = 0; i < 5; i++) breaker.recordFailure();
-      breaker._lastFailureTime = Date.now() - 61000;
+      breaker._lastFailureTime = Date.now() - (DEFAULT_RESET_TIMEOUT_MS + RESET_TIMEOUT_DELTA_MS);
       breaker.isAllowed(); // HALF_OPEN
 
       breaker.recordFailure(); // re-opens

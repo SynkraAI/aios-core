@@ -126,12 +126,16 @@ describe('AgentInvoker', () => {
     });
 
     test('returns failure when task not found', async () => {
-      fs.pathExists.mockResolvedValue(false);
+      fs.pathExists.mockImplementation((p) => {
+        if (p.includes('agents')) return Promise.resolve(true);
+        return Promise.resolve(false);
+      });
+      fs.readFile.mockResolvedValue('# Agent definition');
 
       const result = await invoker.invokeAgent('dev', 'nonexistent-task');
 
-      // Agent file unloaded (pathExists = false) and task doesn't exist
       expect(result.success).toBe(false);
+      expect(result.error).toContain('Task not found');
     });
 
     test('records invocation in history', async () => {

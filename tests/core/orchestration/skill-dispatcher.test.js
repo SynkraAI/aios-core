@@ -362,7 +362,7 @@ describe('SkillDispatcher', () => {
   describe('formatDispatchLog', () => {
     test('formats log with persona and details', () => {
       const payload = {
-        skill: 'AIOS:agents:architect',
+        skill: 'AIOX:agents:architect',
         args: '--task="design.md"',
         context: {
           phase: 1,
@@ -376,7 +376,7 @@ describe('SkillDispatcher', () => {
 
       expect(log).toContain('Aria');
       expect(log).toContain('@architect');
-      expect(log).toContain('AIOS:agents:architect');
+      expect(log).toContain('AIOX:agents:architect');
       expect(log).toContain('1 - Architecture');
       expect(log).toContain('design-system.md');
       expect(log).toContain('docs/arch.md');
@@ -384,7 +384,7 @@ describe('SkillDispatcher', () => {
 
     test('shows N/A for missing task and output', () => {
       const payload = {
-        skill: 'AIOS:agents:dev',
+        skill: 'AIOX:agents:dev',
         args: '',
         context: { phase: 2, phaseName: 'Dev' },
       };
@@ -396,7 +396,7 @@ describe('SkillDispatcher', () => {
 
     test('uses agent ID as name for unknown agents', () => {
       const payload = {
-        skill: 'AIOS:agents:custom',
+        skill: 'AIOX:agents:custom',
         args: '',
         context: { phase: 1, phaseName: 'Custom' },
       };
