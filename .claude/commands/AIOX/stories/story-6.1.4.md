@@ -3,11 +3,11 @@
 **Story ID:** 6.1.4  
 **Epic:** Epic-6.1 - Agent Identity System  
 **Wave:** Wave 1 (Foundation)  
-**Status:** 📋 Ready to Start  
+**Status:** 🔍 Ready for Review  
 **Priority:** 🔴 Critical  
 **Owner:** Dev (Dex)  
 **Created:** 2025-01-14  
-**Updated:** 2025-01-17 (v4 - Unified System Integration)  
+**Updated:** 2026-06-14 (Fase 4 concluída — 12/12 agentes atualizados)  
 **Duration:** 2.5 days (20 hours)  
 **Investment:** $250.00
 
@@ -1365,6 +1365,7 @@ Type *help to see available commands.
 
 | Date | Version | Changes | Author |
 |------|---------|---------|--------|
+| 2026-06-14 | 5.0 | Fase 4 concluída: STEP 3 atualizado em 12/12 agentes para usar generate-greeting.js. Scripts temporários removidos (Task 1.3). Status → Ready for Review | Dex (dev) |
 | 2025-01-17 | 4.1 | Added CodeRabbit Integration section, clarified migration scripts deletion process, verified test directory structure | Pax (po) |
 | 2025-01-17 | 4.0 | Expanded to unified system integration, integrated all analyses, added script consolidation, added session updates | Pax (po) + Aria (architect) |
 | 2025-01-16 | 3.0 | Validation improvements, integration tests added | Pax (po) |
