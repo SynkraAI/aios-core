@@ -1,0 +1,51 @@
+framework_proposal:
+  version: "1.0"
+  id: "PROP-20260614-no-work-loss-protection"
+  date: "2026-06-14"
+  proposer: "external-contributor (consumer-project audit)"
+  source_finding: "AF-20260614-no-work-loss-protection"
+
+  target:
+    layer: "L2"
+    artifact_type: "rule"
+    artifact_path: ".claude/rules/git-sync-safety.md (NEW) + optional advisory worktree-cleanup guard"
+    operation: "create"
+
+  generalization:
+    pattern_name: "Durability = on the remote, not on disk"
+    when_to_apply: |
+      Any project where contributors commit locally and/or use git worktrees.
+      Committed-but-unpushed work and unpublished worktrees are at risk from
+      `gc`, `reset --hard`, or a worktree cleanup. The framework already gates
+      quality and secrets, but not the irreversible risk class of LOST WORK.
+    examples_from_other_domains:
+      - "Multi-branch team: a worktree removed before publishing loses local commits"
+      - "Solo dev on a long-running task: reset --hard wipes uncommitted/unpushed work"
+      - "Agentic/CI flows: an automated cleanup removes a worktree the human never pushed"
+
+  migration_path:
+    breaking_change: false
+    affected_consumers: []
+    rollout_plan: |
+      Additive. Adds a process rule and (optionally) an advisory cleanup guard.
+      No existing behavior changes. Projects opt into the guard via config.
+
+  deprecation_plan:
+    deprecates: []
+    sunset_window: "n/a"
+
+  cost_benefit:
+    cost: "~1 documentation rule; optional advisory hook (~50 LOC)"
+    benefit: "Prevents an irreversible failure mode (lost work) framework-wide. Battle-tested in a production consumer fork, then generalized."
+    risk: "low — additive; advisory by default"
+
+  approval:
+    eliel_decision: "PENDING"
+    eliel_decision_at: null
+    eliel_decision_rationale: ""
+    revision_request: []
+
+  implementation:
+    pr_url: ""
+    merged_at: ""
+    distributed_to: []
