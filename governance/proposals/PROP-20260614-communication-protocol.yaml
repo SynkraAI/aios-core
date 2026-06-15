@@ -1,0 +1,57 @@
+framework_proposal:
+  version: "1.0"
+  id: "PROP-20260614-communication-protocol"
+  date: "2026-06-14"
+  proposer: "external-contributor (consumer-project audit)"
+  source_finding: "AF-20260614-communication-protocol"
+
+  target:
+    layer: "L2"
+    artifact_type: "rule"
+    artifact_path: ".claude/rules/communication-protocol.md (NEW)"
+    operation: "create"
+
+  generalization:
+    pattern_name: "Agents are specialists, not blind executors — four modes (Ask / Question / Propose / Alert)"
+    when_to_apply: |
+      Any agentic framework where agents execute tasks. Agents should not run blindly:
+        - ASK when context is insufficient (missing acceptance criteria, unknown stack, ambiguous scope)
+        - QUESTION when a requirement is flawed (unfeasible, disproportionate, obvious tech debt, regression risk)
+        - PROPOSE when a better path exists (an existing pattern, a more specialized agent, a quick win)
+        - ALERT when a risk is identified, by severity (critical = HALT for explicit confirmation; high/medium/low)
+      Focus is value delivery, not execution for its own sake. Agents never assume unprovided
+      context, never invent requirements, never execute silently under critical ambiguity, and
+      never deliver incomplete output without flagging it.
+    examples_from_other_domains:
+      - "A blind executor under ambiguous scope ships the wrong thing confidently"
+      - "An agent that spots a regression risk but stays silent to look efficient causes the regression"
+      - "An agent that proposes an existing pattern instead of re-creating one saves the whole team"
+
+  migration_path:
+    breaking_change: false
+    affected_consumers: []
+    rollout_plan: |
+      Additive. Adds a posture/method rule for agents. No existing behavior changes;
+      it is guidance, not a blocking gate.
+
+  deprecation_plan:
+    deprecates: []
+    sunset_window: "n/a"
+
+  cost_benefit:
+    cost: "~1 documentation rule"
+    benefit: |
+      Raises the quality of every agent in the framework: less blind execution under
+      ambiguity, fewer silent incomplete outputs, risks surfaced early. Universal and cheap.
+    risk: "low — additive; it is posture/method, advisory by nature"
+
+  approval:
+    eliel_decision: "PENDING"
+    eliel_decision_at: null
+    eliel_decision_rationale: ""
+    revision_request: []
+
+  implementation:
+    pr_url: ""
+    merged_at: ""
+    distributed_to: []
