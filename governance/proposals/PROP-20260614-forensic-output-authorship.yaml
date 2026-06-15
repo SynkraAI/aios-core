@@ -1,0 +1,58 @@
+framework_proposal:
+  version: "1.0"
+  id: "PROP-20260614-forensic-output-authorship"
+  date: "2026-06-14"
+  proposer: "external-contributor (consumer-project audit)"
+  source_finding: "AF-20260614-forensic-output-authorship"
+
+  target:
+    layer: "L2"
+    artifact_type: "rule"
+    artifact_path: ".claude/rules/output-conventions.md (NEW) + produced_by frontmatter in story/gate templates"
+    operation: "create"
+
+  generalization:
+    pattern_name: "Forensic authorship + root-cause tagging"
+    when_to_apply: |
+      Any project where multiple agents/models produce artifacts (stories, gates,
+      reports, docs), and where failed gates should teach the PROCESS instead of
+      being re-fixed at the symptom. Two conventions:
+        1. produced_by — every agent-generated artifact carries
+           `produced_by: { agent, model, date }` in its frontmatter/header.
+        2. process_breakpoint — every gate with a non-PASS verdict tags, per issue,
+           WHERE in the process the error was born (incomplete story? context-less
+           handoff? unvalidated input? environment?). "Fix the process, not the symptom."
+    examples_from_other_domains:
+      - "Multi-model pipelines: knowing which model produced an artifact is the input to model-tiering / validation sampling"
+      - "Quality gates: tagging where a defect was born reveals recurring process breakpoints to mechanize"
+      - "Audit trails: 'who/which model produced what' is forensic provenance for any agentic system"
+
+  migration_path:
+    breaking_change: false
+    affected_consumers: []
+    rollout_plan: |
+      Additive. Adds a documentation rule and two optional frontmatter fields.
+      No existing behavior changes; both conventions are advisory (report-only).
+
+  deprecation_plan:
+    deprecates: []
+    sunset_window: "n/a"
+
+  cost_benefit:
+    cost: "~1 documentation rule + two optional frontmatter fields"
+    benefit: |
+      Directly feeds the framework's own evolution-pipeline: produced_by gives the
+      provenance the pipeline needs (who/which model), and process_breakpoint surfaces
+      recurring failure points that become promotion candidates. Forensic, cheap, advisory.
+    risk: "low — additive; advisory by default; predicate is presence-of-frontmatter-field (100% checkable)"
+
+  approval:
+    eliel_decision: "PENDING"
+    eliel_decision_at: null
+    eliel_decision_rationale: ""
+    revision_request: []
+
+  implementation:
+    pr_url: ""
+    merged_at: ""
+    distributed_to: []
