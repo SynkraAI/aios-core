@@ -1,0 +1,37 @@
+audit_finding:
+  version: "1.0"
+  id: "AF-20260614-communication-protocol"
+  date: "2026-06-14"
+  auditor: "external-contributor (@aiox-master in a consumer project)"
+  source_session: "Comparative audit of a hardened consumer fork against aiox-core v5.2.9"
+
+  context:
+    project: "a production consumer project (anonymized)"
+    epic: "framework learning-loop audit"
+    triggered_by: "Agents executing blindly under ambiguity, or staying silent on risks, for lack of a shared communication protocol"
+
+  finding:
+    summary: "There is no shared protocol for how agents communicate when they hit insufficient context, a flawed requirement, a better alternative, or a risk — so agents tend to execute blindly or stay silent to look efficient."
+    evidence:
+      - "No rule defines when an agent should ASK / QUESTION / PROPOSE / ALERT"
+      - "No alert-severity ladder (critical = HALT; high / medium / low)"
+      - "Without it, agents assume unprovided context, invent requirements, or ship incomplete output silently"
+    impact_observed:
+      blast_radius: "medium"
+      affected_artifacts: ["every agent interaction", "any task run under ambiguity"]
+      cost: "Wrong work shipped confidently; risks discovered late; rework"
+
+  framework_candidate: true
+  framework_candidate_rationale: |
+    Project-agnostic and posture-level: any agentic framework benefits from agents that
+    ask, question, propose, and alert instead of executing blindly. It's guidance (advisory),
+    not a gate — it raises quality without constraining freedom.
+
+  references:
+    - kind: pattern
+      path: "Agents are specialists, not blind executors — four modes"
+
+  proposed_disposition:
+    - "Add a communication-protocol rule with the four modes (Ask / Question / Propose / Alert)"
+    - "Add an alert-severity ladder (critical = HALT; high / medium / low)"
+    - "State the anti-patterns agents must avoid (silent execution under ambiguity, inventing requirements, hiding incomplete output)"
