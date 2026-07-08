@@ -23,6 +23,7 @@ const path = require('path');
 const fs = require('fs');
 const readline = require('readline');
 const { createBuyerCommand } = require('./buyer');
+const { createSeatsCommand } = require('./seats');
 const PRO_PACKAGE = '@aiox-squads/pro';
 
 // BUG-6 fix (INS-1): Dynamic licensePath resolution
@@ -75,9 +76,8 @@ function loadLicenseModules() {
       setPendingDeactivation,
       clearPendingDeactivation,
     } = require(path.join(licensePath, 'license-cache'));
-    const { generateMachineId, maskKey, validateKeyFormat } = require(
-      path.join(licensePath, 'license-crypto')
-    );
+    const { generateMachineId } = require(path.join(licensePath, 'machine-id'));
+    const { maskKey, validateKeyFormat } = require(path.join(licensePath, 'license-crypto'));
     const { ProFeatureError, LicenseActivationError } = require(path.join(licensePath, 'errors'));
 
     return {
@@ -774,6 +774,9 @@ function createProCommand() {
 
   // aiox pro buyer — Cohort admin operations (Story 123.8)
   proCmd.addCommand(createBuyerCommand());
+
+  // aiox pro seats — Self-service seat management (EPIC-PRO-17)
+  proCmd.addCommand(createSeatsCommand());
 
   return proCmd;
 }

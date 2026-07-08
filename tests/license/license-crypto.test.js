@@ -10,6 +10,7 @@
 const crypto = require('crypto');
 const {
   generateMachineId,
+  getMachineIdSource,
   deriveCacheKey,
   encrypt,
   decrypt,
@@ -18,10 +19,25 @@ const {
   verifyHMAC,
   maskKey,
   validateKeyFormat,
+  _resetMachineIdCacheForTests,
   _CONFIG,
 } = require('../../pro/license/license-crypto');
+const {
+  writePersistedMachineId,
+  _resetMachineIdStoreForTests,
+} = require('../../pro/license/machine-id-store');
 
 describe('license-crypto', () => {
+  beforeEach(() => {
+    _resetMachineIdCacheForTests();
+    _resetMachineIdStoreForTests();
+  });
+
+  afterEach(() => {
+    _resetMachineIdCacheForTests();
+    _resetMachineIdStoreForTests();
+  });
+
   describe('generateMachineId', () => {
     it('should generate a deterministic machine ID', () => {
       const id1 = generateMachineId();
@@ -41,6 +57,14 @@ describe('license-crypto', () => {
     it('should not be empty', () => {
       const id = generateMachineId();
       expect(id).not.toBe('');
+    });
+
+    it('should report persisted source when machine.id exists', () => {
+      const persistedId = 'b'.repeat(64);
+      writePersistedMachineId(persistedId);
+
+      expect(generateMachineId()).toBe(persistedId);
+      expect(getMachineIdSource()).toBe('persisted');
     });
   });
 

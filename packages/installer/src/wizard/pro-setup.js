@@ -293,12 +293,13 @@ class InlineLicenseClient {
     return this._request(
       'POST',
       '/api/v1/auth/activate-pro',
-      {
+      withMachineIdSource({
         accessToken: token,
         machineId,
         version,
         aioxCoreVersion: version,
-      },
+        aiosCoreVersion: version,
+      }),
       {
         // Preserve legacy compatibility with older server deployments.
         Authorization: `Bearer ${token}`,
@@ -316,7 +317,7 @@ class InlineLicenseClient {
    * @returns {Promise<Object>} Artifact descriptor with artifactUrl, sha256, sizeBytes
    */
   async getProArtifactUrl(token, request) {
-    return this._request('POST', '/api/v1/pro/artifact-url', request, {
+    return this._request('POST', '/api/v1/pro/artifact-url', withMachineIdSource(request), {
       Authorization: `Bearer ${token}`,
     });
   }
@@ -329,13 +330,17 @@ class InlineLicenseClient {
    * @returns {Promise<Object>} Activation result
    */
   async activate(licenseKey, machineId, version) {
-    return this._request('POST', '/api/v1/license/activate', {
-      key: licenseKey,
-      machineId,
-      aioxCoreVersion: version,
-      aiosCoreVersion: version,
-      version,
-    });
+    return this._request(
+      'POST',
+      '/api/v1/license/activate',
+      withMachineIdSource({
+        key: licenseKey,
+        machineId,
+        aioxCoreVersion: version,
+        aiosCoreVersion: version,
+        version,
+      }),
+    );
   }
 
   /**
@@ -608,6 +613,11 @@ function loadLicenseCache() {
  * @returns {string} SHA-256 machine fingerprint (64 hex chars)
  */
 function generateMachineId() {
+  const machineIdModule = loadProModule('machine-id');
+  if (machineIdModule && typeof machineIdModule.generateMachineId === 'function') {
+    return machineIdModule.generateMachineId();
+  }
+
   const licenseCryptoModule = loadProModule('license-crypto');
   if (licenseCryptoModule && typeof licenseCryptoModule.generateMachineId === 'function') {
     return licenseCryptoModule.generateMachineId();
@@ -666,6 +676,39 @@ function generateLegacyMachineId() {
   }
 
   return crypto.createHash('sha256').update(components.join('|')).digest('hex');
+}
+
+/**
+ * @returns {'persisted'|'native'|'legacy'|null}
+ */
+function getMachineIdSource() {
+  const machineIdModule = loadProModule('machine-id');
+  if (machineIdModule && typeof machineIdModule.getMachineIdSource === 'function') {
+    return machineIdModule.getMachineIdSource();
+  }
+
+  const licenseCryptoModule = loadProModule('license-crypto');
+  if (licenseCryptoModule && typeof licenseCryptoModule.getMachineIdSource === 'function') {
+    return licenseCryptoModule.getMachineIdSource();
+  }
+
+  return null;
+}
+
+/**
+ * @param {Record<string, unknown>} payload
+ * @returns {Record<string, unknown>}
+ */
+function withMachineIdSource(payload) {
+  const machineIdSource = getMachineIdSource();
+  if (!machineIdSource) {
+    return payload;
+  }
+
+  return {
+    ...payload,
+    machineIdSource,
+  };
 }
 
 /**
