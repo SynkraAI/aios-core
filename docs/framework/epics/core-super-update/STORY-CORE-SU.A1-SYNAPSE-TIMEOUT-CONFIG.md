@@ -11,6 +11,7 @@
 | Priority | P0 |
 | Source Issue | #798 |
 | Complexity | S |
+| Architecture | [ARCHITECTURE-WAVE-A.md](./ARCHITECTURE-WAVE-A.md) §3.1 |
 
 ## Problem
 

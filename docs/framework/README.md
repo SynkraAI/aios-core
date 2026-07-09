@@ -23,6 +23,7 @@ This directory contains **official AIOX framework documentation** that defines s
 | [**coding-standards.md**](coding-standards.md) | JavaScript/TypeScript standards, naming conventions, code quality rules | All developers |
 | [**tech-stack.md**](tech-stack.md) | Technology choices, frameworks, libraries, and tooling standards | Architects, developers |
 | [**source-tree.md**](source-tree.md) | Directory structure, file organization, and project layout patterns | All team members |
+| [**epics/core-super-update/**](epics/core-super-update/EPIC-CORE-SUPER-UPDATE.md) | Public epic: harvest hub/enterprise into OSS core (no workspace product) | Architects, maintainers |
 
 ---
 
