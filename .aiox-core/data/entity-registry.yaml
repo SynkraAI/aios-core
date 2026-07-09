@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-07-09T04:55:54.149Z'
+  lastUpdated: '2026-07-09T04:57:17.615Z'
   entityCount: 823
   checksumAlgorithm: sha256
   resolutionRate: 100
@@ -8639,8 +8639,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:9f3c3f90f574d5f49dd94592ab28109465d025b3a740d8639ab781c2560c12ab
-      lastVerified: '2026-07-09T04:06:46.261Z'
+      checksum: sha256:4a07e42571be04ea1f0e8d1c6a96b6a2fa99535696e74d6c9080506f63f71b91
+      lastVerified: '2026-07-09T04:57:17.609Z'
     config-loader:
       path: .aiox-core/core/config/config-loader.js
       layer: L1
@@ -16595,8 +16595,8 @@ entities:
         score: 0.7
         constraints: []
         extensionPoints: []
-      checksum: sha256:363383dbf90df90d69b8ba769db4f9749b0ae91b4fe95ee15be633941906f8a2
-      lastVerified: '2026-07-09T04:06:47.793Z'
+      checksum: sha256:2b068a320b7a23e5328d9c52214f0d4490c93feaa978958071c1d4f9813a95ca
+      lastVerified: '2026-07-09T04:57:17.610Z'
     config-loader:
       path: .aiox-core/infrastructure/scripts/config-loader.js
       layer: L2
