@@ -46,6 +46,46 @@ function createWaveCommand() {
   cmd.description('Lean wave-execute planner (DAG + file partition)');
 
   cmd
+    .command('from-epic')
+    .description('Discover STORY-*.md under an epic dir and plan a wave (C3)')
+    .requiredOption('--epic-dir <dir>', 'Epic directory (e.g. docs/framework/epics/core-super-update)')
+    .option('--wave-id <id>', 'Wave id')
+    .option('--filter <regex>', 'Filter story ids (regex or substring)')
+    .option('--skip-done', 'Skip stories already Done', false)
+    .option('--mode <mode>', 'yolo | interactive', 'interactive')
+    .option('--json', 'JSON output', false)
+    .action((opts) => {
+      try {
+        const plan = sdc.planWaveFromEpic({
+          epicDir: opts.epicDir,
+          waveId: opts.waveId,
+          filter: opts.filter,
+          skipDone: opts.skipDone,
+          mode: opts.mode,
+        });
+        if (opts.json) {
+          console.log(JSON.stringify(plan, null, 2));
+          return;
+        }
+        console.log(`Wave from epic: ${plan.waveId} [${plan.status}]`);
+        console.log(`  epic:    ${plan.epicGlue && plan.epicGlue.epicDir}`);
+        console.log(`  filter:  ${(plan.epicGlue && plan.epicGlue.filter) || '—'}`);
+        console.log(`  stories: ${plan.stories.length}`);
+        for (const b of plan.batches || []) {
+          console.log(`\nBatch ${b.index}:`);
+          for (const s of b.stories) {
+            console.log(`  - ${s.storyId} [${s.status}] ${s.path}`);
+          }
+        }
+        console.log(`\nSaved: ${sdc.waveStatePath(plan.waveId)}`);
+        console.log('Next: aiox wave advance ' + plan.waveId);
+      } catch (err) {
+        console.error(err.message);
+        process.exitCode = 1;
+      }
+    });
+
+  cmd
     .command('plan')
     .description('Build wave batches from story paths')
     .option('--stories <list>', 'Comma-separated story paths')

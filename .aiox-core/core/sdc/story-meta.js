@@ -140,9 +140,10 @@ function extractDependsOn(text) {
  */
 function extractQaVerdict(text) {
   const m =
-    text.match(/Gate:\s*(PASS|CONCERNS|FAIL|WAIVED)\b/i) ||
-    text.match(/verdict:\s*(PASS|CONCERNS|FAIL|WAIVED)\b/i) ||
-    text.match(/\*\*Gate Status:\*\*\s*(PASS|CONCERNS|FAIL|WAIVED)\b/i);
+    text.match(/Gate:\s*\**\s*(PASS|CONCERNS|FAIL|WAIVED)\b/i) ||
+    text.match(/verdict:\s*\**\s*(PASS|CONCERNS|FAIL|WAIVED)\b/i) ||
+    text.match(/\*\*Gate Status:\*\*\s*\**\s*(PASS|CONCERNS|FAIL|WAIVED)\b/i) ||
+    text.match(/Gate Status\s*\n+\s*Gate:\s*\**\s*(PASS|CONCERNS|FAIL|WAIVED)\b/i);
   return m ? m[1].toUpperCase() : null;
 }
 

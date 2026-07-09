@@ -116,5 +116,5 @@ No new core-config required for C1; optional `orchestration.wave` later.
 - [x] C1–C4 rows in epic table
 - [x] C1 implemented: `wave-run.js` + CLI advance/mark/report
 - [x] C1 unit tests
-- [ ] C2–C4 full scope
+- [x] C2–C4 full scope (dispatch-adapter, epic-glue, tests)
 - [x] No product harvest in C code paths

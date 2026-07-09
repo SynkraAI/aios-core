@@ -32,7 +32,11 @@ aiox wave next {wave-id}
 ## CLI (mechanical)
 
 ```bash
-# Build batches (depends_on topo + non-overlapping File Lists → parallel)
+# From epic directory (C3) — preferred
+aiox wave from-epic --epic-dir docs/framework/epics/core-super-update \
+  --filter 'CORE-SU.C' --wave-id CORE-SU-C --mode yolo
+
+# Or explicit paths
 aiox wave plan --stories a.md,b.md,c.md --wave-id WAVE-1 --mode yolo --save
 
 # Advance / next batch (auto-completes stories already Done / sdc completed)
@@ -47,13 +51,15 @@ aiox wave mark WAVE-1 {story-id} --status failed --notes "qg breaker"
 aiox wave report WAVE-1
 aiox wave status WAVE-1
 
-# Per story (child)
+# Per story (child full-sdc)
 aiox sdc plan {story} --mode yolo
-# … full-sdc execute loop …
+aiox sdc next {story}
+# … run skill for phase …
+aiox sdc verify {story} {phase} --mark
 ```
 
 State: `.aiox/waves/{wave-id}/state.json`  
-Controller: `.aiox-core/core/sdc/wave-run.js` (C1 cascade-block + advance)
+Controller: `wave-run.js` + `dispatch-adapter.js` (C2) + `epic-glue.js` (C3)
 
 ## EXECUTE stages
 

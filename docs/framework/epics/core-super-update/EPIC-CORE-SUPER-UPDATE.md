@@ -130,14 +130,16 @@ Each ARCH doc must cover: components, data/control flow, integration points, con
 
 Strip: no `sinkra_*`, `.sinkra/`, `workspace/`, product deploy hosts. Skills invoke tasks only.
 
-### Wave C — Orchestration (stretch) — ARCH-C ✅
+### Wave C — Orchestration (stretch) — ARCH-C ✅ **COMPLETE**
 
 | Story | Status |
 |-------|--------|
-| C1 Wave run controller (advance/mark/cascade/report) | ✅ started (wave-run.js + CLI) |
-| C2 Optional parallel dispatch adapter | ⬜ |
-| C3 Epic glue + report polish | 🟡 report.md exists |
-| C4 Tests | 🟡 wave-run unit tests |
+| C1 Wave run controller (advance/mark/cascade/report) | ✅ Done |
+| C2 Optional parallel dispatch adapter | ✅ Done (`dispatch-adapter.js`) |
+| C3 Epic glue + report polish | ✅ Done (`from-epic`, epic-glue) |
+| C4 Tests | ✅ Done (23 unit/integration tests) |
+
+Executed via **wave-execute** wave `CORE-SU-C` + **full-sdc** per story (YOLO).
 
 ### Wave D — IDE / SYNAPSE (stretch) — **BLOCKED until ARCH-D**
 

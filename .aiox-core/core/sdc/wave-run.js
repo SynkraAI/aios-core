@@ -16,6 +16,7 @@ const {
 } = require('./progress');
 const { planWaveFromPaths } = require('./wave-plan');
 const { parseStoryFile } = require('./story-meta');
+const { createDispatchAdapter } = require('./dispatch-adapter');
 
 /**
  * @param {object} wave
@@ -208,6 +209,23 @@ function advanceWave(waveId, opts = {}) {
 }
 
 /**
+ * Run a worker over a batch of stories using the dispatch adapter (C2).
+ * @param {object[]} stories
+ * @param {(story: object) => Promise<*>|*} worker
+ * @param {object} [opts]
+ * @param {'sequential'|'parallel'} [opts.mode]
+ * @param {number} [opts.maxParallel]
+ * @returns {Promise<Array>}
+ */
+async function runWaveBatch(stories, worker, opts = {}) {
+  const adapter = createDispatchAdapter({
+    mode: opts.mode || 'sequential',
+    maxParallel: opts.maxParallel,
+  });
+  return adapter.runBatch(stories || [], worker);
+}
+
+/**
  * Write markdown report for a wave.
  * @param {string} waveId
  * @param {object} [opts]
@@ -225,11 +243,23 @@ function writeWaveReport(waveId, opts = {}) {
     `- Mode: ${wave.mode || '—'}`,
     `- Updated: ${wave.updatedAt || '—'}`,
     '',
+  ];
+  if (wave.epicGlue) {
+    lines.push('## Epic glue', '');
+    lines.push(`- Epic dir: \`${wave.epicGlue.epicDir || '—'}\``);
+    lines.push(`- Filter: ${wave.epicGlue.filter || '—'}`);
+    lines.push(`- skipDone: ${wave.epicGlue.skipDone ? 'yes' : 'no'}`);
+    lines.push(
+      `- Discovered: ${(wave.epicGlue.discovered || []).join(', ') || '—'}`,
+    );
+    lines.push('');
+  }
+  lines.push(
     '## Stories',
     '',
     '| Story | File status | SDC | Run | Notes |',
     '|-------|-------------|-----|-----|-------|',
-  ];
+  );
   for (const s of wave.stories || []) {
     lines.push(
       `| ${s.storyId} | ${s.status || '—'} | ${s.sdcStatus || '—'} | ${s.runStatus || '—'} | ${s.runNotes || ''} |`,
@@ -297,5 +327,6 @@ module.exports = {
   advanceWave,
   writeWaveReport,
   planAndSave,
+  runWaveBatch,
   waveStatePath,
 };

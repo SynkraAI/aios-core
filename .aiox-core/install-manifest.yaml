@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 5.2.9
-generated_at: "2026-07-09T05:16:57.792Z"
+generated_at: "2026-07-09T05:19:38.424Z"
 generator: scripts/generate-install-manifest.js
-file_count: 1155
+file_count: 1157
 files:
   - path: cli/commands/config/index.js
     hash: sha256:25c4b9bf4e0241abf7754b55153f49f1a214f1fb5fe904a576675634cb7b3da9
@@ -129,9 +129,9 @@ files:
     type: cli
     size: 15206
   - path: cli/commands/wave/index.js
-    hash: sha256:b3a4c5122e678571123f3cd3f7f69750fd9b5819db708427e18334a6126e67c4
+    hash: sha256:4f4642630e620f00f9ed11302f501b9eac9df9fe0a6ec960fb067938d1c31631
     type: cli
-    size: 7929
+    size: 9538
   - path: cli/commands/workers/formatters/info-formatter.js
     hash: sha256:11c17e16be0b7d09ba8949497e0887bb20996966d266454aa2bb5dfc9d9d91b8
     type: cli
@@ -337,7 +337,7 @@ files:
     type: core
     size: 4203
   - path: core/doctor/checks/index.js
-    hash: sha256:23c0b7fc696e0b918577e246a8174e911393573d59b73bd64639606b9181cebb
+    hash: sha256:1a2e5d6e39e7f29bc5e227ffd282dd04a322daf7bfa52f87ac4d58868ba0fd40
     type: core
     size: 1259
   - path: core/doctor/checks/node-version.js
@@ -1136,10 +1136,18 @@ files:
     hash: sha256:57b60c664aac51299a8576be57eff702d716fb48595af342e534c1191355eb85
     type: core
     size: 1139
-  - path: core/sdc/index.js
-    hash: sha256:432a386668d36585d697db804615729e089cb336464539d4a54ee5815383e681
+  - path: core/sdc/dispatch-adapter.js
+    hash: sha256:2bf891b3659c3d7b211e298b1cbd0e802197c21516582888e34af6076181380b
     type: core
-    size: 2713
+    size: 2690
+  - path: core/sdc/epic-glue.js
+    hash: sha256:b02120cb7769b39c5089960c2806dc741cb1cd97fcf5bf1509cf8b1aa6d73caf
+    type: core
+    size: 3205
+  - path: core/sdc/index.js
+    hash: sha256:b80c8e8a8175fbb0833e0c2068816313f7710418407f1383c268f4c0144f37a6
+    type: core
+    size: 2846
   - path: core/sdc/phase-verify.js
     hash: sha256:943c1678acab90f24c5623e88dc9b53093b435240eeb7907926fd91d07977c4c
     type: core
@@ -1149,17 +1157,17 @@ files:
     type: core
     size: 4123
   - path: core/sdc/story-meta.js
-    hash: sha256:80ed70b0323a331e7f0bed5a731f2074a85cde6f72dc5897716d63c68f1a8dfe
+    hash: sha256:5d138312dbbcb6e8b3b65212bbdebde59beb5c37bcd49900fa18811a17df4d11
     type: core
-    size: 5405
+    size: 5509
   - path: core/sdc/wave-plan.js
     hash: sha256:a39c7f376ee650f14ba0fd5d9509a7c822b82488b6e3499ee043346837f07874
     type: core
     size: 4494
   - path: core/sdc/wave-run.js
-    hash: sha256:0c78a25d2ebcede18405971e50f132a5d606aa540f6bbe0da2e0e9e6b8fdbd88
+    hash: sha256:d19fa5674a0e877dedaf56a0ff1b10f1336c56decfcfb09384b4be8d15215933
     type: core
-    size: 8926
+    size: 9947
   - path: core/security/port-denylist.js
     hash: sha256:997edf52ac802c2f729f62ecd15f2fbbb161236f6cba8ed34324503f67ae7e3f
     type: core
@@ -1365,9 +1373,9 @@ files:
     type: data
     size: 9590
   - path: data/entity-registry.yaml
-    hash: sha256:4f48ceb3f52d7bcf0dc3d553a93e14d1397ecdcfaafceb85d20988ca15900703
+    hash: sha256:863ab5448d591c204588290ca4a9f3cd4a19ca4bd5ef527b8618a57500212057
     type: data
-    size: 589570
+    size: 590917
   - path: data/learned-patterns.yaml
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data
@@ -1905,9 +1913,9 @@ files:
     type: development
     size: 1770
   - path: development/skills/wave-execute/SKILL.md
-    hash: sha256:3215474c02d1d90be8e8c359fb52db637ca7dfef8808b57ee4fc8506b68dfbdf
+    hash: sha256:04fea6a2e18df77ec03497609d7023e5b8ffce29ba1fcb959cb6f908f54fa1df
     type: development
-    size: 4489
+    size: 4672
   - path: development/tasks/add-mcp.md
     hash: sha256:badc8a9859cb313e908d4ea0f4c4d7bc1be723214e38f26d55c366689fe5e3f0
     type: task
@@ -2325,9 +2333,9 @@ files:
     type: task
     size: 3595
   - path: development/tasks/health-check.yaml
-    hash: sha256:f464eb7047b5c078c3734654e7d969527e8cd8804634053a64f441a965e89c9c
+    hash: sha256:da225b4fa68aa83c61a2f93dd6b3bb20ccb9e31552de8d1fd7a3d6cb249d0515
     type: task
-    size: 8049
+    size: 8262
   - path: development/tasks/ids-governor.md
     hash: sha256:cfb1aefffdf2db0d35cae8fdde2f5afbcea62b9b616e78a43390756c9b8e6b9c
     type: task

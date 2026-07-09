@@ -9,6 +9,8 @@ const progress = require('./progress');
 const phaseVerify = require('./phase-verify');
 const wavePlan = require('./wave-plan');
 const waveRun = require('./wave-run');
+const dispatchAdapter = require('./dispatch-adapter');
+const epicGlue = require('./epic-glue');
 
 /**
  * Initialize or load full-sdc run state for a story.
@@ -90,6 +92,8 @@ module.exports = {
   ...phaseVerify,
   ...wavePlan,
   ...waveRun,
+  ...dispatchAdapter,
+  ...epicGlue,
   initFullSdc,
   verifyAndMaybeMark,
 };

@@ -3,8 +3,7 @@
 Canonical: [EPIC-CORE-SUPER-UPDATE.md](./EPIC-CORE-SUPER-UPDATE.md)  
 Architecture: [A](./ARCHITECTURE-WAVE-A.md) · [B](./ARCHITECTURE-WAVE-B.md) · [C](./ARCHITECTURE-WAVE-C.md)
 
-> Public path: `docs/framework/epics/core-super-update/` (not gitignored).  
-> **No product harvest trees in OSS.**
+> Public path: `docs/framework/epics/core-super-update/`.
 
 ## Status legend
 
@@ -21,46 +20,37 @@ Architecture: [A](./ARCHITECTURE-WAVE-A.md) · [B](./ARCHITECTURE-WAVE-B.md) · 
 
 | Item | Status |
 |------|--------|
-| Branch off PR #800 | ✅ |
-| Epic under `docs/framework/epics/` | ✅ |
-| ARCH-A / ARCH-B / ARCH-C | ✅ |
+| Branch + epic path | ✅ |
+| ARCH-A / B / C | ✅ |
 | Merge PR #800 | ⬜ |
 | ARCH-D…E | ⬜ |
 
 ---
 
-## Wave A — Runtime hygiene
+## Wave A — ✅
 
-| Story | Status |
-|-------|--------|
-| A1 SYNAPSE timeout | ✅ Done |
-| A2 ConfigCache residual | ✅ Done |
-| A3 path/prompt/ssrf guards | ✅ Done |
-| A4 denylist + smoke | ✅ Done |
+A1–A4 Done.
 
----
+## Wave B — ✅
 
-## Wave B — SDC skills + execute
+SDC skills + `aiox sdc` / `aiox wave` execute.
+
+## Wave C — ✅ COMPLETE (via wave-execute CORE-SU-C)
 
 | Item | Status |
 |------|--------|
-| Skills + full-sdc lean | ✅ |
-| `aiox sdc` / `aiox wave` plan | ✅ |
-| Grok/Claude surfaces | ✅ |
+| C1 wave-run | ✅ |
+| C2 dispatch-adapter | ✅ |
+| C3 epic-glue / from-epic | ✅ |
+| C4 tests | ✅ 23 tests |
 
----
-
-## Wave C — Orchestration
-
-| Item | Status |
-|------|--------|
-| ARCH-C | ✅ |
-| C1 wave-run controller | ✅ `wave-run.js` + advance/mark/report |
-| C2 parallel dispatch adapter | ⬜ |
-| C3 epic glue | 🟡 report.md |
-| C4 tests | 🟡 unit tests for wave-run |
-
-**CLI:** `aiox wave advance|mark|report|next|plan|status`
+```bash
+aiox wave from-epic --epic-dir docs/framework/epics/core-super-update \
+  --filter 'CORE-SU.C' --wave-id CORE-SU-C --mode yolo
+aiox wave advance CORE-SU-C
+# full-sdc per open story…
+aiox wave report CORE-SU-C
+```
 
 ---
 
@@ -68,14 +58,14 @@ Architecture: [A](./ARCHITECTURE-WAVE-A.md) · [B](./ARCHITECTURE-WAVE-B.md) · 
 
 | Wave | ARCH | Impl |
 |------|------|------|
-| D | ⬜ | 🚫 |
-| E | ⬜ | 🚫 |
+| D IDE/SYNAPSE | ⬜ | 🚫 until ARCH-D |
+| E Constitution | ⬜ | 🚫 until ARCH-E |
 
 ## Wave F
 
 | Story | Status |
 |-------|--------|
-| F1 Windows #773 | ⬜ |
+| F1 Windows #773 | ⬜ (// anytime) |
 
 ---
 
@@ -83,6 +73,5 @@ Architecture: [A](./ARCHITECTURE-WAVE-A.md) · [B](./ARCHITECTURE-WAVE-B.md) · 
 
 | Date | Event |
 |------|-------|
-| 2026-07-09 | Epic + ARCH-A; Wave A |
-| 2026-07-09 | ARCH-B + Wave B skills + execute |
-| 2026-07-09 | ARCH-C + C1 wave-run; A1 residual closed |
+| 2026-07-09 | A+B+C1 |
+| 2026-07-09 | Wave C complete via wave-execute + full-sdc (C2–C4) |
