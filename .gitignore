@@ -378,3 +378,6 @@ build/
 
 # Local Codex CLI artifacts (do not version until hardened — absolute paths / force-push wording)
 .codex/
+
+# Legacy aios-* Claude skills (superseded by aios-* agent skills under AIOX/ or aiox-* SDC); local only
+.claude/skills/aios-*/

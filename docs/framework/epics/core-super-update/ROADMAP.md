@@ -32,14 +32,25 @@ Windows `ECOMPROMISED` (#773): docs + `aiox install` hint + doctor `windows-npx-
 
 ## Completion boundary
 
-PR-ready scope is Waves 0/A/B/C plus D1/D2/E1/F1 and PM1. D3, D4, E3, and F2 are optional backlog; D5, E4, and F3 are deferred by design.
+**Shipped (required):** Waves 0 / A / B / C + D1 + D2(MB) + E1 + F1 + PM1 + dual-path governance.
 
-## Next
+**Out of this release (not open work):**
+| Item | Disposition |
+|------|-------------|
+| D3 parity smoke extensions | Optional backlog (post-merge) |
+| D4 context-optimizer skill | Optional backlog (post-merge) |
+| D5 three-brain | DEFERRED by design |
+| E3 constitution cross-links | Optional docs (post-merge) |
+| E4 governance-pipeline skill | DEFERRED by design |
+| F2 doctor heuristic | Optional backlog (post-merge) |
+| F3 theme-resolver | DEFERRED by design |
+| Version `.codex/` | Blocked until path hardening |
 
-1. Open/merge PR for `feat/core-super-update-epic` (+ #800 chain)  
-2. Close GitHub #773 / #797 / #798 with PR links  
-3. F2 doctor heuristic (optional)  
-4. Harden Codex artifacts only if we decide to version `.codex/`  
+## Next (process, not implementation)
+
+1. `*pre-push` + CodeRabbit on this branch  
+2. Open/merge PR (+ #800 chain if needed)  
+3. Close GitHub #773 / #797 / #798 with PR links
 
 
 ## Tracking
@@ -49,3 +60,4 @@ PR-ready scope is Waves 0/A/B/C plus D1/D2/E1/F1 and PM1. D3, D4, E3, and F2 are
 | 2026-07-09 | A+B+C complete via wave-execute |
 | 2026-07-09 | ARCH-D/E drafts; F1 Windows #773 Done |
 | 2026-07-09 | 3-way analysis corrections + Wave 0 diff harness |
+| 2026-07-09 | Required scope frozen COMPLETE; backlog deferred; pre-push/CR next |

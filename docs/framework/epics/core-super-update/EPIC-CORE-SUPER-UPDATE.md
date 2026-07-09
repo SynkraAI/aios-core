@@ -5,7 +5,7 @@
 | Campo | Valor |
 |-------|-------|
 | Epic ID | CORE-SUPER-UPDATE |
-| Status | PR-ready — required scope complete; optional/deferred backlog documented |
+| Status | **COMPLETE (required scope)** — optional/deferred backlog explicitly out of ship; ready for pre-push / CodeRabbit / PR |
 | Priority | P0 |
 | Branch base | `feat/grok-agents-skills` (PR #800) → merge chain into `main` |
 | Working branch | `feat/core-super-update-epic` |
