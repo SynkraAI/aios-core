@@ -137,14 +137,13 @@
 
 ---
 
-## Suggested sprint order
+## Suggested sprint order (post-roundtable)
 
-1. **Sprint 1:** Wave A (all)  
-2. **Sprint 2:** Wave B1–B4  
-3. **Sprint 3:** Wave B5–B6  
-4. **Sprint 4:** Wave C1–C2  
-5. **Sprint 5:** Wave D1–D2 + E1–E2  
-6. **Sprint 6:** remaining C/D/E/F  
+1. **Sprint 1 (MVP start):** A1 + A2 + A4(partial timeout) // F1  
+2. **Sprint 2:** A3 + A4 denylist; draft B1–B4  
+3. **Sprint 3:** B0 ADR + B1–B4 merge (after A3)  
+4. **Sprint 4:** B5 lean + B6 wire → **ship 5.3.0 MVP**  
+5. **Sprint 5+ (stretch):** C1–C2, D1 slices, E0–E2, F2  
 
 ---
 
@@ -153,5 +152,6 @@
 | Date | Event |
 |------|-------|
 | 2026-07-09 | Epic + roadmap created from PR #800 branch |
+| 2026-07-09 | Roundtable APPROVE_WITH_FIXES (architect/qa/devops/pm) — epic updated |
 
 *Update this table on each story close.*

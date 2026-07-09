@@ -16,7 +16,29 @@
 
 Trazer para o **aiox-core OSS** o que o framework ganhou em **sinkra-hub** e **AIOX-enterprise**, sem importar produto Sinkra, monorepo multi-BU, squads de domínio ou IP enterprise.
 
+**Promessa MVP (headline):** instalar `@aiox-squads/core` → slash-run **validate → develop → review → close** sem monorepo hub.
+
 Resultado esperado: core instalável com **SDC invocável (skills)**, **runtime mais robusto**, **guards de segurança**, **IDE parity** e **constituição alinhada** — preservando o que o OSS já tem de melhor.
+
+## MVP cut (ship train)
+
+| Release | Conteúdo | Semver esperado |
+|---------|----------|-----------------|
+| **MVP** | Phase 0 + **Wave A** + **Wave B** | **minor 5.3.0** (skills surface) |
+| Stretch | Waves C–F | epics follow-on ou minor later |
+
+- **Wave A** sozinha pode fechar como **patch 5.2.x** (#797/#798) se B atrasar.
+- **Waves C–F** não bloqueiam anúncio de SDC skills; têm ADRs/PRs independentes.
+
+## Roundtable
+
+| Campo | Valor |
+|-------|-------|
+| Date | 2026-07-09 |
+| Mode | epic_review |
+| Lenses | architect, qa, devops, pm |
+| Verdict | **APPROVE_WITH_FIXES** |
+| Report | embedded below (findings resolved into this epic + ROADMAP) |
 
 ## Contexto (por que agora)
 
@@ -62,6 +84,16 @@ O OSS **não está “parado” no motor** (módulos que hub/ent **não** têm).
 - Squads de domínio / marketing / content
 - Skills `sinkra-*` acopladas ao produto
 - Constituição Art. VIII–X / XIII como MUST hard no OSS (só opcional/doc)
+- **Runtime skill** para journey-log / BU / tribunal (E3 = **docs only**)
+- Bulk dump de ide-sync hub sem allowlist/adapter slices
+
+### Port gates (enforced)
+
+1. **OSS-wins list** is a **merge gate**, not a trailing story — any PR that deletes/overwrites listed OSS-superior modules is blocked.
+2. **Strip denylist CI** before merge of hub-ported files: `sinkra_`, `.sinkra/`, `mux-adapter`, client hostnames, `coolify`, absolute `/Users/`, secret patterns.
+3. **A3+A4 hard prerequisite** to **merge** Wave B/C/D surfaces that write FS or fetch URLs (drafting B skills in parallel OK).
+4. **Wave-scoped PRs** after #800 merges (not one mega-PR).
+5. **docs/stories/** is gitignored — epic tracked via `git add -f` **or** promote to `docs/framework/epics/` (D1 finding). Prefer framework path for public plan artifacts going forward.
 
 ---
 
@@ -72,11 +104,11 @@ O OSS **não está “parado” no motor** (módulos que hub/ent **não** têm).
 | Story | Título | Source issue / nota | Status |
 |-------|--------|---------------------|--------|
 | CORE-SU.A1 | SYNAPSE `PIPELINE_TIMEOUT_MS` configurável | #798 | Draft |
-| CORE-SU.A2 | ConfigCache: skip `setInterval` sob Jest | #797 | Draft |
+| CORE-SU.A2 | ConfigCache: Jest open-handle fix (reproduce-first) | #797 | Draft |
 | CORE-SU.A3 | Permissions guards: path / prompt / SSRF | hub `core/permissions/*-guard.js` | Draft |
-| CORE-SU.A4 | Smoke tests + doctor checks de guards/timeout | — | Draft |
+| CORE-SU.A4 | Smoke tests + doctor + **port denylist CI** | RT D2/D9 | Draft |
 
-**DoD Wave A:** lint, typecheck, test green; timeout default documentado; guards unit-tested.
+**DoD Wave A:** `npm run lint && typecheck && test` green; timeout default + clamp documented; guards unit-tested + wired into `core/permissions`; denylist script exists; #797/#798 closable with evidence.
 
 ---
 
@@ -86,117 +118,132 @@ Port **lean** (protocolo enxuto; tasks existentes continuam SOT).
 
 | Story | Título | Source | Status |
 |-------|--------|--------|--------|
+| CORE-SU.B0 | **Spike ADR:** full-sdc lean protocol (phases, skill→task map, non-ported WL) | RT A3/P4 | Draft |
 | CORE-SU.B1 | Skill `validate-story-draft` (OSS) | hub/ent | Draft |
 | CORE-SU.B2 | Skill `develop-story` (OSS) | hub/ent | Draft |
 | CORE-SU.B3 | Skill `review-story` + `apply-qa-fixes` | hub/ent | Draft |
 | CORE-SU.B4 | Skill `close-story` + `commit` | hub/ent | Draft |
-| CORE-SU.B5 | Skill `full-sdc` **core lean** (~300–500 LOC protocolo) | hub `full-sdc` strip Sinkra | Draft |
+| CORE-SU.B5 | Skill `full-sdc` **core lean** (thin orchestrator; outcome AC not LOC-only) | hub strip + B0 | Draft |
 | CORE-SU.B6 | Wire skills em Claude + Grok + Codex sync | ide-sync / grok-skills-sync | Draft |
 
 **Regras de strip (Wave B):**
 
 - Remover `sinkra_tier`, `owner_squad: sinkra-*`, paths `.sinkra/`
-- Worktree lifecycle (WL-1..WL-7): **v1 opcional / simplified** — não portar 2200 linhas de full-sdc hub de uma vez
+- Worktree lifecycle (WL-1..WL-7): **v1 opcional / simplified** — list explicit non-ported features in B0
 - Tasks em `.aiox-core/development/tasks/` permanecem fonte de verdade executável
 - Skills **invocam** tasks; não duplicar lógica divergente
+- **Anti-bloat:** CI grep forbidden tokens; soft LOC budget; hard ban on re-implementing task logic
 
-**DoD Wave B:** `/full-sdc` (ou skill equivalente) roda em greenfield mock story; paridade slash nos 3 IDEs.
-
----
-
-### Wave C — Orchestration merge (P1)
-
-| Story | Título | Source | Status |
-|-------|--------|--------|--------|
-| CORE-SU.C1 | 3-way diff `master-orchestrator` + plan de merge | hub vs OSS | Draft |
-| CORE-SU.C2 | `wave-executor` / wave skill **core** (sem mux-adapter) | hub `wave-execute` lean | Draft |
-| CORE-SU.C3 | Model-router **opcional** (sem tribunal) | hub `orchestration/model-router.js` | Draft |
-| CORE-SU.C4 | Preservar + documentar `external-executors` + `fast-path-gate` | OSS-only | Draft |
-
-**DoD Wave C:** merge sem regressão de external-executors; wave smoke em 2 stories fake.
+**DoD Wave B:** mock fixture story Ready→Done via skill pipeline (scripted assert); denylist clean; skills listed in Claude/Grok/Codex inspect.
 
 ---
 
-### Wave D — IDE parity & SYNAPSE runtime (P1)
+### Wave C — Orchestration merge (P1 / stretch pós-MVP)
 
 | Story | Título | Source | Status |
 |-------|--------|--------|--------|
-| CORE-SU.D1 | Subir `ide-sync` avançado (adapters multi-IDE) | hub ide-sync +41k LOC | Draft |
-| CORE-SU.D2 | Integrar Grok no `sync:ide` (não só script solto) | PR #800 + ide-sync | Draft |
-| CORE-SU.D3 | `hook-runtime` + `memory-bridge` merge | hub/ent | Draft |
+| CORE-SU.C1 | 3-way diff `master-orchestrator` + **keep/merge/drop** plan (OSS wins rows) | hub vs OSS | Draft |
+| CORE-SU.C2 | `wave-executor` / wave skill **core** (sem mux-adapter) | hub lean | Draft |
+| CORE-SU.C3 | Model-router **optional plugin** (default off; no tribunal) | hub | Draft |
+| CORE-SU.C4 | external-executors + fast-path-gate regression tests **in same PR** as orchestrator touch | OSS-only | Draft |
+
+**DoD Wave C:** targeted tests for external-executors + fast-path-gate green; wave smoke 2 mock stories; package graph forbids services/mux-adapter.
+
+---
+
+### Wave D — IDE parity & SYNAPSE runtime (P1 / stretch; D1 sliced)
+
+| Story | Título | Source | Status |
+|-------|--------|--------|--------|
+| CORE-SU.D1 | ide-sync **adapter-by-adapter** (allowlist + LOC budget; no +41k dump) | hub | Draft |
+| CORE-SU.D2 | Grok as official adapter in single sync pipeline (converge PR #800 script) | PR #800 | Draft |
+| CORE-SU.D3 | `hook-runtime` + `memory-bridge` merge (preserve hierarchical-context) | hub/ent | Draft |
 | CORE-SU.D4 | `context-optimizer` + handoff skill | hub/ent | Draft |
-| CORE-SU.D5 | `three-brain` multi-engine review (lean) | hub | Draft |
+| CORE-SU.D5 | `three-brain` lean | hub | **DEFERRED** (stretch epic) |
 
-**DoD Wave D:** `npm run sync:ide` + `sync:skills:grok` + validate parity green.
+**DoD Wave D:** `sync:ide` + `sync:skills:grok` + parity; package size delta within budget; one sync model (no dual scripts).
 
 ---
 
-### Wave E — Constitution & governance (P1, seletivo)
+### Wave E — Constitution & governance (P1 seletivo; docs-first)
 
 | Story | Título | Source | Status |
 |-------|--------|--------|--------|
-| CORE-SU.E1 | Art. **XI Squad-First Portability** (OSS) | hub constitution | Draft |
-| CORE-SU.E2 | Art. **XII Model Governance** (strip enterprise-only) | hub | Draft |
-| CORE-SU.E3 | Doc: scheduling / journey-log / BU como **optional extensions** | hub VII–X, XIII | Draft |
-| CORE-SU.E4 | `governance-pipeline` skill lean | hub/ent | Draft |
+| CORE-SU.E0 | One-page OSS constitution delta (XI/XII advisory vs MUST) **before B6 packaging** | RT A5 | Draft |
+| CORE-SU.E1 | Art. **XI Squad-First Portability** (OSS) | hub | Draft |
+| CORE-SU.E2 | Art. **XII Model Governance** (hooks optional; no tribunal) | hub | Draft |
+| CORE-SU.E3 | Doc only: scheduling / journey-log / BU as **optional extensions** | hub | Draft |
+| CORE-SU.E4 | `governance-pipeline` skill lean | hub/ent | **DEFERRED** until E1/E2 stable |
 
-**DoD Wave E:** constitution version bump; gates documentados; sem hard dependency de multi-BU.
+**DoD Wave E:** constitution bump + changelog; E3 has **zero** runtime gates.
 
 ---
 
-### Wave F — Installer & quality (P2)
+### Wave F — Installer & quality (P1 for F1; rest P2)
 
 | Story | Título | Source | Status |
 |-------|--------|--------|--------|
-| CORE-SU.F1 | Windows `npx` ECOMPROMISED mitigation | #773 | Draft |
-| CORE-SU.F2 | Doctor heuristic-scan (subset OSS) | hub doctor checks | Draft |
-| CORE-SU.F3 | Theme-resolver API only (packs out-of-tree) | hub themes | Draft |
+| CORE-SU.F1 | Windows `npx` ECOMPROMISED mitigation | #773 | Draft (elevate **P1**, parallel to A/B) |
+| CORE-SU.F2 | Doctor heuristic subset | hub | Draft |
+| CORE-SU.F3 | Theme-resolver API only | hub | **DEFERRED** (stretch) |
 
 ---
 
-## Roadmap visual
+## Roadmap visual (aligned with deps)
 
 ```
-PR #800 (Grok) ──merge──► main
-                           │
-                           ▼
-              feat/core-super-update-epic (este doc)
-                           │
-         ┌─────────────────┼─────────────────┐
-         ▼                 ▼                 ▼
-      Wave A            Wave B            Wave C
-   (hygiene)         (SDC skills)     (orchestrate)
-         │                 │                 │
-         └────────┬────────┴────────┬────────┘
-                  ▼                 ▼
-               Wave D            Wave E
-            (IDE/SYNAPSE)     (constitution)
-                  │
-                  ▼
-               Wave F (installer/quality)
+PR #800 (Grok) ──merge──► main ──rebase──► super-update
+                                              │
+                    ┌─────────────────────────┤
+                    ▼                         │
+                 Wave A (hygiene + guards)    │
+                    │                         │
+         draft B ◄──┤                         │
+                    ▼                         │
+                 Wave B (SDC skills) = MVP ───┤
+                    │                         │
+                    ▼                         ▼
+                 Wave C (orchestrate)      Wave E (const)
+                    │                         │
+                    ▼                         │
+                 Wave D (IDE)  ◄──────────────┘
+                    │
+                    ▼
+                 Wave F (installer; F1 // earlier)
 ```
 
 ## Dependências entre waves
 
-| Wave | Depende de |
-|------|------------|
-| A | nenhuma (pode começar imediatamente) |
-| B | A recomendado (timeout/guards estáveis) |
-| C | B (skills SDC existem para wave chamar) |
-| D | B (wire skills) + A (runtime estável) |
-| E | pode paralelo a B/C |
-| F | paralelo ou final |
+| Wave | Depende de | Merge rule |
+|------|------------|------------|
+| A | none (start now; prefer after #800 merge for clean main) | patch-ok |
+| B | **A3+A4 required to merge** skills that write FS; A1/A2 can parallel draft | MVP |
+| C | B if wave invokes SDC skills; else C1 plan can parallel | stretch |
+| D | A + B6 | stretch |
+| E | E0 before B6 if XI is MUST; else docs parallel | parallel |
+| F1 | none (// A) | P1 |
+| F2–F3 | optional | P2 |
+
+## Semver / release
+
+| Event | Version |
+|-------|---------|
+| Wave A only | 5.2.x patch + CHANGELOG |
+| MVP (A+B) | **5.3.0** minor + CHANGELOG skills section |
+| C/D/E | further minors; major only if default timeout/gates break consumers |
 
 ## Métricas de sucesso
 
 | Métrica | Baseline (hoje) | Target |
 |---------|-----------------|--------|
 | Skills SDC invocáveis no OSS | ~0 | ≥ 6 atômicas + 1 full-sdc lean |
-| SYNAPSE timeout | hardcode 100ms | config + env override |
-| Permissions guards | ausentes no OSS | path+prompt+ssrf unit-tested |
-| IDE targets com skills sync | Claude/Codex/Gemini (+Grok script) | + Grok no `sync:ide` oficial |
+| SYNAPSE timeout | hardcode 100ms | config + env override + **visible warn** |
+| Permissions guards | ausentes no OSS | path+prompt+ssrf unit-tested + wired |
+| IDE targets com skills sync | Claude/Codex/Gemini (+Grok script) | single pipeline + Grok adapter |
 | Issues #797, #798 | open | closed |
 | Constitution | I–VI | I–VI + XI + XII (seletivo) |
+| OSS-only modules still tested | present | external-executors + resilience + hierarchical-context + handshake green |
+| Port denylist | none | CI fails on forbidden hub tokens / secrets |
 
 ## Riscos
 
@@ -218,10 +265,41 @@ PR #800 (Grok) ──merge──► main
 ## Next actions
 
 1. [ ] Merge PR #800 (Grok) quando CI + review OK  
-2. [ ] Abrir stories CORE-SU.A1–A4 e executar Wave A  
-3. [ ] Spike: full-sdc lean outline (antes de B5)  
-4. [ ] 3-way diff formal master-orchestrator (C1)  
+2. [ ] Implement CORE-SU.A1–A4 (A3 merge-gate for B)  
+3. [ ] CORE-SU.B0 spike ADR before B5  
+4. [ ] Promote epic docs to `docs/framework/epics/` if gitignore continues to hide planning  
+5. [ ] C1 3-way plan only after MVP ship  
 
 ---
 
-*Epic criado em 2026-07-09 a partir da branch do PR #800 (`feat/grok-agents-skills`).*
+## Roundtable resolution log (2026-07-09)
+
+| ID | Sev | Resolution | Action |
+|----|-----|------------|--------|
+| A1 | HIGH | FIXED | OSS-wins = merge gate; C4 tests same PR as orchestrator |
+| A2 | HIGH | FIXED | D1 adapter slices + budget; no +41k dump |
+| A3 | HIGH | FIXED | B0 ADR spike; lean = protocol not LOC-only |
+| A4 | HIGH | FIXED | Dep graph + A3 hard merge prerequisite |
+| A5 | MED | FIXED | E0 constitution delta before B6 packaging |
+| A6 | MED | FIXED | D5/E4/F3 deferred; C3 optional plugin |
+| A7 | MED | FIXED | MVP = A+B; C–F stretch |
+| A8 | MED | FIXED | Rebase after #800; single sync pipeline |
+| A9 | LOW | FIXED | A1 first; env/clamp in story |
+| A10 | LOW | FIXED | Metrics for OSS-only + denylist |
+| Q1 | HIGH | FIXED | A1 env name + clamp ACs (story) |
+| Q2 | HIGH | FIXED | Visible warn + metrics in A1 |
+| Q3 | HIGH | FIXED | Anti-bloat gates Wave B |
+| Q4 | MED | FIXED | A2 reproduce-first wording |
+| Q5–Q8 | MED/LOW | FIXED/DEFERRED | Exit criteria + DoD gates in epic/roadmap |
+| D1 | HIGH | FIXED | force-add + note promote path |
+| D2 | HIGH | FIXED | A4 denylist CI story |
+| D3 | HIGH | FIXED | A3 hard gate |
+| D4 | HIGH | FIXED | wave-scoped PRs post-#800 |
+| D5–D9 | MED/LOW | FIXED | semver, F1 P1, A1 clamps, D1 budget |
+| P1–P8 | HIGH–LOW | FIXED | MVP cut, sequencing, OOS fence, ship train |
+
+**Total:  resolved / total = 100%** (FIXED into epic/roadmap/story or DEFERRED with named stretch)
+
+---
+
+*Epic criado em 2026-07-09 a partir da branch do PR #800 (`feat/grok-agents-skills`). Roundtable APPROVE_WITH_FIXES applied same day.*

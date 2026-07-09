@@ -24,11 +24,16 @@ On slow machines / cold start / antivirus FS, remaining layers are silently skip
 
 ## Acceptance Criteria
 
-1. **Given** no env override, **when** engine loads, **then** default timeout remains backward-compatible (document chosen default; may raise from 100ms if justified with tests).
-2. **Given** `AIOX_SYNAPSE_PIPELINE_TIMEOUT_MS` (or core-config key) is set, **when** engine runs, **then** that value is used.
-3. **Given** timeout exceeded, **when** layers skip, **then** a **visible** warning is logged (not only buried metrics).
-4. **Given** unit tests, **when** timeout is forced low, **then** skip path is asserted; when high, all layers can complete in fixture.
-5. **Given** docs, **when** developer reads core-config / engine README, **then** the knobs are documented.
+1. **Given** no override, **when** engine runs, **then** default remains **100ms** (backward-compatible). Raising default requires minor-version note + evidence — not in this story.
+2. **Given** config resolution order **env `AIOX_SYNAPSE_PIPELINE_TIMEOUT_MS` > core-config `synapse.pipelineTimeoutMs` > default**, **when** values conflict, **then** higher-precedence wins.  
+   - Do **not** alias `AIOX_PIPELINE_TIMEOUT` (used by unified-activation-pipeline) without documenting both.
+3. **Given** invalid values (NaN, ≤0, non-integer, absurd > max e.g. 30000), **when** resolved, **then** fall back to default and **warn**.
+4. **Given** timeout exceeded, **when** remaining layers skip, **then**:
+   - `console.warn` (or structured logger) includes configured budget, elapsed ms, skipped layer ids;
+   - metrics still record skip reason `Pipeline timeout`.
+5. **Given** unit tests, **when** timeout forced low, **then** skip path + warn spy asserted; **when** high, **all active layers** complete (respect `DEFAULT_ACTIVE_LAYERS` / non-legacy mode unless legacy explicitly tested).
+6. **Given** docs, **when** developer reads core-config / engine notes, **then** knobs + precedence + clamps are documented.
+7. **Given** quality gates, **when** story completes, **then** `npm run lint && npm run typecheck && npm test` green; closes #798 with PR link.
 
 ## Out of Scope
 
