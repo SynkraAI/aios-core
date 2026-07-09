@@ -1,6 +1,6 @@
 # Roadmap — CORE-SUPER-UPDATE
 
-Canonical: [EPIC-CORE-SUPER-UPDATE.md](./EPIC-CORE-SUPER-UPDATE.md)  
+Canonical: [EPIC-CORE-SUPER-UPDATE.md](./EPIC-CORE-SUPER-UPDATE.md)
 ARCH: [0](./ARCHITECTURE-WAVE-0.md) · [A](./ARCHITECTURE-WAVE-A.md) · [B](./ARCHITECTURE-WAVE-B.md) · [C](./ARCHITECTURE-WAVE-C.md) · [D](./ARCHITECTURE-WAVE-D.md) · [E](./ARCHITECTURE-WAVE-E.md)
 
 ## Waves
@@ -48,8 +48,8 @@ Windows `ECOMPROMISED` (#773): docs + `aiox install` hint + doctor `windows-npx-
 
 ## Next (process, not implementation)
 
-1. `*pre-push` + CodeRabbit on this branch  
-2. Open/merge PR (+ #800 chain if needed)  
+1. `*pre-push` + CodeRabbit on this branch
+2. Open/merge PR (+ #800 chain if needed)
 3. Close GitHub #773 / #797 / #798 with PR links
 
 
