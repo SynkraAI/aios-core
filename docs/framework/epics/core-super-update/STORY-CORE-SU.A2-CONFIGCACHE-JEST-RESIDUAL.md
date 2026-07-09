@@ -7,7 +7,7 @@
 | Story ID | CORE-SU.A2 |
 | Epic | CORE-SUPER-UPDATE |
 | Wave | A |
-| Status | Done (implementation on branch) |
+| Status | Done |
 | Priority | P0 |
 | Source Issue | #797 |
 | Complexity | S |

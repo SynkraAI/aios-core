@@ -24,7 +24,7 @@ describe('prompt-guard (CORE-SU.A3)', () => {
   });
 
   it('detects invisible unicode', () => {
-    const sneaky = `hello\u200Bworld`;
+    const sneaky = 'hello\u200Bworld';
     const uni = scanInvisibleUnicode(sneaky);
     expect(uni.detected).toBe(true);
     const result = scan(sneaky);

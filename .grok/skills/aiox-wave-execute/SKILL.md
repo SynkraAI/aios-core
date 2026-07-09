@@ -37,16 +37,25 @@ aiox wave next {wave-id}
 # Build batches (depends_on topo + non-overlapping File Lists → parallel)
 aiox wave plan --stories a.md,b.md,c.md --wave-id WAVE-1 --mode yolo --save
 
-# Inspect
-aiox wave status WAVE-1
+# Advance / next batch (auto-completes stories already Done / sdc completed)
+aiox wave advance WAVE-1
 aiox wave next WAVE-1
+
+# After a child full-sdc finishes or fails
+aiox wave mark WAVE-1 {story-id} --status completed
+aiox wave mark WAVE-1 {story-id} --status failed --notes "qg breaker"
+
+# Report
+aiox wave report WAVE-1
+aiox wave status WAVE-1
 
 # Per story (child)
 aiox sdc plan {story} --mode yolo
 # … full-sdc execute loop …
 ```
 
-State: `.aiox/waves/{wave-id}/state.json`
+State: `.aiox/waves/{wave-id}/state.json`  
+Controller: `.aiox-core/core/sdc/wave-run.js` (C1 cascade-block + advance)
 
 ## EXECUTE stages
 

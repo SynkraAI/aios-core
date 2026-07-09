@@ -6,6 +6,24 @@ const fs = require('fs');
 const DEFAULT_STALE_TTL_HOURS = 168; // 7 days
 
 /**
+ * Read .aiox-core/core-config.yaml from the current project.
+ *
+ * @param {string} cwd - Working directory
+ * @returns {object} Parsed config object, or empty object on missing/invalid config
+ */
+function loadCoreConfig(cwd) {
+  try {
+    const yaml = require('js-yaml');
+    const configPath = path.join(cwd, '.aiox-core', 'core-config.yaml');
+    if (!fs.existsSync(configPath)) return {};
+    const config = yaml.load(fs.readFileSync(configPath, 'utf8'));
+    return config && typeof config === 'object' ? config : {};
+  } catch (_err) {
+    return {};
+  }
+}
+
+/**
  * Read stale session TTL from core-config.yaml.
  * Falls back to DEFAULT_STALE_TTL_HOURS (168h = 7 days).
  *
@@ -13,16 +31,9 @@ const DEFAULT_STALE_TTL_HOURS = 168; // 7 days
  * @returns {number} TTL in hours
  */
 function getStaleSessionTTL(cwd) {
-  try {
-    const yaml = require('js-yaml');
-    const configPath = path.join(cwd, '.aiox-core', 'core-config.yaml');
-    if (!fs.existsSync(configPath)) return DEFAULT_STALE_TTL_HOURS;
-    const config = yaml.load(fs.readFileSync(configPath, 'utf8'));
-    const ttl = config && config.synapse && config.synapse.session && config.synapse.session.staleTTLHours;
-    return typeof ttl === 'number' && ttl > 0 ? ttl : DEFAULT_STALE_TTL_HOURS;
-  } catch (_err) {
-    return DEFAULT_STALE_TTL_HOURS;
-  }
+  const config = loadCoreConfig(cwd);
+  const ttl = config && config.synapse && config.synapse.session && config.synapse.session.staleTTLHours;
+  return typeof ttl === 'number' && ttl > 0 ? ttl : DEFAULT_STALE_TTL_HOURS;
 }
 
 /**
@@ -64,7 +75,10 @@ function resolveHookRuntime(input) {
     if (!session) {
       session = { prompt_count: 0 };
     }
-    const engine = new SynapseEngine(synapsePath);
+    const coreConfig = loadCoreConfig(cwd);
+    const engine = new SynapseEngine(synapsePath, {
+      synapse: coreConfig.synapse || {},
+    });
 
     // AC3: Run cleanup on first prompt only (fire-and-forget)
     if (session.prompt_count === 0) {
@@ -107,6 +121,8 @@ function buildHookOutput(xml) {
 }
 
 module.exports = {
+  loadCoreConfig,
+  getStaleSessionTTL,
   resolveHookRuntime,
   buildHookOutput,
 };

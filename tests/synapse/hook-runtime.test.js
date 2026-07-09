@@ -46,8 +46,9 @@ describe('hook-runtime', () => {
         path.join(cwd, '.aiox-core/core/synapse/engine.js'),
         [
           'class SynapseEngine {',
-          '  constructor(synapsePath) {',
+          '  constructor(synapsePath, config) {',
           '    this.synapsePath = synapsePath;',
+          '    this.config = config;',
           '  }',
           '}',
           'module.exports = { SynapseEngine };',
@@ -59,6 +60,48 @@ describe('hook-runtime', () => {
       expect(result.session).toEqual({ prompt_count: 7, id: 's-1' });
       expect(result.engine).toBeTruthy();
       expect(result.engine.synapsePath).toBe(path.join(cwd, '.synapse'));
+      expect(result.engine.config).toEqual({ synapse: {} });
+    } finally {
+      fs.rmSync(cwd, { recursive: true, force: true });
+    }
+  });
+
+  it('passes synapse config from core-config.yaml to SynapseEngine', () => {
+    const cwd = makeTempDir();
+    try {
+      fs.mkdirSync(path.join(cwd, '.synapse', 'sessions'), { recursive: true });
+
+      writeFile(
+        path.join(cwd, '.aiox-core/core-config.yaml'),
+        [
+          'synapse:',
+          '  pipelineTimeoutMs: 444',
+          '  session:',
+          '    staleTTLHours: 24',
+        ].join('\n'),
+      );
+      writeFile(
+        path.join(cwd, '.aiox-core/core/synapse/session/session-manager.js'),
+        "module.exports = { loadSession: () => ({ prompt_count: 7, id: 's-1' }), cleanStaleSessions: () => 0 };",
+      );
+      writeFile(
+        path.join(cwd, '.aiox-core/core/synapse/engine.js'),
+        [
+          'class SynapseEngine {',
+          '  constructor(synapsePath, config) {',
+          '    this.synapsePath = synapsePath;',
+          '    this.config = config;',
+          '  }',
+          '}',
+          'module.exports = { SynapseEngine };',
+        ].join('\n'),
+      );
+
+      const result = resolveHookRuntime({ cwd, sessionId: 's-1' });
+
+      expect(result).toBeTruthy();
+      expect(result.engine.config.synapse.pipelineTimeoutMs).toBe(444);
+      expect(result.engine.config.synapse.session.staleTTLHours).toBe(24);
     } finally {
       fs.rmSync(cwd, { recursive: true, force: true });
     }

@@ -262,6 +262,7 @@ describe('SynapseEngine', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+    delete process.env[SYNAPSE_PIPELINE_TIMEOUT_ENV];
 
     // Default mocks: FRESH bracket with L0, L1, L2, L7
     contextTracker.estimateContextPercent.mockReturnValue(85);

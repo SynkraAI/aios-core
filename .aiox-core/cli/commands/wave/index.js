@@ -128,37 +128,107 @@ function createWaveCommand() {
     .argument('<wave-id>', 'Wave id')
     .option('--json', 'JSON output', false)
     .action((waveId, opts) => {
-      const state = sdc.loadWaveState(waveId);
+      let state = sdc.loadWaveState(waveId);
       if (!state) {
         console.error(`No wave state for ${waveId}`);
         process.exitCode = 1;
         return;
       }
-      const remaining = [];
-      for (const b of state.batches || []) {
-        const open = b.stories.filter((s) => {
-          const st = sdc.loadSdcState(s.storyId);
-          return !st || st.status !== 'completed';
-        });
-        if (open.length) {
-          remaining.push({ batch: b.index, stories: open });
-          break;
-        }
-      }
+      const { wave, nextBatch } = sdc.advanceWave(waveId);
+      state = wave;
       if (opts.json) {
-        console.log(JSON.stringify({ waveId, remaining }, null, 2));
+        console.log(JSON.stringify({ waveId, nextBatch, status: state.status }, null, 2));
         return;
       }
-      if (!remaining.length) {
-        console.log(`Wave ${waveId}: all stories completed (or no SDC runs)`);
+      if (!nextBatch) {
+        console.log(`Wave ${waveId}: ${state.status}`);
         console.log('Hand off merge to @devops if branches need PR/merge.');
+        console.log(`Optional: aiox wave report ${waveId}`);
         return;
       }
-      const r = remaining[0];
-      console.log(`Next batch ${r.batch}:`);
-      for (const s of r.stories) {
+      console.log(`Next batch ${nextBatch.index} (wave ${state.status}):`);
+      for (const s of nextBatch.stories) {
         console.log(`  - ${s.storyId}: ${s.path}`);
         console.log(`    skill: full-sdc ${s.path} ${state.mode || 'interactive'}`);
+      }
+    });
+
+  cmd
+    .command('advance')
+    .description('Refresh SDC statuses, auto-complete Done stories, print next batch')
+    .argument('<wave-id>', 'Wave id')
+    .option('--json', 'JSON output', false)
+    .action((waveId, opts) => {
+      try {
+        const { wave, nextBatch } = sdc.advanceWave(waveId);
+        if (opts.json) {
+          console.log(JSON.stringify({ wave, nextBatch }, null, 2));
+          return;
+        }
+        console.log(`Wave ${wave.waveId} → ${wave.status}`);
+        if (!nextBatch) {
+          console.log('No open batches. aiox wave report ' + waveId);
+          return;
+        }
+        console.log(`Dispatch batch ${nextBatch.index}:`);
+        for (const s of nextBatch.stories) {
+          console.log(`  - ${s.storyId} [${s.runStatus || 'ready'}] ${s.path}`);
+        }
+      } catch (err) {
+        console.error(err.message);
+        process.exitCode = 1;
+      }
+    });
+
+  cmd
+    .command('mark')
+    .description('Mark a story run result on the wave (completed|failed|blocked|skipped)')
+    .argument('<wave-id>', 'Wave id')
+    .argument('<story-id>', 'Story id')
+    .requiredOption('--status <status>', 'completed | failed | blocked | skipped | running')
+    .option('--notes <notes>', 'Optional notes')
+    .option('--json', 'JSON output', false)
+    .action((waveId, storyId, opts) => {
+      const wave = sdc.loadWaveState(waveId);
+      if (!wave) {
+        console.error(`No wave state for ${waveId}`);
+        process.exitCode = 1;
+        return;
+      }
+      try {
+        sdc.markStoryRun(wave, storyId, opts.status, opts.notes);
+        sdc.saveWaveState(wave);
+        if (opts.json) {
+          console.log(JSON.stringify(wave, null, 2));
+        } else {
+          console.log(`Marked ${storyId}=${opts.status} on wave ${waveId}`);
+          console.log(`  wave status: ${wave.status}`);
+          if ((wave.blockedStoryIds || []).length) {
+            console.log(`  blocked: ${wave.blockedStoryIds.join(', ')}`);
+          }
+        }
+      } catch (err) {
+        console.error(err.message);
+        process.exitCode = 1;
+      }
+    });
+
+  cmd
+    .command('report')
+    .description('Write .aiox/waves/{id}/report.md')
+    .argument('<wave-id>', 'Wave id')
+    .option('--json', 'JSON output', false)
+    .action((waveId, opts) => {
+      try {
+        const reportPath = sdc.writeWaveReport(waveId);
+        if (opts.json) {
+          console.log(JSON.stringify({ reportPath }, null, 2));
+        } else {
+          console.log(`Report: ${reportPath}`);
+        }
+      } catch (err) {
+        console.error(err.message);
+        process.exitCode = 1;
       }
     });
 

@@ -7,7 +7,7 @@
 | Story ID | CORE-SU.A1 |
 | Epic | CORE-SUPER-UPDATE |
 | Wave | A |
-| Status | InProgress → Ready for review |
+| Status | Done |
 | Priority | P0 |
 | Source Issue | #798 |
 | Complexity | S |
@@ -51,13 +51,41 @@ On slow machines / cold start / antivirus FS, remaining layers are silently skip
 ## File List
 
 - `.aiox-core/core/synapse/engine.js` — resolvePipelineTimeoutMs + warn on timeout
+- `.aiox-core/core/synapse/runtime/hook-runtime.js` — loadCoreConfig + pass `synapse` to SynapseEngine
 - `.aiox-core/core-config.yaml` — `synapse.pipelineTimeoutMs`
 - `tests/synapse/engine.test.js` — A1 unit tests
+- `tests/synapse/hook-runtime.test.js` — runtime config wiring test
 - `docs/framework/config-override-guide.md` — knobs documented
+
+## QA Results
+
+### Review Date: 2026-07-09
+
+### Reviewed By: @qa (lean review-story / YOLO)
+
+### Gate Status
+
+Gate: **PASS**
+
+- ACs 1–6 met in engine + config + tests
+- hook-runtime wires core-config.synapse into SynapseEngine (wiring residual closed)
+- No product harvest paths
+- Unit suites: `tests/synapse/engine.test.js`, `tests/synapse/hook-runtime.test.js` green
+
+### Notes
+
+- Issue #798 close requires PR merge link (devops) — not blocked for story Done on branch
 
 ## Definition of Done
 
 - [x] ACs met (implementation + tests + docs)
-- [x] Tests green (`tests/synapse/engine.test.js`)
-- [ ] #798 closed with PR link (after push)
+- [x] Tests green (`tests/synapse/engine.test.js`, hook-runtime)
+- [ ] #798 closed with PR link (after push/merge)
 - [x] No machine-absolute paths
+
+## Change Log
+
+| Date | Change | Agent |
+|------|--------|-------|
+| 2026-07-09 | Implemented timeout resolve + tests | @dev |
+| 2026-07-09 | hook-runtime config wiring + review PASS → Done | @dev / @qa |

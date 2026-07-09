@@ -5,7 +5,7 @@
 | Campo | Valor |
 |-------|-------|
 | Epic ID | CORE-SUPER-UPDATE |
-| Status | Draft — **planning-approved; Wave A implementation-ready after ARCH-A** |
+| Status | Active — Wave A+B shipped; ARCH-C draft; C1 wave-run controller started |
 | Priority | P0 |
 | Branch base | `feat/grok-agents-skills` (PR #800) → merge chain into `main` |
 | Working branch | `feat/core-super-update-epic` |
@@ -99,9 +99,9 @@ Trazer para o **aiox-core OSS** o que o framework ganhou em **sinkra-hub** e **A
 
 | Wave | Doc | Status |
 |------|-----|--------|
-| A | [ARCHITECTURE-WAVE-A.md](./ARCHITECTURE-WAVE-A.md) | Draft |
-| B | `ARCHITECTURE-WAVE-B.md` | ⬜ **blocks B implementation** |
-| C | `ARCHITECTURE-WAVE-C.md` | ⬜ blocks C |
+| A | [ARCHITECTURE-WAVE-A.md](./ARCHITECTURE-WAVE-A.md) | ✅ |
+| B | [ARCHITECTURE-WAVE-B.md](./ARCHITECTURE-WAVE-B.md) | ✅ |
+| C | [ARCHITECTURE-WAVE-C.md](./ARCHITECTURE-WAVE-C.md) | ✅ draft |
 | D | `ARCHITECTURE-WAVE-D.md` | ⬜ blocks D |
 | E | `ARCHITECTURE-WAVE-E.md` | ⬜ blocks E |
 
@@ -115,10 +115,10 @@ Each ARCH doc must cover: components, data/control flow, integration points, con
 
 | Story | Título | Notes | Status |
 |-------|--------|-------|--------|
-| CORE-SU.A1 | SYNAPSE timeout configurável | #798; see story file | Draft |
-| CORE-SU.A2 | ConfigCache / Jest residual | #797; **investigate residual** — unref already present | Draft |
-| CORE-SU.A3 | **Add** path/prompt/ssrf guards | Extend `core/permissions`; do not replace permission-mode/operation-guard | Draft |
-| CORE-SU.A4 | Smoke + doctor + port denylist CI | Includes `workspace/` denylist | Draft |
+| CORE-SU.A1 | SYNAPSE timeout configurável | #798; see story file | ✅ Done |
+| CORE-SU.A2 | ConfigCache / Jest residual | #797 | ✅ Done |
+| CORE-SU.A3 | **Add** path/prompt/ssrf guards | Extend `core/permissions` | ✅ Done |
+| CORE-SU.A4 | Smoke + doctor + port denylist CI | denylist CI + doctor | ✅ Done |
 
 **DoD Wave A:** lint + typecheck + test; timeout knobs documented; guards unit-tested and exported from permissions index; denylist script; #797/#798 closed **or** residual documented with evidence.
 
@@ -126,14 +126,18 @@ Each ARCH doc must cover: components, data/control flow, integration points, con
 
 | Story | Título | Status |
 |-------|--------|--------|
-| B0 | Spike ADR full-sdc lean | Draft (planning OK) |
-| B1–B6 | Atomic skills + full-sdc lean + multi-IDE wire | **BLOCKED** |
+| B0–B8 | Lean skills + full-sdc/wave EXECUTE + CLI | ✅ Done |
 
 Strip: no `sinkra_*`, `.sinkra/`, `workspace/`, product deploy hosts. Skills invoke tasks only.
 
-### Wave C — Orchestration (stretch) — **BLOCKED until ARCH-C**
+### Wave C — Orchestration (stretch) — ARCH-C ✅
 
-C1 plan can be written; C2–C4 implementation blocked. C4 tests same PR as orchestrator touch.
+| Story | Status |
+|-------|--------|
+| C1 Wave run controller (advance/mark/cascade/report) | ✅ started (wave-run.js + CLI) |
+| C2 Optional parallel dispatch adapter | ⬜ |
+| C3 Epic glue + report polish | 🟡 report.md exists |
+| C4 Tests | 🟡 wave-run unit tests |
 
 ### Wave D — IDE / SYNAPSE (stretch) — **BLOCKED until ARCH-D**
 

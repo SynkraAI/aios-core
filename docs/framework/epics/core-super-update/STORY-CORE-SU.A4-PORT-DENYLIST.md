@@ -7,7 +7,7 @@
 | Story ID | CORE-SU.A4 |
 | Epic | CORE-SUPER-UPDATE |
 | Wave | A |
-| Status | Done (implementation on branch) |
+| Status | Done |
 | Architecture | [ARCHITECTURE-WAVE-A.md](./ARCHITECTURE-WAVE-A.md) §3.4 |
 
 ## Deliverables

@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 5.2.9
-generated_at: "2026-07-09T05:14:23.223Z"
+generated_at: "2026-07-09T05:16:40.559Z"
 generator: scripts/generate-install-manifest.js
-file_count: 1154
+file_count: 1155
 files:
   - path: cli/commands/config/index.js
     hash: sha256:25c4b9bf4e0241abf7754b55153f49f1a214f1fb5fe904a576675634cb7b3da9
@@ -129,9 +129,9 @@ files:
     type: cli
     size: 15206
   - path: cli/commands/wave/index.js
-    hash: sha256:30afd19a56426210aaee369a1566a0d1557c11b00d97964f349baa6ec3d35df1
+    hash: sha256:b3a4c5122e678571123f3cd3f7f69750fd9b5819db708427e18334a6126e67c4
     type: cli
-    size: 5510
+    size: 7929
   - path: cli/commands/workers/formatters/info-formatter.js
     hash: sha256:11c17e16be0b7d09ba8949497e0887bb20996966d266454aa2bb5dfc9d9d91b8
     type: cli
@@ -349,9 +349,9 @@ files:
     type: core
     size: 2265
   - path: core/doctor/checks/port-denylist.js
-    hash: sha256:7f95569a6cbbff3a4aa8aaec8d535bd06e0a9200029b4ecdd33a0434f9e1d92c
+    hash: sha256:1d9adc2a4de1645734142b6de156be01336d8be98dffe47a41b187ffcf163991
     type: core
-    size: 1147
+    size: 1402
   - path: core/doctor/checks/rules-files.js
     hash: sha256:ec58342215cede634f50c5b3164155c4f27fd8070af176ec0e02e6deec6fb218
     type: core
@@ -1137,29 +1137,33 @@ files:
     type: core
     size: 1139
   - path: core/sdc/index.js
-    hash: sha256:95d1bd4540d9bf8a12fab27ae8c3bff71085387309e283ed214621482d159b64
+    hash: sha256:432a386668d36585d697db804615729e089cb336464539d4a54ee5815383e681
     type: core
-    size: 2659
+    size: 2713
   - path: core/sdc/phase-verify.js
-    hash: sha256:ac404916a3fc550d3d118bc7eac3e4e1a195f2869b9b2426ca852a5cc6df16f9
+    hash: sha256:943c1678acab90f24c5623e88dc9b53093b435240eeb7907926fd91d07977c4c
     type: core
-    size: 3387
+    size: 3391
   - path: core/sdc/progress.js
     hash: sha256:bb664e9be1a03cbd093d79a8e494db8e843da37fe98aa1b3a9cf054ea5b9bb23
     type: core
     size: 4123
   - path: core/sdc/story-meta.js
-    hash: sha256:f2dcc28da475e3f9c2e7323a0978581fa53ceb349f90be65515ea360b9e996d7
+    hash: sha256:80ed70b0323a331e7f0bed5a731f2074a85cde6f72dc5897716d63c68f1a8dfe
     type: core
-    size: 5403
+    size: 5405
   - path: core/sdc/wave-plan.js
-    hash: sha256:db366748308df46e02443d8e06bd6db244c3535adb16f754445756d7c9bcd89b
+    hash: sha256:f21310a46af4437fc3e1c71240a2a05a991fb30df2de291c3694ee2e9cac88fc
     type: core
-    size: 4673
+    size: 4675
+  - path: core/sdc/wave-run.js
+    hash: sha256:0c78a25d2ebcede18405971e50f132a5d606aa540f6bbe0da2e0e9e6b8fdbd88
+    type: core
+    size: 8926
   - path: core/security/port-denylist.js
-    hash: sha256:ef082c9c8a530db57628c60b666677a5ae32d32dce812d039f3db8e95daf835e
+    hash: sha256:997edf52ac802c2f729f62ecd15f2fbbb161236f6cba8ed34324503f67ae7e3f
     type: core
-    size: 6625
+    size: 7128
   - path: core/session/context-detector.js
     hash: sha256:5537563d5dfc613e16fd610c9e1407e7811c4f19745a78a4fc81c34af20000f4
     type: core
@@ -1361,9 +1365,9 @@ files:
     type: data
     size: 9590
   - path: data/entity-registry.yaml
-    hash: sha256:9293da042da603621ea658635a2a8f92dcdcfe202b8dae65c35bf7502d2ac769
+    hash: sha256:c2e145f6d6982035930a8621cbfce5ddf79c04a169a5b235edb038c762929dbd
     type: data
-    size: 585917
+    size: 588886
   - path: data/learned-patterns.yaml
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data
@@ -1901,9 +1905,9 @@ files:
     type: development
     size: 1770
   - path: development/skills/wave-execute/SKILL.md
-    hash: sha256:1bc3420b11c60143db73c26f11e5d9c13e543b7e1e0416375dfd981605d126f2
+    hash: sha256:3215474c02d1d90be8e8c359fb52db637ca7dfef8808b57ee4fc8506b68dfbdf
     type: development
-    size: 4120
+    size: 4489
   - path: development/tasks/add-mcp.md
     hash: sha256:badc8a9859cb313e908d4ea0f4c4d7bc1be723214e38f26d55c366689fe5e3f0
     type: task

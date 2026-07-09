@@ -8,6 +8,7 @@ const storyMeta = require('./story-meta');
 const progress = require('./progress');
 const phaseVerify = require('./phase-verify');
 const wavePlan = require('./wave-plan');
+const waveRun = require('./wave-run');
 
 /**
  * Initialize or load full-sdc run state for a story.
@@ -88,6 +89,7 @@ module.exports = {
   ...progress,
   ...phaseVerify,
   ...wavePlan,
+  ...waveRun,
   initFullSdc,
   verifyAndMaybeMark,
 };
