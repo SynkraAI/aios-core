@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.2.9
-generated_at: "2026-07-09T15:04:07.024Z"
+generated_at: "2026-07-09T15:07:33.185Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1162
 files:
@@ -3609,9 +3609,9 @@ files:
     type: script
     size: 14900
   - path: infrastructure/scripts/validate-claude-integration.js
-    hash: sha256:e9d6776b9af9e9233e50aa7664eef7c67937af0ebabca1a3aa26c518debf8178
+    hash: sha256:2978d33c4f820952dda79bceeff8e300f50282acfa5a5dc187b03c1ef2d23529
     type: script
-    size: 7621
+    size: 8326
   - path: infrastructure/scripts/validate-codex-integration.js
     hash: sha256:0f45a49898528d708ef17871bf6abae4f60483ef8520ce30a9bd4f5e507c585f
     type: script

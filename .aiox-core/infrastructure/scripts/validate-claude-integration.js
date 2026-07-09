@@ -3,6 +3,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { spawnSync } = require('child_process');
 
 const ALLOWED_NATIVE_SUBAGENTS = new Set([
   'aiox-analyst',
@@ -25,13 +26,21 @@ const ALLOWED_CLAUDE_COMMAND_ENTRIES = new Set([
 
 const ALLOWED_CLAUDE_SKILL_ENTRIES = new Set([
   'AIOX',
+  'aiox-commit',
+  'apply-qa-fixes',
   'architect-first',
   'checklist-runner',
+  'close-story',
   'coderabbit-review',
+  'develop-story',
+  'full-sdc',
   'mcp-builder',
+  'review-story',
   'skill-creator',
   'synapse',
   'tech-search',
+  'validate-story-draft',
+  'wave-execute',
 ]);
 
 function parseArgs(argv = process.argv.slice(2)) {
@@ -63,10 +72,23 @@ function listClaudeAgentSkillIds(skillsAgentsDir) {
     .sort();
 }
 
-function listTopLevelNames(dirPath) {
+function isGitIgnored(projectRoot, relativePath) {
+  const result = spawnSync('git', ['check-ignore', '--quiet', '--', relativePath], {
+    cwd: projectRoot,
+    encoding: 'utf8',
+  });
+  return result.status === 0;
+}
+
+function listTopLevelNames(dirPath, projectRoot) {
   if (!fs.existsSync(dirPath)) return [];
   return fs.readdirSync(dirPath, { withFileTypes: true })
     .filter((entry) => entry.isDirectory() || entry.isFile())
+    .filter((entry) => {
+      if (!projectRoot) return true;
+      const relativePath = path.relative(projectRoot, path.join(dirPath, entry.name)).split(path.sep).join('/');
+      return !isGitIgnored(projectRoot, relativePath);
+    })
     .map((entry) => entry.name)
     .sort();
 }
@@ -106,9 +128,9 @@ function validateClaudeIntegration(options = {}) {
   const skillAgents = listClaudeAgentSkillIds(skillsAgentsDir);
   const nativeAgents = listMarkdownBasenames(nativeAgentsDir);
   const disallowedNativeAgents = nativeAgents.filter((agentId) => !ALLOWED_NATIVE_SUBAGENTS.has(agentId));
-  const commandEntries = listTopLevelNames(commandsRoot);
-  const skillEntries = listTopLevelNames(skillsRoot);
-  const agentMemoryEntries = listTopLevelNames(agentMemoryRoot);
+  const commandEntries = listTopLevelNames(commandsRoot, projectRoot);
+  const skillEntries = listTopLevelNames(skillsRoot, projectRoot);
+  const agentMemoryEntries = listTopLevelNames(agentMemoryRoot, projectRoot);
   const disallowedCommandEntries = commandEntries.filter((entry) => !ALLOWED_CLAUDE_COMMAND_ENTRIES.has(entry));
   const disallowedSkillEntries = skillEntries.filter((entry) => !ALLOWED_CLAUDE_SKILL_ENTRIES.has(entry));
   const disallowedAgentMemoryEntries = agentMemoryEntries.filter((entry) => !entry.startsWith('aiox-'));

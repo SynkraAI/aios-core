@@ -3,6 +3,7 @@
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
+const { spawnSync } = require('child_process');
 
 const {
   validateClaudeIntegration,
@@ -39,6 +40,45 @@ describe('validate-claude-integration', () => {
     expect(result.errors).toEqual([]);
     expect(result.metrics.claudeSkills).toBe(1);
     expect(result.metrics.claudeCommands).toBe(1);
+  });
+
+  it('allows versioned Claude SDC skill artifacts', () => {
+    write(path.join(tmpRoot, '.claude', 'commands', 'AIOX', 'agents', 'dev.md'), '# dev');
+    write(
+      path.join(tmpRoot, '.claude', 'skills', 'AIOX', 'agents', 'dev', 'SKILL.md'),
+      '---\nactivation_type: pipeline\n---\n# dev',
+    );
+    write(path.join(tmpRoot, '.claude', 'skills', 'full-sdc', 'SKILL.md'), '# full-sdc');
+    write(path.join(tmpRoot, '.claude', 'skills', 'wave-execute', 'SKILL.md'), '# wave-execute');
+    write(path.join(tmpRoot, '.aiox-core', 'development', 'agents', 'dev.md'), '# dev');
+
+    const result = validateClaudeIntegration({ projectRoot: tmpRoot });
+    expect(result.ok).toBe(true);
+  });
+
+  it('ignores local Claude artifacts excluded by gitignore', () => {
+    const init = spawnSync('git', ['init'], { cwd: tmpRoot, encoding: 'utf8' });
+    expect(init.status).toBe(0);
+
+    write(
+      path.join(tmpRoot, '.gitignore'),
+      [
+        '.claude/commands/hybridOps/',
+        '.claude/skills/aios-*/',
+        '',
+      ].join('\n'),
+    );
+    write(path.join(tmpRoot, '.claude', 'commands', 'AIOX', 'agents', 'dev.md'), '# dev');
+    write(path.join(tmpRoot, '.claude', 'commands', 'hybridOps', 'legacy.md'), '# legacy');
+    write(
+      path.join(tmpRoot, '.claude', 'skills', 'AIOX', 'agents', 'dev', 'SKILL.md'),
+      '---\nactivation_type: pipeline\n---\n# dev',
+    );
+    write(path.join(tmpRoot, '.claude', 'skills', 'aios-dev', 'SKILL.md'), '# local legacy');
+    write(path.join(tmpRoot, '.aiox-core', 'development', 'agents', 'dev.md'), '# dev');
+
+    const result = validateClaudeIntegration({ projectRoot: tmpRoot });
+    expect(result.ok).toBe(true);
   });
 
   it('fails when Claude agent skills dir is missing', () => {
