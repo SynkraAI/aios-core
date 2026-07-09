@@ -327,30 +327,104 @@ spawn_wsl() {
 # Inline Execution (Story 12.10 - No visual terminal)
 # ============================================
 
+# Build the prompt payload for a real agent run (Claude CLI when available).
+build_agent_prompt() {
+  local prompt=""
+  prompt+="You are the AIOX agent @${AGENT}. Execute task *${TASK}"
+  [[ -n "$PARAMS" ]] && prompt+=" ${PARAMS}"
+  prompt+=". Follow .aiox-core/constitution.md and agent authority rules. "
+  prompt+="Load persona from .aiox-core/development/agents/ when present. "
+  if [[ -n "$CONTEXT_FILE" && -f "$CONTEXT_FILE" ]]; then
+    prompt+="Context file: ${CONTEXT_FILE}. "
+    # shellcheck disable=SC2002
+    prompt+="Context JSON: $(cat "$CONTEXT_FILE" 2>/dev/null | head -c 8000). "
+  fi
+  prompt+="Write a structured result (summary, files touched, next steps)."
+  printf '%s' "$prompt"
+}
+
+# Resolve CLI: CLAUDE_CMD, then claude, then empty.
+resolve_agent_cli() {
+  if [[ -n "${CLAUDE_CMD}" ]] && command -v "${CLAUDE_CMD}" &>/dev/null; then
+    echo "${CLAUDE_CMD}"
+    return 0
+  fi
+  if command -v claude &>/dev/null; then
+    echo "claude"
+    return 0
+  fi
+  echo ""
+  return 1
+}
+
+# Run agent via CLI; write transcript to OUTPUT_FILE.
+run_agent_cli() {
+  local mode_label="${1:-session}"
+  local cli
+  cli="$(resolve_agent_cli || true)"
+
+  {
+    echo "=== AIOX Agent Session (${mode_label}) ==="
+    echo "Agent: ${AGENT}"
+    echo "Task: ${TASK}"
+    [[ -n "$PARAMS" ]] && echo "Params: ${PARAMS}"
+    [[ -n "$CONTEXT_FILE" ]] && echo "Context: ${CONTEXT_FILE}"
+    echo ""
+    echo "Executing: @${AGENT} *${TASK} ${PARAMS}"
+    echo ""
+  } > "${OUTPUT_FILE}"
+
+  if [[ -z "$cli" ]]; then
+    {
+      echo "ERROR: No agent CLI found (set CLAUDE_CMD or install \`claude\`)."
+      echo "Stub mode is disabled — refusing to fake agent execution."
+      echo "=== Session Failed ==="
+    } >> "${OUTPUT_FILE}"
+    log_error "No agent CLI available (CLAUDE_CMD/claude)"
+    return 4
+  fi
+
+  local prompt
+  prompt="$(build_agent_prompt)"
+  log_info "Invoking agent CLI: ${cli}"
+
+  # Prefer print/non-interactive flags when present; fall back to piping prompt.
+  set +e
+  if "${cli}" --help 2>&1 | grep -qE -- '--print|print mode'; then
+    printf '%s\n' "$prompt" | "${cli}" --print >> "${OUTPUT_FILE}" 2>&1
+  else
+    printf '%s\n' "$prompt" | "${cli}" >> "${OUTPUT_FILE}" 2>&1
+  fi
+  local rc=$?
+  set -e
+
+  if [[ $rc -ne 0 ]]; then
+    {
+      echo ""
+      echo "Agent CLI exited with code ${rc}"
+      echo "=== Session Failed ==="
+    } >> "${OUTPUT_FILE}"
+    return 4
+  fi
+
+  {
+    echo ""
+    echo "=== Session Complete ==="
+  } >> "${OUTPUT_FILE}"
+  return 0
+}
+
 spawn_inline() {
   log_info "Running in inline mode (no visual terminal)"
 
-  # Build the command
-  local output=""
-  output+="=== AIOX Agent Session (Inline) ===$(printf '\n')"
-  output+="Agent: ${AGENT}$(printf '\n')"
-  output+="Task: ${TASK}$(printf '\n')"
-  [[ -n "$PARAMS" ]] && output+="Params: ${PARAMS}$(printf '\n')"
-  [[ -n "$CONTEXT_FILE" ]] && output+="Context: ${CONTEXT_FILE}$(printf '\n')"
-  output+="$(printf '\n')"
-  output+="Executing: @${AGENT} *${TASK} ${PARAMS}$(printf '\n')"
-  output+="Agent execution would happen here...$(printf '\n')"
-  output+="=== Session Complete ===$(printf '\n')"
+  if ! run_agent_cli "Inline"; then
+    rm -f "${LOCK_FILE}"
+    return 4
+  fi
 
-  # Write output directly to file
-  echo "$output" > "${OUTPUT_FILE}"
-
-  # Remove lock file immediately (inline is synchronous)
   rm -f "${LOCK_FILE}"
-
   log_info "Inline execution complete"
   log_debug "Output written to: $OUTPUT_FILE"
-
   return 0
 }
 
@@ -370,35 +444,25 @@ spawn_terminal() {
 
   # Check for inline mode (Story 12.10 - fallback for non-visual environments)
   if [[ "$INLINE_MODE" == "true" ]]; then
-    spawn_inline
+    if ! spawn_inline; then
+      echo "$OUTPUT_FILE"
+      return 4
+    fi
     echo "$OUTPUT_FILE"
     return 0
   fi
 
-  # Build the command to run in the new terminal
-  local agent_cmd="${CLAUDE_CMD}"
-
-  # Add agent activation
-  agent_cmd="${agent_cmd} --print-only"  # Just for testing, real impl would use actual claude flags
-
-  # For now, we'll create a simpler command that demonstrates the concept
-  # The actual claude CLI integration will depend on how claude accepts agent/task args
-  local full_cmd="echo '=== AIOX Agent Session ===' && "
-  full_cmd+="echo 'Agent: ${AGENT}' && "
-  full_cmd+="echo 'Task: ${TASK}' && "
-  [[ -n "$PARAMS" ]] && full_cmd+="echo 'Params: ${PARAMS}' && "
-  [[ -n "$CONTEXT_FILE" ]] && full_cmd+="echo 'Context: ${CONTEXT_FILE}' && "
-  full_cmd+="echo '' && "
-
-  # Actual execution would be something like:
-  # full_cmd+="${CLAUDE_CMD} @${AGENT} *${TASK} ${PARAMS}"
-  # For now, simulate the output
-  full_cmd+="echo 'Executing: @${AGENT} *${TASK} ${PARAMS}' && "
-  full_cmd+="echo 'Agent execution would happen here...' && "
-  full_cmd+="echo '=== Session Complete ===' "
-
-  # Redirect output to file and remove lock when done
-  full_cmd+=" > '${OUTPUT_FILE}' 2>&1; rm -f '${LOCK_FILE}'"
+  # Real agent run in a new terminal (no echo-stub).
+  # Re-invoke this script in inline mode so run_agent_cli owns the protocol.
+  local script_self
+  script_self="$(cd "$(dirname "$0")" && pwd)/$(basename "$0")"
+  local full_cmd="AIOX_INLINE_MODE=true AIOX_OUTPUT_DIR='${OUTPUT_DIR}' "
+  full_cmd+="AIOX_DEBUG='${DEBUG}' CLAUDE_CMD='${CLAUDE_CMD}' "
+  full_cmd+="bash '${script_self}' '${AGENT}' '${TASK}'"
+  [[ -n "$PARAMS" ]] && full_cmd+=" ${PARAMS}"
+  [[ -n "$CONTEXT_FILE" ]] && full_cmd+=" --context '${CONTEXT_FILE}'"
+  full_cmd+=" --output '${OUTPUT_FILE}'; "
+  full_cmd+="rc=\$?; rm -f '${LOCK_FILE}'; exit \$rc"
 
   # Spawn based on OS
   case "$os" in

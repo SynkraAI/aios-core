@@ -10,9 +10,10 @@ ARCH: [A](./ARCHITECTURE-WAVE-A.md) · [B](./ARCHITECTURE-WAVE-B.md) · [C](./AR
 | A Runtime hygiene | ✅ |
 | B SDC skills + execute | ✅ |
 | C Orchestration | ✅ |
-| D IDE/SYNAPSE | ARCH draft — D1 not started |
-| E Constitution | ARCH draft — E1–E3 not started |
+| D IDE/SYNAPSE | ARCH ✅ · **D1 Done** (ide-sync-contract) |
+| E Constitution | ARCH ✅ · **E1 Done** (XI+XII in constitution v1.1.0) |
 | F Installer | F1 ✅ · F2 ⬜ · F3 DEFERRED |
+| Ops | **PM1** pm.sh real CLI (no stub) ✅ |
 
 ## F1 (done)
 

@@ -141,13 +141,13 @@ Strip: no `sinkra_*`, `.sinkra/`, `workspace/`, product deploy hosts. Skills inv
 
 Executed via **wave-execute** wave `CORE-SU-C` + **full-sdc** per story (YOLO).
 
-### Wave D — IDE / SYNAPSE (stretch) — ARCH-D draft ✅
+### Wave D — IDE / SYNAPSE (stretch) — ARCH-D ✅
 
-See [ARCHITECTURE-WAVE-D.md](./ARCHITECTURE-WAVE-D.md). D1 story not started. D5 three-brain **DEFERRED**.
+See [ARCHITECTURE-WAVE-D.md](./ARCHITECTURE-WAVE-D.md). **D1 Done** (`docs/framework/ide-sync-contract.md`). D5 three-brain **DEFERRED**.
 
-### Wave E — Constitution — ARCH-E draft ✅
+### Wave E — Constitution — ARCH-E ✅ (partial)
 
-See [ARCHITECTURE-WAVE-E.md](./ARCHITECTURE-WAVE-E.md). E1–E3 not started. E4 **DEFERRED**.
+See [ARCHITECTURE-WAVE-E.md](./ARCHITECTURE-WAVE-E.md). **E1 Done** — Articles XI+XII in `.aiox-core/constitution.md` v1.1.0 (no Workspace Bus). E3 cross-links optional. E4 **DEFERRED**.
 
 **Canonical numbering for OSS (decision):** follow **hub numbering** for new articles:
 

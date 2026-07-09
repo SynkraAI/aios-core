@@ -1,6 +1,7 @@
 # Synkra AIOX Constitution
 
-> **Version:** 1.0.0 | **Ratified:** 2025-01-30 | **Last Amended:** 2025-01-30
+> **Version:** 1.1.0 | **Ratified:** 2025-01-30 | **Last Amended:** 2026-07-09  
+> **Amendments:** Articles XI–XII (CORE-SUPER-UPDATE Wave E; hub lineage, OSS-safe)
 
 Este documento define os princípios fundamentais e inegociáveis do Synkra AIOX. Todos os agentes, tasks, e workflows DEVEM respeitar estes princípios. Violações são bloqueadas automaticamente via gates.
 
@@ -125,6 +126,67 @@ import { useStore } from '../../../stores/feature/store'
 
 ---
 
+### XI. Squad-First Portability (NON-NEGOTIABLE)
+
+`squads/` is the source of truth for executable squad artifacts. Runtime projections (`.claude/`, `.codex/`, `.gemini/`, `.grok/`) are **derived**, never canonical.
+
+**Rules:**
+- MUST: Scripts, templates, data, and checklists that belong to a squad live under `squads/{squad}/`
+- MUST: IDE projections (e.g. `.claude/skills/`) contain frontmatter + instructions only — **not** hidden executable SOT logic for squad-owned skills
+- MUST: Sync direction is always `squads/` → runtime projection, never the reverse for squad-owned artifacts
+- MUST: Executable artifacts must work regardless of which runtime invokes them (Claude, Codex, Gemini, Grok, or future hosts)
+- SHOULD: Standalone skills without a squad owner may live directly in a projection
+
+**Portability hierarchy:**
+```
+squads/{squad}/ (SOT) → .claude/skills/ (Claude projection)
+                      → .codex/ (Codex projection)
+                      → .gemini/ (Gemini projection)
+                      → .grok/ (Grok projection)
+                      → future runtimes
+```
+
+**Gate:** skill/IDE sync validators — WARN if executable SOT is only inside a runtime projection for a squad-owned skill
+
+**Rationale:** Artifacts that live only under one IDE folder are host-locked. AIOX is runtime-agnostic by design — value is in the process, not the IDE.
+
+**OSS note:** Framework core agents live under `.aiox-core/development/`; squad expansions use `squads/`. Both remain portable across IDEs via sync scripts.
+
+---
+
+### XII. Model Governance (MUST)
+
+Automated or agent-dispatched model access MUST respect budget ceilings, routing authority, story traceability, and intent security scanning.
+
+**Rationale:** Unbounded model loops create cost risk, config drift, and injection surface not covered by Articles I–XI alone.
+
+**Rules:**
+
+**XII-A. Budget Ceilings (NON-NEGOTIABLE when auto-dispatch is used):**
+- MUST: Any auto-dispatch / multi-model loop MUST declare a budget ceiling before the first model call (config key e.g. `model_routing.budget_ceiling_usd` or env override)
+- MUST: Routing SHOULD degrade model tier as budget pressure rises (soft guidance: >50% pressure prefer lighter tiers; 100% → hard stop + human escalate)
+- MUST NOT: A dispatch loop may not silently ignore a declared ceiling
+
+**XII-B. Routing Authority (NON-NEGOTIABLE):**
+- MUST: Model routing configuration in `core-config.yaml` (e.g. `model_routing.*`) is owned exclusively by **@devops** for deployment changes
+- MUST: Threshold / policy changes require **@architect** review (PR)
+- MUST NOT: Other agents may not unilaterally change production routing config
+
+**XII-C. Story Binding (NON-NEGOTIABLE for auto-dispatch):**
+- MUST: Auto-dispatched implementation work MUST bind to a valid story id/path
+- MUST NOT: Anonymous auto-dispatch of product code without a story (shadow work)
+
+**XII-D. Intent / Injection Scan (NON-NEGOTIABLE for automated intents):**
+- MUST: Intents entering via automation (cron, webhook, programmatic dispatch) MUST be scanned for prompt injection before processing
+- MUST: Scans SHOULD cover invisible unicode, system-prompt override attempts, path traversal in intent strings, and obvious code-injection payloads (align with `prompt-guard` / permissions guards)
+- MUST: Failed scans are rejected, logged, and never executed
+
+**Gate:** Prefer existing quality / permissions / pre-dispatch gates — BLOCK on XII-A/B/C/D violations when auto-dispatch is active. Manual interactive agent sessions follow I–VI primarily; XII still applies when automation or multi-model routing is engaged.
+
+**OSS strip (do not reintroduce):** product-only chiefs, multi-BU workspace bus as constitutional MUST, tribunal harnesses, hard-coded product deploy hosts.
+
+---
+
 ## Governance
 
 ### Amendment Process
@@ -167,5 +229,5 @@ import { useStore } from '../../../stores/feature/store'
 
 ---
 
-*Synkra AIOX Constitution v1.0.0*
-*CLI First | Agent-Driven | Quality First*
+*Synkra AIOX Constitution v1.1.0*
+*CLI First | Agent-Driven | Quality First | Squad-First Portability | Model Governance*

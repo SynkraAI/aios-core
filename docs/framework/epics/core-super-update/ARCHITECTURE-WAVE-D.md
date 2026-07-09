@@ -39,5 +39,5 @@ IDE surfaces (.claude / .grok / .codex)
 ## 5. Acceptance ARCH-D
 
 - [x] This document  
-- [ ] D1 story drafted before implementation  
-- [ ] No product harvest  
+- [x] D1 story + `docs/framework/ide-sync-contract.md`  
+- [x] No product harvest  

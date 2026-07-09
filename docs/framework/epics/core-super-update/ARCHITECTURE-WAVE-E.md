@@ -38,5 +38,5 @@ Port **Squad-First Portability (XI)** and **Model Governance (XII)** text into O
 ## 5. Acceptance ARCH-E
 
 - [x] This document  
-- [ ] E1–E3 stories before constitution edit  
-- [ ] No workspace bus runtime  
+- [x] E1 constitution XI+XII (OSS-safe)  
+- [x] No workspace bus as MUST in OSS constitution  
