@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.2.9
-generated_at: "2026-07-09T04:24:40.439Z"
+generated_at: "2026-07-09T04:29:12.814Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1131
 files:
@@ -3221,9 +3221,9 @@ files:
     type: script
     size: 38453
   - path: infrastructure/scripts/grok-skills-sync/index.js
-    hash: sha256:ca8f3bcb0ca80faf44f075d2c1a2577eb437ac233b96aec7be1f1492ec643991
+    hash: sha256:0dc8023689dd873a0c30006e40a9555e817f83103bf5fc174a16d9d9a0a3d239
     type: script
-    size: 32357
+    size: 35017
   - path: infrastructure/scripts/grok-skills-sync/README.md
     hash: sha256:ced0a101a29d198a0e70f1e42db80365f64b45ef625603cacc08854841e4ad69
     type: script

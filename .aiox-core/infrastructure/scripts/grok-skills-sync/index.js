@@ -317,7 +317,7 @@ const AGENT_PROFILES = {
     reasoning_effort: 'high',
     roleLabel: 'Squad Creator',
     exclusive: ['squad design/create/validate/publish structure'],
-    blocked: ['git push unless also acting as devops for release path'],
+    blocked: ['git push'],
     loadAlways: [],
     workflow: [
       'Task-first architecture for all squads.',
@@ -490,7 +490,7 @@ Template: \`.aiox-core/development/templates/agent-handoff-tmpl.yaml\`
 2. Stage only relevant files (never force-add secrets).
 3. Commit with conventional message + story id when known:
 
-\`\`\`
+\`\`\`text
 feat: short description [Story X.Y]
 fix: short description [Story X.Y]
 docs: ...
@@ -518,10 +518,66 @@ function trimText(text, max = 220) {
   return `${normalized.slice(0, max - 3).trim()}...`;
 }
 
+/** Safe skill/agent id: lowercase alnum + hyphens only (path-safe). */
+const SAFE_SKILL_ID_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+
 function getSkillId(agentId) {
   const id = String(agentId || '').trim();
-  if (id.startsWith('aiox-')) return id;
-  return `aiox-${id}`;
+  const skillId = id.startsWith('aiox-') ? id : `aiox-${id}`;
+  if (!SAFE_SKILL_ID_RE.test(skillId)) {
+    throw new Error(
+      `Invalid agent id for Grok skill path: ${JSON.stringify(agentId)} → ${JSON.stringify(skillId)}`
+    );
+  }
+  return skillId;
+}
+
+/** Escape a value for YAML double-quoted scalars. */
+function yamlDoubleQuoted(value) {
+  return `"${String(value ?? '')
+    .replace(/\\/g, '\\\\')
+    .replace(/"/g, '\\"')
+    .replace(/\n/g, '\\n')
+    .replace(/\r/g, '\\r')
+    .replace(/\t/g, '\\t')}"`;
+}
+
+/** Escape a value for TOML basic strings ("..."). */
+function tomlBasicString(value) {
+  return `"${String(value ?? '')
+    .replace(/\\/g, '\\\\')
+    .replace(/"/g, '\\"')
+    .replace(/\n/g, '\\n')
+    .replace(/\r/g, '\\r')
+    .replace(/\t/g, '\\t')}"`;
+}
+
+/**
+ * Flatten text for YAML folded (`>`) blocks — no raw newlines that would break structure.
+ */
+function yamlFoldedSafe(value) {
+  return String(value ?? '')
+    .replace(/\r\n/g, '\n')
+    .replace(/\s*\n\s*/g, ' ')
+    .trim();
+}
+
+/**
+ * Resolve path under baseDir; reject traversal outside the tree.
+ * @param {string} baseDir
+ * @param {...string} segments
+ * @returns {string} absolute path contained under baseDir
+ */
+function resolveUnder(baseDir, ...segments) {
+  const baseResolved = path.resolve(baseDir);
+  const target = path.resolve(baseDir, ...segments);
+  const rel = path.relative(baseResolved, target);
+  if (rel.startsWith('..') || path.isAbsolute(rel)) {
+    throw new Error(
+      `Refusing write outside Grok output tree: ${target} (base ${baseResolved})`
+    );
+  }
+  return target;
 }
 
 function getDefaultOptions() {
@@ -595,11 +651,14 @@ function buildAgentMarkdown(agentData, profile) {
       ? profile.loadAlways.map((f) => `- \`${f}\``).join('\n')
       : '- (none required at activation)';
 
+  const descriptionBody = yamlFoldedSafe(
+    `${icon} ${title} (${name}). ${whenToUse} Activate with /${skillId} or spawn_subagent subagent_type="${skillId}".`
+  );
+
   return `---
 name: ${skillId}
 description: >
-  ${icon} ${title} (${name}). ${whenToUse}
-  Activate with /${skillId} or spawn_subagent subagent_type="${skillId}".
+  ${descriptionBody}
 prompt_mode: full
 model: inherit
 permission_mode: ${profile.permission_mode}
@@ -691,16 +750,19 @@ function buildSkillMarkdown(agentData, profile) {
     320
   );
 
+  const shortDescription = `${agent.icon || '🤖'} ${title}`;
+  const sourcePath = `.aiox-core/development/agents/${agentData.filename}`;
+
   return `---
 name: ${skillId}
 description: >
-  ${description}
+  ${yamlFoldedSafe(description)}
 when-to-use: >
-  ${triggers}
+  ${yamlFoldedSafe(triggers)}
 metadata:
-  short-description: "${agent.icon || '🤖'} ${title}"
-  aiox-agent-id: "${agentData.id}"
-  aiox-source: ".aiox-core/development/agents/${agentData.filename}"
+  short-description: ${yamlDoubleQuoted(shortDescription)}
+  aiox-agent-id: ${yamlDoubleQuoted(agentData.id)}
+  aiox-source: ${yamlDoubleQuoted(sourcePath)}
 ---
 
 # Activate AIOX ${title}
@@ -744,12 +806,13 @@ function buildRoleToml(agentData, profile) {
   const skillId = getSkillId(agentData.id);
   const agent = agentData.agent || {};
   const title = agent.title || profile.roleLabel;
+  const description = `${title} (${agent.name || agentData.id})`;
   return `# AIOX ${skillId} — subagent role defaults
-description = "${title} (${agent.name || agentData.id})"
-default_capability_mode = "${profile.capability_mode}"
-reasoning_effort = "${profile.reasoning_effort}"
+description = ${tomlBasicString(description)}
+default_capability_mode = ${tomlBasicString(profile.capability_mode)}
+reasoning_effort = ${tomlBasicString(profile.reasoning_effort)}
 default_fork_context = true
-prompt_file = ".grok/agents/${skillId}.md"
+prompt_file = ${tomlBasicString(`.grok/agents/${skillId}.md`)}
 `;
 }
 
@@ -780,15 +843,18 @@ function buildPersonaToml(agentData, profile) {
     'No invention of requirements. Quality gates before done.',
   ].join('\n');
 
+  // Escape """ sequences inside multiline TOML strings
+  const safeInstructions = instructionsBlock.replace(/"""/g, "''\"");
+
   return `# AIOX persona: ${skillId}
-description = "${title} — ${trimText(whenToUse, 100)}"
+description = ${tomlBasicString(`${title} — ${trimText(whenToUse, 100)}`)}
 instructions = """
-${instructionsBlock}
+${safeInstructions}
 """
 
 default_fork_context = true
-default_capability_mode = "${profile.capability_mode}"
-reasoning_effort = "${profile.reasoning_effort}"
+default_capability_mode = ${tomlBasicString(profile.capability_mode)}
+reasoning_effort = ${tomlBasicString(profile.reasoning_effort)}
 `;
 }
 
@@ -856,7 +922,7 @@ Optimized agents, skills, roles, and personas for [Grok Build TUI](https://grok.
 
 ## Activate an agent
 
-\`\`\`
+\`\`\`text
 /aiox-dev
 /aiox-qa
 /aiox-devops
@@ -928,22 +994,31 @@ function syncGrok(options = {}) {
       continue;
     }
 
-    const skillId = getSkillId(agentData.id);
+    let skillId;
+    try {
+      skillId = getSkillId(agentData.id);
+    } catch (err) {
+      if (!resolved.quiet) {
+        console.warn(`⚠️  ${err.message} — skipped`);
+      }
+      continue;
+    }
+
     const files = [
       {
-        path: path.join(targets.agents, `${skillId}.md`),
+        path: resolveUnder(targets.agents, `${skillId}.md`),
         content: buildAgentMarkdown(agentData, profile),
       },
       {
-        path: path.join(targets.skills, skillId, 'SKILL.md'),
+        path: resolveUnder(targets.skills, skillId, 'SKILL.md'),
         content: buildSkillMarkdown(agentData, profile),
       },
       {
-        path: path.join(targets.roles, `${skillId}.toml`),
+        path: resolveUnder(targets.roles, `${skillId}.toml`),
         content: buildRoleToml(agentData, profile),
       },
       {
-        path: path.join(targets.personas, `${skillId}.toml`),
+        path: resolveUnder(targets.personas, `${skillId}.toml`),
         content: buildPersonaToml(agentData, profile),
       },
     ];
@@ -959,13 +1034,19 @@ function syncGrok(options = {}) {
 
   // Workflow skills
   for (const wf of WORKFLOW_SKILLS) {
-    const p = path.join(targets.skills, wf.name, 'SKILL.md');
+    if (!SAFE_SKILL_ID_RE.test(wf.name)) {
+      if (!resolved.quiet) {
+        console.warn(`⚠️  Invalid workflow skill name ${JSON.stringify(wf.name)} — skipped`);
+      }
+      continue;
+    }
+    const p = resolveUnder(targets.skills, wf.name, 'SKILL.md');
     const content = `---
 name: ${wf.name}
 description: >
-  ${wf.description}
+  ${yamlFoldedSafe(wf.description)}
 metadata:
-  short-description: "AIOX workflow: ${wf.name}"
+  short-description: ${yamlDoubleQuoted(`AIOX workflow: ${wf.name}`)}
 ---
 
 ${wf.body}
@@ -979,8 +1060,8 @@ ${wf.body}
 
   // Rules + README
   const extras = [
-    { path: path.join(targets.rules, 'aiox-core.md'), content: buildRulesMarkdown() },
-    { path: path.join(grok, 'README.md'), content: buildReadme() },
+    { path: resolveUnder(targets.rules, 'aiox-core.md'), content: buildRulesMarkdown() },
+    { path: resolveUnder(grok, 'README.md'), content: buildReadme() },
   ];
   for (const file of extras) {
     if (!resolved.dryRun) {
@@ -1030,4 +1111,9 @@ module.exports = {
   WORKFLOW_SKILLS,
   getSkillId,
   parseArgs,
+  yamlDoubleQuoted,
+  tomlBasicString,
+  yamlFoldedSafe,
+  resolveUnder,
+  SAFE_SKILL_ID_RE,
 };

@@ -1,8 +1,7 @@
 ---
 name: aiox-ux-design-expert
 description: >
-  🎨 UX/UI Designer & Design System Architect (Uma). Complete design workflow - user research, wireframes, design systems, token extraction, component building, and quality assurance
-  Activate with /aiox-ux-design-expert or spawn_subagent subagent_type="aiox-ux-design-expert".
+  🎨 UX/UI Designer & Design System Architect (Uma). Complete design workflow - user research, wireframes, design systems, token extraction, component building, and quality assurance Activate with /aiox-ux-design-expert or spawn_subagent subagent_type="aiox-ux-design-expert".
 prompt_mode: full
 model: inherit
 permission_mode: default

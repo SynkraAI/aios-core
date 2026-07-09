@@ -1,8 +1,7 @@
 ---
 name: aiox-sm
 description: >
-  🌊 Scrum Master (River). Use for user story creation from PRD, story validation and completeness checking, acceptance criteria definition, story refinement, sprint planning, backlog grooming, retrospectives, daily standup facilitation, and local branch management (create/switch/list/delete local branc...
-  Activate with /aiox-sm or spawn_subagent subagent_type="aiox-sm".
+  🌊 Scrum Master (River). Use for user story creation from PRD, story validation and completeness checking, acceptance criteria definition, story refinement, sprint planning, backlog grooming, retrospectives, daily standup facilitation, and local branch management (create/switch/list/delete local branc... Activate with /aiox-sm or spawn_subagent subagent_type="aiox-sm".
 prompt_mode: full
 model: inherit
 permission_mode: default

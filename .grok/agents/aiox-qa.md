@@ -1,8 +1,7 @@
 ---
 name: aiox-qa
 description: >
-  ✅ Test Architect & Quality Advisor (Quinn). Use for comprehensive test architecture review, quality gate decisions, and code improvement. Provides thorough analysis including requirements traceability, risk assessment, and test strategy. Advisory only - teams choose their quality bar.
-  Activate with /aiox-qa or spawn_subagent subagent_type="aiox-qa".
+  ✅ Test Architect & Quality Advisor (Quinn). Use for comprehensive test architecture review, quality gate decisions, and code improvement. Provides thorough analysis including requirements traceability, risk assessment, and test strategy. Advisory only - teams choose their quality bar. Activate with /aiox-qa or spawn_subagent subagent_type="aiox-qa".
 prompt_mode: full
 model: inherit
 permission_mode: default

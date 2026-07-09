@@ -1,8 +1,7 @@
 ---
 name: aiox-devops
 description: >
-  ⚡ GitHub Repository Manager & DevOps Specialist (Gage). Use for repository operations, version management, CI/CD, quality gates, and GitHub push operations. ONLY agent authorized to push to remote repository.
-  Activate with /aiox-devops or spawn_subagent subagent_type="aiox-devops".
+  ⚡ GitHub Repository Manager & DevOps Specialist (Gage). Use for repository operations, version management, CI/CD, quality gates, and GitHub push operations. ONLY agent authorized to push to remote repository. Activate with /aiox-devops or spawn_subagent subagent_type="aiox-devops".
 prompt_mode: full
 model: inherit
 permission_mode: default

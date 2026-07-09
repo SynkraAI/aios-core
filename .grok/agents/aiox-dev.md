@@ -1,8 +1,7 @@
 ---
 name: aiox-dev
 description: >
-  💻 Full Stack Developer (Dex). Use for code implementation, debugging, refactoring, and development best practices
-  Activate with /aiox-dev or spawn_subagent subagent_type="aiox-dev".
+  💻 Full Stack Developer (Dex). Use for code implementation, debugging, refactoring, and development best practices Activate with /aiox-dev or spawn_subagent subagent_type="aiox-dev".
 prompt_mode: full
 model: inherit
 permission_mode: default

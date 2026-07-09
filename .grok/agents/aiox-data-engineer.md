@@ -1,8 +1,7 @@
 ---
 name: aiox-data-engineer
 description: >
-  📊 Database Architect & Operations Engineer (Dara). Use for database design, schema architecture, Supabase configuration, RLS policies, migrations, query optimization, data modeling, operations, and monitoring
-  Activate with /aiox-data-engineer or spawn_subagent subagent_type="aiox-data-engineer".
+  📊 Database Architect & Operations Engineer (Dara). Use for database design, schema architecture, Supabase configuration, RLS policies, migrations, query optimization, data modeling, operations, and monitoring Activate with /aiox-data-engineer or spawn_subagent subagent_type="aiox-data-engineer".
 prompt_mode: full
 model: inherit
 permission_mode: default

@@ -1,8 +1,7 @@
 ---
 name: aiox-master
 description: >
-  👑 AIOX Master Orchestrator & Framework Developer (Orion). Use when you need comprehensive expertise across all domains, framework component creation/modification, workflow orchestration, or running tasks that don't require a specialized persona.
-  Activate with /aiox-master or spawn_subagent subagent_type="aiox-master".
+  👑 AIOX Master Orchestrator & Framework Developer (Orion). Use when you need comprehensive expertise across all domains, framework component creation/modification, workflow orchestration, or running tasks that don't require a specialized persona. Activate with /aiox-master or spawn_subagent subagent_type="aiox-master".
 prompt_mode: full
 model: inherit
 permission_mode: default

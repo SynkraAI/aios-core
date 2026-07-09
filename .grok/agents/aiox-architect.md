@@ -1,8 +1,7 @@
 ---
 name: aiox-architect
 description: >
-  🏛️ Architect (Aria). Use for system architecture (fullstack, backend, frontend, infrastructure), technology stack selection (technical evaluation), API design (REST/GraphQL/tRPC/WebSocket), security architecture, performance optimization, deployment strategy, and cross-cutting concerns (logging, m...
-  Activate with /aiox-architect or spawn_subagent subagent_type="aiox-architect".
+  🏛️ Architect (Aria). Use for system architecture (fullstack, backend, frontend, infrastructure), technology stack selection (technical evaluation), API design (REST/GraphQL/tRPC/WebSocket), security architecture, performance optimization, deployment strategy, and cross-cutting concerns (logging, m... Activate with /aiox-architect or spawn_subagent subagent_type="aiox-architect".
 prompt_mode: full
 model: inherit
 permission_mode: default

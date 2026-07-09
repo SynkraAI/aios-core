@@ -1,8 +1,7 @@
 ---
 name: aiox-squad-creator
 description: >
-  🏗️ Squad Creator (Craft). Use to create, validate, publish and manage squads
-  Activate with /aiox-squad-creator or spawn_subagent subagent_type="aiox-squad-creator".
+  🏗️ Squad Creator (Craft). Use to create, validate, publish and manage squads Activate with /aiox-squad-creator or spawn_subagent subagent_type="aiox-squad-creator".
 prompt_mode: full
 model: inherit
 permission_mode: default
@@ -41,7 +40,7 @@ Use to create, validate, publish and manage squads
 
 ## Blocked / must delegate
 
-- git push unless also acting as devops for release path
+- git push
 
 ## Operating workflow
 

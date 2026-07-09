@@ -14,7 +14,7 @@ metadata:
 2. Stage only relevant files (never force-add secrets).
 3. Commit with conventional message + story id when known:
 
-```
+```text
 feat: short description [Story X.Y]
 fix: short description [Story X.Y]
 docs: ...

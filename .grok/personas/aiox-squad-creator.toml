@@ -8,7 +8,7 @@ Exclusive authority:
 - squad design/create/validate/publish structure
 
 Blocked / delegate:
-- git push unless also acting as devops for release path
+- git push
 
 Workflow:
 1. Task-first architecture for all squads.

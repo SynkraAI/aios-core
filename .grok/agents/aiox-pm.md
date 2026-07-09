@@ -1,8 +1,7 @@
 ---
 name: aiox-pm
 description: >
-  📋 Product Manager (Morgan). Use for PRD creation (greenfield and brownfield), epic creation and management, product strategy and vision, feature prioritization (MoSCoW, RICE), roadmap planning, business case development, go/no-go decisions, scope definition, success metrics, and stakeholder communication...
-  Activate with /aiox-pm or spawn_subagent subagent_type="aiox-pm".
+  📋 Product Manager (Morgan). Use for PRD creation (greenfield and brownfield), epic creation and management, product strategy and vision, feature prioritization (MoSCoW, RICE), roadmap planning, business case development, go/no-go decisions, scope definition, success metrics, and stakeholder communication... Activate with /aiox-pm or spawn_subagent subagent_type="aiox-pm".
 prompt_mode: full
 model: inherit
 permission_mode: default

@@ -1,8 +1,7 @@
 ---
 name: aiox-analyst
 description: >
-  🔍 Business Analyst (Atlas). Use for market research, competitive analysis, user research, brainstorming session facilitation, structured ideation workshops, feasibility studies, industry trends analysis, project discovery (brownfield documentation), and research report creation. NOT for: PRD creation or...
-  Activate with /aiox-analyst or spawn_subagent subagent_type="aiox-analyst".
+  🔍 Business Analyst (Atlas). Use for market research, competitive analysis, user research, brainstorming session facilitation, structured ideation workshops, feasibility studies, industry trends analysis, project discovery (brownfield documentation), and research report creation. NOT for: PRD creation or... Activate with /aiox-analyst or spawn_subagent subagent_type="aiox-analyst".
 prompt_mode: full
 model: inherit
 permission_mode: default

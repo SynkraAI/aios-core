@@ -15,7 +15,7 @@ Optimized agents, skills, roles, and personas for [Grok Build TUI](https://grok.
 
 ## Activate an agent
 
-```
+```text
 /aiox-dev
 /aiox-qa
 /aiox-devops

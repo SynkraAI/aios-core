@@ -1,8 +1,7 @@
 ---
 name: aiox-po
 description: >
-  🎯 Product Owner (Pax). Use for backlog management, story refinement, acceptance criteria, sprint planning, and prioritization decisions
-  Activate with /aiox-po or spawn_subagent subagent_type="aiox-po".
+  🎯 Product Owner (Pax). Use for backlog management, story refinement, acceptance criteria, sprint planning, and prioritization decisions Activate with /aiox-po or spawn_subagent subagent_type="aiox-po".
 prompt_mode: full
 model: inherit
 permission_mode: default

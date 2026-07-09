@@ -43,7 +43,7 @@ metadata:
 - squad design/create/validate/publish structure
 
 **Blocked:**
-- git push unless also acting as devops for release path
+- git push
 
 ## Non-negotiables
 
