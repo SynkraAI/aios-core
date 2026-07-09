@@ -1,0 +1,6 @@
+# AIOX aiox-sm — subagent role defaults
+description = "Scrum Master (River)"
+default_capability_mode = "all"
+reasoning_effort = "high"
+default_fork_context = true
+prompt_file = ".grok/agents/aiox-sm.md"

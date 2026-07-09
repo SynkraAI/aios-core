@@ -1,0 +1,6 @@
+# AIOX aiox-data-engineer — subagent role defaults
+description = "Database Architect & Operations Engineer (Dara)"
+default_capability_mode = "all"
+reasoning_effort = "high"
+default_fork_context = true
+prompt_file = ".grok/agents/aiox-data-engineer.md"

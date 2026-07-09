@@ -1,0 +1,6 @@
+# AIOX aiox-architect — subagent role defaults
+description = "Architect (Aria)"
+default_capability_mode = "all"
+reasoning_effort = "high"
+default_fork_context = true
+prompt_file = ".grok/agents/aiox-architect.md"

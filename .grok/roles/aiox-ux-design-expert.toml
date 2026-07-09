@@ -1,0 +1,6 @@
+# AIOX aiox-ux-design-expert — subagent role defaults
+description = "UX/UI Designer & Design System Architect (Uma)"
+default_capability_mode = "all"
+reasoning_effort = "high"
+default_fork_context = true
+prompt_file = ".grok/agents/aiox-ux-design-expert.md"

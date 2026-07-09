@@ -1,0 +1,6 @@
+# AIOX aiox-devops — subagent role defaults
+description = "GitHub Repository Manager & DevOps Specialist (Gage)"
+default_capability_mode = "all"
+reasoning_effort = "high"
+default_fork_context = true
+prompt_file = ".grok/agents/aiox-devops.md"

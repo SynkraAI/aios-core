@@ -1,0 +1,6 @@
+# AIOX aiox-po — subagent role defaults
+description = "Product Owner (Pax)"
+default_capability_mode = "all"
+reasoning_effort = "high"
+default_fork_context = true
+prompt_file = ".grok/agents/aiox-po.md"

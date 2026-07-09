@@ -46,6 +46,21 @@ npm test
 - Gerar skills locais do Codex: `npm run sync:skills:codex`
 - Este repositorio usa **local-first**: prefira `.codex/skills` versionado no projeto
 - Use `sync:skills:codex:global` apenas para testes fora deste repo
+- Gerar agents/skills/roles do Grok Build: `npm run sync:skills:grok`
+- Artefatos Grok versionados em `.grok/` (ver `.grok/README.md`)
+
+## Agent Shortcuts (Grok Build)
+
+Preferencia de ativacao no Grok TUI:
+1. Use slash skills: `/aiox-dev`, `/aiox-qa`, `/aiox-devops`, etc. (em `.grok/skills/`)
+2. Workflows: `/aiox-sdc`, `/aiox-quality-gates`, `/aiox-handoff`, `/aiox-commit`
+3. Profiles de sessao/subagent: `.grok/agents/aiox-*.md`
+4. Source of truth continua em `.aiox-core/development/agents/`
+
+Atalhos Grok (skills):
+- `/aiox-master` · `/aiox-analyst` · `/aiox-architect` · `/aiox-data-engineer`
+- `/aiox-dev` · `/aiox-devops` · `/aiox-pm` · `/aiox-po`
+- `/aiox-qa` · `/aiox-sm` · `/aiox-squad-creator` · `/aiox-ux-design-expert`
 
 ## Agent Shortcuts (Codex)
 

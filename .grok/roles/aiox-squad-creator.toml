@@ -1,0 +1,6 @@
+# AIOX aiox-squad-creator — subagent role defaults
+description = "Squad Creator (Craft)"
+default_capability_mode = "all"
+reasoning_effort = "high"
+default_fork_context = true
+prompt_file = ".grok/agents/aiox-squad-creator.md"

@@ -1,0 +1,6 @@
+# AIOX aiox-master — subagent role defaults
+description = "AIOX Master Orchestrator & Framework Developer (Orion)"
+default_capability_mode = "all"
+reasoning_effort = "high"
+default_fork_context = true
+prompt_file = ".grok/agents/aiox-master.md"

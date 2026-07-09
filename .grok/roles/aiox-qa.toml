@@ -1,0 +1,6 @@
+# AIOX aiox-qa — subagent role defaults
+description = "Test Architect & Quality Advisor (Quinn)"
+default_capability_mode = "all"
+reasoning_effort = "high"
+default_fork_context = true
+prompt_file = ".grok/agents/aiox-qa.md"
