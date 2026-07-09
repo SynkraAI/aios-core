@@ -8,7 +8,7 @@ Optimized agents, skills, roles, and personas for [Grok Build TUI](https://grok.
 |------|---------|
 | `agents/` | Native Grok agent profiles (session + spawnable types) |
 | `skills/aiox-*/` | Slash skills to activate personas |
-| `skills/aiox-sdc/` etc. | Workflow skills (SDC, gates, handoff, commit) |
+| `skills/aiox-sdc/`, `aiox-full-sdc/`, atomics | Workflow skills (lean SDC + gates + handoff) |
 | `roles/` | Subagent capability defaults |
 | `personas/` | Behavioral overlays for subagents |
 | `rules/` | Always-on compact AIOX rules |

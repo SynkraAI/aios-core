@@ -376,38 +376,53 @@ const AGENT_PROFILES = {
   },
 };
 
+/**
+ * Lean SDC + misc workflow skills under .aiox-core/development/skills/.
+ * Synced to .grok/skills/aiox-<name>/ (name already aiox-* stays as-is).
+ * SOT = those SKILL.md files — prefer editing them, not inline bodies here.
+ */
+const DEVELOPMENT_WORKFLOW_SKILLS = [
+  'validate-story-draft',
+  'develop-story',
+  'review-story',
+  'apply-qa-fixes',
+  'close-story',
+  'full-sdc',
+  'aiox-commit',
+];
+
 const WORKFLOW_SKILLS = [
   {
     name: 'aiox-sdc',
     description:
-      'Run the AIOX Story Development Cycle (create → validate → develop → QA). Use when starting a story lifecycle, SDC, or full-cycle story work. Slash: /aiox-sdc',
+      'Run the AIOX Story Development Cycle. Prefer /aiox-full-sdc (lean orchestrator). Slash: /aiox-sdc',
     body: `# AIOX Story Development Cycle (SDC)
 
-Primary development workflow. Task-first: follow task files, not improvised steps.
+Primary development workflow. **Task-first.** Prefer the lean orchestrator skill:
+
+\`.aiox-core/development/skills/full-sdc/SKILL.md\` → Grok: \`/aiox-full-sdc\`
 
 ## Phases
 
-| Phase | Agent | Task | Output status |
-|-------|-------|------|---------------|
-| 1 Create | @sm | \`.aiox-core/development/tasks/create-next-story.md\` (or sm-create-next-story) | Draft |
-| 2 Validate | @po | \`.aiox-core/development/tasks/validate-next-story.md\` | Ready (on GO) |
-| 3 Develop | @dev | \`.aiox-core/development/tasks/dev-develop-story.md\` | InProgress → InReview |
-| 4 QA Gate | @qa | \`.aiox-core/development/tasks/qa-gate.md\` | Done path after PASS |
-| 5 Push | @devops | pre-push + push/PR | remote |
+| Phase | Skill | Agent | Task SOT |
+|-------|-------|-------|----------|
+| 1 Create | (sm create) | @sm | \`create-next-story.md\` |
+| 2 Validate | \`validate-story-draft\` | @po | \`validate-next-story.md\` → Ready on GO |
+| 3 Develop | \`develop-story\` | @dev | \`dev-develop-story.md\` |
+| 4 Review | \`review-story\` | @qa | \`qa-gate.md\` — **not Done** |
+| 4b Fix | \`apply-qa-fixes\` | @dev | \`apply-qa-fixes.md\` (QG loop ≤3) |
+| 5 Close | \`close-story\` | @po | \`po-close-story.md\` → **Done** |
+| 6 Push | @devops | @devops | pre-push + push/PR |
 
 ## Rules
 
 1. Never skip Validate for non-trivial work.
 2. @dev must not edit AC/title/scope.
 3. Only @devops may \`git push\` / create PRs.
-4. Quality gates before push: \`npm run lint && npm run typecheck && npm test\`.
-5. Constitution: \`.aiox-core/constitution.md\`
-
-## How to run in Grok
-
-1. Activate persona skill (\`/aiox-sm\`, then \`/aiox-po\`, …) or stay general and follow phases.
-2. Load the phase task file and execute exactly.
-3. Update story checkboxes and File List as you go.
+4. Only \`close-story\` sets Status Done (Sequence Lock).
+5. Quality gates: \`npm run lint && npm run typecheck && npm test\`.
+6. Constitution: \`.aiox-core/constitution.md\`
+7. No product harvest trees (ARCH-A denylist).
 `,
   },
   {
@@ -478,35 +493,52 @@ handoff:
 Template: \`.aiox-core/development/templates/agent-handoff-tmpl.yaml\`
 `,
   },
-  {
-    name: 'aiox-commit',
-    description:
-      'Create a local conventional commit for AIOX work. Never pushes. Use when committing, /aiox-commit, or local git commit.',
-    body: `# AIOX Local Commit
-
-## Steps
-
-1. \`git status\` and \`git diff\` (and \`git diff --staged\`).
-2. Stage only relevant files (never force-add secrets).
-3. Commit with conventional message + story id when known:
-
-\`\`\`text
-feat: short description [Story X.Y]
-fix: short description [Story X.Y]
-docs: ...
-test: ...
-chore: ...
-\`\`\`
-
-4. Do **NOT** \`git push\`. Tell the user to activate \`/aiox-devops\` for push/PR.
-
-## Forbidden
-
-- \`git push\`, \`--force\`, \`git commit --no-verify\` to bypass gates
-- Amending published commits without explicit user request
-`,
-  },
 ];
+
+function grokSkillIdFromDevSkill(dirName) {
+  return dirName.startsWith('aiox-') ? dirName : `aiox-${dirName}`;
+}
+
+/**
+ * Copy lean SDC skills from development/skills → .grok/skills/aiox-*
+ * Rewrites frontmatter name to the Grok skill id when needed.
+ */
+function syncDevelopmentWorkflowSkills(repoRoot, targets, options = {}) {
+  const written = [];
+  const skillsRoot = path.join(repoRoot, '.aiox-core', 'development', 'skills');
+  for (const dirName of DEVELOPMENT_WORKFLOW_SKILLS) {
+    const src = path.join(skillsRoot, dirName, 'SKILL.md');
+    if (!fs.existsSync(src)) {
+      if (!options.quiet) {
+        console.warn(`⚠️  Missing development skill ${dirName} — skipped`);
+      }
+      continue;
+    }
+    const skillId = grokSkillIdFromDevSkill(dirName);
+    if (!SAFE_SKILL_ID_RE.test(skillId)) {
+      if (!options.quiet) {
+        console.warn(`⚠️  Invalid skill id ${JSON.stringify(skillId)} — skipped`);
+      }
+      continue;
+    }
+    let content = fs.readFileSync(src, 'utf8');
+    // Ensure Grok-facing name matches directory skill id
+    content = content.replace(/^name:\s*.+$/m, `name: ${skillId}`);
+    if (!content.includes('metadata:')) {
+      content = content.replace(
+        /^---\n/,
+        `---\nmetadata:\n  short-description: ${yamlDoubleQuoted(`AIOX workflow: ${skillId}`)}\n`
+      );
+    }
+    const dest = resolveUnder(targets.skills, skillId, 'SKILL.md');
+    if (!options.dryRun) {
+      fs.ensureDirSync(path.dirname(dest));
+      fs.writeFileSync(dest, content, 'utf8');
+    }
+    written.push(dest);
+  }
+  return written;
+}
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
@@ -879,7 +911,7 @@ These rules apply in every Grok session in this repo. Full constitution: \`.aiox
 
 \`Draft → Ready → InProgress → InReview → Done\`
 
-SDC skill: \`/aiox-sdc\`
+SDC: \`/aiox-full-sdc\` (lean) or \`/aiox-sdc\` (index). Atomics: \`/aiox-validate-story-draft\`, \`/aiox-develop-story\`, \`/aiox-review-story\`, \`/aiox-apply-qa-fixes\`, \`/aiox-close-story\`.
 
 ## Quality gates
 
@@ -915,7 +947,7 @@ Optimized agents, skills, roles, and personas for [Grok Build TUI](https://grok.
 |------|---------|
 | \`agents/\` | Native Grok agent profiles (session + spawnable types) |
 | \`skills/aiox-*/\` | Slash skills to activate personas |
-| \`skills/aiox-sdc/\` etc. | Workflow skills (SDC, gates, handoff, commit) |
+| \`skills/aiox-sdc/\`, \`aiox-full-sdc/\`, atomics | Workflow skills (lean SDC + gates + handoff) |
 | \`roles/\` | Subagent capability defaults |
 | \`personas/\` | Behavioral overlays for subagents |
 | \`rules/\` | Always-on compact AIOX rules |
@@ -1032,7 +1064,7 @@ function syncGrok(options = {}) {
     }
   }
 
-  // Workflow skills
+  // Workflow skills (inline legacy: SDC index, quality-gates, handoff)
   for (const wf of WORKFLOW_SKILLS) {
     if (!SAFE_SKILL_ID_RE.test(wf.name)) {
       if (!resolved.quiet) {
@@ -1057,6 +1089,14 @@ ${wf.body}
     }
     written.push(p);
   }
+
+  // Lean SDC skills from .aiox-core/development/skills/ (Wave B)
+  written.push(
+    ...syncDevelopmentWorkflowSkills(resolved.projectRoot, targets, {
+      dryRun: resolved.dryRun,
+      quiet: resolved.quiet,
+    })
+  );
 
   // Rules + README
   const extras = [
@@ -1109,6 +1149,9 @@ module.exports = {
   buildSkillMarkdown,
   AGENT_PROFILES,
   WORKFLOW_SKILLS,
+  DEVELOPMENT_WORKFLOW_SKILLS,
+  syncDevelopmentWorkflowSkills,
+  grokSkillIdFromDevSkill,
   getSkillId,
   parseArgs,
   yamlDoubleQuoted,

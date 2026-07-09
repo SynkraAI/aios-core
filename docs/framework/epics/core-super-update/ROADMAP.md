@@ -1,7 +1,8 @@
 # Roadmap — CORE-SUPER-UPDATE
 
 Canonical: [EPIC-CORE-SUPER-UPDATE.md](./EPIC-CORE-SUPER-UPDATE.md)  
-Architecture Wave A: [ARCHITECTURE-WAVE-A.md](./ARCHITECTURE-WAVE-A.md)
+Architecture Wave A: [ARCHITECTURE-WAVE-A.md](./ARCHITECTURE-WAVE-A.md)  
+Architecture Wave B: [ARCHITECTURE-WAVE-B.md](./ARCHITECTURE-WAVE-B.md)
 
 > Public path: `docs/framework/epics/core-super-update/` (not gitignored).  
 > **No `workspace/` in OSS.**
@@ -23,10 +24,11 @@ Architecture Wave A: [ARCHITECTURE-WAVE-A.md](./ARCHITECTURE-WAVE-A.md)
 |------|--------|
 | Branch off PR #800 | ✅ |
 | Epic under `docs/framework/epics/` | ✅ |
-| Remove force-added gitignored stories/index | ✅ (this revision) |
-| ARCH-A | ✅ Draft |
+| Remove force-added gitignored stories/index | ✅ |
+| ARCH-A | ✅ |
+| ARCH-B | ✅ |
 | Merge PR #800 | ⬜ |
-| ARCH-B…E | ⬜ (block implementation) |
+| ARCH-C…E | ⬜ (block those waves) |
 
 ---
 
@@ -43,20 +45,30 @@ Architecture Wave A: [ARCHITECTURE-WAVE-A.md](./ARCHITECTURE-WAVE-A.md)
 
 ---
 
-## Wave B — 🚫 until ARCH-B
+## Wave B — SDC skills OSS lean
 
 | Item | Status |
 |------|--------|
-| ARCH-B | ⬜ **gate** |
-| B0–B6 | 🚫 blocked |
+| ARCH-B | ✅ |
+| B0 lean protocol | ✅ |
+| B1–B4 atomics (validate/develop/review/apply-qa-fixes/close) | ✅ |
+| B5 full-sdc lean | ✅ |
+| B6 Grok WORKFLOW_SKILLS + development/skills sync | ✅ |
+| aiox-commit skill SOT | ✅ |
 
-**Strip checklist (when unblocked)**
+**SOT path:** `.aiox-core/development/skills/`  
+**Surfaces:** `.claude/skills/`, `.grok/skills/aiox-*` via `npm run sync:skills:grok`
 
-- [ ] No `sinkra_*` / `.sinkra/`  
-- [ ] No `workspace/`  
-- [ ] No product deploy hosts hardcode  
-- [ ] Skills invoke tasks only  
-- [ ] Anti-bloat CI  
+**Strip checklist**
+
+- [x] No `sinkra_*` / `.sinkra/`  
+- [x] No `workspace/`  
+- [x] No product deploy hosts hardcode  
+- [x] Skills invoke tasks only  
+- [x] full-sdc SKILL.md < 400 lines  
+- [ ] Anti-bloat CI (port denylist already covers harvest tokens)
+
+**Exit:** skills invocable; Sequence Lock (soft); only close sets Done; denylist green.
 
 ---
 
@@ -79,9 +91,10 @@ Architecture Wave A: [ARCHITECTURE-WAVE-A.md](./ARCHITECTURE-WAVE-A.md)
 
 ## Sprint suggestion
 
-1. **Now:** Wave A only (A1→A2→A3→A4)  
-2. **After A + ARCH-B:** Wave B → MVP 5.3.0  
-3. **Later:** C/D/E with architecture docs first  
+1. **Done:** Wave A (A1→A4)  
+2. **Done:** Wave B lean SDC skills  
+3. **Next:** Merge #800 + Wave B branch; ARCH-C before Wave C  
+4. **Later:** D/E with architecture docs first  
 
 ---
 
@@ -93,3 +106,4 @@ Architecture Wave A: [ARCHITECTURE-WAVE-A.md](./ARCHITECTURE-WAVE-A.md)
 | 2026-07-09 | Roundtable APPROVE_WITH_FIXES |
 | 2026-07-09 | architect-first: not impl-ready |
 | 2026-07-09 | Moved to docs/framework/epics; ARCH-A; A2 residual; no workspace; B–E blocked |
+| 2026-07-09 | Wave A complete; ARCH-B + Wave B lean skills shipped |

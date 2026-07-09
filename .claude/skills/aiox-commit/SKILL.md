@@ -1,6 +1,4 @@
 ---
-metadata:
-  short-description: "AIOX workflow: aiox-commit"
 name: aiox-commit
 description: >
   Create a local conventional commit for AIOX work. Never pushes.

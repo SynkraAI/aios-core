@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 5.2.9
-generated_at: "2026-07-09T05:05:49.067Z"
+generated_at: "2026-07-09T05:10:40.544Z"
 generator: scripts/generate-install-manifest.js
-file_count: 1139
+file_count: 1146
 files:
   - path: cli/commands/config/index.js
     hash: sha256:25c4b9bf4e0241abf7754b55153f49f1a214f1fb5fe904a576675634cb7b3da9
@@ -1333,7 +1333,7 @@ files:
     type: data
     size: 9590
   - path: data/entity-registry.yaml
-    hash: sha256:98fe086295a7f4c92fc53facb6bd32001175af20c4f93240a38c4d42ac4eea9f
+    hash: sha256:a7498c41c37a6dc238c8d5f1dba4b65bf21c9eafc3bbae7e104568f24b040096
     type: data
     size: 585917
   - path: data/learned-patterns.yaml
@@ -1844,6 +1844,34 @@ files:
     hash: sha256:916864f9e56e1ccb7fc1596bd2da47400e4037f848a0d4e2bc46d0fa24cc544f
     type: script
     size: 10334
+  - path: development/skills/aiox-commit/SKILL.md
+    hash: sha256:5dabcd3016fd8895e5c6ed496dd6d6e0746b793b9056d5d01ae769d625ffb413
+    type: development
+    size: 728
+  - path: development/skills/apply-qa-fixes/SKILL.md
+    hash: sha256:9d648e9c94f4233a0e97bebbaa3902532a9e0356d4712bcb2bf1919b5eab718c
+    type: development
+    size: 1224
+  - path: development/skills/close-story/SKILL.md
+    hash: sha256:f7ebaccb1cd898eec30dc5af55e3c8c7205332a69c84e94356312164fb55cdf5
+    type: development
+    size: 1384
+  - path: development/skills/develop-story/SKILL.md
+    hash: sha256:24bbe076c49dd8f25525fcdfd3e3daee27068b8b23d14217fed32f951b313043
+    type: development
+    size: 1600
+  - path: development/skills/full-sdc/SKILL.md
+    hash: sha256:eaceef78a8a260a8ea12ec46499aa917b6503577c9d45d460abaccb4791e0b6f
+    type: development
+    size: 3095
+  - path: development/skills/review-story/SKILL.md
+    hash: sha256:2760276bdf132e27d6f30eb5e1fd3c5dffaf83834bc680d6f963f05ece8e0334
+    type: development
+    size: 1933
+  - path: development/skills/validate-story-draft/SKILL.md
+    hash: sha256:86f06e49ad126c46fc48c45335368b72112949b785b4841bf1a791ec3a9624e7
+    type: development
+    size: 1770
   - path: development/tasks/add-mcp.md
     hash: sha256:badc8a9859cb313e908d4ea0f4c4d7bc1be723214e38f26d55c366689fe5e3f0
     type: task
@@ -3253,9 +3281,9 @@ files:
     type: script
     size: 38453
   - path: infrastructure/scripts/grok-skills-sync/index.js
-    hash: sha256:0dc8023689dd873a0c30006e40a9555e817f83103bf5fc174a16d9d9a0a3d239
+    hash: sha256:35eac412a3b7e14ff60e0fe7d368c5081eb13ba329b6bd16646b78691ba3644b
     type: script
-    size: 35017
+    size: 36739
   - path: infrastructure/scripts/grok-skills-sync/README.md
     hash: sha256:ced0a101a29d198a0e70f1e42db80365f64b45ef625603cacc08854841e4ad69
     type: script

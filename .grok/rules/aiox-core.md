@@ -18,7 +18,7 @@ These rules apply in every Grok session in this repo. Full constitution: `.aiox-
 
 `Draft → Ready → InProgress → InReview → Done`
 
-SDC skill: `/aiox-sdc`
+SDC: `/aiox-full-sdc` (lean) or `/aiox-sdc` (index). Atomics: `/aiox-validate-story-draft`, `/aiox-develop-story`, `/aiox-review-story`, `/aiox-apply-qa-fixes`, `/aiox-close-story`.
 
 ## Quality gates
 
