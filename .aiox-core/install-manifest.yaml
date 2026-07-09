@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.2.9
-generated_at: "2026-07-09T15:11:26.887Z"
+generated_at: "2026-07-09T23:28:17.919Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1162
 files:
@@ -1049,9 +1049,9 @@ files:
     type: core
     size: 9018
   - path: core/permissions/path-guard.js
-    hash: sha256:9e85b0b5202c31e2986dd1d557f778d7d202b35a3c20b2493b81c2af6f27e7b3
+    hash: sha256:1a99876de6aec81fe0786328fc7251e4d09fb6268b0624295d35459b300be828
     type: core
-    size: 4798
+    size: 5897
   - path: core/permissions/permission-mode.js
     hash: sha256:84f09067c7154d97cb2252b9a7def00562acf569cfc3b035d6d4e39fb40d4033
     type: core
@@ -1061,9 +1061,9 @@ files:
     type: core
     size: 9683
   - path: core/permissions/ssrf-guard.js
-    hash: sha256:900ac78f37ff96e39e5e58c17a8fdb31200aef2a35a716d8627b699733855a9e
+    hash: sha256:c71ea07bec9567eff5f17f0a28fba076f165d1fe6a7774580ec3bc19e51d844b
     type: core
-    size: 8106
+    size: 9224
   - path: core/pro/pro-updater.js
     hash: sha256:30ea78b8ab088e695936ae662057697410856751f463eeb649e00b67dcc31531
     type: core
@@ -1385,7 +1385,7 @@ files:
     type: data
     size: 9590
   - path: data/entity-registry.yaml
-    hash: sha256:1119db87adaeab979a47c9cba36ad5b4e03e2bbb1392d62623d0ae1c4971b739
+    hash: sha256:ebb11072818010ec3f42653affd2652b2e38ecbec2d8c01297479977fe131625
     type: data
     size: 593494
   - path: data/learned-patterns.yaml
