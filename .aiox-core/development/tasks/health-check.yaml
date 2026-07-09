@@ -11,7 +11,7 @@ description: |
   Invokes `aiox doctor --json` internally via Bash tool and adds governance
   interpretation with Constitution context and remediation guidance.
 
-  NOTE: This task delegates ALL check logic to `aiox doctor` (15 checks).
+  NOTE: This task delegates ALL check logic to `aiox doctor` (17 checks).
   It does NOT have its own list of health checks — single source of truth.
 
 category: development
@@ -67,7 +67,7 @@ instructions: |
   The output is a JSON object with structure:
   ```json
   {
-    "summary": { "total": 15, "pass": 12, "warn": 2, "fail": 1, "info": 0 },
+    "summary": { "total": 17, "pass": 13, "warn": 2, "fail": 1, "info": 0 },
     "checks": [
       { "check": "settings-json", "status": "PASS", "message": "...", "fixCommand": null },
       { "check": "rules-files", "status": "FAIL", "message": "...", "fixCommand": "aiox doctor --fix" }
@@ -200,6 +200,18 @@ governance_map:
     governance_note: "Quality gates — hooks enforce governance at runtime"
     remediation: "npx aiox-core install --force"
 
+  port-denylist:
+    article: "V"
+    article_name: "Quality First"
+    governance_note: "OSS hygiene — blocks hub/enterprise/product-only artifacts from core"
+    remediation: "npm run validate:port-denylist"
+
+  windows-npx-install:
+    article: "I"
+    article_name: "CLI First"
+    governance_note: "Windows npx ECOMPROMISED guidance (#773) — advisory install path"
+    remediation: "npm install -g @aiox-squads/core"
+
 # Output schema
 output:
   type: object
@@ -218,7 +230,7 @@ output:
 examples:
   - name: "Quick health check"
     command: "*health-check"
-    description: "Run all 15 doctor checks with governance interpretation"
+    description: "Run all 17 doctor checks with governance interpretation"
 
   - name: "Health check with auto-fix"
     command: "*health-check --fix"
@@ -233,7 +245,7 @@ help: |
   ## AIOX Health Check (Unified)
 
   Runs `aiox doctor --json` internally and adds governance context.
-  15 checks across configuration, environment, and agent readiness.
+  17 checks across configuration, environment, and agent readiness.
 
   ### Quick Start
 
@@ -245,10 +257,10 @@ help: |
 
   ### What It Checks
 
-  The task delegates to `aiox doctor` which runs 15 modular checks:
+  The task delegates to `aiox doctor` which runs 17 modular checks:
   settings-json, rules-files, agent-memory, entity-registry, git-hooks,
   core-config, claude-md, ide-sync, graph-dashboard, code-intel,
-  node-version, npm-packages, skills-count, commands-count, hooks-claude-count.
+  node-version, npm-packages, skills-count, commands-count, hooks-claude-count, port-denylist, windows-npx-install.
 
   ### Governance Interpretation
 

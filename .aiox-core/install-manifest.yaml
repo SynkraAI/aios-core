@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 5.2.9
-generated_at: "2026-07-09T05:19:38.424Z"
+generated_at: "2026-07-09T05:22:43.020Z"
 generator: scripts/generate-install-manifest.js
-file_count: 1157
+file_count: 1159
 files:
   - path: cli/commands/config/index.js
     hash: sha256:25c4b9bf4e0241abf7754b55153f49f1a214f1fb5fe904a576675634cb7b3da9
@@ -337,9 +337,9 @@ files:
     type: core
     size: 4203
   - path: core/doctor/checks/index.js
-    hash: sha256:1a2e5d6e39e7f29bc5e227ffd282dd04a322daf7bfa52f87ac4d58868ba0fd40
+    hash: sha256:018a7dfc38a131accf91d7e849821ea6cfbf075bc33ecc342850d3e86d4c49a8
     type: core
-    size: 1259
+    size: 1342
   - path: core/doctor/checks/node-version.js
     hash: sha256:9e8bd100affa46131ac495c1e60ce87c88bbe879d459601a502589824d1aeac1
     type: core
@@ -364,6 +364,10 @@ files:
     hash: sha256:811d904bde6d2ba4940f19cbe6a29cc12c5df6908ac95cb37bcb7add687fe4cc
     type: core
     size: 3725
+  - path: core/doctor/checks/windows-npx-install.js
+    hash: sha256:352c5c43c865bbe1650a10751799ed603d7b1cedb536644bc8ba19b91aab95e8
+    type: core
+    size: 1268
   - path: core/doctor/fix-handler.js
     hash: sha256:c8255536f08a622b2773819080bdbf5d65f8f3f43b77eb257d98064cd74903a3
     type: core
@@ -812,6 +816,10 @@ files:
     hash: sha256:b09d5546bdb1507c60ddc5dc9b48760b55e4e6a4ccc8fdcb63e168e8ea334b13
     type: core
     size: 2824
+  - path: core/install/windows-npx-hint.js
+    hash: sha256:469f7bc26602931bc20e3974e6510a190a816769aab3b68f26aab792a161ea90
+    type: core
+    size: 3073
   - path: core/manifest/manifest-generator.js
     hash: sha256:81b796990dd747bbb9785d205dbe5f6d5556754fc51745fb84b7ce4675acbdbf
     type: core
@@ -1373,9 +1381,9 @@ files:
     type: data
     size: 9590
   - path: data/entity-registry.yaml
-    hash: sha256:863ab5448d591c204588290ca4a9f3cd4a19ca4bd5ef527b8618a57500212057
+    hash: sha256:9ae503cf6f4fe81c2c550a8cb7a8588abd294b8f04037daa5e18563b07cedf25
     type: data
-    size: 590917
+    size: 592217
   - path: data/learned-patterns.yaml
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data
@@ -2333,9 +2341,9 @@ files:
     type: task
     size: 3595
   - path: development/tasks/health-check.yaml
-    hash: sha256:da225b4fa68aa83c61a2f93dd6b3bb20ccb9e31552de8d1fd7a3d6cb249d0515
+    hash: sha256:d209bfc7a8b54c5166eb46b58b9410d31f211e268c0af85cfe9fd9ea254c0c5f
     type: task
-    size: 8262
+    size: 8511
   - path: development/tasks/ids-governor.md
     hash: sha256:cfb1aefffdf2db0d35cae8fdde2f5afbcea62b9b616e78a43390756c9b8e6b9c
     type: task

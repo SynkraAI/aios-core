@@ -30,7 +30,7 @@ This command downloads and runs the latest version of AIOX-Core installer.
 
 ## Installation Methods
 
-### Method 1: npx (Recommended)
+### Method 1: npx (Unix / warm cache)
 
 ```bash
 # Install in current directory
@@ -46,17 +46,21 @@ npx aiox-core@latest --version
 npx aiox-core@latest --help
 ```
 
+> **Windows:** if `npx` fails with `ECOMPROMISED` / Lock compromised, use Method 3 (global) — see [Issue #773](https://github.com/SynkraAI/aiox-core/issues/773).
+
 ### Method 2: From GitHub
 
 ```bash
 npx github:SynkraAI/aiox-core install
 ```
 
-### Method 3: Global Installation
+### Method 3: Global Installation (**recommended on Windows**)
 
 ```bash
-npm install -g aiox-core
-aiox-core
+npm install -g @aiox-squads/core
+# or: npm install -g aiox-core
+cd path\to\your\project
+aiox-core install
 ```
 
 ---
@@ -83,6 +87,37 @@ curl -fsSL https://raw.githubusercontent.com/SynkraAI/aiox-core/main/tools/diagn
 ---
 
 ## Common Issues & Solutions
+
+### Issue 0: `ECOMPROMISED` / `Lock compromised` on Windows (npx)
+
+**Error:**
+```
+npm error code ECOMPROMISED
+npm error Lock compromised
+```
+
+**Cause:** npx uses an internal lock while downloading packages. A large dependency tree on a cold cache or slow link exceeds the lock timeout ([#773](https://github.com/SynkraAI/aiox-core/issues/773)).
+
+**Solution (preferred on Windows):**
+```bash
+npm install -g @aiox-squads/core
+cd C:\path\to\your\project
+aiox-core install
+```
+
+**Alternatives:**
+```bash
+npm cache verify
+npx aiox-core@latest install
+
+# or clone
+git clone https://github.com/SynkraAI/aiox-core.git
+cd aiox-core && npm install
+```
+
+`aiox doctor` on Windows emits an advisory WARN with the same guidance.
+
+---
 
 ### Issue 1: "Node.js version too old"
 

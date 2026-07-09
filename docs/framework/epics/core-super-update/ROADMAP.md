@@ -1,77 +1,33 @@
 # Roadmap — CORE-SUPER-UPDATE
 
 Canonical: [EPIC-CORE-SUPER-UPDATE.md](./EPIC-CORE-SUPER-UPDATE.md)  
-Architecture: [A](./ARCHITECTURE-WAVE-A.md) · [B](./ARCHITECTURE-WAVE-B.md) · [C](./ARCHITECTURE-WAVE-C.md)
+ARCH: [A](./ARCHITECTURE-WAVE-A.md) · [B](./ARCHITECTURE-WAVE-B.md) · [C](./ARCHITECTURE-WAVE-C.md) · [D](./ARCHITECTURE-WAVE-D.md) · [E](./ARCHITECTURE-WAVE-E.md)
 
-> Public path: `docs/framework/epics/core-super-update/`.
+## Waves
 
-## Status legend
-
-| | |
-|--|--|
-| ⬜ | Not started |
-| 🟡 | In progress |
-| ✅ | Done |
-| 🚫 | Blocked |
-
----
-
-## Phase 0
-
-| Item | Status |
+| Wave | Status |
 |------|--------|
-| Branch + epic path | ✅ |
-| ARCH-A / B / C | ✅ |
-| Merge PR #800 | ⬜ |
-| ARCH-D…E | ⬜ |
+| A Runtime hygiene | ✅ |
+| B SDC skills + execute | ✅ |
+| C Orchestration | ✅ |
+| D IDE/SYNAPSE | ARCH draft — D1 not started |
+| E Constitution | ARCH draft — E1–E3 not started |
+| F Installer | F1 ✅ · F2 ⬜ · F3 DEFERRED |
 
----
+## F1 (done)
 
-## Wave A — ✅
+Windows `ECOMPROMISED` (#773): docs + `aiox install` hint + doctor `windows-npx-install`.
 
-A1–A4 Done.
+## Next
 
-## Wave B — ✅
-
-SDC skills + `aiox sdc` / `aiox wave` execute.
-
-## Wave C — ✅ COMPLETE (via wave-execute CORE-SU-C)
-
-| Item | Status |
-|------|--------|
-| C1 wave-run | ✅ |
-| C2 dispatch-adapter | ✅ |
-| C3 epic-glue / from-epic | ✅ |
-| C4 tests | ✅ 23 tests |
-
-```bash
-aiox wave from-epic --epic-dir docs/framework/epics/core-super-update \
-  --filter 'CORE-SU.C' --wave-id CORE-SU-C --mode yolo
-aiox wave advance CORE-SU-C
-# full-sdc per open story…
-aiox wave report CORE-SU-C
-```
-
----
-
-## Waves D–E
-
-| Wave | ARCH | Impl |
-|------|------|------|
-| D IDE/SYNAPSE | ⬜ | 🚫 until ARCH-D |
-| E Constitution | ⬜ | 🚫 until ARCH-E |
-
-## Wave F
-
-| Story | Status |
-|-------|--------|
-| F1 Windows #773 | ⬜ (// anytime) |
-
----
+1. Open/merge PR for `feat/core-super-update-epic` (+ #800 chain)  
+2. D1 IDE sync contract story (after prioritization)  
+3. E1–E2 constitution XI/XII text  
+4. Close GitHub #773 / #797 / #798 with PR links  
 
 ## Tracking
 
 | Date | Event |
 |------|-------|
-| 2026-07-09 | A+B+C1 |
-| 2026-07-09 | Wave C complete via wave-execute + full-sdc (C2–C4) |
+| 2026-07-09 | A+B+C complete via wave-execute |
+| 2026-07-09 | ARCH-D/E drafts; F1 Windows #773 Done |

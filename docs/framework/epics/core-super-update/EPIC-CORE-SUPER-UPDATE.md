@@ -101,9 +101,9 @@ Trazer para o **aiox-core OSS** o que o framework ganhou em **sinkra-hub** e **A
 |------|-----|--------|
 | A | [ARCHITECTURE-WAVE-A.md](./ARCHITECTURE-WAVE-A.md) | ✅ |
 | B | [ARCHITECTURE-WAVE-B.md](./ARCHITECTURE-WAVE-B.md) | ✅ |
-| C | [ARCHITECTURE-WAVE-C.md](./ARCHITECTURE-WAVE-C.md) | ✅ draft |
-| D | `ARCHITECTURE-WAVE-D.md` | ⬜ blocks D |
-| E | `ARCHITECTURE-WAVE-E.md` | ⬜ blocks E |
+| C | [ARCHITECTURE-WAVE-C.md](./ARCHITECTURE-WAVE-C.md) | ✅ |
+| D | [ARCHITECTURE-WAVE-D.md](./ARCHITECTURE-WAVE-D.md) | ✅ draft |
+| E | [ARCHITECTURE-WAVE-E.md](./ARCHITECTURE-WAVE-E.md) | ✅ draft |
 
 Each ARCH doc must cover: components, data/control flow, integration points, configuration, failure modes, and “what not to port”. Diagram preferred (mermaid).
 
@@ -141,11 +141,13 @@ Strip: no `sinkra_*`, `.sinkra/`, `workspace/`, product deploy hosts. Skills inv
 
 Executed via **wave-execute** wave `CORE-SU-C` + **full-sdc** per story (YOLO).
 
-### Wave D — IDE / SYNAPSE (stretch) — **BLOCKED until ARCH-D**
+### Wave D — IDE / SYNAPSE (stretch) — ARCH-D draft ✅
 
-D1 adapter slices only. D5 three-brain **DEFERRED**.
+See [ARCHITECTURE-WAVE-D.md](./ARCHITECTURE-WAVE-D.md). D1 story not started. D5 three-brain **DEFERRED**.
 
-### Wave E — Constitution — **BLOCKED until ARCH-E**
+### Wave E — Constitution — ARCH-E draft ✅
+
+See [ARCHITECTURE-WAVE-E.md](./ARCHITECTURE-WAVE-E.md). E1–E3 not started. E4 **DEFERRED**.
 
 **Canonical numbering for OSS (decision):** follow **hub numbering** for new articles:
 
@@ -162,11 +164,11 @@ E3 docs-only. E4 governance-pipeline skill **DEFERRED**.
 
 ### Wave F — Installer
 
-| Story | Priority | Notes |
-|-------|----------|-------|
-| F1 Windows ECOMPROMISED #773 | **P1** parallel A | No workspace coupling |
-| F2 doctor heuristic | P2 | |
-| F3 theme-resolver | **DEFERRED** | |
+| Story | Priority | Notes | Status |
+|-------|----------|-------|--------|
+| F1 Windows ECOMPROMISED #773 | **P1** | docs + install hint + doctor WARN | ✅ Done |
+| F2 doctor heuristic | P2 | | ⬜ |
+| F3 theme-resolver | **DEFERRED** | | 🚫 |
 
 ---
 

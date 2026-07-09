@@ -3,7 +3,7 @@
  * Story INS-4.1: aiox doctor rewrite
  * Story INS-4.8: 3 new checks (skills-count, commands-count, hooks-claude-count)
  *
- * Tests all 15 check modules individually with mocked filesystem.
+ * Tests all 17 check modules individually with mocked filesystem.
  */
 
 const path = require('path');
@@ -618,18 +618,20 @@ describe('hooks-claude-count check', () => {
 // === INS-4.8: Registry and task validation ===
 
 describe('check registry (INS-4.8)', () => {
-  it('should load 15 checks total', () => {
+  it('should load 17 checks total', () => {
     // loadChecks is the real function (not mocked) — verifies registration
     const checks = loadChecks();
-    expect(checks).toHaveLength(15);
+    expect(checks).toHaveLength(17);
   });
 
-  it('should include all 3 new checks', () => {
+  it('should include INS-4.8 checks and CORE-SU.A4 port denylist', () => {
     const checks = loadChecks();
     const names = checks.map((c) => c.name);
     expect(names).toContain('skills-count');
     expect(names).toContain('commands-count');
     expect(names).toContain('hooks-claude-count');
+    expect(names).toContain('port-denylist');
+    expect(names).toContain('windows-npx-install');
   });
 });
 
@@ -657,7 +659,7 @@ describe('health-check.yaml task (INS-4.8)', () => {
     expect(yaml).toContain('npx aiox-core doctor --json');
   });
 
-  it('should have governance_map with all 15 checks', () => {
+  it('should have governance_map with all 17 checks', () => {
     const realFs = jest.requireActual('fs');
     const yaml = realFs.readFileSync(
       path.join(__dirname, '..', '..', '..', '..', '..', '.aiox-core', 'development', 'tasks', 'health-check.yaml'),
@@ -667,7 +669,7 @@ describe('health-check.yaml task (INS-4.8)', () => {
       'settings-json', 'rules-files', 'agent-memory', 'entity-registry',
       'git-hooks', 'core-config', 'claude-md', 'ide-sync', 'graph-dashboard',
       'code-intel', 'node-version', 'npm-packages', 'skills-count',
-      'commands-count', 'hooks-claude-count',
+      'commands-count', 'hooks-claude-count', 'port-denylist', 'windows-npx-install',
     ];
     for (const check of expectedChecks) {
       expect(yaml).toContain(`${check}:`);

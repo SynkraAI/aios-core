@@ -1,0 +1,42 @@
+# Architecture — Wave E (Constitution stretch)
+
+| Campo | Valor |
+|-------|-------|
+| Wave | E |
+| Epic | CORE-SUPER-UPDATE |
+| Status | Draft — unblocks E1–E3 planning |
+| Depends | Numbering decision locked in epic (hub XI/XII) |
+
+## 1. Goal
+
+Port **Squad-First Portability (XI)** and **Model Governance (XII)** text into OSS constitution as optional/MUST per epic — **without** Workspace Bus / tribunal / product services.
+
+## 2. Numbering (locked)
+
+| Article | Source | OSS |
+|---------|--------|-----|
+| I–VI | current OSS | keep |
+| **XI** | Hub Squad-First | port |
+| **XII** | Hub Model Governance | port; strip enterprise services |
+| VII–X, XIII | hub multi-BU | doc-only optional, not MUST runtime |
+
+## 3. Stories (planned)
+
+| ID | Scope |
+|----|--------|
+| E1 | Draft XI text for `.aiox-core/constitution.md` |
+| E2 | Draft XII Model Governance (no tribunal harness) |
+| E3 | Docs cross-links only |
+| E4 | governance-pipeline skill — **DEFERRED** |
+
+## 4. Explicitly non-ported
+
+- Workspace Bus as Article XII (enterprise numbering)  
+- Policy digests / multi-BU hard gates runtime  
+- Model tribunal service harness  
+
+## 5. Acceptance ARCH-E
+
+- [x] This document  
+- [ ] E1–E3 stories before constitution edit  
+- [ ] No workspace bus runtime  

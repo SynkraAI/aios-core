@@ -971,6 +971,15 @@ async function main() {
       };
       if (!installOptions.quiet) {
         console.log('AIOX-FullStack Installation\n');
+        // CORE-SU.F1 / #773 — Windows npx lock timeout advisory
+        try {
+          const {
+            printWindowsNpxInstallHint,
+          } = require('../.aiox-core/core/install/windows-npx-hint');
+          printWindowsNpxInstallHint();
+        } catch (_err) {
+          /* optional hint */
+        }
       }
       await runWizard(installOptions);
       break;

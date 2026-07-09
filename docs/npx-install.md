@@ -105,11 +105,41 @@ Similar temporary directory patterns:
 
 ### Windows
 
-Windows users typically don't encounter this issue, but similar detection patterns apply:
+Temporary NPX paths:
 - `%TEMP%\npx-[random]\`
 - `%APPDATA%\npm-cache\_npx\`
 
+**Important (issue [#773](https://github.com/SynkraAI/aiox-core/issues/773)):** on Windows with a **cold npm cache** or slow network, `npx aiox-core install` may fail with `ECOMPROMISED` / `Lock compromised` because npx’s internal lock times out while downloading a large dependency tree. This is **not** a corrupt lockfile in your project.
+
+**Recommended on Windows:**
+
+```bash
+npm install -g @aiox-squads/core
+cd C:\path\to\your\project
+aiox-core install
+```
+
+Or clone and run locally:
+
+```bash
+git clone https://github.com/SynkraAI/aiox-core.git
+cd aiox-core
+npm install
+node bin/aiox.js install --help
+```
+
+See also: [Installation troubleshooting](./guides/installation-troubleshooting.md).
+
 ## Troubleshooting
+
+### Error: `ECOMPROMISED` / `Lock compromised` (Windows)
+
+**Cause:** `libnpmexec` aborts when package download exceeds the npx lock touch timeout (common on cold cache).
+
+**Solutions:**
+1. Global install then local install: `npm install -g @aiox-squads/core` → `aiox-core install`
+2. Warm cache and retry: `npm cache verify` then `npx aiox-core@latest install`
+3. Clone repo + `npm install` + run `node bin/aiox.js install` from a project directory
 
 ### Error: "NPX Temporary Directory Detected"
 
@@ -143,10 +173,12 @@ If your IDE isn't detected after installation:
 If you prefer not to use NPX, you can install globally:
 
 ```bash
-npm install -g aiox-core
+npm install -g @aiox-squads/core
 cd /path/to/your/project
 aiox-core install
 ```
+
+On **Windows**, prefer this path over pure `npx` when you hit `ECOMPROMISED` ([#773](https://github.com/SynkraAI/aiox-core/issues/773)).
 
 ## Technical Details
 
