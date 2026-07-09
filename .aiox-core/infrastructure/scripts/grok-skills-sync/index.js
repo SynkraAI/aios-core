@@ -2,6 +2,8 @@
 'use strict';
 
 /**
+ * Purpose: Generate optimized AIOX agents, skills, roles, and personas for Grok Build TUI.
+ *
  * Grok Skills/Agents Sync
  *
  * Generates optimized AIOX agent definitions for Grok Build TUI:
@@ -17,6 +19,8 @@
  *   3. Rich skill descriptions for auto-invocation
  *   4. Source of truth remains .aiox-core/development/agents/
  *   5. Authority matrix enforced (devops-only push, story lifecycle, etc.)
+ *
+ * CLI: npm run sync:skills:grok
  */
 
 const fs = require('fs-extra');
