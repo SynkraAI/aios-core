@@ -7,6 +7,26 @@
  * @module permissions/path-guard
  * @version 1.0.0
  * @story CORE-SU.A3
+ *
+ * ─── STANDALONE LIBRARY — NOT WIRED TO RUNTIME ENFORCEMENT ───────────────
+ *
+ * This module is exported from `permissions/index.js` but is NOT called by
+ * `operation-guard.js`'s `guard()` path, and is NOT registered as a
+ * PreToolUse hook. No write operation is validated against this guard
+ * automatically today. Callers must invoke `validateWrite()` /
+ * `isTraversalAttempt()` explicitly wherever path-write safety is required
+ * (e.g. app code writing to disk on behalf of untrusted input).
+ *
+ * If/when this is wired into `OperationGuard.guard()` or a hook, remove
+ * this notice and document the integration point here.
+ *
+ * ─── USAGE ────────────────────────────────────────────────────────────────
+ *
+ *   const pathGuard = require('.aiox-core/core/permissions/path-guard');
+ *   const result = pathGuard.validateWrite(targetPath);
+ *   if (!result.allowed) {
+ *     // Block: result.reason available
+ *   }
  */
 
 'use strict';

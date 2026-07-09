@@ -16,6 +16,26 @@
  * @module permissions/ssrf-guard
  * @version 1.0.0
  * @story CORE-SU.A3
+ *
+ * ─── STANDALONE LIBRARY — NOT WIRED TO RUNTIME ENFORCEMENT ───────────────
+ *
+ * This module is exported from `permissions/index.js` but is NOT called by
+ * `operation-guard.js`'s `guard()` path, and is NOT registered as a
+ * PreToolUse hook. No outbound request (WebFetch, MCP call, HTTP client) is
+ * validated against this guard automatically today. Callers must invoke
+ * `validateUrl()` / `isUrlAllowed()` explicitly wherever SSRF protection is
+ * required (e.g. app code fetching a user- or agent-supplied URL).
+ *
+ * If/when this is wired into `OperationGuard.guard()` or a hook, remove
+ * this notice and document the integration point here.
+ *
+ * ─── USAGE ────────────────────────────────────────────────────────────────
+ *
+ *   const ssrfGuard = require('.aiox-core/core/permissions/ssrf-guard');
+ *   const result = ssrfGuard.validateUrl(untrustedUrl);
+ *   if (!result.allowed) {
+ *     // Block: result.reason available
+ *   }
  */
 
 'use strict';
