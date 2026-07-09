@@ -23,6 +23,8 @@ const { createGenerateCommand } = require('./commands/generate');
 const { createMetricsCommand } = require('./commands/metrics');
 const { createConfigCommand } = require('./commands/config');
 const { createProCommand } = require('./commands/pro');
+const { createSdcCommand } = require('./commands/sdc');
+const { createWaveCommand } = require('./commands/wave');
 
 // Read package.json for version
 const packageJsonPath = path.join(__dirname, '..', '..', 'package.json');
@@ -53,6 +55,8 @@ Commands:
   metrics           Quality Gate Metrics (record, show, seed, cleanup)
   config            Manage layered configuration (show, diff, migrate, validate)
   pro               AIOX Pro license management (activate, status, deactivate, features)
+  sdc               Lean full-sdc runtime (plan, status, verify, next)
+  wave              Lean wave-execute planner (plan, status, next)
   mcp               Manage global MCP configuration
   migrate           Migrate from v2.0 to v4.0.4 structure
   generate          Generate documents from templates (prd, adr, pmdr, etc.)
@@ -93,6 +97,11 @@ Examples:
   $ aiox pro deactivate
   $ aiox pro features
   $ aiox pro validate
+  $ aiox sdc plan docs/stories/1.1.story.md --mode yolo
+  $ aiox sdc next CORE-SU.A1
+  $ aiox sdc verify docs/stories/1.1.story.md develop --mark
+  $ aiox wave plan --stories a.md,b.md --wave-id W1 --save
+  $ aiox wave next W1
   $ aiox install
   $ aiox doctor
 `);
@@ -123,6 +132,10 @@ Examples:
 
   // Add pro command (Story PRO-6)
   program.addCommand(createProCommand());
+
+  // Lean full-sdc + wave-execute (CORE-SUPER-UPDATE Wave B execute)
+  program.addCommand(createSdcCommand());
+  program.addCommand(createWaveCommand());
 
   return program;
 }

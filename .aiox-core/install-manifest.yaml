@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 5.2.9
-generated_at: "2026-07-09T05:10:40.544Z"
+generated_at: "2026-07-09T05:14:23.223Z"
 generator: scripts/generate-install-manifest.js
-file_count: 1146
+file_count: 1154
 files:
   - path: cli/commands/config/index.js
     hash: sha256:25c4b9bf4e0241abf7754b55153f49f1a214f1fb5fe904a576675634cb7b3da9
@@ -120,10 +120,18 @@ files:
     hash: sha256:bc993858504617a233ce191ab44a438f675605022e43375d282f589a734b6c64
     type: cli
     size: 5320
+  - path: cli/commands/sdc/index.js
+    hash: sha256:202335a55835483180731c23341df4d3ab22a9673399b38c54d1cb7af8d32c96
+    type: cli
+    size: 7067
   - path: cli/commands/validate/index.js
     hash: sha256:8c695b2cde5390a867922f37dd5a89c539fe4c688303a1eb52f097a747d599ad
     type: cli
     size: 15206
+  - path: cli/commands/wave/index.js
+    hash: sha256:30afd19a56426210aaee369a1566a0d1557c11b00d97964f349baa6ec3d35df1
+    type: cli
+    size: 5510
   - path: cli/commands/workers/formatters/info-formatter.js
     hash: sha256:11c17e16be0b7d09ba8949497e0887bb20996966d266454aa2bb5dfc9d9d91b8
     type: cli
@@ -169,9 +177,9 @@ files:
     type: cli
     size: 2439
   - path: cli/index.js
-    hash: sha256:0083a7f3ebdce20329a072cd9509c2193da5f2075cc16c64db48f912de203955
+    hash: sha256:bb6e0808a61163d4f62099438800d54f298d1a33aac1a630e0c153ccd2ed6f35
     type: cli
-    size: 4387
+    size: 5021
   - path: cli/utils/output-formatter-cli.js
     hash: sha256:8b269dc6b9085d20b6e602c8281b019b9b270a8ee2b7c53d5ee10447e8cda3dc
     type: cli
@@ -1128,6 +1136,26 @@ files:
     hash: sha256:57b60c664aac51299a8576be57eff702d716fb48595af342e534c1191355eb85
     type: core
     size: 1139
+  - path: core/sdc/index.js
+    hash: sha256:95d1bd4540d9bf8a12fab27ae8c3bff71085387309e283ed214621482d159b64
+    type: core
+    size: 2659
+  - path: core/sdc/phase-verify.js
+    hash: sha256:ac404916a3fc550d3d118bc7eac3e4e1a195f2869b9b2426ca852a5cc6df16f9
+    type: core
+    size: 3387
+  - path: core/sdc/progress.js
+    hash: sha256:bb664e9be1a03cbd093d79a8e494db8e843da37fe98aa1b3a9cf054ea5b9bb23
+    type: core
+    size: 4123
+  - path: core/sdc/story-meta.js
+    hash: sha256:f2dcc28da475e3f9c2e7323a0978581fa53ceb349f90be65515ea360b9e996d7
+    type: core
+    size: 5403
+  - path: core/sdc/wave-plan.js
+    hash: sha256:db366748308df46e02443d8e06bd6db244c3535adb16f754445756d7c9bcd89b
+    type: core
+    size: 4673
   - path: core/security/port-denylist.js
     hash: sha256:ef082c9c8a530db57628c60b666677a5ae32d32dce812d039f3db8e95daf835e
     type: core
@@ -1333,7 +1361,7 @@ files:
     type: data
     size: 9590
   - path: data/entity-registry.yaml
-    hash: sha256:a7498c41c37a6dc238c8d5f1dba4b65bf21c9eafc3bbae7e104568f24b040096
+    hash: sha256:9293da042da603621ea658635a2a8f92dcdcfe202b8dae65c35bf7502d2ac769
     type: data
     size: 585917
   - path: data/learned-patterns.yaml
@@ -1861,9 +1889,9 @@ files:
     type: development
     size: 1600
   - path: development/skills/full-sdc/SKILL.md
-    hash: sha256:eaceef78a8a260a8ea12ec46499aa917b6503577c9d45d460abaccb4791e0b6f
+    hash: sha256:421de7a75729044acc74f7a30d94d76c3ce1c2c7affe413ba190bb6d35c116f9
     type: development
-    size: 3095
+    size: 4493
   - path: development/skills/review-story/SKILL.md
     hash: sha256:2760276bdf132e27d6f30eb5e1fd3c5dffaf83834bc680d6f963f05ece8e0334
     type: development
@@ -1872,6 +1900,10 @@ files:
     hash: sha256:86f06e49ad126c46fc48c45335368b72112949b785b4841bf1a791ec3a9624e7
     type: development
     size: 1770
+  - path: development/skills/wave-execute/SKILL.md
+    hash: sha256:1bc3420b11c60143db73c26f11e5d9c13e543b7e1e0416375dfd981605d126f2
+    type: development
+    size: 4120
   - path: development/tasks/add-mcp.md
     hash: sha256:badc8a9859cb313e908d4ea0f4c4d7bc1be723214e38f26d55c366689fe5e3f0
     type: task
@@ -3281,9 +3313,9 @@ files:
     type: script
     size: 38453
   - path: infrastructure/scripts/grok-skills-sync/index.js
-    hash: sha256:35eac412a3b7e14ff60e0fe7d368c5081eb13ba329b6bd16646b78691ba3644b
+    hash: sha256:6fbaa39ba95a364168f19969b7277f9d0e86a841b80a89a017a66281b1dc2e5d
     type: script
-    size: 36739
+    size: 36757
   - path: infrastructure/scripts/grok-skills-sync/README.md
     hash: sha256:ced0a101a29d198a0e70f1e42db80365f64b45ef625603cacc08854841e4ad69
     type: script

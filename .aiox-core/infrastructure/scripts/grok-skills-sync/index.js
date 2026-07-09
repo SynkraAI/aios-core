@@ -388,6 +388,7 @@ const DEVELOPMENT_WORKFLOW_SKILLS = [
   'apply-qa-fixes',
   'close-story',
   'full-sdc',
+  'wave-execute',
   'aiox-commit',
 ];
 

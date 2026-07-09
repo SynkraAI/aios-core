@@ -87,6 +87,19 @@ SKILL.md body MUST:
 
 No new core-config keys for v1. Mode: `yolo` | `interactive` via skill arg.
 
+## 6b. Execute runtime (CLI First)
+
+Lean execution is **not** the hub conductor/worktree product. OSS ships:
+
+| Surface | Path |
+|---------|------|
+| Runtime lib | `.aiox-core/core/sdc/` (`story-meta`, `progress`, `phase-verify`, `wave-plan`) |
+| CLI | `aiox sdc …`, `aiox wave …` |
+| Durable state | `.aiox/sdc/{story-id}/state.json`, `.aiox/waves/{wave-id}/state.json` |
+| Skills | `full-sdc` (EXECUTE loop), `wave-execute` (dispatch full-sdc children) |
+
+Agents still perform phase work (tasks/skills). CLI owns **plan / next / verify / mark** so Sequence Lock is mechanical.
+
 ## 7. IDE wire (B6)
 
 | Surface | Mechanism |
@@ -114,3 +127,5 @@ No new core-config keys for v1. Mode: `yolo` | `interactive` via skill arg.
 - [x] full-sdc lean references only OSS tasks  
 - [x] No workspace/ in skills  
 - [x] Grok sync copies development/skills → `.grok/skills/aiox-*`  
+- [x] `aiox sdc` + `aiox wave` execute/plan surfaces  
+- [x] `wave-execute` lean skill dispatches `full-sdc`  

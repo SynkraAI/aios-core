@@ -55,9 +55,12 @@ Architecture Wave B: [ARCHITECTURE-WAVE-B.md](./ARCHITECTURE-WAVE-B.md)
 | B5 full-sdc lean | ✅ |
 | B6 Grok WORKFLOW_SKILLS + development/skills sync | ✅ |
 | aiox-commit skill SOT | ✅ |
+| B7 full-sdc **EXECUTE** (CLI plan/next/verify + skill loop) | ✅ |
+| B8 wave-execute **EXECUTE** (DAG plan + dispatch full-sdc) | ✅ |
 
-**SOT path:** `.aiox-core/development/skills/`  
-**Surfaces:** `.claude/skills/`, `.grok/skills/aiox-*` via `npm run sync:skills:grok`
+**SOT path:** `.aiox-core/development/skills/` + `.aiox-core/core/sdc/`  
+**Surfaces:** `.claude/skills/`, `.grok/skills/aiox-*` via `npm run sync:skills:grok`  
+**CLI:** `aiox sdc plan|next|verify|status`, `aiox wave plan|next|status`
 
 **Strip checklist**
 
