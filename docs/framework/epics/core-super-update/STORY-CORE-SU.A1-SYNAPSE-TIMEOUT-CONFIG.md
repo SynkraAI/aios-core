@@ -7,7 +7,7 @@
 | Story ID | CORE-SU.A1 |
 | Epic | CORE-SUPER-UPDATE |
 | Wave | A |
-| Status | Draft |
+| Status | InProgress → Ready for review |
 | Priority | P0 |
 | Source Issue | #798 |
 | Complexity | S |
@@ -48,16 +48,16 @@ On slow machines / cold start / antivirus FS, remaining layers are silently skip
 - Export timeout in engine module for tests (already exports `PIPELINE_TIMEOUT_MS` in some builds)  
 - Align with constitution Quality First + observability  
 
-## File List (expected)
+## File List
 
-- `.aiox-core/core/synapse/engine.js`
-- `.aiox-core/core-config.yaml` (optional section)
-- `tests/**/synapse*` or new unit test
-- docs snippet if applicable
+- `.aiox-core/core/synapse/engine.js` — resolvePipelineTimeoutMs + warn on timeout
+- `.aiox-core/core-config.yaml` — `synapse.pipelineTimeoutMs`
+- `tests/synapse/engine.test.js` — A1 unit tests
+- `docs/framework/config-override-guide.md` — knobs documented
 
 ## Definition of Done
 
-- [ ] ACs met  
-- [ ] Tests green  
-- [ ] #798 can be closed with PR link  
-- [ ] No machine-absolute paths  
+- [x] ACs met (implementation + tests + docs)
+- [x] Tests green (`tests/synapse/engine.test.js`)
+- [ ] #798 closed with PR link (after push)
+- [x] No machine-absolute paths

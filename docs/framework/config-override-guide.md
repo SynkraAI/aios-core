@@ -24,6 +24,38 @@ Higher levels override lower levels. See `merge-utils.js` for merge semantics.
 
 ---
 
+## SYNAPSE pipeline timeout (CORE-SU.A1 / #798)
+
+SynapseEngine total layer budget (soft-fail: remaining layers skipped with **visible** `console.warn`).
+
+| Precedence (high → low) | Source |
+|-------------------------|--------|
+| 1 | Env `AIOX_SYNAPSE_PIPELINE_TIMEOUT_MS` |
+| 2 | `synapse.pipelineTimeoutMs` in `.aiox-core/core-config.yaml` (or merged config) |
+| 3 | Default **100** ms |
+
+| Constraint | Value |
+|------------|--------|
+| Valid range | integer **1–30000** ms |
+| Invalid / out of range | fall back to default + warn |
+| Not aliased | `AIOX_PIPELINE_TIMEOUT` is for **unified-activation-pipeline** only |
+
+Example:
+
+```yaml
+# .aiox-core/core-config.yaml
+synapse:
+  pipelineTimeoutMs: 500
+```
+
+```bash
+export AIOX_SYNAPSE_PIPELINE_TIMEOUT_MS=2000
+```
+
+Implementation: `.aiox-core/core/synapse/engine.js` (`resolvePipelineTimeoutMs`).
+
+---
+
 ## Merge Behavior
 
 | Type | Strategy | Example |

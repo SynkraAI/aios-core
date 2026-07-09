@@ -109,7 +109,15 @@ jest.mock('../../.aiox-core/core/synapse/memory/memory-bridge', () => ({
 // Imports (after mocks)
 // ---------------------------------------------------------------------------
 
-const { SynapseEngine, PipelineMetrics, PIPELINE_TIMEOUT_MS } = require('../../.aiox-core/core/synapse/engine');
+const {
+  SynapseEngine,
+  PipelineMetrics,
+  PIPELINE_TIMEOUT_MS,
+  DEFAULT_PIPELINE_TIMEOUT_MS,
+  MAX_PIPELINE_TIMEOUT_MS,
+  SYNAPSE_PIPELINE_TIMEOUT_ENV,
+  resolvePipelineTimeoutMs,
+} = require('../../.aiox-core/core/synapse/engine');
 const contextTracker = require('../../.aiox-core/core/synapse/context/context-tracker');
 const formatter = require('../../.aiox-core/core/synapse/output/formatter');
 
@@ -503,8 +511,135 @@ describe('SynapseEngine', () => {
   });
 
   describe('PIPELINE_TIMEOUT_MS constant', () => {
-    test('should be 100ms', () => {
+    test('default export remains 100ms (backward-compatible)', () => {
       expect(PIPELINE_TIMEOUT_MS).toBe(100);
+      expect(DEFAULT_PIPELINE_TIMEOUT_MS).toBe(100);
+      expect(MAX_PIPELINE_TIMEOUT_MS).toBe(30000);
+      expect(SYNAPSE_PIPELINE_TIMEOUT_ENV).toBe('AIOX_SYNAPSE_PIPELINE_TIMEOUT_MS');
+    });
+  });
+
+  describe('resolvePipelineTimeoutMs (CORE-SU.A1 / #798)', () => {
+    const originalEnv = process.env[SYNAPSE_PIPELINE_TIMEOUT_ENV];
+
+    afterEach(() => {
+      if (originalEnv === undefined) {
+        delete process.env[SYNAPSE_PIPELINE_TIMEOUT_ENV];
+      } else {
+        process.env[SYNAPSE_PIPELINE_TIMEOUT_ENV] = originalEnv;
+      }
+    });
+
+    test('uses default when no env and no config', () => {
+      delete process.env[SYNAPSE_PIPELINE_TIMEOUT_ENV];
+      expect(resolvePipelineTimeoutMs({})).toBe(100);
+      expect(resolvePipelineTimeoutMs(undefined)).toBe(100);
+    });
+
+    test('env wins over core-config synapse.pipelineTimeoutMs', () => {
+      process.env[SYNAPSE_PIPELINE_TIMEOUT_ENV] = '250';
+      expect(
+        resolvePipelineTimeoutMs({ synapse: { pipelineTimeoutMs: 500 } }),
+      ).toBe(250);
+    });
+
+    test('core-config used when env unset', () => {
+      delete process.env[SYNAPSE_PIPELINE_TIMEOUT_ENV];
+      expect(
+        resolvePipelineTimeoutMs({ synapse: { pipelineTimeoutMs: 750 } }),
+      ).toBe(750);
+    });
+
+    test('invalid env falls back to default and warns', () => {
+      const warn = jest.fn();
+      process.env[SYNAPSE_PIPELINE_TIMEOUT_ENV] = 'not-a-number';
+      expect(resolvePipelineTimeoutMs({}, { warn })).toBe(100);
+      expect(warn).toHaveBeenCalled();
+      expect(warn.mock.calls[0][0]).toMatch(/Invalid pipeline timeout/);
+      expect(warn.mock.calls[0][0]).toMatch(/AIOX_SYNAPSE_PIPELINE_TIMEOUT_MS/);
+    });
+
+    test.each([
+      ['0', 0],
+      ['-5', -5],
+      ['30001', 30001],
+      ['12.5', 12.5],
+      ['', ''],
+    ])('invalid value %j from config falls back to default', (raw, asNumber) => {
+      delete process.env[SYNAPSE_PIPELINE_TIMEOUT_ENV];
+      const warn = jest.fn();
+      // empty string env is ignored (falls through to config)
+      if (raw === '') {
+        expect(resolvePipelineTimeoutMs({ synapse: { pipelineTimeoutMs: 0 } }, { warn })).toBe(100);
+      } else {
+        expect(
+          resolvePipelineTimeoutMs({ synapse: { pipelineTimeoutMs: asNumber } }, { warn }),
+        ).toBe(100);
+      }
+      expect(warn).toHaveBeenCalled();
+    });
+
+    test('does not use AIOX_PIPELINE_TIMEOUT alias', () => {
+      delete process.env[SYNAPSE_PIPELINE_TIMEOUT_ENV];
+      process.env.AIOX_PIPELINE_TIMEOUT = '9999';
+      try {
+        expect(resolvePipelineTimeoutMs({})).toBe(100);
+      } finally {
+        delete process.env.AIOX_PIPELINE_TIMEOUT;
+      }
+    });
+  });
+
+  describe('process() — pipeline timeout soft-fail (CORE-SU.A1)', () => {
+    let hrtimeSpy;
+
+    afterEach(() => {
+      if (hrtimeSpy) {
+        hrtimeSpy.mockRestore();
+        hrtimeSpy = null;
+      }
+      jest.restoreAllMocks();
+    });
+
+    test('skips remaining active layers after budget and console.warns', async () => {
+      // Timeline: totalStart=0; first layer elapsed=0 → run; later checks=500ms → timeout
+      let calls = 0;
+      hrtimeSpy = jest.spyOn(process.hrtime, 'bigint').mockImplementation(() => {
+        calls += 1;
+        if (calls <= 2) return 0n;
+        return 500_000_000n; // 500ms
+      });
+      const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+
+      const result = await engine.process('test', { prompt_count: 1 }, {
+        synapse: { pipelineTimeoutMs: 100 },
+      });
+
+      const perLayer = result.metrics.per_layer;
+      expect(perLayer.constitution.status).toBe('ok');
+      expect(perLayer.global.status).toBe('skipped');
+      expect(perLayer.global.reason).toBe('Pipeline timeout');
+      expect(perLayer.agent.status).toBe('skipped');
+      expect(perLayer.agent.reason).toBe('Pipeline timeout');
+
+      expect(warnSpy).toHaveBeenCalled();
+      const warnMsg = warnSpy.mock.calls.map((c) => c[0]).join(' ');
+      expect(warnMsg).toMatch(/\[synapse:engine\] Pipeline timeout/);
+      expect(warnMsg).toMatch(/budget 100ms/);
+      expect(warnMsg).toMatch(/global|agent/);
+
+      warnSpy.mockRestore();
+    });
+
+    test('with high budget all active layers (L0-L2) complete', async () => {
+      const result = await engine.process('test', { prompt_count: 1 }, {
+        synapse: { pipelineTimeoutMs: 30000 },
+      });
+      const perLayer = result.metrics.per_layer;
+      expect(perLayer.constitution.status).toBe('ok');
+      expect(perLayer.global.status).toBe('ok');
+      expect(perLayer.agent.status).toBe('ok');
+      expect(result.metrics.layers_loaded).toBeGreaterThanOrEqual(3);
     });
   });
 
