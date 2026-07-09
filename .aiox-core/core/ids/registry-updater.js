@@ -408,13 +408,21 @@ class RegistryUpdater {
     const newChecksum = computeChecksum(absPath);
     const nextDependencies = detectDependencies(content, entityId, false, absPath);
 
+    let mutated = false;
+
     if (newChecksum !== existing.checksum) {
       existing.checksum = newChecksum;
       existing.purpose = extractPurpose(content, absPath);
       existing.keywords = extractKeywords(absPath, content);
       existing.dependencies = nextDependencies;
+      mutated = true;
     } else if (JSON.stringify(existing.dependencies || []) !== JSON.stringify(nextDependencies)) {
       existing.dependencies = nextDependencies;
+      mutated = true;
+    }
+
+    if (!mutated) {
+      return false;
     }
 
     existing.lastVerified = new Date().toISOString();

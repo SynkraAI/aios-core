@@ -6,6 +6,7 @@ const yaml = require('js-yaml');
 const os = require('os');
 
 const { RegistryUpdater, AUDIT_LOG_PATH, LOCK_FILE, BACKUP_DIR } = require('../../../.aiox-core/core/ids/registry-updater');
+const { computeChecksum } = require('../../../.aiox-core/development/scripts/populate-entity-registry');
 
 const FIXTURES = path.resolve(__dirname, 'fixtures');
 const TEMP_DIR = path.join(os.tmpdir(), 'ids-updater-test-' + Date.now());
@@ -290,6 +291,29 @@ describe('RegistryUpdater', () => {
       const registry = readRegistry();
       const entity = registry.entities.tasks['test-task'];
       expect(new Date(entity.lastVerified).getTime()).toBeGreaterThan(new Date('2026-02-08T00:00:00Z').getTime());
+    });
+
+    it('does not rewrite registry when checksum and dependencies are unchanged', async () => {
+      const content = '# Stable Task\n\n## Purpose\nStable registry metadata.\n';
+      const filePath = createTempFile('.aiox-core/development/tasks/test-task.md', content);
+      const checksum = computeChecksum(filePath);
+      const lastVerified = '2026-02-08T00:00:00Z';
+      const baseReg = getBaseRegistry();
+      baseReg.entities.tasks['test-task'] = {
+        ...baseReg.entities.tasks['test-task'],
+        path: '.aiox-core/development/tasks/test-task.md',
+        checksum,
+        dependencies: [],
+        lastVerified,
+      };
+      createTempRegistry(baseReg);
+
+      const updater = createUpdater();
+      const result = await updater.processChanges([{ action: 'change', filePath }]);
+
+      expect(result.updated).toBe(0);
+      const registry = readRegistry();
+      expect(registry.entities.tasks['test-task'].lastVerified).toBe(lastVerified);
     });
 
     it('creates entity if modified file was not in registry', async () => {

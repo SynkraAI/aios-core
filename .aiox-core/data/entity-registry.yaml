@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-07-09T15:08:08.726Z'
+  lastUpdated: '2026-07-09T15:08:51.020Z'
   entityCount: 842
   checksumAlgorithm: sha256
   resolutionRate: 100
@@ -18212,7 +18212,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:2978d33c4f820952dda79bceeff8e300f50282acfa5a5dc187b03c1ef2d23529
-      lastVerified: '2026-07-09T15:08:08.720Z'
+      lastVerified: '2026-07-09T15:08:51.013Z'
     validate-codex-integration:
       path: .aiox-core/infrastructure/scripts/validate-codex-integration.js
       layer: L2
