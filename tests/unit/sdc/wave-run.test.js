@@ -33,7 +33,7 @@ describe('wave-run', () => {
     fs.writeFileSync(
       p,
       `# Story ${id}\n\n| Story ID | ${id} |\n| Status | ${status} |\n${depLine}\n## File List\n\n${fileLines}\n`,
-      'utf8'
+      'utf8',
     );
     return p;
   }

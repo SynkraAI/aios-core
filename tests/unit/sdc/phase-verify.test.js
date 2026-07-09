@@ -25,7 +25,7 @@ describe('phase-verify + progress', () => {
     const file = writeStory(
       dir,
       's.md',
-      `| Story ID | T.1 |\n| Status | Ready |\n`
+      '| Story ID | T.1 |\n| Status | Ready |\n',
     );
     const r = verifyPhase(file, 'validate', { cwd });
     expect(r.ok).toBe(true);
@@ -35,7 +35,7 @@ describe('phase-verify + progress', () => {
     const file = writeStory(
       dir,
       's.md',
-      `| Story ID | T.1 |\n| Status | Done |\n\n## File List\n\n- \`a.js\`\n`
+      '| Story ID | T.1 |\n| Status | Done |\n\n## File List\n\n- `a.js`\n',
     );
     const r = verifyPhase(file, 'develop', { cwd });
     expect(r.ok).toBe(false);
@@ -45,7 +45,7 @@ describe('phase-verify + progress', () => {
     const file = writeStory(
       dir,
       's.md',
-      `| Story ID | T.9 |\n| Status | Draft |\n`
+      '| Story ID | T.9 |\n| Status | Draft |\n',
     );
     // chdir so relative .aiox lands in temp — use opts.cwd in progress
     const prev = process.cwd();
@@ -55,7 +55,7 @@ describe('phase-verify + progress', () => {
       expect(state.storyId).toBe('T.9');
       expect(loadSdcState('T.9').mode).toBe('yolo');
       expect(fs.existsSync(path.join(dir, '.aiox', 'sdc', 'T.9', 'state.json'))).toBe(
-        true
+        true,
       );
     } finally {
       process.chdir(prev);

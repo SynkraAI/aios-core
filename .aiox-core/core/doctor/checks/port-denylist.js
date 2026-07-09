@@ -19,7 +19,17 @@ const name = 'port-denylist';
  */
 async function run(context) {
   const projectRoot = context.projectRoot || process.cwd();
-  const result = scanProject({ projectRoot });
+  let result;
+  try {
+    result = scanProject({ projectRoot });
+  } catch (error) {
+    return {
+      check: name,
+      status: 'FAIL',
+      message: `port-denylist scan errored: ${error.message}. Run: npm run validate:port-denylist`,
+      fixCommand: 'npm run validate:port-denylist',
+    };
+  }
 
   if (result.ok) {
     return {

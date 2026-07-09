@@ -6,6 +6,7 @@ const {
   scanProject,
   isAllowlisted,
   DENY_PATTERNS,
+  DEFAULT_SCAN_ROOTS,
 } = require('../../.aiox-core/core/security/port-denylist');
 
 describe('port-denylist (CORE-SU.A4)', () => {
@@ -42,6 +43,26 @@ describe('port-denylist (CORE-SU.A4)', () => {
       isAllowlisted(path.join('docs', 'framework', 'epics', 'core-super-update', 'EPIC.md')),
     ).toBe(true);
     expect(isAllowlisted(path.join('src', 'foo.js'))).toBe(false);
+  });
+
+  it('scans tracked agent config surfaces by default', () => {
+    expect(DEFAULT_SCAN_ROOTS).toEqual(expect.arrayContaining(['.claude']));
+  });
+
+  it('fails closed when an explicit file cannot be read', () => {
+    const result = scanProject({
+      projectRoot: path.resolve(__dirname, '../..'),
+      files: ['missing-port-denylist-fixture.js'],
+    });
+    expect(result.ok).toBe(false);
+    expect(result.findings).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          id: 'scan-error',
+          file: 'missing-port-denylist-fixture.js',
+        }),
+      ]),
+    );
   });
 
   it('scanProject on this repo is clean (or only documents hits)', () => {

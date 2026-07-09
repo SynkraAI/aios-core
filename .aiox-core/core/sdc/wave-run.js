@@ -157,7 +157,7 @@ function markStoryRun(wave, storyId, runStatus, notes) {
   wave.updatedAt = new Date().toISOString();
   if (!nextOpenBatch(wave)) {
     const anyFailed = (wave.stories || []).some(
-      (s) => s.runStatus === 'failed' || s.runStatus === 'blocked'
+      (s) => s.runStatus === 'failed' || s.runStatus === 'blocked',
     );
     wave.status = anyFailed ? 'completed_with_failures' : 'completed';
   } else {
@@ -174,7 +174,7 @@ function markStoryRun(wave, storyId, runStatus, notes) {
  */
 function advanceWave(waveId, opts = {}) {
   const cwd = opts.cwd || process.cwd();
-  let wave = loadWaveState(waveId, cwd);
+  const wave = loadWaveState(waveId, cwd);
   if (!wave) {
     throw new Error(`No wave state for ${waveId}. Run: aiox wave plan … --save`);
   }
@@ -192,7 +192,7 @@ function advanceWave(waveId, opts = {}) {
   wave.currentBatch = next ? next.index : null;
   if (!next) {
     const anyFailed = (wave.stories || []).some(
-      (s) => s.runStatus === 'failed' || s.runStatus === 'blocked'
+      (s) => s.runStatus === 'failed' || s.runStatus === 'blocked',
     );
     wave.status = anyFailed ? 'completed_with_failures' : 'completed';
   } else {
@@ -232,7 +232,7 @@ function writeWaveReport(waveId, opts = {}) {
   ];
   for (const s of wave.stories || []) {
     lines.push(
-      `| ${s.storyId} | ${s.status || '—'} | ${s.sdcStatus || '—'} | ${s.runStatus || '—'} | ${s.runNotes || ''} |`
+      `| ${s.storyId} | ${s.status || '—'} | ${s.sdcStatus || '—'} | ${s.runStatus || '—'} | ${s.runNotes || ''} |`,
     );
   }
   lines.push('', '## Batches', '');

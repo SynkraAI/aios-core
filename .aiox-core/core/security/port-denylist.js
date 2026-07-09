@@ -79,6 +79,7 @@ const DEFAULT_ALLOW_PATH_SUBSTRINGS = [
 
 /** Framework harvest surface — not the whole monorepo docs noise. */
 const DEFAULT_SCAN_ROOTS = [
+  '.claude',
   '.aiox-core/core',
   '.aiox-core/cli',
   '.aiox-core/development',
@@ -171,12 +172,20 @@ function scanContent(content, filePath = '') {
 /**
  * @param {string} dir
  * @param {string[]} acc
+ * @param {Array} findings
  */
-function walkFiles(dir, acc = []) {
+function walkFiles(dir, acc = [], findings = []) {
   let entries;
   try {
     entries = fs.readdirSync(dir, { withFileTypes: true });
-  } catch {
+  } catch (error) {
+    findings.push({
+      file: dir,
+      id: 'scan-error',
+      description: 'Unable to read directory during port denylist scan',
+      line: 0,
+      excerpt: error.message,
+    });
     return acc;
   }
   for (const entry of entries) {
@@ -186,7 +195,7 @@ function walkFiles(dir, acc = []) {
     const full = path.join(dir, entry.name);
     if (entry.isDirectory()) {
       if (SKIP_DIR_NAMES.has(entry.name)) continue;
-      walkFiles(full, acc);
+      walkFiles(full, acc, findings);
     } else if (entry.isFile()) {
       const ext = path.extname(entry.name);
       if (SCAN_EXTENSIONS.has(ext) || entry.name === 'Dockerfile') {
@@ -218,7 +227,7 @@ function scanProject(options = {}) {
     for (const root of roots) {
       const abs = path.join(projectRoot, root);
       if (fs.existsSync(abs)) {
-        walkFiles(abs, files);
+        walkFiles(abs, files, findings);
       }
     }
   }
@@ -228,7 +237,14 @@ function scanProject(options = {}) {
     let content;
     try {
       content = fs.readFileSync(file, 'utf8');
-    } catch {
+    } catch (error) {
+      findings.push({
+        file: path.relative(projectRoot, file),
+        id: 'scan-error',
+        description: 'Unable to read file during port denylist scan',
+        line: 0,
+        excerpt: error.message,
+      });
       continue;
     }
     const hits = scanContent(content, file);

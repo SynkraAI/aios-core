@@ -10,7 +10,6 @@
  *   node scripts/validate-port-denylist.js --files path1 path2
  */
 
-const path = require('path');
 const { scanProject } = require('../.aiox-core/core/security/port-denylist');
 
 function main(argv = process.argv.slice(2)) {
@@ -19,6 +18,10 @@ function main(argv = process.argv.slice(2)) {
   let files;
   if (filesIdx !== -1) {
     files = argv.slice(filesIdx + 1).filter((a) => !a.startsWith('--'));
+    if (files.length === 0) {
+      console.error('Error: --files provided with no file paths');
+      process.exit(2);
+    }
   }
 
   const projectRoot = process.cwd();

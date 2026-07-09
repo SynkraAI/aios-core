@@ -59,8 +59,6 @@ function planWaveBatches(stories) {
     const ready = [];
     for (const id of remaining) {
       const s = byId.get(id);
-      const deps = (s.dependsOn || []).filter((d) => remaining.has(d) || byId.has(d));
-      const unmet = deps.filter((d) => byId.has(d) && !completed.has(d) && remaining.has(d));
       // deps outside wave are ignored
       const unmetInWave = (s.dependsOn || []).filter((d) => remaining.has(d));
       if (unmetInWave.length === 0) ready.push(s);
@@ -68,7 +66,7 @@ function planWaveBatches(stories) {
 
     if (ready.length === 0) {
       errors.push(
-        `Cycle or unsatisfiable depends_on among: ${[...remaining].join(', ')}`
+        `Cycle or unsatisfiable depends_on among: ${[...remaining].join(', ')}`,
       );
       break;
     }
@@ -111,7 +109,7 @@ function planWaveBatches(stories) {
       edges: stories.flatMap((s) =>
         (s.dependsOn || [])
           .filter((d) => byId.has(d))
-          .map((d) => ({ from: d, to: s.storyId }))
+          .map((d) => ({ from: d, to: s.storyId })),
       ),
     },
   };

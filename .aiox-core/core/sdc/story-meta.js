@@ -76,7 +76,7 @@ function normalizeStatus(raw) {
  */
 function extractFileList(text) {
   const section = text.match(
-    /##\s+File List\b[\s\S]*?(?=\n##\s|\n#\s|$)/i
+    /##\s+File List\b[\s\S]*?(?=\n##\s|\n#\s|$)/i,
   );
   if (!section) return [];
   const body = section[0];
@@ -106,7 +106,7 @@ function extractFileList(text) {
 function extractDependsOn(text) {
   const ids = new Set();
   const dependsSection = text.match(
-    /##\s+(Dependencies|Depends|Pré-requisitos|Prerequisites)\b[\s\S]*?(?=\n##\s|\n#\s|$)/i
+    /##\s+(Dependencies|Depends|Pré-requisitos|Prerequisites)\b[\s\S]*?(?=\n##\s|\n#\s|$)/i,
   );
   const blobs = [dependsSection ? dependsSection[0] : '', text];
   for (const blob of blobs) {

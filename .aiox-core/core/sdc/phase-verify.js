@@ -39,7 +39,7 @@ function verifyPhase(storyPath, phase, opts = {}) {
       const okStatuses = new Set(['Ready', 'InProgress', 'InReview', 'Done']);
       add(
         okStatuses.has(meta.status),
-        `status is Ready+ after validate (got ${meta.status})`
+        `status is Ready+ after validate (got ${meta.status})`,
       );
       break;
     }
@@ -58,7 +58,7 @@ function verifyPhase(storyPath, phase, opts = {}) {
       if (meta.qaVerdict) {
         add(
           ['PASS', 'CONCERNS', 'FAIL', 'WAIVED'].includes(meta.qaVerdict),
-          `QA verdict present (${meta.qaVerdict})`
+          `QA verdict present (${meta.qaVerdict})`,
         );
       } else {
         // Look for gate files under docs/qa/gates matching story id slug
@@ -68,12 +68,12 @@ function verifyPhase(storyPath, phase, opts = {}) {
           const slug = meta.storyId.toLowerCase().replace(/[^a-z0-9]+/g, '-');
           const files = fs.readdirSync(gatesDir);
           gateFound = files.some(
-            (f) => f.toLowerCase().includes(slug) || f.includes(meta.storyId)
+            (f) => f.toLowerCase().includes(slug) || f.includes(meta.storyId),
           );
         }
         add(
           gateFound,
-          'QA Results verdict or docs/qa/gates/* for story exists'
+          'QA Results verdict or docs/qa/gates/* for story exists',
         );
       }
       break;

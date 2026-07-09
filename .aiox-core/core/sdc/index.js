@@ -77,7 +77,7 @@ function verifyAndMaybeMark(storyPath, phase, opts = {}) {
       state,
       phase,
       result.ok ? 'passed' : 'failed',
-      result.ok ? null : result.failures.join('; ')
+      result.ok ? null : result.failures.join('; '),
     );
     progress.saveSdcState(state, opts.cwd);
   }

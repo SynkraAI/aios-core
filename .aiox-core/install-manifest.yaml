@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.2.9
-generated_at: "2026-07-09T05:16:40.559Z"
+generated_at: "2026-07-09T05:16:57.792Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1155
 files:
@@ -1153,9 +1153,9 @@ files:
     type: core
     size: 5405
   - path: core/sdc/wave-plan.js
-    hash: sha256:f21310a46af4437fc3e1c71240a2a05a991fb30df2de291c3694ee2e9cac88fc
+    hash: sha256:a39c7f376ee650f14ba0fd5d9509a7c822b82488b6e3499ee043346837f07874
     type: core
-    size: 4675
+    size: 4494
   - path: core/sdc/wave-run.js
     hash: sha256:0c78a25d2ebcede18405971e50f132a5d606aa540f6bbe0da2e0e9e6b8fdbd88
     type: core
@@ -1365,9 +1365,9 @@ files:
     type: data
     size: 9590
   - path: data/entity-registry.yaml
-    hash: sha256:c2e145f6d6982035930a8621cbfce5ddf79c04a169a5b235edb038c762929dbd
+    hash: sha256:4f48ceb3f52d7bcf0dc3d553a93e14d1397ecdcfaafceb85d20988ca15900703
     type: data
-    size: 588886
+    size: 589570
   - path: data/learned-patterns.yaml
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data

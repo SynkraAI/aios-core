@@ -41,7 +41,7 @@ describe('story-meta', () => {
 - [x] one
 - [ ] two
 `,
-      'utf8'
+      'utf8',
     );
 
     const meta = parseStoryFile(file);
@@ -51,14 +51,14 @@ describe('story-meta', () => {
       expect.arrayContaining([
         '.aiox-core/core/foo.js',
         'tests/unit/foo.test.js',
-      ])
+      ]),
     );
     expect(meta.tasks.total).toBe(2);
     expect(meta.tasks.done).toBe(1);
   });
 
   it('extractFileList ignores non-paths', () => {
-    const text = `## File List\n\n- not a path alone\n- \`src/a.js\`\n`;
+    const text = '## File List\n\n- not a path alone\n- `src/a.js`\n';
     expect(extractFileList(text)).toEqual(['src/a.js']);
   });
 });
