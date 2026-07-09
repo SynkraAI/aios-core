@@ -1,0 +1,38 @@
+# =============================================================================
+# SYNAPSE Global Heuristic Hints (L1) — OSS pointer registry
+# Used by MemoryBridge processSessionDigest / reinforce-heuristic worker.
+# Promote project heuristics here as lightweight ID + label pointers.
+# =============================================================================
+
+global_heuristic_hints:
+  version: "1.0.0"
+  description: |
+    Indexed heuristic pointers for session reinforcement.
+    SYNAPSE injects IDs/labels (not full decision trees) to save tokens.
+    Agents may lazy-load full docs when needed.
+
+  promoted_hints:
+    - id: "AN_KE_001"
+      label: "Zero-Cost Execution (Determinism via Lazy Load)"
+      reinforcement_count: 0
+    - id: "AN_KE_005"
+      label: "Single Action Purity (Atomic Action)"
+      reinforcement_count: 0
+    - id: "PV_PA_004"
+      label: "Worker-First Determinism"
+      reinforcement_count: 0
+    - id: "PV_PA_013"
+      label: "Task-First Primacy"
+      reinforcement_count: 0
+    - id: "PV_PA_016"
+      label: "Avoid Dead Backlogs"
+      reinforcement_count: 0
+    - id: "SC_HE_002"
+      label: "Heuristic Composition"
+      reinforcement_count: 0
+    - id: "PV_BS_001"
+      label: "Boundary Safety"
+      reinforcement_count: 0
+    - id: "PV_PM_001"
+      label: "Process Minimalism"
+      reinforcement_count: 0

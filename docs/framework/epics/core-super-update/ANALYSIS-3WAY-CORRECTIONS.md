@@ -24,7 +24,8 @@ Ground truth from local trees + branch state. Use this to avoid re-doing wrong p
 
 | Claim | Correction | Decision |
 |-------|------------|----------|
-| Port hook-runtime wholesale | Reviewer: identical @186l on some snapshot. **This machine:** OSS 128–129l (A1 lean wiring), hub ~607l, ent ~498l — **not** identical now. | Do **not** wholesale-replace OSS hook-runtime. Port **memory-bridge** heuristics (+ tests from hub) if still desired. |
+| Port hook-runtime wholesale | Reviewer: identical @186l on some snapshot. **This machine:** OSS 128–129l (A1 lean wiring), hub ~607l, ent ~498l — **not** identical now. | Do **not** wholesale-replace OSS hook-runtime. |
+| memory-bridge only | hub 354 / ent 350 / OSS was 220 | **Done (CORE-SU.MB):** cold/warm timeout, processSessionDigest, reinforce worker, governance hints YAML, heuristics tests. No hook-runtime replace. |
 | Build lean full-sdc from hub strip | Ent full-sdc **468 lines**; hub **2209**. OSS lean ~131 already. | Prefer **ent full-sdc as enrichment source**, not hub strip. |
 | context-optimizer as core module | Skill only (hub/ent `.claude/skills/`) | Port as **skill** if needed, not engine merge. |
 | wave-executor 3-way | OSS 397 ≡ ent 397; hub 638 | Diff is **OSS↔hub only** for that file. |

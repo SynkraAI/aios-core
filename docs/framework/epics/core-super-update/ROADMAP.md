@@ -8,7 +8,7 @@ ARCH: [A](./ARCHITECTURE-WAVE-A.md) · [B](./ARCHITECTURE-WAVE-B.md) · [C](./AR
 | Wave | Status |
 |------|--------|
 | **0** 3-way diff harness | ✅ `npm run diff:framework-3way` + doctor advisory |
-| A Runtime hygiene | ✅ (guards+tests; #797 already JEST_WORKER_ID; A1 timeout) |
+| A Runtime hygiene | ✅ (+ **MB** memory-bridge heuristics port) |
 | B SDC skills + execute | ✅ (prefer **ent** lean full-sdc as enrichment base, not hub strip) |
 | C Orchestration | ✅ (wave-executor = 2-way OSS↔hub; master-orch 3-way carefully) |
 | D IDE/SYNAPSE | ARCH ✅ · **D1 Done** |
