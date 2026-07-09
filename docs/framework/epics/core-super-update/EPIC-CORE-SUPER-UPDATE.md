@@ -13,7 +13,10 @@
 | Sources (read-only harvest) | `../sinkra-hub`, `../AIOX-enterprise` (diff 2026-07-09) |
 | Target package | `@aiox-squads/core` (open source) |
 
-> **Docs policy:** `docs/stories/` is **gitignored** (internal / not for GitHub). This epic lives under **`docs/framework/epics/`** so it is versionable and reviewable in OSS. Do **not** force-add `docs/stories/`.
+> **Docs policy (official dual-path):**  
+> - **This epic / framework work:** `docs/framework/epics/` — **versioned** in OSS.  
+> - **`docs/stories/`:** project L4 runtime path (gitignored in this repo template). Valid for *downstream* projects; do **not** force-add it here.  
+> - Agents, AGENTS.md, and Grok prompts accept **both**. Canonical write-up: [`docs/framework/story-locations.md`](../../story-locations.md).
 
 ## Objetivo
 

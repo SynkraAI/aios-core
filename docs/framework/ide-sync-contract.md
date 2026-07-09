@@ -47,5 +47,6 @@ npm run validate:parity   # multi-IDE smoke when configured
 ## Related
 
 - Constitution Article XI — `.aiox-core/constitution.md`  
+- Story locations — `docs/framework/story-locations.md`  
 - ARCH-D — `docs/framework/epics/core-super-update/ARCHITECTURE-WAVE-D.md`  
 - Wave B SDC skills — `.aiox-core/development/skills/`  

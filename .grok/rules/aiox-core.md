@@ -29,7 +29,7 @@ npm run lint && npm run typecheck && npm test
 ## Layers (do not corrupt)
 
 - **L1/L2** framework core & templates under `.aiox-core/` — extend carefully; frameworkProtection may deny edits
-- **L4** project work: `docs/stories/`, `packages/`, `squads/`, `tests/`
+- **L4** work: `docs/stories/` (project) and/or `docs/framework/epics/` (framework OSS), `packages/`, `squads/`, `tests/`
 
 ## Grok entry points
 

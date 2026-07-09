@@ -139,7 +139,7 @@ Hooks recebem JSON via stdin:
     "file_path": "/path/to/file",
     "limit": 100
   },
-  "cwd": "/Users/alan/Code/mmos"
+  "cwd": "/path/to/project"
 }
 ```
 

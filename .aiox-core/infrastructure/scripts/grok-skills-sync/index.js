@@ -151,7 +151,7 @@ const AGENT_PROFILES = {
       'docs/framework/source-tree.md',
     ],
     workflow: [
-      'Work from a Ready story in docs/stories/ — never invent AC.',
+      'Work from a Ready story under docs/framework/epics/ (framework OSS) or docs/stories/ (project L4) — never invent AC.',
       'Update only Dev Agent Record: checkboxes, File List, Debug Log, Change Log.',
       'Implement smallest correct change; follow absolute imports and coding standards.',
       'Run quality gates before done: npm run lint && npm run typecheck && npm test.',
@@ -750,7 +750,7 @@ For full command list and task bindings, load the source agent file and run the 
 
 1. **CLI First** — features work via CLI before UI.
 2. **Agent Authority** — never steal another agent's exclusive ops (especially git push → @devops only).
-3. **Story-Driven** — implementation tracks a story in \`docs/stories/\`.
+3. **Story-Driven** — implementation tracks a story in \`docs/framework/epics/\` (framework) or \`docs/stories/\` (project L4).
 4. **No Invention** — no requirements not in story/PRD/research.
 5. **Quality First** — lint, typecheck, tests before done/push.
 6. **Task-first** — when a task file is selected, follow it exactly (including elicit=true).
@@ -923,7 +923,7 @@ npm run lint && npm run typecheck && npm test
 ## Layers (do not corrupt)
 
 - **L1/L2** framework core & templates under \`.aiox-core/\` — extend carefully; frameworkProtection may deny edits
-- **L4** project work: \`docs/stories/\`, \`packages/\`, \`squads/\`, \`tests/\`
+- **L4** work: \`docs/stories/\` (project) and/or \`docs/framework/epics/\` (framework OSS), \`packages/\`, \`squads/\`, \`tests/\`
 
 ## Grok entry points
 

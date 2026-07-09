@@ -1,6 +1,7 @@
 ---
 paths:
   - "docs/stories/**"
+  - "docs/framework/epics/**"
   - ".aiox-core/development/**"
 ---
 

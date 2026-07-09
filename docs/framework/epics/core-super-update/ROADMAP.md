@@ -19,12 +19,21 @@ ARCH: [A](./ARCHITECTURE-WAVE-A.md) · [B](./ARCHITECTURE-WAVE-B.md) · [C](./AR
 
 Windows `ECOMPROMISED` (#773): docs + `aiox install` hint + doctor `windows-npx-install`.
 
+## Governance fix (pre-merge)
+
+| Item | Status |
+|------|--------|
+| Dual-path stories policy | ✅ `docs/framework/story-locations.md` |
+| AGENTS.md / CLAUDE / Grok prompts | ✅ both paths |
+| `.codex/` not versioned until hardened | ✅ gitignored |
+
 ## Next
 
 1. Open/merge PR for `feat/core-super-update-epic` (+ #800 chain)  
-2. D1 IDE sync contract story (after prioritization)  
-3. E1–E2 constitution XI/XII text  
-4. Close GitHub #773 / #797 / #798 with PR links  
+2. Close GitHub #773 / #797 / #798 with PR links  
+3. F2 doctor heuristic (optional)  
+4. Harden Codex artifacts only if we decide to version `.codex/`  
+
 
 ## Tracking
 

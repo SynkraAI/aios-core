@@ -77,7 +77,7 @@ For full command list and task bindings, load the source agent file and run the 
 
 1. **CLI First** — features work via CLI before UI.
 2. **Agent Authority** — never steal another agent's exclusive ops (especially git push → @devops only).
-3. **Story-Driven** — implementation tracks a story in `docs/stories/`.
+3. **Story-Driven** — implementation tracks a story in `docs/framework/epics/` (framework) or `docs/stories/` (project L4).
 4. **No Invention** — no requirements not in story/PRD/research.
 5. **Quality First** — lint, typecheck, tests before done/push.
 6. **Task-first** — when a task file is selected, follow it exactly (including elicit=true).

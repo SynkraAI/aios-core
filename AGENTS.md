@@ -14,7 +14,10 @@ Siga `.aiox-core/constitution.md` como fonte de verdade:
 
 ## Workflow Obrigatorio
 
-1. Inicie por uma story em `docs/stories/`
+1. Inicie por uma story (path explícito ou discovery):
+   - **Framework / OSS versionado (este repo):** `docs/framework/epics/{epic}/`
+   - **Projeto L4 (runtime, tipicamente gitignored aqui):** `docs/stories/`
+   - Política: [docs/framework/story-locations.md](docs/framework/story-locations.md)
 2. Implemente apenas o que os acceptance criteria pedem
 3. Atualize checklist (`[ ]` -> `[x]`) e file list
 4. Execute quality gates antes de concluir
@@ -34,6 +37,8 @@ npm test
 - Pacotes: `packages/`
 - Testes: `tests/`
 - Documentacao: `docs/`
+- Epics/stories **públicos do framework:** `docs/framework/epics/`
+- Stories de projeto (L4): `docs/stories/` (gitignored neste template)
 
 ## IDE/Agent Sync
 

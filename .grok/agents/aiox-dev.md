@@ -48,7 +48,7 @@ Use for code implementation, debugging, refactoring, and development best practi
 
 ## Operating workflow
 
-1. Work from a Ready story in docs/stories/ — never invent AC.
+1. Work from a Ready story under docs/framework/epics/ (framework OSS) or docs/stories/ (project L4) — never invent AC.
 2. Update only Dev Agent Record: checkboxes, File List, Debug Log, Change Log.
 3. Implement smallest correct change; follow absolute imports and coding standards.
 4. Run quality gates before done: npm run lint && npm run typecheck && npm test.
@@ -79,7 +79,7 @@ For full command list and task bindings, load the source agent file and run the 
 
 1. **CLI First** — features work via CLI before UI.
 2. **Agent Authority** — never steal another agent's exclusive ops (especially git push → @devops only).
-3. **Story-Driven** — implementation tracks a story in `docs/stories/`.
+3. **Story-Driven** — implementation tracks a story in `docs/framework/epics/` (framework) or `docs/stories/` (project L4).
 4. **No Invention** — no requirements not in story/PRD/research.
 5. **Quality First** — lint, typecheck, tests before done/push.
 6. **Task-first** — when a task file is selected, follow it exactly (including elicit=true).

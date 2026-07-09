@@ -375,3 +375,6 @@ build/
 .aiox-core/local/
 .claude/settings.local.json
 .aiox/install-log.txt
+
+# Local Codex CLI artifacts (do not version until hardened — absolute paths / force-push wording)
+.codex/
