@@ -163,6 +163,9 @@ projectStatus:
   maxModifiedFiles: 5
   maxRecentCommits: 2
 synapse:
+  # Total SynapseEngine layer pipeline budget. Override per process with
+  # AIOX_SYNAPSE_PIPELINE_TIMEOUT_MS. Valid range: 1-30000.
+  pipelineTimeoutMs: 100
   session:
     staleTTLHours: 168 # 7 days — sessions older than this are cleaned up on first prompt
 agentIdentity:

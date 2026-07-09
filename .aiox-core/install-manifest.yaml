@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.2.9
-generated_at: "2026-07-09T04:29:19.263Z"
+generated_at: "2026-07-09T04:55:53.169Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1131
 files:
@@ -181,9 +181,9 @@ files:
     type: cli
     size: 5907
   - path: core-config.yaml
-    hash: sha256:5dd27ca77427053fd1c6a272287018e5d3d2cae9f36add26fe33adf2fde8e868
+    hash: sha256:329f452b296b6c2f1fa80056b0905ac78a4323e5200a6f8aeba907c3a0056247
     type: config
-    size: 11495
+    size: 11653
   - path: core/code-intel/code-intel-client.js
     hash: sha256:6c9a08a37775acf90397aa079a4ad2c5edcc47f2cfd592b26ae9f3d154d1deb8
     type: core
@@ -1189,9 +1189,9 @@ files:
     type: core
     size: 8122
   - path: core/synapse/engine.js
-    hash: sha256:1b65523b2fec6a44ab380298c4d98f0569209dec8b50be3922479ffcd6548df0
+    hash: sha256:ce4cf69d0b201be912f85c517cdf4089d4ff1349ae3cdb3fa11d34f8d2666ac5
     type: core
-    size: 14631
+    size: 16568
   - path: core/synapse/layers/l0-constitution.js
     hash: sha256:2123a6a44915aaac2a6bbd26c67c285c9d1e12b50fe42a8ada668306b07d1c4a
     type: core
