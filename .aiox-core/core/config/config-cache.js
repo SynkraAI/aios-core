@@ -228,19 +228,52 @@ class ConfigCache {
 // Global cache instance (singleton)
 const globalConfigCache = new ConfigCache();
 
-// Auto cleanup expired entries every minute
-const cacheCleanupTimer = setInterval(() => {
-  const cleared = globalConfigCache.clearExpired();
-  if (cleared > 0) {
-    console.log(`🗑️ Config cache: Cleared ${cleared} expired entries`);
-  }
-}, 60 * 1000);
+/**
+ * Module-level TTL sweep timer.
+ *
+ * Jest residual (#797): unref() alone still lets the callback fire after the
+ * test environment is torn down ("Cannot log after tests are done"). Skip
+ * scheduling entirely under Jest workers (JEST_WORKER_ID is set by every
+ * worker). Production CLI/runtime is unaffected.
+ *
+ * @type {ReturnType<typeof setInterval>|null}
+ */
+let cacheCleanupTimer = null;
 
-if (typeof cacheCleanupTimer.unref === 'function') {
-  cacheCleanupTimer.unref();
+function startCacheCleanupTimer() {
+  if (cacheCleanupTimer) return cacheCleanupTimer;
+  // Skip under Jest — avoid post-suite interval callbacks (issue #797)
+  if (process.env.JEST_WORKER_ID !== undefined) {
+    return null;
+  }
+  cacheCleanupTimer = setInterval(() => {
+    const cleared = globalConfigCache.clearExpired();
+    if (cleared > 0 && process.env.AIOX_DEBUG) {
+      console.log(`🗑️ Config cache: Cleared ${cleared} expired entries`);
+    }
+  }, 60 * 1000);
+  if (typeof cacheCleanupTimer.unref === 'function') {
+    cacheCleanupTimer.unref();
+  }
+  return cacheCleanupTimer;
 }
+
+/**
+ * Clear the module-level cleanup timer (tests / graceful shutdown).
+ * Safe to call when no timer was started.
+ */
+function disposeConfigCacheTimers() {
+  if (cacheCleanupTimer) {
+    clearInterval(cacheCleanupTimer);
+    cacheCleanupTimer = null;
+  }
+}
+
+startCacheCleanupTimer();
 
 module.exports = {
   ConfigCache,
   globalConfigCache,
+  disposeConfigCacheTimers,
+  startCacheCleanupTimer,
 };

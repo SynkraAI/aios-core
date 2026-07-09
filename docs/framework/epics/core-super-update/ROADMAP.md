@@ -35,7 +35,7 @@ Architecture Wave A: [ARCHITECTURE-WAVE-A.md](./ARCHITECTURE-WAVE-A.md)
 | Story | Status | Note |
 |-------|--------|------|
 | A1 SYNAPSE timeout | ✅ | #798 — implemented on branch |
-| A2 ConfigCache residual | ⬜ | #797 — not “add unref” |
+| A2 ConfigCache residual | ✅ | #797 — skip interval under JEST_WORKER_ID |
 | A3 path/prompt/ssrf **extend** permissions | ⬜ | keep permission-mode + operation-guard |
 | A4 denylist + smoke | ⬜ | denylist includes `workspace/` |
 

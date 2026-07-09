@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.2.9
-generated_at: "2026-07-09T04:56:05.297Z"
+generated_at: "2026-07-09T04:57:17.409Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1131
 files:
@@ -241,9 +241,9 @@ files:
     type: core
     size: 11003
   - path: core/config/config-cache.js
-    hash: sha256:9f3c3f90f574d5f49dd94592ab28109465d025b3a740d8639ab781c2560c12ab
+    hash: sha256:4a07e42571be04ea1f0e8d1c6a96b6a2fa99535696e74d6c9080506f63f71b91
     type: core
-    size: 5039
+    size: 6036
   - path: core/config/config-loader.js
     hash: sha256:05c8cfa5fe8c0bd659ac65791e5b551767e581a465cad6bb42a9c0a31847e4b4
     type: core
@@ -3129,9 +3129,9 @@ files:
     type: script
     size: 7803
   - path: infrastructure/scripts/config-cache.js
-    hash: sha256:363383dbf90df90d69b8ba769db4f9749b0ae91b4fe95ee15be633941906f8a2
+    hash: sha256:2b068a320b7a23e5328d9c52214f0d4490c93feaa978958071c1d4f9813a95ca
     type: script
-    size: 7808
+    size: 8399
   - path: infrastructure/scripts/config-loader.js
     hash: sha256:8f9489f7c57e775bfbb750761d9714505d5df3938b664cbbdf6701f9e18e240b
     type: script
