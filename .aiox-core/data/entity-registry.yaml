@@ -1,7 +1,7 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-07-09T04:29:13.866Z'
-  entityCount: 822
+  lastUpdated: '2026-07-09T04:55:54.149Z'
+  entityCount: 823
   checksumAlgorithm: sha256
   resolutionRate: 100
 entities:
@@ -11222,8 +11222,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:1b65523b2fec6a44ab380298c4d98f0569209dec8b50be3922479ffcd6548df0
-      lastVerified: '2026-07-09T04:06:46.573Z'
+      checksum: sha256:ce4cf69d0b201be912f85c517cdf4089d4ff1349ae3cdb3fa11d34f8d2666ac5
+      lastVerified: '2026-07-09T04:55:54.144Z'
     ui-index:
       path: .aiox-core/core/ui/index.js
       layer: L1
@@ -14187,6 +14187,30 @@ entities:
         extensionPoints: []
       checksum: sha256:dd025894f8f0d3bd22a147dbc0debef8b83e96f3c59483653404b3cd5a01d5aa
       lastVerified: '2026-07-09T04:06:47.304Z'
+    ..-core-config:
+      path: .aiox-core/core-config.yaml
+      layer: L4
+      type: module
+      purpose: Boundary Mapping — Framework-Project Separation (Epic BM)
+      keywords:
+        - core
+        - config
+        - boundary
+        - mapping
+        - framework-project
+        - separation
+        - (epic
+      usedBy: []
+      dependencies: []
+      externalDeps: []
+      plannedDeps: []
+      lifecycle: orphan
+      adaptability:
+        score: 0.4
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:329f452b296b6c2f1fa80056b0905ac78a4323e5200a6f8aeba907c3a0056247
+      lastVerified: '2026-07-09T04:55:54.143Z'
   agents:
     aiox-master:
       path: .aiox-core/development/agents/aiox-master.md
