@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-07-09T04:06:48.293Z'
+  lastUpdated: '2026-07-09T04:29:13.866Z'
   entityCount: 822
   checksumAlgorithm: sha256
   resolutionRate: 100
@@ -18238,8 +18238,8 @@ entities:
         score: 0.7
         constraints: []
         extensionPoints: []
-      checksum: sha256:ca8f3bcb0ca80faf44f075d2c1a2577eb437ac233b96aec7be1f1492ec643991
-      lastVerified: '2026-07-09T04:06:48.051Z'
+      checksum: sha256:0dc8023689dd873a0c30006e40a9555e817f83103bf5fc174a16d9d9a0a3d239
+      lastVerified: '2026-07-09T04:29:13.861Z'
     agent-parser:
       path: .aiox-core/infrastructure/scripts/ide-sync/agent-parser.js
       layer: L2
