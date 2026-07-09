@@ -8,7 +8,8 @@
  * @version 1.0.0
  *
  * @example
- * const { PermissionMode, OperationGuard } = require('./.aiox-core/core/permissions');
+ * const { PermissionMode, OperationGuard, pathGuard, promptGuard, ssrfGuard } =
+ *   require('./.aiox-core/core/permissions');
  *
  * // Check current mode
  * const mode = new PermissionMode();
@@ -21,10 +22,18 @@
  * if (result.blocked) {
  *   console.log(result.message);
  * }
+ *
+ * // Path / prompt / SSRF (CORE-SU.A3) — extend, do not replace OperationGuard
+ * pathGuard.validateWrite('src/foo.js');
+ * promptGuard.scan(userInput);
+ * ssrfGuard.validateUrl('https://example.com');
  */
 
 const { PermissionMode } = require('./permission-mode');
 const { OperationGuard } = require('./operation-guard');
+const pathGuard = require('./path-guard');
+const promptGuard = require('./prompt-guard');
+const ssrfGuard = require('./ssrf-guard');
 
 /**
  * Create a pre-configured guard instance
@@ -130,6 +139,16 @@ async function enforcePermission(tool, params = {}, projectRoot = process.cwd())
 module.exports = {
   PermissionMode,
   OperationGuard,
+  pathGuard,
+  promptGuard,
+  ssrfGuard,
+  // Convenience re-exports (most common entry points)
+  validateWrite: pathGuard.validateWrite,
+  isWriteAllowed: pathGuard.isWriteAllowed,
+  scanPrompt: promptGuard.scan,
+  isPromptSafe: promptGuard.isSafe,
+  validateUrl: ssrfGuard.validateUrl,
+  isUrlAllowed: ssrfGuard.isUrlAllowed,
   createGuard,
   checkOperation,
   getModeBadge,

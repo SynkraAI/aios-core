@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 5.2.9
-generated_at: "2026-07-09T04:57:17.852Z"
+generated_at: "2026-07-09T04:59:57.775Z"
 generator: scripts/generate-install-manifest.js
-file_count: 1131
+file_count: 1137
 files:
   - path: cli/commands/config/index.js
     hash: sha256:25c4b9bf4e0241abf7754b55153f49f1a214f1fb5fe904a576675634cb7b3da9
@@ -1000,22 +1000,46 @@ files:
     hash: sha256:82816bd5e6fecc9bbb77292444e53254c72bf93e5c04260784743354c6a58627
     type: core
     size: 30727
+  - path: core/permissions/__tests__/path-guard.test.js
+    hash: sha256:4802bd7b8c8608fb2760e28b4fdf015d9a539e56d504d13db98d0de8846ecfd2
+    type: core
+    size: 3465
   - path: core/permissions/__tests__/permission-mode.test.js
     hash: sha256:8c8a48c75933a7bf3cf4588f8e4af3911cbb6b67fb07fa526a79bada8949ce2c
     type: core
     size: 8808
-  - path: core/permissions/index.js
-    hash: sha256:5748821f5b7fcc2c54e74956ddd9e05326fa96520a753a506feb9910042f562b
+  - path: core/permissions/__tests__/prompt-guard.test.js
+    hash: sha256:088f05729db99291cc85a6918bc3c8a41507e6ca2bd8f85207a0926eb288ca20
     type: core
-    size: 3984
+    size: 1597
+  - path: core/permissions/__tests__/ssrf-guard.test.js
+    hash: sha256:4ddb583e1f0667311609fd157f0c67426b70aa1f3881dccd9791c65374368d1c
+    type: core
+    size: 1443
+  - path: core/permissions/index.js
+    hash: sha256:4b02b3cff0f1a716a511e1d92e57ecc47b32a3fbcc2af3d37922f8ef5996b06f
+    type: core
+    size: 4693
   - path: core/permissions/operation-guard.js
     hash: sha256:f9b1b1bd547145c0d8a0f47534af0678ee852df6236acd05c53e479cb0e3f0bd
     type: core
     size: 9018
+  - path: core/permissions/path-guard.js
+    hash: sha256:9e85b0b5202c31e2986dd1d557f778d7d202b35a3c20b2493b81c2af6f27e7b3
+    type: core
+    size: 4798
   - path: core/permissions/permission-mode.js
     hash: sha256:84f09067c7154d97cb2252b9a7def00562acf569cfc3b035d6d4e39fb40d4033
     type: core
     size: 7193
+  - path: core/permissions/prompt-guard.js
+    hash: sha256:31fa08e08cf46f93f53a6c063e064c347a55e4ab192dc2a95ee1df228dd0827f
+    type: core
+    size: 9683
+  - path: core/permissions/ssrf-guard.js
+    hash: sha256:b3aef8e8d7879246cc26333245fb8ad1ad805b8753043e3dfdc825a4c00b816a
+    type: core
+    size: 7289
   - path: core/pro/pro-updater.js
     hash: sha256:30ea78b8ab088e695936ae662057697410856751f463eeb649e00b67dcc31531
     type: core
@@ -1241,9 +1265,9 @@ files:
     type: core
     size: 16418
   - path: core/synapse/runtime/hook-runtime.js
-    hash: sha256:c8a31f8cfcc760de06c65abd3c5d23d9ffd8490f7f0ae4a674efaba73e10dd44
+    hash: sha256:e60bfa9cb11b10b871f4c11b74fbab92887aaaf8598ad7c42fca6292dc500fb0
     type: core
-    size: 3548
+    size: 3972
   - path: core/synapse/scripts/generate-constitution.js
     hash: sha256:9010d6b34667c96602b76baa1857f0629c797d911b7c42dc11414b007e5e2b91
     type: script
@@ -1301,7 +1325,7 @@ files:
     type: data
     size: 9590
   - path: data/entity-registry.yaml
-    hash: sha256:4e48942ed36b7d5f79bd356d82bf3bf6d59800f558361bf1cae1b777294bb5db
+    hash: sha256:e0529831a771789156a0987a76852e4c611ebf21ea2820362f418df5560d1f71
     type: data
     size: 581582
   - path: data/learned-patterns.yaml
