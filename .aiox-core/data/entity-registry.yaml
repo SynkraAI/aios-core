@@ -1,7 +1,7 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-07-09T04:57:17.615Z'
-  entityCount: 823
+  lastUpdated: '2026-07-09T04:59:57.975Z'
+  entityCount: 826
   checksumAlgorithm: sha256
   resolutionRate: 100
 entities:
@@ -8640,7 +8640,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:4a07e42571be04ea1f0e8d1c6a96b6a2fa99535696e74d6c9080506f63f71b91
-      lastVerified: '2026-07-09T04:57:17.609Z'
+      lastVerified: '2026-07-09T04:57:19.129Z'
     config-loader:
       path: .aiox-core/core/config/config-loader.js
       layer: L1
@@ -10783,6 +10783,9 @@ entities:
       dependencies:
         - permission-mode
         - operation-guard
+        - path-guard
+        - prompt-guard
+        - ssrf-guard
       externalDeps: []
       plannedDeps:
         - permissions
@@ -10791,8 +10794,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:5748821f5b7fcc2c54e74956ddd9e05326fa96520a753a506feb9910042f562b
-      lastVerified: '2026-07-09T04:06:46.489Z'
+      checksum: sha256:4b02b3cff0f1a716a511e1d92e57ecc47b32a3fbcc2af3d37922f8ef5996b06f
+      lastVerified: '2026-07-09T04:59:57.969Z'
     operation-guard:
       path: .aiox-core/core/permissions/operation-guard.js
       layer: L1
@@ -14211,6 +14214,66 @@ entities:
         extensionPoints: []
       checksum: sha256:329f452b296b6c2f1fa80056b0905ac78a4323e5200a6f8aeba907c3a0056247
       lastVerified: '2026-07-09T04:55:54.143Z'
+    path-guard:
+      path: .aiox-core/core/permissions/path-guard.js
+      layer: L1
+      type: module
+      purpose: Entity at .aiox-core/core/permissions/path-guard.js
+      keywords:
+        - path
+        - guard
+      usedBy:
+        - permissions-index
+      dependencies: []
+      externalDeps: []
+      plannedDeps: []
+      lifecycle: production
+      adaptability:
+        score: 0.4
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:9e85b0b5202c31e2986dd1d557f778d7d202b35a3c20b2493b81c2af6f27e7b3
+      lastVerified: '2026-07-09T04:59:57.970Z'
+    prompt-guard:
+      path: .aiox-core/core/permissions/prompt-guard.js
+      layer: L1
+      type: module
+      purpose: Entity at .aiox-core/core/permissions/prompt-guard.js
+      keywords:
+        - prompt
+        - guard
+      usedBy:
+        - permissions-index
+      dependencies: []
+      externalDeps: []
+      plannedDeps: []
+      lifecycle: production
+      adaptability:
+        score: 0.4
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:31fa08e08cf46f93f53a6c063e064c347a55e4ab192dc2a95ee1df228dd0827f
+      lastVerified: '2026-07-09T04:59:57.971Z'
+    ssrf-guard:
+      path: .aiox-core/core/permissions/ssrf-guard.js
+      layer: L1
+      type: module
+      purpose: Entity at .aiox-core/core/permissions/ssrf-guard.js
+      keywords:
+        - ssrf
+        - guard
+      usedBy:
+        - permissions-index
+      dependencies: []
+      externalDeps: []
+      plannedDeps: []
+      lifecycle: production
+      adaptability:
+        score: 0.4
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:b3aef8e8d7879246cc26333245fb8ad1ad805b8753043e3dfdc825a4c00b816a
+      lastVerified: '2026-07-09T04:59:57.971Z'
   agents:
     aiox-master:
       path: .aiox-core/development/agents/aiox-master.md
@@ -16596,7 +16659,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:2b068a320b7a23e5328d9c52214f0d4490c93feaa978958071c1d4f9813a95ca
-      lastVerified: '2026-07-09T04:57:17.610Z'
+      lastVerified: '2026-07-09T04:57:19.130Z'
     config-loader:
       path: .aiox-core/infrastructure/scripts/config-loader.js
       layer: L2
