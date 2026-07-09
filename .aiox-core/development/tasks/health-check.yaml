@@ -11,7 +11,7 @@ description: |
   Invokes `aiox doctor --json` internally via Bash tool and adds governance
   interpretation with Constitution context and remediation guidance.
 
-  NOTE: This task delegates ALL check logic to `aiox doctor` (17 checks).
+  NOTE: This task delegates ALL check logic to `aiox doctor` (18 checks).
   It does NOT have its own list of health checks — single source of truth.
 
 category: development
@@ -212,6 +212,12 @@ governance_map:
     governance_note: "Windows npx ECOMPROMISED guidance (#773) — advisory install path"
     remediation: "npm install -g @aiox-squads/core"
 
+  framework-3way-diff:
+    article: "V"
+    article_name: "Quality First"
+    governance_note: "Advisory harvest drift vs hub/enterprise siblings"
+    remediation: "npm run diff:framework-3way"
+
 # Output schema
 output:
   type: object
@@ -230,7 +236,7 @@ output:
 examples:
   - name: "Quick health check"
     command: "*health-check"
-    description: "Run all 17 doctor checks with governance interpretation"
+    description: "Run all 18 doctor checks with governance interpretation"
 
   - name: "Health check with auto-fix"
     command: "*health-check --fix"
@@ -245,7 +251,7 @@ help: |
   ## AIOX Health Check (Unified)
 
   Runs `aiox doctor --json` internally and adds governance context.
-  17 checks across configuration, environment, and agent readiness.
+  18 checks across configuration, environment, and agent readiness.
 
   ### Quick Start
 
@@ -257,7 +263,7 @@ help: |
 
   ### What It Checks
 
-  The task delegates to `aiox doctor` which runs 17 modular checks:
+  The task delegates to `aiox doctor` which runs 18 modular checks:
   settings-json, rules-files, agent-memory, entity-registry, git-hooks,
   core-config, claude-md, ide-sync, graph-dashboard, code-intel,
   node-version, npm-packages, skills-count, commands-count, hooks-claude-count, port-denylist, windows-npx-install.

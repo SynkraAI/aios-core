@@ -7,13 +7,16 @@ ARCH: [A](./ARCHITECTURE-WAVE-A.md) · [B](./ARCHITECTURE-WAVE-B.md) · [C](./AR
 
 | Wave | Status |
 |------|--------|
-| A Runtime hygiene | ✅ |
-| B SDC skills + execute | ✅ |
-| C Orchestration | ✅ |
-| D IDE/SYNAPSE | ARCH ✅ · **D1 Done** (ide-sync-contract) |
-| E Constitution | ARCH ✅ · **E1 Done** (XI+XII in constitution v1.1.0) |
+| **0** 3-way diff harness | ✅ `npm run diff:framework-3way` + doctor advisory |
+| A Runtime hygiene | ✅ (guards+tests; #797 already JEST_WORKER_ID; A1 timeout) |
+| B SDC skills + execute | ✅ (prefer **ent** lean full-sdc as enrichment base, not hub strip) |
+| C Orchestration | ✅ (wave-executor = 2-way OSS↔hub; master-orch 3-way carefully) |
+| D IDE/SYNAPSE | ARCH ✅ · **D1 Done** |
+| E Constitution | ARCH ✅ · **E1 Done** (XI+XII; no Workspace Bus MUST) |
 | F Installer | F1 ✅ · F2 ⬜ · F3 DEFERRED |
-| Ops | **PM1** pm.sh real CLI (no stub) ✅ |
+| Ops | **PM1** pm.sh real CLI ✅ |
+
+Corrections: [ANALYSIS-3WAY-CORRECTIONS.md](./ANALYSIS-3WAY-CORRECTIONS.md)
 
 ## F1 (done)
 
@@ -41,3 +44,4 @@ Windows `ECOMPROMISED` (#773): docs + `aiox install` hint + doctor `windows-npx-
 |------|-------|
 | 2026-07-09 | A+B+C complete via wave-execute |
 | 2026-07-09 | ARCH-D/E drafts; F1 Windows #773 Done |
+| 2026-07-09 | 3-way analysis corrections + Wave 0 diff harness |

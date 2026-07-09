@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 5.2.9
-generated_at: "2026-07-09T05:25:42.354Z"
+generated_at: "2026-07-09T05:30:22.145Z"
 generator: scripts/generate-install-manifest.js
-file_count: 1159
+file_count: 1161
 files:
   - path: cli/commands/config/index.js
     hash: sha256:25c4b9bf4e0241abf7754b55153f49f1a214f1fb5fe904a576675634cb7b3da9
@@ -320,6 +320,10 @@ files:
     hash: sha256:bed5f0881102fecf77e7a4f990a1363b840422701f736e806c1c69908acae0aa
     type: core
     size: 1333
+  - path: core/doctor/checks/framework-3way-diff.js
+    hash: sha256:fb9cd313e05971e5f292b7c58288ab6bd099419e14790e5dedcaff1e9d32edde
+    type: core
+    size: 2475
   - path: core/doctor/checks/git-hooks.js
     hash: sha256:3fe9411a64265c581952f40044b70cc21b324773f54e4b902e4ce390c976fa2f
     type: core
@@ -337,9 +341,9 @@ files:
     type: core
     size: 4203
   - path: core/doctor/checks/index.js
-    hash: sha256:018a7dfc38a131accf91d7e849821ea6cfbf075bc33ecc342850d3e86d4c49a8
+    hash: sha256:878eefd5fb8a587bda70fefa7e2b52318f4de6b8bca582088208c21f013a0b2b
     type: core
-    size: 1342
+    size: 1425
   - path: core/doctor/checks/node-version.js
     hash: sha256:9e8bd100affa46131ac495c1e60ce87c88bbe879d459601a502589824d1aeac1
     type: core
@@ -1381,7 +1385,7 @@ files:
     type: data
     size: 9590
   - path: data/entity-registry.yaml
-    hash: sha256:2627b63d3d0b9ae98d2cb05e323d6949ec4daad6f36f02f8af50bebeececbedd
+    hash: sha256:9f47df808037c5a5daa21425063b98e4d0c72395c36d903c6f3ef30e42f5b26e
     type: data
     size: 592217
   - path: data/learned-patterns.yaml
@@ -2341,9 +2345,9 @@ files:
     type: task
     size: 3595
   - path: development/tasks/health-check.yaml
-    hash: sha256:d209bfc7a8b54c5166eb46b58b9410d31f211e268c0af85cfe9fd9ea254c0c5f
+    hash: sha256:a5c4321b9e2b22f262fd4f88ce740405f55ae28169e71087faf5b3a999c5e7cf
     type: task
-    size: 8511
+    size: 8706
   - path: development/tasks/ids-governor.md
     hash: sha256:cfb1aefffdf2db0d35cae8fdde2f5afbcea62b9b616e78a43390756c9b8e6b9c
     type: task
@@ -3304,6 +3308,10 @@ files:
     hash: sha256:94fc482ef0182608a3433824d02cb24fe0d7ab4aaa256853b9b79e603bf28e9e
     type: script
     size: 42437
+  - path: infrastructure/scripts/framework-3way-diff.js
+    hash: sha256:17386556dc03f1f709dc7f9d6834aace6c3bc28fad57d75a5810637e44ce333c
+    type: script
+    size: 9845
   - path: infrastructure/scripts/framework-analyzer.js
     hash: sha256:8bd86d50f5a3f050191a49e22e8348bbefa72e3df396313064239a2f1a4a9856
     type: script

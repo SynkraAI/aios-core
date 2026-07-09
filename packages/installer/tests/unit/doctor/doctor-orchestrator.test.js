@@ -47,10 +47,10 @@ describe('Doctor Orchestrator', () => {
     });
   });
 
-  describe('17 checks (AC2 + INS-4.8 + CORE-SU.A4)', () => {
-    it('should run exactly 17 checks', async () => {
+  describe('18 checks (AC2 + INS-4.8 + CORE-SU.A4)', () => {
+    it('should run exactly 18 checks', async () => {
       const result = await runDoctorChecks({ projectRoot });
-      expect(result.data.checks).toHaveLength(17);
+      expect(result.data.checks).toHaveLength(18);
     });
 
     it('should return valid status for each check', async () => {
@@ -85,14 +85,15 @@ describe('Doctor Orchestrator', () => {
       expect(checkNames).toContain('hooks-claude-count');
       expect(checkNames).toContain('port-denylist');
       expect(checkNames).toContain('windows-npx-install');
+      expect(checkNames).toContain('framework-3way-diff');
     });
   });
 
   describe('summary (AC3)', () => {
-    it('should have pass/warn/fail/info counts that sum to 17', async () => {
+    it('should have pass/warn/fail/info counts that sum to 18', async () => {
       const result = await runDoctorChecks({ projectRoot });
       const { pass, warn, fail, info } = result.data.summary;
-      expect(pass + warn + fail + info).toBe(17);
+      expect(pass + warn + fail + info).toBe(18);
     });
 
     it('should include Summary line in text output', async () => {

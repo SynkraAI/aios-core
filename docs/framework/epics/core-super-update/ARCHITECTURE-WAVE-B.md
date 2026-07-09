@@ -11,7 +11,11 @@
 
 Ship **invocable SDC skills** for OSS: validate → develop → review → close, composed by a **thin** `full-sdc` orchestrator. Tasks under `.aiox-core/development/tasks/` remain **source of truth**.
 
-**Not in scope:** hub full-sdc 2200 LOC, worktree WL-1..7 product, mux-adapter, `workspace/`, sinkra_*.
+**Source rule:** enterprise already carries the lean `full-sdc` shape in the desired 300–500 line range. Use that as baseline and enrich from hub only where OSS-safe behavior is missing. Do not manually strip the hub 2200 LOC skill as the first move.
+
+**Source rule:** prefer **enterprise lean full-sdc (~468 LOC)** as enrichment baseline; do not strip hub ~2200 LOC as the first move. OSS already ships a thinner lean orchestrator + task SOTs.
+
+**Not in scope:** hub full-sdc 2200 LOC as primary base, worktree product registry, hub conductor adapters, product harvest trees.
 
 ## 2. Components
 
@@ -62,6 +66,7 @@ User / IDE slash
 - `.sdc-ack` full auto-ACK matrix (optional; v1 uses checklist only)  
 - deploy-story / verify-deploy product targets  
 - sinkra tier / owner_squad / `.sinkra/` paths  
+- direct hub-to-OSS prose dump when an enterprise lean equivalent exists  
 
 ## 4. Skill → task invocation rule
 
@@ -129,3 +134,4 @@ Agents still perform phase work (tasks/skills). CLI owns **plan / next / verify 
 - [x] Grok sync copies development/skills → `.grok/skills/aiox-*`  
 - [x] `aiox sdc` + `aiox wave` execute/plan surfaces  
 - [x] `wave-execute` lean skill dispatches `full-sdc`  
+- [x] Source rule documented: enterprise lean baseline first, hub enrichment second  

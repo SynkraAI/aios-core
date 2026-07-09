@@ -109,6 +109,7 @@
     "prepare": "husky",
     "validate:aiox-core-namespace": "node scripts/validate-aiox-core-namespace.js",
     "validate:port-denylist": "node scripts/validate-port-denylist.js",
+    "diff:framework-3way": "node .aiox-core/infrastructure/scripts/framework-3way-diff.js",
     "sdc": "node bin/aiox.js sdc",
     "wave": "node bin/aiox.js wave"
   },

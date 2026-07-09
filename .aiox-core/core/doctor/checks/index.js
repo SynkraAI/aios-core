@@ -1,7 +1,7 @@
 /**
  * Doctor Check Registry
  *
- * Exports all 17 check modules in execution order.
+ * Exports all 18 check modules in execution order.
  *
  * @module aiox-core/doctor/checks
  * @story INS-4.1, INS-4.8
@@ -24,6 +24,7 @@ const commandsCount = require('./commands-count');
 const hooksClaudeCount = require('./hooks-claude-count');
 const portDenylist = require('./port-denylist');
 const windowsNpxInstall = require('./windows-npx-install');
+const framework3wayDiff = require('./framework-3way-diff');
 
 function loadChecks() {
   return [
@@ -44,6 +45,7 @@ function loadChecks() {
     hooksClaudeCount,
     portDenylist,
     windowsNpxInstall,
+    framework3wayDiff,
   ];
 }
 
