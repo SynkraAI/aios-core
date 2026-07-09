@@ -4,7 +4,7 @@
 |-------|-------|
 | Wave | C |
 | Epic | CORE-SUPER-UPDATE |
-| Status | Accepted draft — unblocks C1–C4 design; implement after MVP A+B |
+| Status | Accepted — C1–C4 implemented ✅ |
 | Depends | ARCH-B (done), `aiox sdc` / `aiox wave` runtime (B7/B8) |
 
 ## 1. Goal
@@ -24,6 +24,8 @@ Harden **multi-story orchestration** on top of Wave B execute runtime: durable w
 | Legacy WaveExecutor (task waves) | `.aiox-core/core/execution/wave-executor.js` — **workflow tasks**, not story SDC |
 
 Wave C **extends** B7/B8; it does not replace them.
+
+Verified diff shape: `wave-executor.js` is a 2-way comparison because OSS and enterprise were identical at verification time, while hub carried the evolved implementation. `master-orchestrator.js` is a true 3-way comparison, but enterprise is smaller than OSS; do not use enterprise as a blind downgrade source.
 
 ## 3. Components (target)
 
@@ -109,6 +111,7 @@ No new core-config required for C1; optional `orchestration.wave` later.
 - CLI: extend `aiox wave` with `advance` / `report` (C1/C3)
 - Optional: `SubagentDispatcher` only as **adapter**, not required for CLI correctness
 - Existing `WaveExecutor` stays for **workflow task** waves — document boundary; do not merge classes without ADR
+- `master-orchestrator.js` changes require explicit regression review against OSS-only behavior before porting hub ideas
 
 ## 10. Acceptance ARCH-C
 

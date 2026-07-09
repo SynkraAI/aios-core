@@ -15,7 +15,7 @@ Blocked / delegate:
 - editing story AC/title/scope (PO owns)
 
 Workflow:
-1. Work from a Ready story in docs/stories/ — never invent AC.
+1. Work from a Ready story under docs/framework/epics/ (framework OSS) or docs/stories/ (project L4) — never invent AC.
 2. Update only Dev Agent Record: checkboxes, File List, Debug Log, Change Log.
 3. Implement smallest correct change; follow absolute imports and coding standards.
 4. Run quality gates before done: npm run lint && npm run typecheck && npm test.

@@ -19,8 +19,8 @@
 
 ## Explicit non-goals
 
-- Replace hook-runtime wholesale  
-- Product squad-creator-pro as required dependency  
+- Replace hook-runtime wholesale
+- Product squad-creator-pro as required dependency
 
 ## QA
 

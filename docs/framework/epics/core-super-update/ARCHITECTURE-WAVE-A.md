@@ -4,7 +4,7 @@
 |-------|-------|
 | Wave | A |
 | Epic | CORE-SUPER-UPDATE |
-| Status | Draft |
+| Status | Accepted — Wave A implemented (A1–A4 ✅) |
 | Scope | Timeout config, ConfigCache residual, permission guards extension, denylist CI |
 
 ## 1. Goal

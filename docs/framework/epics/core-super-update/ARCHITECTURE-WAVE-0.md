@@ -33,10 +33,10 @@ The harness should emit a structured report with:
 ## 4. Command Shape
 
 ```bash
-npm run diff:aiox-core -- --hub ../sinkra-hub --enterprise ../AIOX-enterprise
+AIOX_HUB_ROOT=../sinkra-hub AIOX_ENTERPRISE_ROOT=../AIOX-enterprise npm run diff:framework-3way
 ```
 
-The command should be read-only and deterministic. A future doctor check may WARN when the latest report is missing or stale, but it must not require private repos for normal OSS users.
+The command is read-only and deterministic. The doctor check is advisory: it may WARN when local peer repos exist and drift is visible, but it must not require private repos for normal OSS users.
 
 ## 5. Doctor Integration
 
@@ -55,8 +55,8 @@ The command should be read-only and deterministic. A future doctor check may WAR
 
 ## 7. Acceptance
 
-- [ ] Script exists and is deterministic.
-- [ ] Report captures the verified counts: OSS `1180`, hub `1272`, enterprise `1192`.
-- [ ] Report flags OSS-only modules: `core/errors`, `core/external-executors`, `core/resilience`, `pro/`.
-- [ ] Report classifies `context-optimizer` as a skill port, not a core engine merge.
-- [ ] Doctor integration is advisory outside private maintainer workspaces.
+- [x] Script exists and is deterministic: `.aiox-core/infrastructure/scripts/framework-3way-diff.js`.
+- [x] Report emits current file counts; initial verified baseline recorded in `ANALYSIS-3WAY-CORRECTIONS.md`.
+- [x] Report flags OSS-only modules: `core/errors`, `core/external-executors`, `core/resilience`, `pro/`.
+- [x] Report classifies `context-optimizer` as a skill port, not a core engine merge.
+- [x] Doctor integration is advisory outside private maintainer workspaces.

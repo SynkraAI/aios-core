@@ -5,7 +5,7 @@
 | Campo | Valor |
 |-------|-------|
 | Epic ID | CORE-SUPER-UPDATE |
-| Status | Active — Wave A+B shipped; ARCH-C draft; C1 wave-run controller started |
+| Status | PR-ready — required scope complete; optional/deferred backlog documented |
 | Priority | P0 |
 | Branch base | `feat/grok-agents-skills` (PR #800) → merge chain into `main` |
 | Working branch | `feat/core-super-update-epic` |
@@ -30,10 +30,11 @@ Trazer para o **aiox-core OSS** o que o framework ganhou em **sinkra-hub** e **A
 |------|--------|
 | Strategic direction | ✅ OK |
 | Public versionable path | ✅ `docs/framework/epics/` |
+| Architecture slice Wave 0 | ✅ `ARCHITECTURE-WAVE-0.md` |
 | Architecture slice Wave A | ✅ `ARCHITECTURE-WAVE-A.md` |
-| Architecture slice Wave B–E | ⬜ **BLOCKED** until per-wave ARCH doc |
-| Wave A implementation | ⬜ only after ARCH-A reviewed |
-| Wave B–E implementation | ⬜ **BLOCKED** until design doc per wave |
+| Architecture slice Wave B–E | ✅ present |
+| Wave A/B/C implementation | ✅ shipped on branch |
+| Wave D/E implementation | ✅ required scope shipped; optional/deferred items documented |
 | Zero workspace in OSS | ✅ hard non-goal (below) |
 
 ## MVP cut (ship train)
@@ -50,6 +51,7 @@ Trazer para o **aiox-core OSS** o que o framework ganhou em **sinkra-hub** e **A
 |------|--------|---------|
 | 2026-07-09 | Roundtable (architect/qa/devops/pm) | APPROVE_WITH_FIXES → applied |
 | 2026-07-09 | architect-first (3 repos + issues + skill validators) | **Not implementation-ready** until path/A2/permissions/ARCH slices fixed → **this revision** |
+| 2026-07-09 | Direct 3-repo verification | Analysis solid; corrected hook-runtime, full-sdc lean source, context-optimizer, Wave C diff shape, #797 partial fix |
 
 ---
 
@@ -60,6 +62,8 @@ Trazer para o **aiox-core OSS** o que o framework ganhou em **sinkra-hub** e **A
 | **aiox-core** (OSS) | `@aiox-squads/core` **5.2.9** — errors, resilience, hierarchical-context, handshake, pro, Grok |
 | **sinkra-hub** | Lab SDC/wave/guards/constitution — **not** the OSS product |
 | **AIOX-enterprise** | Enterprise workspace + tribunal (mostly OOS) |
+
+Verified `.aiox-core` file counts on 2026-07-09: OSS `1180`, hub `1272`, enterprise `1192`.
 
 ### OSS-superior (merge gate — never overwrite)
 
@@ -102,11 +106,12 @@ Trazer para o **aiox-core OSS** o que o framework ganhou em **sinkra-hub** e **A
 
 | Wave | Doc | Status |
 |------|-----|--------|
+| 0 | [ARCHITECTURE-WAVE-0.md](./ARCHITECTURE-WAVE-0.md) | ✅ |
 | A | [ARCHITECTURE-WAVE-A.md](./ARCHITECTURE-WAVE-A.md) | ✅ |
 | B | [ARCHITECTURE-WAVE-B.md](./ARCHITECTURE-WAVE-B.md) | ✅ |
 | C | [ARCHITECTURE-WAVE-C.md](./ARCHITECTURE-WAVE-C.md) | ✅ |
-| D | [ARCHITECTURE-WAVE-D.md](./ARCHITECTURE-WAVE-D.md) | ✅ draft |
-| E | [ARCHITECTURE-WAVE-E.md](./ARCHITECTURE-WAVE-E.md) | ✅ draft |
+| D | [ARCHITECTURE-WAVE-D.md](./ARCHITECTURE-WAVE-D.md) | ✅ required scope done; D3/D4 optional backlog |
+| E | [ARCHITECTURE-WAVE-E.md](./ARCHITECTURE-WAVE-E.md) | ✅ (E1 done; E3 optional) |
 
 Each ARCH doc must cover: components, data/control flow, integration points, configuration, failure modes, and “what not to port”. Diagram preferred (mermaid).
 
@@ -114,7 +119,15 @@ Each ARCH doc must cover: components, data/control flow, integration points, con
 
 ## Waves & Stories
 
-### Wave A — Runtime hygiene (P0) — **only wave open for implementation after ARCH-A**
+### Wave 0 — Drift harness (P0 governance)
+
+| Story | Título | Notes | Status |
+|-------|--------|-------|--------|
+| CORE-SU.0 | 3-way `.aiox-core` diff harness | `npm run diff:framework-3way` + advisory doctor integration | ✅ Done |
+
+This is now the governance baseline before another broad harvest. It is read-only and does not require private sibling repos for public OSS users.
+
+### Wave A — Runtime hygiene (P0) — ✅ shipped
 
 | Story | Título | Notes | Status |
 |-------|--------|-------|--------|
@@ -125,13 +138,15 @@ Each ARCH doc must cover: components, data/control flow, integration points, con
 
 **DoD Wave A:** lint + typecheck + test; timeout knobs documented; guards unit-tested and exported from permissions index; denylist script; #797/#798 closed **or** residual documented with evidence.
 
-### Wave B — SDC skills OSS (P0) — **BLOCKED until ARCH-B**
+Clarification from 3-repo verification: `hook-runtime.js` was identical across the three repos at comparison time, so there was no hub/enterprise hook-runtime port. The real SYNAPSE harvest delta is `memory-bridge` heuristics; any future work there belongs under Wave D, not A1.
+
+### Wave B — SDC skills OSS (P0) — ✅ shipped (ARCH-B accepted)
 
 | Story | Título | Status |
 |-------|--------|--------|
 | B0–B8 | Lean skills + full-sdc/wave EXECUTE + CLI | ✅ Done |
 
-Strip: no `sinkra_*`, `.sinkra/`, `workspace/`, product deploy hosts. Skills invoke tasks only.
+Source selection rule: use the enterprise `full-sdc` lean variant as the baseline, then enrich only with OSS-safe hub behavior. Do not strip the 2200-line hub skill down manually unless the enterprise baseline is missing a required behavior. Strip: no `sinkra_*`, `.sinkra/`, `workspace/`, product deploy hosts. Skills invoke tasks only.
 
 ### Wave C — Orchestration (stretch) — ARCH-C ✅ **COMPLETE**
 
@@ -144,9 +159,21 @@ Strip: no `sinkra_*`, `.sinkra/`, `workspace/`, product deploy hosts. Skills inv
 
 Executed via **wave-execute** wave `CORE-SU-C` + **full-sdc** per story (YOLO).
 
+Diff-shape note: `wave-executor.js` is a 2-way delta (OSS and enterprise identical; hub evolved). `master-orchestrator.js` remains a true 3-way comparison, but enterprise is smaller than OSS, so treat enterprise as a cautionary reference rather than a merge base.
+
 ### Wave D — IDE / SYNAPSE (stretch) — ARCH-D ✅
 
-See [ARCHITECTURE-WAVE-D.md](./ARCHITECTURE-WAVE-D.md). **D1 Done** (`docs/framework/ide-sync-contract.md`). D5 three-brain **DEFERRED**.
+See [ARCHITECTURE-WAVE-D.md](./ARCHITECTURE-WAVE-D.md).
+
+| Story | Escopo | Status |
+|-------|--------|--------|
+| D1 | IDE sync contract (`docs/framework/ide-sync-contract.md`) | ✅ Done |
+| D2 | `memory-bridge` heuristics harvest | ✅ Done via [CORE-SU.MB](./STORY-CORE-SU.MB-MEMORY-BRIDGE.md) |
+| D3 | Parity smoke extensions (only if future drift check shows a gap) | ⬜ Optional backlog |
+| D4 | `context-optimizer` port como **skill** (não engine) | ⬜ Optional backlog |
+| D5 | three-brain skill | 🚫 DEFERRED |
+
+Clarification: `context-optimizer` is a skill in hub/enterprise, not a core engine module. If ported, it should land as an OSS-safe skill with task references, not as a new runtime merge.
 
 ### Wave E — Constitution — ARCH-E ✅ (partial)
 
@@ -163,6 +190,8 @@ See [ARCHITECTURE-WAVE-E.md](./ARCHITECTURE-WAVE-E.md). **E1 Done** — Articles
 
 Enterprise renumbers XII as Workspace Bus — **do not** use enterprise numbering for OSS.
 
+Enterprise constitution detail: enterprise has I–XII with XII as Workspace Bus; hub has I–XIII with XII as Model Governance and XIII as Workspace Bus. OSS follows hub XI/XII only and excludes Workspace Bus runtime.
+
 E3 docs-only. E4 governance-pipeline skill **DEFERRED**.
 
 ### Wave F — Installer
@@ -170,7 +199,7 @@ E3 docs-only. E4 governance-pipeline skill **DEFERRED**.
 | Story | Priority | Notes | Status |
 |-------|----------|-------|--------|
 | F1 Windows ECOMPROMISED #773 | **P1** | docs + install hint + doctor WARN | ✅ Done |
-| F2 doctor heuristic | P2 | | ⬜ |
+| F2 doctor heuristic | P2 | optional follow-up | ⬜ Optional backlog |
 | F3 theme-resolver | **DEFERRED** | | 🚫 |
 
 ---
@@ -211,6 +240,17 @@ E3 docs-only. E4 governance-pipeline skill **DEFERRED**.
 | OSS-only modules | present | still tested |
 | Denylist | none | includes `workspace/`, sinkra, secrets |
 | Public epic path | gitignored stories | `docs/framework/epics/` |
+| Drift harness | manual 3-repo compare | repeatable Wave 0 report |
+
+## Completion boundary
+
+This epic is complete for the OSS super-update PR when all of the following are true:
+
+1. Waves 0/A/B/C and stories D1/D2/E1/F1 are shipped on `feat/core-super-update-epic`.
+2. Optional items D3, D4, E3, and F2 are tracked as non-blocking backlog.
+3. Deferred items D5, E4, and F3 remain explicitly out of scope.
+4. Denylist, manifest, registry, diff harness, lint, typecheck, and tests pass on the final branch state.
+5. GitHub issues #773, #797, and #798 are closed only after the merge PR exists, so each close comment can cite the PR link.
 
 ## Riscos
 
@@ -222,14 +262,17 @@ E3 docs-only. E4 governance-pipeline skill **DEFERRED**.
 | Overwrite permissions module | Extend only; metric wording corrected |
 | Workspace leak from hub | Denylist + OOS table |
 | Constitution renumber conflict | Hub numbering locked for XI/XII |
+| Super-update becomes one-off event | Wave 0 diff harness + advisory doctor check |
+| PR chain drift | Rebase this branch after PR #800 merges; rerun full gates |
+| Generated local Codex/Claude artifacts | `.codex/` stays ignored; `.claude/skills/aios-*` stay untracked unless hardened and intentionally versioned |
 
 ## Next actions
 
-1. [ ] Merge PR #800 when review allows  
-2. [x] Move epic to `docs/framework/epics/`  
-3. [x] ARCH-A minimal  
-4. [ ] Implement Wave A only (A1 → A2 residual → A3 → A4)  
-5. [ ] ARCH-B before any B implementation  
+1. [x] Align `docs/framework/epics/` vs `docs/stories/` in repo rules and generated IDE guidance
+2. [x] Implement CORE-SU.0 diff harness
+3. [x] Classify `.codex/` generated hooks/agents as not versioned until hardened
+4. [ ] Open/merge PR for `feat/core-super-update-epic` after #800 chain is settled
+5. [ ] Close GitHub #773 / #797 / #798 with merge PR links
 
 ## References
 
@@ -239,4 +282,4 @@ E3 docs-only. E4 governance-pipeline skill **DEFERRED**.
 
 ---
 
-*Revised 2026-07-09 after architect-first validation. No workspace artifacts in OSS scope.*
+*Revised 2026-07-09 after architect-first validation and direct 3-repo fact verification. No workspace artifacts in OSS scope.*

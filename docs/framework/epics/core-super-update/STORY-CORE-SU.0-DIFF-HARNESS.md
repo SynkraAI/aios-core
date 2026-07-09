@@ -32,7 +32,14 @@ The current super-update was derived from a manual 3-repo comparison. Hub and en
 
 ## Definition of Done
 
-- [ ] `npm run diff:aiox-core` or equivalent CLI.
-- [ ] Unit tests with fixture repos.
-- [ ] Optional doctor check returns INFO/PASS when external repos are missing.
-- [ ] Documentation links this story from the epic and roadmap.
+- [x] `npm run diff:framework-3way` CLI.
+- [x] Unit tests with fixture repos: `tests/unit/framework-3way-diff.test.js`.
+- [x] Doctor check returns PASS when external repos are missing: `framework-3way-diff`.
+- [x] Documentation links this story from the epic and roadmap.
+
+## File List
+
+- `.aiox-core/infrastructure/scripts/framework-3way-diff.js`
+- `.aiox-core/core/doctor/checks/framework-3way-diff.js`
+- `tests/unit/framework-3way-diff.test.js`
+- `docs/framework/epics/core-super-update/ARCHITECTURE-WAVE-0.md`
