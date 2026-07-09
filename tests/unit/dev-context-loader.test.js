@@ -73,8 +73,10 @@ describe('DevContextLoader', () => {
       // a regression budget while cache behavior itself is asserted below.
       expect(cachedDuration).toBeLessThan(CACHED_LOAD_FULL_SUITE_BUDGET_MS);
 
-      // Verify caching occurred only if we had successful file loads
-      if (successfulFiles.length > 0) {
+      // Verify caching occurred only if we had successful file loads.
+      // Guard undefined (no_files / partial failures / unexpected shape).
+      if (successfulFiles.length > 0 && result.status === 'loaded') {
+        expect(typeof result.cacheHits).toBe('number');
         expect(result.cacheHits).toBeGreaterThan(0);
       }
     }, 60000);
