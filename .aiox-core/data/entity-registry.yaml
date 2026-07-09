@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-07-09T14:44:30.851Z'
+  lastUpdated: '2026-07-09T14:52:48.886Z'
   entityCount: 842
   checksumAlgorithm: sha256
   resolutionRate: 100
@@ -2534,8 +2534,6 @@ entities:
         - repository-detector
         - devops-helper
         - code-intel
-        - devops
-        - dev
       externalDeps: []
       plannedDeps: []
       lifecycle: production
@@ -2543,8 +2541,8 @@ entities:
         score: 0.8
         constraints: []
         extensionPoints: []
-      checksum: sha256:529b4366c0e4b4b3568d95ae02ddf28974a5f34faf1d7b23d99caddbfa3e2db7
-      lastVerified: '2026-07-09T14:44:28.671Z'
+      checksum: sha256:22a60e0b66b7790bc9ed735559f7dde4074c0065a570a9c56b4b37017aeb1db9
+      lastVerified: '2026-07-09T14:52:48.881Z'
     github-devops-repository-cleanup:
       path: .aiox-core/development/tasks/github-devops-repository-cleanup.md
       layer: L2
@@ -9853,8 +9851,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:469f7bc26602931bc20e3974e6510a190a816769aab3b68f26aab792a161ea90
-      lastVerified: '2026-07-09T14:44:29.324Z'
+      checksum: sha256:e71ee4e2bdd39843467c30cc533e5ba0efe9c1e3d1cdc906ef1e72180928a4c7
+      lastVerified: '2026-07-09T14:52:48.878Z'
     manifest-generator:
       path: .aiox-core/core/manifest/manifest-generator.js
       layer: L1
@@ -10922,8 +10920,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:b3aef8e8d7879246cc26333245fb8ad1ad805b8753043e3dfdc825a4c00b816a
-      lastVerified: '2026-07-09T14:44:29.410Z'
+      checksum: sha256:900ac78f37ff96e39e5e58c17a8fdb31200aef2a35a716d8627b699733855a9e
+      lastVerified: '2026-07-09T14:52:48.880Z'
     pro-updater:
       path: .aiox-core/core/pro/pro-updater.js
       layer: L1
@@ -11326,8 +11324,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:943c1678acab90f24c5623e88dc9b53093b435240eeb7907926fd91d07977c4c
-      lastVerified: '2026-07-09T14:44:29.481Z'
+      checksum: sha256:82682ad58c96aa53ea62e71af569542534ead52daba6205fab0332cf0082fd4e
+      lastVerified: '2026-07-09T14:52:48.880Z'
     progress:
       path: .aiox-core/core/sdc/progress.js
       layer: L1
@@ -11347,8 +11345,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:bb664e9be1a03cbd093d79a8e494db8e843da37fe98aa1b3a9cf054ea5b9bb23
-      lastVerified: '2026-07-09T14:44:29.485Z'
+      checksum: sha256:c30a9ecd24b7064db7d5af04f3e63f3f4171b88be2bbe947a87d741558f631f1
+      lastVerified: '2026-07-09T14:52:48.880Z'
     story-meta:
       path: .aiox-core/core/sdc/story-meta.js
       layer: L1
@@ -11393,8 +11391,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:a39c7f376ee650f14ba0fd5d9509a7c822b82488b6e3499ee043346837f07874
-      lastVerified: '2026-07-09T14:44:29.491Z'
+      checksum: sha256:49d8b55e11e55446469c8ed1cee954e1e61e54ea8e034c477a4bb1f26d18d609
+      lastVerified: '2026-07-09T14:52:48.880Z'
     wave-run:
       path: .aiox-core/core/sdc/wave-run.js
       layer: L1
@@ -11418,8 +11416,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:d19fa5674a0e877dedaf56a0ff1b10f1336c56decfcfb09384b4be8d15215933
-      lastVerified: '2026-07-09T14:44:29.495Z'
+      checksum: sha256:08581de8fba670a355560a9b9e0ed20d00ee3f67e85057bff3c66d029566b2fa
+      lastVerified: '2026-07-09T14:52:48.880Z'
     port-denylist:
       path: .aiox-core/core/security/port-denylist.js
       layer: L1
@@ -11439,8 +11437,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:997edf52ac802c2f729f62ecd15f2fbbb161236f6cba8ed34324503f67ae7e3f
-      lastVerified: '2026-07-09T14:44:29.498Z'
+      checksum: sha256:ffe5f2ac74617bbb43256c6d9456cb2dcdc4d7aa5173fd93728c061d95182d24
+      lastVerified: '2026-07-09T14:52:48.881Z'
     context-detector:
       path: .aiox-core/core/session/context-detector.js
       layer: L1
@@ -13372,8 +13370,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:3d68f01c8b752fc811b4b0b62c05d46fe6d45f0f05875c542e3b0221dff6da26
-      lastVerified: '2026-07-09T14:44:29.705Z'
+      checksum: sha256:c25ff912b7285815b02a1b65dc70b298c4dc6ba12dde0bb8d568bc6cfed2c93f
+      lastVerified: '2026-07-09T14:52:48.881Z'
     synapse-memory-provider:
       path: .aiox-core/core/synapse/memory/synapse-memory-provider.js
       layer: L1
@@ -13434,8 +13432,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:e60bfa9cb11b10b871f4c11b74fbab92887aaaf8598ad7c42fca6292dc500fb0
-      lastVerified: '2026-07-09T14:44:29.710Z'
+      checksum: sha256:e3e91e2ac2bd62fbaccfd0440808a905b6629620dc95e9a2da61e3337ab64685
+      lastVerified: '2026-07-09T14:52:48.881Z'
     generate-constitution:
       path: .aiox-core/core/synapse/scripts/generate-constitution.js
       layer: L1
@@ -14904,7 +14902,6 @@ entities:
         - execute-epic-plan
         - extract-patterns
         - github-devops-github-pr-automation
-        - github-devops-pre-push-quality-gate
         - gotcha
         - gotchas
         - ids-governor
@@ -15012,7 +15009,6 @@ entities:
         - devops-pro-verify-status
         - environment-bootstrap
         - execute-epic-plan
-        - github-devops-pre-push-quality-gate
         - github-issue-triage
         - init-project-status
         - list-worktrees
