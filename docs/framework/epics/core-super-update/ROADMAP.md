@@ -37,7 +37,7 @@ Architecture Wave A: [ARCHITECTURE-WAVE-A.md](./ARCHITECTURE-WAVE-A.md)
 | A1 SYNAPSE timeout | ✅ | #798 — implemented on branch |
 | A2 ConfigCache residual | ✅ | #797 — skip interval under JEST_WORKER_ID |
 | A3 path/prompt/ssrf **extend** permissions | ✅ | path/prompt/ssrf added; mode+operation-guard kept |
-| A4 denylist + smoke | ⬜ | denylist includes `workspace/` |
+| A4 denylist + smoke | ✅ | `npm run validate:port-denylist` + doctor check |
 
 **Exit:** lint/typecheck/test; #797/#798 resolved; ARCH-A satisfied.
 

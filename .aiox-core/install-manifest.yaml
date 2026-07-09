@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 5.2.9
-generated_at: "2026-07-09T04:59:58.216Z"
+generated_at: "2026-07-09T05:05:48.655Z"
 generator: scripts/generate-install-manifest.js
-file_count: 1137
+file_count: 1139
 files:
   - path: cli/commands/config/index.js
     hash: sha256:25c4b9bf4e0241abf7754b55153f49f1a214f1fb5fe904a576675634cb7b3da9
@@ -329,9 +329,9 @@ files:
     type: core
     size: 4203
   - path: core/doctor/checks/index.js
-    hash: sha256:c4034f86b66895c1ab9a8be4148577d5b886c21f31e05d32cbf8e4970e88f204
+    hash: sha256:23c0b7fc696e0b918577e246a8174e911393573d59b73bd64639606b9181cebb
     type: core
-    size: 1192
+    size: 1259
   - path: core/doctor/checks/node-version.js
     hash: sha256:9e8bd100affa46131ac495c1e60ce87c88bbe879d459601a502589824d1aeac1
     type: core
@@ -340,6 +340,10 @@ files:
     hash: sha256:6c54cb15dc3492ec50b4edc4733ecc5c41d5a00536aed87a5a5d815f472ee9f7
     type: core
     size: 2265
+  - path: core/doctor/checks/port-denylist.js
+    hash: sha256:7f95569a6cbbff3a4aa8aaec8d535bd06e0a9200029b4ecdd33a0434f9e1d92c
+    type: core
+    size: 1147
   - path: core/doctor/checks/rules-files.js
     hash: sha256:ec58342215cede634f50c5b3164155c4f27fd8070af176ec0e02e6deec6fb218
     type: core
@@ -1009,7 +1013,7 @@ files:
     type: core
     size: 8808
   - path: core/permissions/__tests__/prompt-guard.test.js
-    hash: sha256:088f05729db99291cc85a6918bc3c8a41507e6ca2bd8f85207a0926eb288ca20
+    hash: sha256:f224726f88794fe3e05ab2eec7fe0cfdeadcb472ce295bd95e1e9cbe820b2b46
     type: core
     size: 1597
   - path: core/permissions/__tests__/ssrf-guard.test.js
@@ -1124,6 +1128,10 @@ files:
     hash: sha256:57b60c664aac51299a8576be57eff702d716fb48595af342e534c1191355eb85
     type: core
     size: 1139
+  - path: core/security/port-denylist.js
+    hash: sha256:ef082c9c8a530db57628c60b666677a5ae32d32dce812d039f3db8e95daf835e
+    type: core
+    size: 6625
   - path: core/session/context-detector.js
     hash: sha256:5537563d5dfc613e16fd610c9e1407e7811c4f19745a78a4fc81c34af20000f4
     type: core
@@ -1325,9 +1333,9 @@ files:
     type: data
     size: 9590
   - path: data/entity-registry.yaml
-    hash: sha256:a49ceb06ddd7ff322abb663f111b449bd2ebc678878cc54b0e03046517af583a
+    hash: sha256:9855f0d78a2c1833ab8a6b5c5a0833d7329be165012df4d4cc92198f684c86c5
     type: data
-    size: 583404
+    size: 584723
   - path: data/learned-patterns.yaml
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data

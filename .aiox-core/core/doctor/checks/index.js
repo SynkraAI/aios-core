@@ -22,6 +22,7 @@ const npmPackages = require('./npm-packages');
 const skillsCount = require('./skills-count');
 const commandsCount = require('./commands-count');
 const hooksClaudeCount = require('./hooks-claude-count');
+const portDenylist = require('./port-denylist');
 
 function loadChecks() {
   return [
@@ -40,6 +41,7 @@ function loadChecks() {
     skillsCount,
     commandsCount,
     hooksClaudeCount,
+    portDenylist,
   ];
 }
 
