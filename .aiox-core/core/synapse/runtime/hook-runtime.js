@@ -18,7 +18,9 @@ function loadCoreConfig(cwd) {
     if (!fs.existsSync(configPath)) return {};
     const config = yaml.load(fs.readFileSync(configPath, 'utf8'));
     return config && typeof config === 'object' ? config : {};
-  } catch (_err) {
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.warn(`[synapse:hook-runtime] Failed to load core-config.yaml: ${msg}`);
     return {};
   }
 }

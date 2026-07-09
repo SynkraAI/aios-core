@@ -121,8 +121,18 @@ function planWaveBatches(stories) {
  * @returns {object}
  */
 function planWaveFromPaths(storyPaths, opts = {}) {
+  if (!Array.isArray(storyPaths)) {
+    throw new TypeError('planWaveFromPaths: storyPaths must be an array of paths');
+  }
   const stories = storyPaths.map((p) => {
-    const meta = parseStoryFile(p);
+    let meta;
+    try {
+      meta = parseStoryFile(p);
+    } catch (err) {
+      throw new Error(
+        `planWaveFromPaths: failed to parse story "${p}": ${err instanceof Error ? err.message : String(err)}`,
+      );
+    }
     return {
       storyId: meta.storyId,
       path: meta.relPath,

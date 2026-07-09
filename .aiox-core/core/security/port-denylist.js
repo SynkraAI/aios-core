@@ -48,12 +48,13 @@ const DENY_PATTERNS = [
   {
     id: 'machine-path-home',
     description: 'Machine-specific absolute path (/home/...)',
-    re: /\/home\/[a-z0-9_.-]+\//,
+    re: /\/home\/[A-Za-z0-9_.-]+\//,
   },
   {
     id: 'machine-path-windows',
     description: 'Machine-specific Windows user path',
-    re: /C:\\\\Users\\\\[A-Za-z0-9_.-]+/i,
+    // Matches C:\Users\Name in file content (single backslash in source text)
+    re: /C:\\Users\\[A-Za-z0-9_.-]+/i,
   },
 ];
 

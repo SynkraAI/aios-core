@@ -141,6 +141,7 @@ function markStoryRun(wave, storyId, runStatus, notes) {
     }
     const cascaded = cascadeBlock(wave, wave.blockedStoryIds);
     for (const id of cascaded) {
+      if (id === storyId) continue; // keep originating failed/blocked notes
       if (!wave.blockedStoryIds.includes(id)) wave.blockedStoryIds.push(id);
       const other = findStory(wave, id);
       if (other && other.story.runStatus !== 'completed') {

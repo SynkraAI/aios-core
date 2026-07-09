@@ -66,10 +66,10 @@ function verifyPhase(storyPath, phase, opts = {}) {
         let gateFound = false;
         if (fs.existsSync(gatesDir)) {
           const slug = meta.storyId.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+          const escaped = slug.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          const idPattern = new RegExp(`(^|[-_.])${escaped}([-_.]|$)`, 'i');
           const files = fs.readdirSync(gatesDir);
-          gateFound = files.some(
-            (f) => f.toLowerCase().includes(slug) || f.includes(meta.storyId),
-          );
+          gateFound = files.some((f) => idPattern.test(f));
         }
         add(
           gateFound,

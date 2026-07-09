@@ -173,13 +173,17 @@ class MemoryBridge {
         : this._initialized
           ? BRIDGE_TIMEOUT_MS
           : BRIDGE_TIMEOUT_COLD_MS;
-      const hints = await this._executeWithTimeout(
+      const result = await this._executeWithTimeout(
         () => provider.getMemories(agentId, bracket, effectiveBudget),
         effectiveTimeout,
       );
 
+      // Timeout/error path returns { ok: false }; only warm after real success
+      if (!result || result.ok === false) {
+        return [];
+      }
       this._initialized = true;
-      return this._enforceTokenBudget(hints || [], effectiveBudget);
+      return this._enforceTokenBudget(result.value || [], effectiveBudget);
     } catch (error) {
       console.warn(`[synapse:memory-bridge] Error getting memory hints: ${error.message}`);
       return [];
@@ -193,18 +197,18 @@ class MemoryBridge {
     return new Promise((resolve) => {
       const timer = setTimeout(() => {
         console.warn(`[synapse:memory-bridge] Timeout after ${timeoutMs}ms`);
-        resolve([]);
+        resolve({ ok: false, reason: 'timeout' });
       }, timeoutMs);
 
       Promise.resolve(fn())
         .then((result) => {
           clearTimeout(timer);
-          resolve(result);
+          resolve({ ok: true, value: result });
         })
         .catch((error) => {
           clearTimeout(timer);
           console.warn(`[synapse:memory-bridge] Provider error: ${error.message}`);
-          resolve([]);
+          resolve({ ok: false, reason: 'error' });
         });
     });
   }
@@ -310,6 +314,11 @@ class MemoryBridge {
       const worker = spawn('node', [workerPath, ...heuristicIds], {
         detached: true,
         stdio: 'ignore',
+      });
+      worker.on('error', (error) => {
+        console.warn(
+          `[synapse:memory-bridge] Reinforcement worker error: ${error.message}`,
+        );
       });
       worker.unref();
     } catch (error) {

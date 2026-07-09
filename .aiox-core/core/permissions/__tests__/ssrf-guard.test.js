@@ -43,4 +43,17 @@ describe('ssrf-guard (CORE-SU.A3)', () => {
     const ranges = getBlockedRanges();
     expect(ranges.some((r) => r.cidr.startsWith('10.'))).toBe(true);
   });
+
+  it('blocks IPv4-mapped IPv6 by embedded IPv4 policy', () => {
+    expect(checkHostname('::ffff:10.0.0.1').blocked).toBe(true);
+    expect(checkHostname('::ffff:8.8.8.8').blocked).toBe(false);
+  });
+
+  it('blocks full fe80::/10 link-local range', () => {
+    const { checkIPv6 } = require('../ssrf-guard');
+    expect(checkIPv6('fe80::1').blocked).toBe(true);
+    expect(checkIPv6('fe90::1').blocked).toBe(true);
+    expect(checkIPv6('febf::1').blocked).toBe(true);
+    expect(checkIPv6('fec0::1').blocked).toBe(false);
+  });
 });

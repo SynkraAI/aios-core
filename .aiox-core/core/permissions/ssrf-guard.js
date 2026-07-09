@@ -39,16 +39,15 @@ const PRIVATE_IPV4_BLOCKS = [
 ];
 
 /**
- * Private/local IPv6 prefixes to block.
+ * Private/local IPv6 prefixes to block (string startsWith for nibble-aligned ranges).
+ * Link-local fe80::/10 is handled numerically in checkIPv6 (not nibble-aligned).
+ * IPv4-mapped ::ffff:x.x.x.x is delegated to checkIPv4 (not blanket-blocked here).
  */
 const BLOCKED_IPV6_PREFIXES = [
-  '::1',           // loopback
-  '::ffff:',       // IPv4-mapped (catches IPv4 addresses in IPv6 notation)
-  'fc',            // unique local fc00::/7
-  'fd',            // unique local fd00::/7
-  'fe80',          // link-local fe80::/10
+  '::1', // loopback exact / start
+  'fc', // unique local fc00::/7
+  'fd', // unique local fd00::/7
 ];
-
 /**
  * Hostnames that always resolve to blocked addresses.
  */
@@ -123,11 +122,31 @@ function checkIPv6(ip) {
   // Normalize: remove brackets (e.g. [::1] → ::1)
   const normalized = ip.replace(/^\[|\]$/g, '').toLowerCase();
 
+  // IPv4-mapped IPv6: ::ffff:a.b.c.d → check embedded IPv4 policy
+  const ipv4Mapped = normalized.match(/^::ffff:(\d{1,3}(?:\.\d{1,3}){3})$/);
+  if (ipv4Mapped) {
+    return checkIPv4(ipv4Mapped[1]);
+  }
+
+  // Loopback
+  if (normalized === '::1' || normalized === '0:0:0:0:0:0:0:1') {
+    return { blocked: true, reason: `IPv6 ${ip} is loopback` };
+  }
+
+  // Unique local fc00::/7 (fc… / fd…)
   for (const prefix of BLOCKED_IPV6_PREFIXES) {
     if (normalized === prefix || normalized.startsWith(prefix)) {
       return { blocked: true, reason: `IPv6 ${ip} matches blocked prefix ${prefix}` };
     }
   }
+
+  // Link-local fe80::/10 (first 10 bits = 1111111010) — not nibble-aligned for startsWith
+  const firstHextet = normalized.split(/:|%/)[0] || '';
+  const hextet = parseInt(firstHextet, 16);
+  if (Number.isFinite(hextet) && (hextet & 0xffc0) === 0xfe80) {
+    return { blocked: true, reason: `IPv6 ${ip} is in link-local fe80::/10` };
+  }
+
   return { blocked: false, reason: null };
 }
 

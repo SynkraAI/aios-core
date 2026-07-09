@@ -13,6 +13,7 @@ const ISSUE_URL = 'https://github.com/SynkraAI/aiox-core/issues/773';
  * @returns {boolean}
  */
 function isLikelyNpx(env = process.env) {
+  env = env || process.env || {};
   if (env.npm_command === 'exec') return true;
   if (env.npm_lifecycle_event === 'npx') return true;
   const ua = String(env.npm_config_user_agent || '');

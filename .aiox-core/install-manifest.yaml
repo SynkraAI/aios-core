@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.2.9
-generated_at: "2026-07-09T14:45:41.291Z"
+generated_at: "2026-07-09T14:52:47.664Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1162
 files:
@@ -821,9 +821,9 @@ files:
     type: core
     size: 2824
   - path: core/install/windows-npx-hint.js
-    hash: sha256:469f7bc26602931bc20e3974e6510a190a816769aab3b68f26aab792a161ea90
+    hash: sha256:e71ee4e2bdd39843467c30cc533e5ba0efe9c1e3d1cdc906ef1e72180928a4c7
     type: core
-    size: 3073
+    size: 3107
   - path: core/manifest/manifest-generator.js
     hash: sha256:81b796990dd747bbb9785d205dbe5f6d5556754fc51745fb84b7ce4675acbdbf
     type: core
@@ -1037,9 +1037,9 @@ files:
     type: core
     size: 1597
   - path: core/permissions/__tests__/ssrf-guard.test.js
-    hash: sha256:4ddb583e1f0667311609fd157f0c67426b70aa1f3881dccd9791c65374368d1c
+    hash: sha256:640dcd738fa7cfdcd169219ddd3ceb95e76933f0c59405b8b47cb4798ce65c91
     type: core
-    size: 1443
+    size: 1971
   - path: core/permissions/index.js
     hash: sha256:4b02b3cff0f1a716a511e1d92e57ecc47b32a3fbcc2af3d37922f8ef5996b06f
     type: core
@@ -1061,9 +1061,9 @@ files:
     type: core
     size: 9683
   - path: core/permissions/ssrf-guard.js
-    hash: sha256:b3aef8e8d7879246cc26333245fb8ad1ad805b8753043e3dfdc825a4c00b816a
+    hash: sha256:900ac78f37ff96e39e5e58c17a8fdb31200aef2a35a716d8627b699733855a9e
     type: core
-    size: 7289
+    size: 8106
   - path: core/pro/pro-updater.js
     hash: sha256:30ea78b8ab088e695936ae662057697410856751f463eeb649e00b67dcc31531
     type: core
@@ -1161,29 +1161,29 @@ files:
     type: core
     size: 2846
   - path: core/sdc/phase-verify.js
-    hash: sha256:943c1678acab90f24c5623e88dc9b53093b435240eeb7907926fd91d07977c4c
+    hash: sha256:82682ad58c96aa53ea62e71af569542534ead52daba6205fab0332cf0082fd4e
     type: core
-    size: 3391
+    size: 3473
   - path: core/sdc/progress.js
-    hash: sha256:bb664e9be1a03cbd093d79a8e494db8e843da37fe98aa1b3a9cf054ea5b9bb23
+    hash: sha256:c30a9ecd24b7064db7d5af04f3e63f3f4171b88be2bbe947a87d741558f631f1
     type: core
-    size: 4123
+    size: 4506
   - path: core/sdc/story-meta.js
     hash: sha256:5d138312dbbcb6e8b3b65212bbdebde59beb5c37bcd49900fa18811a17df4d11
     type: core
     size: 5509
   - path: core/sdc/wave-plan.js
-    hash: sha256:a39c7f376ee650f14ba0fd5d9509a7c822b82488b6e3499ee043346837f07874
+    hash: sha256:49d8b55e11e55446469c8ed1cee954e1e61e54ea8e034c477a4bb1f26d18d609
     type: core
-    size: 4494
+    size: 4808
   - path: core/sdc/wave-run.js
-    hash: sha256:d19fa5674a0e877dedaf56a0ff1b10f1336c56decfcfb09384b4be8d15215933
+    hash: sha256:08581de8fba670a355560a9b9e0ed20d00ee3f67e85057bff3c66d029566b2fa
     type: core
-    size: 9947
+    size: 10024
   - path: core/security/port-denylist.js
-    hash: sha256:997edf52ac802c2f729f62ecd15f2fbbb161236f6cba8ed34324503f67ae7e3f
+    hash: sha256:ffe5f2ac74617bbb43256c6d9456cb2dcdc4d7aa5173fd93728c061d95182d24
     type: core
-    size: 7128
+    size: 7206
   - path: core/session/context-detector.js
     hash: sha256:5537563d5dfc613e16fd610c9e1407e7811c4f19745a78a4fc81c34af20000f4
     type: core
@@ -1313,9 +1313,9 @@ files:
     type: core
     size: 3222
   - path: core/synapse/memory/memory-bridge.js
-    hash: sha256:3d68f01c8b752fc811b4b0b62c05d46fe6d45f0f05875c542e3b0221dff6da26
+    hash: sha256:c25ff912b7285815b02a1b65dc70b298c4dc6ba12dde0bb8d568bc6cfed2c93f
     type: core
-    size: 9730
+    size: 10131
   - path: core/synapse/memory/synapse-memory-provider.js
     hash: sha256:5d613d1fac7ee82c49a3f03b38735fd3cabfe87dd868494672ddfef300ea3145
     type: core
@@ -1325,9 +1325,9 @@ files:
     type: core
     size: 16418
   - path: core/synapse/runtime/hook-runtime.js
-    hash: sha256:e60bfa9cb11b10b871f4c11b74fbab92887aaaf8598ad7c42fca6292dc500fb0
+    hash: sha256:e3e91e2ac2bd62fbaccfd0440808a905b6629620dc95e9a2da61e3337ab64685
     type: core
-    size: 3972
+    size: 4121
   - path: core/synapse/scripts/generate-constitution.js
     hash: sha256:9010d6b34667c96602b76baa1857f0629c797d911b7c42dc11414b007e5e2b91
     type: script
@@ -2321,9 +2321,9 @@ files:
     type: task
     size: 19476
   - path: development/tasks/github-devops-pre-push-quality-gate.md
-    hash: sha256:529b4366c0e4b4b3568d95ae02ddf28974a5f34faf1d7b23d99caddbfa3e2db7
+    hash: sha256:22a60e0b66b7790bc9ed735559f7dde4074c0065a570a9c56b4b37017aeb1db9
     type: task
-    size: 24903
+    size: 24917
   - path: development/tasks/github-devops-repository-cleanup.md
     hash: sha256:34135e86820be5218daf7031f4daa115d6ef9a727c7c0cb3a6f28c59f8e694c1
     type: task

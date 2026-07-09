@@ -31,7 +31,9 @@ function waveRoot(cwd = process.cwd()) {
  * @returns {string}
  */
 function safeId(id) {
-  return String(id || 'unknown').replace(/[^a-zA-Z0-9._-]+/g, '_');
+  const sanitized = String(id || 'unknown').replace(/[^a-zA-Z0-9._-]+/g, '_');
+  if (!sanitized || sanitized === '.' || sanitized === '..') return 'unknown';
+  return sanitized;
 }
 
 /**
@@ -57,6 +59,9 @@ function waveStatePath(waveId, cwd = process.cwd()) {
  * @returns {object}
  */
 function createSdcState(init) {
+  if (!init || !init.storyId) {
+    throw new Error('createSdcState: init.storyId is required');
+  }
   const now = new Date().toISOString();
   const phases = {};
   for (const p of PHASES) {
@@ -66,7 +71,7 @@ function createSdcState(init) {
     version: 1,
     kind: 'full-sdc',
     storyId: init.storyId,
-    storyPath: init.storyPath,
+    storyPath: init.storyPath || null,
     mode: init.mode || 'interactive',
     status: 'planned',
     currentPhase: 'validate',
@@ -84,7 +89,13 @@ function createSdcState(init) {
  */
 function loadJson(filePath) {
   if (!fs.existsSync(filePath)) return null;
-  return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  try {
+    return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  } catch (err) {
+    throw new Error(
+      `Failed to parse state file at ${filePath}: ${err instanceof Error ? err.message : String(err)}`,
+    );
+  }
 }
 
 /**

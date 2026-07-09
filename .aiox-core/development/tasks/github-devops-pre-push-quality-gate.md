@@ -371,7 +371,7 @@ function runCodeRabbitReview(projectRoot) {
     //   final command is shell-agnostic.
     // - Windows: wrap with `wsl bash -c`, rewrite the project path to /mnt/<drive>/...
     //   Keep `~` literal so the WSL distribution's bash expands it (host HOME
-    //   would point at C:\Users\... which WSL cannot resolve).
+    //   would point at the host user profile path which WSL cannot resolve).
     const os = require('os');
     const path = require('path');
     const rawCliPath = '~/.local/bin/coderabbit';
