@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-07-09T15:08:51.020Z'
+  lastUpdated: '2026-07-09T15:10:32.696Z'
   entityCount: 842
   checksumAlgorithm: sha256
   resolutionRate: 100
@@ -9811,8 +9811,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:00ae2e78486a9e7b3c8bf8e9ca0e9e955211ee4ae795c630e7f2934840d5596d
-      lastVerified: '2026-07-09T15:04:00.986Z'
+      checksum: sha256:03796d08d25601c53a3e56bc1ac54fded33bd1a5a62d7ade1c0d2d430d5f7001
+      lastVerified: '2026-07-09T15:10:32.691Z'
     verification-gate:
       path: .aiox-core/core/ids/verification-gate.js
       layer: L1

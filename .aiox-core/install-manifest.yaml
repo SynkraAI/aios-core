@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.2.9
-generated_at: "2026-07-09T15:08:26.405Z"
+generated_at: "2026-07-09T15:11:26.887Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1162
 files:
@@ -805,9 +805,9 @@ files:
     type: core
     size: 8096
   - path: core/ids/registry-updater.js
-    hash: sha256:00ae2e78486a9e7b3c8bf8e9ca0e9e955211ee4ae795c630e7f2934840d5596d
+    hash: sha256:03796d08d25601c53a3e56bc1ac54fded33bd1a5a62d7ade1c0d2d430d5f7001
     type: core
-    size: 27005
+    size: 27122
   - path: core/ids/verification-gate.js
     hash: sha256:96050661c90fa52bfc755911d02c9194ec35c00e71fc6bbc92a13686dd53bb91
     type: core
@@ -1385,7 +1385,7 @@ files:
     type: data
     size: 9590
   - path: data/entity-registry.yaml
-    hash: sha256:db7d57b80e27431a21a5457488fa6694ea2ecef77d429ceed35112190b2e454d
+    hash: sha256:1119db87adaeab979a47c9cba36ad5b4e03e2bbb1392d62623d0ae1c4971b739
     type: data
     size: 593494
   - path: data/learned-patterns.yaml
