@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.2.9
-generated_at: "2026-07-09T05:47:36.795Z"
+generated_at: "2026-07-09T14:41:32.584Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1162
 files:
@@ -321,9 +321,9 @@ files:
     type: core
     size: 1333
   - path: core/doctor/checks/framework-3way-diff.js
-    hash: sha256:fb9cd313e05971e5f292b7c58288ab6bd099419e14790e5dedcaff1e9d32edde
+    hash: sha256:8a665b0acdae7424cf12df3a303c87d870c61e92a5feba8a9bdb313526d8c460
     type: core
-    size: 2475
+    size: 2092
   - path: core/doctor/checks/git-hooks.js
     hash: sha256:3fe9411a64265c581952f40044b70cc21b324773f54e4b902e4ce390c976fa2f
     type: core
@@ -1385,7 +1385,7 @@ files:
     type: data
     size: 9590
   - path: data/entity-registry.yaml
-    hash: sha256:c30dc81c15180ff5a25ac6cdcff024a8731c8009a29c67d3411cfb2c73f68546
+    hash: sha256:a8ef6c1cefecf4e620a58a339980674e7b5a814c6e7f7953bc89b3b6095d14ad
     type: data
     size: 593494
   - path: data/learned-patterns.yaml
