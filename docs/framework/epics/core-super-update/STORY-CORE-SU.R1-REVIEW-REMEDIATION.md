@@ -645,9 +645,9 @@ FAIL: InReview → InProgress.
 
 **Reviewed By:** Quinn (Test Architect)
 
-**Reviewed Revision:** commit:422f55624373048c39b6e5f4eae817bb84477ddd
+**Reviewed Revision:** commit:2d91da9694e6cf9bd2b9fa8b2755ff27c97ac3ac
 
-Snapshot final commitado em `422f55624373048c39b6e5f4eae817bb84477ddd`:
+Snapshot final commitado em `2d91da9694e6cf9bd2b9fa8b2755ff27c97ac3ac`:
 implementação em `d23a8d23dfc05e83891a50c52a14f9d966179008`, complementada
 pelo commit mecânico de registry e manifesto, ambos validados.
 
