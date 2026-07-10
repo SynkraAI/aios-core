@@ -96,8 +96,11 @@ Skill SOT: `.aiox-core/development/skills/<name>/SKILL.md`
         IF mode=yolo or explicit fix approval:
              CLI selects apply_qa_fixes automatically
              run apply-qa-fixes skill → verify apply_qa_fixes --mark
-             CLI returns to review and increments qgIterations
-             IF the third re-review fails → HALT and escalate human
+             IF apply_qa_fixes verify FAIL:
+                  HALT and escalate human without returning to review or incrementing qgIterations
+             IF apply_qa_fixes verify PASS:
+                  CLI returns to review and increments qgIterations
+                  IF the third re-review fails → HALT and escalate human
    j. ELSE IF verify FAIL → HALT (do not advance)
    k. ELSE continue loop
 2. QA sets Done on PASS/CONCERNS/WAIVED; close-story only finalizes bookkeeping

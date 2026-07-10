@@ -69,6 +69,25 @@ describe('Core Super Update review contracts', () => {
     );
   });
 
+  it.each(fullSdcPaths)('halts when QA remediation verification fails in %s', (file) => {
+    const fullSdc = readRepoFile(file);
+    const reviewFail = fullSdc.indexOf('IF phase=review and verdict FAIL:');
+    const genericHalt = fullSdc.indexOf('ELSE IF verify FAIL → HALT');
+    const reviewFailBranch = fullSdc.slice(reviewFail, genericHalt);
+    const remediationFailure = reviewFailBranch.indexOf('IF apply_qa_fixes verify FAIL:');
+    const remediationSuccess = reviewFailBranch.indexOf('IF apply_qa_fixes verify PASS:');
+    const returnToReview = reviewFailBranch.indexOf(
+      'CLI returns to review and increments qgIterations',
+    );
+
+    expect(remediationFailure).toBeGreaterThan(-1);
+    expect(reviewFailBranch).toContain(
+      'HALT and escalate human without returning to review or incrementing qgIterations',
+    );
+    expect(remediationSuccess).toBeGreaterThan(remediationFailure);
+    expect(returnToReview).toBeGreaterThan(remediationSuccess);
+  });
+
   it.each(fullSdcPaths)('runs preflight before any phase execution in %s', (file) => {
     const fullSdc = readRepoFile(file);
     const loadOnly = fullSdc.indexOf(

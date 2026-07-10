@@ -148,6 +148,7 @@ Done
 | 2026-07-10 | 0.9.9   | QA preflight-order PASS no snapshot commitado; Status Done preservado. | Quinn (@qa) |
 | 2026-07-10 | 0.9.10  | CI fix: auditoria validada por contagens estáveis, sem acoplamento à redação; Status Done preservado. | Dex (@dev) |
 | 2026-07-10 | 0.9.11  | QA CI-fix PASS no snapshot commitado; Status Done preservado. | Quinn (@qa) |
+| 2026-07-10 | 0.9.12  | Falha na verificação da remediação agora interrompe o loop antes do re-review; alegação de desempenho qualificada. | Dex (@dev) |
 
 ## Dev Agent Record
 
@@ -797,7 +798,7 @@ despacha child/model. O contrato é idêntico no SOT e nas projeções Claude/Gr
 - Security: PASS — nenhuma fase executa antes do gate de preflight.
 - Reliability: PASS — falha de preflight interrompe o ciclo antes de side effects.
 - Maintainability: PASS — ordem explícita e protegida por regressão nas três projeções.
-- Performance: PASS — alteração declarativa sem custo adicional de runtime.
+- Desempenho: PASS — o preflight obrigatório adiciona overhead de processo/I/O à orquestração; nenhuma regressão significativa no runtime do produto foi observada.
 
 #### Preflight Ordering Gate
 
