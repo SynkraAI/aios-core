@@ -387,3 +387,5 @@ build/
 
 # Legacy aios-* Claude skills (superseded by aios-* agent skills under AIOX/ or aiox-* SDC); local only
 .claude/skills/aios-*/
+.vercel
+.env*.local

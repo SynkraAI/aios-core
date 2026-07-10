@@ -124,6 +124,9 @@ Done
 | 2026-07-10 | 0.5.2   | CodeRabbit pós-fix identificou gate órfão e ajustes documentais — Status: Done → InProgress. | Dex (@dev) |
 | 2026-07-10 | 0.6.0   | Backstop de gate órfão e ajustes finais concluídos — Status: InProgress → InReview. | Dex (@dev) |
 | 2026-07-10 | 0.6.1   | QA re-review pós-fix PASS — Status: InReview → Done. | Quinn (@qa) |
+| 2026-07-10 | 0.6.2   | Preview Vercel falhou por autodetecção do novo script build — Status: Done → InProgress. | Dex (@dev) |
+| 2026-07-10 | 0.7.0   | Saída estática mínima e configuração Vercel concluídas — Status: InProgress → InReview. | Dex (@dev) |
+| 2026-07-10 | 0.7.1   | QA re-review Vercel PASS — Status: InReview → Done. | Quinn (@qa) |
 
 ## Dev Agent Record
 
@@ -234,6 +237,8 @@ GPT-5 Codex
 - `tests/unit/sdc/wave-c-integration.test.js`
 - `tests/unit/sdc/wave-run.test.js`
 - `tests/unit/terminal-spawner-shell-safety.test.js`
+- `public/index.html`
+- `vercel.json`
 
 ## QA Results
 
@@ -387,5 +392,36 @@ Gate: PASS
 Quality score: 100/100. Top issues: none.
 
 ### Post-fix Lifecycle
+
+PASS: InReview → Done.
+
+### Re-review Date: 2026-07-10 (Vercel fix)
+
+### Reviewed By: Quinn (Test Architect)
+
+### Reviewed Revision: working-tree-files-sha256:7d08f87064d3779b9dd6d7d0e88caba335ff85625f929490252dde7a147d2022
+
+Digest determinístico de `HEAD cc516578dc80dbf3d22faedc42eef163cf3f57e9` e do conteúdo dos 79 arquivos de implementação/documentação da File List, em ordem lexical, excluindo os dois registros QA-owned (esta story e `LIFECYCLE-AUDIT.md`).
+
+### Vercel Fix Assessment
+
+A configuração é mínima e segura: `vercel.json` desativa autodetecção de framework e declara `public` como output; `public/index.html` contém apenas apresentação pública e link oficial do repositório, sem paths locais, secrets ou metadados internos. `.vercel` e `.env*.local` estão ignorados pelo Git, e artefatos `.vercel` estão fora do lint. O build local da Vercel executou o publish safety gate e materializou `.vercel/output/static/index.html` com sucesso. Nenhum blocker ou concern residual foi identificado.
+
+### Vercel Fix Evidence
+
+- `npx vercel build --scope sinkra-aiox --yes`: PASS; Vercel CLI 50.1.6, `npm run build` PASS e output estático gerado.
+- Probe de JSON, output HTML e ignores Git: PASS; `.vercel/output/config.json` versão 3 e static `index.html` inspecionados.
+- Suite completa do snapshot: PASS, 376 suites/8.957 testes.
+- `npm run build`, `npm run lint`, `npm run typecheck`, port denylist e `git diff --check`: PASS; lint sem erros e com um warning no temp untracked preexistente.
+- Após regeneração IDS: manifesto e registry determinístico PASS, 844 entidades.
+- File List: 81/81 artefatos existentes e todos os arquivos modificados do escopo cobertos.
+
+### Vercel Fix Gate Status
+
+Gate: PASS
+
+Quality score: 100/100. Top issues: none.
+
+### Vercel Fix Lifecycle
 
 PASS: InReview → Done.
