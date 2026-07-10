@@ -362,9 +362,9 @@ PASS: InReview → Done.
 
 ### Reviewed By: Quinn (Test Architect)
 
-### Reviewed Revision: working-tree-files-sha256:e9c0c13736727a23bfb654116f84b1b9086802dadbca95a452842a5dd714311e
+### Reviewed Revision: commit:a1a43dc895655adfbee6c6634e31242dc1887ff1
 
-Digest determinístico de `HEAD d0efd87c99dc6bd0f141cba10eaf64a507bd5d87` e do conteúdo dos 77 arquivos de implementação/documentação da File List, em ordem lexical, excluindo os dois registros QA-owned (esta story e `LIFECYCLE-AUDIT.md`).
+Snapshot de implementação commitado: `3f231b04`, complementado pelo commit mecânico `a1a43dc895655adfbee6c6634e31242dc1887ff1` com registry e manifesto sincronizados.
 
 ### Post-fix Assessment
 
