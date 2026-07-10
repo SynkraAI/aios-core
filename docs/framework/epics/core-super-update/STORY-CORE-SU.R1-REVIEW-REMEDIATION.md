@@ -399,9 +399,9 @@ PASS: InReview → Done.
 
 ### Reviewed By: Quinn (Test Architect)
 
-### Reviewed Revision: working-tree-files-sha256:7d08f87064d3779b9dd6d7d0e88caba335ff85625f929490252dde7a147d2022
+### Reviewed Revision: commit:cb93f8f72d0fa29ca2345adbad972ff1755a45d6
 
-Digest determinístico de `HEAD cc516578dc80dbf3d22faedc42eef163cf3f57e9` e do conteúdo dos 79 arquivos de implementação/documentação da File List, em ordem lexical, excluindo os dois registros QA-owned (esta story e `LIFECYCLE-AUDIT.md`).
+Snapshot Vercel commitado em `cb93f8f72d0fa29ca2345adbad972ff1755a45d6`, contendo configuração, output estático e artefatos gerados validados.
 
 ### Vercel Fix Assessment
 

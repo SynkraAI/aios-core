@@ -42,7 +42,7 @@ observable artifacts and records the gap as historical provenance.
 ## Forward Enforcement
 
 **Audit status:** final — verdict `PASS`; reviewer `Quinn (Test Architect)`;
-reviewed_revision `working-tree-files-sha256:7d08f87064d3779b9dd6d7d0e88caba335ff85625f929490252dde7a147d2022`.
+reviewed_revision `commit:cb93f8f72d0fa29ca2345adbad972ff1755a45d6`.
 
 CORE-SU.R1 records each live transition in its Change Log. The corrected review
 skill and Full SDC state machine require QA to write the approved Done
