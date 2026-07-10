@@ -144,6 +144,7 @@ Done
 | 2026-07-10 | 0.9.5   | QA final PASS — scanner validado; Status: InReview → Done. | Quinn (@qa) |
 | 2026-07-10 | 0.9.6   | Follow-up CodeRabbit: modo interactive protegido, teste CI desacoplado da ordem e evidência sanitizada; Status Done preservado. | Dex (@dev) |
 | 2026-07-10 | 0.9.7   | QA follow-up PASS no snapshot commitado; Status Done preservado. | Quinn (@qa) |
+| 2026-07-10 | 0.9.8   | Preflight antecipado para antes de qualquer execução inline/spawn em SOT, Claude e Grok; Status Done preservado. | Dex (@dev) |
 
 ## Dev Agent Record
 

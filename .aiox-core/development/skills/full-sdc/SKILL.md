@@ -84,11 +84,13 @@ Skill SOT: `.aiox-core/development/skills/<name>/SKILL.md`
 1. LOOP:
    a. aiox sdc next {story}  → phase + skill path
    b. IF no next phase → DONE (status completed)
-   c. Load skill SKILL.md + its task SOT; execute fully
-   d. Before any spawned/model phase: run `aiox sdc preflight` over the exact child payload
-   e. IF yolo: autonomous; IF interactive: report + pause on decisions
-   f. aiox sdc verify {story} {phase} --mark
-   g. IF phase=review and verdict FAIL:
+   c. Load skill SKILL.md + its task SOT without executing phase work
+   d. Materialize the exact payload for inline or spawned phase execution
+   e. Run `aiox sdc preflight` over that exact payload; HALT on failure
+   f. Execute inline or spawn the phase only after preflight succeeds
+   g. IF yolo: autonomous; IF interactive: report + pause on decisions
+   h. aiox sdc verify {story} {phase} --mark
+   i. IF phase=review and verdict FAIL:
         IF mode=interactive and no explicit fix approval:
              report FAIL and pause (do not invoke apply-qa-fixes)
         IF mode=yolo or explicit fix approval:
@@ -96,8 +98,8 @@ Skill SOT: `.aiox-core/development/skills/<name>/SKILL.md`
              run apply-qa-fixes skill → verify apply_qa_fixes --mark
              CLI returns to review and increments qgIterations
              IF the third re-review fails → HALT and escalate human
-   h. ELSE IF verify FAIL → HALT (do not advance)
-   i. ELSE continue loop
+   j. ELSE IF verify FAIL → HALT (do not advance)
+   k. ELSE continue loop
 2. QA sets Done on PASS/CONCERNS/WAIVED; close-story only finalizes bookkeeping
 3. Push/PR: hand off @devops — never push from this skill
 ```

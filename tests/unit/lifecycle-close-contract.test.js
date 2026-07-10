@@ -69,6 +69,27 @@ describe('Core Super Update review contracts', () => {
     );
   });
 
+  it.each(fullSdcPaths)('runs preflight before any phase execution in %s', (file) => {
+    const fullSdc = readRepoFile(file);
+    const loadOnly = fullSdc.indexOf(
+      'Load skill SKILL.md + its task SOT without executing phase work',
+    );
+    const materialize = fullSdc.indexOf(
+      'Materialize the exact payload for inline or spawned phase execution',
+    );
+    const preflight = fullSdc.indexOf('Run `aiox sdc preflight` over that exact payload');
+    const execute = fullSdc.indexOf(
+      'Execute inline or spawn the phase only after preflight succeeds',
+    );
+    const verify = fullSdc.indexOf('aiox sdc verify {story} {phase} --mark');
+
+    expect(loadOnly).toBeGreaterThan(-1);
+    expect(materialize).toBeGreaterThan(loadOnly);
+    expect(preflight).toBeGreaterThan(materialize);
+    expect(execute).toBeGreaterThan(preflight);
+    expect(verify).toBeGreaterThan(execute);
+  });
+
   it.each(fullSdcPaths)('quotes and freezes the exact preflight payload in %s', (file) => {
     const fullSdc = readRepoFile(file);
 
