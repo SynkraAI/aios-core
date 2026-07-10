@@ -142,6 +142,7 @@ Done
 | 2026-07-10 | 0.9.3   | QA re-review FAIL — três blockers MAJOR residuais; Status: InReview → InProgress. | Quinn (@qa) |
 | 2026-07-10 | 0.9.4   | Scanner global de credenciais concluído — Status: InProgress → InReview. | Dex (@dev) |
 | 2026-07-10 | 0.9.5   | QA final PASS — scanner validado; Status: InReview → Done. | Quinn (@qa) |
+| 2026-07-10 | 0.9.6   | Follow-up CodeRabbit: modo interactive protegido, teste CI desacoplado da ordem e evidência sanitizada; Status Done preservado. | Dex (@dev) |
 
 ## Dev Agent Record
 
@@ -517,11 +518,10 @@ O snapshot, porém, mantém três blockers MAJOR reproduzíveis:
 1. `validateArgs` passou a integrar o export público de
    `terminal-spawner.js`, mas seu JSDoc não declara retorno/formatos aceitos e o
    contrato não está coberto por `tests/unit/public-api-jsdoc.test.js`.
-2. O denylist não detecta credenciais com chave quoted, por exemplo
-   `"api_key": "abcdefghijklmnop123456"`.
+2. O denylist não detecta a fixture positiva JSON com chave quoted e valor
+   sintético longo.
 3. O mesmo regex classifica referências de ambiente como segredo literal,
-   incluindo `password: process.env.PASSWORD`,
-   `PASSWORD=process.env.PASSWORD` e `export PASSWORD=process.env.PASSWORD`.
+   incluindo acessos por `process.env` em JSON/YAML, assignment e export.
 
 #### Evidence
 
@@ -587,14 +587,14 @@ probes independentes. A regressão focada passou com 4 suites/148 testes.
 O gate permanece FAIL por três gaps residuais de detecção de secrets reais:
 
 1. `looksLikeUnquotedVariable()` trata qualquer valor camelCase como variável,
-   inclusive literals de alta entropia com dígitos. Assim,
-   `export PASSWORD=abcdEFGHijklMNOP1234` escapa em `.env`.
+   inclusive literals de alta entropia com dígitos. Assim, a fixture positiva
+   de export com valor camelCase e dígitos escapa em `.env`.
 2. `hasHardcodedCredential()` avalia somente a primeira assignment da linha.
-   Em `{"password":"${PASSWORD}","api_key":"abcdefghijklmnop123456"}`,
-   o segundo literal não é inspecionado.
+   Na fixture JSON multi-assignment, a primeira referência dinâmica impede que
+   o segundo literal sintético seja inspecionado.
 3. A gramática de valor não aceita punctuation/espaços comuns em secrets.
-   Valores quoted como `"Correct Horse!@:% 123456"` e unquoted como
-   `abcdEFGH!@:%ijklMNOP1234` não são detectados.
+   As fixtures quoted com espaços/pontuação e unquoted com pontuação não são
+   detectadas.
 
 #### Denylist Re-review Evidence
 

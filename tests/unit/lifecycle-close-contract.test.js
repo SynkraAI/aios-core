@@ -55,6 +55,20 @@ describe('Core Super Update review contracts', () => {
     expect(genericHalt).toBeGreaterThan(reviewFail);
   });
 
+  it.each(fullSdcPaths)('requires approval before interactive QA fixes in %s', (file) => {
+    const fullSdc = readRepoFile(file);
+    const reviewFail = fullSdc.indexOf('IF phase=review and verdict FAIL:');
+    const genericHalt = fullSdc.indexOf('ELSE IF verify FAIL → HALT');
+    const reviewFailBranch = fullSdc.slice(reviewFail, genericHalt);
+
+    expect(reviewFailBranch).toContain('IF mode=interactive and no explicit fix approval:');
+    expect(reviewFailBranch).toContain('report FAIL and pause (do not invoke apply-qa-fixes)');
+    expect(reviewFailBranch).toContain('IF mode=yolo or explicit fix approval:');
+    expect(reviewFailBranch.indexOf('report FAIL and pause')).toBeLessThan(
+      reviewFailBranch.indexOf('run apply-qa-fixes skill'),
+    );
+  });
+
   it.each(fullSdcPaths)('quotes and freezes the exact preflight payload in %s', (file) => {
     const fullSdc = readRepoFile(file);
 
@@ -93,7 +107,18 @@ describe('Core Super Update review contracts', () => {
 
   it('keeps the port-denylist checkout credential-free', () => {
     const ci = readRepoFile('.github/workflows/ci.yml');
-    const portJob = ci.slice(ci.indexOf('  port-denylist:'), ci.indexOf('\n  lint:'));
+    const portJobAnchor = '\n  port-denylist:\n';
+    const portJobStart = ci.indexOf(portJobAnchor);
+    expect(portJobStart).toBeGreaterThan(-1);
+
+    const portJobContentStart = portJobStart + portJobAnchor.length;
+    const nextJobBoundary = ci
+      .slice(portJobContentStart)
+      .match(/\n {2}[A-Za-z0-9_-]+:\n/);
+    expect(nextJobBoundary).not.toBeNull();
+
+    const portJobEnd = portJobContentStart + nextJobBoundary.index;
+    const portJob = ci.slice(portJobStart + 1, portJobEnd);
 
     expect(portJob).toContain('uses: actions/checkout@v6');
     expect(portJob).toContain('persist-credentials: false');

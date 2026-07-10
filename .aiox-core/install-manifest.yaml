@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.2.9
-generated_at: "2026-07-10T15:48:17.960Z"
+generated_at: "2026-07-10T16:08:20.071Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1164
 files:
@@ -1389,7 +1389,7 @@ files:
     type: data
     size: 9590
   - path: data/entity-registry.yaml
-    hash: sha256:4c30cbf3087eddd36db12b5e1424e6dd3e3cb429c873d012a5967b8e0b8eaa34
+    hash: sha256:4c34258b40439bc2e1bb298cde5443941203753baf2e9f8af2e9114e436fe535
     type: data
     size: 594831
   - path: data/learned-patterns.yaml
@@ -1917,9 +1917,9 @@ files:
     type: development
     size: 1600
   - path: development/skills/full-sdc/SKILL.md
-    hash: sha256:6dec1d5e44985ca1f38f0d7b934b1b7373189895de7833eb6a0796b3f717bcc2
+    hash: sha256:9546da5b23a31e189935cbd325d179e6b74c808ae8282bd1c2d9048df46fc789
     type: development
-    size: 5691
+    size: 5882
   - path: development/skills/review-story/SKILL.md
     hash: sha256:b3637d2553dd6b722f7e785cee85160e13df388280769bec2b1d8bdc75d3566e
     type: development

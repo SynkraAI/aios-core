@@ -89,10 +89,13 @@ Skill SOT: `.aiox-core/development/skills/<name>/SKILL.md`
    e. IF yolo: autonomous; IF interactive: report + pause on decisions
    f. aiox sdc verify {story} {phase} --mark
    g. IF phase=review and verdict FAIL:
-        CLI selects apply_qa_fixes automatically
-        run apply-qa-fixes skill → verify apply_qa_fixes --mark
-        CLI returns to review and increments qgIterations
-        IF the third re-review fails → HALT and escalate human
+        IF mode=interactive and no explicit fix approval:
+             report FAIL and pause (do not invoke apply-qa-fixes)
+        IF mode=yolo or explicit fix approval:
+             CLI selects apply_qa_fixes automatically
+             run apply-qa-fixes skill → verify apply_qa_fixes --mark
+             CLI returns to review and increments qgIterations
+             IF the third re-review fails → HALT and escalate human
    h. ELSE IF verify FAIL → HALT (do not advance)
    i. ELSE continue loop
 2. QA sets Done on PASS/CONCERNS/WAIVED; close-story only finalizes bookkeeping
