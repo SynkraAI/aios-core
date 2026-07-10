@@ -645,12 +645,11 @@ FAIL: InReview → InProgress.
 
 **Reviewed By:** Quinn (Test Architect)
 
-**Reviewed Revision:** working-tree-files-sha256:0146de97bc7d4cae71263a762ba6ca2bc2b361c7f5fc26429cbbf58a6b7e67e6
+**Reviewed Revision:** commit:422f55624373048c39b6e5f4eae817bb84477ddd
 
-Digest determinístico de `HEAD c5409921a416a0445f48f5828855af115423643c`
-e dos 81 arquivos de implementação/documentação da File List, em ordem
-lexical, excluindo os dois registros QA-owned (esta story e
-`LIFECYCLE-AUDIT.md`), com path e bytes separados por NUL.
+Snapshot final commitado em `422f55624373048c39b6e5f4eae817bb84477ddd`:
+implementação em `d23a8d23dfc05e83891a50c52a14f9d966179008`, complementada
+pelo commit mecânico de registry e manifesto, ambos validados.
 
 #### Scanner Closure Assessment
 
