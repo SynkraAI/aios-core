@@ -147,6 +147,7 @@ Done
 | 2026-07-10 | 0.9.8   | Preflight antecipado para antes de qualquer execução inline/spawn em SOT, Claude e Grok; Status Done preservado. | Dex (@dev) |
 | 2026-07-10 | 0.9.9   | QA preflight-order PASS no snapshot commitado; Status Done preservado. | Quinn (@qa) |
 | 2026-07-10 | 0.9.10  | CI fix: auditoria validada por contagens estáveis, sem acoplamento à redação; Status Done preservado. | Dex (@dev) |
+| 2026-07-10 | 0.9.11  | QA CI-fix PASS no snapshot commitado; Status Done preservado. | Quinn (@qa) |
 
 ## Dev Agent Record
 
@@ -805,5 +806,43 @@ Gate: PASS. Quality score: 100/100. Top issues: none.
 Condition: novo review CodeRabbit remoto obrigatório após push e antes do merge.
 
 #### Preflight Ordering Lifecycle
+
+PASS follow-up: Status Done preservado.
+
+### PR #802 CI Audit Contract Follow-up — Gate PASS
+
+**Review Date:** 2026-07-10
+
+**Reviewed By:** Quinn (Test Architect)
+
+**Reviewed Revision:** commit:920ca1f8e6c58b97b5ac3d84577e5c0d10633683
+
+Snapshot final commitado em `920ca1f8e6c58b97b5ac3d84577e5c0d10633683`:
+correção de teste em `d2f7c650`, complementada pelo commit mecânico do registry
+e manifesto.
+
+#### CI Audit Contract Assessment
+
+A falha do Jest no Node 24 foi reproduzida a partir do log do Actions. A causa
+era um assertion textual obsoleto após a compactação do audit, não diferença de
+runtime. O teste agora protege as contagens auditáveis 8.957, 8.960 e 9.010 sem
+acoplar o contrato à redação em inglês. Os jobs dos demais Nodes foram
+cancelados pelo fail-fast e não representam falhas independentes.
+
+#### CI Audit Contract Evidence
+
+- Regressão focada: PASS, 1 suite/21 testes.
+- Suite integral: PASS, 376 suites/9.010 testes; 151 testes ignorados.
+- `npm run lint`: PASS, zero erros; um warning somente no temporário untracked.
+- `npm run typecheck`, manifesto, registry determinístico e `git diff --check`: PASS.
+- Root cause confirmado no job `Jest Tests (Node 24)` do run `29107314252`.
+
+#### CI Audit Contract Gate
+
+Gate: PASS. Quality score: 100/100. Top issues: none.
+
+Condition: CI e CodeRabbit remotos devem concluir novamente após o push.
+
+#### CI Audit Contract Lifecycle
 
 PASS follow-up: Status Done preservado.

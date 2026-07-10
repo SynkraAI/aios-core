@@ -42,7 +42,7 @@ observable artifacts and records the gap as historical provenance.
 ## Forward Enforcement
 
 **Audit status:** final — verdict `PASS`; reviewer `Quinn (Test Architect)`;
-reviewed_revision `commit:e4b2ec21708b78d6f16e224754239a858371c34e`.
+reviewed_revision `commit:920ca1f8e6c58b97b5ac3d84577e5c0d10633683`.
 
 CORE-SU.R1 records each live transition in its Change Log. The corrected review
 skill and Full SDC state machine require QA to write the approved Done
@@ -65,6 +65,7 @@ tasks/File List, QA Results with revision-bound provenance, and Status `Done`.
 - `npm run validate:claude-sync && npm run validate:claude-integration`: PASS.
 - `git diff --check`: PASS.
 - CodeRabbit development and pre-PR rounds were triaged and their valid findings remediated. Após o snapshot `0dd29cd7`, o review incremental aprovou a rodada mas registrou três findings MAJOR fora do diff sobre a ordem do preflight; todos foram corrigidos no snapshot `e4b2ec21`. O QA follow-up passou com score 100/100, condicionado a novo review CodeRabbit remoto após push e antes do merge.
+- O CI posterior falhou somente porque o teste ainda exigia a redação inglesa anterior deste audit; o contrato foi desacoplado para verificar as contagens auditáveis e passou localmente no snapshot `920ca1f8` com 9.010 testes.
 
 Artifact references: remediation story
 `STORY-CORE-SU.R1-REVIEW-REMEDIATION.md`, checkpoint ownership ADR
