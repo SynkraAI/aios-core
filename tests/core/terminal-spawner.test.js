@@ -282,6 +282,23 @@ describe('TerminalSpawner', () => {
   // Spawn Agent Validation Tests
   // ============================================
   describe('spawnAgent Validation', () => {
+    // Stub the agent CLI — spawnAgent runs pm.sh for real below, and tests
+    // must never invoke the real `claude` (token spend) nor open a terminal
+    // window (detectEnvironment() forces inline under jest via JEST_WORKER_ID).
+    const originalClaudeCmd = process.env.CLAUDE_CMD;
+
+    beforeAll(() => {
+      process.env.CLAUDE_CMD = 'true';
+    });
+
+    afterAll(() => {
+      if (originalClaudeCmd === undefined) {
+        delete process.env.CLAUDE_CMD;
+      } else {
+        process.env.CLAUDE_CMD = originalClaudeCmd;
+      }
+    });
+
     test('should reject invalid agent ID', async () => {
       await expect(TerminalSpawner.spawnAgent('', 'develop')).rejects.toThrow(
         /Agent ID is required/,

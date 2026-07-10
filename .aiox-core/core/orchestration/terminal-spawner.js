@@ -35,6 +35,7 @@ const ENVIRONMENT_TYPE = {
   SSH: 'SSH',
   DOCKER: 'DOCKER',
   CI: 'CI',
+  TEST: 'TEST',
 };
 
 /**
@@ -127,7 +128,21 @@ function detectEnvironment() {
     };
   }
 
-  // 5. Native terminal (default) - supports visual spawn
+  // 5. Test runner / explicit opt-out (Bugfix: spawner tests opened real
+  // Terminal windows on macOS). A visual terminal must never be granted to
+  // an automated context: jest sets JEST_WORKER_ID; AIOX_NO_VISUAL=true is
+  // the manual kill-switch.
+  if (process.env.JEST_WORKER_ID || process.env.AIOX_NO_VISUAL === 'true') {
+    return {
+      type: ENVIRONMENT_TYPE.TEST,
+      supportsVisualTerminal: false,
+      reason: process.env.JEST_WORKER_ID
+        ? 'Test runner detected (JEST_WORKER_ID set)'
+        : 'Visual terminal disabled via AIOX_NO_VISUAL',
+    };
+  }
+
+  // 6. Native terminal (default) - supports visual spawn
   return {
     type: ENVIRONMENT_TYPE.NATIVE_TERMINAL,
     supportsVisualTerminal: true,

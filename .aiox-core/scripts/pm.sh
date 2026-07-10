@@ -97,6 +97,7 @@ Environment Variables:
   AIOX_DEBUG         Enable debug mode (default: false)
   AIOX_TIMEOUT       Timeout in seconds (default: 300)
   AIOX_INLINE_MODE   Run without a visual terminal (default: false)
+  AIOX_NO_VISUAL     Force inline mode — never spawn a terminal window (default: false)
   CLAUDE_CMD         Claude CLI command (default: claude)
 
 Examples:
@@ -442,8 +443,10 @@ spawn_terminal() {
   touch "$LOCK_FILE"
   log_debug "Created lock file: $LOCK_FILE"
 
-  # Check for inline mode (Story 12.10 - fallback for non-visual environments)
-  if [[ "$INLINE_MODE" == "true" ]]; then
+  # Check for inline mode (Story 12.10 - fallback for non-visual environments).
+  # Test runners (jest sets JEST_WORKER_ID) and AIOX_NO_VISUAL=true must never
+  # open a visual terminal (Bugfix: test suites opened real Terminal windows).
+  if [[ "$INLINE_MODE" == "true" || -n "${JEST_WORKER_ID:-}" || "${AIOX_NO_VISUAL:-false}" == "true" ]]; then
     if ! spawn_inline; then
       echo "$OUTPUT_FILE"
       return 4

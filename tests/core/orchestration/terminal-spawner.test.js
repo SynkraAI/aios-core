@@ -276,7 +276,42 @@ describe('Terminal Spawner (Story 12.10)', () => {
 
     describe('Native terminal detection (Task 1.6)', () => {
       it('should return NATIVE_TERMINAL when no special environment detected', () => {
-        // Given - clean environment (no CI, SSH, VS Code, Docker)
+        // Given - clean environment (no CI, SSH, VS Code, Docker, test runner)
+        delete process.env.CI;
+        delete process.env.GITHUB_ACTIONS;
+        delete process.env.SSH_CLIENT;
+        delete process.env.SSH_TTY;
+        delete process.env.SSH_CONNECTION;
+        delete process.env.TERM_PROGRAM;
+        delete process.env.VSCODE_PID;
+        delete process.env.VSCODE_CWD;
+        delete process.env.VSCODE_GIT_IPC_HANDLE;
+        delete process.env.JEST_WORKER_ID;
+        delete process.env.AIOX_NO_VISUAL;
+
+        // When
+        const result = detectEnvironment();
+
+        // Then
+        expect(result.type).toBe(ENVIRONMENT_TYPE.NATIVE_TERMINAL);
+        expect(result.supportsVisualTerminal).toBe(true);
+        expect(result.reason).toContain('Native');
+      });
+    });
+
+    describe('Test runner / AIOX_NO_VISUAL guard', () => {
+      it('should never grant a visual terminal when running under jest', () => {
+        // Given - jest always sets JEST_WORKER_ID; no env cleanup on purpose
+
+        // When
+        const result = detectEnvironment();
+
+        // Then - regression guard: spawner tests must not open Terminal windows
+        expect(result.supportsVisualTerminal).toBe(false);
+      });
+
+      it('should return TEST when only JEST_WORKER_ID is set', () => {
+        // Given - clean environment except the test runner marker
         delete process.env.CI;
         delete process.env.GITHUB_ACTIONS;
         delete process.env.SSH_CLIENT;
@@ -291,9 +326,32 @@ describe('Terminal Spawner (Story 12.10)', () => {
         const result = detectEnvironment();
 
         // Then
-        expect(result.type).toBe(ENVIRONMENT_TYPE.NATIVE_TERMINAL);
-        expect(result.supportsVisualTerminal).toBe(true);
-        expect(result.reason).toContain('Native');
+        expect(result.type).toBe(ENVIRONMENT_TYPE.TEST);
+        expect(result.supportsVisualTerminal).toBe(false);
+        expect(result.reason).toContain('JEST_WORKER_ID');
+      });
+
+      it('should return TEST when AIOX_NO_VISUAL=true', () => {
+        // Given
+        delete process.env.CI;
+        delete process.env.GITHUB_ACTIONS;
+        delete process.env.SSH_CLIENT;
+        delete process.env.SSH_TTY;
+        delete process.env.SSH_CONNECTION;
+        delete process.env.TERM_PROGRAM;
+        delete process.env.VSCODE_PID;
+        delete process.env.VSCODE_CWD;
+        delete process.env.VSCODE_GIT_IPC_HANDLE;
+        delete process.env.JEST_WORKER_ID;
+        process.env.AIOX_NO_VISUAL = 'true';
+
+        // When
+        const result = detectEnvironment();
+
+        // Then
+        expect(result.type).toBe(ENVIRONMENT_TYPE.TEST);
+        expect(result.supportsVisualTerminal).toBe(false);
+        expect(result.reason).toContain('AIOX_NO_VISUAL');
       });
     });
 
@@ -359,6 +417,7 @@ describe('Terminal Spawner (Story 12.10)', () => {
       expect(ENVIRONMENT_TYPE.SSH).toBe('SSH');
       expect(ENVIRONMENT_TYPE.DOCKER).toBe('DOCKER');
       expect(ENVIRONMENT_TYPE.CI).toBe('CI');
+      expect(ENVIRONMENT_TYPE.TEST).toBe('TEST');
     });
   });
 
@@ -366,6 +425,12 @@ describe('Terminal Spawner (Story 12.10)', () => {
   // Task 6.2: Tests for spawnInline()
   // ============================================
   describe('spawnInline() (Task 2)', () => {
+    beforeEach(() => {
+      // Stub the agent CLI — tests must never invoke the real `claude`
+      // (token spend) nor depend on it being installed.
+      process.env.CLAUDE_CMD = 'true';
+    });
+
     it('should execute a simple command inline', async () => {
       // This test may fail if pm.sh is not set up for inline mode
       // For unit testing, we're testing the function signature and basic behavior
@@ -433,8 +498,9 @@ describe('Terminal Spawner (Story 12.10)', () => {
   // ============================================
   describe('spawnAgent() fallback (Task 2.3)', () => {
     it('should use inline spawn when environment does not support visual terminal', async () => {
-      // Given - CI environment
+      // Given - CI environment + stubbed agent CLI (no real `claude` from tests)
       process.env.CI = 'true';
+      process.env.CLAUDE_CMD = 'true';
       const agent = 'dev';
       const task = 'test';
       const options = {
