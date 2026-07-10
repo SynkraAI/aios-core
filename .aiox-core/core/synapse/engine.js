@@ -206,6 +206,13 @@ function parsePipelineTimeoutMs(value, source, logger = console) {
   return parsed;
 }
 
+/**
+ * Resolve the SYNAPSE pipeline timeout from environment, config, or default.
+ *
+ * @param {object} [config] - Core config containing `synapse.pipelineTimeoutMs`.
+ * @param {{ warn: (message: string) => void }} [logger] - Invalid-value logger.
+ * @returns {number} Valid timeout in milliseconds.
+ */
 function resolvePipelineTimeoutMs(config = {}, logger = console) {
   const envTimeout = process.env[SYNAPSE_PIPELINE_TIMEOUT_ENV];
   if (envTimeout !== undefined && envTimeout !== '') {
@@ -287,6 +294,7 @@ class SynapseEngine {
    * @param {object} session - Session state (SYN-2 schema)
    * @param {number} [session.prompt_count=0] - Number of prompts so far
    * @param {object} [processConfig] - Per-call config overrides
+   * @param {() => bigint} [processConfig.nowNs] - Deterministic monotonic clock for tests.
    * @returns {Promise<{ xml: string, metrics: object }>}
    */
   async process(prompt, session, processConfig) {
@@ -296,8 +304,12 @@ class SynapseEngine {
       mergedConfig.synapse = { ...(this.config.synapse || {}), ...(safeProcessConfig.synapse || {}) };
     }
     const pipelineTimeoutMs = resolvePipelineTimeoutMs(mergedConfig);
+    const pipelineNow =
+      typeof safeProcessConfig.nowNs === 'function'
+        ? safeProcessConfig.nowNs
+        : process.hrtime.bigint;
     const metrics = new PipelineMetrics();
-    metrics.totalStart = process.hrtime.bigint();
+    metrics.totalStart = pipelineNow();
 
     // 1. Calculate bracket (or use fixed layers in non-legacy mode)
     const promptCount = (session && session.prompt_count) || 0;
@@ -338,7 +350,7 @@ class SynapseEngine {
       }
 
       // Check pipeline timeout (convert hrtime to ms for comparison)
-      const elapsedMs = Number(process.hrtime.bigint() - metrics.totalStart) / 1e6;
+      const elapsedMs = Number(pipelineNow() - metrics.totalStart) / 1e6;
       if (elapsedMs > pipelineTimeoutMs) {
         // Log remaining layers as skipped
         const remaining = this.layers.slice(this.layers.indexOf(layer));

@@ -31,6 +31,10 @@ aiox wave plan --stories path1.md,path2.md --wave-id {wave-id} --mode yolo --sav
 aiox wave next {wave-id}
 ```
 
+Yolo/parallel dispatch requires a positive explicit
+`AIOX_MODEL_BUDGET_CEILING_USD`. Each child intent is scanned and bound to its
+existing story before a model executor is invoked.
+
 ## CLI (mechanical)
 
 ```bash
@@ -68,9 +72,11 @@ Controller: `wave-run.js` + `dispatch-adapter.js` (C2) + `epic-glue.js` (C3)
 ### Stage 1 — Preflight (CLI computes)
 
 1. Resolve story paths (must exist).
-2. `aiox wave plan … --save` — do **not** re-invent the DAG by grepping in prose.
-3. Judge the plan: Ready stories only for develop-heavy waves; flag Draft that still need validate; halt if `executor == quality_gate` when those fields exist.
-4. `--dry-run` → print plan and **stop**.
+2. Before automated dispatch, validate the shared budget ceiling and scan each
+   story-bound child intent; any rejection blocks that child before model use.
+3. `aiox wave plan … --save` — do **not** re-invent the DAG by grepping in prose.
+4. Judge the plan: Ready stories only for develop-heavy waves; flag Draft that still need validate; halt if `executor == quality_gate` when those fields exist.
+5. `--dry-run` → print plan and **stop**.
 
 ### Stage 2 — Confirm
 
@@ -81,6 +87,7 @@ Show batches (parallel vs sequenced by file ownership). Get human OK unless `--n
 For each batch **in order**:
 
 1. For **each story in the batch** (parallel when multi-agent available):
+   - Provide the exact outgoing child intent/context to `runWaveBatch`; its dispatch adapter must return governance evidence before the worker is invoked
    - Run **full-sdc** execute protocol (skill `full-sdc` / `/aiox-full-sdc`)
    - Preferred: `spawn_subagent` with `aiox-master` (or dedicated coordinator) prompt:
      `Execute full-sdc on {story-path} mode={mode}. Use aiox sdc plan/next/verify. Do not git push.`

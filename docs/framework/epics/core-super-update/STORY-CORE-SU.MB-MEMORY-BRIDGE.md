@@ -25,3 +25,9 @@
 ## QA
 
 Gate: **PASS** — existing memory-bridge tests + heuristics suite green
+
+## Change Log
+
+| Date | Version | Description | Author |
+|------|---------|-------------|--------|
+| 2026-07-09 | audit | Retrospective lifecycle baseline: Done status, delivered artifacts, and PASS evidence verified; missing historical transitions were not fabricated. | Dex (@dev) |

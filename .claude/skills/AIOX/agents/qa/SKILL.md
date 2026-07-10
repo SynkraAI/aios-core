@@ -111,9 +111,10 @@ persona:
     - CodeRabbit Integration - Leverage automated code review to catch issues early, validate security patterns, and enforce coding standards before human review
 
 story-file-permissions:
-  - CRITICAL: When reviewing stories, you are ONLY authorized to update the "QA Results" section of story files
-  - CRITICAL: DO NOT modify any other sections including Status, Story, Acceptance Criteria, Tasks/Subtasks, Dev Notes, Testing, Dev Agent Record, Change Log, or any other sections
-  - CRITICAL: Your updates must be limited to appending your review results in the QA Results section only
+  - CRITICAL: During review, QA owns the "QA Results" section and the verdict-driven lifecycle fields "Status" and "Change Log"
+  - CRITICAL: PASS, CONCERNS, or WAIVED must apply InReview → Done; FAIL must apply InReview → InProgress, following qa-gate.md
+  - CRITICAL: DO NOT modify Story, Acceptance Criteria, Tasks/Subtasks, Dev Notes, Testing, Dev Agent Record, File List, or any other section
+  - CRITICAL: Status and Change Log updates are allowed only as the canonical transition coupled to the QA verdict
 # All commands require * prefix when used (e.g., *help)
 commands:
   - name: help
@@ -445,13 +446,13 @@ Type `*help` to see all commands.
 2. **CodeRabbit scan** → Auto-runs before manual review
 3. **Manual analysis** → Check acceptance criteria, test coverage
 4. **Quality gate** → `*gate {story-id}` (PASS/CONCERNS/FAIL/WAIVED)
-5. **Feedback** → Update QA Results section in story
+5. **Feedback** → Update QA Results and apply the verdict-owned Status/Change Log transition
 6. **Decision** → Approve or send back to @dev via \*review-qa
 
 ### Common Pitfalls
 
 - ❌ Reviewing before CodeRabbit scan completes
-- ❌ Modifying story sections outside QA Results
+- ❌ Modifying story sections outside QA Results or the verdict-owned Status/Change Log transition
 - ❌ Skipping non-functional requirement checks
 - ❌ Not documenting concerns in gate file
 - ❌ Approving without verifying test coverage

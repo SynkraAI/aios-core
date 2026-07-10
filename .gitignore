@@ -30,6 +30,9 @@ web-bundles/
 .env.development
 .env.test
 
+# Ephemeral test dirs created at repo root by Jest suites
+.test-temp*/
+
 # System files
 .DS_Store
 Thumbs.db
@@ -250,6 +253,9 @@ docs/standards/
 docs/architecture/*
 !docs/architecture/
 !docs/architecture/orchestration-hierarchy.md
+!docs/architecture/adr/
+docs/architecture/adr/*
+!docs/architecture/adr/ADR-SDC-WAVE-CHECKPOINT-OWNERSHIP.md
 docs/agents/
 docs/private/
 

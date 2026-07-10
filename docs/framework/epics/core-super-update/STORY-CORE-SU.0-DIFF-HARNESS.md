@@ -43,3 +43,9 @@ The current super-update was derived from a manual 3-repo comparison. Hub and en
 - `.aiox-core/core/doctor/checks/framework-3way-diff.js`
 - `tests/unit/framework-3way-diff.test.js`
 - `docs/framework/epics/core-super-update/ARCHITECTURE-WAVE-0.md`
+
+## Change Log
+
+| Date | Version | Description | Author |
+|------|---------|-------------|--------|
+| 2026-07-09 | audit | Retrospective lifecycle baseline: Done status and delivered artifacts verified; contemporaneous intermediate transitions were not reconstructed. | Dex (@dev) |

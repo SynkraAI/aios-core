@@ -11,10 +11,17 @@
 
 'use strict';
 
+const fs = require('fs');
 const path = require('path');
 const { Command } = require('commander');
+const { assertDispatchGovernance } = require('../../../core/permissions');
 const sdc = require('../../../core/sdc');
 
+/**
+ * Build the `aiox sdc` Commander command tree.
+ *
+ * @returns {Command} Configured SDC command.
+ */
 function createSdcCommand() {
   const cmd = new Command('sdc');
   cmd.description('Lean Full SDC runtime (plan, verify, progress)');
@@ -24,6 +31,38 @@ function createSdcCommand() {
     .description('List SDC phases')
     .action(() => {
       console.log(sdc.PHASES.join('\n'));
+    });
+
+  cmd
+    .command('preflight')
+    .description('Enforce model budget, story binding, and intent scan before dispatch')
+    .argument('<story-path>', 'Path to the story bound to the model call')
+    .requiredOption('--budget-usd <amount>', 'Positive model budget ceiling in USD')
+    .requiredOption('--intent-file <path>', 'File containing the exact child model intent')
+    .option('--context-file <path>', 'File containing the exact child context')
+    .option('--task <task>', 'Dispatch task name', 'develop')
+    .option('--json', 'JSON evidence output', false)
+    .action((storyPath, opts) => {
+      try {
+        const absoluteStoryPath = path.resolve(storyPath);
+        const intent = fs.readFileSync(path.resolve(opts.intentFile), 'utf8');
+        const context = opts.contextFile
+          ? fs.readFileSync(path.resolve(opts.contextFile), 'utf8')
+          : '';
+        const evidence = assertDispatchGovernance({
+          budgetCeilingUsd: opts.budgetUsd,
+          task: opts.task,
+          intent: `${intent}\n${context}`,
+          story: absoluteStoryPath,
+          projectRoot: path.dirname(absoluteStoryPath),
+          requiresStory: true,
+        });
+        if (opts.json) console.log(JSON.stringify(evidence, null, 2));
+        else console.log(`SDC dispatch preflight: PASS (${evidence.story.storyId})`);
+      } catch (error) {
+        console.error(`[${error.code || 'SDC_PREFLIGHT'}] ${error.message}`);
+        process.exitCode = 5;
+      }
     });
 
   cmd
@@ -124,6 +163,7 @@ function createSdcCommand() {
       'passed | failed | skipped | halted'
     )
     .option('--notes <notes>', 'Optional notes')
+    .option('--outcome <outcome>', 'approved | changes_requested (review phase)')
     .option('--json', 'JSON output', false)
     .action((storyId, phase, opts) => {
       let state = sdc.loadSdcState(storyId);
@@ -132,10 +172,16 @@ function createSdcCommand() {
         process.exitCode = 1;
         return;
       }
-      if (phase === 'apply_qa_fixes' && opts.status === 'passed') {
-        state.qgIterations = (state.qgIterations || 0) + 1;
+      if (
+        phase === 'review' &&
+        opts.status === 'passed' &&
+        !['approved', 'changes_requested'].includes(opts.outcome)
+      ) {
+        console.error('Review passed requires --outcome approved|changes_requested');
+        process.exitCode = 1;
+        return;
       }
-      sdc.markPhase(state, phase, opts.status, opts.notes);
+      sdc.markPhase(state, phase, opts.status, opts.notes, { outcome: opts.outcome });
       sdc.saveSdcState(state);
       if (opts.json) {
         console.log(JSON.stringify(state, null, 2));

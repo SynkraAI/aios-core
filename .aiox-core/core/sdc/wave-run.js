@@ -15,8 +15,17 @@ const {
   waveRoot,
 } = require('./progress');
 const { planWaveFromPaths } = require('./wave-plan');
-const { parseStoryFile } = require('./story-meta');
+const { parseStoryFile, resolveQaEvidence } = require('./story-meta');
 const { createDispatchAdapter } = require('./dispatch-adapter');
+
+function hasApprovedQaEvidence(story) {
+  return (
+    story.status === 'Done' &&
+    ['PASS', 'CONCERNS', 'WAIVED'].includes(story.qaVerdict) &&
+    story.qaEvidenceComplete === true &&
+    !story.qaEvidenceError
+  );
+}
 
 /**
  * @param {object} wave
@@ -78,7 +87,13 @@ function refreshStoryStatuses(wave, cwd = process.cwd()) {
     if (storyPath && fs.existsSync(path.resolve(cwd, storyPath))) {
       try {
         const meta = parseStoryFile(path.resolve(cwd, storyPath));
+        const evidence = resolveQaEvidence(meta, { cwd });
         s.status = meta.status;
+        s.qaVerdict = evidence.verdict;
+        s.qaReviewer = evidence.reviewer;
+        s.qaReviewedRevision = evidence.reviewedRevision;
+        s.qaEvidenceComplete = evidence.complete;
+        s.qaEvidenceError = evidence.error;
       } catch (_err) {
         /* keep prior status */
       }
@@ -102,7 +117,7 @@ function nextOpenBatch(wave) {
     const open = (b.stories || []).filter((s) => {
       if (blocked.has(s.storyId)) return false;
       if (s.runStatus === 'completed' || s.runStatus === 'skipped') return false;
-      if (s.sdcStatus === 'completed') return false;
+      if (hasApprovedQaEvidence(s)) return false;
       return true;
     });
     if (open.length) return { index: b.index, stories: open };
@@ -182,11 +197,11 @@ function advanceWave(waveId, opts = {}) {
   }
   refreshStoryStatuses(wave, cwd);
 
-  // Auto-mark Done SDC or already Done stories
+  // Auto-mark only from canonical story lifecycle evidence; checkpoints are advisory.
   for (const s of wave.stories || []) {
     if (s.runStatus === 'completed' || s.runStatus === 'blocked') continue;
-    if (s.sdcStatus === 'completed' || s.status === 'Done') {
-      markStoryRun(wave, s.storyId, 'completed', 'auto: sdc completed or story Done');
+    if (hasApprovedQaEvidence(s)) {
+      markStoryRun(wave, s.storyId, 'completed', 'auto: approved QA evidence in Done story');
     }
   }
 
@@ -212,16 +227,24 @@ function advanceWave(waveId, opts = {}) {
 /**
  * Run a worker over a batch of stories using the dispatch adapter (C2).
  * @param {object[]} stories
- * @param {(story: object) => Promise<*>|*} worker
+ * @param {(story: object, payload: { intent: *, context: *, governance: object }) => Promise<*>|*} worker
  * @param {object} [opts]
  * @param {'sequential'|'parallel'} [opts.mode]
  * @param {number} [opts.maxParallel]
+ * @param {number|string} opts.budgetCeilingUsd - Required automated model budget ceiling.
+ * @param {string} [opts.cwd] - Repository root for story validation.
+ * @param {string|object|Function} opts.intent - Exact child model intent or resolver.
+ * @param {object|Function} [opts.context] - Exact child context or resolver.
  * @returns {Promise<Array>}
  */
 async function runWaveBatch(stories, worker, opts = {}) {
   const adapter = createDispatchAdapter({
     mode: opts.mode || 'sequential',
     maxParallel: opts.maxParallel,
+    budgetCeilingUsd: opts.budgetCeilingUsd,
+    projectRoot: opts.cwd,
+    intent: opts.intent,
+    context: opts.context,
   });
   return adapter.runBatch(stories || [], worker);
 }

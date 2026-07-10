@@ -36,12 +36,20 @@ function initFullSdc(storyPath, opts = {}) {
       state.phases[phase].notes = notes;
     };
 
-    if (meta.status === 'Done') {
+    const approvedQaEvidence =
+      meta.status === 'Done' &&
+      phaseVerify.verifyPhase(storyPath, 'close', opts).ok;
+    if (meta.status === 'Done' && approvedQaEvidence) {
       for (const p of progress.PHASES) {
-        pass(p, 'story already Done');
+        pass(p, 'story already Done with approved QA evidence');
       }
       state.currentPhase = null;
       state.status = 'completed';
+    } else if (meta.status === 'Done') {
+      pass('validate', 'pre-existing Done without complete QA evidence');
+      pass('develop', 'pre-existing Done without complete QA evidence');
+      state.currentPhase = 'review';
+      state.status = 'running';
     } else if (meta.status === 'InReview') {
       pass('validate', 'pre-existing InReview');
       pass('develop', 'pre-existing InReview');
@@ -80,6 +88,7 @@ function verifyAndMaybeMark(storyPath, phase, opts = {}) {
       phase,
       result.ok ? 'passed' : 'failed',
       result.ok ? null : result.failures.join('; '),
+      { outcome: result.outcome },
     );
     progress.saveSdcState(state, opts.cwd);
   }

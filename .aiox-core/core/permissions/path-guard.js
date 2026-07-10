@@ -169,10 +169,23 @@ function validateWrite(inputPath, projectRoot = process.cwd()) {
   };
 }
 
+/**
+ * Check whether a requested write remains inside the project and outside the denylist.
+ *
+ * @param {string} inputPath - User-supplied path.
+ * @param {string} [projectRoot] - Absolute or relative repository root.
+ * @returns {boolean} True only when `validateWrite` allows the path.
+ * @throws {TypeError} When inputPath is not a string.
+ */
 function isWriteAllowed(inputPath, projectRoot = process.cwd()) {
   return validateWrite(inputPath, projectRoot).allowed;
 }
 
+/**
+ * Return a copy of the configured write-deny rules.
+ *
+ * @returns {string[]} Denied path patterns; mutations do not affect the guard.
+ */
 function getDenyList() {
   return [...WRITE_DENY_LIST];
 }

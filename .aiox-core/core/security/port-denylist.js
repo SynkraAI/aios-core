@@ -17,8 +17,18 @@ const path = require('path');
 const DENY_PATTERNS = [
   {
     id: 'workspace-product',
-    description: 'Hub/enterprise product workspace trees',
-    re: /workspace\/(businesses|L0-identity|L1-strategy|_system|_templates)\b/,
+    description: 'Hub/enterprise workspace tree path',
+    re: /(?:^|[\s'"=(`])(?:\.\.?\/)?workspace\/[A-Za-z0-9_.-]+/,
+  },
+  {
+    id: 'secrets-path',
+    description: 'Product secret-store path must not be ported into OSS',
+    re: /(?:^|[\s'"=(])(?:\.\.?\/)?secrets\/[A-Za-z0-9_./-]+/i,
+  },
+  {
+    id: 'hardcoded-credential',
+    description: 'Probable hardcoded credential value',
+    re: /\b(?:api[_-]?key|access[_-]?token|auth[_-]?token|client[_-]?secret|password)\s*[:=]\s*['"][A-Za-z0-9_./+\-=]{16,}['"]/i,
   },
   {
     id: 'sinkra-prefix',
@@ -81,6 +91,9 @@ const DEFAULT_ALLOW_PATH_SUBSTRINGS = [
 /** Framework harvest surface — not the whole monorepo docs noise. */
 const DEFAULT_SCAN_ROOTS = [
   '.claude',
+  '.codex',
+  '.gemini',
+  '.grok',
   '.aiox-core/core',
   '.aiox-core/cli',
   '.aiox-core/development',

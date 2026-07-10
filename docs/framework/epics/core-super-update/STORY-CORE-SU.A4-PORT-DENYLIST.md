@@ -32,3 +32,9 @@
 - [x] Unit tests  
 - [x] Doctor check registered  
 - [x] npm script  
+
+## Change Log
+
+| Date | Version | Description | Author |
+|------|---------|-------------|--------|
+| 2026-07-09 | audit | Retrospective lifecycle baseline: Done status and scanner/doctor/test evidence verified; missing historical transitions were not fabricated. | Dex (@dev) |

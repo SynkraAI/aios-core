@@ -4,9 +4,7 @@
 
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
-const { parseStoryFile } = require('./story-meta');
+const { parseStoryFile, resolveQaEvidence } = require('./story-meta');
 
 /**
  * @typedef {object} VerifyResult
@@ -27,20 +25,22 @@ function verifyPhase(storyPath, phase, opts = {}) {
   const meta = parseStoryFile(storyPath);
   const checks = [];
   const failures = [];
+  const qaEvidence = resolveQaEvidence(meta, opts);
+  const qaVerdict = qaEvidence.verdict;
 
   const add = (ok, msg) => {
     checks.push(`${ok ? 'PASS' : 'FAIL'}: ${msg}`);
     if (!ok) failures.push(msg);
   };
+  if (['review', 'close'].includes(phase) && qaEvidence.error) {
+    add(false, qaEvidence.error);
+  }
 
   switch (phase) {
     case 'validate': {
       // GO → Ready (or already further along is OK for re-entry)
       const okStatuses = new Set(['Ready', 'InProgress', 'InReview', 'Done']);
-      add(
-        okStatuses.has(meta.status),
-        `status is Ready+ after validate (got ${meta.status})`,
-      );
+      add(okStatuses.has(meta.status), `status is Ready+ after validate (got ${meta.status})`);
       break;
     }
     case 'develop': {
@@ -54,47 +54,50 @@ function verifyPhase(storyPath, phase, opts = {}) {
       break;
     }
     case 'review': {
-      add(meta.status !== 'Done', 'status must not be Done after review-only phase');
-      if (meta.qaVerdict) {
+      if (!meta.qaVerdict) {
+        add(qaEvidence.gateFound, 'QA Results verdict or canonical story-bound QA gate exists');
+      }
+      add(Boolean(qaVerdict), 'QA evidence contains an explicit verdict');
+      if (qaVerdict) {
         add(
-          ['PASS', 'CONCERNS', 'FAIL', 'WAIVED'].includes(meta.qaVerdict),
-          `QA verdict present (${meta.qaVerdict})`,
+          ['PASS', 'CONCERNS', 'FAIL', 'WAIVED'].includes(qaVerdict),
+          `QA verdict present (${qaVerdict})`,
         );
-      } else {
-        // Look for gate files under docs/qa/gates matching story id slug
-        const gatesDir = path.join(opts.cwd || process.cwd(), 'docs', 'qa', 'gates');
-        let gateFound = false;
-        if (fs.existsSync(gatesDir)) {
-          const slug = meta.storyId.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-          const escaped = slug.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-          const idPattern = new RegExp(`(^|[-_.])${escaped}([-_.]|$)`, 'i');
-          const files = fs.readdirSync(gatesDir);
-          gateFound = files.some((f) => idPattern.test(f));
+        add(Boolean(qaEvidence.reviewer), 'QA evidence identifies reviewer');
+        add(Boolean(qaEvidence.reviewedRevision), 'QA evidence binds reviewed_revision');
+        add(qaEvidence.complete, 'QA evidence provenance matches the current story/verdict');
+        if (qaVerdict === 'FAIL') {
+          add(
+            meta.status === 'InProgress',
+            `QA FAIL returned status to InProgress (got ${meta.status})`,
+          );
+        } else {
+          add(meta.status === 'Done', `approved QA verdict set status Done (got ${meta.status})`);
         }
-        add(
-          gateFound,
-          'QA Results verdict or docs/qa/gates/* for story exists',
-        );
       }
       break;
     }
     case 'apply_qa_fixes': {
-      add(meta.status !== 'Done', 'status must not be Done during apply-qa-fixes');
-      // Soft: retest notes hard to detect; pass if not Done
-      add(true, 'apply-qa-fixes leaves story open for re-review');
+      add(
+        meta.status === 'InProgress',
+        `status remains InProgress during fixes (got ${meta.status})`,
+      );
+      add(true, 'apply-qa-fixes returns to mandatory re-review');
       break;
     }
     case 'close': {
       add(meta.status === 'Done', `status is Done (got ${meta.status})`);
+      add(
+        ['PASS', 'CONCERNS', 'WAIVED'].includes(qaVerdict),
+        `approved QA verdict exists (got ${qaVerdict || 'none'})`,
+      );
+      add(Boolean(qaEvidence.reviewer), 'QA evidence identifies reviewer');
+      add(Boolean(qaEvidence.reviewedRevision), 'QA evidence binds reviewed_revision');
+      add(qaEvidence.complete, 'QA evidence provenance matches the current story/verdict');
       break;
     }
     default:
       failures.push(`Unknown phase: ${phase}`);
-  }
-
-  // Integrity: Done only after close phase verification is allowed to see Done
-  if (phase !== 'close' && meta.status === 'Done') {
-    add(false, 'integrity: Status Done outside close phase');
   }
 
   return {
@@ -102,11 +105,20 @@ function verifyPhase(storyPath, phase, opts = {}) {
     phase,
     checks,
     failures,
+    outcome:
+      phase === 'review' && qaVerdict
+        ? qaVerdict === 'FAIL'
+          ? 'changes_requested'
+          : 'approved'
+        : null,
     meta: {
       storyId: meta.storyId,
       status: meta.status,
       fileListCount: meta.fileList.length,
-      qaVerdict: meta.qaVerdict,
+      qaVerdict,
+      qaReviewer: qaEvidence.reviewer,
+      qaReviewedRevision: qaEvidence.reviewedRevision,
+      qaEvidenceError: qaEvidence.error,
       tasks: meta.tasks,
     },
   };

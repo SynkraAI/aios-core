@@ -81,3 +81,9 @@ Both copies updated:
 - [x] Fix: skip timer under Jest + AIOX_DEBUG log gate + dispose helpers
 - [x] Tests updated for Jest vs production paths
 - [x] No `workspace/` coupling
+
+## Change Log
+
+| Date | Version | Description | Author |
+|------|---------|-------------|--------|
+| 2026-07-09 | audit | Retrospective lifecycle baseline: Done status and implementation/test evidence verified; missing historical transitions were not fabricated. | Dex (@dev) |

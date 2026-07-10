@@ -130,6 +130,30 @@ jobs:
           }
           NODE
 
+  port-denylist:
+    name: Framework Port Denylist
+    needs: changes
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+
+      - name: Validate framework port denylist
+        run: npm run validate:port-denylist
+
+      - name: Report remediation guidance
+        if: failure()
+        run: |
+          echo "::error::Framework port denylist validation failed. Remove every reported forbidden path/content before merging."
+          echo "Reproduce locally with: npm run validate:port-denylist"
+
   lint:
     name: ESLint
     needs: changes
@@ -436,6 +460,7 @@ jobs:
         test,
         story-validation,
         manifest-validation,
+        port-denylist,
         registry-determinism,
         ide-sync-validation,
         installer-smoke-test,
@@ -463,6 +488,7 @@ jobs:
           echo "  Tests: ${{ needs.test.result }}"
           echo "  Story Validation: ${{ needs.story-validation.result }}"
           echo "  Manifest Validation: ${{ needs.manifest-validation.result }}"
+          echo "  Port Denylist: ${{ needs.port-denylist.result }}"
           echo "  Registry Determinism: ${{ needs.registry-determinism.result }}"
           echo "  IDE Sync Validation: ${{ needs.ide-sync-validation.result }}"
           echo "  Installer Smoke Test: ${{ needs.installer-smoke-test.result }}"
@@ -506,6 +532,13 @@ jobs:
           # Manifest Validation: fail if ran and didn't succeed
           if [ "${{ needs.manifest-validation.result }}" == "failure" ]; then
             echo "❌ Manifest validation failed"
+            FAILED=true
+          fi
+
+          # Framework Port Denylist: fail on leaked private/workspace content
+          if [ "${{ needs.port-denylist.result }}" == "failure" ]; then
+            echo "❌ Framework port denylist failed - remove reported forbidden paths/content"
+            echo "   Reproduce locally: npm run validate:port-denylist"
             FAILED=true
           fi
 

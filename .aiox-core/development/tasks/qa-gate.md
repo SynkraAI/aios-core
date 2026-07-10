@@ -244,6 +244,7 @@ story: '{epic}.{story}'
 gate: PASS|CONCERNS|FAIL|WAIVED
 status_reason: '1-2 sentence explanation of gate decision'
 reviewer: 'Quinn'
+reviewed_revision: '{commit SHA, PR head SHA, or deterministic story-content digest}'
 updated: '{ISO-8601 timestamp}'
 top_issues: [] # Empty array if no issues
 waiver: { active: false } # Only set active: true if WAIVED
@@ -257,6 +258,7 @@ story: '1.3'
 gate: CONCERNS
 status_reason: 'Missing rate limiting on auth endpoints poses security risk.'
 reviewer: 'Quinn'
+reviewed_revision: 'commit:abc1234'
 updated: '2025-01-12T10:15:00Z'
 top_issues:
   - id: 'SEC-001'
@@ -278,6 +280,7 @@ story: '1.3'
 gate: WAIVED
 status_reason: 'Known issues accepted for MVP release.'
 reviewer: 'Quinn'
+reviewed_revision: 'commit:abc1234'
 updated: '2025-01-12T10:15:00Z'
 top_issues:
   - id: 'PERF-001'

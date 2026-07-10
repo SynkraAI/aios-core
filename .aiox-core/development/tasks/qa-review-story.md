@@ -1,9 +1,9 @@
 ---
 tools:
-  - github-cli        # Code review and PR management
-  - browser           # End-to-end testing and UI validation
-  - context7          # Research testing frameworks and best practices
-  - supabase          # Database testing and data validation
+  - github-cli # Code review and PR management
+  - browser # End-to-end testing and UI validation
+  - context7 # Research testing frameworks and best practices
+  - supabase # Database testing and data validation
 checklists:
   - qa-master-checklist.md
 ---
@@ -17,16 +17,19 @@ Perform a comprehensive test architecture review with quality gate decision. Thi
 **Choose your execution mode:**
 
 ### 1. YOLO Mode - Fast, Autonomous (0-1 prompts)
+
 - Autonomous decision making with logging
 - Minimal user interaction
 - **Best for:** Simple, deterministic tasks
 
 ### 2. Interactive Mode - Balanced, Educational (5-10 prompts) **[DEFAULT]**
+
 - Explicit decision checkpoints
 - Educational explanations
 - **Best for:** Learning, complex decisions
 
 ### 3. Pre-Flight Planning - Comprehensive Upfront Planning
+
 - Task analysis phase (identify all ambiguities)
 - Zero ambiguity execution
 - **Best for:** Ambiguous requirements, critical work
@@ -194,6 +197,7 @@ token_usage: ~2,000-8,000 tokens
 ```
 
 **Optimization Notes:**
+
 - Iterative analysis with depth limits; cache intermediate results; batch similar operations
 
 ---
@@ -212,7 +216,6 @@ updated_at: 2025-11-17
 ```
 
 ---
-
 
 ## Inputs
 
@@ -299,12 +302,12 @@ Execute CodeRabbit self-healing **FIRST** before manual review:
 
 #### Severity Handling
 
-| Severity | Behavior | Notes |
-|----------|----------|-------|
+| Severity     | Behavior                  | Notes                                   |
+| ------------ | ------------------------- | --------------------------------------- |
 | **CRITICAL** | Auto-fix (max 3 attempts) | Security vulnerabilities, breaking bugs |
-| **HIGH** | Auto-fix (max 3 attempts) | Significant quality problems |
-| **MEDIUM** | Create tech debt issue | Document for future sprint |
-| **LOW** | Note in review | Nits, no action required |
+| **HIGH**     | Auto-fix (max 3 attempts) | Significant quality problems            |
+| **MEDIUM**   | Create tech debt issue    | Document for future sprint              |
+| **LOW**      | Note in review            | Nits, no action required                |
 
 #### Implementation Code
 
@@ -324,11 +327,13 @@ async function runQACodeRabbitSelfHealing(storyPath) {
     const output = await runCodeRabbitCLI('committed --base main');
     const issues = parseCodeRabbitOutput(output);
 
-    const criticalIssues = issues.filter(i => i.severity === 'CRITICAL');
-    const highIssues = issues.filter(i => i.severity === 'HIGH');
-    const mediumIssues = issues.filter(i => i.severity === 'MEDIUM');
+    const criticalIssues = issues.filter((i) => i.severity === 'CRITICAL');
+    const highIssues = issues.filter((i) => i.severity === 'HIGH');
+    const mediumIssues = issues.filter((i) => i.severity === 'MEDIUM');
 
-    console.log(`   Found: ${criticalIssues.length} CRITICAL, ${highIssues.length} HIGH, ${mediumIssues.length} MEDIUM`);
+    console.log(
+      `   Found: ${criticalIssues.length} CRITICAL, ${highIssues.length} HIGH, ${mediumIssues.length} MEDIUM`
+    );
 
     // No CRITICAL or HIGH issues = success
     if (criticalIssues.length === 0 && highIssues.length === 0) {
@@ -367,6 +372,7 @@ async function runQACodeRabbitSelfHealing(storyPath) {
 #### Integration with Gate Decision
 
 If self-healing fails:
+
 - Gate automatically set to FAIL
 - `top_issues` populated from remaining CodeRabbit issues
 - `status_reason` includes "CodeRabbit self-healing exhausted"
@@ -457,9 +463,9 @@ After CodeRabbit self-healing (Step 0), if code intelligence is available:
 
 - Refactor code where safe and appropriate
 - Run tests to ensure changes don't break functionality
-- Document all changes in QA Results section with clear WHY and HOW
-- Do NOT alter story content beyond QA Results section
-- Do NOT change story Status or File List; recommend next status only
+- Document all changes in QA Results with clear WHY and HOW
+- Change Status and Change Log only for the canonical transition coupled to the final QA verdict
+- Do NOT change File List or any other story section; ask Dev to update implementation records
 
 ### 4. Standards Compliance Check
 
@@ -480,14 +486,16 @@ After CodeRabbit self-healing (Step 0), if code intelligence is available:
 - Add comments for complex logic if missing
 - Ensure any API changes are documented
 
-## Output 1: Update Story File - QA Results Section ONLY
+## Output 1: Update QA Results and Apply the QA-Owned Lifecycle Transition
 
-**CRITICAL**: You are ONLY authorized to update the "QA Results" section of the story file. DO NOT modify any other sections.
+**CRITICAL**: QA is authorized to update QA Results and the verdict-owned Status/Change Log transition only. Do not modify any other section.
 
 **QA Results Anchor Rule:**
 
 - If `## QA Results` doesn't exist, append it at end of file
 - If it exists, append a new dated entry below existing entries
+- Record `Reviewed By` and `Reviewed Revision` in every appended review
+- Apply `InReview → Done` for PASS/CONCERNS/WAIVED or `InReview → InProgress` for FAIL, with a matching Change Log row
 - Never edit other sections
 
 After review and any refactoring, append your results to the story file in the QA Results section:
@@ -498,6 +506,8 @@ After review and any refactoring, append your results to the story file in the Q
 ### Review Date: [Date]
 
 ### Reviewed By: Quinn (Test Architect)
+
+### Reviewed Revision: [commit SHA, PR head SHA, or deterministic working-tree digest]
 
 ### Code Quality Assessment
 
@@ -549,10 +559,10 @@ NFR assessment: qa.qaLocation/assessments/{epic}.{story}-nfr-{YYYYMMDD}.md
 
 # Note: Paths should reference core-config.yaml for custom configurations
 
-### Recommended Status
+### Lifecycle Transition
 
-[✓ Ready for Done] / [✗ Changes Required - See unchecked items above]
-(Story owner decides final status)
+[PASS/CONCERNS/WAIVED: InReview → Done] / [FAIL: InReview → InProgress]
+(QA applies this transition in Status and Change Log before handoff.)
 ```
 
 ## Output 2: Create Quality Gate File
@@ -572,6 +582,7 @@ story_title: '{story title}'
 gate: PASS|CONCERNS|FAIL|WAIVED
 status_reason: '1-2 sentence explanation of gate decision'
 reviewer: 'Quinn (Test Architect)'
+reviewed_revision: '{commit SHA, PR head SHA, or deterministic working-tree digest}'
 updated: '{ISO-8601 timestamp}'
 
 top_issues: [] # Empty if no issues
@@ -683,11 +694,25 @@ Stop the review and request clarification if:
 
 After review:
 
-1. Update the QA Results section in the story file
-2. Create the gate file in directory from `qa.qaLocation/gates`
-3. Recommend status: "Ready for Done" or "Changes Required" (owner decides)
-4. If files were modified, list them in QA Results and ask Dev to update File List
-5. Always provide constructive feedback and actionable recommendations
+1. Prepare QA Results, gate, Change Log, and Status updates without handing off.
+2. Persist the story-bound gate file atomically, then re-read it and verify story
+   ID, verdict, reviewer, and reviewed revision.
+3. Only after Step 2 succeeds, atomically persist QA Results plus the coupled
+   Status/Change Log transition in one story-file write.
+4. Re-read both artifacts and verify their verdict/provenance match and the
+   canonical transition is present exactly once.
+5. If any write or verification fails, abort the handoff, restore/preserve the
+   original story Status and Change Log, remove any gate created by this failed
+   attempt, and re-read the gate path to verify it no longer exists. Gate removal
+   is mandatory: if removal or absence verification fails, keep the handoff
+   blocked and report both the original persistence error and cleanup error.
+   Never leave a failed-attempt gate behind or invent an invalidation schema.
+6. If files were modified, list them in QA Results and ask Dev to update File List.
+7. Always provide constructive feedback and actionable recommendations.
+
+This protocol is fail-closed: no success message or handoff is allowed until QA
+Results, the unique gate, Change Log, and Status are durably persisted and
+verified from disk.
 
 ## ClickUp Synchronization
 
@@ -707,11 +732,14 @@ After review:
 - **No Action Required**: The sync happens transparently when using story-manager utilities. If sync fails, story file is still saved locally with a warning message.
 
 ## Handoff
+
 next_agent: @dev
 next_command: *apply-qa-fixes
-condition: QA verdict is REJECT
+condition: QA verdict is FAIL with actionable findings in QA Results/gate (Status updated to InProgress)
 alternatives:
-  - agent: @devops, command: *push, condition: QA verdict is APPROVE
-  - agent: @dev, command: *fix-qa-issues, condition: Structured fix from QA_FIX_REQUEST.md
 
-- **Manual Sync**: If needed, use: `npm run sync-story -- --story {epic}.{story}` 
+- agent: @devops, command: *push, condition: QA verdict is PASS or CONCERNS (Status updated to Done)
+- agent: @po, command: *close-story, condition: QA verdict is WAIVED (Status updated to Done)
+- agent: @dev, command: *fix-qa-issues, condition: External structured QA_FIX_REQUEST.md was supplied instead of ordinary gate findings
+
+- **Manual Sync**: If needed, use: `npm run sync-story -- --story {epic}.{story}`

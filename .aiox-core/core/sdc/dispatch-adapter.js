@@ -5,6 +5,11 @@
 
 'use strict';
 
+const {
+  assertDispatchGovernance,
+  DispatchGovernanceError,
+} = require('../permissions/dispatch-governance');
+
 /**
  * @typedef {object} DispatchItem
  * @property {string} [storyId]
@@ -16,6 +21,10 @@
  * @param {'sequential'|'parallel'} [options.mode]
  * @param {number} [options.maxParallel]
  * @param {(msg: string) => void} [options.warn]
+ * @param {number|string} options.budgetCeilingUsd - Required model budget ceiling.
+ * @param {string} [options.projectRoot] - Repository root used for story resolution.
+ * @param {string|object|Function} options.intent - Exact child model intent or resolver.
+ * @param {object|Function} [options.context] - Exact child context or resolver.
  * @returns {{ mode: string, maxParallel: number, dispatchStory: Function, runBatch: Function }}
  */
 function createDispatchAdapter(options = {}) {
@@ -36,7 +45,48 @@ function createDispatchAdapter(options = {}) {
   async function dispatchStory({ story, run }) {
     const storyId = (story && (story.storyId || story.id)) || 'unknown';
     try {
-      const result = await Promise.resolve(run(story));
+      const childIntent =
+        typeof options.intent === 'function'
+          ? options.intent(story)
+          : options.intent ?? story?.intent;
+      const childContext =
+        typeof options.context === 'function'
+          ? options.context(story)
+          : options.context ?? story?.context ?? {};
+      if (
+        childIntent === undefined ||
+        childIntent === null ||
+        (typeof childIntent === 'string' && childIntent.trim() === '')
+      ) {
+        throw new DispatchGovernanceError(
+          'DISPATCH_INTENT_REQUIRED',
+          `Automated dispatch blocked for ${storyId}: provide the exact child model intent.`,
+        );
+      }
+      const governance = assertDispatchGovernance({
+        budgetCeilingUsd: options.budgetCeilingUsd,
+        task: 'develop',
+        intent: JSON.stringify(
+          {
+            story: story
+              ? {
+                storyId: story.storyId || story.id,
+                status: story.status,
+                dependsOn: story.dependsOn,
+                fileList: story.fileList,
+              }
+              : {},
+            intent: childIntent,
+            context: childContext,
+          },
+        ),
+        story: story && (story.absPath || story.path || story.storyPath || story),
+        projectRoot: options.projectRoot,
+        requiresStory: true,
+      });
+      const result = await Promise.resolve(
+        run(story, { intent: childIntent, context: childContext, governance }),
+      );
       return { storyId, ok: true, result };
     } catch (error) {
       return {

@@ -158,6 +158,7 @@ function planWaveFromPaths(storyPaths, opts = {}) {
       stories: b.map((s) => ({
         storyId: s.storyId,
         path: s.path,
+        absPath: s.absPath,
         status: s.status,
         partition: s.partition,
         partition_source: s.partition_source,

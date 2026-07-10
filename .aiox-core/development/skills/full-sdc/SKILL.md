@@ -25,6 +25,25 @@ aiox sdc plan {story-path} --mode yolo
 
 Default mode: `interactive`.
 
+Automated/yolo dispatch additionally requires a positive explicit
+`AIOX_MODEL_BUDGET_CEILING_USD`; the story path and full child intent are
+validated before every model call.
+
+Before each direct subagent/model spawn, materialize the exact outgoing prompt
+and context in isolated files and run this mandatory mechanical gate:
+
+```bash
+aiox sdc preflight {story-path} \
+  --task {phase-task} \
+  --budget-usd "$AIOX_MODEL_BUDGET_CEILING_USD" \
+  --intent-file {exact-child-intent-file} \
+  --context-file {exact-child-context-file}
+```
+
+Continue only on exit `0`. Exit `5` is a governance rejection and the model or
+subagent must not be invoked. Pass the same bytes from these files to the child;
+never rebuild or enrich the prompt after preflight.
+
 ## CLI (mechanical — always use)
 
 ```bash
@@ -54,7 +73,7 @@ Phases: `validate` → `develop` → `review` → `apply_qa_fixes` (loop) → `c
 | 3 | review | `review-story` | @qa / quality_gate | `qa-gate.md` |
 | 3b | apply_qa_fixes | `apply-qa-fixes` | @dev | `apply-qa-fixes.md` |
 | 4 | deploy | — | — | **skip** (no deploy config) |
-| 5 | close | `close-story` | @po | `po-close-story.md` |
+| 5 | close | `close-story` | @po | `po-close-story.md` (administrative only) |
 
 Skill SOT: `.aiox-core/development/skills/<name>/SKILL.md`
 
@@ -66,16 +85,17 @@ Skill SOT: `.aiox-core/development/skills/<name>/SKILL.md`
    a. aiox sdc next {story}  → phase + skill path
    b. IF no next phase → DONE (status completed)
    c. Load skill SKILL.md + its task SOT; execute fully
-   d. IF yolo: autonomous; IF interactive: report + pause on decisions
-   e. aiox sdc verify {story} {phase} --mark
-   f. IF verify FAIL → HALT (do not advance)
-   g. IF phase=review and verdict FAIL|CONCERNS needing fixes:
-        set next work to apply_qa_fixes (aiox sdc mark {id} apply_qa_fixes --status pending if needed)
+   d. Before any spawned/model phase: run `aiox sdc preflight` over the exact child payload
+   e. IF yolo: autonomous; IF interactive: report + pause on decisions
+   f. aiox sdc verify {story} {phase} --mark
+   g. IF verify FAIL → HALT (do not advance)
+   h. IF phase=review and verdict FAIL:
+        CLI selects apply_qa_fixes automatically
         run apply-qa-fixes skill → verify apply_qa_fixes --mark
-        re-run review (qgIterations++)
-        IF qgIterations > 3 → HALT escalate human
-   h. ELSE continue loop
-2. Only close-story may set Status Done
+        CLI returns to review and increments qgIterations
+        IF the third re-review fails → HALT and escalate human
+   i. ELSE continue loop
+2. QA sets Done on PASS/CONCERNS/WAIVED; close-story only finalizes bookkeeping
 3. Push/PR: hand off @devops — never push from this skill
 ```
 
@@ -91,13 +111,15 @@ For each phase, spawn the matching persona (or run inline if spawn unavailable):
 | apply_qa_fixes | `aiox-dev` | Execute skill apply-qa-fixes on {path} |
 | close | `aiox-po` | Execute skill close-story on {path} |
 
-After each subagent returns: run `aiox sdc verify … --mark` in the **main** session (orchestrator owns the lock).
+Before dispatch, declare the shared budget ceiling, bind `{path}`, and scan the
+complete prompt/context. After each subagent returns: run
+`aiox sdc verify … --mark` in the **main** session (orchestrator owns the lock).
 
 ## Sequence Lock (soft + CLI)
 
 1. Phases **in order**. No N+1 until verify of N passes (or skip).
-2. **Only `close-story` sets Status Done.**
-3. If story file shows `Done` before close phase → **HALT** integrity violation.
+2. **Only QA review sets Status Done.**
+3. Close requires the approved QA verdict and an already-Done story.
 4. QG loop max **3** (`maxQgIterations` in state).
 5. Anti-self-validation: executor ≠ quality_gate.
 
@@ -107,9 +129,9 @@ After each subagent returns: run `aiox sdc verify … --mark` in the **main** se
 |-------|---------|
 | validate | Status Ready+ |
 | develop | work evidence; not Done |
-| review | QA verdict or gate file; not Done |
+| review | QA verdict or gate file; approved → Done, FAIL → InProgress |
 | apply_qa_fixes | not Done |
-| close | Status Done |
+| close | Status already Done; administrative finalization only |
 
 ## Modes
 

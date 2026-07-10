@@ -1,7 +1,7 @@
 ---
 name: review-story
 description: >
-  QA gate for a story — verdict PASS/CONCERNS/FAIL/WAIVED + gate file. Does NOT set Done.
+  QA gate for a story — verdict PASS/CONCERNS/FAIL/WAIVED + lifecycle transition.
   Use when: review story, qa gate, *qa-gate, /review-story.
 user-invocable: true
 argument-hint: "{story-path} [yolo|interactive]"
@@ -35,27 +35,24 @@ Supporting (deep review):
 4. Update story **QA Results** section with verdict + gate path.
 5. Verdicts: **PASS** | **CONCERNS** | **FAIL** | **WAIVED**.
 
-### Status policy (Wave B / ARCH-B override)
+### Status policy (canonical lifecycle)
 
-The legacy task prose may say `InReview → Done` on PASS. **For lean SDC this skill must NOT set `Status: Done`.**
+The QA task and `.claude/rules/story-lifecycle.md` are authoritative.
 
 | Verdict | Status action |
 |---------|----------------|
-| PASS / CONCERNS | Ensure story is **InReview** (or leave ready-for-close); Change Log notes gate verdict. **Done only via `close-story`.** |
+| PASS / CONCERNS | Set **Done** and append the `InReview → Done` Change Log transition. |
 | FAIL | Return to **InProgress**; list fixes for `apply-qa-fixes` |
-| WAIVED | Document waiver; same as PASS regarding Done (close-story only) |
-
-Rationale: Sequence Lock — only `close-story` / `po-close-story` marks Done after closure gates.
+| WAIVED | Document waiver, set **Done**, and append the lifecycle transition. |
 
 ## Post-phase verification
 
 - [ ] Gate file on disk (or equivalent QA Results with explicit verdict)
 - [ ] Story QA Results updated
-- [ ] Status is **not** silently set to Done by this skill
+- [ ] PASS/CONCERNS/WAIVED set Done; FAIL sets InProgress
 
 ## Forbidden
 
-- Setting `Status: Done`
 - Self-approving as the same agent that implemented (anti-self-review)
 - Product harvest trees or product-only local canon (see ARCH-A denylist)
 - `git push`

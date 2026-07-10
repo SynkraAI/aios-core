@@ -67,6 +67,16 @@ module.exports = [
       'pro/**',
       // Glue scripts
       'scripts/glue/**',
+      // Ephemeral test dirs created at repo root by Jest suites.
+      // Trailing-slash form skips the directory in the walker entirely
+      // (no readdir), avoiding ENOENT races when concurrent test runs
+      // delete these dirs mid-scan; the /** form alone still descends.
+      '.test-temp*/',
+      '.test-temp*/**',
+      '.aiox-test/',
+      '.aiox-test/**',
+      'tests/**/temp-*/',
+      'tests/**/temp-*/**',
     ],
   },
 

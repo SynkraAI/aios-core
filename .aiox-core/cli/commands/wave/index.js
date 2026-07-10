@@ -41,6 +41,11 @@ function resolveStoryPaths(inputs) {
   return [...new Set(out.map((p) => path.resolve(p)))];
 }
 
+/**
+ * Build the `aiox wave` Commander command tree.
+ *
+ * @returns {Command} Configured wave command.
+ */
 function createWaveCommand() {
   const cmd = new Command('wave');
   cmd.description('Lean wave-execute planner (DAG + file partition)');

@@ -282,6 +282,17 @@ describe('SynapseEngine', () => {
     const warnSpy = jest.spyOn(console, 'warn').mockImplementation();
     engine = new SynapseEngine('/fake/.synapse', { manifest: {} });
     warnSpy.mockRestore();
+
+    const coreMocks = {
+      0: mockLayerModules.L0,
+      1: mockLayerModules.L1,
+      2: mockLayerModules.L2,
+      3: mockLayerModules.L3,
+    };
+    for (const layer of engine.layers) {
+      const LayerClass = coreMocks[layer.layer];
+      if (LayerClass) layer._safeProcess = LayerClass.prototype._safeProcess;
+    }
   });
 
   describe('constructor', () => {
@@ -592,31 +603,32 @@ describe('SynapseEngine', () => {
   });
 
   describe('process() — pipeline timeout soft-fail (CORE-SU.A1)', () => {
-    let hrtimeSpy;
-
     afterEach(() => {
-      if (hrtimeSpy) {
-        hrtimeSpy.mockRestore();
-        hrtimeSpy = null;
-      }
       jest.restoreAllMocks();
     });
 
     test('skips remaining active layers after budget and console.warns', async () => {
+      for (const layer of engine.layers) {
+        if (layer.layer === 0) layer._safeProcess = () => ({ rules: ['constitution'] });
+        if (layer.layer === 1) layer._safeProcess = () => ({ rules: ['global'] });
+        if (layer.layer === 2) layer._safeProcess = () => ({ rules: ['agent'] });
+      }
       // Timeline: totalStart=0; first layer elapsed=0 → run; later checks=500ms → timeout
-      let calls = 0;
-      hrtimeSpy = jest.spyOn(process.hrtime, 'bigint').mockImplementation(() => {
-        calls += 1;
-        if (calls <= 2) return 0n;
-        return 500_000_000n; // 500ms
-      });
+      const timeline = [0n, 0n, 500_000_000n];
+      const nowNs = jest.fn(() => timeline.shift() ?? 500_000_000n);
       const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
 
       const result = await engine.process('test', { prompt_count: 1 }, {
         synapse: { pipelineTimeoutMs: 100 },
+        nowNs,
       });
 
       const perLayer = result.metrics.per_layer;
+      if (perLayer.constitution.status !== 'ok') {
+        throw new Error(
+          JSON.stringify({ perLayer, nowCalls: nowNs.mock.calls.length }, null, 2),
+        );
+      }
       expect(perLayer.constitution.status).toBe('ok');
       expect(perLayer.global.status).toBe('skipped');
       expect(perLayer.global.reason).toBe('Pipeline timeout');
@@ -633,10 +645,22 @@ describe('SynapseEngine', () => {
     });
 
     test('with high budget all active layers (L0-L2) complete', async () => {
+      for (const layer of engine.layers) {
+        if (layer.layer === 0) layer._safeProcess = () => ({ rules: ['constitution'] });
+        if (layer.layer === 1) layer._safeProcess = () => ({ rules: ['global'] });
+        if (layer.layer === 2) layer._safeProcess = () => ({ rules: ['agent'] });
+      }
+      const nowNs = jest.fn(() => 0n);
       const result = await engine.process('test', { prompt_count: 1 }, {
         synapse: { pipelineTimeoutMs: 30000 },
+        nowNs,
       });
       const perLayer = result.metrics.per_layer;
+      if (perLayer.constitution.status !== 'ok') {
+        throw new Error(
+          JSON.stringify({ perLayer, nowCalls: nowNs.mock.calls.length }, null, 2),
+        );
+      }
       expect(perLayer.constitution.status).toBe('ok');
       expect(perLayer.global.status).toBe('ok');
       expect(perLayer.agent.status).toBe('ok');

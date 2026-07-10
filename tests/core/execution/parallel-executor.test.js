@@ -192,12 +192,17 @@ describe('ParallelExecutor', () => {
     it('should timeout slow executors', async () => {
       const timeoutExecutor = new ParallelExecutor({ timeout: 100 });
 
+      let slowTimer;
       const slowExecutor = jest.fn().mockImplementation(
-        () => new Promise((resolve) => setTimeout(() => resolve({ success: true }), 500)),
+        () =>
+          new Promise((resolve) => {
+            slowTimer = setTimeout(() => resolve({ success: true }), 500);
+          }),
       );
       const fastExecutor = jest.fn().mockResolvedValue({ success: true, output: 'fast' });
 
       const result = await timeoutExecutor.execute(slowExecutor, fastExecutor);
+      clearTimeout(slowTimer);
 
       expect(result.success).toBe(true);
     }, 10000);

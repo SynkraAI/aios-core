@@ -166,9 +166,10 @@ class ParallelMonitor extends EventEmitter {
       this.broadcast('task_completed', { taskId, task });
 
       // Remove from active after delay
-      setTimeout(() => {
+      const cleanupTimer = setTimeout(() => {
         this.activeTasks.delete(taskId);
       }, 10000);
+      cleanupTimer.unref?.();
     }
   }
 
@@ -193,9 +194,10 @@ class ParallelMonitor extends EventEmitter {
       this.broadcast('wave_completed', { waveId, wave });
 
       // Move to history after delay
-      setTimeout(() => {
+      const cleanupTimer = setTimeout(() => {
         this.activeWaves.delete(waveId);
       }, 30000);
+      cleanupTimer.unref?.();
     }
   }
 

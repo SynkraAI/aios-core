@@ -29,3 +29,9 @@ Extend `core/permissions` with path, prompt, and SSRF guards. **Do not replace**
 - [x] Unit tests (path / prompt / ssrf)
 - [x] No `workspace/` in deny list
 - [x] Existing PermissionMode / OperationGuard preserved
+
+## Change Log
+
+| Date | Version | Description | Author |
+|------|---------|-------------|--------|
+| 2026-07-09 | audit | Retrospective lifecycle baseline: Done status and guard/test evidence verified; missing historical transitions were not fabricated. | Dex (@dev) |

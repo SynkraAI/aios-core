@@ -34,6 +34,7 @@ const { OperationGuard } = require('./operation-guard');
 const pathGuard = require('./path-guard');
 const promptGuard = require('./prompt-guard');
 const ssrfGuard = require('./ssrf-guard');
+const dispatchGovernance = require('./dispatch-governance');
 
 /**
  * Create a pre-configured guard instance
@@ -142,6 +143,7 @@ module.exports = {
   pathGuard,
   promptGuard,
   ssrfGuard,
+  dispatchGovernance,
   // Convenience re-exports (most common entry points)
   validateWrite: pathGuard.validateWrite,
   isWriteAllowed: pathGuard.isWriteAllowed,
@@ -149,6 +151,7 @@ module.exports = {
   isPromptSafe: promptGuard.isSafe,
   validateUrl: ssrfGuard.validateUrl,
   isUrlAllowed: ssrfGuard.isUrlAllowed,
+  assertDispatchGovernance: dispatchGovernance.assertDispatchGovernance,
   createGuard,
   checkOperation,
   getModeBadge,

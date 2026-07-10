@@ -3,3 +3,13 @@
 # IDS Registry Sync (Story IDS-3)
 # Ensures entity registry is up-to-date before push (sync, non-blocking).
 node .aiox-core/hooks/ids-pre-push.js || true
+
+# CORE-SU.R1: Block framework-port leaks before they reach the remote.
+echo "Validating framework port denylist..."
+if ! npm run validate:port-denylist; then
+  echo ""
+  echo "ERROR: Framework port denylist validation failed; push blocked."
+  echo "Remove the reported forbidden paths/content, then run:"
+  echo "  npm run validate:port-denylist"
+  exit 1
+fi

@@ -419,12 +419,20 @@ class AgentInvoker extends EventEmitter {
    * @private
    */
   async _executeWithTimeout(fn, timeout) {
-    return Promise.race([
-      fn(),
-      new Promise((_, reject) =>
-        setTimeout(() => reject(new Error('Task execution timed out')), timeout),
-      ),
-    ]);
+    let timeoutId;
+    try {
+      return await Promise.race([
+        fn(),
+        new Promise((_, reject) => {
+          timeoutId = setTimeout(
+            () => reject(new Error('Task execution timed out')),
+            timeout,
+          );
+        }),
+      ]);
+    } finally {
+      if (timeoutId) clearTimeout(timeoutId);
+    }
   }
 
   /**

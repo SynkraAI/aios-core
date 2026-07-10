@@ -418,7 +418,7 @@ agents:
   - devops
 changelog:
   1.3.0:
-    - Added: Step 3.1 documenting Docker MCP secrets/template bug
+    - Added: Step 3.1 documenting Docker MCP secret-template bug
     - Added: Workaround using catalog file direct edit
     - Updated: Error handling for credentials issues
     - Fixed: Apify MCP now working with 7 tools

@@ -163,7 +163,6 @@ function main(options = {}) {
   } catch (error) {
     if (error.code === 'ENOENT') {
       console.error(`Constitution not found: ${constitutionPath}`);
-      process.exitCode = 1;
       return { success: false, error: 'Constitution file not found' };
     }
     throw error;
@@ -174,7 +173,6 @@ function main(options = {}) {
 
   if (articles.length === 0) {
     console.error('No articles found in constitution.md');
-    process.exitCode = 1;
     return { success: false, error: 'No articles found' };
   }
 
@@ -198,7 +196,8 @@ function main(options = {}) {
 
 // Run if called directly
 if (require.main === module) {
-  main();
+  const result = main();
+  if (!result.success) process.exitCode = 1;
 }
 
 module.exports = { parseConstitution, extractRules, generateConstitution, cleanText, main, ROMAN_TO_ARABIC };

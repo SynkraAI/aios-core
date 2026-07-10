@@ -101,11 +101,19 @@ function loadJson(filePath) {
 /**
  * @param {string} filePath
  * @param {object} data
+ * @returns {void}
+ * @throws {Error} When the atomic temp write or rename fails.
  */
 function saveJson(filePath, data) {
   fs.mkdirSync(path.dirname(filePath), { recursive: true });
   data.updatedAt = new Date().toISOString();
-  fs.writeFileSync(filePath, `${JSON.stringify(data, null, 2)}\n`, 'utf8');
+  const tempPath = `${filePath}.${process.pid}.${Date.now()}.tmp`;
+  try {
+    fs.writeFileSync(tempPath, `${JSON.stringify(data, null, 2)}\n`, 'utf8');
+    fs.renameSync(tempPath, filePath);
+  } finally {
+    if (fs.existsSync(tempPath)) fs.unlinkSync(tempPath);
+  }
 }
 
 /**
@@ -148,11 +156,22 @@ function saveWaveState(state, cwd = process.cwd()) {
  * @param {string} phase
  * @param {'passed'|'failed'|'skipped'|'halted'} status
  * @param {string} [notes]
+ * @param {{ outcome?: 'approved'|'changes_requested' }} [options]
  * @returns {object}
+ * @throws {Error} When the phase is unknown or a passed review lacks a valid outcome.
  */
-function markPhase(state, phase, status, notes) {
+function markPhase(state, phase, status, notes, options = {}) {
   if (!PHASES.includes(phase)) {
     throw new Error(`Unknown phase: ${phase}. Expected one of: ${PHASES.join(', ')}`);
+  }
+  if (
+    phase === 'review' &&
+    status === 'passed' &&
+    !['approved', 'changes_requested'].includes(options.outcome)
+  ) {
+    throw new Error(
+      'Review passed requires outcome: approved or changes_requested',
+    );
   }
   state.phases[phase] = {
     status,
@@ -163,6 +182,34 @@ function markPhase(state, phase, status, notes) {
     state.status = status === 'halted' ? 'halted' : 'failed';
     state.currentPhase = phase;
   } else if (status === 'passed' || status === 'skipped') {
+    if (phase === 'review' && options.outcome === 'changes_requested') {
+      if ((state.qgIterations || 0) >= state.maxQgIterations) {
+        state.phases[phase].status = 'halted';
+        state.phases[phase].notes =
+          notes || `Quality gate circuit breaker reached (${state.maxQgIterations})`;
+        state.status = 'halted';
+        state.currentPhase = phase;
+      } else {
+        state.currentPhase = 'apply_qa_fixes';
+        state.status = 'running';
+      }
+      state.updatedAt = new Date().toISOString();
+      return state;
+    }
+    if (phase === 'review' && options.outcome === 'approved') {
+      state.currentPhase = 'close';
+      state.status = 'running';
+      state.updatedAt = new Date().toISOString();
+      return state;
+    }
+    if (phase === 'apply_qa_fixes') {
+      state.qgIterations = (state.qgIterations || 0) + 1;
+      state.phases.review = { status: 'pending', at: null, notes: null };
+      state.currentPhase = 'review';
+      state.status = 'running';
+      state.updatedAt = new Date().toISOString();
+      return state;
+    }
     const idx = PHASES.indexOf(phase);
     const next = PHASES.slice(idx + 1).find((p) => state.phases[p].status === 'pending');
     if (next) {

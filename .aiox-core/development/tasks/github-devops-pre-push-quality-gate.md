@@ -105,6 +105,10 @@ constitutional_gate:
         command: npm run build
         must_pass: true
 
+      - name: port_denylist
+        command: npm run validate:port-denylist
+        must_pass: true
+
       - name: coderabbit
         check: No CRITICAL issues
         must_pass: true
@@ -123,7 +127,7 @@ constitutional_gate:
       {list_failed_checks}
 
       Resolution: Fix all failing checks before pushing.
-      Run: npm run lint && npm run typecheck && npm test && npm run build
+      Run: npm run validate:port-denylist && npm run lint && npm run typecheck && npm test && npm run build
 
   bypass:
     allowed: false
@@ -144,7 +148,7 @@ pre-conditions:
     tipo: constitutional-gate
     blocker: true
     validação: |
-      All quality checks must pass: lint, typecheck, test, build
+      All quality checks must pass: port denylist, lint, typecheck, test, build
     error_message: "Constitutional violation - Quality First checks failed"
 
   - [ ] Task is registered; required parameters provided; dependencies met
@@ -356,7 +360,23 @@ Same logic as lint, but for `npm run typecheck`.
 
 Same logic as lint, but for `npm run build`.
 
-### 8. Run CodeRabbit CLI Review (TR-3.14.12)
+### 8. Run Port Denylist Validation (blocking)
+
+```bash
+npm run validate:port-denylist
+```
+
+This gate is mandatory and cannot be skipped. Any non-zero exit blocks the push. The validator reports the forbidden file or content match; remove every reported framework-port leak and rerun the command.
+
+Failure message:
+
+```text
+❌ Framework port denylist validation FAILED - push blocked.
+Remove the reported forbidden paths/content, then run:
+  npm run validate:port-denylist
+```
+
+### 9. Run CodeRabbit CLI Review (TR-3.14.12)
 
 ```javascript
 const { execSync } = require('child_process');
@@ -528,7 +548,7 @@ if (coderabbitResult.gateImpact === 'CONCERNS') {
 }
 ```
 
-### 9. Run Security Scan (TR-3.14.11)
+### 10. Run Security Scan (TR-3.14.11)
 
 ```javascript
 const { execSync } = require('child_process');
@@ -655,7 +675,7 @@ function determineSecurityGate(results) {
 }
 ```
 
-### 9.1 Impact Analysis (Code Intelligence — Advisory Only)
+### 10.1 Impact Analysis (Code Intelligence — Advisory Only)
 
 > **Added by:** Story NOG-7 (DevOps Pre-Push Impact Analysis)
 > **Behavior:** Advisory only — NEVER blocks push. Auto-skips if code intelligence unavailable.
@@ -713,7 +733,7 @@ Impact Analysis:
 
 ---
 
-### 10. Verify Story Status (Optional - if using story-driven workflow)
+### 11. Verify Story Status (Optional - if using story-driven workflow)
 
 ```javascript
 function checkStoryStatus(storyPath) {
@@ -764,6 +784,7 @@ Quality Checks:
   ✓ npm test             PASSED
   ✓ npm run typecheck    PASSED
   ✓ npm run build        PASSED
+  ✓ Port denylist        PASSED
   ✓ Security scan        PASSED
   ⚠️ Story status         SKIPPED (no story file)
 
@@ -793,6 +814,7 @@ Proceed with push to remote? (Y/n)
 
 Quality Checks:
   ❌ npm test             FAILED
+  ❌ Port denylist        FAILED (forbidden framework-port content)
   ❌ Security scan        FAILED (CRITICAL vulnerabilities)
 
 Security Issues:
@@ -802,10 +824,11 @@ Security Issues:
 Overall Status: ❌ BLOCKED - Cannot push to remote
 
 Action Required:
-  1. Fix failing tests
-  2. Run: npm audit fix --force
-  3. Remove secrets from codebase
-  4. Re-run quality gate
+  1. Remove denylist matches reported by npm run validate:port-denylist
+  2. Fix failing tests
+  3. Run: npm audit fix --force
+  4. Remove secrets from codebase
+  5. Re-run quality gate
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
@@ -873,6 +896,7 @@ Called via `@github-devops *pre-push` command.
 
 - Works with ANY repository (framework or project)
 - Gracefully handles missing npm scripts
+- Framework port denylist validation is mandatory and blocking
 - Security scan is mandatory (TR-3.14.11)
 - User always has final approval
 - Detailed logging for troubleshooting

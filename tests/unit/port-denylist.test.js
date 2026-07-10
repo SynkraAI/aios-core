@@ -15,6 +15,8 @@ describe('port-denylist (CORE-SU.A4)', () => {
     expect(ids).toEqual(
       expect.arrayContaining([
         'workspace-product',
+        'secrets-path',
+        'hardcoded-credential',
         'sinkra-prefix',
         'mux-adapter',
         'machine-path-users',
@@ -23,9 +25,35 @@ describe('port-denylist (CORE-SU.A4)', () => {
   });
 
   it('flags sinkra_ and workspace product paths', () => {
-    const hits = scanContent('require("sinkra_pipeline")\nworkspace/businesses/foo');
+    const hits = scanContent(
+      'require("sinkra_pipeline")\nworkspace/custom-domain/foo\n`workspace/private-api`',
+    );
     expect(hits.some((h) => h.id === 'sinkra-prefix')).toBe(true);
-    expect(hits.some((h) => h.id === 'workspace-product')).toBe(true);
+    expect(hits.filter((h) => h.id === 'workspace-product')).toHaveLength(2);
+  });
+
+  it('flags secret-store paths and probable hardcoded credentials', () => {
+    const hits = scanContent(
+      'secrets/api-key\napi_key = "abcdefghijklmnop123456"',
+    );
+    expect(hits.some((h) => h.id === 'secrets-path')).toBe(true);
+    expect(hits.some((h) => h.id === 'hardcoded-credential')).toBe(true);
+  });
+
+  it('preserves credential detection in the QA security checklist', () => {
+    const qaChecklist = path.join(
+      '.aiox-core',
+      'development',
+      'tasks',
+      'qa-security-checklist.md',
+    );
+    const hits = scanContent(
+      'api_key = "abcdefghijklmnop123456"',
+      qaChecklist,
+    );
+    expect(hits).toEqual([
+      expect.objectContaining({ id: 'hardcoded-credential' }),
+    ]);
   });
 
   it('flags machine absolute paths', () => {
@@ -46,7 +74,9 @@ describe('port-denylist (CORE-SU.A4)', () => {
   });
 
   it('scans tracked agent config surfaces by default', () => {
-    expect(DEFAULT_SCAN_ROOTS).toEqual(expect.arrayContaining(['.claude']));
+    expect(DEFAULT_SCAN_ROOTS).toEqual(
+      expect.arrayContaining(['.claude', '.codex', '.gemini', '.grok']),
+    );
   });
 
   it('fails closed when an explicit file cannot be read', () => {

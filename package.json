@@ -58,6 +58,7 @@
   },
   "scripts": {
     "format": "prettier --write \"**/*.md\"",
+    "build": "node bin/utils/validate-publish.js",
     "test": "jest",
     "test:ci": "jest --runInBand --forceExit",
     "test:watch": "jest --watch",

@@ -1,7 +1,7 @@
 ---
 name: close-story
 description: >
-  Close a completed story (Status → Done). ONLY skill authorized to mark Done in lean SDC.
+  Finalize bookkeeping for a story already completed by QA. Never changes lifecycle status.
   Use when: close story, *close-story, story Done, /close-story.
 user-invocable: true
 argument-hint: "{story-path} [yolo|interactive]"
@@ -29,7 +29,7 @@ Before mutating Status, verify:
 2. Acceptance criteria met.
 3. Tasks checked complete; File List present.
 4. Quality gates green (or documented waiver).
-5. Story is not already Done (idempotent warn + exit).
+5. Story is already **Done** by QA; any other status is an integrity violation.
 
 On any hard fail → **HALT**, no Status change.
 
@@ -37,19 +37,19 @@ On any hard fail → **HALT**, no Status change.
 
 1. Load and execute `po-close-story.md`.
 2. Adopt **@po**.
-3. Set **Status → Done**; append Change Log.
-4. Update epic index/table if the task requires it.
+3. Preserve **Status: Done**; do not perform a lifecycle transition.
+4. Update epic index/backlog and closure metadata if required.
 5. Suggest next story when applicable.
 
 ## Post-phase verification
 
-- [ ] `Status: Done` on disk
-- [ ] Change Log entry for close
+- [ ] `Status: Done` remains unchanged on disk
+- [ ] Administrative closure entry added only when it carries new metadata
 - [ ] Epic index updated if applicable
 
 ## Forbidden
 
-- Closing without a review verdict
-- Hand-editing Done outside this skill during full-sdc
+- Closing without a review verdict or before QA sets Done
+- Changing story lifecycle status
 - `git push` (still `@devops`)
 - Product harvest trees (see ARCH-A denylist)

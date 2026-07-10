@@ -12,7 +12,7 @@
 
 'use strict';
 
-const { spawn, execSync } = require('child_process');
+const { spawn, execFileSync } = require('child_process');
 const fs = require('fs').promises;
 const fsSync = require('fs');
 const path = require('path');
@@ -146,6 +146,7 @@ const DEFAULT_OPTIONS = {
   outputDir: os.tmpdir(),
   retries: MAX_RETRIES,
   debug: false,
+  budgetCeilingUsd: process.env.AIOX_MODEL_BUDGET_CEILING_USD,
 };
 
 /**
@@ -308,6 +309,7 @@ function sleep(ms) {
  * @param {number} [options.timeout=300000] - Timeout in ms
  * @param {string} [options.outputDir] - Directory for output files
  * @param {boolean} [options.debug=false] - Enable debug logging
+ * @param {number|string} [options.budgetCeilingUsd] - Required automated model budget ceiling
  * @returns {Promise<SpawnResult>} Result with output and status
  */
 async function spawnInline(agent, task, options = {}) {
@@ -354,6 +356,7 @@ async function spawnInline(agent, task, options = {}) {
         AIOX_DEBUG: opts.debug ? 'true' : 'false',
         AIOX_OUTPUT_DIR: opts.outputDir,
         AIOX_INLINE_MODE: 'true', // Signal to pm.sh that we're running inline
+        AIOX_MODEL_BUDGET_CEILING_USD: String(opts.budgetCeilingUsd || ''),
       },
       stdio: ['ignore', 'pipe', 'pipe'],
     });
@@ -479,6 +482,7 @@ async function spawnInline(agent, task, options = {}) {
  * @param {string} [options.outputDir] - Directory for output files
  * @param {number} [options.retries=3] - Number of retry attempts
  * @param {boolean} [options.debug=false] - Enable debug logging
+ * @param {number|string} [options.budgetCeilingUsd] - Required automated model budget ceiling
  * @returns {Promise<SpawnResult>} Result with output and status
  *
  * @example
@@ -552,9 +556,10 @@ async function spawnAgent(agent, task, options = {}) {
         ...process.env,
         AIOX_DEBUG: opts.debug ? 'true' : 'false',
         AIOX_OUTPUT_DIR: opts.outputDir,
+        AIOX_MODEL_BUDGET_CEILING_USD: String(opts.budgetCeilingUsd || ''),
       };
 
-      const result = execSync(`bash "${scriptPath}" ${args.join(' ')}`, {
+      const result = execFileSync('bash', [scriptPath, ...args], {
         encoding: 'utf8',
         timeout: opts.timeout,
         env,

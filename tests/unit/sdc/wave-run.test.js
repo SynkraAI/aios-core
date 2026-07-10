@@ -65,6 +65,10 @@ describe('wave-run', () => {
 
   it('advance auto-completes Done stories', () => {
     const a = writeStory('W.A', 'Done', ['a.js']);
+    fs.appendFileSync(
+      a,
+      '\n## QA Results\n\nReviewer: Quinn\nreviewed_revision: working-tree:w-a\nGate: PASS\n',
+    );
     const b = writeStory('W.B', 'Ready', ['b.js']);
     planAndSave([a, b], { waveId: 'W1', mode: 'yolo' });
 
@@ -74,7 +78,7 @@ describe('wave-run', () => {
     expect(nextBatch.stories.map((s) => s.storyId)).toEqual(['W.B']);
   });
 
-  it('advance completes wave when all sdc completed', () => {
+  it('does not complete a wave from checkpoint state without canonical QA evidence', () => {
     const a = writeStory('W.X', 'Ready', ['x.js']);
     planAndSave([a], { waveId: 'W2' });
     const st = createSdcState({ storyId: 'W.X', storyPath: a });
@@ -83,8 +87,9 @@ describe('wave-run', () => {
     saveSdcState(st, cwd);
 
     const { wave, nextBatch } = advanceWave('W2', { cwd });
-    expect(nextBatch).toBeNull();
-    expect(wave.status).toBe('completed');
+    expect(nextBatch).toBeTruthy();
+    expect(nextBatch.stories[0].storyId).toBe('W.X');
+    expect(wave.status).toBe('running');
   });
 
   it('cascadeBlock returns transitive set', () => {

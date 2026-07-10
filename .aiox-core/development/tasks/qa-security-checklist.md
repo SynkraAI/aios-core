@@ -489,7 +489,7 @@ element.innerHTML = html; // This line won't be flagged
       "severity": "CRITICAL",
       "file": "src/config/api.ts",
       "line": 12,
-      "code": "const API_KEY = 'sk-live-abc123xyz789';",
+      "code": "const API_KEY = '<redacted>';",
       "risk": "API key exposed in source code",
       "fix": {
         "description": "Use environment variable",
