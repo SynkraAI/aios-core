@@ -82,10 +82,10 @@ graph TD
     Greeting[GreetingBuilder] --> Navigator[WorkflowNavigator]
     FullSDC[Full SDC] --> SDCCheckpoint[".aiox/sdc checkpoint"]
     WaveExecute[Wave Execute] --> WaveCheckpoint[".aiox/waves checkpoint"]
-    FullSDC --> SessionState
-    WaveExecute --> SessionState
-    FullSDC --> StoryFile[Story file]
-    WaveExecute --> StoryFile
+    FullSDC -->|read/reconcile only| SessionState
+    WaveExecute -->|read/reconcile only| SessionState
+    FullSDC -->|read; lifecycle writes via authorized phase tasks| StoryFile[Story file]
+    WaveExecute -->|read child state; writes via authorized phase tasks| StoryFile
     SDCCheckpoint -.->|reconcile only| SessionState
     WaveCheckpoint -.->|reconcile only| SessionState
     SDCCheckpoint -.->|verify against| StoryFile

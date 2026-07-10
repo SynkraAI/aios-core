@@ -32,8 +32,10 @@ the current revision, halt with: `QA verdict provenance does not match the curre
    revision before any write.
 2. Resolve the closure idempotency key as `<story-id>:commit:<sha>` when a
    commit SHA is available, otherwise `<story-id>:pr:<number>` when a PR number
-   is available. If neither exists, stop before every write and report a
-   read-only no-op; do not update the epic/backlog or Change Log.
+   is available, otherwise `<story-id>:digest:<reviewed_revision>` when the
+   accepted provenance is a deterministic story-content digest. If none of
+   these revision formats exists, stop before every write and report a read-only
+   no-op; do not update the epic/backlog or Change Log.
 3. Inspect each target artifact independently for `[closure-key: <key>]`.
    The story Change Log is authoritative for story closure metadata; an
    epic/backlog marker is authoritative only for its own artifact.
@@ -53,10 +55,11 @@ multi-file completion and must converge both artifacts without duplicates.
 ## Idempotency Validation
 
 Execute the protocol twice against the same completed-story fixture and the
-same commit SHA or PR number. The second execution must report a no-op, preserve
-Status `Done`, and leave exactly one occurrence of `[closure-key: <key>]` in
-each artifact that carries closure metadata. Also simulate failure after the
-first artifact write; retry must add only the missing keyed artifact.
+same commit SHA, PR number, or deterministic digest. The second execution must
+report a no-op, preserve Status `Done`, and leave exactly one occurrence of
+`[closure-key: <key>]` in each artifact that carries closure metadata. Also
+simulate failure after the first artifact write; retry must add only the missing
+keyed artifact.
 
 ## Postconditions
 

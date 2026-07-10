@@ -27,6 +27,7 @@ Done
 13. O port denylist é executado por gate local pre-push e por CI; ambos falham com saída acionável ao detectar violações. Alterações de CI/pre-push respeitam a autoridade de DevOps e são verificadas sem efetuar push.
 14. A suite completa fica estável em execuções consecutivas: sem diretórios temporários residuais, sem mutações persistentes de fixtures/configuração, sem open handles e sem falhas nos testes SYNAPSE A1 observados durante a revisão.
 15. Todos os testes focados adicionados passam, e os quality gates do repositório (`npm run lint`, `npm run typecheck`, `npm test`, validações de sync/paridade e port denylist aplicáveis) terminam com sucesso.
+16. Testes locais, runners Jest e overrides explícitos inline/no-visual nunca invocam Terminal.app; testes de validação exercitam a seam pura sem spawn, e um repro com `osascript` interceptado comprova `4 → 0` tentativas visuais.
 
 ## Tasks / Subtasks
 
@@ -74,6 +75,11 @@ Done
   - [x] Eliminar open handles e corrigir as falhas SYNAPSE A1 reproduzidas pela suite completa.
   - [x] Executar testes focados e a suite completa em execuções consecutivas.
   - [x] Executar lint, typecheck, sync/paridade e port denylist; registrar os resultados.
+
+- [x] Task 9 — Eliminar side effects visuais da suite local (AC: 16)
+  - [x] Fazer `AIOX_INLINE_MODE`, `AIOX_NO_VISUAL_TERMINAL` e test runners degradarem fail-safe para inline.
+  - [x] Substituir o teste de validação que chamava `spawnAgent` pela seam pura `validateArgs`.
+  - [x] Reproduzir com `osascript` interceptado e comprovar zero tentativas nas duas suítes do spawner.
 
 ## Dev Notes
 
@@ -127,6 +133,15 @@ Done
 | 2026-07-10 | 0.6.2   | Preview Vercel falhou por autodetecção do novo script build — Status: Done → InProgress. | Dex (@dev) |
 | 2026-07-10 | 0.7.0   | Saída estática mínima e configuração Vercel concluídas — Status: InProgress → InReview. | Dex (@dev) |
 | 2026-07-10 | 0.7.1   | QA re-review Vercel PASS — Status: InReview → Done. | Quinn (@qa) |
+| 2026-07-10 | 0.8.0   | Reaberta após repro macOS: teste de validação abriu Terminal.app 4× por execução; guard test/inline e seam sem side effect em implementação. | Dex (@dev) |
+| 2026-07-10 | 0.8.1   | QA independente PASS após hardening CI/Docker — Status: InProgress → Done. | Quinn (@qa) |
+| 2026-07-10 | 0.8.2   | Comentários do PR #802 triados — Status: Done → InProgress. | Dex (@dev) |
+| 2026-07-10 | 0.9.0   | Correções CodeRabbit e gates focados concluídos — Status: InProgress → InReview. | Dex (@dev) |
+| 2026-07-10 | 0.9.1   | QA gate FAIL — três blockers MAJOR reproduzidos; Status: InReview → InProgress. | Quinn (@qa) |
+| 2026-07-10 | 0.9.2   | Blockers JSDoc e denylist corrigidos — Status: InProgress → InReview. | Dex (@dev) |
+| 2026-07-10 | 0.9.3   | QA re-review FAIL — três blockers MAJOR residuais; Status: InReview → InProgress. | Quinn (@qa) |
+| 2026-07-10 | 0.9.4   | Scanner global de credenciais concluído — Status: InProgress → InReview. | Dex (@dev) |
+| 2026-07-10 | 0.9.5   | QA final PASS — scanner validado; Status: InReview → Done. | Quinn (@qa) |
 
 ## Dev Agent Record
 
@@ -142,6 +157,13 @@ GPT-5 Codex
 - Gates finais: `npm run build`, `npm run lint`, `npm run typecheck`, `npm run validate:manifest`, `npm run validate:registry-determinism`, `npm run validate:port-denylist`, `npm run sync:ide:check`, `npm run validate:parity`, validações Claude/Codex e `git diff --check` com exit code 0.
 - CodeRabbit: as rodadas de desenvolvimento e pre-PR foram triadas; os findings válidos foram corrigidos, incluindo leitura fail-closed do diff 3-way, ausência de árvore, localização canônica de gates, autorização de WAIVED, isolamento de proveniência, rollback de gate falho e recusa de gate órfão sem marcador de verdict na story. Novo verdict QA pendente.
 - O script legado opcional `validate:structure` permanece indisponível porque o módulo referenciado por `package.json` não existe no baseline; não integra os quality gates obrigatórios desta story.
+- PR #802: 16 findings CodeRabbit triados; 14 válidos corrigidos por Dev, imports absolutos classificados como falso positivo por ausência de alias CommonJS em runtime e heading duplicado encaminhado à autoridade QA.
+- Regressão pós-review: 6 suites/179 testes focados PASS, incluindo Full SDC/close-story, denylist, SYNAPSE, `pm.sh` e o hardening Terminal Spawner preservado.
+- Gates pós-review: lint, typecheck, port denylist, `git diff --check`, Grok sync, IDE sync 109/109, paridade, Claude integration, manifesto e registry determinístico PASS.
+- Regressão pós-QA 0.9.1: 4 suites/148 testes focados PASS; suite integral PASS com 376 suites/8.994 testes e 151 skipped.
+- Gates pós-QA 0.9.1: lint sem erros, typecheck, port denylist (1.262 arquivos/0 hits), manifesto, registry determinístico e `git diff --check` PASS.
+- Regressão pós-QA 0.9.3: 2 suites/80 testes focados PASS; suite integral PASS com 376 suites/9.004 testes e 151 skipped.
+- Gates pós-QA 0.9.3: lint sem erros, typecheck, port denylist (1.262 arquivos/0 hits), manifesto, registry determinístico e `git diff --check` PASS.
 
 ### Completion Notes List
 
@@ -154,6 +176,13 @@ GPT-5 Codex
 - Timers/open handles e flutuações SYNAPSE A1 eliminados; manifesto, registry e projeções regenerados/validados.
 - `npm run build` foi definido como o publish safety gate real do pacote e passou com 2.140 arquivos validados.
 - `npm run lint` final ficou verde com um único warning em `tests/integration/wizard-debug.temp.test.js`, artefato não rastreado preexistente e preservado fora do escopo.
+- O incidente macOS não era telemetria: `tests/core/terminal-spawner.test.js` executava quatro spawns visuais para validar apenas IDs. Guard de test runner + seam pura reduziram o repro interceptado de 4 para 0 janelas.
+- Full SDC agora trata review FAIL antes do halt genérico e executa preflight sobre payload exato/quoted; close-story permanece administrativo e aceita chave idempotente vinculada a digest.
+- SYNAPSE usa o clock injetado em todos os caminhos de `totalEnd`; o denylist cobre credenciais sem aspas em `.env`/YAML sem confundir referências JavaScript.
+- Projeções Claude/Grok, checkout CI, diagrama de autoridade, auditoria de contagem, resumo QA LOW e nota audit-only do Memory Bridge foram alinhados aos contratos canônicos.
+- `validateArgs` possui contrato JSDoc público completo e cobertura obrigatória em `public-api-jsdoc.test.js`.
+- O denylist separa assignments de credencial de literais: aceita chaves JSON/YAML quoted e valores quoted/unquoted, com boundaries que rejeitam `process.env`, variáveis, getters e templates.
+- O scanner de credenciais percorre globalmente todas as assignments da linha, não consome a próxima chave e continua após referências dinâmicas; literais com espaços/`!@:%` e chaves plain/quoted são cobertos por regressão.
 - Nenhum push foi executado.
 
 ### File List
@@ -225,6 +254,8 @@ GPT-5 Codex
 - `eslint.config.js`
 - `package.json`
 - `tests/core/execution/parallel-executor.test.js`
+- `tests/core/orchestration/terminal-spawner.test.js`
+- `tests/core/terminal-spawner.test.js`
 - `tests/integration/core-super-update-cli.test.js`
 - `tests/synapse/engine.test.js`
 - `tests/unit/dispatch-governance.test.js`
@@ -244,9 +275,9 @@ GPT-5 Codex
 
 ### Review Date: 2026-07-10
 
-### Reviewed By: Quinn (Test Architect)
+**Reviewed By:** Quinn (Test Architect)
 
-### Reviewed Revision: working-tree-files-sha256:9d997b871f91445b8d4d98a3a5fc3958da289553422b6e162ce29ae44015e6c0
+**Reviewed Revision:** working-tree-files-sha256:9d997b871f91445b8d4d98a3a5fc3958da289553422b6e162ce29ae44015e6c0
 
 Digest determinístico de `HEAD d0efd87c99dc6bd0f141cba10eaf64a507bd5d87` e do conteúdo dos 77 arquivos de implementação/documentação listados na story, excluindo os dois registros QA-owned alterados pelo próprio gate (esta story e `LIFECYCLE-AUDIT.md`).
 
@@ -271,7 +302,7 @@ Implementação aderente aos 15 ACs. A revisão encontrou um blocker residual no
 - Constitution: ✓ CLI First, Agent Authority, Story-Driven Development, Quality First e Model Governance.
 - All ACs Met: ✓ AC 1–15 rastreados e aprovados.
 
-### Evidence
+### Initial Review Evidence
 
 - Testes focados no snapshot final: PASS, 11 suites/98 testes.
 - Suite completa: PASS em duas execuções consecutivas, 376 suites/8.945 testes por execução, sem processo Jest residual.
@@ -306,9 +337,9 @@ PASS: InReview → Done.
 
 ### Re-review Date: 2026-07-10
 
-### Reviewed By: Quinn (Test Architect)
+**Reviewed By:** Quinn (Test Architect)
 
-### Reviewed Revision: working-tree-files-sha256:7b296a02063c0e8389d0827c153c9b0e416445d44e6b3741958aa1dd94844489
+**Reviewed Revision:** working-tree-files-sha256:7b296a02063c0e8389d0827c153c9b0e416445d44e6b3741958aa1dd94844489
 
 Digest determinístico de `HEAD d0efd87c99dc6bd0f141cba10eaf64a507bd5d87` e do conteúdo dos 77 arquivos de implementação/documentação da File List, em ordem lexical, excluindo os dois registros QA-owned (esta story e `LIFECYCLE-AUDIT.md`).
 
@@ -334,9 +365,9 @@ Status `Done` preservado; nenhuma nova transição necessária.
 
 ### Re-review Date: 2026-07-10 (final pre-PR)
 
-### Reviewed By: Quinn (Test Architect)
+**Reviewed By:** Quinn (Test Architect)
 
-### Reviewed Revision: working-tree-files-sha256:f21e9e9f7981e64c4ed646eee0a40127c77ec54e97d82d897a879f955f5b9fa9
+**Reviewed Revision:** working-tree-files-sha256:f21e9e9f7981e64c4ed646eee0a40127c77ec54e97d82d897a879f955f5b9fa9
 
 Digest determinístico de `HEAD d0efd87c99dc6bd0f141cba10eaf64a507bd5d87` e do conteúdo dos 77 arquivos de implementação/documentação da File List, em ordem lexical, excluindo os dois registros QA-owned (esta story e `LIFECYCLE-AUDIT.md`).
 
@@ -365,9 +396,9 @@ PASS: InReview → Done.
 
 ### Re-review Date: 2026-07-10 (post-fix final)
 
-### Reviewed By: Quinn (Test Architect)
+**Reviewed By:** Quinn (Test Architect)
 
-### Reviewed Revision: commit:a1a43dc895655adfbee6c6634e31242dc1887ff1
+**Reviewed Revision:** commit:a1a43dc895655adfbee6c6634e31242dc1887ff1
 
 Snapshot de implementação commitado: `3f231b04`, complementado pelo commit mecânico `a1a43dc895655adfbee6c6634e31242dc1887ff1` com registry e manifesto sincronizados.
 
@@ -397,9 +428,9 @@ PASS: InReview → Done.
 
 ### Re-review Date: 2026-07-10 (Vercel fix)
 
-### Reviewed By: Quinn (Test Architect)
+**Reviewed By:** Quinn (Test Architect)
 
-### Reviewed Revision: commit:cb93f8f72d0fa29ca2345adbad972ff1755a45d6
+**Reviewed Revision:** commit:cb93f8f72d0fa29ca2345adbad972ff1755a45d6
 
 Snapshot Vercel commitado em `cb93f8f72d0fa29ca2345adbad972ff1755a45d6`, contendo configuração, output estático e artefatos gerados validados.
 
@@ -423,5 +454,253 @@ Gate: PASS
 Quality score: 100/100. Top issues: none.
 
 ### Vercel Fix Lifecycle
+
+PASS: InReview → Done.
+
+### macOS Terminal Flood Re-review Date: 2026-07-10
+
+**Reviewed By:** Quinn (Test Architect)
+
+### Root Cause
+
+O incidente não era telemetria. Um teste de formatos válidos chamava `spawnAgent` quatro vezes; no macOS, o runner local era classificado como terminal nativo e cada chamada abria Terminal.app antes de o comando filho receber `AIOX_INLINE_MODE=true`.
+
+### macOS Terminal Flood Evidence
+
+- Repro com `osascript` interceptado: 4 tentativas visuais antes da correção e 0 depois.
+- Regressão focada final: 2 suites/78 testes, PASS; 0 chamadas ao `osascript`.
+- Suite completa: 376 suites/8.960 testes, PASS; 0 chamadas ao `osascript`.
+- `npm run lint`: PASS sem erros; único warning no artefato untracked preexistente `wizard-debug.temp.test.js`.
+- `npm run typecheck` e `git diff --check`: PASS.
+- Guard do binário AIOX Cockpit: painel `dev-telemetry` ausente do build padrão e presente apenas no build explícito da feature; PASS nas duas direções.
+- Revisão independente após hardening dos testes para CI/Docker: PASS, nenhum finding restante.
+
+### macOS Terminal Flood Gate Status
+
+Gate: PASS
+
+Quality score: 100/100. Top issues: none.
+
+### macOS Terminal Flood Lifecycle
+
+Historical verdict: PASS, with `InProgress → Done` applied on 2026-07-10. This
+evidence predates the current 0.8.2/0.9.0 review cycle and does not authorize
+closure of the current revision. The current verdict below is FAIL.
+
+### PR #802 Comment Remediation Review — Gate FAIL
+
+**Review Date:** 2026-07-10
+
+**Reviewed By:** Quinn (Test Architect)
+
+**Reviewed Revision:** working-tree-files-sha256:ac0eb8545fd14fed89902a8aab971765b45d685d48bd09b6f9b1e486044fba1f
+
+Digest determinístico de `HEAD c5409921a416a0445f48f5828855af115423643c`
+e dos 81 arquivos de implementação/documentação da File List, em ordem
+lexical, excluindo os dois registros QA-owned (esta story e
+`LIFECYCLE-AUDIT.md`). Cada registro inclui path e bytes do arquivo, separados
+por NUL.
+
+#### Assessment
+
+Os comentários anteriores do PR foram corrigidos corretamente: Full SDC trata
+review FAIL antes do halt genérico; close-story aceita chave de digest e mantém
+escritas administrativas; `pm.sh` propaga `AIOX_PROJECT_ROOT`; payloads
+Claude/Grok são quoted, exatos e não podem ser enriquecidos após preflight;
+diagrama, audit counts, clock SYNAPSE, checkout CI, resumo LOW e nota audit-only
+do Memory Bridge estão alinhados. A sugestão de imports absolutos é falso
+positivo: a Constitution classifica a regra como SHOULD, permite relativos no
+mesmo módulo e o runtime CommonJS não configura alias.
+
+O snapshot, porém, mantém três blockers MAJOR reproduzíveis:
+
+1. `validateArgs` passou a integrar o export público de
+   `terminal-spawner.js`, mas seu JSDoc não declara retorno/formatos aceitos e o
+   contrato não está coberto por `tests/unit/public-api-jsdoc.test.js`.
+2. O denylist não detecta credenciais com chave quoted, por exemplo
+   `"api_key": "abcdefghijklmnop123456"`.
+3. O mesmo regex classifica referências de ambiente como segredo literal,
+   incluindo `password: process.env.PASSWORD`,
+   `PASSWORD=process.env.PASSWORD` e `export PASSWORD=process.env.PASSWORD`.
+
+#### Evidence
+
+- CodeRabbit uncommitted: 4 findings MAJOR. O finding QA-owned de lifecycle foi
+  corrigido nesta revisão; os três findings técnicos acima foram confirmados.
+- Probe contratual isolado: 3/3 regressões reproduzidas.
+- Regressão focada existente: PASS, 5 suites/173 testes. O resultado demonstra
+  ausência de quebra nos testes atuais, mas também confirma lacunas de
+  regressão porque os probes falham fora da suite.
+- Headings Markdown da seção QA: sem duplicatas após converter provenance em
+  metadata bold e tornar headings de evidência únicos.
+- Suite integral e gates finais não foram usados para aprovação porque blockers
+  MAJOR já acionaram o fail-fast do gate; devem ser executados após os fixes.
+
+#### Required Fix Request
+
+- Documentar `validateArgs(agent, task)` com `@param`, retorno `void`, formatos
+  aceitos e erros; adicionar o export à matriz de public API JSDoc.
+- Aceitar chaves opcionais quoted no padrão de credenciais e cobrir JSON/YAML.
+- Excluir referências `process.env`, expansões/variáveis equivalentes e getters
+  do valor literal, preservando detecção de secrets quoted e unquoted; adicionar
+  testes positivos e negativos para assignment, export, JSON e YAML.
+- Rodar CodeRabbit novamente e repetir testes focados, suite integral, lint,
+  typecheck, denylist, sync/paridade, manifesto/registry e diff-check.
+
+#### PR Comment NFR Validation
+
+- Security: FAIL — false negative de segredo JSON e falsos positivos de
+  referências de ambiente tornam o gate denylist impreciso.
+- Reliability: CONCERNS — o novo export público não tem contrato automatizado.
+- Performance: PASS — nenhuma regressão identificada.
+- Maintainability: CONCERNS — cobertura do contrato público incompleta.
+
+#### PR Comment Gate Status
+
+Gate: FAIL. Quality score: 40/100. Top issues: 3 MAJOR.
+
+#### PR Comment Lifecycle Transition
+
+FAIL: InReview → InProgress.
+
+### PR #802 Denylist Re-review — Gate FAIL
+
+**Review Date:** 2026-07-10
+
+**Reviewed By:** Quinn (Test Architect)
+
+**Reviewed Revision:** working-tree-files-sha256:c3a5fba8980f5f32f0c1363c25b8470e9d2cda4c670e3584d4f6fcc3bd1e4b93
+
+Digest determinístico de `HEAD c5409921a416a0445f48f5828855af115423643c`
+e dos 81 arquivos de implementação/documentação da File List, em ordem
+lexical, excluindo os dois registros QA-owned (esta story e
+`LIFECYCLE-AUDIT.md`), com path e bytes separados por NUL.
+
+#### Denylist Re-review Assessment
+
+Os três blockers da revisão anterior foram abordados: `validateArgs` possui
+contrato JSDoc completo e está no gate de public API; chaves quoted JSON/YAML
+são reconhecidas; e 18 formas de referências dinâmicas (`process.env`, `$VAR`,
+variáveis, getters, calls e templates) produziram zero falsos positivos nos
+probes independentes. A regressão focada passou com 4 suites/148 testes.
+
+O gate permanece FAIL por três gaps residuais de detecção de secrets reais:
+
+1. `looksLikeUnquotedVariable()` trata qualquer valor camelCase como variável,
+   inclusive literals de alta entropia com dígitos. Assim,
+   `export PASSWORD=abcdEFGHijklMNOP1234` escapa em `.env`.
+2. `hasHardcodedCredential()` avalia somente a primeira assignment da linha.
+   Em `{"password":"${PASSWORD}","api_key":"abcdefghijklmnop123456"}`,
+   o segundo literal não é inspecionado.
+3. A gramática de valor não aceita punctuation/espaços comuns em secrets.
+   Valores quoted como `"Correct Horse!@:% 123456"` e unquoted como
+   `abcdEFGH!@:%ijklMNOP1234` não são detectados.
+
+#### Denylist Re-review Evidence
+
+- Probe independente do contrato público e referências: JSDoc/export PASS;
+  formatos de `validateArgs` PASS; 18/18 referências dinâmicas não sinalizadas.
+- Probe independente de literals: 4 casos reais acima reproduzidos como false
+  negatives.
+- Regressão focada: PASS, 4 suites/148 testes.
+- Evidência Dev do snapshot: suite integral PASS, 376 suites/8.994 testes;
+  lint 0 erros (1 warning no temp untracked), typecheck, denylist 1.262/0,
+  manifesto, registry 844 e diff-check PASS.
+- CodeRabbit uncommitted: 2 MAJOR válidos confirmando multi-assignment e
+  gramática estreita; 1 MINOR sobre camelCase das chaves é falso positivo,
+  porque o regex case-insensitive aceita `apiKey` e `accessToken`.
+
+#### Denylist Fix Request
+
+- Diferenciar referências de código de literals por contexto/path; não usar
+  aparência camelCase/underscore como dispensa global para `.env`, JSON ou YAML.
+- Parsear todas as assignments credential-like de uma linha com spans de valor
+  delimitados, sem `rawValue` greedy, e aprovar se qualquer literal for secreto.
+- Para quoted values, consumir até a quote correspondente e aceitar punctuation
+  e espaços; para unquoted values, usar gramática non-whitespace com delimiters
+  explícitos. Preservar exclusões de referências dinâmicas.
+- Adicionar regressões para secret camelCase de alta entropia, JSON com primeira
+  referência e segundo literal, punctuation/espaços quoted e punctuation
+  unquoted; rerodar CodeRabbit e todos os gates finais.
+
+#### Re-review NFR Validation
+
+- Security: FAIL — false negatives permitem secrets reais no port denylist.
+- Reliability: CONCERNS — parsing encerra após a primeira assignment.
+- Performance: PASS — nenhuma regressão observada.
+- Maintainability: CONCERNS — heurística mistura sintaxe de código e formatos de
+  configuração.
+
+#### Denylist Re-review Gate Status
+
+Gate: FAIL. Quality score: 40/100. Top issues: 3 MAJOR.
+
+#### Re-review Lifecycle Transition
+
+FAIL: InReview → InProgress.
+
+### PR #802 Final Scanner Re-review — Gate PASS
+
+**Review Date:** 2026-07-10
+
+**Reviewed By:** Quinn (Test Architect)
+
+**Reviewed Revision:** working-tree-files-sha256:0146de97bc7d4cae71263a762ba6ca2bc2b361c7f5fc26429cbbf58a6b7e67e6
+
+Digest determinístico de `HEAD c5409921a416a0445f48f5828855af115423643c`
+e dos 81 arquivos de implementação/documentação da File List, em ordem
+lexical, excluindo os dois registros QA-owned (esta story e
+`LIFECYCLE-AUDIT.md`), com path e bytes separados por NUL.
+
+#### Scanner Closure Assessment
+
+O scanner global elimina os três blockers do ciclo anterior. Parsing percorre
+todas as assignments da linha; valores quoted aceitam caracteres ASCII
+imprimíveis e espaços até a quote correspondente; valores unquoted respeitam
+delimiters; e a distinção entre código e arquivos de configuração preserva
+referências dinâmicas sem dispensar literals reais. `validateArgs` continua com
+JSDoc completo e cobertura no gate de public API. Nenhum blocker residual foi
+identificado nos contratos revisados.
+
+#### Scanner Closure Evidence
+
+- Probes independentes positivos: 4/4 detectados — export camelCase+dígitos;
+  segundo literal após `${PASSWORD}`; quoted com espaços/`!@:%`; unquoted com
+  `!@:%`.
+- Probes independentes negativos: 16/16 ignorados — `$VAR`, `${VAR}`,
+  `process.env`, duas referências, variáveis simples/snake, properties, bracket
+  access, getters, calls conhecidas/desconhecidas, templates e interpolações.
+- Regressão focada independente: PASS, 2 suites/80 testes.
+- Gate denylist independente: PASS, 1.262 arquivos e zero hits.
+- ESLint focado e `npm run typecheck`: PASS.
+- Evidência Dev do mesmo snapshot: suite integral PASS, 376 suites/9.004
+  testes; lint, typecheck, denylist, manifesto, registry 844 e diff-check PASS.
+
+#### Automation Caveat
+
+O CodeRabbit local foi executado no diff uncommitted, mas a revisão integral
+permaneceu cerca de dez minutos em `summarizing` sem produzir verdict ou
+findings. A tentativa proporcional subsequente para
+`.aiox-core/core/security` foi recusada pelo limite gratuito OSS, com reset
+estimado em 17 minutos. Essa indisponibilidade não é registrada como aprovação
+automatizada. Este PASS exige novo review CodeRabbit remoto após o push e antes
+do merge; qualquer MAJOR válido reabre o gate.
+
+#### Scanner Closure NFR
+
+- Security: PASS — literals reais e referências dinâmicas foram discriminados
+  nos vetores obrigatórios.
+- Reliability: PASS — múltiplas assignments são percorridas de forma estável.
+- Performance: PASS — scanner linear por linha, sem regressão observada.
+- Maintainability: PASS — parsing foi separado em tokens, boundaries e decisão
+  contextual testável.
+
+#### Scanner Closure Gate
+
+Gate: PASS. Quality score: 100/100. Top issues: none.
+
+Condition: novo review CodeRabbit remoto obrigatório após push e antes do merge.
+
+#### Scanner Closure Lifecycle
 
 PASS: InReview → Done.

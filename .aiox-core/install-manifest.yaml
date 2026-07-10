@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.2.9
-generated_at: "2026-07-10T07:52:55.037Z"
+generated_at: "2026-07-10T15:26:40.266Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1164
 files:
@@ -1013,9 +1013,9 @@ files:
     type: core
     size: 16494
   - path: core/orchestration/terminal-spawner.js
-    hash: sha256:fbf0c67d9ab2344f8cd94fda5abd224b8e1c400dd7cf04bd7a53600b8ca6187a
+    hash: sha256:0e28b6fcb99b40e5d5f0a7ec4dabff3b3b9481c5f11e63220f2e0d14c8d4d640
     type: core
-    size: 31871
+    size: 32742
   - path: core/orchestration/workflow-executor.js
     hash: sha256:8c56facc975f0452d686183d25ab1c19211afd127814b2ade963b4950352872f
     type: core
@@ -1185,9 +1185,9 @@ files:
     type: core
     size: 11081
   - path: core/security/port-denylist.js
-    hash: sha256:ae8d2fb9c3391733d6e03070238220d1c84c2aca10558ce00d3f7bea8479bfde
+    hash: sha256:f4efb665411f7d9e32cacbbc945fea6269bf4b4259f9fa611d9f20b97169df7b
     type: core
-    size: 7621
+    size: 12290
   - path: core/session/context-detector.js
     hash: sha256:5537563d5dfc613e16fd610c9e1407e7811c4f19745a78a4fc81c34af20000f4
     type: core
@@ -1277,9 +1277,9 @@ files:
     type: core
     size: 8122
   - path: core/synapse/engine.js
-    hash: sha256:afe76d2953a9fcaae8da96542765724939f3193770bee288272efdd6dd70ebcf
+    hash: sha256:062436f5bf8fec595d19493e1d28c58b89e0e5d8c925061ccea79b537a681604
     type: core
-    size: 17087
+    size: 17067
   - path: core/synapse/layers/l0-constitution.js
     hash: sha256:2123a6a44915aaac2a6bbd26c67c285c9d1e12b50fe42a8ada668306b07d1c4a
     type: core
@@ -1389,7 +1389,7 @@ files:
     type: data
     size: 9590
   - path: data/entity-registry.yaml
-    hash: sha256:1140cd0e16c3a04886f55b81dfda632df2fb2c36529ca0d835551a8d643b3e72
+    hash: sha256:3df5e542e923bf48413d07fc79f70d52425774483099cb906ab786c2f9030203
     type: data
     size: 594831
   - path: data/learned-patterns.yaml
@@ -1909,17 +1909,17 @@ files:
     type: development
     size: 1224
   - path: development/skills/close-story/SKILL.md
-    hash: sha256:c720c32eccf9ea0fc47b29d793f0238bb7ae95b2810dda487036a113f5f1f880
+    hash: sha256:2417d67401eff64cdf77d9f12a7b175851b7696afc2661a758427fdb0662440b
     type: development
-    size: 1503
+    size: 1586
   - path: development/skills/develop-story/SKILL.md
     hash: sha256:24bbe076c49dd8f25525fcdfd3e3daee27068b8b23d14217fed32f951b313043
     type: development
     size: 1600
   - path: development/skills/full-sdc/SKILL.md
-    hash: sha256:1ec7fca245ef7503d120ec79a2862f577641c9a07faeb74483eef4fc158f18da
+    hash: sha256:6dec1d5e44985ca1f38f0d7b934b1b7373189895de7833eb6a0796b3f717bcc2
     type: development
-    size: 5509
+    size: 5691
   - path: development/skills/review-story/SKILL.md
     hash: sha256:b3637d2553dd6b722f7e785cee85160e13df388280769bec2b1d8bdc75d3566e
     type: development
@@ -2457,9 +2457,9 @@ files:
     type: task
     size: 8302
   - path: development/tasks/po-close-story.md
-    hash: sha256:9f6750ff6c33b749e3e77100e52ab3bb8548b818ad6c12df208d8b321347ba2a
+    hash: sha256:418fbd93861be71900d51e2e2ecba8959b2ca6f4ac2a67abf7d363e7c31763f9
     type: task
-    size: 3872
+    size: 4044
   - path: development/tasks/po-manage-story-backlog.md
     hash: sha256:ed619e87c9753428eaea969d05d046b7f26af4f825d792ffcf026dc4f475b6e5
     type: task
@@ -2557,9 +2557,9 @@ files:
     type: task
     size: 35266
   - path: development/tasks/qa-review-story.md
-    hash: sha256:ff0b0f8450d2e17aebce5a7b241b51e95a07bd683f53c97361959c7c92b78f41
+    hash: sha256:f17c8705e3e2b314c4576ba9a19840634d333079eb87899fc68475374c6e1ea5
     type: task
-    size: 26744
+    size: 26835
   - path: development/tasks/qa-risk-profile.md
     hash: sha256:69b2b6edb38330234766bef8ed3c27469843e88fb30e130837922541c717432d
     type: task
@@ -4553,9 +4553,9 @@ files:
     type: script
     size: 9488
   - path: scripts/pm.sh
-    hash: sha256:f2cff4046c1fad25ff5dc6e5d82ff369532ee93d357f15634a8b3051d02122c5
+    hash: sha256:5e066c431a20e8ff1be7c1d17ef04f0a76e9bcd82efa9cdd8e8887662a34d1e1
     type: script
-    size: 15266
+    size: 15321
   - path: scripts/README.md
     hash: sha256:4b0aa7d4664919c7d7b241b6451bd97bf07ca66e7e5f6d4b455e12e094d0e6ae
     type: script

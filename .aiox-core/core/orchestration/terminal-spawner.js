@@ -30,6 +30,8 @@ const RETRY_DELAY_MS = 1000;
  * @enum {string}
  */
 const ENVIRONMENT_TYPE = {
+  INLINE: 'INLINE',
+  TEST: 'TEST',
   NATIVE_TERMINAL: 'NATIVE_TERMINAL',
   VSCODE: 'VSCODE',
   SSH: 'SSH',
@@ -49,16 +51,29 @@ const ENVIRONMENT_TYPE = {
  * Detects the current execution environment (Story 12.10 - Task 1)
  *
  * Detection priority:
- * 1. CI/CD (GitHub Actions, GitLab CI, etc.)
- * 2. Docker container
- * 3. SSH session
- * 4. VS Code integrated terminal
- * 5. Native terminal (default)
+ * 1. Explicit inline/no-visual override
+ * 2. CI/CD (GitHub Actions, GitLab CI, etc.)
+ * 3. Docker container
+ * 4. SSH session
+ * 5. VS Code integrated terminal
+ * 6. Test runner
+ * 7. Native terminal (default)
  *
  * @returns {EnvironmentInfo} Environment detection result
  */
 function detectEnvironment() {
-  // 1. CI/CD detection (Task 1.5)
+  if (
+    process.env.AIOX_INLINE_MODE === 'true' ||
+    process.env.AIOX_NO_VISUAL_TERMINAL === 'true'
+  ) {
+    return {
+      type: ENVIRONMENT_TYPE.INLINE,
+      supportsVisualTerminal: false,
+      reason: 'Explicit inline/no-visual terminal mode',
+    };
+  }
+
+  // 2. CI/CD detection (Task 1.5)
   // Check common CI environment variables
   if (
     process.env.CI === 'true' ||
@@ -78,7 +93,7 @@ function detectEnvironment() {
     };
   }
 
-  // 2. Docker container detection (Task 1.4)
+  // 3. Docker container detection (Task 1.4)
   // Check for /.dockerenv file or cgroup indicators
   try {
     if (fsSync.existsSync('/.dockerenv')) {
@@ -104,7 +119,7 @@ function detectEnvironment() {
     // Ignore file read errors (e.g., on Windows)
   }
 
-  // 3. SSH session detection (Task 1.3)
+  // 4. SSH session detection (Task 1.3)
   if (process.env.SSH_CLIENT || process.env.SSH_TTY || process.env.SSH_CONNECTION) {
     return {
       type: ENVIRONMENT_TYPE.SSH,
@@ -113,7 +128,7 @@ function detectEnvironment() {
     };
   }
 
-  // 4. VS Code integrated terminal detection (Task 1.2)
+  // 5. VS Code integrated terminal detection (Task 1.2)
   if (
     process.env.TERM_PROGRAM === 'vscode' ||
     process.env.VSCODE_PID ||
@@ -127,7 +142,15 @@ function detectEnvironment() {
     };
   }
 
-  // 5. Native terminal (default) - supports visual spawn
+  if (process.env.NODE_ENV === 'test' || process.env.JEST_WORKER_ID) {
+    return {
+      type: ENVIRONMENT_TYPE.TEST,
+      supportsVisualTerminal: false,
+      reason: 'Test runner detected (visual side effects disabled)',
+    };
+  }
+
+  // 7. Native terminal (default) - supports visual spawn
   return {
     type: ENVIRONMENT_TYPE.NATIVE_TERMINAL,
     supportsVisualTerminal: true,
@@ -177,10 +200,12 @@ function getScriptPath() {
 }
 
 /**
- * Validates spawn arguments
- * @param {string} agent - Agent ID
- * @param {string} task - Task to execute
- * @throws {Error} If arguments are invalid
+ * Validate the public agent and task identifiers before spawning a process.
+ *
+ * @param {string} agent - Agent ID beginning with a letter and containing only letters, digits, or hyphens.
+ * @param {string} task - Task ID beginning with a letter and containing only letters, digits, or hyphens.
+ * @returns {void}
+ * @throws {Error} When either identifier is missing, non-string, or has an invalid format.
  */
 function validateArgs(agent, task) {
   if (!agent || typeof agent !== 'string') {
@@ -1031,6 +1056,7 @@ module.exports = {
   formatCompatibilityReport,
 
   // Utilities
+  validateArgs,
   isSpawnerAvailable,
   getPlatform,
   cleanupOldFiles,

@@ -9,6 +9,7 @@ const CASES = [
   ['.aiox-core/core/permissions/path-guard.js', 'isWriteAllowed'],
   ['.aiox-core/core/permissions/path-guard.js', 'getDenyList'],
   ['.aiox-core/core/synapse/engine.js', 'resolvePipelineTimeoutMs'],
+  ['.aiox-core/core/orchestration/terminal-spawner.js', 'validateArgs'],
   ['.aiox-core/core/sdc/dispatch-adapter.js', 'createDispatchAdapter'],
   ['.aiox-core/core/sdc/index.js', 'initFullSdc'],
   ['.aiox-core/core/sdc/index.js', 'verifyAndMaybeMark'],

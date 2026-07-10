@@ -304,18 +304,11 @@ describe('TerminalSpawner', () => {
       );
     });
 
-    test('should accept valid agent ID formats', async () => {
-      // These should not throw validation errors (may fail at spawn)
+    test('should accept valid agent ID formats', () => {
       const validAgents = ['dev', 'architect', 'qa-expert', 'ux-design-expert'];
 
       for (const agent of validAgents) {
-        // Test validation only - spawnAgent will fail at exec but not validation
-        try {
-          await TerminalSpawner.spawnAgent(agent, 'test', { retries: 1, timeout: 100 });
-        } catch (error) {
-          // Should not be a validation error
-          expect(error.message).not.toMatch(/Invalid agent/);
-        }
+        expect(() => TerminalSpawner.validateArgs(agent, 'test')).not.toThrow();
       }
     });
   });

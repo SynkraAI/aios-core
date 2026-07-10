@@ -35,11 +35,11 @@ Before each direct subagent/model spawn, materialize the exact outgoing prompt
 and context in isolated files and run this mandatory mechanical gate:
 
 ```bash
-aiox sdc preflight {story-path} \
-  --task {phase-task} \
+aiox sdc preflight "{story-path}" \
+  --task "{phase-task}" \
   --budget-usd "$AIOX_MODEL_BUDGET_CEILING_USD" \
-  --intent-file {exact-child-intent-file} \
-  --context-file {exact-child-context-file}
+  --intent-file "{exact-child-intent-file}" \
+  --context-file "{exact-child-context-file}"
 ```
 
 Continue only on exit `0`. Exit `5` is a governance rejection and the model or
@@ -90,12 +90,12 @@ Skill SOT: `.aiox-core/development/skills/<name>/SKILL.md`
    d. Before any spawned/model phase: run `aiox sdc preflight` over the exact child payload
    e. IF yolo: autonomous; IF interactive: report + pause on decisions
    f. aiox sdc verify {story} {phase} --mark
-   g. IF verify FAIL → HALT (do not advance)
-   h. IF phase=review and verdict FAIL:
+   g. IF phase=review and verdict FAIL:
         CLI selects apply_qa_fixes automatically
         run apply-qa-fixes skill → verify apply_qa_fixes --mark
         CLI returns to review and increments qgIterations
         IF the third re-review fails → HALT and escalate human
+   h. ELSE IF verify FAIL → HALT (do not advance)
    i. ELSE continue loop
 2. QA sets Done on PASS/CONCERNS/WAIVED; close-story only finalizes bookkeeping
 3. Push/PR: hand off @devops — never push from this skill
@@ -113,8 +113,10 @@ For each phase, spawn the matching persona (or run inline if spawn unavailable):
 | apply_qa_fixes | `aiox-dev` | Execute skill apply-qa-fixes on {path} |
 | close | `aiox-po` | Execute skill close-story on {path} |
 
-Before dispatch, declare the shared budget ceiling, bind `{path}`, and scan the
-complete prompt/context. After each subagent returns: run
+Before dispatch, declare the shared budget ceiling, bind `{path}`, materialize
+the exact child prompt/context, and run the `aiox sdc preflight` command above
+against those exact files. Pass those same bytes to the child; never rebuild or
+enrich the payload after preflight. After each subagent returns: run
 `aiox sdc verify … --mark` in the **main** session (orchestrator owns the lock).
 
 ## Sequence Lock (soft + CLI)

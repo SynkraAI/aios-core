@@ -40,6 +40,79 @@ describe('port-denylist (CORE-SU.A4)', () => {
     expect(hits.some((h) => h.id === 'hardcoded-credential')).toBe(true);
   });
 
+  it.each([
+    ['API_KEY=abcdefghijklmnop123456', '.env'],
+    ['password: abcdefghijklmnop123456', 'config.yaml'],
+    ['auth-token = abcdefghijklmnop123456 # local override', 'secrets.env'],
+    ['client_secret: "abcdefghijklmnop123456"', 'config.yml'],
+    ['{"api_key":"abcdefghijklmnop123456"}', 'config.json'],
+    ["'password': 'abcdefghijklmnop123456'", 'config.yaml'],
+    ['const password = "abcdefghijklmnop123456";', 'config.js'],
+  ])('flags quoted keys and literal credential assignment %j', (line, filePath) => {
+    expect(scanContent(line, filePath)).toEqual(
+      expect.arrayContaining([expect.objectContaining({ id: 'hardcoded-credential' })]),
+    );
+  });
+
+  it('honors literal boundaries around unquoted credentials', () => {
+    expect(scanContent('API_KEY=abcdefghijklmnop123456; enabled=true')).toEqual(
+      expect.arrayContaining([expect.objectContaining({ id: 'hardcoded-credential' })]),
+    );
+    expect(scanContent('API_KEY=abcdefghijklmnop123456${PASSWORD}')).toHaveLength(0);
+  });
+
+  it.each([
+    'export PASSWORD=abcdEFGHijklMNOP1234',
+    'password: "Correct Horse!@:% 123456"',
+    'API_KEY=abcdEFGH!@:%ijklMNOP1234',
+  ])('detects the required high-entropy literal vector: %s', (line) => {
+    expect(scanContent(line)).toEqual([
+      expect.objectContaining({ id: 'hardcoded-credential' }),
+    ]);
+  });
+
+  it('continues scanning after a dynamic assignment on the same line', () => {
+    const hits = scanContent(
+      '{"password":"${PASSWORD}","api_key":"abcdefghijklmnop123456"}',
+      'config.json',
+    );
+
+    expect(hits).toEqual([
+      expect.objectContaining({ id: 'hardcoded-credential' }),
+    ]);
+  });
+
+  it('does not consume the next assignment after a delimiter', () => {
+    const hits = scanContent(
+      'PASSWORD=$PASSWORD, API_KEY=abcdEFGH!@:%ijklMNOP1234',
+      '.env',
+    );
+
+    expect(hits).toEqual([
+      expect.objectContaining({ id: 'hardcoded-credential' }),
+    ]);
+  });
+
+  it.each([
+    'const apiKey = process.env.OPENAI_API_KEY;',
+    'PASSWORD=process.env.PASSWORD',
+    'export PASSWORD=$PASSWORD',
+    'const accessToken = getLicenseResultAccessToken(result);',
+    'password: options.password || process.env.PASSWORD,',
+    'password: getPassword(),',
+    'password: vault.getPassword(),',
+    'password: vault["password"],',
+    'password: passwordTemplate',
+    'password: `abcdefghijklmnop${PASSWORD}`',
+    '"password": "${PASSWORD}"',
+    '"password": "process.env.PASSWORD"',
+    '{"password":"${PASSWORD}","api_key":"process.env.API_KEY"}',
+    'PASSWORD=getPassword(); API_KEY=resolveApiKey()',
+    'PASSWORD=`prefix-${PASSWORD}`; API_KEY="${API_KEY}"',
+  ])('does not classify credential references as hardcoded values: %s', (line) => {
+    expect(scanContent(line).some((hit) => hit.id === 'hardcoded-credential')).toBe(false);
+  });
+
   it('preserves credential detection in the QA security checklist', () => {
     const qaChecklist = path.join(
       '.aiox-core',

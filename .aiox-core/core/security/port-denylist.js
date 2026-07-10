@@ -10,6 +10,23 @@
 const fs = require('fs');
 const path = require('path');
 
+const CREDENTIAL_KEYS = new Set([
+  'apikey',
+  'accesstoken',
+  'authtoken',
+  'clientsecret',
+  'password',
+]);
+const MIN_CREDENTIAL_LENGTH = 16;
+const CODE_FILE_RE = /\.(?:[cm]?js|tsx?)$/i;
+const DYNAMIC_CREDENTIAL_REFERENCE_PATTERNS = [
+  /\$\{|\$[A-Za-z_]/,
+  /\b(?:process|deno|bun)\.env(?:\.|\[)|\bimport\.meta\.env(?:\.|\[)/i,
+  /^[A-Za-z_$][\w$]*(?:(?:\.[A-Za-z_$][\w$]*)|(?:\[[^\]]+\]))+(?:\s*\([^)]*\))?$/,
+  /^[A-Za-z_$][\w$]*\s*\([^)]*\)$/,
+  /(?:=>|\?\?|\|\|)/,
+];
+
 /**
  * High-confidence forbidden patterns.
  * Prefer path-like / product-specific tokens to reduce false positives.
@@ -28,7 +45,7 @@ const DENY_PATTERNS = [
   {
     id: 'hardcoded-credential',
     description: 'Probable hardcoded credential value',
-    re: /\b(?:api[_-]?key|access[_-]?token|auth[_-]?token|client[_-]?secret|password)\s*[:=]\s*['"][A-Za-z0-9_./+\-=]{16,}['"]/i,
+    scan: scanCredentialAssignments,
   },
   {
     id: 'sinkra-prefix',
@@ -159,6 +176,138 @@ function shouldApplyPattern(patternId, filePath) {
   return true;
 }
 
+function normalizeCredentialKey(value) {
+  return value.toLowerCase().replace(/[_-]/g, '');
+}
+
+function isCredentialKey(value) {
+  return CREDENTIAL_KEYS.has(normalizeCredentialKey(value));
+}
+
+function isCredentialKeyBoundary(line, index) {
+  if (index === 0) return true;
+  return /[\s{[,;:-]/.test(line[index - 1]);
+}
+
+function readQuotedToken(line, start) {
+  const quote = line[start];
+  let value = '';
+  for (let index = start + 1; index < line.length; index++) {
+    const char = line[index];
+    if (char === '\\' && index + 1 < line.length) {
+      value += line[index + 1];
+      index++;
+      continue;
+    }
+    if (char === quote) {
+      return { value, end: index + 1 };
+    }
+    value += char;
+  }
+  return null;
+}
+
+function readCredentialKey(line, start) {
+  if (!isCredentialKeyBoundary(line, start)) return null;
+
+  let key;
+  let end;
+  let quoted = false;
+  if (line[start] === '"' || line[start] === "'") {
+    const token = readQuotedToken(line, start);
+    if (!token) return null;
+    key = token.value;
+    end = token.end;
+    quoted = true;
+  } else {
+    const match = /^[A-Za-z][A-Za-z0-9_-]*/.exec(line.slice(start));
+    if (!match) return null;
+    key = match[0];
+    end = start + key.length;
+  }
+  if (!isCredentialKey(key)) return null;
+
+  let cursor = end;
+  while (/\s/.test(line[cursor] || '')) cursor++;
+  const separator = line[cursor];
+  if (separator !== ':' && separator !== '=') return null;
+  cursor++;
+  while (/\s/.test(line[cursor] || '')) cursor++;
+  return { key, start, quoted, separator, valueStart: cursor };
+}
+
+function readCredentialValue(line, start) {
+  const opener = line[start];
+  if (opener === '"' || opener === "'") {
+    const token = readQuotedToken(line, start);
+    if (!token) return { value: '', quoted: true, template: false, end: line.length };
+    return { value: token.value, quoted: true, template: false, end: token.end };
+  }
+  if (opener === '`') {
+    const token = readQuotedToken(line, start);
+    return {
+      value: token ? token.value : line.slice(start + 1),
+      quoted: true,
+      template: true,
+      end: token ? token.end : line.length,
+    };
+  }
+
+  let end = start;
+  while (end < line.length && !/[\s,;#}\]]/.test(line[end])) end++;
+  return { value: line.slice(start, end), quoted: false, template: false, end };
+}
+
+function isDynamicCredentialReference(value, template) {
+  const normalized = value.trim();
+  if (!normalized || template) return true;
+  return DYNAMIC_CREDENTIAL_REFERENCE_PATTERNS.some((pattern) => pattern.test(normalized));
+}
+
+function isConfigLikeFile(filePath) {
+  return /(?:^|[/\\])\.env(?:\.|$)|\.(?:env|ya?ml|json|sh)$/i.test(filePath);
+}
+
+function isLiteralCredential(assignment, line, filePath) {
+  const value = assignment.value.value.trim();
+  if (value.length < MIN_CREDENTIAL_LENGTH) return false;
+  if (isDynamicCredentialReference(value, assignment.value.template)) return false;
+
+  if (assignment.value.quoted) {
+    return /^[\x20-\x7e]+$/.test(value);
+  }
+  if (!/^[^\s,;#{}\]`'"]+$/.test(value)) return false;
+
+  const prefix = line.slice(0, assignment.key.start).trim();
+  const codeDeclaration = /^(?:export\s+)?(?:const|let|var)$/.test(prefix);
+  if ((CODE_FILE_RE.test(filePath) || codeDeclaration) && /^[A-Za-z_$][\w$]*$/.test(value)) {
+    return false;
+  }
+  if (isConfigLikeFile(filePath) || prefix === 'export') return true;
+  if (/^[a-z]+(?:[A-Z][A-Za-z0-9]*)+$/.test(value)) return false;
+  return !(value.includes('_') && !/\d/.test(value));
+}
+
+function scanCredentialAssignments(line, filePath) {
+  const assignments = [];
+  let cursor = 0;
+  while (cursor < line.length) {
+    const key = readCredentialKey(line, cursor);
+    if (!key) {
+      cursor++;
+      continue;
+    }
+
+    const value = readCredentialValue(line, key.valueStart);
+    const assignment = { key, value };
+    if (isLiteralCredential(assignment, line, filePath)) {
+      assignments.push(assignment);
+    }
+    cursor = Math.max(key.valueStart + 1, value.end);
+  }
+  return assignments;
+}
+
 function scanContent(content, filePath = '') {
   if (filePath && isAllowlisted(filePath)) {
     return [];
@@ -167,8 +316,19 @@ function scanContent(content, filePath = '') {
   const lines = String(content).split(/\r?\n/);
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
-    for (const { id, description, re } of DENY_PATTERNS) {
+    for (const { id, description, re, scan } of DENY_PATTERNS) {
       if (!shouldApplyPattern(id, filePath)) continue;
+      if (scan) {
+        for (const _match of scan(line, filePath)) {
+          findings.push({
+            id,
+            description,
+            line: i + 1,
+            excerpt: line.trim().slice(0, 160),
+          });
+        }
+        continue;
+      }
       re.lastIndex = 0;
       if (re.test(line)) {
         findings.push({

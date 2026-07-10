@@ -324,7 +324,7 @@ class SynapseEngine {
 
       // Guard: no layer config (invalid bracket — should not happen)
       if (!layerConfig) {
-        metrics.totalEnd = process.hrtime.bigint();
+        metrics.totalEnd = pipelineNow();
         return { xml: '', metrics: metrics.getSummary() };
       }
       activeLayers = layerConfig.layers;
@@ -417,7 +417,7 @@ class SynapseEngine {
       }
     }
 
-    metrics.totalEnd = process.hrtime.bigint();
+    metrics.totalEnd = pipelineNow();
     const summary = metrics.getSummary();
 
     // Persist hook metrics (fire-and-forget)

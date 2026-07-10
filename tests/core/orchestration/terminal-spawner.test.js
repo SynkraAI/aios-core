@@ -69,6 +69,92 @@ describe('Terminal Spawner (Story 12.10)', () => {
   // Task 6.1: Tests for detectEnvironment()
   // ============================================
   describe('detectEnvironment() (Task 1)', () => {
+    describe('Explicit inline and test-runner detection', () => {
+      it('should honor AIOX_INLINE_MODE before considering a visual terminal', () => {
+        process.env.AIOX_INLINE_MODE = 'true';
+
+        const result = detectEnvironment();
+
+        expect(result.type).toBe(ENVIRONMENT_TYPE.INLINE);
+        expect(result.supportsVisualTerminal).toBe(false);
+      });
+
+      it('should honor AIOX_NO_VISUAL_TERMINAL before considering a visual terminal', () => {
+        process.env.AIOX_NO_VISUAL_TERMINAL = 'true';
+
+        const result = detectEnvironment();
+
+        expect(result.type).toBe(ENVIRONMENT_TYPE.INLINE);
+        expect(result.supportsVisualTerminal).toBe(false);
+      });
+
+      it('should disable visual side effects under a local test runner', () => {
+        delete process.env.CI;
+        delete process.env.GITHUB_ACTIONS;
+        delete process.env.GITLAB_CI;
+        delete process.env.JENKINS_URL;
+        delete process.env.TRAVIS;
+        delete process.env.CIRCLECI;
+        delete process.env.BUILDKITE;
+        delete process.env.AZURE_PIPELINES;
+        delete process.env.TF_BUILD;
+        delete process.env.SSH_CLIENT;
+        delete process.env.SSH_TTY;
+        delete process.env.SSH_CONNECTION;
+        delete process.env.TERM_PROGRAM;
+        delete process.env.VSCODE_PID;
+        delete process.env.VSCODE_CWD;
+        delete process.env.VSCODE_GIT_IPC_HANDLE;
+        delete process.env.AIOX_INLINE_MODE;
+        delete process.env.AIOX_NO_VISUAL_TERMINAL;
+        delete process.env.JEST_WORKER_ID;
+        process.env.NODE_ENV = 'test';
+        const existsSync = jest.spyOn(fsSync, 'existsSync').mockReturnValue(false);
+
+        try {
+          const result = detectEnvironment();
+
+          expect(result.type).toBe(ENVIRONMENT_TYPE.TEST);
+          expect(result.supportsVisualTerminal).toBe(false);
+        } finally {
+          existsSync.mockRestore();
+        }
+      });
+
+      it('should detect Jest even when NODE_ENV is not set', () => {
+        delete process.env.AIOX_INLINE_MODE;
+        delete process.env.AIOX_NO_VISUAL_TERMINAL;
+        delete process.env.CI;
+        delete process.env.GITHUB_ACTIONS;
+        delete process.env.GITLAB_CI;
+        delete process.env.JENKINS_URL;
+        delete process.env.TRAVIS;
+        delete process.env.CIRCLECI;
+        delete process.env.BUILDKITE;
+        delete process.env.AZURE_PIPELINES;
+        delete process.env.TF_BUILD;
+        delete process.env.SSH_CLIENT;
+        delete process.env.SSH_TTY;
+        delete process.env.SSH_CONNECTION;
+        delete process.env.TERM_PROGRAM;
+        delete process.env.VSCODE_PID;
+        delete process.env.VSCODE_CWD;
+        delete process.env.VSCODE_GIT_IPC_HANDLE;
+        delete process.env.NODE_ENV;
+        process.env.JEST_WORKER_ID = '1';
+        const existsSync = jest.spyOn(fsSync, 'existsSync').mockReturnValue(false);
+
+        try {
+          const result = detectEnvironment();
+
+          expect(result.type).toBe(ENVIRONMENT_TYPE.TEST);
+          expect(result.supportsVisualTerminal).toBe(false);
+        } finally {
+          existsSync.mockRestore();
+        }
+      });
+    });
+
     describe('CI/CD detection (Task 1.5)', () => {
       it('should detect GitHub Actions environment', () => {
         // Given
@@ -286,6 +372,10 @@ describe('Terminal Spawner (Story 12.10)', () => {
         delete process.env.VSCODE_PID;
         delete process.env.VSCODE_CWD;
         delete process.env.VSCODE_GIT_IPC_HANDLE;
+        delete process.env.AIOX_INLINE_MODE;
+        delete process.env.AIOX_NO_VISUAL_TERMINAL;
+        delete process.env.NODE_ENV;
+        delete process.env.JEST_WORKER_ID;
 
         // When
         const result = detectEnvironment();
@@ -354,6 +444,8 @@ describe('Terminal Spawner (Story 12.10)', () => {
   // ============================================
   describe('ENVIRONMENT_TYPE enum', () => {
     it('should have all required environment types', () => {
+      expect(ENVIRONMENT_TYPE.INLINE).toBe('INLINE');
+      expect(ENVIRONMENT_TYPE.TEST).toBe('TEST');
       expect(ENVIRONMENT_TYPE.NATIVE_TERMINAL).toBe('NATIVE_TERMINAL');
       expect(ENVIRONMENT_TYPE.VSCODE).toBe('VSCODE');
       expect(ENVIRONMENT_TYPE.SSH).toBe('SSH');

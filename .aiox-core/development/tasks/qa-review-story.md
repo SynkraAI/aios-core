@@ -330,9 +330,10 @@ async function runQACodeRabbitSelfHealing(storyPath) {
     const criticalIssues = issues.filter((i) => i.severity === 'CRITICAL');
     const highIssues = issues.filter((i) => i.severity === 'HIGH');
     const mediumIssues = issues.filter((i) => i.severity === 'MEDIUM');
+    const lowIssues = issues.filter((i) => i.severity === 'LOW');
 
     console.log(
-      `   Found: ${criticalIssues.length} CRITICAL, ${highIssues.length} HIGH, ${mediumIssues.length} MEDIUM`
+      `   Found: ${criticalIssues.length} CRITICAL, ${highIssues.length} HIGH, ${mediumIssues.length} MEDIUM, ${lowIssues.length} LOW`
     );
 
     // No CRITICAL or HIGH issues = success

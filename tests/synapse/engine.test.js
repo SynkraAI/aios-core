@@ -666,6 +666,26 @@ describe('SynapseEngine', () => {
       expect(perLayer.agent.status).toBe('ok');
       expect(result.metrics.layers_loaded).toBeGreaterThanOrEqual(3);
     });
+
+    test('uses the injected clock for deterministic total duration', async () => {
+      for (const layer of engine.layers) {
+        if (layer.layer === 0) layer._safeProcess = () => ({ rules: ['constitution'] });
+        if (layer.layer === 1) layer._safeProcess = () => ({ rules: ['global'] });
+        if (layer.layer === 2) layer._safeProcess = () => ({ rules: ['agent'] });
+      }
+      const nowNs = jest
+        .fn()
+        .mockReturnValueOnce(1_000_000n)
+        .mockReturnValue(6_000_000n);
+
+      const result = await engine.process('test', { prompt_count: 1 }, {
+        synapse: { pipelineTimeoutMs: 30000 },
+        nowNs,
+      });
+
+      expect(result.metrics.total_ms).toBe(5);
+      expect(nowNs).toHaveBeenCalled();
+    });
   });
 
   describe('process() — handoff warning', () => {

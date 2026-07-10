@@ -369,6 +369,7 @@ run_dispatch_guard() {
     AIOX_DISPATCH_TASK="$TASK" \
     AIOX_DISPATCH_PARAMS="$PARAMS" \
     AIOX_DISPATCH_CONTEXT="$CONTEXT_FILE" \
+    AIOX_PROJECT_ROOT="${AIOX_PROJECT_ROOT:-$(pwd)}" \
     node "$guard_script" >&2
 }
 

@@ -23,7 +23,7 @@ Lean SDC skill. **Task is source of truth.**
 
 ## Pre-close gates (blocking)
 
-Before mutating Status, verify:
+Before any administrative write, verify (this skill must not modify lifecycle Status):
 
 1. Review/gate verdict exists and is PASS, CONCERNS (accepted), or WAIVED — not FAIL/missing.
 2. Acceptance criteria met.
@@ -31,7 +31,7 @@ Before mutating Status, verify:
 4. Quality gates green (or documented waiver).
 5. Story is already **Done** by QA; any other status is an integrity violation.
 
-On any hard fail → **HALT**, no Status change.
+On any hard fail → **HALT**, no administrative write and no Status change.
 
 ## Protocol
 

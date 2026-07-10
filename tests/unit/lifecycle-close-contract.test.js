@@ -5,6 +5,10 @@ const path = require('path');
 
 const ROOT = path.resolve(__dirname, '../..');
 
+function readRepoFile(relativePath) {
+  return fs.readFileSync(path.join(ROOT, relativePath), 'utf8');
+}
+
 describe('administrative close-story contract', () => {
   it('requires revision-bound QA provenance', () => {
     const qaGate = fs.readFileSync(
@@ -22,17 +26,90 @@ describe('administrative close-story contract', () => {
   });
 
   it('defines and validates an idempotency key for repeated closure', () => {
-    const closeStory = fs.readFileSync(
-      path.join(ROOT, '.aiox-core/development/tasks/po-close-story.md'),
-      'utf8',
-    );
+    const closeStory = readRepoFile('.aiox-core/development/tasks/po-close-story.md');
 
     expect(closeStory).toContain('<story-id>:commit:<sha>');
     expect(closeStory).toContain('<story-id>:pr:<number>');
+    expect(closeStory).toContain('<story-id>:digest:<reviewed_revision>');
     expect(closeStory).toContain('[closure-key: <key>]');
     expect(closeStory).toContain('Execute the protocol twice');
     expect(closeStory).toContain('each artifact that carries closure metadata');
-    expect(closeStory).toContain('retry must add only the missing keyed artifact');
-    expect(closeStory).toContain('read-only no-op');
+    expect(closeStory).toMatch(/retry must add only the missing\s+keyed artifact/);
+    expect(closeStory).toMatch(/read-only\s+no-op/);
+  });
+});
+
+describe('Core Super Update review contracts', () => {
+  const fullSdcPaths = [
+    '.aiox-core/development/skills/full-sdc/SKILL.md',
+    '.claude/skills/full-sdc/SKILL.md',
+    '.grok/skills/aiox-full-sdc/SKILL.md',
+  ];
+
+  it.each(fullSdcPaths)('routes review FAIL before the generic verification halt in %s', (file) => {
+    const fullSdc = readRepoFile(file);
+    const reviewFail = fullSdc.indexOf('IF phase=review and verdict FAIL:');
+    const genericHalt = fullSdc.indexOf('ELSE IF verify FAIL → HALT');
+
+    expect(reviewFail).toBeGreaterThan(-1);
+    expect(genericHalt).toBeGreaterThan(reviewFail);
+  });
+
+  it.each(fullSdcPaths)('quotes and freezes the exact preflight payload in %s', (file) => {
+    const fullSdc = readRepoFile(file);
+
+    expect(fullSdc).toContain('aiox sdc preflight "{story-path}"');
+    expect(fullSdc).toContain('--task "{phase-task}"');
+    expect(fullSdc).toContain('--intent-file "{exact-child-intent-file}"');
+    expect(fullSdc).toContain('--context-file "{exact-child-context-file}"');
+    expect(fullSdc).toContain('never rebuild or enrich the prompt after preflight');
+  });
+
+  it.each([
+    '.aiox-core/development/skills/close-story/SKILL.md',
+    '.claude/skills/close-story/SKILL.md',
+    '.grok/skills/aiox-close-story/SKILL.md',
+  ])('keeps close-story administrative in %s', (file) => {
+    const closeStory = readRepoFile(file);
+
+    expect(closeStory).toContain('Before any administrative write');
+    expect(closeStory).not.toContain('Before mutating Status');
+  });
+
+  it('propagates the project root explicitly into pm.sh governance', () => {
+    const pmScript = readRepoFile('.aiox-core/scripts/pm.sh');
+
+    expect(pmScript).toMatch(
+      /AIOX_DISPATCH_CONTEXT="\$CONTEXT_FILE" \\\n\s+AIOX_PROJECT_ROOT="\$\{AIOX_PROJECT_ROOT:-\$\(pwd\)\}" \\/,
+    );
+  });
+
+  it('reports every CodeRabbit severity in the QA self-healing summary', () => {
+    const qaReview = readRepoFile('.aiox-core/development/tasks/qa-review-story.md');
+
+    expect(qaReview).toContain("const lowIssues = issues.filter((i) => i.severity === 'LOW')");
+    expect(qaReview).toContain('${lowIssues.length} LOW');
+  });
+
+  it('keeps the port-denylist checkout credential-free', () => {
+    const ci = readRepoFile('.github/workflows/ci.yml');
+    const portJob = ci.slice(ci.indexOf('  port-denylist:'), ci.indexOf('\n  lint:'));
+
+    expect(portJob).toContain('uses: actions/checkout@v6');
+    expect(portJob).toContain('persist-credentials: false');
+  });
+
+  it('labels orchestration state access and retrospective evidence precisely', () => {
+    const hierarchy = readRepoFile('docs/architecture/orchestration-hierarchy.md');
+    const audit = readRepoFile('docs/framework/epics/core-super-update/LIFECYCLE-AUDIT.md');
+    const memoryBridge = readRepoFile(
+      'docs/framework/epics/core-super-update/STORY-CORE-SU.MB-MEMORY-BRIDGE.md',
+    );
+
+    expect(hierarchy).toContain('FullSDC -->|read/reconcile only| SessionState');
+    expect(hierarchy).toContain('lifecycle writes via authorized phase tasks');
+    expect(audit).toContain('post-fix PR snapshot reported 8,957 tests');
+    expect(audit).toContain('macOS terminal hardening snapshot reported 8,960');
+    expect(memoryBridge).toContain('this row is not QA/PASS evidence');
   });
 });
