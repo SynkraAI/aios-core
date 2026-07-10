@@ -42,7 +42,7 @@ observable artifacts and records the gap as historical provenance.
 ## Forward Enforcement
 
 **Audit status:** final — verdict `PASS`; reviewer `Quinn (Test Architect)`;
-reviewed_revision `commit:0dd29cd7e2a41f32cf94b61adf3d4b2091bb8bc4`.
+reviewed_revision `commit:e4b2ec21708b78d6f16e224754239a858371c34e`.
 
 CORE-SU.R1 records each live transition in its Change Log. The corrected review
 skill and Full SDC state machine require QA to write the approved Done
@@ -54,7 +54,7 @@ tasks/File List, QA Results with revision-bound provenance, and Status `Done`.
 ## Verification Record
 
 - `npx jest tests/unit/sdc/phase-verify.test.js tests/unit/port-denylist.test.js tests/unit/framework-3way-diff.test.js tests/unit/lifecycle-close-contract.test.js --runInBand`: PASS, 4 suites/26 tests.
-- `npm test -- --runInBand --silent`: PASS twice consecutively at the remediation snapshot with 376 suites/8,945 tests; the expanded post-fix PR snapshot reported 8,957 tests, the macOS terminal hardening snapshot reported 8,960, the final scanner snapshot reported 9,004 and the interactive-remediation follow-up reported 9,007. The counts differ because each snapshot added regression tests; no residual Jest process was observed.
+- `npm test -- --runInBand --silent`: PASS twice consecutively at the remediation snapshot with 376 suites/8,945 tests; os snapshots pós-fix reportaram 8,957, 8,960, 9,004, 9,007 e, no follow-up de ordem do preflight, 9,010 testes. As contagens diferem porque cada snapshot adicionou regressões; nenhum processo Jest residual foi observado.
 - `npm run build`: PASS, publish safety gate validou 2,140 arquivos e a completude das dependências.
 - `npm run lint`: PASS (one warning only in the preexisting untracked `tests/integration/wizard-debug.temp.test.js`).
 - `npm run typecheck`: PASS.
@@ -64,7 +64,7 @@ tasks/File List, QA Results with revision-bound provenance, and Status `Done`.
 - `npm run validate:codex-sync && npm run validate:codex-integration`: PASS.
 - `npm run validate:claude-sync && npm run validate:claude-integration`: PASS.
 - `git diff --check`: PASS.
-- CodeRabbit development and pre-PR rounds were triaged and their valid findings remediated. O review incremental remoto posterior abriu cinco findings adicionais, todos corrigidos no snapshot `0dd29cd7`; a execução local subsequente permaneceu em `summarizing` sem verdict. O QA follow-up passou com score 100/100, condicionado a novo review CodeRabbit remoto após push e antes do merge.
+- CodeRabbit development and pre-PR rounds were triaged and their valid findings remediated. Após o snapshot `0dd29cd7`, o review incremental aprovou a rodada mas registrou três findings MAJOR fora do diff sobre a ordem do preflight; todos foram corrigidos no snapshot `e4b2ec21`. O QA follow-up passou com score 100/100, condicionado a novo review CodeRabbit remoto após push e antes do merge.
 
 Artifact references: remediation story
 `STORY-CORE-SU.R1-REVIEW-REMEDIATION.md`, checkpoint ownership ADR

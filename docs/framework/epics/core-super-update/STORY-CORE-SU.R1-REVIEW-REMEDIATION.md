@@ -145,6 +145,7 @@ Done
 | 2026-07-10 | 0.9.6   | Follow-up CodeRabbit: modo interactive protegido, teste CI desacoplado da ordem e evidência sanitizada; Status Done preservado. | Dex (@dev) |
 | 2026-07-10 | 0.9.7   | QA follow-up PASS no snapshot commitado; Status Done preservado. | Quinn (@qa) |
 | 2026-07-10 | 0.9.8   | Preflight antecipado para antes de qualquer execução inline/spawn em SOT, Claude e Grok; Status Done preservado. | Dex (@dev) |
+| 2026-07-10 | 0.9.9   | QA preflight-order PASS no snapshot commitado; Status Done preservado. | Quinn (@qa) |
 
 ## Dev Agent Record
 
@@ -756,5 +757,52 @@ Gate: PASS. Quality score: 100/100. Top issues: none.
 Condition: novo review CodeRabbit remoto obrigatório após push e antes do merge.
 
 #### Interactive Remediation Lifecycle
+
+PASS follow-up: Status Done preservado.
+
+### PR #802 Preflight Ordering Follow-up — Gate PASS
+
+**Review Date:** 2026-07-10
+
+**Reviewed By:** Quinn (Test Architect)
+
+**Reviewed Revision:** commit:e4b2ec21708b78d6f16e224754239a858371c34e
+
+Snapshot final commitado em `e4b2ec21708b78d6f16e224754239a858371c34e`:
+implementação em `528d817b`, complementada pelo commit mecânico do registry e
+manifesto.
+
+#### Preflight Ordering Assessment
+
+Os três findings MAJOR fora do diff tinham a mesma causa e foram confirmados.
+O loop agora separa leitura de SOT e execução: carrega sem executar, materializa
+o payload exato, exige preflight aprovado e somente então executa inline ou
+despacha child/model. O contrato é idêntico no SOT e nas projeções Claude/Grok.
+
+#### Preflight Ordering Evidence
+
+- Regressão focada: PASS, 1 suite/21 testes.
+- Suite integral: PASS, 376 suites/9.010 testes; 151 testes ignorados.
+- `npm run lint`: PASS, zero erros; um warning somente no temporário untracked
+  preexistente.
+- `npm run typecheck`, `npm run build` e `npm run validate:port-denylist`: PASS.
+- IDE strict sync, Grok dry-run e paridade: PASS.
+- Manifesto e registry determinístico: PASS, 844 entidades.
+- `git diff --check`: PASS.
+
+#### Preflight Ordering NFR
+
+- Security: PASS — nenhuma fase executa antes do gate de preflight.
+- Reliability: PASS — falha de preflight interrompe o ciclo antes de side effects.
+- Maintainability: PASS — ordem explícita e protegida por regressão nas três projeções.
+- Performance: PASS — alteração declarativa sem custo adicional de runtime.
+
+#### Preflight Ordering Gate
+
+Gate: PASS. Quality score: 100/100. Top issues: none.
+
+Condition: novo review CodeRabbit remoto obrigatório após push e antes do merge.
+
+#### Preflight Ordering Lifecycle
 
 PASS follow-up: Status Done preservado.
