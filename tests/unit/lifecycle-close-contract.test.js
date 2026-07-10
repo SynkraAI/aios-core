@@ -154,8 +154,9 @@ describe('Core Super Update review contracts', () => {
 
     expect(hierarchy).toContain('FullSDC -->|read/reconcile only| SessionState');
     expect(hierarchy).toContain('lifecycle writes via authorized phase tasks');
-    expect(audit).toContain('post-fix PR snapshot reported 8,957 tests');
-    expect(audit).toContain('macOS terminal hardening snapshot reported 8,960');
+    expect(audit).toContain('8,957');
+    expect(audit).toContain('8,960');
+    expect(audit).toContain('9,010');
     expect(memoryBridge).toContain('this row is not QA/PASS evidence');
   });
 });

@@ -146,6 +146,7 @@ Done
 | 2026-07-10 | 0.9.7   | QA follow-up PASS no snapshot commitado; Status Done preservado. | Quinn (@qa) |
 | 2026-07-10 | 0.9.8   | Preflight antecipado para antes de qualquer execução inline/spawn em SOT, Claude e Grok; Status Done preservado. | Dex (@dev) |
 | 2026-07-10 | 0.9.9   | QA preflight-order PASS no snapshot commitado; Status Done preservado. | Quinn (@qa) |
+| 2026-07-10 | 0.9.10  | CI fix: auditoria validada por contagens estáveis, sem acoplamento à redação; Status Done preservado. | Dex (@dev) |
 
 ## Dev Agent Record
 
