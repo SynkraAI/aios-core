@@ -143,6 +143,7 @@ Done
 | 2026-07-10 | 0.9.4   | Scanner global de credenciais concluído — Status: InProgress → InReview. | Dex (@dev) |
 | 2026-07-10 | 0.9.5   | QA final PASS — scanner validado; Status: InReview → Done. | Quinn (@qa) |
 | 2026-07-10 | 0.9.6   | Follow-up CodeRabbit: modo interactive protegido, teste CI desacoplado da ordem e evidência sanitizada; Status Done preservado. | Dex (@dev) |
+| 2026-07-10 | 0.9.7   | QA follow-up PASS no snapshot commitado; Status Done preservado. | Quinn (@qa) |
 
 ## Dev Agent Record
 
@@ -703,3 +704,56 @@ Condition: novo review CodeRabbit remoto obrigatório após push e antes do merg
 #### Scanner Closure Lifecycle
 
 PASS: InReview → Done.
+
+### PR #802 Interactive Remediation Follow-up — Gate PASS
+
+**Review Date:** 2026-07-10
+
+**Reviewed By:** Quinn (Test Architect)
+
+**Reviewed Revision:** commit:0dd29cd7e2a41f32cf94b61adf3d4b2091bb8bc4
+
+Snapshot final commitado em `0dd29cd7e2a41f32cf94b61adf3d4b2091bb8bc4`:
+implementação em `1612ce6d`, complementada pelo commit mecânico do registry e
+manifesto.
+
+#### Interactive Remediation Assessment
+
+Os cinco findings do review incremental foram confirmados e corrigidos. O
+Full SDC agora pausa em modo interactive antes de qualquer alteração e só
+executa `apply-qa-fixes` em YOLO ou após aprovação explícita. Source of truth,
+Claude e Grok mantêm o mesmo contrato. O teste do checkout CI encontra a
+próxima fronteira real de job, sem depender da posição de `lint`. Os exemplos
+históricos de scanner foram preservados semanticamente sem literals com formato
+de credencial na documentação versionada.
+
+#### Interactive Remediation Evidence
+
+- Regressão focada: PASS, 2 suites/56 testes.
+- Suite integral: PASS, 376 suites/9.007 testes; 151 testes ignorados.
+- `npm run lint`: PASS, zero erros; um warning somente no temporário untracked
+  preexistente.
+- `npm run typecheck`, `npm run build` e `npm run validate:port-denylist`: PASS.
+- Claude sync/integration, IDE strict sync, Grok dry-run e paridade: PASS.
+- Manifesto e registry determinístico: PASS, 844 entidades.
+- `git diff --check`: PASS.
+- CodeRabbit local iniciou o review, mas permaneceu em `summarizing` sem
+  findings; o review remoto pós-push permanece obrigatório.
+
+#### Interactive Remediation NFR
+
+- Security: PASS — documentação sem literals credential-shaped.
+- Reliability: PASS — modo interactive não inicia correções sem consentimento.
+- Maintainability: PASS — projeções sincronizadas e teste CI independente da
+  ordem dos jobs.
+- Performance: PASS — apenas contratos e testes estáticos foram alterados.
+
+#### Interactive Remediation Gate
+
+Gate: PASS. Quality score: 100/100. Top issues: none.
+
+Condition: novo review CodeRabbit remoto obrigatório após push e antes do merge.
+
+#### Interactive Remediation Lifecycle
+
+PASS follow-up: Status Done preservado.
