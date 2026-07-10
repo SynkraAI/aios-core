@@ -42,7 +42,7 @@ observable artifacts and records the gap as historical provenance.
 ## Forward Enforcement
 
 **Audit status:** final — verdict `PASS`; reviewer `Quinn (Test Architect)`;
-reviewed_revision `commit:920ca1f8e6c58b97b5ac3d84577e5c0d10633683`.
+reviewed_revision `commit:49e28cd4b818f922d01572235f8b2369bcb254e3`.
 
 CORE-SU.R1 records each live transition in its Change Log. The corrected review
 skill and Full SDC state machine require QA to write the approved Done
@@ -54,7 +54,7 @@ tasks/File List, QA Results with revision-bound provenance, and Status `Done`.
 ## Verification Record
 
 - `npx jest tests/unit/sdc/phase-verify.test.js tests/unit/port-denylist.test.js tests/unit/framework-3way-diff.test.js tests/unit/lifecycle-close-contract.test.js --runInBand`: PASS, 4 suites/26 tests.
-- `npm test -- --runInBand --silent`: PASS twice consecutively at the remediation snapshot with 376 suites/8,945 tests; os snapshots pós-fix reportaram 8,957, 8,960, 9,004, 9,007 e, no follow-up de ordem do preflight, 9,010 testes. As contagens diferem porque cada snapshot adicionou regressões; nenhum processo Jest residual foi observado.
+- `npm test -- --runInBand --silent`: PASS twice consecutively at the remediation snapshot with 376 suites/8,945 tests; os snapshots pós-fix reportaram 8,957, 8,960, 9,004, 9,007, 9,010 e, no follow-up da verificação de remediação, 9,013 testes. As contagens diferem porque cada snapshot adicionou regressões; nenhum processo Jest residual foi observado.
 - `npm run build`: PASS, publish safety gate validou 2,140 arquivos e a completude das dependências.
 - `npm run lint`: PASS (one warning only in the preexisting untracked `tests/integration/wizard-debug.temp.test.js`).
 - `npm run typecheck`: PASS.

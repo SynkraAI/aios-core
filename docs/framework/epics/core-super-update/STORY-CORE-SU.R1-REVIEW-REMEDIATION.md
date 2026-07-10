@@ -149,6 +149,7 @@ Done
 | 2026-07-10 | 0.9.10  | CI fix: auditoria validada por contagens estáveis, sem acoplamento à redação; Status Done preservado. | Dex (@dev) |
 | 2026-07-10 | 0.9.11  | QA CI-fix PASS no snapshot commitado; Status Done preservado. | Quinn (@qa) |
 | 2026-07-10 | 0.9.12  | Falha na verificação da remediação agora interrompe o loop antes do re-review; alegação de desempenho qualificada. | Dex (@dev) |
+| 2026-07-10 | 0.9.13  | QA do loop de remediação PASS no snapshot commitado; Status Done preservado. | Quinn (@qa) |
 
 ## Dev Agent Record
 
@@ -845,5 +846,45 @@ Gate: PASS. Quality score: 100/100. Top issues: none.
 Condition: CI e CodeRabbit remotos devem concluir novamente após o push.
 
 #### CI Audit Contract Lifecycle
+
+PASS follow-up: Status Done preservado.
+
+### PR #802 QA Remediation Verification Follow-up — Gate PASS
+
+**Review Date:** 2026-07-10
+
+**Reviewed By:** Quinn (Test Architect)
+
+**Reviewed Revision:** commit:49e28cd4b818f922d01572235f8b2369bcb254e3
+
+Snapshot final commitado em `49e28cd4b818f922d01572235f8b2369bcb254e3`:
+correção do contrato em `f683d13a`, complementada pelo commit mecânico do
+registry e manifesto.
+
+#### QA Remediation Verification Assessment
+
+Os dois findings do review incremental foram confirmados. O Full SDC agora
+interrompe e escala quando `apply_qa_fixes --mark` falha, sem retornar ao review
+nem incrementar `qgIterations`; somente a verificação aprovada segue para o
+re-review. SOT, Claude e Grok permanecem sincronizados e protegidos por regressão.
+A avaliação de desempenho registra o overhead de processo/I/O do preflight e
+limita a conclusão à ausência de regressão significativa no runtime do produto.
+
+#### QA Remediation Verification Evidence
+
+- Regressão focada: PASS, 1 suite/24 testes.
+- Suite integral: PASS, 376 suites/9.013 testes; 151 testes ignorados.
+- `npm run build`: PASS, 2.140 arquivos e dependências validados.
+- `npm run lint`: PASS, zero erros; um warning somente no temporário untracked.
+- `npm run typecheck`, port denylist, sync IDE 109/109, paridade, manifesto,
+  registry determinístico e `git diff --check`: PASS.
+
+#### QA Remediation Verification Gate
+
+Gate: PASS. Quality score: 100/100. Top issues: none.
+
+Condition: CI, CodeRabbit e review humano devem concluir novamente após o push.
+
+#### QA Remediation Verification Lifecycle
 
 PASS follow-up: Status Done preservado.
