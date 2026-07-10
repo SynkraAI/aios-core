@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 5.2.9
-generated_at: "2026-07-09T18:33:38.585Z"
+generated_at: "2026-07-10T14:21:20.005Z"
 generator: scripts/generate-install-manifest.js
-file_count: 1162
+file_count: 1163
 files:
   - path: cli/commands/config/index.js
     hash: sha256:25c4b9bf4e0241abf7754b55153f49f1a214f1fb5fe904a576675634cb7b3da9
@@ -1013,9 +1013,9 @@ files:
     type: core
     size: 16494
   - path: core/orchestration/terminal-spawner.js
-    hash: sha256:a6453c6acf0ff007444adeaa5e4620890fff38f0b31b058a2da04d790fb098ab
+    hash: sha256:e6ca3498ac26e56213beee563b36d56bf2bce3eed97ab215c41bb83fb0a99201
     type: core
-    size: 31469
+    size: 32066
   - path: core/orchestration/workflow-executor.js
     hash: sha256:8c56facc975f0452d686183d25ab1c19211afd127814b2ade963b4950352872f
     type: core
@@ -1385,7 +1385,7 @@ files:
     type: data
     size: 9590
   - path: data/entity-registry.yaml
-    hash: sha256:1119db87adaeab979a47c9cba36ad5b4e03e2bbb1392d62623d0ae1c4971b739
+    hash: sha256:eece57b671c34dd8b6ebf743e346c8b0ed75cf83bee16725d25c37b11adf9bb3
     type: data
     size: 593494
   - path: data/learned-patterns.yaml
@@ -2596,6 +2596,10 @@ files:
     hash: sha256:dfb5f03fae16171777742b06a9e54ee25711d1d94cedc2152ef9c9331310b608
     type: task
     size: 5254
+  - path: development/tasks/review-prs.md
+    hash: sha256:f49dcdc3f16a1bb187ab76daa6c8bf28e69ea1506b0048661cbda7907ac45fba
+    type: task
+    size: 14109
   - path: development/tasks/run-design-system-pipeline.md
     hash: sha256:ff4c225b922da347b63aeb6d8aa95484c1c9281eb1e4b4c4ab0ecef0a1a54c26
     type: task
@@ -4545,9 +4549,9 @@ files:
     type: script
     size: 9488
   - path: scripts/pm.sh
-    hash: sha256:cc04573e7c9e5c477bebc20a3145714d9c1fb183739ba815cf10203b7604b773
+    hash: sha256:111ba740a56db103b581ee5512ce7af9ece6eaf47b8963722d84ace3c68fc0b3
     type: script
-    size: 13474
+    size: 13791
   - path: scripts/README.md
     hash: sha256:4b0aa7d4664919c7d7b241b6451bd97bf07ca66e7e5f6d4b455e12e094d0e6ae
     type: script

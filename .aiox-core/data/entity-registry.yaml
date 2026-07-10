@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-07-09T15:10:32.696Z'
+  lastUpdated: '2026-07-10T14:20:24.688Z'
   entityCount: 842
   checksumAlgorithm: sha256
   resolutionRate: 100
@@ -10718,7 +10718,7 @@ entities:
       path: .aiox-core/core/orchestration/terminal-spawner.js
       layer: L1
       type: module
-      purpose: Entity at .aiox-core/core/orchestration/terminal-spawner.js
+      purpose: Entity at .aiox-core\core\orchestration\terminal-spawner.js
       keywords:
         - terminal
         - spawner
@@ -10734,8 +10734,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:a6453c6acf0ff007444adeaa5e4620890fff38f0b31b058a2da04d790fb098ab
-      lastVerified: '2026-07-09T15:04:00.991Z'
+      checksum: sha256:e6ca3498ac26e56213beee563b36d56bf2bce3eed97ab215c41bb83fb0a99201
+      lastVerified: '2026-07-10T14:20:24.678Z'
     workflow-executor:
       path: .aiox-core/core/orchestration/workflow-executor.js
       layer: L1
