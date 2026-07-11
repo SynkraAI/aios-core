@@ -98,6 +98,9 @@ Environment Variables:
   AIOX_DEBUG         Enable debug mode (default: false)
   AIOX_TIMEOUT       Timeout in seconds (default: 300)
   AIOX_INLINE_MODE   Run without a visual terminal (default: false)
+  AIOX_NO_VISUAL_TERMINAL
+                     Never open a visual terminal, force inline (default: false;
+                     also implied by JEST_WORKER_ID, NODE_ENV=test, or CI=true)
   CLAUDE_CMD         Claude CLI command (default: claude)
   AIOX_MODEL_BUDGET_CEILING_USD
                      Required positive ceiling for automated model dispatch
@@ -482,7 +485,11 @@ spawn_terminal() {
   log_debug "Created lock file: $LOCK_FILE"
 
   # Check for inline mode (Story 12.10 - fallback for non-visual environments)
-  if [[ "$INLINE_MODE" == "true" ]]; then
+  # Shell-level defense in depth (#802 review follow-up): direct `bash pm.sh …`
+  # invocations bypass the Node spawner's detectEnvironment(), so mirror its
+  # guards here — test runners (JEST_WORKER_ID / NODE_ENV=test), CI, and the
+  # explicit AIOX_NO_VISUAL_TERMINAL opt-out must never open a real terminal.
+  if [[ "$INLINE_MODE" == "true" || -n "${JEST_WORKER_ID:-}" || "${NODE_ENV:-}" == "test" || "${CI:-false}" == "true" || "${AIOX_NO_VISUAL_TERMINAL:-false}" == "true" ]]; then
     local inline_result=0
     spawn_inline || inline_result=$?
     if [[ $inline_result -ne 0 ]]; then
