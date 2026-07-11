@@ -46,6 +46,7 @@ permissions:
   issues: write
   pull-requests: write
   id-token: write
+  actions: write # chain npm-publish.yml via workflow_dispatch (legacy wrapper + workspace packages)
 
 jobs:
   # Release job - CI validation handled by branch protection rules
@@ -171,6 +172,21 @@ jobs:
           else
             npx semantic-release
           fi
+
+      - name: Chain npm-publish (legacy wrapper + workspace packages)
+        if: inputs.dry_run != true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # The tag/release created by semantic-release uses GITHUB_TOKEN, which does
+          # NOT trigger npm-publish.yml's push/release triggers (GitHub Actions
+          # anti-recursion). workflow_dispatch via API is the documented exception —
+          # same pattern release.yml relies on in its trigger-npm-publish job.
+          # npm-publish.yml is idempotent (should_publish skips versions already in
+          # the registry), so dispatching after a no-release run is a safe no-op.
+          gh workflow run npm-publish.yml --ref main -f publish_mode=stable -f packages=all
+          echo "✅ npm-publish.yml dispatched (stable, all packages)"
+          echo "### 🔗 Chained npm-publish.yml (stable, all)" >> $GITHUB_STEP_SUMMARY
 
       - name: Release Summary
         if: success()

@@ -1,6 +1,6 @@
 {
   "name": "@aiox-squads/core",
-  "version": "5.2.9",
+  "version": "5.3.0",
   "description": "Synkra AIOX: AI-Orchestrated System for Full Stack Development - Core Framework",
   "bin": {
     "aiox": "bin/aiox.js",
@@ -171,6 +171,7 @@
   },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/exec": "^7.1.0",
     "@semantic-release/git": "^10.0.1",
     "@types/jest": "^30.0.0",
     "@typescript-eslint/eslint-plugin": "^8.46.2",
