@@ -62,6 +62,46 @@ describe('aiox pro seats CLI', () => {
     expect(mockLicenseApi.listSeats).toHaveBeenCalledWith('access-token', 'machine-id-123');
   });
 
+  it('exits when listing cannot identify the current machine', async () => {
+    mockGenerateMachineId.mockImplementation(() => {
+      throw new Error('disk error');
+    });
+    const exitSpy = jest.spyOn(process, 'exit').mockImplementation(() => {});
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+
+    const command = createSeatsCommand();
+    const list = command.commands.find((subcommand) => subcommand.name() === 'list');
+    await list.parseAsync(['--token', 'access-token'], { from: 'user' });
+
+    expect(exitSpy).toHaveBeenCalledWith(1);
+    expect(mockLicenseApi.listSeats).not.toHaveBeenCalled();
+  });
+
+  it('exits when listing is missing authentication', async () => {
+    const exitSpy = jest.spyOn(process, 'exit').mockImplementation(() => {});
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+
+    const command = createSeatsCommand();
+    const list = command.commands.find((subcommand) => subcommand.name() === 'list');
+    await list.parseAsync([], { from: 'user' });
+
+    expect(exitSpy).toHaveBeenCalledWith(1);
+    expect(mockGenerateMachineId).not.toHaveBeenCalled();
+    expect(mockLicenseApi.listSeats).not.toHaveBeenCalled();
+  });
+
+  it('exits when listing fails in the license API', async () => {
+    mockLicenseApi.listSeats.mockRejectedValue(new Error('network error'));
+    const exitSpy = jest.spyOn(process, 'exit').mockImplementation(() => {});
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+
+    const command = createSeatsCommand();
+    const list = command.commands.find((subcommand) => subcommand.name() === 'list');
+    await list.parseAsync(['--token', 'access-token'], { from: 'user' });
+
+    expect(exitSpy).toHaveBeenCalledWith(1);
+  });
+
   it('releases the requested seat using the authenticated machine identity', async () => {
     mockLicenseApi.releaseSeat.mockResolvedValue({
       releasedActivationId: 'activation-1',
@@ -79,5 +119,32 @@ describe('aiox pro seats CLI', () => {
       'activation-1',
       'machine-id-123',
     );
+  });
+
+  it('exits when releasing cannot identify the current machine', async () => {
+    mockGenerateMachineId.mockImplementation(() => {
+      throw new Error('disk error');
+    });
+    const exitSpy = jest.spyOn(process, 'exit').mockImplementation(() => {});
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+
+    const command = createSeatsCommand();
+    const release = command.commands.find((subcommand) => subcommand.name() === 'release');
+    await release.parseAsync(['activation-1', '--token', 'access-token'], { from: 'user' });
+
+    expect(exitSpy).toHaveBeenCalledWith(1);
+    expect(mockLicenseApi.releaseSeat).not.toHaveBeenCalled();
+  });
+
+  it('exits when releasing fails in the license API', async () => {
+    mockLicenseApi.releaseSeat.mockRejectedValue(new Error('network error'));
+    const exitSpy = jest.spyOn(process, 'exit').mockImplementation(() => {});
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+
+    const command = createSeatsCommand();
+    const release = command.commands.find((subcommand) => subcommand.name() === 'release');
+    await release.parseAsync(['activation-1', '--token', 'access-token'], { from: 'user' });
+
+    expect(exitSpy).toHaveBeenCalledWith(1);
   });
 });
