@@ -610,13 +610,15 @@ describe('InlineLicenseClient current auth contract', () => {
       let body = '';
       req.on('data', (chunk) => (body += chunk));
       req.on('end', () => {
-        expect(JSON.parse(body)).toEqual({
+        const payload = JSON.parse(body);
+        expect(payload).toEqual(expect.objectContaining({
           package: '@aiox-squads/pro',
           version: '0.4.0',
           format: 'tgz',
           machineId: 'machine-id',
           aioxCoreVersion: '5.1.3',
-        });
+        }));
+        expect(['persisted', 'native', 'legacy']).toContain(payload.machineIdSource);
 
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(
