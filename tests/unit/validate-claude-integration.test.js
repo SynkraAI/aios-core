@@ -23,6 +23,7 @@ describe('validate-claude-integration', () => {
   });
 
   afterEach(() => {
+    jest.restoreAllMocks();
     fs.rmSync(tmpRoot, { recursive: true, force: true });
   });
 
@@ -94,8 +95,6 @@ describe('validate-claude-integration', () => {
     ]);
 
     expect(listTopLevelNames('/tmp/.claude/skills', null)).toEqual(['linked-skill']);
-
-    jest.restoreAllMocks();
   });
 
   it('fails when Claude agent skills dir is missing', () => {
