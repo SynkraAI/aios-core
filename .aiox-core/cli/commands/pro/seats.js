@@ -1,8 +1,8 @@
 /**
  * Pro Seats Self-Service CLI (EPIC-PRO-17 / STORY-PRO-17.5)
  *
- *   aiox pro seats list [--email E] [--password P] [--token T]
- *   aiox pro seats release <activationId> [--email E] [--password P] [--token T]
+ *   aiox pro seats list [--email E] [--token T]
+ *   aiox pro seats release <activationId> [--email E] [--token T]
  *
  * @module cli/commands/pro/seats
  */
@@ -55,9 +55,7 @@ function loadModules() {
   }
 }
 
-async function resolveAccessToken(options, AuthError) {
-  const { licenseApi } = loadModules();
-
+async function resolveAccessToken(options, licenseApi) {
   if (options.token) {
     return options.token;
   }
@@ -67,29 +65,39 @@ async function resolveAccessToken(options, AuthError) {
 
   if (!email || !password) {
     console.error('Authentication required.');
-    console.error('Use --email and --password, --token, or AIOX_PRO_EMAIL/AIOX_PRO_PASSWORD.');
+    console.error('Use --email with AIOX_PRO_PASSWORD, --token, or AIOX_PRO_EMAIL/AIOX_PRO_PASSWORD.');
     process.exit(1);
+    return null;
   }
 
   try {
     const login = await licenseApi.login(email, password);
     return login.sessionToken;
   } catch (error) {
-    const message = error instanceof AuthError ? error.message : error.message;
-    console.error(`Login failed: ${message}`);
+    console.error(`Login failed: ${error.message}`);
     process.exit(1);
+    return null;
   }
 }
 
 function formatDate(dateStr) {
   if (!dateStr) return '—';
-  return new Date(dateStr).toLocaleString('pt-BR');
+  return new Date(dateStr).toLocaleString();
 }
 
 async function listSeatsAction(options) {
-  const { licenseApi, generateMachineId, AuthError } = loadModules();
-  const accessToken = await resolveAccessToken(options, AuthError);
-  const machineId = generateMachineId();
+  const { licenseApi, generateMachineId } = loadModules();
+  const accessToken = await resolveAccessToken(options, licenseApi);
+  if (!accessToken) return;
+
+  let machineId;
+  try {
+    machineId = generateMachineId();
+  } catch (error) {
+    console.error(`\nFailed to identify this machine: ${error.message}`);
+    process.exit(1);
+    return;
+  }
 
   try {
     const result = await licenseApi.listSeats(accessToken, machineId);
@@ -106,17 +114,17 @@ async function listSeatsAction(options) {
     }
 
     for (const seat of result.seats) {
-      const current = seat.isCurrentMachine ? ' (esta máquina)' : '';
+      const current = seat.isCurrentMachine ? ' (this machine)' : '';
       console.log(`  • ${seat.machineIdMasked}${current}`);
       console.log(`    ID:        ${seat.id}`);
       if (seat.machineName) {
-        console.log(`    Nome:      ${seat.machineName}`);
+        console.log(`    Name:      ${seat.machineName}`);
       }
       if (seat.aiosVersion) {
-        console.log(`    Versão:    ${seat.aiosVersion}`);
+        console.log(`    Version:   ${seat.aiosVersion}`);
       }
-      console.log(`    Ativado:   ${formatDate(seat.activatedAt)}`);
-      console.log(`    Validado:  ${formatDate(seat.lastValidatedAt)}`);
+      console.log(`    Activated: ${formatDate(seat.activatedAt)}`);
+      console.log(`    Validated: ${formatDate(seat.lastValidatedAt)}`);
       console.log('');
     }
   } catch (error) {
@@ -125,19 +133,30 @@ async function listSeatsAction(options) {
       console.error(`Error code: ${error.code}`);
     }
     process.exit(1);
+    return;
   }
 }
 
 async function releaseSeatAction(activationId, options) {
-  const { licenseApi, generateMachineId, AuthError } = loadModules();
+  const { licenseApi, generateMachineId } = loadModules();
 
   if (!activationId) {
     console.error('Usage: aiox pro seats release <activationId>');
     process.exit(1);
+    return;
   }
 
-  const accessToken = await resolveAccessToken(options, AuthError);
-  const machineId = generateMachineId();
+  const accessToken = await resolveAccessToken(options, licenseApi);
+  if (!accessToken) return;
+
+  let machineId;
+  try {
+    machineId = generateMachineId();
+  } catch (error) {
+    console.error(`\nFailed to identify this machine: ${error.message}`);
+    process.exit(1);
+    return;
+  }
 
   try {
     const result = await licenseApi.releaseSeat(accessToken, activationId, machineId);
@@ -152,6 +171,7 @@ async function releaseSeatAction(activationId, options) {
       console.error(`Error code: ${error.code}`);
     }
     process.exit(1);
+    return;
   }
 }
 
@@ -161,7 +181,6 @@ function createSeatsCommand() {
   const authOptions = (cmd) => {
     cmd
       .option('--email <email>', 'Account email')
-      .option('--password <password>', 'Account password')
       .option('--token <token>', 'Supabase access token');
     return cmd;
   };

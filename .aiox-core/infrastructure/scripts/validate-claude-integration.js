@@ -86,13 +86,12 @@ function isGitIgnored(projectRoot, relativePath) {
 function listTopLevelNames(dirPath, projectRoot) {
   if (!fs.existsSync(dirPath)) return [];
   return fs.readdirSync(dirPath, { withFileTypes: true })
-    .filter((entry) => entry.isDirectory() || entry.isFile())
+    .filter((entry) => entry.isDirectory() || entry.isFile() || entry.isSymbolicLink())
     .filter((entry) => {
       if (!projectRoot) return true;
       const relativePath = path.relative(projectRoot, path.join(dirPath, entry.name)).split(path.sep).join('/');
       return !isGitIgnored(projectRoot, relativePath);
     })
-  
     .map((entry) => entry.name)
     .sort();
 }
