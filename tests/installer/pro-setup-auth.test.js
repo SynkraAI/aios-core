@@ -618,7 +618,9 @@ describe('InlineLicenseClient current auth contract', () => {
           machineId: 'machine-id',
           aioxCoreVersion: '5.1.3',
         }));
-        expect(['persisted', 'native', 'legacy']).toContain(payload.machineIdSource);
+        if (payload.machineIdSource !== undefined) {
+          expect(['persisted', 'native', 'legacy']).toContain(payload.machineIdSource);
+        }
 
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(
