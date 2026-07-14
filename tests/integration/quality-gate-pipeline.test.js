@@ -6,11 +6,22 @@
  * @story 2.10 - Quality Gate Manager
  */
 
+const childProcess = require('child_process');
 const { QualityGateManager } = require('../../.aiox-core/core/quality-gates/quality-gate-manager');
 const { Layer1PreCommit } = require('../../.aiox-core/core/quality-gates/layer1-precommit');
 const { Layer2PRAutomation } = require('../../.aiox-core/core/quality-gates/layer2-pr-automation');
 const { Layer3HumanReview } = require('../../.aiox-core/core/quality-gates/layer3-human-review');
 const { ChecklistGenerator } = require('../../.aiox-core/core/quality-gates/checklist-generator');
+
+beforeAll(() => {
+  jest.spyOn(childProcess, 'spawnSync').mockReturnValue({
+    status: 0, error: null, stdout: '', stderr: '',
+  });
+});
+
+afterAll(() => {
+  jest.restoreAllMocks();
+});
 
 describe('Quality Gate Pipeline Integration', () => {
   describe('Full Pipeline Orchestration', () => {
