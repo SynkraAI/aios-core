@@ -4,12 +4,17 @@
  * @story 2.10 - Quality Gate Manager
  */
 
+const childProcess = require('child_process');
 const { Layer2PRAutomation } = require('../../../.aiox-core/core/quality-gates/layer2-pr-automation');
 
 describe('Layer2PRAutomation', () => {
   let layer;
 
   beforeEach(() => {
+    jest.spyOn(childProcess, 'spawnSync').mockReturnValue({
+      status: 0, error: null, stdout: '', stderr: '',
+    });
+
     layer = new Layer2PRAutomation({
       enabled: true,
       coderabbit: {
@@ -22,6 +27,10 @@ describe('Layer2PRAutomation', () => {
         autoReview: true,
       },
     });
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
   });
 
   describe('constructor', () => {
