@@ -35,8 +35,10 @@ activation-instructions:
       Display greeting using native context (zero JS execution):
       0. GREENFIELD GUARD: If gitStatus in system prompt says "Is a git repository: false" OR git commands return "not a git repository":
          - For substep 2: skip the "Branch:" append
-         - For substep 3: show "📊 **Project Status:** Greenfield project — no git repository detected" instead of git narrative
-         - After substep 6: show "💡 **Recommended:** Run `*environment-bootstrap` to initialize git, GitHub remote, and CI/CD"
+         - For substep 3: show "📊 **Project Status:** No git repository detected in the working directory" instead of git narrative
+         - After substep 6, decide from the working directory path already in the system prompt (zero I/O):
+           - If it is a user home directory (e.g. `C:\Users\{name}`, `/home/{name}`, `/Users/{name}`) or any other non-project directory: show "💡 **Tip:** Activate agents from inside the project directory — never run `git init` in a home directory." and do NOT recommend bootstrap
+           - Otherwise (an actual project directory): show "💡 **Recommended:** Run `@devops *environment-bootstrap` to initialize git, GitHub remote, and CI/CD"
          - Do NOT run any git commands during activation — they will fail and produce errors
       1. Show: "{icon} {persona_profile.communication.greeting_levels.archetypal}" + permission badge from current permission mode (e.g., [⚠️ Ask], [🟢 Auto], [🔍 Explore])
       2. Show: "**Role:** {persona.role}"
