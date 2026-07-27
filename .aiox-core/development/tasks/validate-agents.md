@@ -28,6 +28,18 @@ Story ACT-6: Framework integrity checking via `*validate-agents` command.
 Scan `.aiox-core/development/agents/` for all `.md` files.
 Expected agents: dev, qa, architect, pm, po, sm, analyst, data-engineer, ux-design-expert, devops, aiox-master, squad-creator
 
+Also scan `squads/<squad>/agents/` for every squad that ships agents. Squad scope
+differs in two ways:
+
+- **Command uniqueness is per scope.** Core agents share one namespace and each squad
+  has its own — the same command name in two different squads is not a collision.
+- **Dependencies resolve inside the squad** (`squads/<squad>/<type>/`), not in the core
+  development directories. `reference_files` are repo-relative instead.
+
+Use `--core-only` to restrict the run to the 12 core agents.
+
+Files starting with `_` are skipped by design (partials, drafts).
+
 ### Step 2: Parse YAML Block
 
 For each agent file:
@@ -77,8 +89,11 @@ For each command in `commands` array:
 ### Step 7: Cross-Agent Validation
 
 1. Verify no duplicate agent IDs across files
-2. Verify all 12 expected agents are present
+2. Verify all 12 expected core agents are present (squad agents are additional)
 3. Verify `*yolo` command exists (universal command)
+4. Verify every agent's YAML block PARSES. An unparseable block is an ERROR, not a
+   silent skip: before this check existed, one broken file aborted the whole scan and
+   the run still reported success.
 
 ### Step 8: Generate Report
 
@@ -110,8 +125,8 @@ Summary: 11 passed, 1 warning, 0 failed
 
 - `js-yaml` - YAML parsing
 - `fs` - File system access
-- Agent files in `.aiox-core/development/agents/`
-- Task files in `.aiox-core/development/tasks/`
+- Agent files in `.aiox-core/development/agents/` and `squads/<squad>/agents/`
+- Task files in `.aiox-core/development/tasks/` and `squads/<squad>/tasks/`
 - `unified-activation-pipeline.js` - Pipeline reference check
 
 ---
