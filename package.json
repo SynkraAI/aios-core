@@ -99,6 +99,8 @@
     "validate:codex-skills:self-test": "node .aiox-core/infrastructure/scripts/codex-skills-sync/validate.js --strict --self-test",
     "sync:skills:grok": "node .aiox-core/infrastructure/scripts/grok-skills-sync/index.js",
     "sync:skills:grok:dry": "node .aiox-core/infrastructure/scripts/grok-skills-sync/index.js --dry-run",
+    "validate:skills:grok": "node .aiox-core/infrastructure/scripts/grok-skills-sync/validate.js --strict",
+    "validate:skills:grok:soft": "node .aiox-core/infrastructure/scripts/grok-skills-sync/validate.js",
     "repair:agent-references": "node .aiox-core/infrastructure/scripts/repair-agent-references.js",
     "validate:paths": "node .aiox-core/infrastructure/scripts/validate-paths.js",
     "validate:parity": "node .aiox-core/infrastructure/scripts/validate-parity.js",

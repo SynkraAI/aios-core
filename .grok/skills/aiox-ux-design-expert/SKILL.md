@@ -4,6 +4,7 @@ description: >
   UX/UI Designer & Design System Architect (Uma). Complete design workflow - user research, wireframes, design systems, token extraction, component building, and quality assurance Triggers: UX, UI design, wireframe, design system, accessibility, ux-design-expert, @ux-design-expert, component design. Use when the user...
 when-to-use: >
   UX, UI design, wireframe, design system, accessibility, ux-design-expert, @ux-design-expert, component design
+user-invocable: true
 metadata:
   short-description: "🎨 UX/UI Designer & Design System Architect"
   aiox-agent-id: "ux-design-expert"

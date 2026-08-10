@@ -1,7 +1,7 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-07-10T16:41:41.038Z'
-  entityCount: 844
+  lastUpdated: '2026-08-10T20:35:21.455Z'
+  entityCount: 845
   checksumAlgorithm: sha256
   resolutionRate: 100
 entities:
@@ -18498,6 +18498,7 @@ entities:
         - story-helper
         - repair-agent-references
         - validate
+        - grok-skills-sync-validate
       dependencies:
         - agent-parser
       externalDeps: []
@@ -18724,8 +18725,8 @@ entities:
         score: 0.7
         constraints: []
         extensionPoints: []
-      checksum: sha256:3e724e071fe627cf28654819fd5cdbda0f88471170c9a9110cdd58eb7bb17ca9
-      lastVerified: '2026-07-10T16:41:41.014Z'
+      checksum: sha256:da8d69083999ae99a4d09b5fd3c72d74af5fb470de24a809e72df84aec6d8853
+      lastVerified: '2026-08-10T20:35:21.449Z'
     agent-parser:
       path: .aiox-core/infrastructure/scripts/ide-sync/agent-parser.js
       layer: L2
@@ -18988,6 +18989,25 @@ entities:
         extensionPoints: []
       checksum: sha256:b49216115de498113a754f9c87fe9834f6262abaa6db3b54c87c06fbdc632905
       lastVerified: '2026-07-10T16:41:41.015Z'
+    grok-skills-sync-validate:
+      path: .aiox-core/infrastructure/scripts/grok-skills-sync/validate.js
+      layer: L2
+      type: script
+      purpose: Entity at .aiox-core/infrastructure/scripts/grok-skills-sync/validate.js
+      keywords:
+        - validate
+      usedBy: []
+      dependencies:
+        - index
+      externalDeps: []
+      plannedDeps: []
+      lifecycle: experimental
+      adaptability:
+        score: 0.7
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:4933ed2f7dbb9fa7474f6741d8ba33136a67480fa7755e92a3a3062ec982429d
+      lastVerified: '2026-08-10T20:35:21.451Z'
   infra-tools:
     README:
       path: .aiox-core/infrastructure/tools/README.md

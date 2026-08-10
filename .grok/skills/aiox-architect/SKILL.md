@@ -4,6 +4,7 @@ description: >
   Architect (Aria). Use for system architecture (fullstack, backend, frontend, infrastructure), technology stack selection (technical evaluation), API design (REST/GraphQL/tRPC/WebSocket), security architecture, perfo... Triggers: architecture, architect, @architect, tech stack, API design, system design, impact analy...
 when-to-use: >
   architecture, architect, @architect, tech stack, API design, system design, impact analysis, ADR
+user-invocable: true
 metadata:
   short-description: "🏛️ Architect"
   aiox-agent-id: "architect"

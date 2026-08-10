@@ -4,6 +4,7 @@ description: >
   Database Architect & Operations Engineer (Dara). Use for database design, schema architecture, Supabase configuration, RLS policies, migrations, query optimization, data modeling, operations, and monitoring Triggers: database, migration, RLS, schema, Supabase, data-engineer, @data-engineer, query optimization. Use w...
 when-to-use: >
   database, migration, RLS, schema, Supabase, data-engineer, @data-engineer, query optimization
+user-invocable: true
 metadata:
   short-description: "📊 Database Architect & Operations Engineer"
   aiox-agent-id: "data-engineer"

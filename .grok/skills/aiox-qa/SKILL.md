@@ -4,6 +4,7 @@ description: >
   Test Architect & Quality Advisor (Quinn). Use for comprehensive test architecture review, quality gate decisions, and code improvement. Provides thorough analysis including requirements traceability, risk assessment, and test strategy. Adv... Triggers: qa gate, quality gate, code review, qa, @qa, test strategy, secu...
 when-to-use: >
   qa gate, quality gate, code review, qa, @qa, test strategy, security check, nfr
+user-invocable: true
 metadata:
   short-description: "✅ Test Architect & Quality Advisor"
   aiox-agent-id: "qa"

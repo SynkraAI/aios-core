@@ -4,6 +4,7 @@ description: >
   Scrum Master (River). Use for user story creation from PRD, story validation and completeness checking, acceptance criteria definition, story refinement, sprint planning, backlog grooming, retrospectives, daily standup... Triggers: create story, draft story, sprint planning, scrum, sm, @sm, backlog grooming. Use whe...
 when-to-use: >
   create story, draft story, sprint planning, scrum, sm, @sm, backlog grooming
+user-invocable: true
 metadata:
   short-description: "🌊 Scrum Master"
   aiox-agent-id: "sm"

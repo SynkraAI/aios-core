@@ -4,6 +4,7 @@ description: >
   Business Analyst (Atlas). Use for market research, competitive analysis, user research, brainstorming session facilitation, structured ideation workshops, feasibility studies, industry trends analysis, project discovery (br... Triggers: market research, competitive analysis, brainstorm, analyst, @analyst, feasibilit...
 when-to-use: >
   market research, competitive analysis, brainstorm, analyst, @analyst, feasibility, project brief
+user-invocable: true
 metadata:
   short-description: "🔍 Business Analyst"
   aiox-agent-id: "analyst"

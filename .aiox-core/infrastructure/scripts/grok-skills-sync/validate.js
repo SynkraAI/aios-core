@@ -1,0 +1,313 @@
+#!/usr/bin/env node
+'use strict';
+
+/**
+ * Validate AIOX Grok integration under .grok/
+ *
+ * Checks:
+ *  - Agent profiles for every AGENT_PROFILES id
+ *  - Persona activation skills + workflow skills
+ *  - Short workflow aliases
+ *  - Roles / personas TOML
+ *  - Rules, README, project config, push-authority hooks
+ *  - Authority hook dual-payload behavior (Claude + Grok)
+ *
+ * CLI: npm run validate:skills:grok [-- --strict]
+ */
+
+const fs = require('fs');
+const path = require('path');
+const { spawnSync } = require('child_process');
+
+const {
+  AGENT_PROFILES,
+  WORKFLOW_SKILLS,
+  DEVELOPMENT_WORKFLOW_SKILLS,
+  SHORT_WORKFLOW_ALIASES,
+  getSkillId,
+  grokSkillIdFromDevSkill,
+} = require('./index');
+
+function getDefaultOptions() {
+  const projectRoot = process.cwd();
+  return {
+    projectRoot,
+    grokRoot: path.join(projectRoot, '.grok'),
+    strict: false,
+    quiet: false,
+    json: false,
+  };
+}
+
+function parseArgs(argv = process.argv.slice(2)) {
+  const args = new Set(argv);
+  return {
+    strict: args.has('--strict'),
+    quiet: args.has('--quiet') || args.has('-q'),
+    json: args.has('--json'),
+  };
+}
+
+function exists(filePath) {
+  return fs.existsSync(filePath);
+}
+
+function readText(filePath) {
+  return fs.readFileSync(filePath, 'utf8');
+}
+
+function hasFrontmatterName(content, name) {
+  return new RegExp(`^name:\\s*${name}\\s*$`, 'm').test(content);
+}
+
+function validateGrok(options = {}) {
+  const resolved = { ...getDefaultOptions(), ...options };
+  const { projectRoot, grokRoot } = resolved;
+  const errors = [];
+  const warnings = [];
+
+  const push = (list, msg) => list.push(msg);
+
+  if (!exists(grokRoot)) {
+    push(errors, `Missing .grok root at ${grokRoot}`);
+    return { ok: false, errors, warnings, counts: {} };
+  }
+
+  const expectedAgentIds = Object.keys(AGENT_PROFILES);
+  const skillIds = expectedAgentIds.map((id) => getSkillId(id));
+
+  for (const skillId of skillIds) {
+    const agentMd = path.join(grokRoot, 'agents', `${skillId}.md`);
+    const skillMd = path.join(grokRoot, 'skills', skillId, 'SKILL.md');
+    const roleToml = path.join(grokRoot, 'roles', `${skillId}.toml`);
+    const personaToml = path.join(grokRoot, 'personas', `${skillId}.toml`);
+
+    for (const [label, filePath] of [
+      ['agent', agentMd],
+      ['skill', skillMd],
+      ['role', roleToml],
+      ['persona', personaToml],
+    ]) {
+      if (!exists(filePath)) {
+        push(errors, `Missing ${label} for ${skillId}: ${path.relative(projectRoot, filePath)}`);
+        continue;
+      }
+      const content = readText(filePath);
+      if (label === 'agent' || label === 'skill') {
+        if (!hasFrontmatterName(content, skillId)) {
+          push(errors, `${label} ${skillId} missing frontmatter name: ${skillId}`);
+        }
+      }
+      if (label === 'skill' && !content.includes(`.grok/agents/${skillId}.md`)) {
+        push(errors, `skill ${skillId} does not load .grok/agents/${skillId}.md`);
+      }
+      if (label === 'role' && !content.includes(`prompt_file = ".grok/agents/${skillId}.md"`)) {
+        push(warnings, `role ${skillId} missing prompt_file to agent profile`);
+      }
+      if (label === 'persona' && !content.includes('instructions')) {
+        push(errors, `persona ${skillId} missing instructions`);
+      }
+    }
+  }
+
+  for (const wf of WORKFLOW_SKILLS) {
+    const skillMd = path.join(grokRoot, 'skills', wf.name, 'SKILL.md');
+    if (!exists(skillMd)) {
+      push(errors, `Missing workflow skill: ${wf.name}`);
+      continue;
+    }
+    if (!hasFrontmatterName(readText(skillMd), wf.name)) {
+      push(errors, `Workflow skill ${wf.name} missing frontmatter name`);
+    }
+  }
+
+  for (const dirName of DEVELOPMENT_WORKFLOW_SKILLS) {
+    const skillId = grokSkillIdFromDevSkill(dirName);
+    const skillMd = path.join(grokRoot, 'skills', skillId, 'SKILL.md');
+    const source = path.join(
+      projectRoot,
+      '.aiox-core',
+      'development',
+      'skills',
+      dirName,
+      'SKILL.md'
+    );
+    if (!exists(source)) {
+      push(warnings, `Development skill source missing (skipped at sync): ${dirName}`);
+      continue;
+    }
+    if (!exists(skillMd)) {
+      push(errors, `Missing synced development skill: ${skillId}`);
+    } else if (!hasFrontmatterName(readText(skillMd), skillId)) {
+      push(errors, `Development skill ${skillId} missing frontmatter name`);
+    }
+  }
+
+  for (const { name, target } of SHORT_WORKFLOW_ALIASES) {
+    const aliasMd = path.join(grokRoot, 'skills', name, 'SKILL.md');
+    if (!exists(aliasMd)) {
+      push(errors, `Missing short alias skill: ${name} → ${target}`);
+      continue;
+    }
+    const content = readText(aliasMd);
+    if (!hasFrontmatterName(content, name)) {
+      push(errors, `Alias ${name} missing frontmatter name`);
+    }
+    if (!content.includes(`.grok/skills/${target}/SKILL.md`)) {
+      push(errors, `Alias ${name} does not redirect to ${target}`);
+    }
+  }
+
+  const requiredFiles = [
+    path.join(grokRoot, 'rules', 'aiox-core.md'),
+    path.join(grokRoot, 'README.md'),
+    path.join(grokRoot, 'config.toml'),
+    path.join(grokRoot, 'hooks', 'git-push-authority.json'),
+    path.join(grokRoot, 'hooks', 'enforce-git-push-authority.cjs'),
+  ];
+  for (const filePath of requiredFiles) {
+    if (!exists(filePath)) {
+      push(errors, `Missing harness file: ${path.relative(projectRoot, filePath)}`);
+    }
+  }
+
+  if (exists(path.join(grokRoot, 'hooks', 'git-push-authority.json'))) {
+    try {
+      const hookJson = JSON.parse(
+        readText(path.join(grokRoot, 'hooks', 'git-push-authority.json'))
+      );
+      const pre = hookJson?.hooks?.PreToolUse || [];
+      const blob = JSON.stringify(pre);
+      if (!blob.includes('enforce-git-push-authority.cjs')) {
+        push(errors, 'Grok git-push-authority hook does not reference enforce-git-push-authority.cjs');
+      }
+      if (!blob.includes('run_terminal_command') && !blob.includes('Bash')) {
+        push(errors, 'Grok git-push-authority matcher must cover Bash/run_terminal_command');
+      }
+    } catch (err) {
+      push(errors, `Invalid git-push-authority.json: ${err.message}`);
+    }
+  }
+
+  if (exists(path.join(grokRoot, 'config.toml'))) {
+    const cfg = readText(path.join(grokRoot, 'config.toml'));
+    // Project scope primarily documents permission/hooks; [skills] is user-global only.
+    if (!cfg.includes('[permission]') && !cfg.includes('[skills]')) {
+      push(warnings, '.grok/config.toml missing [permission] or [skills] section');
+    }
+  }
+
+  // Dual-payload authority hook smoke test
+  const hookPath = path.join(grokRoot, 'hooks', 'enforce-git-push-authority.cjs');
+  if (exists(hookPath)) {
+    const cases = [
+      {
+        label: 'claude tool_input',
+        input: {
+          hook_event_name: 'PreToolUse',
+          tool_name: 'Bash',
+          tool_input: { command: 'git push origin main' },
+        },
+        env: { AIOX_ACTIVE_AGENT: 'dev' },
+        expectDeny: true,
+      },
+      {
+        label: 'grok toolInput',
+        input: {
+          hookEventName: 'pre_tool_use',
+          toolName: 'run_terminal_command',
+          toolInput: { command: 'git push origin main' },
+        },
+        env: { AIOX_ACTIVE_AGENT: 'dev' },
+        expectDeny: true,
+      },
+      {
+        label: 'devops allow',
+        input: {
+          toolInput: { command: 'git push origin main' },
+        },
+        env: { AIOX_ACTIVE_AGENT: 'devops' },
+        expectDeny: false,
+      },
+    ];
+
+    for (const testCase of cases) {
+      const result = spawnSync(process.execPath, [hookPath], {
+        input: JSON.stringify(testCase.input),
+        encoding: 'utf8',
+        env: { ...process.env, ...testCase.env },
+      });
+      if (result.status !== 0) {
+        push(errors, `Authority hook crashed (${testCase.label}): ${result.stderr || result.status}`);
+        continue;
+      }
+      const out = (result.stdout || '').trim();
+      if (testCase.expectDeny) {
+        if (!out) {
+          push(errors, `Authority hook did not deny ${testCase.label}`);
+          continue;
+        }
+        let parsed;
+        try {
+          parsed = JSON.parse(out);
+        } catch {
+          push(errors, `Authority hook invalid JSON for ${testCase.label}`);
+          continue;
+        }
+        const denied =
+          parsed.decision === 'deny' ||
+          parsed?.hookSpecificOutput?.permissionDecision === 'deny';
+        if (!denied) {
+          push(errors, `Authority hook missing deny decision for ${testCase.label}`);
+        }
+      } else if (out) {
+        push(errors, `Authority hook should allow devops (${testCase.label}), got: ${out}`);
+      }
+    }
+  }
+
+  const ok = errors.length === 0 && (!resolved.strict || warnings.length === 0);
+  return {
+    ok,
+    errors,
+    warnings,
+    counts: {
+      agents: skillIds.length,
+      workflowSkills: WORKFLOW_SKILLS.length,
+      developmentSkills: DEVELOPMENT_WORKFLOW_SKILLS.length,
+      shortAliases: SHORT_WORKFLOW_ALIASES.length,
+    },
+  };
+}
+
+function main() {
+  const cli = parseArgs();
+  const result = validateGrok(cli);
+
+  if (cli.json) {
+    process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
+  } else if (!cli.quiet) {
+    console.log(
+      `Grok validate: agents=${result.counts.agents} workflows=${result.counts.workflowSkills} aliases=${result.counts.shortAliases}`
+    );
+    for (const w of result.warnings) console.warn(`⚠️  ${w}`);
+    for (const e of result.errors) console.error(`❌ ${e}`);
+    if (result.ok) {
+      console.log('✅ Grok skills/agents/hooks validation passed');
+    } else {
+      console.error('❌ Grok validation failed');
+    }
+  }
+
+  process.exit(result.ok ? 0 : 1);
+}
+
+if (require.main === module) {
+  main();
+}
+
+module.exports = {
+  validateGrok,
+  parseArgs,
+  getDefaultOptions,
+};

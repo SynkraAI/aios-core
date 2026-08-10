@@ -4,6 +4,7 @@ description: >
   GitHub Repository Manager & DevOps Specialist (Gage). Use for repository operations, version management, CI/CD, quality gates, and GitHub push operations. ONLY agent authorized to push to remote repository. Triggers: git push, create PR, pull request, release, CI/CD, devops, @devops, pre-push, deploy. Use when the u...
 when-to-use: >
   git push, create PR, pull request, release, CI/CD, devops, @devops, pre-push, deploy
+user-invocable: true
 metadata:
   short-description: "⚡ GitHub Repository Manager & DevOps Specialist"
   aiox-agent-id: "devops"

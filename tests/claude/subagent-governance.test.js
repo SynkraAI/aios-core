@@ -116,10 +116,30 @@ describe('Claude native subagent governance', () => {
       expect(result.status).toBe(0);
       const decision = JSON.parse(result.stdout);
       expect(decision.hookSpecificOutput.permissionDecision).toBe('deny');
+      // Dual payload for Grok Build PreToolUse
+      expect(decision.decision).toBe('deny');
+      expect(decision.reason).toMatch(/@devops/);
     }
 
     const allowed = runAuthorityHook('git push origin main', { AIOX_ACTIVE_AGENT: 'devops' });
     expect(allowed.status).toBe(0);
     expect(allowed.stdout).toBe('');
+  });
+
+  it('blocks remote ops on Grok-native toolInput payloads (camelCase)', () => {
+    const result = spawnSync(process.execPath, [authorityHookPath], {
+      input: JSON.stringify({
+        hookEventName: 'pre_tool_use',
+        toolName: 'run_terminal_command',
+        toolInput: { command: 'git push origin main' },
+      }),
+      encoding: 'utf8',
+      env: { ...process.env, AIOX_ACTIVE_AGENT: 'dev' },
+    });
+
+    expect(result.status).toBe(0);
+    const decision = JSON.parse(result.stdout);
+    expect(decision.decision).toBe('deny');
+    expect(decision.hookSpecificOutput.permissionDecision).toBe('deny');
   });
 });

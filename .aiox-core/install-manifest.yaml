@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 5.3.0
-generated_at: "2026-07-13T20:16:51.869Z"
+generated_at: "2026-08-10T20:35:31.297Z"
 generator: scripts/generate-install-manifest.js
-file_count: 1165
+file_count: 1166
 files:
   - path: cli/commands/config/index.js
     hash: sha256:356d0cac24747a323fe52089a933d5e5583777cb1f07568e01e43ab0e2c3bcdc
@@ -1393,9 +1393,9 @@ files:
     type: data
     size: 9590
   - path: data/entity-registry.yaml
-    hash: sha256:cb1574326dd4cde58b1aee381ef71a1c7fad4e460cfb2a0836b96a84465ae022
+    hash: sha256:88dbf158c4df24de91b5fb0d715e4794629fa51a389a26feb8608022d44d72bf
     type: data
-    size: 594831
+    size: 595485
   - path: data/learned-patterns.yaml
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data
@@ -3349,13 +3349,17 @@ files:
     type: script
     size: 38453
   - path: infrastructure/scripts/grok-skills-sync/index.js
-    hash: sha256:3e724e071fe627cf28654819fd5cdbda0f88471170c9a9110cdd58eb7bb17ca9
+    hash: sha256:da8d69083999ae99a4d09b5fd3c72d74af5fb470de24a809e72df84aec6d8853
     type: script
-    size: 36956
+    size: 42607
   - path: infrastructure/scripts/grok-skills-sync/README.md
-    hash: sha256:ced0a101a29d198a0e70f1e42db80365f64b45ef625603cacc08854841e4ad69
+    hash: sha256:d5ec58b9011673c780e5d3569d3778e49f8b52f3dc31657c89a18e9db7984ae4
     type: script
-    size: 1078
+    size: 1349
+  - path: infrastructure/scripts/grok-skills-sync/validate.js
+    hash: sha256:4933ed2f7dbb9fa7474f6741d8ba33136a67480fa7755e92a3a3062ec982429d
+    type: script
+    size: 9750
   - path: infrastructure/scripts/ide-sync/agent-parser.js
     hash: sha256:f1ed4d0e6dda1a616efb0cb31157fe36063cf9481c19ee7b4bada26cb12e0e80
     type: script

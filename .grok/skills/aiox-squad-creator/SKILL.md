@@ -4,6 +4,7 @@ description: >
   Squad Creator (Craft). Use to create, validate, publish and manage squads Triggers: create squad, design squad, validate squad, squad-creator, @squad-creator, expansion pack, task-first. Use when the user runs /aiox-squad-creator or @squad-creator.
 when-to-use: >
   create squad, design squad, validate squad, squad-creator, @squad-creator, expansion pack, task-first
+user-invocable: true
 metadata:
   short-description: "🏗️ Squad Creator"
   aiox-agent-id: "squad-creator"

@@ -4,6 +4,7 @@ description: >
   Product Manager (Morgan). Use for PRD creation (greenfield and brownfield), epic creation and management, product strategy and vision, feature prioritization (MoSCoW, RICE), roadmap planning, business case development, go/n... Triggers: PRD, create epic, execute-epic, roadmap, product strategy, pm, @pm, requirements...
 when-to-use: >
   PRD, create epic, execute-epic, roadmap, product strategy, pm, @pm, requirements, write-spec
+user-invocable: true
 metadata:
   short-description: "📋 Product Manager"
   aiox-agent-id: "pm"

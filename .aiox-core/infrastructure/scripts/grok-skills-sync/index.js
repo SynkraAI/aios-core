@@ -792,6 +792,7 @@ description: >
   ${yamlFoldedSafe(description)}
 when-to-use: >
   ${yamlFoldedSafe(triggers)}
+user-invocable: true
 metadata:
   short-description: ${yamlDoubleQuoted(shortDescription)}
   aiox-agent-id: ${yamlDoubleQuoted(agentData.id)}
@@ -940,7 +941,7 @@ Never commit machine-specific absolute paths. Use repo-relative paths.
 function buildReadme() {
   return `# AIOX Grok Integration
 
-Optimized agents, skills, roles, and personas for [Grok Build TUI](https://grok.x.ai).
+Optimized agents, skills, roles, personas, hooks, and project config for [Grok Build TUI](https://grok.x.ai).
 
 ## Layout
 
@@ -949,9 +950,12 @@ Optimized agents, skills, roles, and personas for [Grok Build TUI](https://grok.
 | \`agents/\` | Native Grok agent profiles (session + spawnable types) |
 | \`skills/aiox-*/\` | Slash skills to activate personas |
 | \`skills/aiox-sdc/\`, \`aiox-full-sdc/\`, atomics | Workflow skills (lean SDC + gates + handoff) |
+| \`skills/develop-story/\`, etc. | Short aliases (\`/develop-story\` → \`/aiox-develop-story\`) |
 | \`roles/\` | Subagent capability defaults |
 | \`personas/\` | Behavioral overlays for subagents |
 | \`rules/\` | Always-on compact AIOX rules |
+| \`hooks/\` | PreToolUse git-push authority (Article II) |
+| \`config.toml\` | Project skill hygiene (ignore Codex dumps) |
 
 ## Activate an agent
 
@@ -962,7 +966,23 @@ Optimized agents, skills, roles, and personas for [Grok Build TUI](https://grok.
 /aiox-squad-creator
 \`\`\`
 
+Short workflow aliases (no Claude compat required):
+
+\`\`\`text
+/develop-story
+/validate-story-draft
+/review-story
+/full-sdc
+/commit
+\`\`\`
+
 Or ask in natural language ("implement this story", "create a PR") — skill descriptions drive auto-invocation.
+
+## Authority (git push)
+
+\`hooks/git-push-authority.json\` runs \`enforce-git-push-authority.cjs\` on
+\`Bash|run_terminal_command\`. Only \`@devops\` / \`AIOX_ACTIVE_AGENT=devops\` may
+\`git push\` / \`gh pr create|merge\`.
 
 ## Regenerate
 
@@ -970,6 +990,7 @@ From repo root:
 
 \`\`\`bash
 npm run sync:skills:grok
+npm run validate:skills:grok
 # or
 node .aiox-core/infrastructure/scripts/grok-skills-sync/index.js
 \`\`\`
@@ -985,13 +1006,14 @@ npm run sync:skills:grok -- --dry-run
 1. **Token-efficient** — condensed profiles; full YAML stays in \`.aiox-core/development/agents/\`
 2. **Authority-safe** — devops-only push; story lifecycle ownership
 3. **Task-first** — formal work loads \`.aiox-core/development/tasks/*\`
-4. **Grok-native** — frontmatter \`permission_mode\`, roles, personas
+4. **Grok-native** — frontmatter \`permission_mode\`, roles, personas, hooks (no Claude-only dependency)
 
 ## Related
 
 - Codex skills: \`npm run sync:skills:codex\`
 - IDE sync: \`npm run sync:ide\`
 - Constitution: \`.aiox-core/constitution.md\`
+- Verify discovery: \`grok inspect\`
 `;
 }
 
@@ -1078,6 +1100,7 @@ function syncGrok(options = {}) {
 name: ${wf.name}
 description: >
   ${yamlFoldedSafe(wf.description)}
+user-invocable: true
 metadata:
   short-description: ${yamlDoubleQuoted(`AIOX workflow: ${wf.name}`)}
 ---
@@ -1094,6 +1117,22 @@ ${wf.body}
   // Lean SDC skills from .aiox-core/development/skills/ (Wave B)
   written.push(
     ...syncDevelopmentWorkflowSkills(resolved.projectRoot, targets, {
+      dryRun: resolved.dryRun,
+      quiet: resolved.quiet,
+    })
+  );
+
+  // Short slash aliases (Claude-parity names without aiox- prefix)
+  written.push(
+    ...syncShortWorkflowAliases(targets, {
+      dryRun: resolved.dryRun,
+      quiet: resolved.quiet,
+    })
+  );
+
+  // Native Grok hooks + project config (Constitution Article II, skill hygiene)
+  written.push(
+    ...syncGrokHarnessFiles(resolved.projectRoot, grok, {
       dryRun: resolved.dryRun,
       quiet: resolved.quiet,
     })
@@ -1119,6 +1158,144 @@ ${wf.body}
     grokRoot: grok,
     dryRun: resolved.dryRun,
   };
+}
+
+/**
+ * Short-name aliases for workflow skills so `/develop-story` works without Claude
+ * compat (pure Grok). Bodies redirect to the aiox-* skill SOT.
+ */
+const SHORT_WORKFLOW_ALIASES = [
+  { name: 'develop-story', target: 'aiox-develop-story' },
+  { name: 'validate-story-draft', target: 'aiox-validate-story-draft' },
+  { name: 'review-story', target: 'aiox-review-story' },
+  { name: 'apply-qa-fixes', target: 'aiox-apply-qa-fixes' },
+  { name: 'close-story', target: 'aiox-close-story' },
+  { name: 'full-sdc', target: 'aiox-full-sdc' },
+  { name: 'wave-execute', target: 'aiox-wave-execute' },
+  { name: 'commit', target: 'aiox-commit' },
+];
+
+function buildShortAliasSkill(name, target) {
+  return `---
+name: ${name}
+description: >
+  Alias for /${target}. Use when the user runs /${name} or mentions ${name}.
+user-invocable: true
+metadata:
+  short-description: ${yamlDoubleQuoted(`Alias → /${target}`)}
+  aiox-alias-of: ${yamlDoubleQuoted(target)}
+---
+
+# ${name} (alias)
+
+This is a **short alias** for the AIOX Grok skill \`/${target}\`.
+
+## Protocol
+
+1. Load and follow \`.grok/skills/${target}/SKILL.md\` exactly.
+2. If that file is missing, regenerate with \`npm run sync:skills:grok\`.
+3. Do not invent a parallel workflow — the aliased skill is the source of truth.
+`;
+}
+
+function syncShortWorkflowAliases(targets, options = {}) {
+  const written = [];
+  for (const { name, target } of SHORT_WORKFLOW_ALIASES) {
+    if (!SAFE_SKILL_ID_RE.test(name) || !SAFE_SKILL_ID_RE.test(target)) {
+      if (!options.quiet) {
+        console.warn(`⚠️  Invalid short alias ${name} → ${target} — skipped`);
+      }
+      continue;
+    }
+    const dest = resolveUnder(targets.skills, name, 'SKILL.md');
+    const content = buildShortAliasSkill(name, target);
+    if (!options.dryRun) {
+      fs.ensureDirSync(path.dirname(dest));
+      fs.writeFileSync(dest, content, 'utf8');
+    }
+    written.push(dest);
+  }
+  return written;
+}
+
+/**
+ * Project harness files that make Grok self-sufficient without relying only on
+ * Claude-compat discovery of hooks/settings.
+ */
+function buildGrokConfigToml() {
+  return `# AIOX × Grok Build — project config (committed)
+# Docs: ~/.grok/docs/user-guide/05-configuration.md
+#
+# Project scope currently contributes [mcp_servers], [plugins], and [permission].
+# Skill discovery always prefers higher-priority .grok/skills over Claude/Codex dumps
+# on name collision. Optional user-global hygiene (not committed):
+#
+#   # ~/.grok/config.toml
+#   [skills]
+#   ignore = [
+#     "/absolute/path/to/repo/.agents/skills/AIOX",
+#     "/absolute/path/to/repo/.claude/skills/AIOX",
+#   ]
+#
+# Native authority: .grok/hooks/git-push-authority.json (Article II).
+
+[permission]
+# Keep ask mode for remote Git/GitHub publication as a second line of defense.
+# The PreToolUse hook is the primary enforcer (devops-only).
+`;
+}
+
+function buildGrokPushAuthorityHookJson() {
+  return `${JSON.stringify(
+    {
+      hooks: {
+        PreToolUse: [
+          {
+            matcher: 'Bash|run_terminal_command',
+            hooks: [
+              {
+                type: 'command',
+                command: 'node .grok/hooks/enforce-git-push-authority.cjs',
+                timeout: 10,
+              },
+            ],
+          },
+        ],
+      },
+    },
+    null,
+    2
+  )}\n`;
+}
+
+function syncGrokHarnessFiles(projectRoot, grokRoot, options = {}) {
+  const written = [];
+  const hooksDir = path.join(grokRoot, 'hooks');
+  const authoritySrc = path.join(
+    projectRoot,
+    '.claude',
+    'hooks',
+    'enforce-git-push-authority.cjs'
+  );
+  const authorityDest = resolveUnder(hooksDir, 'enforce-git-push-authority.cjs');
+  const hookJsonDest = resolveUnder(hooksDir, 'git-push-authority.json');
+  const configDest = resolveUnder(grokRoot, 'config.toml');
+
+  if (!options.dryRun) {
+    fs.ensureDirSync(hooksDir);
+    if (fs.existsSync(authoritySrc)) {
+      fs.copyFileSync(authoritySrc, authorityDest);
+    } else if (!options.quiet) {
+      console.warn(
+        '⚠️  Missing .claude/hooks/enforce-git-push-authority.cjs — Grok hook script not copied'
+      );
+    }
+    fs.writeFileSync(hookJsonDest, buildGrokPushAuthorityHookJson(), 'utf8');
+    fs.writeFileSync(configDest, buildGrokConfigToml(), 'utf8');
+  }
+
+  written.push(authorityDest, hookJsonDest, configDest);
+  return written;
 }
 
 function parseArgs(argv = process.argv.slice(2)) {
@@ -1151,7 +1328,12 @@ module.exports = {
   AGENT_PROFILES,
   WORKFLOW_SKILLS,
   DEVELOPMENT_WORKFLOW_SKILLS,
+  SHORT_WORKFLOW_ALIASES,
   syncDevelopmentWorkflowSkills,
+  syncShortWorkflowAliases,
+  syncGrokHarnessFiles,
+  buildGrokConfigToml,
+  buildGrokPushAuthorityHookJson,
   grokSkillIdFromDevSkill,
   getSkillId,
   parseArgs,

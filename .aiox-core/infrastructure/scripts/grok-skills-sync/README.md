@@ -8,6 +8,7 @@ Gera artefatos otimizados do AIOX para o **Grok Build TUI**.
 # From repo root
 npm run sync:skills:grok
 npm run sync:skills:grok:dry
+npm run validate:skills:grok
 ```
 
 ## Outputs
@@ -17,9 +18,12 @@ npm run sync:skills:grok:dry
 | `.grok/agents/*.md` | Agent profiles nativos (frontmatter Grok) |
 | `.grok/skills/aiox-*/SKILL.md` | Skills de ativação de persona |
 | `.grok/skills/aiox-sdc/` etc. | Skills de workflow |
+| `.grok/skills/develop-story/` etc. | Aliases curtos (`/develop-story` → `/aiox-develop-story`) |
 | `.grok/roles/*.toml` | Defaults de capability para subagents |
 | `.grok/personas/*.toml` | Overlays comportamentais |
 | `.grok/rules/aiox-core.md` | Regras compactas always-on |
+| `.grok/hooks/` | PreToolUse git-push authority (Claude + Grok payloads) |
+| `.grok/config.toml` | Higiene de skills (ignore dumps Codex) |
 | `.grok/README.md` | Documentação da integração |
 
 ## Design

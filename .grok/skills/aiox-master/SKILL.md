@@ -4,6 +4,7 @@ description: >
   AIOX Master Orchestrator & Framework Developer (Orion). Use when you need comprehensive expertise across all domains, framework component creation/modification, workflow orchestration, or running tasks that don't require a specialized persona. Triggers: orchestrate, aiox-master, @aiox-master, framework governance, c...
 when-to-use: >
   orchestrate, aiox-master, @aiox-master, framework governance, create component, modify agent, run workflow
+user-invocable: true
 metadata:
   short-description: "👑 AIOX Master Orchestrator & Framework Developer"
   aiox-agent-id: "aiox-master"

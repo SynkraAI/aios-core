@@ -4,6 +4,7 @@ description: >
   Product Owner (Pax). Use for backlog management, story refinement, acceptance criteria, sprint planning, and prioritization decisions Triggers: validate story, backlog, acceptance criteria, close story, po, @po, prioritize, story draft. Use when the user runs /aiox-po or @po.
 when-to-use: >
   validate story, backlog, acceptance criteria, close story, po, @po, prioritize, story draft
+user-invocable: true
 metadata:
   short-description: "🎯 Product Owner"
   aiox-agent-id: "po"

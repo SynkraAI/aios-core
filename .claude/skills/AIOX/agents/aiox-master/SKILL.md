@@ -1,5 +1,5 @@
 ---
-name: aiox-aiox-master
+name: aiox-master
 description: "Activate Orion (aiox-master) for AIOX Master Orchestrator & Framework Developer. Use when you need comprehensive expertise across all domains, framework component creation/modification, workflow orchestration, or running tasks that don't..."
 user-invocable: true
 activation_type: pipeline

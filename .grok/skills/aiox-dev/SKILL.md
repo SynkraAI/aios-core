@@ -4,6 +4,7 @@ description: >
   Full Stack Developer (Dex). Use for code implementation, debugging, refactoring, and development best practices Triggers: implement, develop, code, fix bug, refactor, dev, @dev, story development. Use when the user runs /aiox-dev or @dev.
 when-to-use: >
   implement, develop, code, fix bug, refactor, dev, @dev, story development
+user-invocable: true
 metadata:
   short-description: "💻 Full Stack Developer"
   aiox-agent-id: "dev"
