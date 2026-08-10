@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.3.0
-generated_at: "2026-08-10T22:41:31.805Z"
+generated_at: "2026-08-10T22:58:12.141Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1172
 files:
@@ -1333,9 +1333,9 @@ files:
     type: core
     size: 16418
   - path: core/synapse/runtime/hook-runtime.js
-    hash: sha256:e3e91e2ac2bd62fbaccfd0440808a905b6629620dc95e9a2da61e3337ab64685
+    hash: sha256:518d2f2c12989d5c154c6601d36535f7d67e9c548c78fe0d71ec3eae8a173e71
     type: core
-    size: 4121
+    size: 4755
   - path: core/synapse/scripts/generate-constitution.js
     hash: sha256:7c7488592cbf62b469f4a85e321eae0c9fc929ee30513e60acf3a0406164189b
     type: script
@@ -1393,7 +1393,7 @@ files:
     type: data
     size: 9590
   - path: data/entity-registry.yaml
-    hash: sha256:e7c50169f303dce19a2551602bb47398d3e06dfff49a3ab73b88a513ee192fb0
+    hash: sha256:092e179bd47166b633ece3ca5998c87c31c0bba95423c977b6d32cfbb7147e2d
     type: data
     size: 596246
   - path: data/learned-patterns.yaml

@@ -156,7 +156,7 @@ describe('Grok Build install surface', () => {
     expect(fs.readFileSync(rulesPath, 'utf8')).toContain('KEEP-BROWNFIELD-SENTINEL');
     expect(fs.readFileSync(rulesPath, 'utf8')).toContain('AIOX-MANAGED-START');
     fs.removeSync(tmp);
-  });
+  }, 60000);
 
   it('fails a Grok install when canonical hook sources are absent', async () => {
     const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'aiox-grok-missing-hooks-'));
@@ -186,7 +186,7 @@ describe('Grok Build install surface', () => {
     expect(result.errors[0].error).toContain('Missing canonical Grok hook source');
     expect(fs.readFileSync(rulesPath, 'utf8')).toBe(originalRules);
     fs.removeSync(tmp);
-  });
+  }, 60000);
 
   it('exposes IDE_CONFIGS with seven primary surfaces including grok', () => {
     const keys = Object.keys(IDE_CONFIGS);

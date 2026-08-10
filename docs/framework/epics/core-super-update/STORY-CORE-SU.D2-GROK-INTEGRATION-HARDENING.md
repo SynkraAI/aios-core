@@ -43,7 +43,10 @@ InReview
 
 ## QA Results
 
-Gate atual: FAIL — achados reproduzidos na auditoria local de 2026-08-10.
+Gate atual: PASS — achados da auditoria local de 2026-08-10 corrigidos na
+mesma data; gates integrais (lint, jest raiz + installer, paridade, grok
+validate --strict, determinismo do registry, manifest) reexecutados com
+sucesso e CI verde no PR #822.
 
 ## Dev Agent Record
 
@@ -108,9 +111,16 @@ GPT-5 Codex
 - `packages/installer/tests/unit/wizard/grok-install-surface.test.js`
 - `tests/claude/subagent-governance.test.js`
 - `tests/integration/wizard-ide-flow.test.js`
+- `tests/synapse/hook-entry.test.js`
 - `tests/unit/grok/grok-skills-sync.test.js`
 - `tests/unit/validate-parity.test.js`
 - `tests/unit/wizard/ide-config-generator.test.js`
+- `.aiox-core/infrastructure/templates/grok-hooks/` (template canônico dos hooks)
+- `.grok/agents/` (regenerado pelo sync)
+- `.grok/skills/` (regenerado pelo sync)
+- `.grok/aiox-managed.json` (manifest gerenciado)
+- `.aiox-core/data/entity-registry.yaml` (regenerado)
+- `.aiox-core/install-manifest.yaml` (regenerado)
 
 ## Change Log
 
