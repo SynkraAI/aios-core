@@ -15,6 +15,69 @@ const fs = require('fs');
 
 const name = 'hooks-claude-count';
 
+/**
+ * Extracts every hook command string from a Claude Code settings file.
+ *
+ * Hooks may be registered in settings.json (shipped/tracked) or
+ * settings.local.json (per-machine); Claude Code merges both, so
+ * registration in either counts.
+ *
+ * Returns [] when the file is missing or unparseable.
+ */
+function collectHookCommands(settingsPath) {
+  if (!fs.existsSync(settingsPath)) return [];
+
+  let settings;
+  try {
+    settings = JSON.parse(fs.readFileSync(settingsPath, 'utf8'));
+  } catch {
+    return [];
+  }
+
+  const hooks = settings.hooks || {};
+  // Claude Code hooks schema: { EventName: [{ matcher, hooks: [{ type, command }] }] }
+  const commands = [];
+  for (const entries of Object.values(hooks)) {
+    if (!Array.isArray(entries)) continue;
+    for (const entry of entries) {
+      if (entry && Array.isArray(entry.hooks)) {
+        for (const h of entry.hooks) {
+          if (h && h.command) commands.push(h.command);
+        }
+      }
+      // Fallback: flat string or direct command
+      if (typeof entry === 'string') commands.push(entry);
+      if (entry && typeof entry.command === 'string') commands.push(entry.command);
+    }
+  }
+
+  return commands;
+}
+
+/**
+ * Extracts referenced hook filenames from command strings.
+ *
+ * Matches complete .cjs filenames at path/shell-token boundaries rather than
+ * by substring: a bare `includes()` would treat `sync.cjs` as referenced by a
+ * command that only mentions `sync-wrapper.cjs`, turning a missing
+ * registration into a PASS with an inflated count.
+ */
+function referencedHookNames(commands) {
+  const names = new Set();
+
+  for (const command of commands) {
+    for (const rawToken of command.split(/\s+/)) {
+      // Strip surrounding quotes and trailing shell punctuation
+      const token = rawToken.replace(/^['"`(]+/, '').replace(/['"`;,)]+$/, '');
+      if (!token.endsWith('.cjs')) continue;
+      // Normalize Windows separators before taking the basename
+      names.add(path.posix.basename(token.replace(/\\/g, '/')));
+    }
+  }
+
+  return names;
+}
+
 async function run(context) {
   const hooksDir = path.join(context.projectRoot, '.claude', 'hooks');
 
@@ -53,47 +116,23 @@ async function run(context) {
     };
   }
 
-  // Check registration in settings.local.json
-  const settingsLocalPath = path.join(context.projectRoot, '.claude', 'settings.local.json');
-  let registered = false;
+  // Check registration in settings.json and settings.local.json (Claude Code merges both).
+  // Wrapper hooks are registered directly; engine hooks they spawn as child
+  // processes are not, so any reference is enough to count as wired up.
+  const claudeDir = path.join(context.projectRoot, '.claude');
+  const referenced = referencedHookNames([
+    ...collectHookCommands(path.join(claudeDir, 'settings.json')),
+    ...collectHookCommands(path.join(claudeDir, 'settings.local.json')),
+  ]);
 
-  if (fs.existsSync(settingsLocalPath)) {
-    try {
-      const settingsLocal = JSON.parse(fs.readFileSync(settingsLocalPath, 'utf8'));
-      const hooks = settingsLocal.hooks || {};
-      // Claude Code hooks schema: { EventName: [{ matcher, hooks: [{ type, command }] }] }
-      const allHookCommands = [];
-      for (const entries of Object.values(hooks)) {
-        if (!Array.isArray(entries)) continue;
-        for (const entry of entries) {
-          if (entry && Array.isArray(entry.hooks)) {
-            for (const h of entry.hooks) {
-              if (h && h.command) allHookCommands.push(h.command);
-            }
-          }
-          // Fallback: flat string or direct command
-          if (typeof entry === 'string') allHookCommands.push(entry);
-          if (entry && typeof entry.command === 'string') allHookCommands.push(entry.command);
-        }
-      }
-      const hooksStr = allHookCommands.join('\n');
-
-      // Check if at least some hook files are referenced in settings
-      const referencedCount = hookFiles.filter(
-        (f) => hooksStr.includes(f.name) || hooksStr.includes(f.name.replace('.cjs', '')),
-      ).length;
-
-      registered = referencedCount > 0;
-    } catch {
-      registered = false;
-    }
-  }
+  const referencedCount = hookFiles.filter((f) => referenced.has(f.name)).length;
+  const registered = referencedCount > 0;
 
   if (hookCount >= 2 && registered) {
     return {
       check: name,
       status: 'PASS',
-      message: `${hookCount} hook files found and registered`,
+      message: `${hookCount} hook files found, ${referencedCount} registered`,
       fixCommand: null,
     };
   }
@@ -102,7 +141,7 @@ async function run(context) {
     return {
       check: name,
       status: 'WARN',
-      message: `${hookCount} hook files found but not registered in settings.local.json`,
+      message: `${hookCount} hook files found but not registered in settings.json or settings.local.json`,
       fixCommand: 'npx aiox-core install --force',
     };
   }
