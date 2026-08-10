@@ -1285,22 +1285,13 @@ function buildGrokConfigToml() {
   return `# AIOX × Grok Build — project config (committed)
 # Docs: ~/.grok/docs/user-guide/05-configuration.md
 #
-# Project scope currently contributes [mcp_servers], [plugins], and [permission].
-# Skill discovery always prefers higher-priority .grok/skills over Claude/Codex dumps
-# on name collision. Optional user-global hygiene (not committed):
+# Project scope contributes [mcp_servers], [plugins], and [permission] only.
+# Skill discovery prefers higher-priority .grok/skills over Claude/Codex dumps
+# on name collision. Optional user-global skill hygiene lives in ~/.grok/config.toml
+# (not committed).
 #
-#   # ~/.grok/config.toml
-#   [skills]
-#   ignore = [
-#     "/absolute/path/to/repo/.agents/skills/AIOX",
-#     "/absolute/path/to/repo/.claude/skills/AIOX",
-#   ]
-#
-# Native authority: .grok/hooks/git-push-authority.json (Article II).
-
-[permission]
-# Keep ask mode for remote Git/GitHub publication as a second line of defense.
-# The PreToolUse hook is the primary enforcer (devops-only).
+# Authority: .grok/hooks/git-push-authority.json is the primary enforcer
+# (devops-only git push / PR). Do not rely on empty permission tables.
 `;
 }
 
@@ -1327,7 +1318,7 @@ function buildGrokPushAuthorityHookJson() {
   )}\n`;
 }
 
-/** Claude-compat hooks re-exported as native Grok hooks (pure Grok without Claude settings). */
+/** Native Grok hooks pointing at wrappers vendored under .grok/hooks/. */
 function buildGrokSynapseHookJson() {
   return `${JSON.stringify(
     {
@@ -1337,7 +1328,7 @@ function buildGrokSynapseHookJson() {
             hooks: [
               {
                 type: 'command',
-                command: 'node .claude/hooks/synapse-wrapper.cjs',
+                command: 'node .grok/hooks/synapse-wrapper.cjs',
                 timeout: 10,
               },
             ],
@@ -1359,7 +1350,7 @@ function buildGrokPrecompactHookJson() {
             hooks: [
               {
                 type: 'command',
-                command: 'node .claude/hooks/precompact-wrapper.cjs',
+                command: 'node .grok/hooks/precompact-wrapper.cjs',
                 timeout: 10,
               },
             ],
@@ -1428,10 +1419,27 @@ Constitution: \`.aiox-core/constitution.md\`
 
 function syncShortAgentAliases(targets, options = {}) {
   const written = [];
+  const canonicalNames = new Set();
+  for (const id of Object.keys(AGENT_PROFILES)) {
+    try {
+      canonicalNames.add(getSkillId(id));
+    } catch {
+      // skip invalid ids
+    }
+  }
+
   for (const { alias, target, agentId } of SHORT_AGENT_ALIASES) {
     if (!SAFE_SKILL_ID_RE.test(alias) || !SAFE_SKILL_ID_RE.test(target)) {
       if (!options.quiet) {
         console.warn(`⚠️  Invalid agent alias ${alias} → ${target} — skipped`);
+      }
+      continue;
+    }
+    if (canonicalNames.has(alias)) {
+      if (!options.quiet) {
+        console.warn(
+          `⚠️  Alias ${alias} collides with a canonical agent profile — skipped`
+        );
       }
       continue;
     }
@@ -1449,13 +1457,19 @@ function syncShortAgentAliases(targets, options = {}) {
 function syncGrokHarnessFiles(projectRoot, grokRoot, options = {}) {
   const written = [];
   const hooksDir = path.join(grokRoot, 'hooks');
-  const authoritySrc = path.join(
-    projectRoot,
-    '.claude',
-    'hooks',
-    'enforce-git-push-authority.cjs'
-  );
+  const claudeHooks = path.join(projectRoot, '.claude', 'hooks');
+  const authoritySrc = path.join(claudeHooks, 'enforce-git-push-authority.cjs');
+  const synapseSrc = path.join(claudeHooks, 'synapse-wrapper.cjs');
+  const precompactSrc = path.join(claudeHooks, 'precompact-wrapper.cjs');
+  // Optional engine deps used by wrappers (copy if present)
+  const optionalWrapperDeps = [
+    'synapse-engine.cjs',
+    'precompact-session-digest.cjs',
+  ];
+
   const authorityDest = resolveUnder(hooksDir, 'enforce-git-push-authority.cjs');
+  const synapseWrapperDest = resolveUnder(hooksDir, 'synapse-wrapper.cjs');
+  const precompactWrapperDest = resolveUnder(hooksDir, 'precompact-wrapper.cjs');
   const hookJsonDest = resolveUnder(hooksDir, 'git-push-authority.json');
   const synapseJsonDest = resolveUnder(hooksDir, 'synapse-prompt.json');
   const precompactJsonDest = resolveUnder(hooksDir, 'precompact.json');
@@ -1463,26 +1477,61 @@ function syncGrokHarnessFiles(projectRoot, grokRoot, options = {}) {
 
   if (!options.dryRun) {
     fs.ensureDirSync(hooksDir);
-    if (fs.existsSync(authoritySrc)) {
+
+    if (!fs.existsSync(authoritySrc)) {
+      if (!options.quiet) {
+        console.warn(
+          '⚠️  Missing .claude/hooks/enforce-git-push-authority.cjs — skipping Grok authority harness'
+        );
+      }
+    } else {
       fs.copyFileSync(authoritySrc, authorityDest);
+      fs.writeFileSync(hookJsonDest, buildGrokPushAuthorityHookJson(), 'utf8');
+      written.push(authorityDest, hookJsonDest);
+    }
+
+    if (fs.existsSync(synapseSrc)) {
+      fs.copyFileSync(synapseSrc, synapseWrapperDest);
+      fs.writeFileSync(synapseJsonDest, buildGrokSynapseHookJson(), 'utf8');
+      written.push(synapseWrapperDest, synapseJsonDest);
+    } else if (!options.quiet) {
+      console.warn('⚠️  Missing synapse-wrapper.cjs — Grok synapse hook not generated');
+    }
+
+    if (fs.existsSync(precompactSrc)) {
+      fs.copyFileSync(precompactSrc, precompactWrapperDest);
+      fs.writeFileSync(precompactJsonDest, buildGrokPrecompactHookJson(), 'utf8');
+      written.push(precompactWrapperDest, precompactJsonDest);
     } else if (!options.quiet) {
       console.warn(
-        '⚠️  Missing .claude/hooks/enforce-git-push-authority.cjs — Grok hook script not copied'
+        '⚠️  Missing precompact-wrapper.cjs — Grok precompact hook not generated'
       );
     }
-    fs.writeFileSync(hookJsonDest, buildGrokPushAuthorityHookJson(), 'utf8');
-    fs.writeFileSync(synapseJsonDest, buildGrokSynapseHookJson(), 'utf8');
-    fs.writeFileSync(precompactJsonDest, buildGrokPrecompactHookJson(), 'utf8');
+
+    for (const dep of optionalWrapperDeps) {
+      const src = path.join(claudeHooks, dep);
+      if (fs.existsSync(src)) {
+        const dest = resolveUnder(hooksDir, dep);
+        fs.copyFileSync(src, dest);
+        written.push(dest);
+      }
+    }
+
     fs.writeFileSync(configDest, buildGrokConfigToml(), 'utf8');
+    written.push(configDest);
+  } else {
+    // Dry-run accounting: report intended paths
+    written.push(
+      authorityDest,
+      synapseWrapperDest,
+      precompactWrapperDest,
+      hookJsonDest,
+      synapseJsonDest,
+      precompactJsonDest,
+      configDest
+    );
   }
 
-  written.push(
-    authorityDest,
-    hookJsonDest,
-    synapseJsonDest,
-    precompactJsonDest,
-    configDest
-  );
   return written;
 }
 

@@ -57,8 +57,11 @@ describe('IDE Configs', () => {
         expect(typeof config.requiresDirectory).toBe('boolean');
         expect(['text', 'json', 'yaml']).toContain(config.format);
 
-        // agentFolder is optional — Grok uses grok-skills-sync instead
-        if (config.agentFolder !== undefined) {
+        // agentFolder required for all IDEs except Grok (uses grok-skills-sync)
+        if (key === 'grok') {
+          expect(config.agentFolder).toBeUndefined();
+        } else {
+          expect(config).toHaveProperty('agentFolder');
           expect(typeof config.agentFolder).toBe('string');
         }
       });

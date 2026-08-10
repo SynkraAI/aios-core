@@ -110,6 +110,18 @@ describe('Claude native subagent governance', () => {
       'git push origin main',
       'gh pr create --title test --body test',
       'gh pr merge 123 --admin',
+      // Global-flag bypass forms (git accepts options between `git` and subcommand)
+      'git -C /repo push origin main',
+      'git -c user.name=x push origin main',
+      'git --git-dir=/repo/work push',
+      'git --work-tree=/x -C /repo push --force',
+      // gh flags before/between subcommands
+      'gh --repo owner/repo pr create --title test',
+      'gh pr -R owner/repo merge 12',
+      // PR mutations through the REST API
+      'gh api repos/owner/repo/pulls -f title=t -f head=h -f base=main',
+      'gh api -X POST repos/owner/repo/pulls --input body.json',
+      'gh api --method PUT repos/owner/repo/pulls/1/merge',
     ];
 
     for (const command of blockedCommands) {
@@ -125,6 +137,46 @@ describe('Claude native subagent governance', () => {
     const allowed = runAuthorityHook('git push origin main', { AIOX_ACTIVE_AGENT: 'devops' });
     expect(allowed.status).toBe(0);
     expect(allowed.stdout).toBe('');
+  });
+
+  it('keeps non-publication commands allowed for non-devops agents', () => {
+    const allowedCommands = [
+      'git commit -m "push later"',
+      'git checkout push-fix',
+      'git log --oneline -10',
+      'gh pr list --search merge',
+      'gh pr view 123',
+      // Read-only API access to pull endpoints stays allowed
+      'gh api repos/owner/repo/pulls',
+      'gh api repos/owner/repo/pulls --paginate',
+      'gh issue create --title test',
+    ];
+
+    for (const command of allowedCommands) {
+      const result = runAuthorityHook(command, { AIOX_ACTIVE_AGENT: 'dev' });
+      expect(result.status).toBe(0);
+      expect(result.stdout).toBe('');
+    }
+  });
+
+  it('fails open on empty stdin and fails closed on malformed JSON', () => {
+    const emptyStdin = spawnSync(process.execPath, [authorityHookPath], {
+      input: '',
+      encoding: 'utf8',
+      env: { ...process.env, AIOX_ACTIVE_AGENT: 'dev' },
+    });
+    expect(emptyStdin.status).toBe(0);
+    expect(emptyStdin.stdout).toBe('');
+
+    const malformed = spawnSync(process.execPath, [authorityHookPath], {
+      input: '{not json',
+      encoding: 'utf8',
+      env: { ...process.env, AIOX_ACTIVE_AGENT: 'dev' },
+    });
+    expect(malformed.status).toBe(0);
+    const decision = JSON.parse(malformed.stdout);
+    expect(decision.decision).toBe('deny');
+    expect(decision.hookSpecificOutput.permissionDecision).toBe('deny');
   });
 
   it('blocks remote ops on Grok-native toolInput payloads (camelCase)', () => {

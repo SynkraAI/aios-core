@@ -19,23 +19,50 @@
  *
  * Dependency-free so it runs from a freshly installed AIOX package on
  * macOS, Linux, WSL, and Windows.
+ *
+ * NOTE: this hook is a governance guardrail, not a security boundary. The
+ * active-agent identity comes from cooperative signals (env vars, command
+ * prefix, bridge files) that any process in the workspace can set. It exists
+ * to stop accidental non-devops publication, not a determined adversary.
  */
 
 const fs = require('fs');
 const path = require('path');
 
+// Git accepts global options between `git` and the subcommand
+// (`git -C /repo push`, `git -c k=v push`, `git --git-dir=/x push`), so the
+// push pattern must tolerate interleaved option tokens or it is bypassable.
+const GIT_GLOBAL_OPTIONS =
+  '(?:-[Cc]\\s+\\S+' +
+  '|--(?:git-dir|work-tree|namespace|super-prefix|config-env)(?:=\\S+|\\s+\\S+)' +
+  '|--exec-path(?:=\\S+)?' +
+  '|-[pP]\\b' +
+  '|--(?:no-pager|paginate|bare|literal-pathspecs|glob-pathspecs' +
+  '|noglob-pathspecs|icase-pathspecs|no-optional-locks|no-replace-objects' +
+  '|no-lazy-fetch|no-advice))';
+
+// Generic `-f val` / `--flag[=val]` token for `gh`, whose flags may appear
+// before or after the subcommand (`gh --repo o/r pr create`, `gh pr -R o/r merge`).
+const GH_OPTION = '(?:-{1,2}[\\w-]+(?:[=\\s]+\\S+)?)';
+
 const REMOTE_OPERATION_PATTERNS = [
   {
-    pattern: /\bgit\s+push\b/i,
+    pattern: new RegExp(`\\bgit(?:\\s+${GIT_GLOBAL_OPTIONS})*\\s+push\\b`, 'i'),
     operation: 'git push',
   },
   {
-    pattern: /\bgh\s+pr\s+create\b/i,
+    pattern: new RegExp(`\\bgh(?:\\s+${GH_OPTION})*\\s+pr(?:\\s+${GH_OPTION})*\\s+create\\b`, 'i'),
     operation: 'gh pr create',
   },
   {
-    pattern: /\bgh\s+pr\s+merge\b/i,
+    pattern: new RegExp(`\\bgh(?:\\s+${GH_OPTION})*\\s+pr(?:\\s+${GH_OPTION})*\\s+merge\\b`, 'i'),
     operation: 'gh pr merge',
+  },
+  {
+    // PR creation/merge through the REST API (`gh api repos/o/r/pulls -f ...`,
+    // `gh api -X PUT repos/o/r/pulls/1/merge`). Plain GET reads stay allowed.
+    pattern: /\bgh\s+api\b(?=[^\n]*\/pulls\b)[^\n]*(?:\s(?:-X|--method)[=\s]*(?:POST|PUT|PATCH)\b|\s(?:-f|-F|--field|--raw-field|--input)(?:[=\s]|$))/i,
+    operation: 'gh api (pull request mutation)',
   },
 ];
 
@@ -186,11 +213,9 @@ function isDevOpsAgent(agent) {
   const normalized = String(agent || '')
     .toLowerCase()
     .replace(/^@/, '');
+  // Strict allowlist only — no wildcard suffix (e.g. fake-devops).
   return (
-    DEVOPS_AGENT_ALIASES.has(normalized) ||
-    DEVOPS_AGENT_ALIASES.has(`@${normalized}`) ||
-    normalized === 'aiox-devops' ||
-    normalized.endsWith('-devops') && normalized.includes('devops')
+    DEVOPS_AGENT_ALIASES.has(normalized) || DEVOPS_AGENT_ALIASES.has(`@${normalized}`)
   );
 }
 
@@ -219,6 +244,14 @@ function emitDecision(permissionDecision, permissionDecisionReason) {
 
 function main() {
   const rawInput = readStdin();
+
+  // Deliberate fail-open on empty stdin: there is no payload to inspect, and
+  // denying here would block every tool call if a harness variant ever stops
+  // piping stdin. Malformed (non-empty) JSON below stays fail-closed.
+  if (!rawInput.trim()) {
+    return;
+  }
+
   const input = parseInput(rawInput);
 
   if (!input) {

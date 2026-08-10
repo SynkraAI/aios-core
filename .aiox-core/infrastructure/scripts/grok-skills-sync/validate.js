@@ -209,9 +209,9 @@ function validateGrok(options = {}) {
 
   if (exists(path.join(grokRoot, 'config.toml'))) {
     const cfg = readText(path.join(grokRoot, 'config.toml'));
-    // Project scope primarily documents permission/hooks; [skills] is user-global only.
-    if (!cfg.includes('[permission]') && !cfg.includes('[skills]')) {
-      push(warnings, '.grok/config.toml missing [permission] or [skills] section');
+    // Project config documents harness; authority lives in hooks (not empty [permission]).
+    if (!cfg.includes('git-push-authority') && !cfg.includes('Native authority')) {
+      push(warnings, '.grok/config.toml should document native authority hook');
     }
   }
 
@@ -371,7 +371,7 @@ function main() {
     }
   }
 
-  process.exit(result.ok ? 0 : 1);
+  process.exitCode = result.ok ? 0 : 1;
 }
 
 if (require.main === module) {

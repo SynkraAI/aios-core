@@ -41,6 +41,10 @@ describe('Grok Build install surface', () => {
     const yaml = generateCoreConfig({ projectType: 'GREENFIELD', selectedIDEs: [] });
     expect(yaml).toContain('grok');
     expect(yaml).toMatch(/selected:[\s\S]*grok/);
+    // configs flags must match default selected list
+    expect(yaml).toMatch(/grok:\s*true/);
+    expect(yaml).toMatch(/claude-code:\s*true/);
+    expect(yaml).toMatch(/codex:\s*true/);
   });
 
   it('includes grok flag when selected', () => {
@@ -49,6 +53,7 @@ describe('Grok Build install surface', () => {
       selectedIDEs: ['claude-code', 'grok'],
     });
     expect(yaml).toMatch(/grok:\s*true/);
+    expect(yaml).toMatch(/codex:\s*false/);
   });
 
   it('generateGrokSkills writes .grok surface from canonical agents', () => {

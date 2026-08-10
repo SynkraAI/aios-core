@@ -1,19 +1,10 @@
 # AIOX × Grok Build — project config (committed)
 # Docs: ~/.grok/docs/user-guide/05-configuration.md
 #
-# Project scope currently contributes [mcp_servers], [plugins], and [permission].
-# Skill discovery always prefers higher-priority .grok/skills over Claude/Codex dumps
-# on name collision. Optional user-global hygiene (not committed):
+# Project scope contributes [mcp_servers], [plugins], and [permission] only.
+# Skill discovery prefers higher-priority .grok/skills over Claude/Codex dumps
+# on name collision. Optional user-global skill hygiene lives in ~/.grok/config.toml
+# (not committed).
 #
-#   # ~/.grok/config.toml
-#   [skills]
-#   ignore = [
-#     "/absolute/path/to/repo/.agents/skills/AIOX",
-#     "/absolute/path/to/repo/.claude/skills/AIOX",
-#   ]
-#
-# Native authority: .grok/hooks/git-push-authority.json (Article II).
-
-[permission]
-# Keep ask mode for remote Git/GitHub publication as a second line of defense.
-# The PreToolUse hook is the primary enforcer (devops-only).
+# Authority: .grok/hooks/git-push-authority.json is the primary enforcer
+# (devops-only git push / PR). Do not rely on empty permission tables.
