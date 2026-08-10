@@ -14,6 +14,42 @@ const fs = require('fs');
 const name = 'settings-json';
 
 /**
+ * Reads boundary.frameworkProtection from core-config.yaml.
+ *
+ * Deny rules exist to stop project consumers from editing L1/L2 framework
+ * paths. Framework contributors set frameworkProtection: false precisely so
+ * those paths stay editable, so an empty deny list is correct in that mode.
+ *
+ * Defaults to true (protected) when the config or key is absent.
+ */
+function isFrameworkProtectionEnabled(context) {
+  const configPath = path.join(context.projectRoot, '.aiox-core', 'core-config.yaml');
+  if (!fs.existsSync(configPath)) return true;
+
+  let content;
+  try {
+    content = fs.readFileSync(configPath, 'utf8');
+  } catch {
+    return true;
+  }
+
+  let inBoundary = false;
+  for (const line of content.split('\n')) {
+    if (/^boundary:\s*$/.test(line)) {
+      inBoundary = true;
+      continue;
+    }
+    if (!inBoundary) continue;
+    // A new top-level key ends the boundary section
+    if (/^\S/.test(line)) break;
+    const match = line.match(/^\s+frameworkProtection:\s*(true|false)\b/);
+    if (match) return match[1] === 'true';
+  }
+
+  return true;
+}
+
+/**
  * Checks that core-config.yaml boundary.protected paths are covered by deny rules.
  * Returns array of unprotected boundary paths.
  */
@@ -89,6 +125,16 @@ async function run(context) {
   const allowRules = settings.permissions?.allow || [];
   const denyCount = denyRules.length;
   const allowCount = allowRules.length;
+
+  // Contributor mode: boundary enforcement is off, so deny rules are not expected
+  if (!isFrameworkProtectionEnabled(context)) {
+    return {
+      check: name,
+      status: 'PASS',
+      message: `Deny rules not required (boundary.frameworkProtection: false — contributor mode, ${denyCount} rules, ${allowCount} allows)`,
+      fixCommand: null,
+    };
+  }
 
   if (denyCount < 40) {
     return {

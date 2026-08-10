@@ -131,6 +131,95 @@ describe('settings-json check', () => {
     expect(result.status).toBe('WARN');
     expect(result.message).toContain('boundary coverage');
   });
+
+  it('should PASS with no deny rules when frameworkProtection is false', async () => {
+    fs.existsSync.mockReturnValue(true);
+    const mockSettings = { permissions: { deny: [], allow: [] } };
+    const coreConfig = [
+      'boundary:',
+      '  frameworkProtection: false # TEMPORARY: contributor mode',
+      '  protected:',
+      '    - .aiox-core/core/**',
+    ].join('\n');
+    fs.readFileSync.mockImplementation((p) => {
+      if (p.includes('settings.json')) return JSON.stringify(mockSettings);
+      if (p.includes('core-config')) return coreConfig;
+      return '';
+    });
+
+    const result = await settingsJsonCheck.run(mockContext);
+    expect(result.status).toBe('PASS');
+    expect(result.message).toContain('contributor mode');
+    expect(result.fixCommand).toBeNull();
+  });
+
+  it('should skip boundary coverage warning when frameworkProtection is false', async () => {
+    fs.existsSync.mockReturnValue(true);
+    const mockSettings = {
+      permissions: {
+        deny: new Array(50).fill('Edit(docs/)'),
+        allow: [],
+      },
+    };
+    const coreConfig = [
+      'boundary:',
+      '  frameworkProtection: false',
+      '  protected:',
+      '    - .aiox-core/core/**',
+      '    - bin/aiox.js',
+    ].join('\n');
+    fs.readFileSync.mockImplementation((p) => {
+      if (p.includes('settings.json')) return JSON.stringify(mockSettings);
+      if (p.includes('core-config')) return coreConfig;
+      return '';
+    });
+
+    const result = await settingsJsonCheck.run(mockContext);
+    expect(result.status).toBe('PASS');
+    expect(result.message).not.toContain('boundary coverage');
+  });
+
+  it('should still WARN when frameworkProtection is explicitly true', async () => {
+    fs.existsSync.mockReturnValue(true);
+    const mockSettings = { permissions: { deny: ['one'], allow: [] } };
+    const coreConfig = [
+      'boundary:',
+      '  frameworkProtection: true',
+      '  protected:',
+      '    - .aiox-core/core/**',
+    ].join('\n');
+    fs.readFileSync.mockImplementation((p) => {
+      if (p.includes('settings.json')) return JSON.stringify(mockSettings);
+      if (p.includes('core-config')) return coreConfig;
+      return '';
+    });
+
+    const result = await settingsJsonCheck.run(mockContext);
+    expect(result.status).toBe('WARN');
+    expect(result.message).toContain('below threshold');
+  });
+
+  it('should default to protected when frameworkProtection key is absent', async () => {
+    fs.existsSync.mockReturnValue(true);
+    const mockSettings = { permissions: { deny: [], allow: [] } };
+    // frameworkProtection lives under a later top-level key, not under boundary
+    const coreConfig = [
+      'boundary:',
+      '  protected:',
+      '    - .aiox-core/core/**',
+      'other:',
+      '  frameworkProtection: false',
+    ].join('\n');
+    fs.readFileSync.mockImplementation((p) => {
+      if (p.includes('settings.json')) return JSON.stringify(mockSettings);
+      if (p.includes('core-config')) return coreConfig;
+      return '';
+    });
+
+    const result = await settingsJsonCheck.run(mockContext);
+    expect(result.status).toBe('WARN');
+    expect(result.message).toContain('below threshold');
+  });
 });
 
 describe('rules-files check', () => {
@@ -612,6 +701,90 @@ describe('hooks-claude-count check', () => {
     fs.existsSync.mockReturnValue(false);
     const result = await hooksClaudeCountCheck.run(mockContext);
     expect(result.status).toBe('FAIL');
+  });
+
+  it('should PASS when registered in settings.json only', async () => {
+    fs.existsSync.mockReturnValue(true);
+    fs.readdirSync.mockReturnValue([
+      fileEntry('synapse-wrapper.cjs'),
+      fileEntry('precompact-wrapper.cjs'),
+    ]);
+    const settings = {
+      hooks: {
+        UserPromptSubmit: [
+          { hooks: [{ type: 'command', command: 'node .claude/hooks/synapse-wrapper.cjs' }] },
+        ],
+        PreCompact: [
+          { hooks: [{ type: 'command', command: 'node .claude/hooks/precompact-wrapper.cjs' }] },
+        ],
+      },
+    };
+    fs.readFileSync.mockImplementation((p) => {
+      // settings.local.json carries permissions only — no hooks
+      if (p.includes('settings.local.json')) return JSON.stringify({ permissions: { allow: [] } });
+      return JSON.stringify(settings);
+    });
+
+    const result = await hooksClaudeCountCheck.run(mockContext);
+    expect(result.status).toBe('PASS');
+    expect(result.message).toContain('2 registered');
+  });
+
+  it('should PASS when only wrapper hooks are registered and engines are spawned', async () => {
+    fs.existsSync.mockReturnValue(true);
+    fs.readdirSync.mockReturnValue([
+      fileEntry('synapse-wrapper.cjs'),
+      fileEntry('synapse-engine.cjs'),
+      fileEntry('precompact-wrapper.cjs'),
+      fileEntry('precompact-session-digest.cjs'),
+      fileEntry('enforce-git-push-authority.cjs'),
+    ]);
+    const settings = {
+      hooks: {
+        UserPromptSubmit: [
+          { hooks: [{ type: 'command', command: 'node .claude/hooks/synapse-wrapper.cjs' }] },
+        ],
+        PreCompact: [
+          { hooks: [{ type: 'command', command: 'node .claude/hooks/precompact-wrapper.cjs' }] },
+        ],
+        PreToolUse: [
+          {
+            matcher: 'Bash',
+            hooks: [
+              { type: 'command', command: 'node .claude/hooks/enforce-git-push-authority.cjs' },
+            ],
+          },
+        ],
+      },
+    };
+    fs.readFileSync.mockImplementation((p) => {
+      if (p.includes('settings.local.json')) return JSON.stringify({ permissions: { allow: [] } });
+      return JSON.stringify(settings);
+    });
+
+    const result = await hooksClaudeCountCheck.run(mockContext);
+    expect(result.status).toBe('PASS');
+    expect(result.message).toContain('5 hook files found, 3 registered');
+  });
+
+  it('should WARN when neither settings file registers any hook', async () => {
+    fs.existsSync.mockReturnValue(true);
+    fs.readdirSync.mockReturnValue([fileEntry('hook-a.cjs'), fileEntry('hook-b.cjs')]);
+    fs.readFileSync.mockReturnValue(JSON.stringify({ hooks: {} }));
+
+    const result = await hooksClaudeCountCheck.run(mockContext);
+    expect(result.status).toBe('WARN');
+    expect(result.message).toContain('settings.json or settings.local.json');
+  });
+
+  it('should tolerate unparseable settings files', async () => {
+    fs.existsSync.mockReturnValue(true);
+    fs.readdirSync.mockReturnValue([fileEntry('hook-a.cjs'), fileEntry('hook-b.cjs')]);
+    fs.readFileSync.mockReturnValue('{ not valid json');
+
+    const result = await hooksClaudeCountCheck.run(mockContext);
+    expect(result.status).toBe('WARN');
+    expect(result.message).toContain('not registered');
   });
 });
 

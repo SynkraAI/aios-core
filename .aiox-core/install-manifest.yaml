@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.3.0
-generated_at: "2026-07-13T20:16:51.869Z"
+generated_at: "2026-08-10T20:08:23.689Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1165
 files:
@@ -337,9 +337,9 @@ files:
     type: core
     size: 1106
   - path: core/doctor/checks/hooks-claude-count.js
-    hash: sha256:026ddf0248819b89b1147e0876a2934e38e0113d3c6380d68a752d432060e7ec
+    hash: sha256:94fd5136635b0eb766c0dfc7ccbcff19bc2d63dc5dea9fedd2e16f21ce609875
     type: core
-    size: 3348
+    size: 3824
   - path: core/doctor/checks/ide-sync.js
     hash: sha256:4ddd037b4ad18c4201ca1428a1044efd313e9d2721cd399aebd3c5043fd4e2d1
     type: core
@@ -365,9 +365,9 @@ files:
     type: core
     size: 1368
   - path: core/doctor/checks/settings-json.js
-    hash: sha256:bd26841b966fcfa003eca6f85416d4f877b9dcfea0e4017df9f2a97c14c33fbb
+    hash: sha256:ac981d682c7232a2fb0e2fe7920741bde45d1a2ce0d3a0bbe33c95b3a4cd8b31
     type: core
-    size: 3286
+    size: 4726
   - path: core/doctor/checks/skills-count.js
     hash: sha256:811d904bde6d2ba4940f19cbe6a29cc12c5df6908ac95cb37bcb7add687fe4cc
     type: core
