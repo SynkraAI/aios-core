@@ -53,7 +53,7 @@ describe('Grok skills sync + validate', () => {
     expect(fs.existsSync(path.join(grokRoot, 'agents', 'dev.md'))).toBe(true);
     expect(fs.existsSync(path.join(grokRoot, 'agents', 'devops.md'))).toBe(true);
     expect(fs.readFileSync(path.join(grokRoot, 'agents', 'dev.md'), 'utf8')).toContain(
-      '.grok/agents/aiox-dev.md'
+      '.grok/agents/aiox-dev.md',
     );
 
     expect(fs.existsSync(path.join(grokRoot, 'hooks', 'git-push-authority.json'))).toBe(true);
@@ -66,7 +66,7 @@ describe('Grok skills sync + validate', () => {
     // Activation protocol must register active-agent bridge
     const devopsSkill = fs.readFileSync(
       path.join(grokRoot, 'skills', 'aiox-devops', 'SKILL.md'),
-      'utf8'
+      'utf8',
     );
     expect(devopsSkill).toContain('.aiox/active-agent');
     expect(devopsSkill).toContain('Register active agent');
@@ -74,7 +74,7 @@ describe('Grok skills sync + validate', () => {
     // Validate against the temp tree by temporarily not — validate uses cwd .grok.
     // Instead assert harness JSON shape here.
     const hookJson = JSON.parse(
-      fs.readFileSync(path.join(grokRoot, 'hooks', 'git-push-authority.json'), 'utf8')
+      fs.readFileSync(path.join(grokRoot, 'hooks', 'git-push-authority.json'), 'utf8'),
     );
     expect(JSON.stringify(hookJson.hooks.PreToolUse)).toContain('run_terminal_command');
   });
@@ -83,7 +83,7 @@ describe('Grok skills sync + validate', () => {
     const result = validateGrok({ projectRoot: repoRoot, strict: true, quiet: true });
     if (!result.ok) {
       // Surface diagnostics in failure output
-      // eslint-disable-next-line no-console
+       
       console.error(result.errors, result.warnings);
     }
     expect(result.ok).toBe(true);
