@@ -245,10 +245,13 @@ function emitDecision(permissionDecision, permissionDecisionReason) {
 function main() {
   const rawInput = readStdin();
 
-  // Deliberate fail-open on empty stdin: there is no payload to inspect, and
-  // denying here would block every tool call if a harness variant ever stops
-  // piping stdin. Malformed (non-empty) JSON below stays fail-closed.
+  // Fail-closed on empty stdin: without a payload we cannot authorize remote
+  // publication. Malformed JSON below is also fail-closed.
   if (!rawInput.trim()) {
+    emitDecision(
+      'deny',
+      'Hook did not receive PreToolUse input. Blocking remote Git operation for safety; retry via @devops.',
+    );
     return;
   }
 

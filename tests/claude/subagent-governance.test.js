@@ -6,7 +6,21 @@ const yaml = require('js-yaml');
 
 const repoRoot = path.resolve(__dirname, '..', '..');
 const agentsDir = path.join(repoRoot, '.claude', 'agents');
-const authorityHookPath = path.join(repoRoot, '.claude', 'hooks', 'enforce-git-push-authority.cjs');
+const claudeAuthorityHookPath = path.join(
+  repoRoot,
+  '.claude',
+  'hooks',
+  'enforce-git-push-authority.cjs',
+);
+const grokAuthorityHookPath = path.join(
+  repoRoot,
+  '.grok',
+  'hooks',
+  'enforce-git-push-authority.cjs',
+);
+const authorityHookPaths = [claudeAuthorityHookPath, grokAuthorityHookPath].filter((p) =>
+  fs.existsSync(p),
+);
 const allowedColors = new Set(['red', 'blue', 'green', 'yellow', 'purple', 'orange', 'pink', 'cyan']);
 const expectedCoreNativeSubagents = [
   'aiox-analyst.md',
@@ -28,8 +42,8 @@ function readFrontmatter(filePath) {
   return yaml.load(match[1]);
 }
 
-function runAuthorityHook(command, env = {}) {
-  return spawnSync(process.execPath, [authorityHookPath], {
+function runAuthorityHook(command, env = {}, hookPath = claudeAuthorityHookPath) {
+  return spawnSync(process.execPath, [hookPath], {
     input: JSON.stringify({
       hook_event_name: 'PreToolUse',
       tool_name: 'Bash',
@@ -159,75 +173,87 @@ describe('Claude native subagent governance', () => {
     }
   });
 
-  it('fails open on empty stdin and fails closed on malformed JSON', () => {
-    const emptyStdin = spawnSync(process.execPath, [authorityHookPath], {
-      input: '',
-      encoding: 'utf8',
-      env: { ...process.env, AIOX_ACTIVE_AGENT: 'dev' },
-    });
-    expect(emptyStdin.status).toBe(0);
-    expect(emptyStdin.stdout).toBe('');
+  it('fails closed on empty stdin and malformed JSON', () => {
+    for (const hookPath of authorityHookPaths) {
+      const emptyStdin = spawnSync(process.execPath, [hookPath], {
+        input: '',
+        encoding: 'utf8',
+        env: { ...process.env, AIOX_ACTIVE_AGENT: 'dev' },
+      });
+      expect(emptyStdin.status).toBe(0);
+      const emptyDecision = JSON.parse(emptyStdin.stdout);
+      expect(emptyDecision.decision).toBe('deny');
+      expect(emptyDecision.hookSpecificOutput.permissionDecision).toBe('deny');
 
-    const malformed = spawnSync(process.execPath, [authorityHookPath], {
-      input: '{not json',
-      encoding: 'utf8',
-      env: { ...process.env, AIOX_ACTIVE_AGENT: 'dev' },
-    });
-    expect(malformed.status).toBe(0);
-    const decision = JSON.parse(malformed.stdout);
-    expect(decision.decision).toBe('deny');
-    expect(decision.hookSpecificOutput.permissionDecision).toBe('deny');
-  });
-
-  it('blocks remote ops on Grok-native toolInput payloads (camelCase)', () => {
-    const result = spawnSync(process.execPath, [authorityHookPath], {
-      input: JSON.stringify({
-        hookEventName: 'pre_tool_use',
-        toolName: 'run_terminal_command',
-        toolInput: { command: 'git push origin main' },
-        cwd: os.tmpdir(),
-        workspaceRoot: os.tmpdir(),
-      }),
-      encoding: 'utf8',
-      env: { ...process.env, AIOX_ACTIVE_AGENT: 'dev' },
-    });
-
-    expect(result.status).toBe(0);
-    const decision = JSON.parse(result.stdout);
-    expect(decision.decision).toBe('deny');
-    expect(decision.hookSpecificOutput.permissionDecision).toBe('deny');
-  });
-
-  it('allows remote ops when Grok active-agent bridge identifies devops', () => {
-    const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'aiox-gov-bridge-'));
-    fs.mkdirSync(path.join(tmp, '.aiox'), { recursive: true });
-    fs.writeFileSync(path.join(tmp, '.aiox', 'active-agent'), 'devops\n');
-
-    const env = { ...process.env };
-    for (const key of [
-      'AIOX_ACTIVE_AGENT',
-      'AIOX_AGENT',
-      'ACTIVE_AGENT',
-      'CLAUDE_AGENT_NAME',
-      'CLAUDE_CODE_AGENT',
-      'AIOX_CURRENT_AGENT',
-      'GROK_ACTIVE_AGENT',
-    ]) {
-      delete env[key];
+      const malformed = spawnSync(process.execPath, [hookPath], {
+        input: '{not json',
+        encoding: 'utf8',
+        env: { ...process.env, AIOX_ACTIVE_AGENT: 'dev' },
+      });
+      expect(malformed.status).toBe(0);
+      const decision = JSON.parse(malformed.stdout);
+      expect(decision.decision).toBe('deny');
+      expect(decision.hookSpecificOutput.permissionDecision).toBe('deny');
     }
+  });
 
-    const result = spawnSync(process.execPath, [authorityHookPath], {
-      input: JSON.stringify({
-        toolInput: { command: 'git push origin main' },
-        cwd: tmp,
-        workspaceRoot: tmp,
-      }),
-      encoding: 'utf8',
-      env,
-    });
+  it('blocks remote ops on Grok-native toolInput payloads (camelCase) for both hooks', () => {
+    expect(authorityHookPaths.length).toBeGreaterThanOrEqual(2);
 
-    expect(result.status).toBe(0);
-    expect(result.stdout).toBe('');
-    fs.rmSync(tmp, { recursive: true, force: true });
+    for (const hookPath of authorityHookPaths) {
+      const result = spawnSync(process.execPath, [hookPath], {
+        input: JSON.stringify({
+          hookEventName: 'pre_tool_use',
+          toolName: 'run_terminal_command',
+          toolInput: { command: 'git push origin main' },
+          cwd: os.tmpdir(),
+          workspaceRoot: os.tmpdir(),
+        }),
+        encoding: 'utf8',
+        env: { ...process.env, AIOX_ACTIVE_AGENT: 'dev' },
+      });
+
+      expect(result.status).toBe(0);
+      const decision = JSON.parse(result.stdout);
+      expect(decision.decision).toBe('deny');
+      expect(decision.hookSpecificOutput.permissionDecision).toBe('deny');
+    }
+  });
+
+  it('allows remote ops when Grok active-agent bridge identifies devops (both hooks)', () => {
+    expect(authorityHookPaths.length).toBeGreaterThanOrEqual(2);
+
+    for (const hookPath of authorityHookPaths) {
+      const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'aiox-gov-bridge-'));
+      fs.mkdirSync(path.join(tmp, '.aiox'), { recursive: true });
+      fs.writeFileSync(path.join(tmp, '.aiox', 'active-agent'), 'devops\n');
+
+      const env = { ...process.env };
+      for (const key of [
+        'AIOX_ACTIVE_AGENT',
+        'AIOX_AGENT',
+        'ACTIVE_AGENT',
+        'CLAUDE_AGENT_NAME',
+        'CLAUDE_CODE_AGENT',
+        'AIOX_CURRENT_AGENT',
+        'GROK_ACTIVE_AGENT',
+      ]) {
+        delete env[key];
+      }
+
+      const result = spawnSync(process.execPath, [hookPath], {
+        input: JSON.stringify({
+          toolInput: { command: 'git push origin main' },
+          cwd: tmp,
+          workspaceRoot: tmp,
+        }),
+        encoding: 'utf8',
+        env,
+      });
+
+      expect(result.status).toBe(0);
+      expect(result.stdout).toBe('');
+      fs.rmSync(tmp, { recursive: true, force: true });
+    }
   });
 });
