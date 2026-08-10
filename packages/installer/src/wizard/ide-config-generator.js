@@ -720,21 +720,42 @@ async function generateIDEConfigs(selectedIDEs, wizardState, options = {}) {
 
         // Grok Build: generate agents, skills, roles, personas, hooks, config
         if (ideKey === 'grok') {
+          // Grok-only installs still need the canonical hook sources that the
+          // sync vendors into .grok/hooks (Constitution Article II authority).
+          const authorityHookSource = path.join(
+            projectRoot, '.claude', 'hooks', 'enforce-git-push-authority.cjs',
+          );
+          if (!await fs.pathExists(authorityHookSource)) {
+            spinner.start('Copying AIOX hook sources for Grok Build...');
+            const hookFiles = await copyClaudeHooksFolder(projectRoot, wizardState);
+            createdFiles.push(...hookFiles);
+            if (hookFiles.length > 0) {
+              spinner.succeed(`Copied ${hookFiles.length} hook source file(s) to .claude/hooks`);
+            } else {
+              spinner.info('No hook source files available to copy');
+            }
+          }
+
           spinner.start('Generating Grok Build agents/skills/hooks...');
+          const grokDirs = ['agents', 'skills', 'hooks', 'roles', 'personas', 'rules']
+            .map((dir) => path.join(projectRoot, '.grok', dir));
+          const preExistingGrokDirs = new Set();
+          for (const dir of grokDirs) {
+            if (await fs.pathExists(dir)) {
+              preExistingGrokDirs.add(dir);
+            }
+          }
           const grokResult = generateGrokSkills(projectRoot);
           if (grokResult.skipped) {
             spinner.info(
               `Skipped Grok sync (${grokResult.reason || 'canonical agent source not found'})`,
             );
           } else {
-            createdFolders.push(
-              path.join(projectRoot, '.grok', 'agents'),
-              path.join(projectRoot, '.grok', 'skills'),
-              path.join(projectRoot, '.grok', 'hooks'),
-              path.join(projectRoot, '.grok', 'roles'),
-              path.join(projectRoot, '.grok', 'personas'),
-              path.join(projectRoot, '.grok', 'rules'),
-            );
+            // Precise rollback surface: only files written by this invocation,
+            // and only directories that did not exist before it — pre-existing
+            // .grok content must never be deleted by a later IDE failure.
+            createdFiles.push(...(grokResult.written || []));
+            createdFolders.push(...grokDirs.filter((dir) => !preExistingGrokDirs.has(dir)));
             spinner.succeed(
               `Grok Build: ${grokResult.agents} agents → ${grokResult.files} files in .grok/`,
             );
@@ -828,6 +849,8 @@ async function copyClaudeHooksFolder(projectRoot, wizardState = {}) {
 
   const HOOKS_FREE = [
     'synapse-engine.cjs',
+    'synapse-wrapper.cjs',
+    'precompact-wrapper.cjs',
     'code-intel-pretool.cjs',
     'enforce-git-push-authority.cjs',
     'README.md',
@@ -1371,12 +1394,14 @@ function generateGrokSkills(projectRoot) {
     return {
       agents: result.agents || 0,
       files: result.files || 0,
+      written: result.written || [],
       skipped: false,
     };
   } catch (error) {
     return {
       agents: 0,
       files: 0,
+      written: [],
       skipped: true,
       reason: error.message || 'grok-skills-sync failed',
     };

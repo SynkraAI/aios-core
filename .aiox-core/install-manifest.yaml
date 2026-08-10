@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.3.0
-generated_at: "2026-08-10T21:26:08.671Z"
+generated_at: "2026-08-10T21:42:50.153Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1167
 files:
@@ -1393,9 +1393,9 @@ files:
     type: data
     size: 9590
   - path: data/entity-registry.yaml
-    hash: sha256:f01ad85c65a8a91f184147a6b83262beac9d96341a0002d18fa99d7b74471ee8
+    hash: sha256:187fe23401f239bffb658b8a3b0c556bb5d294f7bd1641a156bdf521888dcd03
     type: data
-    size: 596086
+    size: 596246
   - path: data/learned-patterns.yaml
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data
@@ -1765,9 +1765,9 @@ files:
     type: script
     size: 23410
   - path: development/scripts/populate-entity-registry.js
-    hash: sha256:593c14512a4e1b6a5f2b0e00d7a9fd34d76718e1dfc567cc3d2d8110220dc223
+    hash: sha256:a002c5e58339379687889186a6d3a1aa7c92e016145354d486116e828aa1f410
     type: script
-    size: 32139
+    size: 32758
   - path: development/scripts/refactoring-suggester.js
     hash: sha256:d50ea6b609c9cf8385979386fee4b4385d11ebcde15460260f66d04c705f6cd9
     type: script
@@ -3349,17 +3349,17 @@ files:
     type: script
     size: 38453
   - path: infrastructure/scripts/grok-skills-sync/index.js
-    hash: sha256:c6632e16181b05654982f88ba71e9ea44e4eca470e017a4aefd5143ec2ad3652
+    hash: sha256:395d2a877c523cecbb3fdf5bc0ec604d565dad1f4a09e5fb2487a69081a1d393
     type: script
-    size: 52254
+    size: 52701
   - path: infrastructure/scripts/grok-skills-sync/README.md
     hash: sha256:b3106dc8eba5241b695c9d19958cb767c0b7a87e320a3527322db2d2db59a715
     type: script
     size: 1682
   - path: infrastructure/scripts/grok-skills-sync/validate.js
-    hash: sha256:fe67dd163858d57a9652c288d80220fc41e323a21107878a01158b61bbcc7472
+    hash: sha256:c8a13500073014e86ab1ad7995be0447f75edf552de184b9e9db9176caf03f8a
     type: script
-    size: 14484
+    size: 14713
   - path: infrastructure/scripts/ide-sync/agent-parser.js
     hash: sha256:f1ed4d0e6dda1a616efb0cb31157fe36063cf9481c19ee7b4bada26cb12e0e80
     type: script

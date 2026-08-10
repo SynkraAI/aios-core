@@ -160,7 +160,20 @@ function readJsonFile(filePath) {
 
 /**
  * Read UAP / Grok activation bridge for current agent id.
+ *
+ * Bridges older than BRIDGE_TTL_MS are ignored: a leftover `devops` bridge
+ * from an earlier session must not authorize remote Git operations later.
  */
+const BRIDGE_TTL_MS = 8 * 60 * 60 * 1000;
+
+function isBridgeFresh(filePath) {
+  try {
+    return Date.now() - fs.statSync(filePath).mtimeMs <= BRIDGE_TTL_MS;
+  } catch {
+    return false;
+  }
+}
+
 function readBridgeAgent(projectRoot) {
   const root = String(projectRoot || process.cwd());
 
@@ -170,12 +183,14 @@ function readBridgeAgent(projectRoot) {
   ];
 
   for (const filePath of jsonBridges) {
+    if (!isBridgeFresh(filePath)) continue;
     const data = readJsonFile(filePath);
     const id = data?.id || data?.agentId || data?.agent_id || data?.name;
     if (id) return String(id).toLowerCase();
   }
 
-  const plain = readTextFile(path.join(root, '.aiox', 'active-agent')).trim();
+  const plainPath = path.join(root, '.aiox', 'active-agent');
+  const plain = isBridgeFresh(plainPath) ? readTextFile(plainPath).trim() : '';
   if (plain) {
     // allow "devops" or JSON-ish single token
     const first = plain.split(/\s|\n/)[0];
@@ -240,6 +255,13 @@ function emitDecision(permissionDecision, permissionDecisionReason) {
     },
   };
   process.stdout.write(JSON.stringify(payload));
+  if (permissionDecision === 'deny') {
+    // Grok Build only blocks the tool call on a non-zero (2) exit status;
+    // Claude Code blocks on exit 2 too (stderr fed back to the model) and
+    // also honors the JSON permissionDecision above.
+    process.stderr.write(permissionDecisionReason);
+    process.exitCode = 2;
+  }
 }
 
 function main() {

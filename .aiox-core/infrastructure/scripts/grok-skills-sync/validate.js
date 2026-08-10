@@ -284,8 +284,13 @@ function validateGrok(options = {}) {
         encoding: 'utf8',
         env: { ...cleanEnv(), ...testCase.env },
       });
-      if (result.status !== 0) {
-        push(errors, `Authority hook crashed (${testCase.label}): ${result.stderr || result.status}`);
+      // Deny paths exit 2 (Grok Build blocks only on non-zero); allow exits 0.
+      const expectedStatus = testCase.expectDeny ? 2 : 0;
+      if (result.status !== expectedStatus) {
+        push(
+          errors,
+          `Authority hook wrong exit status (${testCase.label}): expected ${expectedStatus}, got ${result.status} ${result.stderr || ''}`
+        );
         continue;
       }
       const out = (result.stdout || '').trim();

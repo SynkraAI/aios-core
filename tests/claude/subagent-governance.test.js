@@ -140,7 +140,8 @@ describe('Claude native subagent governance', () => {
 
     for (const command of blockedCommands) {
       const result = runAuthorityHook(command, { AIOX_ACTIVE_AGENT: 'dev' });
-      expect(result.status).toBe(0);
+      // Grok Build only blocks on non-zero exit; deny paths exit 2.
+      expect(result.status).toBe(2);
       const decision = JSON.parse(result.stdout);
       expect(decision.hookSpecificOutput.permissionDecision).toBe('deny');
       // Dual payload for Grok Build PreToolUse
@@ -180,7 +181,7 @@ describe('Claude native subagent governance', () => {
         encoding: 'utf8',
         env: { ...process.env, AIOX_ACTIVE_AGENT: 'dev' },
       });
-      expect(emptyStdin.status).toBe(0);
+      expect(emptyStdin.status).toBe(2);
       const emptyDecision = JSON.parse(emptyStdin.stdout);
       expect(emptyDecision.decision).toBe('deny');
       expect(emptyDecision.hookSpecificOutput.permissionDecision).toBe('deny');
@@ -190,7 +191,7 @@ describe('Claude native subagent governance', () => {
         encoding: 'utf8',
         env: { ...process.env, AIOX_ACTIVE_AGENT: 'dev' },
       });
-      expect(malformed.status).toBe(0);
+      expect(malformed.status).toBe(2);
       const decision = JSON.parse(malformed.stdout);
       expect(decision.decision).toBe('deny');
       expect(decision.hookSpecificOutput.permissionDecision).toBe('deny');
@@ -213,7 +214,7 @@ describe('Claude native subagent governance', () => {
         env: { ...process.env, AIOX_ACTIVE_AGENT: 'dev' },
       });
 
-      expect(result.status).toBe(0);
+      expect(result.status).toBe(2);
       const decision = JSON.parse(result.stdout);
       expect(decision.decision).toBe('deny');
       expect(decision.hookSpecificOutput.permissionDecision).toBe('deny');
@@ -255,5 +256,43 @@ describe('Claude native subagent governance', () => {
       expect(result.stdout).toBe('');
       fs.rmSync(tmp, { recursive: true, force: true });
     }
+  });
+
+  it('rejects stale active-agent bridges (leftover devops from an old session)', () => {
+    const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'aiox-gov-stale-'));
+    fs.mkdirSync(path.join(tmp, '.aiox'), { recursive: true });
+    const bridgePath = path.join(tmp, '.aiox', 'active-agent');
+    fs.writeFileSync(bridgePath, 'devops\n');
+    // Backdate past the 8h bridge TTL
+    const staleSeconds = (Date.now() - 9 * 60 * 60 * 1000) / 1000;
+    fs.utimesSync(bridgePath, staleSeconds, staleSeconds);
+
+    const env = { ...process.env };
+    for (const key of [
+      'AIOX_ACTIVE_AGENT',
+      'AIOX_AGENT',
+      'ACTIVE_AGENT',
+      'CLAUDE_AGENT_NAME',
+      'CLAUDE_CODE_AGENT',
+      'AIOX_CURRENT_AGENT',
+      'GROK_ACTIVE_AGENT',
+    ]) {
+      delete env[key];
+    }
+
+    const result = spawnSync(process.execPath, [claudeAuthorityHookPath], {
+      input: JSON.stringify({
+        toolInput: { command: 'git push origin main' },
+        cwd: tmp,
+        workspaceRoot: tmp,
+      }),
+      encoding: 'utf8',
+      env,
+    });
+
+    expect(result.status).toBe(2);
+    const decision = JSON.parse(result.stdout);
+    expect(decision.decision).toBe('deny');
+    fs.rmSync(tmp, { recursive: true, force: true });
   });
 });

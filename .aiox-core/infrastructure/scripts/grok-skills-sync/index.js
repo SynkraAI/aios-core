@@ -1230,10 +1230,19 @@ ${wf.body}
   );
 
   // Rules + README
+  // The wizard's IDE-rules flow owns .grok/rules/aiox-core.md when it carries
+  // AIOX-MANAGED markers (user may have chosen skip/backup/merge there). The
+  // sync only writes the rules file when that managed version is absent.
+  const rulesPath = resolveUnder(targets.rules, 'aiox-core.md');
+  const rulesManagedByWizard =
+    fs.existsSync(rulesPath) &&
+    fs.readFileSync(rulesPath, 'utf8').includes('AIOX-MANAGED-START');
   const extras = [
-    { path: resolveUnder(targets.rules, 'aiox-core.md'), content: buildRulesMarkdown() },
     { path: resolveUnder(grok, 'README.md'), content: buildReadme() },
   ];
+  if (!rulesManagedByWizard) {
+    extras.unshift({ path: rulesPath, content: buildRulesMarkdown() });
+  }
   for (const file of extras) {
     if (!resolved.dryRun) {
       fs.ensureDirSync(path.dirname(file.path));

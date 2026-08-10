@@ -144,6 +144,20 @@ function resolveRelativeDependencyId(refPath, currentFilePath) {
     return path.basename(resolvedPath, resolvedExt);
   }
 
+  // Node resolves `./name` to `name.<ext>` before `name/index.<ext>` — probe
+  // the file form first so `require('./index')` maps to the sibling index
+  // file's scoped id (e.g. grok-skills-sync-index), not a bare `index`.
+  for (const ext of INDEX_RESOLUTION_EXTENSIONS) {
+    const fileCandidate = `${resolvedPath}${ext}`;
+    if (fs.existsSync(fileCandidate)) {
+      if (path.basename(fileCandidate, ext) === 'index') {
+        const config = findScanConfigForPath(fileCandidate);
+        if (config) return toScopedEntityId(fileCandidate, config);
+      }
+      return path.basename(resolvedPath);
+    }
+  }
+
   for (const ext of INDEX_RESOLUTION_EXTENSIONS) {
     const indexPath = path.join(resolvedPath, `index${ext}`);
     if (fs.existsSync(indexPath)) {
