@@ -624,6 +624,23 @@ function getDefaultOptions() {
   };
 }
 
+/**
+ * Merge caller options over defaults, deriving dependent paths from the
+ * caller's projectRoot (instead of process.cwd()) unless explicitly given.
+ */
+function resolveOptions(options = {}) {
+  const resolved = { ...getDefaultOptions(), ...options };
+  if (options.projectRoot) {
+    if (!options.sourceDir) {
+      resolved.sourceDir = path.join(options.projectRoot, '.aiox-core', 'development', 'agents');
+    }
+    if (!options.grokRoot) {
+      resolved.grokRoot = path.join(options.projectRoot, '.grok');
+    }
+  }
+  return resolved;
+}
+
 function pickCommands(agentData, profile = {}) {
   const all = normalizeCommands(agentData.commands || []);
   const quick = getVisibleCommands(all, 'quick');
@@ -1031,7 +1048,7 @@ Identity resolution order:
    - \`.aiox/active-agent.json\`
    - \`.synapse/sessions/_active-agent.json\`
 
-Also: \`hooks/synapse-prompt.json\`, \`hooks/precompact.json\` (native Grok, no Claude settings required).
+Also: \`hooks/synapse-prompt.json\`, \`hooks/precompact.json\` — fully Grok-native: their commands run wrappers vendored under \`.grok/hooks/\` (copied at sync time from \`.claude/hooks/\`), so no Claude settings or runtime files are required.
 
 Short agent spawn aliases: \`dev\`, \`po\`, \`qa\`, \`devops\`, … under \`agents/\`.
 
@@ -1057,7 +1074,7 @@ npm run sync:skills:grok -- --dry-run
 1. **Token-efficient** — condensed profiles; full YAML stays in \`.aiox-core/development/agents/\`
 2. **Authority-safe** — devops-only push; story lifecycle ownership
 3. **Task-first** — formal work loads \`.aiox-core/development/tasks/*\`
-4. **Grok-native** — frontmatter \`permission_mode\`, roles, personas, hooks (no Claude-only dependency)
+4. **Grok-native** — frontmatter \`permission_mode\`, roles, personas, hooks fully self-contained under \`.grok/hooks/\` (wrappers vendored at sync time from \`.claude/hooks/\`)
 
 ## Related
 
@@ -1071,10 +1088,25 @@ npm run sync:skills:grok -- --dry-run
 // ─── Sync ───────────────────────────────────────────────────────────────────
 
 function syncGrok(options = {}) {
-  const resolved = { ...getDefaultOptions(), ...options };
-  const agents = parseAllAgents(resolved.sourceDir).filter(
-    (a) => !a.error || a.error === 'YAML parse failed, using fallback extraction'
-  );
+  const resolved = resolveOptions(options);
+
+  // Guard against running from a subdirectory: with a cwd-derived sourceDir a
+  // missing agents dir would silently generate a near-empty .grok tree.
+  if (!fs.existsSync(resolved.sourceDir)) {
+    throw new Error(
+      `Agent source dir not found: ${resolved.sourceDir}. ` +
+      'Run from the repo root or pass { projectRoot }.'
+    );
+  }
+
+  const agents = [];
+  for (const parsed of parseAllAgents(resolved.sourceDir)) {
+    if (!parsed.error || parsed.error === 'YAML parse failed, using fallback extraction') {
+      agents.push(parsed);
+    } else if (!resolved.quiet) {
+      console.warn(`⚠️  Agent "${parsed.id || parsed.filename || 'unknown'}" skipped: ${parsed.error}`);
+    }
+  }
 
   const written = [];
   const grok = resolved.grokRoot;
@@ -1410,7 +1442,7 @@ You are the **${alias}** short alias for AIOX agent \`${target}\`.
    printf '%s\\n' '{"id":"${agentId}","source":"grok-alias","activated_at":"'"$(date -u +%Y-%m-%dT%H:%M:%SZ)"'"}' > .synapse/sessions/_active-agent.json
    export AIOX_ACTIVE_AGENT=${agentId}
    \`\`\`
-3. Source of truth for deep tasks: \`.aiox-core/development/agents/${agentId === 'aiox-master' ? 'aiox-master' : agentId}.md\`
+3. Source of truth for deep tasks: \`.aiox-core/development/agents/${agentId}.md\`
 4. Prefer the long skill \`/${target}\` when activating from slash commands.
 
 Constitution: \`.aiox-core/constitution.md\`

@@ -31,7 +31,10 @@ describe('Grok skills sync + validate', () => {
     });
 
     expect(result.agents).toBe(Object.keys(AGENT_PROFILES).length);
-    expect(result.files).toBeGreaterThan(40);
+    // Full surface: 25 agents + 31 skills + 12 roles + 12 personas + hooks
+    // (4 required + vendored wrappers) + rules + config.toml + README ≈ 91.
+    // Floor of 87 guards against silent partial output.
+    expect(result.files).toBeGreaterThanOrEqual(87);
 
     for (const id of Object.keys(AGENT_PROFILES)) {
       const skillId = getSkillId(id);
@@ -71,12 +74,25 @@ describe('Grok skills sync + validate', () => {
     expect(devopsSkill).toContain('.aiox/active-agent');
     expect(devopsSkill).toContain('Register active agent');
 
-    // Validate against the temp tree by temporarily not — validate uses cwd .grok.
-    // Instead assert harness JSON shape here.
     const hookJson = JSON.parse(
       fs.readFileSync(path.join(grokRoot, 'hooks', 'git-push-authority.json'), 'utf8'),
     );
     expect(JSON.stringify(hookJson.hooks.PreToolUse)).toContain('run_terminal_command');
+
+    // The freshly generated tree must itself pass strict validation —
+    // otherwise a sync bug only surfaces after the broken tree is committed.
+    const freshValidation = validateGrok({
+      projectRoot: repoRoot,
+      grokRoot,
+      strict: true,
+      quiet: true,
+    });
+    if (!freshValidation.ok) {
+      console.error(freshValidation.errors, freshValidation.warnings);
+    }
+    expect(freshValidation.ok).toBe(true);
+
+    fs.rmSync(tmp, { recursive: true, force: true });
   });
 
   it('validates the committed .grok tree (strict)', () => {
