@@ -54,6 +54,30 @@ function collectHookCommands(settingsPath) {
   return commands;
 }
 
+/**
+ * Extracts referenced hook filenames from command strings.
+ *
+ * Matches complete .cjs filenames at path/shell-token boundaries rather than
+ * by substring: a bare `includes()` would treat `sync.cjs` as referenced by a
+ * command that only mentions `sync-wrapper.cjs`, turning a missing
+ * registration into a PASS with an inflated count.
+ */
+function referencedHookNames(commands) {
+  const names = new Set();
+
+  for (const command of commands) {
+    for (const rawToken of command.split(/\s+/)) {
+      // Strip surrounding quotes and trailing shell punctuation
+      const token = rawToken.replace(/^['"`(]+/, '').replace(/['"`;,)]+$/, '');
+      if (!token.endsWith('.cjs')) continue;
+      // Normalize Windows separators before taking the basename
+      names.add(path.posix.basename(token.replace(/\\/g, '/')));
+    }
+  }
+
+  return names;
+}
+
 async function run(context) {
   const hooksDir = path.join(context.projectRoot, '.claude', 'hooks');
 
@@ -96,14 +120,12 @@ async function run(context) {
   // Wrapper hooks are registered directly; engine hooks they spawn as child
   // processes are not, so any reference is enough to count as wired up.
   const claudeDir = path.join(context.projectRoot, '.claude');
-  const hooksStr = [
+  const referenced = referencedHookNames([
     ...collectHookCommands(path.join(claudeDir, 'settings.json')),
     ...collectHookCommands(path.join(claudeDir, 'settings.local.json')),
-  ].join('\n');
+  ]);
 
-  const referencedCount = hookFiles.filter(
-    (f) => hooksStr.includes(f.name) || hooksStr.includes(f.name.replace('.cjs', '')),
-  ).length;
+  const referencedCount = hookFiles.filter((f) => referenced.has(f.name)).length;
   const registered = referencedCount > 0;
 
   if (hookCount >= 2 && registered) {

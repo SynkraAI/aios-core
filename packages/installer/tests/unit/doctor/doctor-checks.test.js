@@ -777,6 +777,59 @@ describe('hooks-claude-count check', () => {
     expect(result.message).toContain('settings.json or settings.local.json');
   });
 
+  it('should not count a hook as registered via a longer similarly named file', async () => {
+    fs.existsSync.mockReturnValue(true);
+    fs.readdirSync.mockReturnValue([fileEntry('sync.cjs'), fileEntry('sync-wrapper.cjs')]);
+    const settings = {
+      hooks: {
+        UserPromptSubmit: [
+          { hooks: [{ type: 'command', command: 'node .claude/hooks/sync-wrapper.cjs' }] },
+        ],
+      },
+    };
+    fs.readFileSync.mockReturnValue(JSON.stringify(settings));
+
+    const result = await hooksClaudeCountCheck.run(mockContext);
+    // sync.cjs is NOT registered — only sync-wrapper.cjs is
+    expect(result.status).toBe('PASS');
+    expect(result.message).toContain('2 hook files found, 1 registered');
+  });
+
+  it('should not count a hook referenced only as a filename suffix', async () => {
+    fs.existsSync.mockReturnValue(true);
+    fs.readdirSync.mockReturnValue([fileEntry('sync.cjs'), fileEntry('hook-b.cjs')]);
+    const settings = {
+      hooks: {
+        UserPromptSubmit: [
+          { hooks: [{ type: 'command', command: 'node .claude/hooks/legacy-sync.cjs' }] },
+        ],
+      },
+    };
+    fs.readFileSync.mockReturnValue(JSON.stringify(settings));
+
+    const result = await hooksClaudeCountCheck.run(mockContext);
+    expect(result.status).toBe('WARN');
+    expect(result.message).toContain('not registered');
+  });
+
+  it('should match hook filenames despite quoting and trailing punctuation', async () => {
+    fs.existsSync.mockReturnValue(true);
+    fs.readdirSync.mockReturnValue([fileEntry('hook-a.cjs'), fileEntry('hook-b.cjs')]);
+    const settings = {
+      hooks: {
+        UserPromptSubmit: [
+          { hooks: [{ type: 'command', command: 'node "$DIR/.claude/hooks/hook-a.cjs";' }] },
+          { hooks: [{ type: 'command', command: 'node .claude\\hooks\\hook-b.cjs' }] },
+        ],
+      },
+    };
+    fs.readFileSync.mockReturnValue(JSON.stringify(settings));
+
+    const result = await hooksClaudeCountCheck.run(mockContext);
+    expect(result.status).toBe('PASS');
+    expect(result.message).toContain('2 registered');
+  });
+
   it('should tolerate unparseable settings files', async () => {
     fs.existsSync.mockReturnValue(true);
     fs.readdirSync.mockReturnValue([fileEntry('hook-a.cjs'), fileEntry('hook-b.cjs')]);

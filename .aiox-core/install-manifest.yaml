@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.3.0
-generated_at: "2026-08-10T20:08:23.689Z"
+generated_at: "2026-08-10T20:28:46.967Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1165
 files:
@@ -337,9 +337,9 @@ files:
     type: core
     size: 1106
   - path: core/doctor/checks/hooks-claude-count.js
-    hash: sha256:94fd5136635b0eb766c0dfc7ccbcff19bc2d63dc5dea9fedd2e16f21ce609875
+    hash: sha256:fd5d7750e527b22d1e5caf212cecb025a5c62b6d28b0eecbe39e8e875ae8bd16
     type: core
-    size: 3824
+    size: 4629
   - path: core/doctor/checks/ide-sync.js
     hash: sha256:4ddd037b4ad18c4201ca1428a1044efd313e9d2721cd399aebd3c5043fd4e2d1
     type: core
