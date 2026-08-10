@@ -51,16 +51,22 @@ npm test
 - Gerar skills locais do Codex: `npm run sync:skills:codex`
 - Este repositorio usa **local-first**: prefira `.codex/skills` versionado no projeto
 - Use `sync:skills:codex:global` apenas para testes fora deste repo
-- Gerar agents/skills/roles do Grok Build: `npm run sync:skills:grok`
+- Gerar agents/skills/roles/hooks do Grok Build: `npm run sync:skills:grok`
+- Validar integracao Grok: `npm run validate:skills:grok`
 - Artefatos Grok versionados em `.grok/` (ver `.grok/README.md`)
+- Descoberta local: `grok inspect`
+- Instalacao: wizard lista **Grok Build** (recomendado) e gera `.grok/` via `sync:skills:grok`
 
 ## Agent Shortcuts (Grok Build)
 
 Preferencia de ativacao no Grok TUI:
 1. Use slash skills: `/aiox-dev`, `/aiox-qa`, `/aiox-devops`, etc. (em `.grok/skills/`)
-2. Workflows: `/aiox-sdc`, `/aiox-quality-gates`, `/aiox-handoff`, `/aiox-commit`
-3. Profiles de sessao/subagent: `.grok/agents/aiox-*.md`
-4. Source of truth continua em `.aiox-core/development/agents/`
+2. Workflows: `/aiox-full-sdc`, `/aiox-sdc`, `/aiox-wave-execute`, `/aiox-quality-gates`, `/aiox-handoff`, `/aiox-commit`
+3. Aliases curtos (sem depender de Claude compat): `/develop-story`, `/validate-story-draft`, `/review-story`, `/full-sdc`, `/wave-execute`, `/commit`
+4. Profiles de sessao/subagent: `.grok/agents/aiox-*.md` **e** aliases `dev`/`po`/`qa`/`devops`/… (spawnable via `subagent_type`)
+5. Authority hooks nativos: `.grok/hooks/` — `git push` / PR so via devops
+6. Em toda ativacao `/aiox-*`, registrar bridge `.aiox/active-agent` (o hook le isso)
+7. Source of truth continua em `.aiox-core/development/agents/`
 
 Atalhos Grok (skills):
 - `/aiox-master` · `/aiox-analyst` · `/aiox-architect` · `/aiox-data-engineer`

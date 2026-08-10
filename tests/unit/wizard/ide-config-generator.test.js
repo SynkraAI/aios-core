@@ -227,10 +227,12 @@ describe('IDE Config Generator', () => {
       const settings = JSON.parse(await fs.readFile(settingsPath, 'utf8'));
 
       expect(JSON.stringify(settings.hooks.PreToolUse)).toContain('enforce-git-push-authority.cjs');
-      expect(settings.hooks.PreToolUse.some(entry => entry.matcher === 'Bash')).toBe(true);
+      expect(settings.hooks.PreToolUse.some(
+        entry => entry.matcher === 'Bash|run_terminal_command',
+      )).toBe(true);
       expect(HOOK_EVENT_MAP['enforce-git-push-authority.cjs']).toMatchObject({
         event: 'PreToolUse',
-        matcher: 'Bash',
+        matcher: 'Bash|run_terminal_command',
       });
     });
 
@@ -338,7 +340,7 @@ describe('IDE Config Generator', () => {
         projectRoot: testDir,
       });
 
-      expect(result.success).toBe(true);
+      expect(result.success).toBe(false);
       expect(result.files).toHaveLength(0);
       expect(result.errors).toBeDefined();
       expect(result.errors[0].error).toContain('not found');

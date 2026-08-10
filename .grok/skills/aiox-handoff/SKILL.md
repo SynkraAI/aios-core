@@ -2,6 +2,7 @@
 name: aiox-handoff
 description: >
   Create an AIOX agent handoff artifact when switching personas. Use on agent switch, handoff, or /aiox-handoff.
+user-invocable: true
 metadata:
   short-description: "AIOX workflow: aiox-handoff"
 ---

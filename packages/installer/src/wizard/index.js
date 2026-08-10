@@ -28,6 +28,7 @@ const {
   showSuccessSummary,
   copySkillFiles,
   generateCodexSkills,
+  generateGrokSkills,
   copyExtraCommandFiles,
 } = require('./ide-config-generator');
 const {
@@ -52,6 +53,10 @@ function loadIdeSync() {
 
 function loadCodexSkillsSync() {
   return requireAioxCoreModule('.aiox-core', 'infrastructure', 'scripts', 'codex-skills-sync', 'index');
+}
+
+function loadGrokSkillsSync() {
+  return requireAioxCoreModule('.aiox-core', 'infrastructure', 'scripts', 'grok-skills-sync', 'index');
 }
 
 function loadLLMRoutingInstaller() {
@@ -602,6 +607,30 @@ async function runWizard(options = {}) {
       }
     }
 
+    // Local-first Grok Build: agents, skills, roles, personas, hooks under .grok/
+    if ((answers.selectedIDEs || []).includes('grok')) {
+      console.log('\n🧠 Generating Grok Build surface...');
+      try {
+        const grokSkillsResult = generateGrokSkills(process.cwd());
+        if (grokSkillsResult.skipped) {
+          console.log(
+            `   ℹ️  Grok skills: ${grokSkillsResult.reason || 'canonical agent source not found'} (skipped)`,
+          );
+        } else {
+          console.log(
+            `✅ Grok Build: ${grokSkillsResult.agents} agents → ${grokSkillsResult.files} files in .grok/`,
+          );
+        }
+        answers.grokSkillsGenerated = grokSkillsResult.files || 0;
+        answers.grokAgentsGenerated = grokSkillsResult.agents || 0;
+        answers.grokSkillsSkipped = grokSkillsResult.skipped;
+      } catch (error) {
+        console.warn(`⚠️  Grok skills generation failed: ${error.message}`);
+        answers.grokSkillsGenerated = 0;
+        answers.grokAgentsGenerated = 0;
+      }
+    }
+
     // Story INS-4.3: Copy extra commands (Gap #12)
     console.log('\n📋 Copying extra commands...');
     try {
@@ -667,6 +696,65 @@ async function runWizard(options = {}) {
       console.warn(`⚠️  Codex skills sync failed: ${codexSkillsError.message} — run 'npm run sync:skills:codex' post-install`);
       answers.codexSkillsStatus = 'failed';
       answers.codexSkillsGenerated = 0;
+    }
+
+    // Grok Build local-first: ensure .grok/ is complete after install (when selected)
+    if ((answers.selectedIDEs || []).includes('grok')) {
+      console.log('\n🧩 Running Grok skills sync...');
+      try {
+        const { syncGrok } = loadGrokSkillsSync();
+        const grokSkillsResult = syncGrok({
+          projectRoot: targetProjectRoot,
+          sourceDir: path.join(targetProjectRoot, '.aiox-core', 'development', 'agents'),
+          grokRoot: path.join(targetProjectRoot, '.grok'),
+          dryRun: false,
+          quiet: false,
+        });
+        answers.grokSkillsStatus = 'synced';
+        answers.grokSkillsGenerated = grokSkillsResult.files;
+        answers.grokAgentsGenerated = grokSkillsResult.agents;
+        console.log(
+          `✅ Grok Build: ${grokSkillsResult.agents} agents → ${grokSkillsResult.files} files`,
+        );
+
+        // Validate generated surface before reporting install complete
+        try {
+          const {
+            validateGrok,
+          } = requireAioxCoreModule(
+            '.aiox-core',
+            'infrastructure',
+            'scripts',
+            'grok-skills-sync',
+            'validate',
+          );
+          const grokValidation = validateGrok({
+            projectRoot: targetProjectRoot,
+            grokRoot: path.join(targetProjectRoot, '.grok'),
+            strict: true,
+            quiet: true,
+          });
+          answers.grokValidationOk = grokValidation.ok;
+          if (!grokValidation.ok) {
+            const issues = [
+              ...(grokValidation.errors || []),
+              ...(grokValidation.warnings || []),
+            ];
+            throw new Error(
+              `Grok surface validation reported ${issues.length} issue(s): ${issues.join('; ')}`,
+            );
+          } else {
+            console.log('✅ Grok surface validation passed');
+          }
+        } catch (validateError) {
+          answers.grokValidationOk = false;
+          throw validateError;
+        }
+      } catch (grokSkillsError) {
+        answers.grokSkillsStatus = 'failed';
+        answers.grokSkillsGenerated = answers.grokSkillsGenerated || 0;
+        throw new Error(`Grok installation failed: ${grokSkillsError.message}`);
+      }
     }
 
     // Story INS-4.6: Entity Registry Bootstrap — populate entity-registry.yaml on install
@@ -1026,6 +1114,9 @@ async function runWizard(options = {}) {
       }
       if ((answers.selectedIDEs || []).includes('codex')) {
         expectedSkillDirs.push(path.join('.codex', 'skills'));
+      }
+      if ((answers.selectedIDEs || []).includes('grok')) {
+        expectedSkillDirs.push(path.join('.grok', 'skills'));
       }
 
       const validation = await validateInstallation(

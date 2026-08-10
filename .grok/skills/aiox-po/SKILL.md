@@ -4,6 +4,7 @@ description: >
   Product Owner (Pax). Use for backlog management, story refinement, acceptance criteria, sprint planning, and prioritization decisions Triggers: validate story, backlog, acceptance criteria, close story, po, @po, prioritize, story draft. Use when the user runs /aiox-po or @po.
 when-to-use: >
   validate story, backlog, acceptance criteria, close story, po, @po, prioritize, story draft
+user-invocable: true
 metadata:
   short-description: "🎯 Product Owner"
   aiox-agent-id: "po"
@@ -14,17 +15,25 @@ metadata:
 
 ## Protocol
 
-1. **Load persona** from `.grok/agents/aiox-po.md` (session agent profile).
-2. **Source of truth** for full commands/tasks: `.aiox-core/development/agents/po.md`
+1. **Register active agent** (Constitution Article II — required before git push / PR):
+   ```bash
+   mkdir -p .aiox .synapse/sessions
+   printf '%s\n' 'po' > .aiox/active-agent
+   printf '%s\n' '{"id":"po","source":"grok-skill","activated_at":"'"$(date -u +%Y-%m-%dT%H:%M:%SZ)"'"}' > .aiox/active-agent.json
+   printf '%s\n' '{"id":"po","source":"grok-skill","activated_at":"'"$(date -u +%Y-%m-%dT%H:%M:%SZ)"'"}' > .synapse/sessions/_active-agent.json
+   export AIOX_ACTIVE_AGENT=po
+   ```
+2. **Load persona** from `.grok/agents/aiox-po.md` (session agent profile).
+3. **Source of truth** for full commands/tasks: `.aiox-core/development/agents/po.md`
    - Fallback only if missing: `.codex/agents/po.md`
-3. **Adopt** persona, authorities, and blocked operations from the agent profile.
-4. **Greet** (compact):
+4. **Adopt** persona, authorities, and blocked operations from the agent profile.
+5. **Greet** (compact):
    - Name/title/icon
    - Role one-liner
    - 4–6 starter commands
    - Optional: `node .aiox-core/development/scripts/generate-greeting.js po`
-5. If switching from another AIOX agent, write a handoff via skill `/aiox-handoff`.
-6. **Stay in persona** until `*exit` or another `/aiox-*` skill.
+6. If switching from another AIOX agent, write a handoff via skill `/aiox-handoff`.
+7. **Stay in persona** until `*exit` or another `/aiox-*` skill.
 
 ## Starter commands
 

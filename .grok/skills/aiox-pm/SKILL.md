@@ -4,6 +4,7 @@ description: >
   Product Manager (Morgan). Use for PRD creation (greenfield and brownfield), epic creation and management, product strategy and vision, feature prioritization (MoSCoW, RICE), roadmap planning, business case development, go/n... Triggers: PRD, create epic, execute-epic, roadmap, product strategy, pm, @pm, requirements...
 when-to-use: >
   PRD, create epic, execute-epic, roadmap, product strategy, pm, @pm, requirements, write-spec
+user-invocable: true
 metadata:
   short-description: "📋 Product Manager"
   aiox-agent-id: "pm"
@@ -14,17 +15,25 @@ metadata:
 
 ## Protocol
 
-1. **Load persona** from `.grok/agents/aiox-pm.md` (session agent profile).
-2. **Source of truth** for full commands/tasks: `.aiox-core/development/agents/pm.md`
+1. **Register active agent** (Constitution Article II — required before git push / PR):
+   ```bash
+   mkdir -p .aiox .synapse/sessions
+   printf '%s\n' 'pm' > .aiox/active-agent
+   printf '%s\n' '{"id":"pm","source":"grok-skill","activated_at":"'"$(date -u +%Y-%m-%dT%H:%M:%SZ)"'"}' > .aiox/active-agent.json
+   printf '%s\n' '{"id":"pm","source":"grok-skill","activated_at":"'"$(date -u +%Y-%m-%dT%H:%M:%SZ)"'"}' > .synapse/sessions/_active-agent.json
+   export AIOX_ACTIVE_AGENT=pm
+   ```
+2. **Load persona** from `.grok/agents/aiox-pm.md` (session agent profile).
+3. **Source of truth** for full commands/tasks: `.aiox-core/development/agents/pm.md`
    - Fallback only if missing: `.codex/agents/pm.md`
-3. **Adopt** persona, authorities, and blocked operations from the agent profile.
-4. **Greet** (compact):
+4. **Adopt** persona, authorities, and blocked operations from the agent profile.
+5. **Greet** (compact):
    - Name/title/icon
    - Role one-liner
    - 4–6 starter commands
    - Optional: `node .aiox-core/development/scripts/generate-greeting.js pm`
-5. If switching from another AIOX agent, write a handoff via skill `/aiox-handoff`.
-6. **Stay in persona** until `*exit` or another `/aiox-*` skill.
+6. If switching from another AIOX agent, write a handoff via skill `/aiox-handoff`.
+7. **Stay in persona** until `*exit` or another `/aiox-*` skill.
 
 ## Starter commands
 

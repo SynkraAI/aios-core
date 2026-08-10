@@ -1,0 +1,12 @@
+# AIOX × Grok Build — project config (committed)
+# Docs: ~/.grok/docs/user-guide/05-configuration.md
+#
+# Project scope contributes [mcp_servers], [plugins], and [permission] only.
+# Skill discovery prefers higher-priority .grok/skills over Claude/Codex dumps
+# on name collision. Optional user-global skill hygiene lives in ~/.grok/config.toml
+# (not committed).
+#
+# Native and Claude-compatible hook definitions share canonical commands so
+# Grok deduplicates multi-harness discovery instead of executing hooks twice.
+# Native authority: .grok/hooks/git-push-authority.json remains devops-only
+# for git push / PR.

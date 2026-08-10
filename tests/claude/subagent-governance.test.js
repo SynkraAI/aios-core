@@ -1,11 +1,34 @@
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
 const { spawnSync } = require('child_process');
 const yaml = require('js-yaml');
 
 const repoRoot = path.resolve(__dirname, '..', '..');
 const agentsDir = path.join(repoRoot, '.claude', 'agents');
-const authorityHookPath = path.join(repoRoot, '.claude', 'hooks', 'enforce-git-push-authority.cjs');
+const claudeAuthorityHookPath = path.join(
+  repoRoot,
+  '.claude',
+  'hooks',
+  'enforce-git-push-authority.cjs',
+);
+const grokAuthorityHookPath = path.join(
+  repoRoot,
+  '.grok',
+  'hooks',
+  'enforce-git-push-authority.cjs',
+);
+const canonicalAuthorityHookPath = path.join(
+  repoRoot,
+  '.aiox-core',
+  'infrastructure',
+  'templates',
+  'grok-hooks',
+  'enforce-git-push-authority.cjs',
+);
+const authorityHookPaths = [claudeAuthorityHookPath, grokAuthorityHookPath].filter((p) =>
+  fs.existsSync(p),
+);
 const allowedColors = new Set(['red', 'blue', 'green', 'yellow', 'purple', 'orange', 'pink', 'cyan']);
 const expectedCoreNativeSubagents = [
   'aiox-analyst.md',
@@ -27,8 +50,8 @@ function readFrontmatter(filePath) {
   return yaml.load(match[1]);
 }
 
-function runAuthorityHook(command, env = {}) {
-  return spawnSync(process.execPath, [authorityHookPath], {
+function runAuthorityHook(command, env = {}, hookPath = claudeAuthorityHookPath) {
+  return spawnSync(process.execPath, [hookPath], {
     input: JSON.stringify({
       hook_event_name: 'PreToolUse',
       tool_name: 'Bash',
@@ -40,6 +63,14 @@ function runAuthorityHook(command, env = {}) {
 }
 
 describe('Claude native subagent governance', () => {
+  it('keeps Claude and Grok authority hooks equal to the canonical source', () => {
+    expect(authorityHookPaths).toHaveLength(2);
+    const canonical = fs.readFileSync(canonicalAuthorityHookPath, 'utf8');
+    for (const hookPath of authorityHookPaths) {
+      expect(fs.readFileSync(hookPath, 'utf8')).toBe(canonical);
+    }
+  });
+
   it('keeps all native subagents compliant with supported frontmatter fields', () => {
     const onDisk = fs.readdirSync(agentsDir).filter(file => file.endsWith('.md')).sort();
     // Require every core native subagent to exist (authoritative set).
@@ -81,7 +112,7 @@ describe('Claude native subagent governance', () => {
     const preToolUse = settings.hooks?.PreToolUse || [];
 
     expect(JSON.stringify(preToolUse)).toContain('enforce-git-push-authority.cjs');
-    expect(preToolUse.some(entry => entry.matcher === 'Bash')).toBe(true);
+    expect(preToolUse.some(entry => entry.matcher === 'Bash|run_terminal_command')).toBe(true);
   });
 
   it('uses shell-neutral project hook commands in committed Claude settings', () => {
@@ -92,16 +123,28 @@ describe('Claude native subagent governance', () => {
       .map(hook => hook.command);
 
     expect(commands).toEqual(expect.arrayContaining([
-      'node .claude/hooks/synapse-wrapper.cjs',
-      'node .claude/hooks/precompact-wrapper.cjs',
-      'node .claude/hooks/enforce-git-push-authority.cjs',
+      'node .aiox-core/infrastructure/templates/grok-hooks/synapse-wrapper.cjs',
+      'node .aiox-core/infrastructure/templates/grok-hooks/precompact-wrapper.cjs',
+      'node .aiox-core/infrastructure/templates/grok-hooks/enforce-git-push-authority.cjs',
     ]));
 
     for (const command of commands) {
       expect(command).not.toContain('CLAUDE_PROJECT_DIR');
       expect(command).not.toContain('${');
-      expect(command).toMatch(/^node \.claude\/hooks\/[-a-z]+\.cjs$/);
+      expect(command).toMatch(/^node \.aiox-core\/infrastructure\/templates\/grok-hooks\/[-a-z]+\.cjs$/);
     }
+  });
+
+  it('keeps native Grok and Claude-compatible hook definitions identical for runtime deduplication', () => {
+    const claudeSettings = JSON.parse(
+      fs.readFileSync(path.join(repoRoot, '.claude', 'settings.json'), 'utf8'),
+    );
+    const grokHookFiles = ['synapse-prompt.json', 'precompact.json', 'git-push-authority.json'];
+    const grokHooks = Object.assign({}, ...grokHookFiles.map(file => JSON.parse(
+      fs.readFileSync(path.join(repoRoot, '.grok', 'hooks', file), 'utf8'),
+    ).hooks));
+
+    expect(grokHooks).toEqual(claudeSettings.hooks);
   });
 
   it('blocks remote GitHub operations outside devops and allows devops-tagged commands', () => {
@@ -109,17 +152,184 @@ describe('Claude native subagent governance', () => {
       'git push origin main',
       'gh pr create --title test --body test',
       'gh pr merge 123 --admin',
+      // Global-flag bypass forms (git accepts options between `git` and subcommand)
+      'git -C /repo push origin main',
+      'git -c user.name=x push origin main',
+      'git --git-dir=/repo/work push',
+      'git --work-tree=/x -C /repo push --force',
+      // gh flags before/between subcommands
+      'gh --repo owner/repo pr create --title test',
+      'gh pr -R owner/repo merge 12',
+      // PR mutations through the REST API
+      'gh api repos/owner/repo/pulls -f title=t -f head=h -f base=main',
+      'gh api -X POST repos/owner/repo/pulls --input body.json',
+      'gh api --method PUT repos/owner/repo/pulls/1/merge',
+      "gh api graphql -f query='mutation { createPullRequest(input: {}) { pullRequest { id } } }'",
+      "gh --repo owner/repo api graphql -f query='mutation { mergePullRequest(input: {}) { pullRequest { merged } } }'",
     ];
 
-    for (const command of blockedCommands) {
-      const result = runAuthorityHook(command, { AIOX_ACTIVE_AGENT: 'dev' });
-      expect(result.status).toBe(0);
-      const decision = JSON.parse(result.stdout);
+    for (const hookPath of authorityHookPaths) {
+      for (const command of blockedCommands) {
+        const result = runAuthorityHook(command, { AIOX_ACTIVE_AGENT: 'dev' }, hookPath);
+        // Deny paths emit a decision payload and exit 2 for fail-closed hosts.
+        expect(result.status).toBe(2);
+        const decision = JSON.parse(result.stdout);
+        expect(decision.hookSpecificOutput.permissionDecision).toBe('deny');
+        // Dual payload for Grok Build PreToolUse
+        expect(decision.decision).toBe('deny');
+        expect(decision.reason).toMatch(/@devops/);
+      }
+
+      const allowed = runAuthorityHook('git push origin main', { AIOX_ACTIVE_AGENT: 'devops' }, hookPath);
+      expect(allowed.status).toBe(0);
+      expect(allowed.stdout).toBe('');
+    }
+  });
+
+  it('keeps non-publication commands allowed for non-devops agents', () => {
+    const allowedCommands = [
+      'git commit -m "push later"',
+      'git checkout push-fix',
+      'git log --oneline -10',
+      'gh pr list --search merge',
+      'gh pr view 123',
+      // Read-only API access to pull endpoints stays allowed
+      'gh api repos/owner/repo/pulls',
+      'gh api repos/owner/repo/pulls --paginate',
+      "gh api graphql -f query='{ repository(owner: \"o\", name: \"r\") { pullRequests(first: 1) { totalCount } } }'",
+      'gh issue create --title test',
+    ];
+
+    for (const hookPath of authorityHookPaths) {
+      for (const command of allowedCommands) {
+        const result = runAuthorityHook(command, { AIOX_ACTIVE_AGENT: 'dev' }, hookPath);
+        expect(result.status).toBe(0);
+        expect(result.stdout).toBe('');
+      }
+    }
+  });
+
+  it('fails closed on empty stdin and malformed JSON', () => {
+    for (const hookPath of authorityHookPaths) {
+      const emptyStdin = spawnSync(process.execPath, [hookPath], {
+        input: '',
+        encoding: 'utf8',
+        env: { ...process.env, AIOX_ACTIVE_AGENT: 'dev' },
+      });
+      expect(emptyStdin.status).toBe(2);
+      const emptyDecision = JSON.parse(emptyStdin.stdout);
+      expect(emptyDecision.decision).toBe('deny');
+      expect(emptyDecision.hookSpecificOutput.permissionDecision).toBe('deny');
+
+      const malformed = spawnSync(process.execPath, [hookPath], {
+        input: '{not json',
+        encoding: 'utf8',
+        env: { ...process.env, AIOX_ACTIVE_AGENT: 'dev' },
+      });
+      expect(malformed.status).toBe(2);
+      const decision = JSON.parse(malformed.stdout);
+      expect(decision.decision).toBe('deny');
       expect(decision.hookSpecificOutput.permissionDecision).toBe('deny');
     }
+  });
 
-    const allowed = runAuthorityHook('git push origin main', { AIOX_ACTIVE_AGENT: 'devops' });
-    expect(allowed.status).toBe(0);
-    expect(allowed.stdout).toBe('');
+  it('blocks remote ops on Grok-native toolInput payloads (camelCase) for both hooks', () => {
+    expect(authorityHookPaths.length).toBeGreaterThanOrEqual(2);
+
+    for (const hookPath of authorityHookPaths) {
+      const result = spawnSync(process.execPath, [hookPath], {
+        input: JSON.stringify({
+          hookEventName: 'pre_tool_use',
+          toolName: 'run_terminal_command',
+          toolInput: { command: 'git push origin main' },
+          cwd: os.tmpdir(),
+          workspaceRoot: os.tmpdir(),
+        }),
+        encoding: 'utf8',
+        env: { ...process.env, AIOX_ACTIVE_AGENT: 'dev' },
+      });
+
+      expect(result.status).toBe(2);
+      const decision = JSON.parse(result.stdout);
+      expect(decision.decision).toBe('deny');
+      expect(decision.hookSpecificOutput.permissionDecision).toBe('deny');
+    }
+  });
+
+  it('allows remote ops when Grok active-agent bridge identifies devops (both hooks)', () => {
+    expect(authorityHookPaths.length).toBeGreaterThanOrEqual(2);
+
+    for (const hookPath of authorityHookPaths) {
+      const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'aiox-gov-bridge-'));
+      fs.mkdirSync(path.join(tmp, '.aiox'), { recursive: true });
+      fs.writeFileSync(path.join(tmp, '.aiox', 'active-agent'), 'devops\n');
+
+      const env = { ...process.env };
+      for (const key of [
+        'AIOX_ACTIVE_AGENT',
+        'AIOX_AGENT',
+        'ACTIVE_AGENT',
+        'CLAUDE_AGENT_NAME',
+        'CLAUDE_CODE_AGENT',
+        'AIOX_CURRENT_AGENT',
+        'GROK_ACTIVE_AGENT',
+      ]) {
+        delete env[key];
+      }
+
+      const result = spawnSync(process.execPath, [hookPath], {
+        input: JSON.stringify({
+          toolInput: { command: 'git push origin main' },
+          cwd: tmp,
+          workspaceRoot: tmp,
+        }),
+        encoding: 'utf8',
+        env,
+      });
+
+      expect(result.status).toBe(0);
+      expect(result.stdout).toBe('');
+      fs.rmSync(tmp, { recursive: true, force: true });
+    }
+  });
+
+  it.each([
+    ['stale (older than TTL)', -9 * 60 * 60 * 1000],
+    ['future-dated (clock skew / restored file)', 60 * 60 * 1000],
+  ])('rejects %s active-agent bridges', (_label, offsetMs) => {
+    const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'aiox-gov-stale-'));
+    fs.mkdirSync(path.join(tmp, '.aiox'), { recursive: true });
+    const bridgePath = path.join(tmp, '.aiox', 'active-agent');
+    fs.writeFileSync(bridgePath, 'devops\n');
+    const staleSeconds = (Date.now() + offsetMs) / 1000;
+    fs.utimesSync(bridgePath, staleSeconds, staleSeconds);
+
+    const env = { ...process.env };
+    for (const key of [
+      'AIOX_ACTIVE_AGENT',
+      'AIOX_AGENT',
+      'ACTIVE_AGENT',
+      'CLAUDE_AGENT_NAME',
+      'CLAUDE_CODE_AGENT',
+      'AIOX_CURRENT_AGENT',
+      'GROK_ACTIVE_AGENT',
+    ]) {
+      delete env[key];
+    }
+
+    const result = spawnSync(process.execPath, [claudeAuthorityHookPath], {
+      input: JSON.stringify({
+        toolInput: { command: 'git push origin main' },
+        cwd: tmp,
+        workspaceRoot: tmp,
+      }),
+      encoding: 'utf8',
+      env,
+    });
+
+    expect(result.status).toBe(2);
+    const decision = JSON.parse(result.stdout);
+    expect(decision.decision).toBe('deny');
+    fs.rmSync(tmp, { recursive: true, force: true });
   });
 });

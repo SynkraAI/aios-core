@@ -395,12 +395,17 @@ jobs:
       - name: Validate IDE sync
         run: npm run sync:ide:check
 
+      - name: Validate Grok projection
+        run: npm run validate:skills:grok
+
       - name: Report on failure
         if: failure()
         run: |
-          echo "::error::IDE command files out of sync"
-          echo "Run 'npm run sync:ide' locally and commit"
-          npm run sync:ide:validate
+          echo "::error::IDE command sync or Grok projection validation failed"
+          echo "IDE remediation: npm run sync:ide && npm run sync:ide:check"
+          echo "Grok remediation: npm run sync:skills:grok && npm run validate:skills:grok"
+          npm run sync:ide:validate || true
+          npm run validate:skills:grok || true
 
   compatibility-parity-gate:
     name: Compatibility Parity Gate

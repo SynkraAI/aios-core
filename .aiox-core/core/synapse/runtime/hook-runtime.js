@@ -59,12 +59,21 @@ function resolveHookRuntime(input) {
   if (!fs.existsSync(synapsePath)) return null;
 
   try {
-    const { loadSession, createSession, cleanStaleSessions } = require(
+    // Prefer the project's .aiox-core copy (canonical layout). When it is
+    // absent (node_modules-only installation), fall back to the siblings of
+    // whichever hook-runtime copy was loaded — same distribution, so the
+    // hook still resolves instead of silently emitting no context.
+    const runtimeBase = path.resolve(__dirname, '..');
+    const firstExisting = (candidates) =>
+      candidates.find((candidate) => fs.existsSync(candidate)) || candidates[candidates.length - 1];
+    const { loadSession, createSession, cleanStaleSessions } = require(firstExisting([
       path.join(cwd, '.aiox-core', 'core', 'synapse', 'session', 'session-manager.js'),
-    );
-    const { SynapseEngine } = require(
+      path.join(runtimeBase, 'session', 'session-manager.js'),
+    ]));
+    const { SynapseEngine } = require(firstExisting([
       path.join(cwd, '.aiox-core', 'core', 'synapse', 'engine.js'),
-    );
+      path.join(runtimeBase, 'engine.js'),
+    ]));
 
     const sessionsDir = path.join(synapsePath, 'sessions');
 

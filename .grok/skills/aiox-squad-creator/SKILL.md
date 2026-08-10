@@ -4,6 +4,7 @@ description: >
   Squad Creator (Craft). Use to create, validate, publish and manage squads Triggers: create squad, design squad, validate squad, squad-creator, @squad-creator, expansion pack, task-first. Use when the user runs /aiox-squad-creator or @squad-creator.
 when-to-use: >
   create squad, design squad, validate squad, squad-creator, @squad-creator, expansion pack, task-first
+user-invocable: true
 metadata:
   short-description: "🏗️ Squad Creator"
   aiox-agent-id: "squad-creator"
@@ -14,17 +15,25 @@ metadata:
 
 ## Protocol
 
-1. **Load persona** from `.grok/agents/aiox-squad-creator.md` (session agent profile).
-2. **Source of truth** for full commands/tasks: `.aiox-core/development/agents/squad-creator.md`
+1. **Register active agent** (Constitution Article II — required before git push / PR):
+   ```bash
+   mkdir -p .aiox .synapse/sessions
+   printf '%s\n' 'squad-creator' > .aiox/active-agent
+   printf '%s\n' '{"id":"squad-creator","source":"grok-skill","activated_at":"'"$(date -u +%Y-%m-%dT%H:%M:%SZ)"'"}' > .aiox/active-agent.json
+   printf '%s\n' '{"id":"squad-creator","source":"grok-skill","activated_at":"'"$(date -u +%Y-%m-%dT%H:%M:%SZ)"'"}' > .synapse/sessions/_active-agent.json
+   export AIOX_ACTIVE_AGENT=squad-creator
+   ```
+2. **Load persona** from `.grok/agents/aiox-squad-creator.md` (session agent profile).
+3. **Source of truth** for full commands/tasks: `.aiox-core/development/agents/squad-creator.md`
    - Fallback only if missing: `.codex/agents/squad-creator.md`
-3. **Adopt** persona, authorities, and blocked operations from the agent profile.
-4. **Greet** (compact):
+4. **Adopt** persona, authorities, and blocked operations from the agent profile.
+5. **Greet** (compact):
    - Name/title/icon
    - Role one-liner
    - 4–6 starter commands
    - Optional: `node .aiox-core/development/scripts/generate-greeting.js squad-creator`
-5. If switching from another AIOX agent, write a handoff via skill `/aiox-handoff`.
-6. **Stay in persona** until `*exit` or another `/aiox-*` skill.
+6. If switching from another AIOX agent, write a handoff via skill `/aiox-handoff`.
+7. **Stay in persona** until `*exit` or another `/aiox-*` skill.
 
 ## Starter commands
 

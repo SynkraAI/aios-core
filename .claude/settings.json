@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node .claude/hooks/synapse-wrapper.cjs",
+            "command": "node .aiox-core/infrastructure/templates/grok-hooks/synapse-wrapper.cjs",
             "timeout": 10
           }
         ]
@@ -16,7 +16,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node .claude/hooks/precompact-wrapper.cjs",
+            "command": "node .aiox-core/infrastructure/templates/grok-hooks/precompact-wrapper.cjs",
             "timeout": 10
           }
         ]
@@ -24,11 +24,11 @@
     ],
     "PreToolUse": [
       {
-        "matcher": "Bash",
+        "matcher": "Bash|run_terminal_command",
         "hooks": [
           {
             "type": "command",
-            "command": "node .claude/hooks/enforce-git-push-authority.cjs",
+            "command": "node .aiox-core/infrastructure/templates/grok-hooks/enforce-git-push-authority.cjs",
             "timeout": 10
           }
         ]

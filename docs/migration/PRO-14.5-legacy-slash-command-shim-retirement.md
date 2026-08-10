@@ -18,7 +18,7 @@ This document defines the retirement gate for legacy AIOS-era slash-command shim
 | `.codex/skills/` | generated projection | Observed 13 `aiox-*` skill dirs and 0 `aios-*` dirs in this worktree. | Canonical projection. Regenerate with `npm run sync:skills:codex`. |
 | `.claude/commands/AIOX/agents/*.md` | legacy slash-command shims | 12 command files contain `ACORE-CLAUDE-AGENT-COMMAND: legacy-shim` and redirect to `.claude/skills/AIOX/agents/*/SKILL.md`. | Keep until usage cutoff or telemetry evidence approves removal. |
 | `.claude/skills/AIOX/agents/*/SKILL.md` | canonical Claude skill payloads | 12 skill dirs observed. | Canonical Claude activation payloads. |
-| `.claude/skills/AIOX/agents/aiox-master/SKILL.md` | canonical payload with current double-prefix frontmatter | Current generated frontmatter contains `name: aiox-aiox-master`. | Classify as existing contract; do not change without a separate focused compatibility story. |
+| `.claude/skills/AIOX/agents/aiox-master/SKILL.md` | canonical payload with normalized frontmatter | Generated frontmatter now contains `name: aiox-master` (double-prefix `aiox-aiox-master` retired by the Grok compatibility work). | Current contract is `aiox-master`; the legacy double-prefix name is no longer emitted. |
 | `.aiox-core/infrastructure/scripts/ide-sync/transformers/kimi.js` | canonical Kimi generator + legacy id normalizer | `aios-*` preferred aliases normalize to `aiox-*`; tests cover this. | Keep. |
 | `.kimi/skills/` | generated projection | Observed 12 `aiox-*` skill dirs and 0 `aios-*` dirs. | Canonical projection. |
 | `.aiox-core/infrastructure/scripts/ide-sync/gemini-commands.js` | canonical Gemini command generator | Generates `aiox-{slug}.toml` and `aiox-menu.toml`. | Keep. |

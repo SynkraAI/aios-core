@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .aiox-core/infrastructure/templates/grok-hooks/precompact-wrapper.cjs",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

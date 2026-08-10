@@ -1,0 +1,461 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "aiox-grok-skills-sync",
+  "files": [
+    {
+      "path": "README.md",
+      "mode": "full",
+      "sha256": "865da2a873606afec34057e159414c817a06210cac4d3eeb6e6aed88e203c523"
+    },
+    {
+      "path": "agents/aiox-analyst.md",
+      "mode": "full",
+      "sha256": "4fde46b4bc017f0f811547cc04ba724373b86783a94daa388c6cfd90a1a394a7"
+    },
+    {
+      "path": "agents/aiox-architect.md",
+      "mode": "full",
+      "sha256": "f7b253da1050e684552d3f30d231781e96f7a54580b490195101b778261426e9"
+    },
+    {
+      "path": "agents/aiox-data-engineer.md",
+      "mode": "full",
+      "sha256": "962606bd8a9109bd99af12114b07f3b77178294202c875efd6750c396c657a8b"
+    },
+    {
+      "path": "agents/aiox-dev.md",
+      "mode": "full",
+      "sha256": "e87758dfe9d7e2e0713dcba6f3912bf87c810e4af7ccaa6bedce5cc8226dee94"
+    },
+    {
+      "path": "agents/aiox-devops.md",
+      "mode": "full",
+      "sha256": "75aa5bd78805b4c817594eb989e1fe611af7bc1e4fe040d098f5beab9f48478e"
+    },
+    {
+      "path": "agents/aiox-master.md",
+      "mode": "full",
+      "sha256": "358701666de809043637b6c84561e4aed4b12544b5fc5e94f3fd992e5dd7f834"
+    },
+    {
+      "path": "agents/aiox-pm.md",
+      "mode": "full",
+      "sha256": "909177fdd05f6798dc124198a5710292b3cfd99a807daaeb75442bb113502467"
+    },
+    {
+      "path": "agents/aiox-po.md",
+      "mode": "full",
+      "sha256": "d09ff6debac3e53846fd2a35a136116b94575e671e5b679026b86c53093ea0ad"
+    },
+    {
+      "path": "agents/aiox-qa.md",
+      "mode": "full",
+      "sha256": "b2f9fd66638620e8a8f937f1611e56a6469d92b12748ad0e154ff20804078489"
+    },
+    {
+      "path": "agents/aiox-sm.md",
+      "mode": "full",
+      "sha256": "c8186c0b27741588e4cad3a9a039ef9217a778eb40fc94ef74f1f12c6298dffe"
+    },
+    {
+      "path": "agents/aiox-squad-creator.md",
+      "mode": "full",
+      "sha256": "43c0792a584bb6c572c74b8dd8a33eff04d287cbd1d0bfa9760df29ed4942d8f"
+    },
+    {
+      "path": "agents/aiox-ux-design-expert.md",
+      "mode": "full",
+      "sha256": "4e435c048dc0bbadcd47b285de5cf45fe6109cb1848db07d65476d332b93d1b3"
+    },
+    {
+      "path": "agents/aiox-ux.md",
+      "mode": "full",
+      "sha256": "92c63bb6266323ca96ebba88493cb2883369f7b8ad78bd295c618b5066b3d088"
+    },
+    {
+      "path": "agents/analyst.md",
+      "mode": "full",
+      "sha256": "619adbdc94788ad4f0203d5e3337e6486d4abad5afd51909ccf3ae119355f058"
+    },
+    {
+      "path": "agents/architect.md",
+      "mode": "full",
+      "sha256": "aecd64df0916b0abe24cfd5e861124195e76f4fcf6ff2e2be0ea6eb407255cdf"
+    },
+    {
+      "path": "agents/data-engineer.md",
+      "mode": "full",
+      "sha256": "2e90386a42ae8579eca7f942e4d037f5da33437143a3b0e58eab456d0f1e7599"
+    },
+    {
+      "path": "agents/dev.md",
+      "mode": "full",
+      "sha256": "53f049882fd622a8f094b2948f8b906eaf03fd4c49b6b9e816ba2b2bf1e1bf38"
+    },
+    {
+      "path": "agents/devops.md",
+      "mode": "full",
+      "sha256": "b6bb645ccc333a6993a31a38d58725def2725da4cbb1782a841f9b3be8cca313"
+    },
+    {
+      "path": "agents/master.md",
+      "mode": "full",
+      "sha256": "c20b65c9e7ebd582797ebbb687118821e98622818b1bd0f6c2be2985cdeea466"
+    },
+    {
+      "path": "agents/pm.md",
+      "mode": "full",
+      "sha256": "47790a4fa921392b7e5ef9836bb476fd56baa467ee8d22f8b0dc554262af4032"
+    },
+    {
+      "path": "agents/po.md",
+      "mode": "full",
+      "sha256": "01dfdd14b26db4adf9465be8a9489967d34da12a73b3cdfbb41d1adf7a8b94ef"
+    },
+    {
+      "path": "agents/qa.md",
+      "mode": "full",
+      "sha256": "5bc7f601cffc3404836d72ab9a3083c58258ab078efa8c24c9d2375f879999cc"
+    },
+    {
+      "path": "agents/sm.md",
+      "mode": "full",
+      "sha256": "cdd0782fa963a8d1189ab38d7d8484ee3ac15126a92f06aa027d59831cd2a973"
+    },
+    {
+      "path": "agents/squad-creator.md",
+      "mode": "full",
+      "sha256": "967593e8ed62798b653089d7b063f5c2d66748af5a3d39b8c4b67bacb54e31f8"
+    },
+    {
+      "path": "agents/ux-design-expert.md",
+      "mode": "full",
+      "sha256": "8351cb4aab8339a9a220f9bbd2e0c5036f1f9938204f5f61c9b65633066c8931"
+    },
+    {
+      "path": "config.toml",
+      "mode": "full",
+      "sha256": "147f944dd539e7fd8267be146dd0d48e689ff67df38038500e7a915f87d0376b"
+    },
+    {
+      "path": "hooks/enforce-git-push-authority.cjs",
+      "mode": "full",
+      "sha256": "beb11262929466209d6a1b37f193ca0c521de258468e1382744beed1bd378f8c"
+    },
+    {
+      "path": "hooks/git-push-authority.json",
+      "mode": "full",
+      "sha256": "fbfead91b226cd98553c87cbfecbec9c5539e67ed8b26a1cbee45873236972d1"
+    },
+    {
+      "path": "hooks/precompact-session-digest.cjs",
+      "mode": "full",
+      "sha256": "e35151e544804436a40040bdc97184347b94883b2537354d15bb1eb7dc3b81bc"
+    },
+    {
+      "path": "hooks/precompact-wrapper.cjs",
+      "mode": "full",
+      "sha256": "4afa0eb6185874dd5467c85866266a27445fbe5fcd5977b52e407fc4c7c8875a"
+    },
+    {
+      "path": "hooks/precompact.json",
+      "mode": "full",
+      "sha256": "2b8a1a654cf7b4dae30982be3654169fb5edda5da04e0267dbf5746501995c1c"
+    },
+    {
+      "path": "hooks/synapse-engine.cjs",
+      "mode": "full",
+      "sha256": "873e07b69dde7fd09b6a4f3f16e0c70325c3f259ce47276f877a150bb64a88b4"
+    },
+    {
+      "path": "hooks/synapse-prompt.json",
+      "mode": "full",
+      "sha256": "2cce1157e456b441da1d6341d17f0952a37f54cab5f6d305dac0ba183b74d9e1"
+    },
+    {
+      "path": "hooks/synapse-wrapper.cjs",
+      "mode": "full",
+      "sha256": "7ed83025a47f20f4e3e9adf2de1a3bbcf65045341a0ea1d0037e98f82eb31918"
+    },
+    {
+      "path": "personas/aiox-analyst.toml",
+      "mode": "full",
+      "sha256": "e0a47fcab13c48303e0f99b803dacf2b3c8d51e43f023acbe8d3f7ad628e3bfc"
+    },
+    {
+      "path": "personas/aiox-architect.toml",
+      "mode": "full",
+      "sha256": "3ddfed662df630a609102987c86ebfa78c53d722f2d2c4aff2725011d36c0471"
+    },
+    {
+      "path": "personas/aiox-data-engineer.toml",
+      "mode": "full",
+      "sha256": "cd182311fb04d249e64e0fbd8aeba9cd2c3ece4e23ab6af0dba7b1faa0d6c67a"
+    },
+    {
+      "path": "personas/aiox-dev.toml",
+      "mode": "full",
+      "sha256": "3d431436a3b727e0e73247db48572a05b5719e49e74a4902a9c6f3457db0574a"
+    },
+    {
+      "path": "personas/aiox-devops.toml",
+      "mode": "full",
+      "sha256": "2b99fa41427e4f47f8de841f649900e1474f280d7fc28556ab4fefbd5774e3e1"
+    },
+    {
+      "path": "personas/aiox-master.toml",
+      "mode": "full",
+      "sha256": "264a00e76b2ab8cef125d9d2bd6041b89cb5489d2c02d03acac75cb64dd1d7f8"
+    },
+    {
+      "path": "personas/aiox-pm.toml",
+      "mode": "full",
+      "sha256": "30573602a5905b3ae0383a4da90ffaf64c42af73d13dcee7b409b45bb31a88fc"
+    },
+    {
+      "path": "personas/aiox-po.toml",
+      "mode": "full",
+      "sha256": "f133b810a1fe9e6f42b743782e5cd7c8e0f74dfd556cc998e5ac9c30dd9d6ad4"
+    },
+    {
+      "path": "personas/aiox-qa.toml",
+      "mode": "full",
+      "sha256": "035c52a8765b4a00524eabdfa9d0e5eae8d9fa8ff67959d8bb1ec48f9051528d"
+    },
+    {
+      "path": "personas/aiox-sm.toml",
+      "mode": "full",
+      "sha256": "500b42fefe8f5df9deba861495b6e0abe086fa1ec9d2edd0efe361bcadffa508"
+    },
+    {
+      "path": "personas/aiox-squad-creator.toml",
+      "mode": "full",
+      "sha256": "cf5be3e91e1af0f5102c7752b0dbfa231197d45f2d0551aabedd112358f72bb1"
+    },
+    {
+      "path": "personas/aiox-ux-design-expert.toml",
+      "mode": "full",
+      "sha256": "35802ac704e25fa549c996b9c5b8fc888906584741aaf81298b9c102e931b9ea"
+    },
+    {
+      "path": "roles/aiox-analyst.toml",
+      "mode": "full",
+      "sha256": "a0e553ff9988b242cf4e29296d1e7f855a4a2dd23db28663dd150bea6642dc93"
+    },
+    {
+      "path": "roles/aiox-architect.toml",
+      "mode": "full",
+      "sha256": "bd62aa16abae5a0e8e1bf263f92af2327f6c2eb3be237b5790928c24c43a73cd"
+    },
+    {
+      "path": "roles/aiox-data-engineer.toml",
+      "mode": "full",
+      "sha256": "ce2c30776a4134844be884400a20798d640cfb1c45a31b33ff6624d86de3be0f"
+    },
+    {
+      "path": "roles/aiox-dev.toml",
+      "mode": "full",
+      "sha256": "0071cfd5daf4818d1b28d3bd818a48e16dab1342f8207151fc83f6e893747a80"
+    },
+    {
+      "path": "roles/aiox-devops.toml",
+      "mode": "full",
+      "sha256": "8a10b91c8b65fe0eeaad8cf2301d8fd64934cc24d8b04a873186a3396b17d1b9"
+    },
+    {
+      "path": "roles/aiox-master.toml",
+      "mode": "full",
+      "sha256": "5403182dd74f46abaf44a778cc0513733879d2e2fbb20d486d395e841e0db17b"
+    },
+    {
+      "path": "roles/aiox-pm.toml",
+      "mode": "full",
+      "sha256": "114f7e2b19edb021424ccbf6c7ecad1ed38adbc945ccebc0ba7e5d9ea6052597"
+    },
+    {
+      "path": "roles/aiox-po.toml",
+      "mode": "full",
+      "sha256": "f352a3efb9f75d98721fb1a68409600962fae8838f4ac4b1c6b37eef57a5b36e"
+    },
+    {
+      "path": "roles/aiox-qa.toml",
+      "mode": "full",
+      "sha256": "c2fcd8573980a33448e1da88748bc886ad3a4b8739b2988f7b879ccbe5a62719"
+    },
+    {
+      "path": "roles/aiox-sm.toml",
+      "mode": "full",
+      "sha256": "322658359568cf108a117184ce02e67200b9082b3c0a961de7d10a22ddaba172"
+    },
+    {
+      "path": "roles/aiox-squad-creator.toml",
+      "mode": "full",
+      "sha256": "990b5ee1a08116a55ff4584e3ef825751eba0c585b67763eabdc3aff78ee0d90"
+    },
+    {
+      "path": "roles/aiox-ux-design-expert.toml",
+      "mode": "full",
+      "sha256": "f86f10f3d65f7c2a34768f4890aabe63fb9dc11eff2d498a3c8fd18baf93b238"
+    },
+    {
+      "path": "rules/aiox-core.md",
+      "mode": "managed-sections",
+      "sha256": "272dcf03cd144ec8248eeb27df66818d873e27a38d049f1ad8fcd822c976a7dd"
+    },
+    {
+      "path": "skills/aiox-analyst/SKILL.md",
+      "mode": "full",
+      "sha256": "d9a08fede2968b31a14d63e9e81dd5db78520e3de4f9d5b6452d175ed5732435"
+    },
+    {
+      "path": "skills/aiox-apply-qa-fixes/SKILL.md",
+      "mode": "full",
+      "sha256": "54d45a27f3ec715559ce7690abcaaa81ec270cfd6cdf8b4900f7cb07598d8a71"
+    },
+    {
+      "path": "skills/aiox-architect/SKILL.md",
+      "mode": "full",
+      "sha256": "e7dd7f43f11434954b1f26631d039875618c4b3cb3f8d06a465cc416528ad1bb"
+    },
+    {
+      "path": "skills/aiox-close-story/SKILL.md",
+      "mode": "full",
+      "sha256": "a2cd1fb2dd044eb8d1d4deb52e1f64c05cc6aa39aea1de61dff70a998f55c16e"
+    },
+    {
+      "path": "skills/aiox-commit/SKILL.md",
+      "mode": "full",
+      "sha256": "0ba83f96758a9d465241dafcec8c45e6884469f8dcde91af1ee880361f8295ae"
+    },
+    {
+      "path": "skills/aiox-data-engineer/SKILL.md",
+      "mode": "full",
+      "sha256": "8731f112859a13821fea7a98d0787d4da6a20e1d39875b5db105195fa1a8a66a"
+    },
+    {
+      "path": "skills/aiox-dev/SKILL.md",
+      "mode": "full",
+      "sha256": "478f9cf004d1e37d55cad0063a8b49d24e2ea2322e03ebf23039ff8bb1ba2b8a"
+    },
+    {
+      "path": "skills/aiox-develop-story/SKILL.md",
+      "mode": "full",
+      "sha256": "c6c74c7084bf1be67bf92dfecc0d6f6b68ee010bb6d3969d0ea1cfe71dbb85a0"
+    },
+    {
+      "path": "skills/aiox-devops/SKILL.md",
+      "mode": "full",
+      "sha256": "ca7a675d0d891d10cae8701de85c357c357046d6cd0471309bf4ca65e2401372"
+    },
+    {
+      "path": "skills/aiox-full-sdc/SKILL.md",
+      "mode": "full",
+      "sha256": "95dbf5d9be0f8b29235ee22e2e0cb82bd356740468c90ee79e0d22a855c6a029"
+    },
+    {
+      "path": "skills/aiox-handoff/SKILL.md",
+      "mode": "full",
+      "sha256": "2cd5726cec7561c84b8c4267fb2296abafa62bb645f22c0c96b4b5b3fbede4ca"
+    },
+    {
+      "path": "skills/aiox-master/SKILL.md",
+      "mode": "full",
+      "sha256": "f58c38d326ad3e123d24550ed57831073ced3c765f6367c63951b9cb99a8a364"
+    },
+    {
+      "path": "skills/aiox-pm/SKILL.md",
+      "mode": "full",
+      "sha256": "83a82546e1eddc558bcdbf342709159a8f06ceff9ed64cfb88b53a3eb01d77af"
+    },
+    {
+      "path": "skills/aiox-po/SKILL.md",
+      "mode": "full",
+      "sha256": "8599b440339e3fece645a44545f72d1fc69cd265cf7f4dcf898c01a6d2685f13"
+    },
+    {
+      "path": "skills/aiox-qa/SKILL.md",
+      "mode": "full",
+      "sha256": "02a7d1b9c4230d29831928ebc75181708a1e1adc09884a72d1a3468615c00d32"
+    },
+    {
+      "path": "skills/aiox-quality-gates/SKILL.md",
+      "mode": "full",
+      "sha256": "e6191a64ee3dbdfd58a51fe7720f0801fcf6b573f9c5cc9d964af987e93b2ba9"
+    },
+    {
+      "path": "skills/aiox-review-story/SKILL.md",
+      "mode": "full",
+      "sha256": "07fd202ae93629eb20e4e69799bf9a7055fc83316bbed31e006db1258e83e8ea"
+    },
+    {
+      "path": "skills/aiox-sdc/SKILL.md",
+      "mode": "full",
+      "sha256": "1b165906467e9add7ebcc7ddaf6cd6eb47b1f2cdd22bd897ccef3aee4db3f50e"
+    },
+    {
+      "path": "skills/aiox-sm/SKILL.md",
+      "mode": "full",
+      "sha256": "8590f1de5758a76e1a5871cc43f607e9184461c585497cc471a39e123d84328f"
+    },
+    {
+      "path": "skills/aiox-squad-creator/SKILL.md",
+      "mode": "full",
+      "sha256": "c05e9c96909c2e4852b7d80a65f8a8222f31b335cb9c9929beecb4ef90135076"
+    },
+    {
+      "path": "skills/aiox-ux-design-expert/SKILL.md",
+      "mode": "full",
+      "sha256": "c9decf45e0ba614ed7bb4a3f90f4a628256e5c60aeae67c9d79fed527227a81a"
+    },
+    {
+      "path": "skills/aiox-validate-story-draft/SKILL.md",
+      "mode": "full",
+      "sha256": "9aa701bbfd7411764d1f5d60a12d56eeaead5fccfa11ec9fa766b625ff17b689"
+    },
+    {
+      "path": "skills/aiox-wave-execute/SKILL.md",
+      "mode": "full",
+      "sha256": "7bf985459a52111980ec23d3259734b60d1bd31af3510d2a6f047dc556e496ff"
+    },
+    {
+      "path": "skills/apply-qa-fixes/SKILL.md",
+      "mode": "full",
+      "sha256": "ec8d7e76f9176bc5a35d8b4ff2ea2123f9a58b8eabbf6f94de95a4da62b968ca"
+    },
+    {
+      "path": "skills/close-story/SKILL.md",
+      "mode": "full",
+      "sha256": "422f539e6c05d5576219c97f846cd76d6e76fb47ebb9d5961fcb4123077db322"
+    },
+    {
+      "path": "skills/commit/SKILL.md",
+      "mode": "full",
+      "sha256": "18b9d5137d50d685488b966f60b698253ef493d8a6eed96e6df6abc66834b00a"
+    },
+    {
+      "path": "skills/develop-story/SKILL.md",
+      "mode": "full",
+      "sha256": "cb8176a9aff565f07e01f1e3ceb67a3c1f991ab055548479160b8820a57a8333"
+    },
+    {
+      "path": "skills/full-sdc/SKILL.md",
+      "mode": "full",
+      "sha256": "36aec1702a6d8ed55c488f134e43235b672c6f83db8009949664898d060de4db"
+    },
+    {
+      "path": "skills/review-story/SKILL.md",
+      "mode": "full",
+      "sha256": "d430ad90eeca407c739b8f451951ba733726ee132c3cbf7343521a332fe68305"
+    },
+    {
+      "path": "skills/validate-story-draft/SKILL.md",
+      "mode": "full",
+      "sha256": "37ae23f58032be6469ec4bc0965da5b8208c4b4f8302d3a85ea823d95cd71c53"
+    },
+    {
+      "path": "skills/wave-execute/SKILL.md",
+      "mode": "full",
+      "sha256": "eac1414375b7114140f6ef2abc4951adac54e5a8c89834f2fcf32edc4be6c4db"
+    }
+  ]
+}

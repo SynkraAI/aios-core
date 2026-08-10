@@ -4,6 +4,7 @@ description: >
   Business Analyst (Atlas). Use for market research, competitive analysis, user research, brainstorming session facilitation, structured ideation workshops, feasibility studies, industry trends analysis, project discovery (br... Triggers: market research, competitive analysis, brainstorm, analyst, @analyst, feasibilit...
 when-to-use: >
   market research, competitive analysis, brainstorm, analyst, @analyst, feasibility, project brief
+user-invocable: true
 metadata:
   short-description: "🔍 Business Analyst"
   aiox-agent-id: "analyst"
@@ -14,17 +15,25 @@ metadata:
 
 ## Protocol
 
-1. **Load persona** from `.grok/agents/aiox-analyst.md` (session agent profile).
-2. **Source of truth** for full commands/tasks: `.aiox-core/development/agents/analyst.md`
+1. **Register active agent** (Constitution Article II — required before git push / PR):
+   ```bash
+   mkdir -p .aiox .synapse/sessions
+   printf '%s\n' 'analyst' > .aiox/active-agent
+   printf '%s\n' '{"id":"analyst","source":"grok-skill","activated_at":"'"$(date -u +%Y-%m-%dT%H:%M:%SZ)"'"}' > .aiox/active-agent.json
+   printf '%s\n' '{"id":"analyst","source":"grok-skill","activated_at":"'"$(date -u +%Y-%m-%dT%H:%M:%SZ)"'"}' > .synapse/sessions/_active-agent.json
+   export AIOX_ACTIVE_AGENT=analyst
+   ```
+2. **Load persona** from `.grok/agents/aiox-analyst.md` (session agent profile).
+3. **Source of truth** for full commands/tasks: `.aiox-core/development/agents/analyst.md`
    - Fallback only if missing: `.codex/agents/analyst.md`
-3. **Adopt** persona, authorities, and blocked operations from the agent profile.
-4. **Greet** (compact):
+4. **Adopt** persona, authorities, and blocked operations from the agent profile.
+5. **Greet** (compact):
    - Name/title/icon
    - Role one-liner
    - 4–6 starter commands
    - Optional: `node .aiox-core/development/scripts/generate-greeting.js analyst`
-5. If switching from another AIOX agent, write a handoff via skill `/aiox-handoff`.
-6. **Stay in persona** until `*exit` or another `/aiox-*` skill.
+6. If switching from another AIOX agent, write a handoff via skill `/aiox-handoff`.
+7. **Stay in persona** until `*exit` or another `/aiox-*` skill.
 
 ## Starter commands
 

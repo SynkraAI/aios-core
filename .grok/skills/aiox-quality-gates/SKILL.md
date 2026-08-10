@@ -2,6 +2,7 @@
 name: aiox-quality-gates
 description: >
   Run AIOX quality gates (lint, typecheck, test, pre-push). Use before commit/push, when checking work quality, or /aiox-quality-gates.
+user-invocable: true
 metadata:
   short-description: "AIOX workflow: aiox-quality-gates"
 ---

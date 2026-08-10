@@ -25,12 +25,30 @@
 
 const fs = require('fs-extra');
 const path = require('path');
+const crypto = require('crypto');
 
 const {
   parseAllAgents,
   normalizeCommands,
   getVisibleCommands,
 } = require('../ide-sync/agent-parser');
+
+const MANAGED_MANIFEST_FILENAME = 'aiox-managed.json';
+const MANAGED_MANIFEST_GENERATOR = 'aiox-grok-skills-sync';
+const GROK_RULES_TEMPLATE = path.join(
+  '.aiox-core',
+  'product',
+  'templates',
+  'ide-rules',
+  'grok-rules.md'
+);
+const GROK_HOOK_SOURCE_FILES = [
+  'enforce-git-push-authority.cjs',
+  'synapse-wrapper.cjs',
+  'precompact-wrapper.cjs',
+  'synapse-engine.cjs',
+  'precompact-session-digest.cjs',
+];
 
 // ─── Agent profiles (Grok-optimized overlays) ───────────────────────────────
 
@@ -613,6 +631,11 @@ function resolveUnder(baseDir, ...segments) {
   return target;
 }
 
+function isPathInside(baseDir, targetPath) {
+  const relative = path.relative(path.resolve(baseDir), path.resolve(targetPath));
+  return relative !== '' && !relative.startsWith('..') && !path.isAbsolute(relative);
+}
+
 function getDefaultOptions() {
   const projectRoot = process.cwd();
   return {
@@ -622,6 +645,23 @@ function getDefaultOptions() {
     dryRun: false,
     quiet: false,
   };
+}
+
+/**
+ * Merge caller options over defaults, deriving dependent paths from the
+ * caller's projectRoot (instead of process.cwd()) unless explicitly given.
+ */
+function resolveOptions(options = {}) {
+  const resolved = { ...getDefaultOptions(), ...options };
+  if (options.projectRoot) {
+    if (!options.sourceDir) {
+      resolved.sourceDir = path.join(options.projectRoot, '.aiox-core', 'development', 'agents');
+    }
+    if (!options.grokRoot) {
+      resolved.grokRoot = path.join(options.projectRoot, '.grok');
+    }
+  }
+  return resolved;
 }
 
 function pickCommands(agentData, profile = {}) {
@@ -706,13 +746,21 @@ You are **${name}**, AIOX ${profile.roleLabel}. Tone: ${tone}.
 
 On user activation (skill \`/${skillId}\` or explicit request):
 
-1. Read source of truth if deep task execution is needed: \`.aiox-core/development/agents/${agentData.filename}\`
-2. Greet briefly:
+1. **Register active agent** (required for authority hooks — git push / PR):
+   \`\`\`bash
+   mkdir -p .aiox .synapse/sessions
+   printf '%s\\n' '${agentData.id}' > .aiox/active-agent
+   printf '%s\\n' '{"id":"${agentData.id}","source":"grok-agent","activated_at":"'"$(date -u +%Y-%m-%dT%H:%M:%SZ)"'"}' > .aiox/active-agent.json
+   printf '%s\\n' '{"id":"${agentData.id}","source":"grok-agent","activated_at":"'"$(date -u +%Y-%m-%dT%H:%M:%SZ)"'"}' > .synapse/sessions/_active-agent.json
+   export AIOX_ACTIVE_AGENT=${agentData.id}
+   \`\`\`
+2. Read source of truth if deep task execution is needed: \`.aiox-core/development/agents/${agentData.filename}\`
+3. Greet briefly:
    - ${greeting}
    - **Role:** ${persona.role || title}
    - List 4–6 starter commands below
    - ${closing}
-3. HALT for user direction unless a command was already given.
+4. HALT for user direction unless a command was already given.
 
 Optional greeting script:
 \`\`\`bash
@@ -792,6 +840,7 @@ description: >
   ${yamlFoldedSafe(description)}
 when-to-use: >
   ${yamlFoldedSafe(triggers)}
+user-invocable: true
 metadata:
   short-description: ${yamlDoubleQuoted(shortDescription)}
   aiox-agent-id: ${yamlDoubleQuoted(agentData.id)}
@@ -802,18 +851,41 @@ metadata:
 
 ## Protocol
 
-1. **Load persona** from \`.grok/agents/${skillId}.md\` (session agent profile).
-2. **Source of truth** for full commands/tasks: \`.aiox-core/development/agents/${agentData.filename}\`
+1. **Register active agent** (Constitution Article II — required before git push / PR):
+   \`\`\`bash
+   mkdir -p .aiox .synapse/sessions
+   printf '%s\\n' '${agentData.id}' > .aiox/active-agent
+   printf '%s\\n' '{"id":"${agentData.id}","source":"grok-skill","activated_at":"'"$(date -u +%Y-%m-%dT%H:%M:%SZ)"'"}' > .aiox/active-agent.json
+   printf '%s\\n' '{"id":"${agentData.id}","source":"grok-skill","activated_at":"'"$(date -u +%Y-%m-%dT%H:%M:%SZ)"'"}' > .synapse/sessions/_active-agent.json
+   export AIOX_ACTIVE_AGENT=${agentData.id}
+   \`\`\`
+2. **Load persona** from \`.grok/agents/${skillId}.md\` (session agent profile).
+3. **Source of truth** for full commands/tasks: \`.aiox-core/development/agents/${agentData.filename}\`
    - Fallback only if missing: \`.codex/agents/${agentData.filename}\`
-3. **Adopt** persona, authorities, and blocked operations from the agent profile.
-4. **Greet** (compact):
+4. **Adopt** persona, authorities, and blocked operations from the agent profile.
+5. **Greet** (compact):
    - Name/title/icon
    - Role one-liner
    - 4–6 starter commands
    - Optional: \`node .aiox-core/development/scripts/generate-greeting.js ${agentData.id}\`
-5. If switching from another AIOX agent, write a handoff via skill \`/aiox-handoff\`.
-6. **Stay in persona** until \`*exit\` or another \`/aiox-*\` skill.
+6. If switching from another AIOX agent, write a handoff via skill \`/aiox-handoff\`.
+7. **Stay in persona** until \`*exit\` or another \`/aiox-*\` skill.
+${
+  agentData.id === 'devops' || skillId === 'aiox-devops'
+    ? `
+## Remote Git (exclusive)
 
+You are the **only** agent allowed to \`git push\` / \`gh pr create|merge\`.
+
+Before every remote op, ensure identity is registered (step 1) **or** prefix the command:
+
+\`\`\`bash
+AIOX_ACTIVE_AGENT=devops git push
+AIOX_ACTIVE_AGENT=devops gh pr create ...
+\`\`\`
+`
+    : ''
+}
 ## Starter commands
 
 ${cmdList || '- `*help` — show commands from source agent'}
@@ -891,56 +963,169 @@ reasoning_effort = ${tomlBasicString(profile.reasoning_effort)}
 `;
 }
 
-function buildRulesMarkdown() {
-  return `# AIOX × Grok — Compact Rules
+function getCanonicalGrokHookSourceDir(projectRoot) {
+  return path.join(projectRoot, '.aiox-core', 'infrastructure', 'templates', 'grok-hooks');
+}
 
-These rules apply in every Grok session in this repo. Full constitution: \`.aiox-core/constitution.md\`.
+function assertCanonicalGrokHookSources(sourceDir) {
+  const missingSources = GROK_HOOK_SOURCE_FILES.filter(
+    (fileName) => !fs.existsSync(path.join(sourceDir, fileName))
+  );
+  if (missingSources.length > 0) {
+    throw new Error(
+      `Missing canonical Grok hook source(s) in ${sourceDir}: ${missingSources.join(', ')}`
+    );
+  }
+}
 
-## Authority (non-negotiable)
+function buildRulesMarkdown(projectRoot = process.cwd()) {
+  const templatePath = path.join(projectRoot, GROK_RULES_TEMPLATE);
+  if (!fs.existsSync(templatePath)) {
+    throw new Error(`Canonical Grok rules template not found: ${templatePath}`);
+  }
+  return fs.readFileSync(templatePath, 'utf8');
+}
 
-| Operation | Exclusive agent | Skill |
-|-----------|-----------------|-------|
-| \`git push\`, PR create/merge, releases | devops (Gage) | \`/aiox-devops\` |
-| Story draft/create | sm (River) | \`/aiox-sm\` |
-| Story validate → Ready | po (Pax) | \`/aiox-po\` |
-| Implementation | dev (Dex) | \`/aiox-dev\` |
-| QA gate verdict | qa (Quinn) | \`/aiox-qa\` |
-| Architecture decisions | architect (Aria) | \`/aiox-architect\` |
-| Schema/migrations/RLS | data-engineer (Dara) | \`/aiox-data-engineer\` |
+function getManagedRuleSections(content) {
+  const sections = new Map();
+  const pattern = /<!-- AIOX-MANAGED-START:\s*([a-z0-9-]+)\s*-->[\s\S]*?<!-- AIOX-MANAGED-END:\s*\1\s*-->/gi;
+  for (const match of String(content || '').matchAll(pattern)) {
+    sections.set(match[1].toLowerCase(), match[0]);
+  }
+  return sections;
+}
 
-## Story lifecycle
+function serializeManagedRuleSections(content) {
+  return [...getManagedRuleSections(content).entries()]
+    .sort(([left], [right]) => left.localeCompare(right))
+    .map(([name, block]) => `${name}\0${block}`)
+    .join('\0');
+}
 
-\`Draft → Ready → InProgress → InReview → Done\`
+function mergeGrokRules(existingContent, generatedContent) {
+  const existing = String(existingContent || '');
+  const generated = String(generatedContent || '');
+  const generatedSections = getManagedRuleSections(generated);
+  if (generatedSections.size === 0) {
+    throw new Error('Canonical Grok rules template has no AIOX-MANAGED sections');
+  }
+  if (!existing.trim()) return generated;
 
-SDC: \`/aiox-full-sdc\` (lean) or \`/aiox-sdc\` (index). Atomics: \`/aiox-validate-story-draft\`, \`/aiox-develop-story\`, \`/aiox-review-story\`, \`/aiox-apply-qa-fixes\`, \`/aiox-close-story\`.
+  const existingSections = getManagedRuleSections(existing);
+  if (existingSections.size === 0) {
+    if (/^# AIOX × Grok(?: Build)? — (?:Compact|Project) Rules\s*$/m.test(existing)) {
+      return generated;
+    }
+    return `${existing.trimEnd()}\n\n${generated}`;
+  }
 
-## Quality gates
+  let merged = existing;
+  for (const [name, block] of generatedSections) {
+    const sectionPattern = new RegExp(
+      `<!-- AIOX-MANAGED-START:\\s*${name}\\s*-->[\\s\\S]*?<!-- AIOX-MANAGED-END:\\s*${name}\\s*-->`,
+      'i'
+    );
+    if (sectionPattern.test(merged)) {
+      merged = merged.replace(sectionPattern, block);
+    } else {
+      merged = `${merged.trimEnd()}\n\n${block}\n`;
+    }
+  }
+  return merged.endsWith('\n') ? merged : `${merged}\n`;
+}
 
-\`\`\`bash
-npm run lint && npm run typecheck && npm test
-\`\`\`
+function sha256(content) {
+  return crypto.createHash('sha256').update(content).digest('hex');
+}
 
-## Layers (do not corrupt)
+function normalizeManagedPath(grokRoot, filePath) {
+  const relative = path.relative(grokRoot, filePath).split(path.sep).join('/');
+  if (!relative || relative.startsWith('../') || path.isAbsolute(relative)) {
+    throw new Error(`Managed Grok path escapes root: ${filePath}`);
+  }
+  return relative;
+}
 
-- **L1/L2** framework core & templates under \`.aiox-core/\` — extend carefully; frameworkProtection may deny edits
-- **L4** work: \`docs/stories/\` (project) and/or \`docs/framework/epics/\` (framework OSS), \`packages/\`, \`squads/\`, \`tests/\`
+function buildManagedManifest(grokRoot, written) {
+  const files = [...new Set(written.map((filePath) => normalizeManagedPath(grokRoot, filePath)))]
+    .sort()
+    .map((relativePath) => {
+      const absolutePath = path.join(grokRoot, ...relativePath.split('/'));
+      const content = fs.readFileSync(absolutePath, 'utf8');
+      const managedRules = relativePath === 'rules/aiox-core.md';
+      return {
+        path: relativePath,
+        mode: managedRules ? 'managed-sections' : 'full',
+        sha256: sha256(managedRules ? serializeManagedRuleSections(content) : content),
+      };
+    });
+  return {
+    schemaVersion: 1,
+    generatedBy: MANAGED_MANIFEST_GENERATOR,
+    files,
+  };
+}
 
-## Grok entry points
+function readManagedManifest(manifestPath, options = {}) {
+  if (!fs.existsSync(manifestPath)) return null;
+  // Recoverable by design: a corrupt or foreign manifest must not brick the
+  // sync (the installer propagates a throw and leaves the user with manual
+  // file surgery). Treat it as absent — the sync rebuilds a fresh manifest
+  // and, with no stale file list, never deletes anything it does not own.
+  let manifest;
+  try {
+    manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+  } catch (error) {
+    if (!options.quiet) {
+      console.warn(`⚠️  Corrupt Grok managed manifest (rebuilding): ${manifestPath} — ${error.message}`);
+    }
+    return null;
+  }
+  if (
+    manifest?.schemaVersion !== 1 ||
+    manifest?.generatedBy !== MANAGED_MANIFEST_GENERATOR ||
+    !Array.isArray(manifest?.files)
+  ) {
+    if (!options.quiet) {
+      console.warn(`⚠️  Unrecognized Grok managed manifest (rebuilding, no stale cleanup): ${manifestPath}`);
+    }
+    return null;
+  }
+  return manifest;
+}
 
-- Agents: \`.grok/agents/\` (also spawnable as \`subagent_type\`)
-- Skills: \`/aiox-*\` under \`.grok/skills/\`
-- Source of truth agents: \`.aiox-core/development/agents/\`
+function pruneEmptyManagedParents(grokRoot, filePath) {
+  let current = path.dirname(filePath);
+  const root = path.resolve(grokRoot);
+  while (current !== root && isPathInside(root, current)) {
+    if (fs.readdirSync(current).length > 0) return;
+    fs.rmdirSync(current);
+    current = path.dirname(current);
+  }
+}
 
-## Portable paths
-
-Never commit machine-specific absolute paths. Use repo-relative paths.
-`;
+function removeStaleManagedFiles(grokRoot, previousManifest, currentManifest) {
+  if (!previousManifest) return [];
+  const currentPaths = new Set(currentManifest.files.map(({ path: filePath }) => filePath));
+  const removed = [];
+  for (const entry of previousManifest.files) {
+    if (!entry?.path || currentPaths.has(entry.path)) continue;
+    const target = resolveUnder(grokRoot, ...entry.path.split('/'));
+    if (!fs.existsSync(target)) continue;
+    if (!fs.statSync(target).isFile()) {
+      throw new Error(`Refusing to remove non-file managed Grok path: ${entry.path}`);
+    }
+    fs.unlinkSync(target);
+    pruneEmptyManagedParents(grokRoot, target);
+    removed.push(target);
+  }
+  return removed;
 }
 
 function buildReadme() {
   return `# AIOX Grok Integration
 
-Optimized agents, skills, roles, and personas for [Grok Build TUI](https://grok.x.ai).
+Optimized agents, skills, roles, personas, hooks, and project config for [Grok Build TUI](https://grok.x.ai).
 
 ## Layout
 
@@ -949,9 +1134,13 @@ Optimized agents, skills, roles, and personas for [Grok Build TUI](https://grok.
 | \`agents/\` | Native Grok agent profiles (session + spawnable types) |
 | \`skills/aiox-*/\` | Slash skills to activate personas |
 | \`skills/aiox-sdc/\`, \`aiox-full-sdc/\`, atomics | Workflow skills (lean SDC + gates + handoff) |
+| \`skills/develop-story/\`, etc. | Short aliases (\`/develop-story\` → \`/aiox-develop-story\`) |
 | \`roles/\` | Subagent capability defaults |
 | \`personas/\` | Behavioral overlays for subagents |
 | \`rules/\` | Always-on compact AIOX rules |
+| \`hooks/\` | PreToolUse git-push authority (Article II) |
+| \`aiox-managed.json\` | Ownership and hashes for generated artifacts |
+| \`config.toml\` | Project harness notes and native hook registration |
 
 ## Activate an agent
 
@@ -962,7 +1151,34 @@ Optimized agents, skills, roles, and personas for [Grok Build TUI](https://grok.
 /aiox-squad-creator
 \`\`\`
 
+Short workflow aliases (no Claude compat required):
+
+\`\`\`text
+/develop-story
+/validate-story-draft
+/review-story
+/full-sdc
+/commit
+\`\`\`
+
 Or ask in natural language ("implement this story", "create a PR") — skill descriptions drive auto-invocation.
+
+## Authority (git push)
+
+\`hooks/git-push-authority.json\` runs \`enforce-git-push-authority.cjs\` on
+\`Bash|run_terminal_command\`. Only devops may \`git push\` / \`gh pr create|merge\`.
+
+Identity resolution order:
+
+1. Env \`AIOX_ACTIVE_AGENT\` / command-scoped export
+2. Bridge files written on skill/agent activation:
+   - \`.aiox/active-agent\`
+   - \`.aiox/active-agent.json\`
+   - \`.synapse/sessions/_active-agent.json\`
+
+Also: \`hooks/synapse-prompt.json\`, \`hooks/precompact.json\` — fully Grok-native. Their commands run wrappers vendored under \`.grok/hooks/\` from canonical sources in \`.aiox-core/infrastructure/templates/grok-hooks/\`; no Claude files are required.
+
+Short agent spawn aliases: \`dev\`, \`po\`, \`qa\`, \`devops\`, … under \`agents/\`.
 
 ## Regenerate
 
@@ -970,6 +1186,7 @@ From repo root:
 
 \`\`\`bash
 npm run sync:skills:grok
+npm run validate:skills:grok
 # or
 node .aiox-core/infrastructure/scripts/grok-skills-sync/index.js
 \`\`\`
@@ -985,26 +1202,47 @@ npm run sync:skills:grok -- --dry-run
 1. **Token-efficient** — condensed profiles; full YAML stays in \`.aiox-core/development/agents/\`
 2. **Authority-safe** — devops-only push; story lifecycle ownership
 3. **Task-first** — formal work loads \`.aiox-core/development/tasks/*\`
-4. **Grok-native** — frontmatter \`permission_mode\`, roles, personas
+4. **Grok-native** — frontmatter \`permission_mode\`, roles, personas, hooks fully self-contained under \`.grok/hooks/\`
+5. **Brownfield-safe** — only paths owned by \`aiox-managed.json\` are replaced or removed; custom project artifacts remain untouched
 
 ## Related
 
 - Codex skills: \`npm run sync:skills:codex\`
 - IDE sync: \`npm run sync:ide\`
 - Constitution: \`.aiox-core/constitution.md\`
+- Verify discovery: \`grok inspect\`
 `;
 }
 
 // ─── Sync ───────────────────────────────────────────────────────────────────
 
 function syncGrok(options = {}) {
-  const resolved = { ...getDefaultOptions(), ...options };
-  const agents = parseAllAgents(resolved.sourceDir).filter(
-    (a) => !a.error || a.error === 'YAML parse failed, using fallback extraction'
-  );
+  const resolved = resolveOptions(options);
+
+  // Guard against running from a subdirectory: with a cwd-derived sourceDir a
+  // missing agents dir would silently generate a near-empty .grok tree.
+  if (!fs.existsSync(resolved.sourceDir)) {
+    throw new Error(
+      `Agent source dir not found: ${resolved.sourceDir}. ` +
+      'Run from the repo root or pass { projectRoot }.'
+    );
+  }
+  buildRulesMarkdown(resolved.projectRoot);
+  assertCanonicalGrokHookSources(getCanonicalGrokHookSourceDir(resolved.projectRoot));
+
+  const agents = [];
+  for (const parsed of parseAllAgents(resolved.sourceDir)) {
+    if (!parsed.error || parsed.error === 'YAML parse failed, using fallback extraction') {
+      agents.push(parsed);
+    } else if (!resolved.quiet) {
+      console.warn(`⚠️  Agent "${parsed.id || parsed.filename || 'unknown'}" skipped: ${parsed.error}`);
+    }
+  }
 
   const written = [];
   const grok = resolved.grokRoot;
+  const manifestPath = path.join(grok, MANAGED_MANIFEST_FILENAME);
+  const previousManifest = readManagedManifest(manifestPath, { quiet: resolved.quiet });
 
   const targets = {
     agents: path.join(grok, 'agents'),
@@ -1078,6 +1316,7 @@ function syncGrok(options = {}) {
 name: ${wf.name}
 description: >
   ${yamlFoldedSafe(wf.description)}
+user-invocable: true
 metadata:
   short-description: ${yamlDoubleQuoted(`AIOX workflow: ${wf.name}`)}
 ---
@@ -1099,9 +1338,48 @@ ${wf.body}
     })
   );
 
+  // Short slash aliases (Claude-parity names without aiox- prefix).
+  // Aliases must never point at a skill that was skipped (missing source) —
+  // pass the set of targets that actually exist in this sync.
+  const availableSkillTargets = new Set([
+    ...agents.filter((a) => AGENT_PROFILES[a.id]).map((a) => getSkillId(a.id)),
+    ...WORKFLOW_SKILLS.map(({ name }) => name),
+    ...DEVELOPMENT_WORKFLOW_SKILLS.filter((dirName) =>
+      fs.existsSync(
+        path.join(resolved.projectRoot, '.aiox-core', 'development', 'skills', dirName, 'SKILL.md')
+      )
+    ).map((dirName) => grokSkillIdFromDevSkill(dirName)),
+  ]);
+  written.push(
+    ...syncShortWorkflowAliases(targets, {
+      dryRun: resolved.dryRun,
+      quiet: resolved.quiet,
+      availableTargets: availableSkillTargets,
+    })
+  );
+
+  // Short agent type aliases (spawn_subagent subagent_type="dev", etc.)
+  written.push(
+    ...syncShortAgentAliases(targets, {
+      dryRun: resolved.dryRun,
+      quiet: resolved.quiet,
+    })
+  );
+
+  // Native Grok hooks + project config (Constitution Article II, skill hygiene)
+  written.push(
+    ...syncGrokHarnessFiles(resolved.projectRoot, grok, {
+      dryRun: resolved.dryRun,
+      quiet: resolved.quiet,
+    })
+  );
+
   // Rules + README
+  const rulesPath = resolveUnder(targets.rules, 'aiox-core.md');
+  const generatedRules = buildRulesMarkdown(resolved.projectRoot);
+  const existingRules = fs.existsSync(rulesPath) ? fs.readFileSync(rulesPath, 'utf8') : '';
   const extras = [
-    { path: resolveUnder(targets.rules, 'aiox-core.md'), content: buildRulesMarkdown() },
+    { path: rulesPath, content: mergeGrokRules(existingRules, generatedRules) },
     { path: resolveUnder(grok, 'README.md'), content: buildReadme() },
   ];
   for (const file of extras) {
@@ -1112,13 +1390,308 @@ ${wf.body}
     written.push(file.path);
   }
 
+  let removed = [];
+  if (!resolved.dryRun) {
+    const manifest = buildManagedManifest(grok, written);
+    removed = removeStaleManagedFiles(grok, previousManifest, manifest);
+    fs.writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
+  }
+  written.push(manifestPath);
+
   return {
     agents: agents.filter((a) => AGENT_PROFILES[a.id]).length,
     files: written.length,
     written,
     grokRoot: grok,
     dryRun: resolved.dryRun,
+    removed,
   };
+}
+
+/**
+ * Short-name aliases for workflow skills so `/develop-story` works without Claude
+ * compat (pure Grok). Bodies redirect to the aiox-* skill SOT.
+ */
+const SHORT_WORKFLOW_ALIASES = [
+  { name: 'develop-story', target: 'aiox-develop-story' },
+  { name: 'validate-story-draft', target: 'aiox-validate-story-draft' },
+  { name: 'review-story', target: 'aiox-review-story' },
+  { name: 'apply-qa-fixes', target: 'aiox-apply-qa-fixes' },
+  { name: 'close-story', target: 'aiox-close-story' },
+  { name: 'full-sdc', target: 'aiox-full-sdc' },
+  { name: 'wave-execute', target: 'aiox-wave-execute' },
+  { name: 'commit', target: 'aiox-commit' },
+];
+
+function buildShortAliasSkill(name, target) {
+  return `---
+name: ${name}
+description: >
+  Alias for /${target}. Use when the user runs /${name} or mentions ${name}.
+user-invocable: true
+metadata:
+  short-description: ${yamlDoubleQuoted(`Alias → /${target}`)}
+  aiox-alias-of: ${yamlDoubleQuoted(target)}
+---
+
+# ${name} (alias)
+
+This is a **short alias** for the AIOX Grok skill \`/${target}\`.
+
+## Protocol
+
+1. Load and follow \`.grok/skills/${target}/SKILL.md\` exactly.
+2. If that file is missing, regenerate with \`npm run sync:skills:grok\`.
+3. Do not invent a parallel workflow — the aliased skill is the source of truth.
+`;
+}
+
+function syncShortWorkflowAliases(targets, options = {}) {
+  const written = [];
+  for (const { name, target } of SHORT_WORKFLOW_ALIASES) {
+    if (!SAFE_SKILL_ID_RE.test(name) || !SAFE_SKILL_ID_RE.test(target)) {
+      if (!options.quiet) {
+        console.warn(`⚠️  Invalid short alias ${name} → ${target} — skipped`);
+      }
+      continue;
+    }
+    // Never emit an alias whose canonical target was skipped — a redirect to
+    // a missing skill validates textually but cannot run.
+    if (options.availableTargets && !options.availableTargets.has(target)) {
+      if (!options.quiet) {
+        console.warn(`⚠️  Alias ${name} → ${target} skipped: target skill not generated`);
+      }
+      continue;
+    }
+    const dest = resolveUnder(targets.skills, name, 'SKILL.md');
+    const content = buildShortAliasSkill(name, target);
+    if (!options.dryRun) {
+      fs.ensureDirSync(path.dirname(dest));
+      fs.writeFileSync(dest, content, 'utf8');
+    }
+    written.push(dest);
+  }
+  return written;
+}
+
+/**
+ * Project harness files that make Grok self-sufficient without relying only on
+ * Claude-compat discovery of hooks/settings.
+ */
+function buildGrokConfigToml() {
+  return `# AIOX × Grok Build — project config (committed)
+# Docs: ~/.grok/docs/user-guide/05-configuration.md
+#
+# Project scope contributes [mcp_servers], [plugins], and [permission] only.
+# Skill discovery prefers higher-priority .grok/skills over Claude/Codex dumps
+# on name collision. Optional user-global skill hygiene lives in ~/.grok/config.toml
+# (not committed).
+#
+# Native and Claude-compatible hook definitions share canonical commands so
+# Grok deduplicates multi-harness discovery instead of executing hooks twice.
+# Native authority: .grok/hooks/git-push-authority.json remains devops-only
+# for git push / PR.
+`;
+}
+
+function buildGrokPushAuthorityHookJson() {
+  return `${JSON.stringify(
+    {
+      hooks: {
+        PreToolUse: [
+          {
+            matcher: 'Bash|run_terminal_command',
+            hooks: [
+              {
+                type: 'command',
+                command: 'node .aiox-core/infrastructure/templates/grok-hooks/enforce-git-push-authority.cjs',
+                timeout: 10,
+              },
+            ],
+          },
+        ],
+      },
+    },
+    null,
+    2
+  )}\n`;
+}
+
+/** Native Grok hooks share canonical entrypoints with Claude compatibility. */
+function buildGrokSynapseHookJson() {
+  return `${JSON.stringify(
+    {
+      hooks: {
+        UserPromptSubmit: [
+          {
+            hooks: [
+              {
+                type: 'command',
+                command: 'node .aiox-core/infrastructure/templates/grok-hooks/synapse-wrapper.cjs',
+                timeout: 10,
+              },
+            ],
+          },
+        ],
+      },
+    },
+    null,
+    2
+  )}\n`;
+}
+
+function buildGrokPrecompactHookJson() {
+  return `${JSON.stringify(
+    {
+      hooks: {
+        PreCompact: [
+          {
+            hooks: [
+              {
+                type: 'command',
+                command: 'node .aiox-core/infrastructure/templates/grok-hooks/precompact-wrapper.cjs',
+                timeout: 10,
+              },
+            ],
+          },
+        ],
+      },
+    },
+    null,
+    2
+  )}\n`;
+}
+
+/**
+ * Short agent type aliases so spawn_subagent subagent_type="dev" works without
+ * user-global Claude agents. Body points at the canonical aiox-* profile.
+ */
+const SHORT_AGENT_ALIASES = [
+  { alias: 'dev', target: 'aiox-dev', agentId: 'dev' },
+  { alias: 'qa', target: 'aiox-qa', agentId: 'qa' },
+  { alias: 'po', target: 'aiox-po', agentId: 'po' },
+  { alias: 'pm', target: 'aiox-pm', agentId: 'pm' },
+  { alias: 'sm', target: 'aiox-sm', agentId: 'sm' },
+  { alias: 'devops', target: 'aiox-devops', agentId: 'devops' },
+  { alias: 'architect', target: 'aiox-architect', agentId: 'architect' },
+  { alias: 'analyst', target: 'aiox-analyst', agentId: 'analyst' },
+  { alias: 'data-engineer', target: 'aiox-data-engineer', agentId: 'data-engineer' },
+  { alias: 'squad-creator', target: 'aiox-squad-creator', agentId: 'squad-creator' },
+  { alias: 'ux-design-expert', target: 'aiox-ux-design-expert', agentId: 'ux-design-expert' },
+  // Claude native short name used in some spawns / legacy docs
+  { alias: 'aiox-ux', target: 'aiox-ux-design-expert', agentId: 'ux-design-expert' },
+  { alias: 'master', target: 'aiox-master', agentId: 'aiox-master' },
+];
+
+function buildShortAgentAliasMarkdown(alias, target, agentId) {
+  return `---
+name: ${alias}
+description: >
+  Alias for ${target}. Spawn with subagent_type="${alias}" or use /${target}.
+prompt_mode: full
+model: inherit
+permission_mode: default
+agents_md: true
+---
+
+# Alias → \`${target}\`
+
+You are the **${alias}** short alias for AIOX agent \`${target}\`.
+
+## Protocol
+
+1. Load and follow \`.grok/agents/${target}.md\` as your full persona (authorities, workflow, commands).
+2. Register active agent id \`${agentId}\`:
+   \`\`\`bash
+   mkdir -p .aiox .synapse/sessions
+   printf '%s\\n' '${agentId}' > .aiox/active-agent
+   printf '%s\\n' '{"id":"${agentId}","source":"grok-alias","activated_at":"'"$(date -u +%Y-%m-%dT%H:%M:%SZ)"'"}' > .aiox/active-agent.json
+   printf '%s\\n' '{"id":"${agentId}","source":"grok-alias","activated_at":"'"$(date -u +%Y-%m-%dT%H:%M:%SZ)"'"}' > .synapse/sessions/_active-agent.json
+   export AIOX_ACTIVE_AGENT=${agentId}
+   \`\`\`
+3. Source of truth for deep tasks: \`.aiox-core/development/agents/${agentId}.md\`
+4. Prefer the long skill \`/${target}\` when activating from slash commands.
+
+Constitution: \`.aiox-core/constitution.md\`
+`;
+}
+
+function syncShortAgentAliases(targets, options = {}) {
+  const written = [];
+  const canonicalNames = new Set();
+  for (const id of Object.keys(AGENT_PROFILES)) {
+    try {
+      canonicalNames.add(getSkillId(id));
+    } catch {
+      // skip invalid ids
+    }
+  }
+
+  for (const { alias, target, agentId } of SHORT_AGENT_ALIASES) {
+    if (!SAFE_SKILL_ID_RE.test(alias) || !SAFE_SKILL_ID_RE.test(target)) {
+      if (!options.quiet) {
+        console.warn(`⚠️  Invalid agent alias ${alias} → ${target} — skipped`);
+      }
+      continue;
+    }
+    if (canonicalNames.has(alias)) {
+      if (!options.quiet) {
+        console.warn(
+          `⚠️  Alias ${alias} collides with a canonical agent profile — skipped`
+        );
+      }
+      continue;
+    }
+    const dest = resolveUnder(targets.agents, `${alias}.md`);
+    const content = buildShortAgentAliasMarkdown(alias, target, agentId);
+    if (!options.dryRun) {
+      fs.ensureDirSync(path.dirname(dest));
+      fs.writeFileSync(dest, content, 'utf8');
+    }
+    written.push(dest);
+  }
+  return written;
+}
+
+function syncGrokHarnessFiles(projectRoot, grokRoot, options = {}) {
+  const written = [];
+  const hooksDir = path.join(grokRoot, 'hooks');
+  const sourceDir =
+    options.hookSourceDir ||
+    getCanonicalGrokHookSourceDir(projectRoot);
+  assertCanonicalGrokHookSources(sourceDir);
+
+  const hookJsonDest = resolveUnder(hooksDir, 'git-push-authority.json');
+  const synapseJsonDest = resolveUnder(hooksDir, 'synapse-prompt.json');
+  const precompactJsonDest = resolveUnder(hooksDir, 'precompact.json');
+  const configDest = resolveUnder(grokRoot, 'config.toml');
+  const sourceCopies = GROK_HOOK_SOURCE_FILES.map((fileName) => ({
+    source: path.join(sourceDir, fileName),
+    destination: resolveUnder(hooksDir, fileName),
+  }));
+
+  if (!options.dryRun) {
+    fs.ensureDirSync(hooksDir);
+    for (const { source, destination } of sourceCopies) {
+      fs.copyFileSync(source, destination);
+      written.push(destination);
+    }
+    fs.writeFileSync(hookJsonDest, buildGrokPushAuthorityHookJson(), 'utf8');
+    fs.writeFileSync(synapseJsonDest, buildGrokSynapseHookJson(), 'utf8');
+    fs.writeFileSync(precompactJsonDest, buildGrokPrecompactHookJson(), 'utf8');
+    fs.writeFileSync(configDest, buildGrokConfigToml(), 'utf8');
+    written.push(hookJsonDest, synapseJsonDest, precompactJsonDest, configDest);
+  } else {
+    written.push(
+      ...sourceCopies.map(({ destination }) => destination),
+      hookJsonDest,
+      synapseJsonDest,
+      precompactJsonDest,
+      configDest
+    );
+  }
+
+  return written;
 }
 
 function parseArgs(argv = process.argv.slice(2)) {
@@ -1151,7 +1724,20 @@ module.exports = {
   AGENT_PROFILES,
   WORKFLOW_SKILLS,
   DEVELOPMENT_WORKFLOW_SKILLS,
+  SHORT_WORKFLOW_ALIASES,
+  SHORT_AGENT_ALIASES,
   syncDevelopmentWorkflowSkills,
+  syncShortWorkflowAliases,
+  syncShortAgentAliases,
+  syncGrokHarnessFiles,
+  buildRulesMarkdown,
+  getManagedRuleSections,
+  serializeManagedRuleSections,
+  mergeGrokRules,
+  buildManagedManifest,
+  readManagedManifest,
+  buildGrokConfigToml,
+  buildGrokPushAuthorityHookJson,
   grokSkillIdFromDevSkill,
   getSkillId,
   parseArgs,
@@ -1160,4 +1746,7 @@ module.exports = {
   yamlFoldedSafe,
   resolveUnder,
   SAFE_SKILL_ID_RE,
+  MANAGED_MANIFEST_FILENAME,
+  MANAGED_MANIFEST_GENERATOR,
+  GROK_HOOK_SOURCE_FILES,
 };

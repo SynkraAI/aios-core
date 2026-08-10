@@ -2,6 +2,7 @@
 name: aiox-sdc
 description: >
   Run the AIOX Story Development Cycle. Prefer /aiox-full-sdc (lean orchestrator). Slash: /aiox-sdc
+user-invocable: true
 metadata:
   short-description: "AIOX workflow: aiox-sdc"
 ---

@@ -40,7 +40,7 @@ function validateIDESelection(selectedIDEs) {
 /**
  * Prompt user to select IDEs
  *
- * AC1: Multi-select prompt with 6 IDEs
+ * AC1: Multi-select prompt with supported IDEs/CLIs (Claude, Codex, Grok, Gemini, …)
  *
  * @returns {Promise<string[]>} Array of selected IDE keys
  *

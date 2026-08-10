@@ -32,6 +32,7 @@ AIOX supports multiple AI-powered development platforms. Choose the one that bes
 | --- | --- | --- | --- | --- |
 | Claude Code | Works | `/agent-name` commands | Works (full) | -- |
 | Gemini CLI | Works | `/aiox-menu` then `/aiox-<agent>` | Works (minor differences in event handling) | -- |
+| Grok Build | Works | `/aiox-<agent>` skills or native subagents | Works (native hooks + strict projection validation) | -- |
 | Codex CLI | Limited | `/skills` then `aiox-<agent-id>` | Limited (some checks need manual sync) | Run `npm run sync:ide:codex` and follow `/skills` flow |
 | Cursor | Limited | `@agent` + synced rules | Not available | Follow synced rules and run validators manually (`npm run validate:parity`) |
 | GitHub Copilot | Limited | chat modes + repo instructions | Not available | Use repo instructions and VS Code MCP config for context |

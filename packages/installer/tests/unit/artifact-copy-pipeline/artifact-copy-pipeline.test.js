@@ -191,7 +191,9 @@ describe('artifact-copy-pipeline (Story INS-4.3)', () => {
           'README.md',
           'code-intel-pretool.cjs',
           'enforce-git-push-authority.cjs',
+          'precompact-wrapper.cjs',
           'synapse-engine.cjs',
+          'synapse-wrapper.cjs',
         ));
 
         const settingsPath = await createClaudeSettingsLocal(targetRoot);
@@ -226,7 +228,9 @@ describe('artifact-copy-pipeline (Story INS-4.3)', () => {
           'code-intel-pretool.cjs',
           'enforce-git-push-authority.cjs',
           'precompact-session-digest.cjs',
+          'precompact-wrapper.cjs',
           'synapse-engine.cjs',
+          'synapse-wrapper.cjs',
         ));
 
         const settingsPath = await createClaudeSettingsLocal(targetRoot);
@@ -278,11 +282,11 @@ describe('artifact-copy-pipeline (Story INS-4.3)', () => {
       expect(config.timeout).toBe(10);
     });
 
-    test('maps enforce-git-push-authority.cjs to PreToolUse with Bash matcher', () => {
+    test('maps enforce-git-push-authority.cjs to both supported shell tools', () => {
       const config = HOOK_EVENT_MAP['enforce-git-push-authority.cjs'];
       expect(config).toBeDefined();
       expect(config.event).toBe('PreToolUse');
-      expect(config.matcher).toBe('Bash');
+      expect(config.matcher).toBe('Bash|run_terminal_command');
       expect(config.timeout).toBe(10);
     });
 
@@ -294,13 +298,16 @@ describe('artifact-copy-pipeline (Story INS-4.3)', () => {
       expect(config.timeout).toBe(10);
     });
 
-    test('covers all 4 known hooks', () => {
+    test('covers all known hooks (4 registered + 2 vendoring-only wrappers)', () => {
       const keys = Object.keys(HOOK_EVENT_MAP);
-      expect(keys).toHaveLength(4);
+      expect(keys).toHaveLength(6);
       expect(keys).toContain('synapse-engine.cjs');
       expect(keys).toContain('code-intel-pretool.cjs');
       expect(keys).toContain('enforce-git-push-authority.cjs');
       expect(keys).toContain('precompact-session-digest.cjs');
+      // Wrappers ship as Grok vendoring sources and must never be registered
+      expect(HOOK_EVENT_MAP['synapse-wrapper.cjs'].event).toBeNull();
+      expect(HOOK_EVENT_MAP['precompact-wrapper.cjs'].event).toBeNull();
     });
 
     test('DEFAULT_HOOK_CONFIG falls back to UserPromptSubmit', () => {
@@ -408,6 +415,63 @@ describe('artifact-copy-pipeline (Story INS-4.3)', () => {
         // Should still have only 1 entry per event
         expect(settings.hooks.UserPromptSubmit.length).toBe(1);
         expect(settings.hooks.PreCompact.length).toBe(1);
+      } finally {
+        cleanup(tmpDir);
+      }
+    });
+
+    test('migrates managed brownfield hooks to canonical commands without changing custom hooks', async () => {
+      const tmpDir = createTempDir();
+
+      try {
+        const hooksDir = path.join(tmpDir, '.claude', 'hooks');
+        const canonicalDir = path.join(
+          tmpDir,
+          '.aiox-core',
+          'infrastructure',
+          'templates',
+          'grok-hooks',
+        );
+        fs.mkdirSync(hooksDir, { recursive: true });
+        fs.mkdirSync(canonicalDir, { recursive: true });
+        fs.writeFileSync(path.join(hooksDir, 'synapse-engine.cjs'), '// hook', 'utf8');
+        fs.writeFileSync(path.join(canonicalDir, 'synapse-wrapper.cjs'), '// canonical', 'utf8');
+
+        const settingsPath = path.join(tmpDir, '.claude', 'settings.local.json');
+        fs.writeFileSync(settingsPath, JSON.stringify({
+          hooks: {
+            UserPromptSubmit: [
+              {
+                hooks: [{
+                  type: 'command',
+                  command: 'node "$CLAUDE_PROJECT_DIR/.claude/hooks/synapse-engine.cjs"',
+                  timeout: 5,
+                }],
+              },
+              {
+                hooks: [{
+                  type: 'command',
+                  command: 'node .claude/hooks/company-synapse-engine.cjs',
+                  timeout: 7,
+                }],
+              },
+            ],
+          },
+        }, null, 2), 'utf8');
+
+        await createClaudeSettingsLocal(tmpDir);
+
+        const settings = JSON.parse(fs.readFileSync(settingsPath, 'utf8'));
+        expect(settings.hooks.UserPromptSubmit).toHaveLength(2);
+        expect(settings.hooks.UserPromptSubmit[0].hooks[0]).toMatchObject({
+          command: 'node .aiox-core/infrastructure/templates/grok-hooks/synapse-wrapper.cjs',
+          timeout: 10,
+        });
+        expect(settings.hooks.UserPromptSubmit[1].hooks[0]).toEqual({
+          type: 'command',
+          command: 'node .claude/hooks/company-synapse-engine.cjs',
+          timeout: 7,
+        });
       } finally {
         cleanup(tmpDir);
       }
