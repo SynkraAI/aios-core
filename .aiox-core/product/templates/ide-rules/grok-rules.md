@@ -72,4 +72,8 @@ grok inspect
 /aiox-qa · /aiox-sm · /aiox-squad-creator · /aiox-ux-design-expert
 /aiox-full-sdc · /aiox-sdc · /aiox-quality-gates · /aiox-handoff · /aiox-commit
 ```
+
+On every `/aiox-*` agent shortcut activation, the agent MUST confirm its
+identity (name + persona), list 3–6 primary commands including `*help`, and
+stay in that persona until `*exit`.
 <!-- AIOX-MANAGED-END: shortcuts -->

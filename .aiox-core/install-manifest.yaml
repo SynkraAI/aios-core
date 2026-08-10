@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.3.0
-generated_at: "2026-08-10T22:36:02.788Z"
+generated_at: "2026-08-10T22:41:31.805Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1172
 files:
@@ -1393,7 +1393,7 @@ files:
     type: data
     size: 9590
   - path: data/entity-registry.yaml
-    hash: sha256:5d30c78606097252bdb2896c99eccdef9b19c9949ff34a4fc8c67ae3dfc35b4b
+    hash: sha256:e7c50169f303dce19a2551602bb47398d3e06dfff49a3ab73b88a513ee192fb0
     type: data
     size: 596246
   - path: data/learned-patterns.yaml
@@ -4189,9 +4189,9 @@ files:
     type: template
     size: 2471
   - path: product/templates/ide-rules/grok-rules.md
-    hash: sha256:3cdce5610f50815eb95e4fe5eb3fb88fbccc85d4a82c0a05702d239a2e3a7267
+    hash: sha256:c823aad3bd74ecdbb38b4909122d4d10386b8f360ade645251507e77e8685d40
     type: template
-    size: 2203
+    size: 2391
   - path: product/templates/index-strategy-tmpl.yaml
     hash: sha256:6db2b40f6eef47f4faa31ce513ee7b0d5f04d9a5e081a72e0cdbad402eb444ae
     type: template

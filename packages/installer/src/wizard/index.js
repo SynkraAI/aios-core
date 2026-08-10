@@ -1115,6 +1115,9 @@ async function runWizard(options = {}) {
       if ((answers.selectedIDEs || []).includes('codex')) {
         expectedSkillDirs.push(path.join('.codex', 'skills'));
       }
+      if ((answers.selectedIDEs || []).includes('grok')) {
+        expectedSkillDirs.push(path.join('.grok', 'skills'));
+      }
 
       const validation = await validateInstallation(
         {

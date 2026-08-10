@@ -300,7 +300,7 @@
     {
       "path": "rules/aiox-core.md",
       "mode": "managed-sections",
-      "sha256": "42c3c899168778dc705e519ee5d5b5334c21fe121fe38b0d421eb065971cbdfd"
+      "sha256": "272dcf03cd144ec8248eeb27df66818d873e27a38d049f1ad8fcd822c976a7dd"
     },
     {
       "path": "skills/aiox-analyst/SKILL.md",
