@@ -28,7 +28,7 @@ describe('IDE Selector', () => {
       expect(result).toBe(true);
     });
 
-    it('should accept all 6 IDE selections', () => {
+    it('should accept all IDE selections', () => {
       const allIDEs = getIDEKeys();
       const result = validateIDESelection(allIDEs);
       expect(result).toBe(true);
@@ -67,9 +67,10 @@ describe('IDE Selector', () => {
       expect(question).toHaveProperty('validate');
     });
 
-    it('should have 6 IDE choices', () => {
+    it('should have 7 IDE choices including Grok Build', () => {
       const question = getIDESelectionQuestion();
-      expect(question.choices).toHaveLength(6);
+      expect(question.choices).toHaveLength(7);
+      expect(question.choices.map((c) => c.value)).toContain('grok');
     });
 
     it('should have valid choice structure', () => {

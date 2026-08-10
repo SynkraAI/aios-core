@@ -4,8 +4,8 @@
  * Story 1.4: IDE Selection
  * Tests complete flow from selection to config generation
  *
- * Synkra AIOX v2.1 supports 6 IDEs:
- * - Claude Code, Codex CLI, Gemini CLI, Cursor, GitHub Copilot, AntiGravity
+ * Synkra AIOX supports 7 IDEs/CLIs:
+ * - Claude Code, Codex CLI, Grok Build, Gemini CLI, Cursor, GitHub Copilot, AntiGravity
  */
 
 const fs = require('fs-extra');
@@ -87,7 +87,28 @@ describe('Wizard IDE Flow Integration', () => {
       expect(await fs.pathExists(path.join(testDir, '.github', 'agents'))).toBe(true);
     });
 
-    it('should complete flow for all 6 IDEs', async () => {
+    it('should complete flow for all IDEs including Grok', async () => {
+      // Seed agents so Grok sync can run during generateIDEConfigs
+      const agentsSrc = path.join(__dirname, '..', '..', '.aiox-core', 'development', 'agents');
+      if (await fs.pathExists(agentsSrc)) {
+        await fs.copy(agentsSrc, path.join(testDir, '.aiox-core', 'development', 'agents'));
+      }
+      const hookSrc = path.join(
+        __dirname,
+        '..',
+        '..',
+        '.claude',
+        'hooks',
+        'enforce-git-push-authority.cjs',
+      );
+      if (await fs.pathExists(hookSrc)) {
+        await fs.ensureDir(path.join(testDir, '.claude', 'hooks'));
+        await fs.copy(
+          hookSrc,
+          path.join(testDir, '.claude', 'hooks', 'enforce-git-push-authority.cjs'),
+        );
+      }
+
       const wizardState = {
         projectType: 'greenfield',
         projectName: 'all-ides-project',
@@ -96,11 +117,14 @@ describe('Wizard IDE Flow Integration', () => {
 
       const result = await generateIDEConfigs(wizardState.selectedIDEs, wizardState, {
         projectRoot: testDir,
+        ci: true,
+        yes: true,
+        skipPrompts: true,
       });
 
       expect(result.success).toBe(true);
-      // 6 config files + agent files for each IDE
-      expect(result.files.length).toBeGreaterThanOrEqual(6);
+      // 7 config files + agent files for each IDE (Grok adds many sync files)
+      expect(result.files.length).toBeGreaterThanOrEqual(7);
 
       // Verify all config files and agent folders based on IDE configuration
       for (const ideKey of getIDEKeys()) {
@@ -108,9 +132,18 @@ describe('Wizard IDE Flow Integration', () => {
         const configPath = path.join(testDir, config.configFile);
         expect(await fs.pathExists(configPath)).toBe(true);
 
-        // Verify agent folder exists
-        const agentFolder = path.join(testDir, config.agentFolder);
-        expect(await fs.pathExists(agentFolder)).toBe(true);
+        // Grok has no agentFolder — surface is generated under .grok/agents
+        if (config.agentFolder) {
+          const agentFolder = path.join(testDir, config.agentFolder);
+          expect(await fs.pathExists(agentFolder)).toBe(true);
+        } else if (ideKey === 'grok') {
+          expect(await fs.pathExists(path.join(testDir, '.grok', 'agents', 'aiox-dev.md'))).toBe(
+            true,
+          );
+          expect(
+            await fs.pathExists(path.join(testDir, '.grok', 'skills', 'aiox-dev', 'SKILL.md')),
+          ).toBe(true);
+        }
       }
     });
   });
