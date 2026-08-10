@@ -1,7 +1,7 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-08-10T20:35:21.455Z'
-  entityCount: 845
+  lastUpdated: '2026-08-10T20:54:37.339Z'
+  entityCount: 846
   checksumAlgorithm: sha256
   resolutionRate: 100
 entities:
@@ -6954,6 +6954,28 @@ entities:
         extensionPoints: []
       checksum: sha256:20f687384c4deb909e9171f8e83f40b962a9cc717755b62d88db285316b2188a
       lastVerified: '2026-07-10T16:41:40.941Z'
+    grok-rules:
+      path: .aiox-core/product/templates/ide-rules/grok-rules.md
+      layer: L2
+      type: template
+      purpose: AIOX × Grok Build — Project Rules
+      keywords:
+        - grok
+        - rules
+        - aiox
+        - build
+        - project
+      usedBy: []
+      dependencies: []
+      externalDeps: []
+      plannedDeps: []
+      lifecycle: orphan
+      adaptability:
+        score: 0.5
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:3cdce5610f50815eb95e4fe5eb3fb88fbccc85d4a82c0a05702d239a2e3a7267
+      lastVerified: '2026-08-10T20:54:37.335Z'
   scripts:
     activation-runtime:
       path: .aiox-core/development/scripts/activation-runtime.js
@@ -18725,8 +18747,8 @@ entities:
         score: 0.7
         constraints: []
         extensionPoints: []
-      checksum: sha256:da8d69083999ae99a4d09b5fd3c72d74af5fb470de24a809e72df84aec6d8853
-      lastVerified: '2026-08-10T20:35:21.449Z'
+      checksum: sha256:c08c9eb49d17b2ba0757f0e478784c830b45098f83632e83ca8305fffa6f38b7
+      lastVerified: '2026-08-10T20:54:37.333Z'
     agent-parser:
       path: .aiox-core/infrastructure/scripts/ide-sync/agent-parser.js
       layer: L2
@@ -19006,8 +19028,8 @@ entities:
         score: 0.7
         constraints: []
         extensionPoints: []
-      checksum: sha256:4933ed2f7dbb9fa7474f6741d8ba33136a67480fa7755e92a3a3062ec982429d
-      lastVerified: '2026-08-10T20:35:21.451Z'
+      checksum: sha256:4acc61c9bbd329375a0c06d99511ec0fbaf7d5c9e05e0f3ec1a12446752cc498
+      lastVerified: '2026-08-10T20:54:37.335Z'
   infra-tools:
     README:
       path: .aiox-core/infrastructure/tools/README.md

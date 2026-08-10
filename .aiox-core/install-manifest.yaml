@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.3.0
-generated_at: "2026-08-10T20:50:13.715Z"
+generated_at: "2026-08-10T20:59:00.598Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1167
 files:
@@ -1393,9 +1393,9 @@ files:
     type: data
     size: 9590
   - path: data/entity-registry.yaml
-    hash: sha256:88dbf158c4df24de91b5fb0d715e4794629fa51a389a26feb8608022d44d72bf
+    hash: sha256:f9c1c3bac3490d8b589335da439c6b4b1dcf875363f0384beeda1db4d0fb9122
     type: data
-    size: 595485
+    size: 596086
   - path: data/learned-patterns.yaml
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data
@@ -3385,9 +3385,9 @@ files:
     type: script
     size: 2784
   - path: infrastructure/scripts/ide-sync/transformers/claude-code.js
-    hash: sha256:364ef939d1392397d13942dfc2360a3a75ff8edd77cd0ba88fc29622d5f75fd5
+    hash: sha256:026452147a0ab7b7ed262dc87694467690d2f8d44d6eecb5b41db23656d76484
     type: script
-    size: 6272
+    size: 6469
   - path: infrastructure/scripts/ide-sync/transformers/cursor.js
     hash: sha256:9a38f664747ea71472585d4f8c3e52b844dc75a39a526f5873e6bf97370a4723
     type: script

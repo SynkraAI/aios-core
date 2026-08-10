@@ -188,7 +188,9 @@ function getSkillRelativePath(agentData) {
  */
 function transformSkill(agentData) {
   const sourcePath = getSourcePath(agentData);
-  const name = `aiox-${agentData.id}`;
+  // Avoid double prefix for ids already namespaced (e.g. aiox-master → aiox-master, not aiox-aiox-master)
+  const agentId = String(agentData.id || '').trim();
+  const name = agentId.startsWith('aiox-') ? agentId : `aiox-${agentId}`;
   const description = buildSkillDescription(agentData);
   const sourceContent = agentData.raw ? agentData.raw.trimEnd() : generateMinimalContent(agentData).trimEnd();
 
