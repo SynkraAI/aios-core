@@ -1,4 +1,5 @@
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
 const { spawnSync } = require('child_process');
 const yaml = require('js-yaml');
@@ -132,6 +133,8 @@ describe('Claude native subagent governance', () => {
         hookEventName: 'pre_tool_use',
         toolName: 'run_terminal_command',
         toolInput: { command: 'git push origin main' },
+        cwd: os.tmpdir(),
+        workspaceRoot: os.tmpdir(),
       }),
       encoding: 'utf8',
       env: { ...process.env, AIOX_ACTIVE_AGENT: 'dev' },
@@ -141,5 +144,38 @@ describe('Claude native subagent governance', () => {
     const decision = JSON.parse(result.stdout);
     expect(decision.decision).toBe('deny');
     expect(decision.hookSpecificOutput.permissionDecision).toBe('deny');
+  });
+
+  it('allows remote ops when Grok active-agent bridge identifies devops', () => {
+    const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'aiox-gov-bridge-'));
+    fs.mkdirSync(path.join(tmp, '.aiox'), { recursive: true });
+    fs.writeFileSync(path.join(tmp, '.aiox', 'active-agent'), 'devops\n');
+
+    const env = { ...process.env };
+    for (const key of [
+      'AIOX_ACTIVE_AGENT',
+      'AIOX_AGENT',
+      'ACTIVE_AGENT',
+      'CLAUDE_AGENT_NAME',
+      'CLAUDE_CODE_AGENT',
+      'AIOX_CURRENT_AGENT',
+      'GROK_ACTIVE_AGENT',
+    ]) {
+      delete env[key];
+    }
+
+    const result = spawnSync(process.execPath, [authorityHookPath], {
+      input: JSON.stringify({
+        toolInput: { command: 'git push origin main' },
+        cwd: tmp,
+        workspaceRoot: tmp,
+      }),
+      encoding: 'utf8',
+      env,
+    });
+
+    expect(result.status).toBe(0);
+    expect(result.stdout).toBe('');
+    fs.rmSync(tmp, { recursive: true, force: true });
   });
 });

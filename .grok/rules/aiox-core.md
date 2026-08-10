@@ -14,6 +14,15 @@ These rules apply in every Grok session in this repo. Full constitution: `.aiox-
 | Architecture decisions | architect (Aria) | `/aiox-architect` |
 | Schema/migrations/RLS | data-engineer (Dara) | `/aiox-data-engineer` |
 
+On every `/aiox-*` activation, write the active-agent bridge:
+
+```bash
+mkdir -p .aiox .synapse/sessions
+printf '%s\n' '{agent-id}' > .aiox/active-agent
+```
+
+Remote Git is denied unless the bridge/env identifies devops.
+
 ## Story lifecycle
 
 `Draft → Ready → InProgress → InReview → Done`

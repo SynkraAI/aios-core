@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/synapse-wrapper.cjs",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

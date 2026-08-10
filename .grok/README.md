@@ -40,8 +40,19 @@ Or ask in natural language ("implement this story", "create a PR") — skill des
 ## Authority (git push)
 
 `hooks/git-push-authority.json` runs `enforce-git-push-authority.cjs` on
-`Bash|run_terminal_command`. Only `@devops` / `AIOX_ACTIVE_AGENT=devops` may
-`git push` / `gh pr create|merge`.
+`Bash|run_terminal_command`. Only devops may `git push` / `gh pr create|merge`.
+
+Identity resolution order:
+
+1. Env `AIOX_ACTIVE_AGENT` / command-scoped export
+2. Bridge files written on skill/agent activation:
+   - `.aiox/active-agent`
+   - `.aiox/active-agent.json`
+   - `.synapse/sessions/_active-agent.json`
+
+Also: `hooks/synapse-prompt.json`, `hooks/precompact.json` (native Grok, no Claude settings required).
+
+Short agent spawn aliases: `dev`, `po`, `qa`, `devops`, … under `agents/`.
 
 ## Regenerate
 

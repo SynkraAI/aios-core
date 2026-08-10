@@ -49,10 +49,27 @@ describe('Grok skills sync + validate', () => {
       expect(body).toContain(`.grok/skills/${target}/SKILL.md`);
     }
 
+    // Short agent spawn aliases (dev, po, devops, …)
+    expect(fs.existsSync(path.join(grokRoot, 'agents', 'dev.md'))).toBe(true);
+    expect(fs.existsSync(path.join(grokRoot, 'agents', 'devops.md'))).toBe(true);
+    expect(fs.readFileSync(path.join(grokRoot, 'agents', 'dev.md'), 'utf8')).toContain(
+      '.grok/agents/aiox-dev.md'
+    );
+
     expect(fs.existsSync(path.join(grokRoot, 'hooks', 'git-push-authority.json'))).toBe(true);
+    expect(fs.existsSync(path.join(grokRoot, 'hooks', 'synapse-prompt.json'))).toBe(true);
+    expect(fs.existsSync(path.join(grokRoot, 'hooks', 'precompact.json'))).toBe(true);
     expect(fs.existsSync(path.join(grokRoot, 'hooks', 'enforce-git-push-authority.cjs'))).toBe(true);
     expect(fs.existsSync(path.join(grokRoot, 'config.toml'))).toBe(true);
     expect(fs.existsSync(path.join(grokRoot, 'rules', 'aiox-core.md'))).toBe(true);
+
+    // Activation protocol must register active-agent bridge
+    const devopsSkill = fs.readFileSync(
+      path.join(grokRoot, 'skills', 'aiox-devops', 'SKILL.md'),
+      'utf8'
+    );
+    expect(devopsSkill).toContain('.aiox/active-agent');
+    expect(devopsSkill).toContain('Register active agent');
 
     // Validate against the temp tree by temporarily not — validate uses cwd .grok.
     // Instead assert harness JSON shape here.

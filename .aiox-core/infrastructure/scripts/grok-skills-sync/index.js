@@ -706,13 +706,21 @@ You are **${name}**, AIOX ${profile.roleLabel}. Tone: ${tone}.
 
 On user activation (skill \`/${skillId}\` or explicit request):
 
-1. Read source of truth if deep task execution is needed: \`.aiox-core/development/agents/${agentData.filename}\`
-2. Greet briefly:
+1. **Register active agent** (required for authority hooks — git push / PR):
+   \`\`\`bash
+   mkdir -p .aiox .synapse/sessions
+   printf '%s\\n' '${agentData.id}' > .aiox/active-agent
+   printf '%s\\n' '{"id":"${agentData.id}","source":"grok-agent","activated_at":"'"$(date -u +%Y-%m-%dT%H:%M:%SZ)"'"}' > .aiox/active-agent.json
+   printf '%s\\n' '{"id":"${agentData.id}","source":"grok-agent","activated_at":"'"$(date -u +%Y-%m-%dT%H:%M:%SZ)"'"}' > .synapse/sessions/_active-agent.json
+   export AIOX_ACTIVE_AGENT=${agentData.id}
+   \`\`\`
+2. Read source of truth if deep task execution is needed: \`.aiox-core/development/agents/${agentData.filename}\`
+3. Greet briefly:
    - ${greeting}
    - **Role:** ${persona.role || title}
    - List 4–6 starter commands below
    - ${closing}
-3. HALT for user direction unless a command was already given.
+4. HALT for user direction unless a command was already given.
 
 Optional greeting script:
 \`\`\`bash
@@ -803,18 +811,41 @@ metadata:
 
 ## Protocol
 
-1. **Load persona** from \`.grok/agents/${skillId}.md\` (session agent profile).
-2. **Source of truth** for full commands/tasks: \`.aiox-core/development/agents/${agentData.filename}\`
+1. **Register active agent** (Constitution Article II — required before git push / PR):
+   \`\`\`bash
+   mkdir -p .aiox .synapse/sessions
+   printf '%s\\n' '${agentData.id}' > .aiox/active-agent
+   printf '%s\\n' '{"id":"${agentData.id}","source":"grok-skill","activated_at":"'"$(date -u +%Y-%m-%dT%H:%M:%SZ)"'"}' > .aiox/active-agent.json
+   printf '%s\\n' '{"id":"${agentData.id}","source":"grok-skill","activated_at":"'"$(date -u +%Y-%m-%dT%H:%M:%SZ)"'"}' > .synapse/sessions/_active-agent.json
+   export AIOX_ACTIVE_AGENT=${agentData.id}
+   \`\`\`
+2. **Load persona** from \`.grok/agents/${skillId}.md\` (session agent profile).
+3. **Source of truth** for full commands/tasks: \`.aiox-core/development/agents/${agentData.filename}\`
    - Fallback only if missing: \`.codex/agents/${agentData.filename}\`
-3. **Adopt** persona, authorities, and blocked operations from the agent profile.
-4. **Greet** (compact):
+4. **Adopt** persona, authorities, and blocked operations from the agent profile.
+5. **Greet** (compact):
    - Name/title/icon
    - Role one-liner
    - 4–6 starter commands
    - Optional: \`node .aiox-core/development/scripts/generate-greeting.js ${agentData.id}\`
-5. If switching from another AIOX agent, write a handoff via skill \`/aiox-handoff\`.
-6. **Stay in persona** until \`*exit\` or another \`/aiox-*\` skill.
+6. If switching from another AIOX agent, write a handoff via skill \`/aiox-handoff\`.
+7. **Stay in persona** until \`*exit\` or another \`/aiox-*\` skill.
+${
+  agentData.id === 'devops' || skillId === 'aiox-devops'
+    ? `
+## Remote Git (exclusive)
 
+You are the **only** agent allowed to \`git push\` / \`gh pr create|merge\`.
+
+Before every remote op, ensure identity is registered (step 1) **or** prefix the command:
+
+\`\`\`bash
+AIOX_ACTIVE_AGENT=devops git push
+AIOX_ACTIVE_AGENT=devops gh pr create ...
+\`\`\`
+`
+    : ''
+}
 ## Starter commands
 
 ${cmdList || '- `*help` — show commands from source agent'}
@@ -909,6 +940,15 @@ These rules apply in every Grok session in this repo. Full constitution: \`.aiox
 | Architecture decisions | architect (Aria) | \`/aiox-architect\` |
 | Schema/migrations/RLS | data-engineer (Dara) | \`/aiox-data-engineer\` |
 
+On every \`/aiox-*\` activation, write the active-agent bridge:
+
+\`\`\`bash
+mkdir -p .aiox .synapse/sessions
+printf '%s\\n' '{agent-id}' > .aiox/active-agent
+\`\`\`
+
+Remote Git is denied unless the bridge/env identifies devops.
+
 ## Story lifecycle
 
 \`Draft → Ready → InProgress → InReview → Done\`
@@ -981,8 +1021,19 @@ Or ask in natural language ("implement this story", "create a PR") — skill des
 ## Authority (git push)
 
 \`hooks/git-push-authority.json\` runs \`enforce-git-push-authority.cjs\` on
-\`Bash|run_terminal_command\`. Only \`@devops\` / \`AIOX_ACTIVE_AGENT=devops\` may
-\`git push\` / \`gh pr create|merge\`.
+\`Bash|run_terminal_command\`. Only devops may \`git push\` / \`gh pr create|merge\`.
+
+Identity resolution order:
+
+1. Env \`AIOX_ACTIVE_AGENT\` / command-scoped export
+2. Bridge files written on skill/agent activation:
+   - \`.aiox/active-agent\`
+   - \`.aiox/active-agent.json\`
+   - \`.synapse/sessions/_active-agent.json\`
+
+Also: \`hooks/synapse-prompt.json\`, \`hooks/precompact.json\` (native Grok, no Claude settings required).
+
+Short agent spawn aliases: \`dev\`, \`po\`, \`qa\`, \`devops\`, … under \`agents/\`.
 
 ## Regenerate
 
@@ -1130,6 +1181,14 @@ ${wf.body}
     })
   );
 
+  // Short agent type aliases (spawn_subagent subagent_type="dev", etc.)
+  written.push(
+    ...syncShortAgentAliases(targets, {
+      dryRun: resolved.dryRun,
+      quiet: resolved.quiet,
+    })
+  );
+
   // Native Grok hooks + project config (Constitution Article II, skill hygiene)
   written.push(
     ...syncGrokHarnessFiles(resolved.projectRoot, grok, {
@@ -1268,6 +1327,125 @@ function buildGrokPushAuthorityHookJson() {
   )}\n`;
 }
 
+/** Claude-compat hooks re-exported as native Grok hooks (pure Grok without Claude settings). */
+function buildGrokSynapseHookJson() {
+  return `${JSON.stringify(
+    {
+      hooks: {
+        UserPromptSubmit: [
+          {
+            hooks: [
+              {
+                type: 'command',
+                command: 'node .claude/hooks/synapse-wrapper.cjs',
+                timeout: 10,
+              },
+            ],
+          },
+        ],
+      },
+    },
+    null,
+    2
+  )}\n`;
+}
+
+function buildGrokPrecompactHookJson() {
+  return `${JSON.stringify(
+    {
+      hooks: {
+        PreCompact: [
+          {
+            hooks: [
+              {
+                type: 'command',
+                command: 'node .claude/hooks/precompact-wrapper.cjs',
+                timeout: 10,
+              },
+            ],
+          },
+        ],
+      },
+    },
+    null,
+    2
+  )}\n`;
+}
+
+/**
+ * Short agent type aliases so spawn_subagent subagent_type="dev" works without
+ * user-global Claude agents. Body points at the canonical aiox-* profile.
+ */
+const SHORT_AGENT_ALIASES = [
+  { alias: 'dev', target: 'aiox-dev', agentId: 'dev' },
+  { alias: 'qa', target: 'aiox-qa', agentId: 'qa' },
+  { alias: 'po', target: 'aiox-po', agentId: 'po' },
+  { alias: 'pm', target: 'aiox-pm', agentId: 'pm' },
+  { alias: 'sm', target: 'aiox-sm', agentId: 'sm' },
+  { alias: 'devops', target: 'aiox-devops', agentId: 'devops' },
+  { alias: 'architect', target: 'aiox-architect', agentId: 'architect' },
+  { alias: 'analyst', target: 'aiox-analyst', agentId: 'analyst' },
+  { alias: 'data-engineer', target: 'aiox-data-engineer', agentId: 'data-engineer' },
+  { alias: 'squad-creator', target: 'aiox-squad-creator', agentId: 'squad-creator' },
+  { alias: 'ux-design-expert', target: 'aiox-ux-design-expert', agentId: 'ux-design-expert' },
+  // Claude native short name used in some spawns / legacy docs
+  { alias: 'aiox-ux', target: 'aiox-ux-design-expert', agentId: 'ux-design-expert' },
+  { alias: 'master', target: 'aiox-master', agentId: 'aiox-master' },
+];
+
+function buildShortAgentAliasMarkdown(alias, target, agentId) {
+  return `---
+name: ${alias}
+description: >
+  Alias for ${target}. Spawn with subagent_type="${alias}" or use /${target}.
+prompt_mode: full
+model: inherit
+permission_mode: default
+agents_md: true
+---
+
+# Alias → \`${target}\`
+
+You are the **${alias}** short alias for AIOX agent \`${target}\`.
+
+## Protocol
+
+1. Load and follow \`.grok/agents/${target}.md\` as your full persona (authorities, workflow, commands).
+2. Register active agent id \`${agentId}\`:
+   \`\`\`bash
+   mkdir -p .aiox .synapse/sessions
+   printf '%s\\n' '${agentId}' > .aiox/active-agent
+   printf '%s\\n' '{"id":"${agentId}","source":"grok-alias","activated_at":"'"$(date -u +%Y-%m-%dT%H:%M:%SZ)"'"}' > .aiox/active-agent.json
+   printf '%s\\n' '{"id":"${agentId}","source":"grok-alias","activated_at":"'"$(date -u +%Y-%m-%dT%H:%M:%SZ)"'"}' > .synapse/sessions/_active-agent.json
+   export AIOX_ACTIVE_AGENT=${agentId}
+   \`\`\`
+3. Source of truth for deep tasks: \`.aiox-core/development/agents/${agentId === 'aiox-master' ? 'aiox-master' : agentId}.md\`
+4. Prefer the long skill \`/${target}\` when activating from slash commands.
+
+Constitution: \`.aiox-core/constitution.md\`
+`;
+}
+
+function syncShortAgentAliases(targets, options = {}) {
+  const written = [];
+  for (const { alias, target, agentId } of SHORT_AGENT_ALIASES) {
+    if (!SAFE_SKILL_ID_RE.test(alias) || !SAFE_SKILL_ID_RE.test(target)) {
+      if (!options.quiet) {
+        console.warn(`⚠️  Invalid agent alias ${alias} → ${target} — skipped`);
+      }
+      continue;
+    }
+    const dest = resolveUnder(targets.agents, `${alias}.md`);
+    const content = buildShortAgentAliasMarkdown(alias, target, agentId);
+    if (!options.dryRun) {
+      fs.ensureDirSync(path.dirname(dest));
+      fs.writeFileSync(dest, content, 'utf8');
+    }
+    written.push(dest);
+  }
+  return written;
+}
+
 function syncGrokHarnessFiles(projectRoot, grokRoot, options = {}) {
   const written = [];
   const hooksDir = path.join(grokRoot, 'hooks');
@@ -1279,6 +1457,8 @@ function syncGrokHarnessFiles(projectRoot, grokRoot, options = {}) {
   );
   const authorityDest = resolveUnder(hooksDir, 'enforce-git-push-authority.cjs');
   const hookJsonDest = resolveUnder(hooksDir, 'git-push-authority.json');
+  const synapseJsonDest = resolveUnder(hooksDir, 'synapse-prompt.json');
+  const precompactJsonDest = resolveUnder(hooksDir, 'precompact.json');
   const configDest = resolveUnder(grokRoot, 'config.toml');
 
   if (!options.dryRun) {
@@ -1291,10 +1471,18 @@ function syncGrokHarnessFiles(projectRoot, grokRoot, options = {}) {
       );
     }
     fs.writeFileSync(hookJsonDest, buildGrokPushAuthorityHookJson(), 'utf8');
+    fs.writeFileSync(synapseJsonDest, buildGrokSynapseHookJson(), 'utf8');
+    fs.writeFileSync(precompactJsonDest, buildGrokPrecompactHookJson(), 'utf8');
     fs.writeFileSync(configDest, buildGrokConfigToml(), 'utf8');
   }
 
-  written.push(authorityDest, hookJsonDest, configDest);
+  written.push(
+    authorityDest,
+    hookJsonDest,
+    synapseJsonDest,
+    precompactJsonDest,
+    configDest
+  );
   return written;
 }
 
@@ -1329,8 +1517,10 @@ module.exports = {
   WORKFLOW_SKILLS,
   DEVELOPMENT_WORKFLOW_SKILLS,
   SHORT_WORKFLOW_ALIASES,
+  SHORT_AGENT_ALIASES,
   syncDevelopmentWorkflowSkills,
   syncShortWorkflowAliases,
+  syncShortAgentAliases,
   syncGrokHarnessFiles,
   buildGrokConfigToml,
   buildGrokPushAuthorityHookJson,

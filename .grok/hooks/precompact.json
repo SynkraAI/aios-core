@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/precompact-wrapper.cjs",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -62,9 +62,10 @@ Preferencia de ativacao no Grok TUI:
 1. Use slash skills: `/aiox-dev`, `/aiox-qa`, `/aiox-devops`, etc. (em `.grok/skills/`)
 2. Workflows: `/aiox-full-sdc`, `/aiox-sdc`, `/aiox-quality-gates`, `/aiox-handoff`, `/aiox-commit`
 3. Aliases curtos (sem depender de Claude compat): `/develop-story`, `/validate-story-draft`, `/review-story`, `/full-sdc`, `/commit`
-4. Profiles de sessao/subagent: `.grok/agents/aiox-*.md` (spawnable via `subagent_type`)
-5. Authority hook nativo: `.grok/hooks/` (bloqueia `git push` fora de `@devops`)
-6. Source of truth continua em `.aiox-core/development/agents/`
+4. Profiles de sessao/subagent: `.grok/agents/aiox-*.md` **e** aliases `dev`/`po`/`qa`/`devops`/… (spawnable via `subagent_type`)
+5. Authority hooks nativos: `.grok/hooks/` — `git push` / PR so via devops
+6. Em toda ativacao `/aiox-*`, registrar bridge `.aiox/active-agent` (o hook le isso)
+7. Source of truth continua em `.aiox-core/development/agents/`
 
 Atalhos Grok (skills):
 - `/aiox-master` · `/aiox-analyst` · `/aiox-architect` · `/aiox-data-engineer`

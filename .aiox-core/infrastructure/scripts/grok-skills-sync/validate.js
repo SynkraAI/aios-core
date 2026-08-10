@@ -24,6 +24,7 @@ const {
   WORKFLOW_SKILLS,
   DEVELOPMENT_WORKFLOW_SKILLS,
   SHORT_WORKFLOW_ALIASES,
+  SHORT_AGENT_ALIASES,
   getSkillId,
   grokSkillIdFromDevSkill,
 } = require('./index');
@@ -158,11 +159,28 @@ function validateGrok(options = {}) {
     }
   }
 
+  for (const { alias, target } of SHORT_AGENT_ALIASES) {
+    const agentMd = path.join(grokRoot, 'agents', `${alias}.md`);
+    if (!exists(agentMd)) {
+      push(errors, `Missing short agent alias: ${alias} → ${target}`);
+      continue;
+    }
+    const content = readText(agentMd);
+    if (!hasFrontmatterName(content, alias)) {
+      push(errors, `Agent alias ${alias} missing frontmatter name`);
+    }
+    if (!content.includes(`.grok/agents/${target}.md`)) {
+      push(errors, `Agent alias ${alias} does not load ${target}`);
+    }
+  }
+
   const requiredFiles = [
     path.join(grokRoot, 'rules', 'aiox-core.md'),
     path.join(grokRoot, 'README.md'),
     path.join(grokRoot, 'config.toml'),
     path.join(grokRoot, 'hooks', 'git-push-authority.json'),
+    path.join(grokRoot, 'hooks', 'synapse-prompt.json'),
+    path.join(grokRoot, 'hooks', 'precompact.json'),
     path.join(grokRoot, 'hooks', 'enforce-git-push-authority.cjs'),
   ];
   for (const filePath of requiredFiles) {
@@ -197,9 +215,27 @@ function validateGrok(options = {}) {
     }
   }
 
-  // Dual-payload authority hook smoke test
+  // Dual-payload authority hook smoke test (isolated workspace — no bridge leaks)
   const hookPath = path.join(grokRoot, 'hooks', 'enforce-git-push-authority.cjs');
   if (exists(hookPath)) {
+    const os = require('os');
+    const cleanEnv = () => {
+      const env = { ...process.env };
+      for (const key of [
+        'AIOX_ACTIVE_AGENT',
+        'AIOX_AGENT',
+        'ACTIVE_AGENT',
+        'CLAUDE_AGENT_NAME',
+        'CLAUDE_CODE_AGENT',
+        'AIOX_CURRENT_AGENT',
+        'GROK_ACTIVE_AGENT',
+      ]) {
+        delete env[key];
+      }
+      return env;
+    };
+
+    const emptyRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'aiox-hook-empty-'));
     const cases = [
       {
         label: 'claude tool_input',
@@ -207,6 +243,8 @@ function validateGrok(options = {}) {
           hook_event_name: 'PreToolUse',
           tool_name: 'Bash',
           tool_input: { command: 'git push origin main' },
+          cwd: emptyRoot,
+          workspaceRoot: emptyRoot,
         },
         env: { AIOX_ACTIVE_AGENT: 'dev' },
         expectDeny: true,
@@ -217,14 +255,18 @@ function validateGrok(options = {}) {
           hookEventName: 'pre_tool_use',
           toolName: 'run_terminal_command',
           toolInput: { command: 'git push origin main' },
+          cwd: emptyRoot,
+          workspaceRoot: emptyRoot,
         },
         env: { AIOX_ACTIVE_AGENT: 'dev' },
         expectDeny: true,
       },
       {
-        label: 'devops allow',
+        label: 'devops allow env',
         input: {
           toolInput: { command: 'git push origin main' },
+          cwd: emptyRoot,
+          workspaceRoot: emptyRoot,
         },
         env: { AIOX_ACTIVE_AGENT: 'devops' },
         expectDeny: false,
@@ -235,7 +277,7 @@ function validateGrok(options = {}) {
       const result = spawnSync(process.execPath, [hookPath], {
         input: JSON.stringify(testCase.input),
         encoding: 'utf8',
-        env: { ...process.env, ...testCase.env },
+        env: { ...cleanEnv(), ...testCase.env },
       });
       if (result.status !== 0) {
         push(errors, `Authority hook crashed (${testCase.label}): ${result.stderr || result.status}`);
@@ -264,6 +306,35 @@ function validateGrok(options = {}) {
         push(errors, `Authority hook should allow devops (${testCase.label}), got: ${out}`);
       }
     }
+
+    // Bridge-file allow path (Grok skill activation without env)
+    const tmpBridge = fs.mkdtempSync(path.join(os.tmpdir(), 'aiox-bridge-'));
+    fs.mkdirSync(path.join(tmpBridge, '.aiox'), { recursive: true });
+    fs.writeFileSync(path.join(tmpBridge, '.aiox', 'active-agent'), 'devops\n', 'utf8');
+    const bridgeResult = spawnSync(process.execPath, [hookPath], {
+      input: JSON.stringify({
+        toolInput: { command: 'git push origin main' },
+        cwd: tmpBridge,
+        workspaceRoot: tmpBridge,
+      }),
+      encoding: 'utf8',
+      env: cleanEnv(),
+    });
+    if (bridgeResult.status !== 0) {
+      push(errors, `Authority bridge test crashed: ${bridgeResult.stderr || bridgeResult.status}`);
+    } else if ((bridgeResult.stdout || '').trim()) {
+      push(
+        errors,
+        `Authority hook should allow bridge-file devops, got: ${bridgeResult.stdout}`
+      );
+    }
+    for (const dir of [emptyRoot, tmpBridge]) {
+      try {
+        fs.rmSync(dir, { recursive: true, force: true });
+      } catch {
+        /* ignore */
+      }
+    }
   }
 
   const ok = errors.length === 0 && (!resolved.strict || warnings.length === 0);
@@ -276,6 +347,7 @@ function validateGrok(options = {}) {
       workflowSkills: WORKFLOW_SKILLS.length,
       developmentSkills: DEVELOPMENT_WORKFLOW_SKILLS.length,
       shortAliases: SHORT_WORKFLOW_ALIASES.length,
+      agentAliases: SHORT_AGENT_ALIASES.length,
     },
   };
 }
