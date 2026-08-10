@@ -736,8 +736,12 @@ async function runWizard(options = {}) {
           });
           answers.grokValidationOk = grokValidation.ok;
           if (!grokValidation.ok) {
+            const issues = [
+              ...(grokValidation.errors || []),
+              ...(grokValidation.warnings || []),
+            ];
             throw new Error(
-              `Grok surface validation reported ${grokValidation.errors.length} issue(s): ${grokValidation.errors.join('; ')}`,
+              `Grok surface validation reported ${issues.length} issue(s): ${issues.join('; ')}`,
             );
           } else {
             console.log('✅ Grok surface validation passed');

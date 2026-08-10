@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.3.0
-generated_at: "2026-08-10T22:05:04.980Z"
+generated_at: "2026-08-10T22:36:02.788Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1172
 files:
@@ -1393,7 +1393,7 @@ files:
     type: data
     size: 9590
   - path: data/entity-registry.yaml
-    hash: sha256:b38065af6067bf977eaccb94d47dfa796b57becc01c491cb4befe54cb3e36838
+    hash: sha256:5d30c78606097252bdb2896c99eccdef9b19c9949ff34a4fc8c67ae3dfc35b4b
     type: data
     size: 596246
   - path: data/learned-patterns.yaml
@@ -3349,17 +3349,17 @@ files:
     type: script
     size: 38453
   - path: infrastructure/scripts/grok-skills-sync/index.js
-    hash: sha256:319bba7a41ba9aa42a3a4527428ad1ade23248ae48157d34daa3312e2f853438
+    hash: sha256:0ca8dfe11dfe569562ce9e4f2f44a63a514c8bbaa74033b8b35c13b24016e962
     type: script
-    size: 55796
+    size: 57636
   - path: infrastructure/scripts/grok-skills-sync/README.md
     hash: sha256:b3106dc8eba5241b695c9d19958cb767c0b7a87e320a3527322db2d2db59a715
     type: script
     size: 1682
   - path: infrastructure/scripts/grok-skills-sync/validate.js
-    hash: sha256:40ffe827651cfab04bfc777c43e7accff5b4de8bae8cc759d3718b39b35b4f46
+    hash: sha256:449cfa35ffb10e19d1bb62d6a021cf621e3e2524d3fd8436cce6e6bd283e9e73
     type: script
-    size: 17477
+    size: 18855
   - path: infrastructure/scripts/ide-sync/agent-parser.js
     hash: sha256:f1ed4d0e6dda1a616efb0cb31157fe36063cf9481c19ee7b4bada26cb12e0e80
     type: script
@@ -3713,21 +3713,21 @@ files:
     type: template
     size: 1580
   - path: infrastructure/templates/grok-hooks/enforce-git-push-authority.cjs
-    hash: sha256:70c85c3a16be2a21ee7b7ad607ff8f99f077e4aaeeeba18dfa81d27ee4b2e94b
+    hash: sha256:beb11262929466209d6a1b37f193ca0c521de258468e1382744beed1bd378f8c
     type: template
-    size: 9464
+    size: 9632
   - path: infrastructure/templates/grok-hooks/precompact-session-digest.cjs
-    hash: sha256:44f369ee3b95fb5537b85a3b2de8c4ce5ed5c05a19fde9d262f0b76bce779417
+    hash: sha256:e35151e544804436a40040bdc97184347b94883b2537354d15bb1eb7dc3b81bc
     type: template
-    size: 4623
+    size: 5666
   - path: infrastructure/templates/grok-hooks/precompact-wrapper.cjs
     hash: sha256:4afa0eb6185874dd5467c85866266a27445fbe5fcd5977b52e407fc4c7c8875a
     type: template
     size: 997
   - path: infrastructure/templates/grok-hooks/synapse-engine.cjs
-    hash: sha256:1c5c4631f0733230b54f0cea9321b1f336d532bf376e7e1c9a5fa58e6adf4697
+    hash: sha256:873e07b69dde7fd09b6a4f3f16e0c70325c3f259ce47276f877a150bb64a88b4
     type: template
-    size: 3439
+    size: 5631
   - path: infrastructure/templates/grok-hooks/synapse-wrapper.cjs
     hash: sha256:7ed83025a47f20f4e3e9adf2de1a3bbcf65045341a0ea1d0037e98f82eb31918
     type: template

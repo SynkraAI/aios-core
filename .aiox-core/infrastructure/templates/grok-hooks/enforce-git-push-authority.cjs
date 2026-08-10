@@ -176,7 +176,10 @@ const BRIDGE_TTL_MS = 8 * 60 * 60 * 1000;
 
 function isBridgeFresh(filePath) {
   try {
-    return Date.now() - fs.statSync(filePath).mtimeMs <= BRIDGE_TTL_MS;
+    const ageMs = Date.now() - fs.statSync(filePath).mtimeMs;
+    // Future-dated mtimes (restored files, clock skew) are as untrusted as
+    // expired ones — only accept 0 <= age <= TTL.
+    return ageMs >= 0 && ageMs <= BRIDGE_TTL_MS;
   } catch {
     return false;
   }

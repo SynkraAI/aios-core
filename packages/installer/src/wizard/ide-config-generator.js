@@ -919,7 +919,7 @@ const HOOK_EVENT_MAP = {
   },
   'enforce-git-push-authority.cjs': {
     event: 'PreToolUse',
-    matcher: 'Bash',
+    matcher: 'Bash|run_terminal_command',
     timeout: 10,
   },
   'precompact-session-digest.cjs': {
@@ -934,6 +934,19 @@ const HOOK_EVENT_MAP = {
   'synapse-wrapper.cjs': { event: null },
   'precompact-wrapper.cjs': { event: null },
 };
+
+const CANONICAL_HOOK_ENTRYPOINTS = {
+  'synapse-engine.cjs': 'synapse-wrapper.cjs',
+  'precompact-session-digest.cjs': 'precompact-wrapper.cjs',
+  'enforce-git-push-authority.cjs': 'enforce-git-push-authority.cjs',
+};
+
+function commandTargetsHook(command, hookFiles) {
+  if (typeof command !== 'string') return false;
+  const normalized = command.replace(/\\/g, '/');
+  const scriptPaths = [...normalized.matchAll(/(?:^|[\s"'=])([^\s"']+\.cjs)(?=$|[\s"'])/g)];
+  return scriptPaths.some(match => hookFiles.includes(path.posix.basename(match[1])));
+}
 
 /** Default event config for unmapped hooks (backwards compatible). */
 const DEFAULT_HOOK_CONFIG = {
@@ -1039,21 +1052,49 @@ async function createClaudeSettingsLocal(projectRoot) {
       settings.hooks[eventName] = [];
     }
 
-    // Windows workaround: $CLAUDE_PROJECT_DIR has known bug on Windows (GH #6023/#5814)
-    const hookCommand = isWindows
-      ? `node "${hookFilePath.replace(/\\/g, '\\\\')}"` // Absolute path with escaped backslashes
-      : `node "$CLAUDE_PROJECT_DIR/.claude/hooks/${hookFileName}"`;
+    const canonicalEntryPoint = CANONICAL_HOOK_ENTRYPOINTS[hookFileName];
+    const canonicalHookPath = path.join(
+      projectRoot,
+      '.aiox-core',
+      'infrastructure',
+      'templates',
+      'grok-hooks',
+      canonicalEntryPoint || hookFileName,
+    );
+    const hasCanonicalHook = Boolean(canonicalEntryPoint) && await fs.pathExists(canonicalHookPath);
+    // Shared relative commands let Grok deduplicate native and Claude-compatible definitions.
+    let hookCommand;
+    if (hasCanonicalHook) {
+      hookCommand = `node .aiox-core/infrastructure/templates/grok-hooks/${canonicalEntryPoint}`;
+    } else if (isWindows) {
+      hookCommand = `node "${hookFilePath.replace(/\\/g, '\\\\')}"`;
+    } else {
+      hookCommand = `node "$CLAUDE_PROJECT_DIR/.claude/hooks/${hookFileName}"`;
+    }
 
     // Check if this hook is already registered under this event
-    const hookBaseName = hookFileName.replace('.cjs', '');
-    const alreadyRegistered = settings.hooks[eventName].some(entry => {
-      if (Array.isArray(entry.hooks)) {
-        return entry.hooks.some(h => h.command && h.command.includes(hookBaseName));
+    const managedHookFiles = [hookFileName, canonicalEntryPoint].filter(Boolean);
+    let existingEntry;
+    let existingHook;
+    for (const entry of settings.hooks[eventName]) {
+      const hooks = Array.isArray(entry.hooks) ? entry.hooks : [entry];
+      const matchingHook = hooks.find(h => commandTargetsHook(h.command, managedHookFiles));
+      if (matchingHook) {
+        existingEntry = entry;
+        existingHook = matchingHook;
+        break;
       }
-      return entry.command && entry.command.includes(hookBaseName);
-    });
+    }
 
-    if (!alreadyRegistered) {
+    if (existingHook) {
+      existingHook.command = hookCommand;
+      existingHook.timeout = hookConfig.timeout;
+      if (hookConfig.matcher) {
+        existingEntry.matcher = hookConfig.matcher;
+      } else {
+        delete existingEntry.matcher;
+      }
+    } else {
       const hookEntry = {
         hooks: [
           {

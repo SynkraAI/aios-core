@@ -64,6 +64,7 @@ function runAuthorityHook(command, env = {}, hookPath = claudeAuthorityHookPath)
 
 describe('Claude native subagent governance', () => {
   it('keeps Claude and Grok authority hooks equal to the canonical source', () => {
+    expect(authorityHookPaths).toHaveLength(2);
     const canonical = fs.readFileSync(canonicalAuthorityHookPath, 'utf8');
     for (const hookPath of authorityHookPaths) {
       expect(fs.readFileSync(hookPath, 'utf8')).toBe(canonical);
@@ -111,7 +112,7 @@ describe('Claude native subagent governance', () => {
     const preToolUse = settings.hooks?.PreToolUse || [];
 
     expect(JSON.stringify(preToolUse)).toContain('enforce-git-push-authority.cjs');
-    expect(preToolUse.some(entry => entry.matcher === 'Bash')).toBe(true);
+    expect(preToolUse.some(entry => entry.matcher === 'Bash|run_terminal_command')).toBe(true);
   });
 
   it('uses shell-neutral project hook commands in committed Claude settings', () => {
@@ -122,16 +123,28 @@ describe('Claude native subagent governance', () => {
       .map(hook => hook.command);
 
     expect(commands).toEqual(expect.arrayContaining([
-      'node .claude/hooks/synapse-wrapper.cjs',
-      'node .claude/hooks/precompact-wrapper.cjs',
-      'node .claude/hooks/enforce-git-push-authority.cjs',
+      'node .aiox-core/infrastructure/templates/grok-hooks/synapse-wrapper.cjs',
+      'node .aiox-core/infrastructure/templates/grok-hooks/precompact-wrapper.cjs',
+      'node .aiox-core/infrastructure/templates/grok-hooks/enforce-git-push-authority.cjs',
     ]));
 
     for (const command of commands) {
       expect(command).not.toContain('CLAUDE_PROJECT_DIR');
       expect(command).not.toContain('${');
-      expect(command).toMatch(/^node \.claude\/hooks\/[-a-z]+\.cjs$/);
+      expect(command).toMatch(/^node \.aiox-core\/infrastructure\/templates\/grok-hooks\/[-a-z]+\.cjs$/);
     }
+  });
+
+  it('keeps native Grok and Claude-compatible hook definitions identical for runtime deduplication', () => {
+    const claudeSettings = JSON.parse(
+      fs.readFileSync(path.join(repoRoot, '.claude', 'settings.json'), 'utf8'),
+    );
+    const grokHookFiles = ['synapse-prompt.json', 'precompact.json', 'git-push-authority.json'];
+    const grokHooks = Object.assign({}, ...grokHookFiles.map(file => JSON.parse(
+      fs.readFileSync(path.join(repoRoot, '.grok', 'hooks', file), 'utf8'),
+    ).hooks));
+
+    expect(grokHooks).toEqual(claudeSettings.hooks);
   });
 
   it('blocks remote GitHub operations outside devops and allows devops-tagged commands', () => {
@@ -155,20 +168,22 @@ describe('Claude native subagent governance', () => {
       "gh --repo owner/repo api graphql -f query='mutation { mergePullRequest(input: {}) { pullRequest { merged } } }'",
     ];
 
-    for (const command of blockedCommands) {
-      const result = runAuthorityHook(command, { AIOX_ACTIVE_AGENT: 'dev' });
-      // Deny paths emit a decision payload and exit 2 for fail-closed hosts.
-      expect(result.status).toBe(2);
-      const decision = JSON.parse(result.stdout);
-      expect(decision.hookSpecificOutput.permissionDecision).toBe('deny');
-      // Dual payload for Grok Build PreToolUse
-      expect(decision.decision).toBe('deny');
-      expect(decision.reason).toMatch(/@devops/);
-    }
+    for (const hookPath of authorityHookPaths) {
+      for (const command of blockedCommands) {
+        const result = runAuthorityHook(command, { AIOX_ACTIVE_AGENT: 'dev' }, hookPath);
+        // Deny paths emit a decision payload and exit 2 for fail-closed hosts.
+        expect(result.status).toBe(2);
+        const decision = JSON.parse(result.stdout);
+        expect(decision.hookSpecificOutput.permissionDecision).toBe('deny');
+        // Dual payload for Grok Build PreToolUse
+        expect(decision.decision).toBe('deny');
+        expect(decision.reason).toMatch(/@devops/);
+      }
 
-    const allowed = runAuthorityHook('git push origin main', { AIOX_ACTIVE_AGENT: 'devops' });
-    expect(allowed.status).toBe(0);
-    expect(allowed.stdout).toBe('');
+      const allowed = runAuthorityHook('git push origin main', { AIOX_ACTIVE_AGENT: 'devops' }, hookPath);
+      expect(allowed.status).toBe(0);
+      expect(allowed.stdout).toBe('');
+    }
   });
 
   it('keeps non-publication commands allowed for non-devops agents', () => {
@@ -185,10 +200,12 @@ describe('Claude native subagent governance', () => {
       'gh issue create --title test',
     ];
 
-    for (const command of allowedCommands) {
-      const result = runAuthorityHook(command, { AIOX_ACTIVE_AGENT: 'dev' });
-      expect(result.status).toBe(0);
-      expect(result.stdout).toBe('');
+    for (const hookPath of authorityHookPaths) {
+      for (const command of allowedCommands) {
+        const result = runAuthorityHook(command, { AIOX_ACTIVE_AGENT: 'dev' }, hookPath);
+        expect(result.status).toBe(0);
+        expect(result.stdout).toBe('');
+      }
     }
   });
 
@@ -276,13 +293,15 @@ describe('Claude native subagent governance', () => {
     }
   });
 
-  it('rejects stale active-agent bridges (leftover devops from an old session)', () => {
+  it.each([
+    ['stale (older than TTL)', -9 * 60 * 60 * 1000],
+    ['future-dated (clock skew / restored file)', 60 * 60 * 1000],
+  ])('rejects %s active-agent bridges', (_label, offsetMs) => {
     const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'aiox-gov-stale-'));
     fs.mkdirSync(path.join(tmp, '.aiox'), { recursive: true });
     const bridgePath = path.join(tmp, '.aiox', 'active-agent');
     fs.writeFileSync(bridgePath, 'devops\n');
-    // Backdate past the 8h bridge TTL
-    const staleSeconds = (Date.now() - 9 * 60 * 60 * 1000) / 1000;
+    const staleSeconds = (Date.now() + offsetMs) / 1000;
     fs.utimesSync(bridgePath, staleSeconds, staleSeconds);
 
     const env = { ...process.env };

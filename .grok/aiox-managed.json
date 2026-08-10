@@ -135,22 +135,22 @@
     {
       "path": "config.toml",
       "mode": "full",
-      "sha256": "9f8a8d871eb7e1dff7d121597530d4292d0ed68e8b5dd192ddba5899f4794c0b"
+      "sha256": "147f944dd539e7fd8267be146dd0d48e689ff67df38038500e7a915f87d0376b"
     },
     {
       "path": "hooks/enforce-git-push-authority.cjs",
       "mode": "full",
-      "sha256": "70c85c3a16be2a21ee7b7ad607ff8f99f077e4aaeeeba18dfa81d27ee4b2e94b"
+      "sha256": "beb11262929466209d6a1b37f193ca0c521de258468e1382744beed1bd378f8c"
     },
     {
       "path": "hooks/git-push-authority.json",
       "mode": "full",
-      "sha256": "d4c0e17b15679fe6a466318bbe926543a38737043720be0f54cdf0690e5e9bf7"
+      "sha256": "fbfead91b226cd98553c87cbfecbec9c5539e67ed8b26a1cbee45873236972d1"
     },
     {
       "path": "hooks/precompact-session-digest.cjs",
       "mode": "full",
-      "sha256": "44f369ee3b95fb5537b85a3b2de8c4ce5ed5c05a19fde9d262f0b76bce779417"
+      "sha256": "e35151e544804436a40040bdc97184347b94883b2537354d15bb1eb7dc3b81bc"
     },
     {
       "path": "hooks/precompact-wrapper.cjs",
@@ -160,17 +160,17 @@
     {
       "path": "hooks/precompact.json",
       "mode": "full",
-      "sha256": "fbf06eadbdc3c600bd89a3289299e278622af784ad489dbd9255c575c31a584c"
+      "sha256": "2b8a1a654cf7b4dae30982be3654169fb5edda5da04e0267dbf5746501995c1c"
     },
     {
       "path": "hooks/synapse-engine.cjs",
       "mode": "full",
-      "sha256": "1c5c4631f0733230b54f0cea9321b1f336d532bf376e7e1c9a5fa58e6adf4697"
+      "sha256": "873e07b69dde7fd09b6a4f3f16e0c70325c3f259ce47276f877a150bb64a88b4"
     },
     {
       "path": "hooks/synapse-prompt.json",
       "mode": "full",
-      "sha256": "10c13fc1a91317c95443c1b038f7f095d97d495c3e4ce3338d8b1ca918ef11a7"
+      "sha256": "2cce1157e456b441da1d6341d17f0952a37f54cab5f6d305dac0ba183b74d9e1"
     },
     {
       "path": "hooks/synapse-wrapper.cjs",

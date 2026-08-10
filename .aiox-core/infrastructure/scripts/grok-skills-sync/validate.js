@@ -260,9 +260,19 @@ function validateGrok(options = {}) {
 
   for (const { name, target } of SHORT_WORKFLOW_ALIASES) {
     const aliasMd = path.join(grokRoot, 'skills', name, 'SKILL.md');
+    const targetMd = path.join(grokRoot, 'skills', target, 'SKILL.md');
     if (!exists(aliasMd)) {
-      push(errors, `Missing short alias skill: ${name} → ${target}`);
+      // The sync skips aliases whose canonical target was not generated —
+      // absence is only an error when the target itself exists.
+      if (exists(targetMd)) {
+        push(errors, `Missing short alias skill: ${name} → ${target}`);
+      } else {
+        push(warnings, `Alias ${name} absent (target ${target} not generated)`);
+      }
       continue;
+    }
+    if (!exists(targetMd)) {
+      push(errors, `Alias ${name} redirects to missing skill: ${target}`);
     }
     const content = readText(aliasMd);
     if (!hasFrontmatterName(content, name)) {
@@ -288,6 +298,13 @@ function validateGrok(options = {}) {
     }
   }
 
+  const canonicalHookDir = path.join(
+    projectRoot,
+    '.aiox-core',
+    'infrastructure',
+    'templates',
+    'grok-hooks',
+  );
   const requiredFiles = [
     path.join(grokRoot, 'rules', 'aiox-core.md'),
     path.join(grokRoot, 'README.md'),
@@ -296,6 +313,13 @@ function validateGrok(options = {}) {
     path.join(grokRoot, 'hooks', 'synapse-prompt.json'),
     path.join(grokRoot, 'hooks', 'precompact.json'),
     path.join(grokRoot, 'hooks', 'enforce-git-push-authority.cjs'),
+    // Vendored copies under .grok/hooks (parity with Claude surface)
+    path.join(grokRoot, 'hooks', 'synapse-wrapper.cjs'),
+    path.join(grokRoot, 'hooks', 'precompact-wrapper.cjs'),
+    // Canonical entrypoints referenced by shared hook commands
+    path.join(canonicalHookDir, 'synapse-wrapper.cjs'),
+    path.join(canonicalHookDir, 'precompact-wrapper.cjs'),
+    path.join(canonicalHookDir, 'enforce-git-push-authority.cjs'),
     path.join(grokRoot, MANAGED_MANIFEST_FILENAME),
   ];
   for (const filePath of requiredFiles) {
@@ -393,7 +417,15 @@ function validateGrok(options = {}) {
         input: JSON.stringify(testCase.input),
         encoding: 'utf8',
         env: { ...cleanEnv(), ...testCase.env },
+        timeout: 5000,
       });
+      if (result.error) {
+        push(
+          errors,
+          `Authority hook spawn failed (${testCase.label}): ${result.error.message}`
+        );
+        continue;
+      }
       // Deny paths emit JSON and exit 2; allow paths exit 0 without output.
       const expectedStatus = testCase.expectDeny ? 2 : 0;
       if (result.status !== expectedStatus) {
@@ -439,8 +471,11 @@ function validateGrok(options = {}) {
       }),
       encoding: 'utf8',
       env: cleanEnv(),
+      timeout: 5000,
     });
-    if (bridgeResult.status !== 0) {
+    if (bridgeResult.error) {
+      push(errors, `Authority bridge test spawn failed: ${bridgeResult.error.message}`);
+    } else if (bridgeResult.status !== 0) {
       push(errors, `Authority bridge test crashed: ${bridgeResult.stderr || bridgeResult.status}`);
     } else if ((bridgeResult.stdout || '').trim()) {
       push(

@@ -85,6 +85,21 @@ describe('Grok skills sync + validate', () => {
       fs.readFileSync(path.join(grokRoot, 'hooks', 'git-push-authority.json'), 'utf8'),
     );
     expect(JSON.stringify(hookJson.hooks.PreToolUse)).toContain('run_terminal_command');
+    expect(hookJson.hooks.PreToolUse[0].hooks[0].command).toBe(
+      'node .aiox-core/infrastructure/templates/grok-hooks/enforce-git-push-authority.cjs',
+    );
+    const synapseHookJson = JSON.parse(
+      fs.readFileSync(path.join(grokRoot, 'hooks', 'synapse-prompt.json'), 'utf8'),
+    );
+    expect(synapseHookJson.hooks.UserPromptSubmit[0].hooks[0].command).toBe(
+      'node .aiox-core/infrastructure/templates/grok-hooks/synapse-wrapper.cjs',
+    );
+    const precompactHookJson = JSON.parse(
+      fs.readFileSync(path.join(grokRoot, 'hooks', 'precompact.json'), 'utf8'),
+    );
+    expect(precompactHookJson.hooks.PreCompact[0].hooks[0].command).toBe(
+      'node .aiox-core/infrastructure/templates/grok-hooks/precompact-wrapper.cjs',
+    );
 
     // The freshly generated tree must itself pass strict validation —
     // otherwise a sync bug only surfaces after the broken tree is committed.

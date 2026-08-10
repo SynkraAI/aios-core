@@ -23,10 +23,35 @@
 'use strict';
 
 const path = require('path');
+const fs = require('fs');
 
-// Resolve project root via __dirname (same pattern as synapse-engine.cjs)
-// More robust than input.cwd — doesn't depend on external input
-const PROJECT_ROOT = path.resolve(__dirname, '..', '..');
+function resolveProjectRoot() {
+  const runnerRel = path.join('.aiox-core', 'hooks', 'unified', 'runners', 'precompact-runner.js');
+  const installedRel = path.join(
+    'node_modules',
+    'aiox-core',
+    '.aiox-core',
+    'hooks',
+    'unified',
+    'runners',
+    'precompact-runner.js',
+  );
+  const candidates = [
+    process.cwd(),
+    process.env.GROK_WORKSPACE_ROOT,
+    path.resolve(__dirname, '..', '..'),
+    path.resolve(__dirname, '..', '..', '..', '..'),
+  ].filter(Boolean);
+  return (
+    candidates.find(
+      (candidate) =>
+        fs.existsSync(path.join(candidate, runnerRel)) ||
+        fs.existsSync(path.join(candidate, installedRel)),
+    ) || process.cwd()
+  );
+}
+
+const PROJECT_ROOT = resolveProjectRoot();
 
 /** Safety timeout (ms) — defense-in-depth; Claude Code also manages hook timeout. */
 const HOOK_TIMEOUT_MS = 9000;
@@ -73,16 +98,26 @@ async function main() {
   const runnerPath = resolveRunnerPath();
   if (!runnerPath) return; // Runner not available — silent exit
 
-  // Build context object expected by onPreCompact
+  // Build context object expected by onPreCompact.
+  // Claude uses snake_case; Grok Build uses camelCase + GROK_WORKSPACE_ROOT.
+  const isGrok =
+    Boolean(process.env.GROK_WORKSPACE_ROOT) ||
+    Boolean(input.workspaceRoot) ||
+    Boolean(input.sessionId && !input.session_id) ||
+    String(input.hookEventName || '').includes('compact');
   const context = {
-    sessionId: input.session_id,
-    projectDir: input.cwd || PROJECT_ROOT,
-    transcriptPath: input.transcript_path,
+    sessionId: input.session_id || input.sessionId,
+    projectDir:
+      input.cwd ||
+      input.workspaceRoot ||
+      process.env.GROK_WORKSPACE_ROOT ||
+      PROJECT_ROOT,
+    transcriptPath: input.transcript_path || input.transcriptPath,
     trigger: input.trigger || 'auto',
-    hookEventName: input.hook_event_name || 'PreCompact',
-    permissionMode: input.permission_mode,
+    hookEventName: input.hook_event_name || input.hookEventName || 'PreCompact',
+    permissionMode: input.permission_mode || input.permissionMode,
     conversation: input,
-    provider: 'claude',
+    provider: isGrok ? 'grok' : 'claude',
   };
 
   // Spawn a detached child process so the digest is fire-and-forget.

@@ -14,13 +14,78 @@
  * @module synapse-engine-hook
  */
 
+const fs = require('fs');
 const path = require('path');
-const { resolveHookRuntime, buildHookOutput } = require(
-  path.join(__dirname, '..', '..', '.aiox-core', 'core', 'synapse', 'runtime', 'hook-runtime.js'),
-);
 
 /** Safety timeout (ms) — defense-in-depth; Claude Code also manages hook timeout. */
 const HOOK_TIMEOUT_MS = 5000;
+
+/**
+ * Resolve project root for both checkout layouts:
+ * - `.claude/hooks` or `.grok/hooks` → two levels up
+ * - `.aiox-core/infrastructure/templates/grok-hooks` → four levels up
+ * Also accepts process.cwd() and installed node_modules layouts.
+ */
+function resolveProjectRoot() {
+  const runtimeRel = path.join('.aiox-core', 'core', 'synapse', 'runtime', 'hook-runtime.js');
+  const installedRel = path.join(
+    'node_modules',
+    'aiox-core',
+    '.aiox-core',
+    'core',
+    'synapse',
+    'runtime',
+    'hook-runtime.js',
+  );
+  const candidates = [
+    process.cwd(),
+    path.resolve(__dirname, '..', '..'),
+    path.resolve(__dirname, '..', '..', '..', '..'),
+  ];
+  for (const candidate of candidates) {
+    if (
+      fs.existsSync(path.join(candidate, runtimeRel)) ||
+      fs.existsSync(path.join(candidate, installedRel))
+    ) {
+      return candidate;
+    }
+  }
+  return process.cwd();
+}
+
+function resolveHookRuntimeModulePath(projectRoot) {
+  const candidates = [
+    path.join(projectRoot, '.aiox-core', 'core', 'synapse', 'runtime', 'hook-runtime.js'),
+    path.join(
+      projectRoot,
+      'node_modules',
+      'aiox-core',
+      '.aiox-core',
+      'core',
+      'synapse',
+      'runtime',
+      'hook-runtime.js',
+    ),
+  ];
+  for (const candidate of candidates) {
+    if (fs.existsSync(candidate)) return candidate;
+  }
+  return null;
+}
+
+const PROJECT_ROOT = resolveProjectRoot();
+let resolveHookRuntime = null;
+let buildHookOutput = null;
+try {
+  const runtimePath = resolveHookRuntimeModulePath(PROJECT_ROOT);
+  if (runtimePath) {
+    ({ resolveHookRuntime, buildHookOutput } = require(runtimePath));
+  }
+} catch {
+  // Silent — missing/invalid runtime must never crash the hook process.
+  resolveHookRuntime = null;
+  buildHookOutput = null;
+}
 
 /**
  * Read all data from stdin as a JSON object.
@@ -41,6 +106,10 @@ function readStdin() {
 
 /** Main hook execution pipeline. */
 async function main() {
+  if (typeof resolveHookRuntime !== 'function' || typeof buildHookOutput !== 'function') {
+    return;
+  }
+
   const input = await readStdin();
   const runtime = resolveHookRuntime(input);
   if (!runtime) return;
@@ -50,12 +119,26 @@ async function main() {
   // QW-1: Wire updateSession() — persist bracket transitions after each prompt
   if (runtime.sessionId && runtime.sessionsDir) {
     try {
-      const { updateSession } = require(
+      const sessionManagerCandidates = [
         path.join(runtime.cwd, '.aiox-core', 'core', 'synapse', 'session', 'session-manager.js'),
-      );
-      updateSession(runtime.sessionId, runtime.sessionsDir, {
-        context: { last_bracket: result.bracket || 'FRESH' },
-      });
+        path.join(
+          runtime.cwd,
+          'node_modules',
+          'aiox-core',
+          '.aiox-core',
+          'core',
+          'synapse',
+          'session',
+          'session-manager.js',
+        ),
+      ];
+      const sessionManagerPath = sessionManagerCandidates.find((candidate) => fs.existsSync(candidate));
+      if (sessionManagerPath) {
+        const { updateSession } = require(sessionManagerPath);
+        updateSession(runtime.sessionId, runtime.sessionsDir, {
+          context: { last_bracket: result.bracket || 'FRESH' },
+        });
+      }
     } catch (_err) {
       // Fire-and-forget — never block the prompt
     }

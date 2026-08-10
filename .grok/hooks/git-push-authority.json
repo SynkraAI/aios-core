@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node .grok/hooks/enforce-git-push-authority.cjs",
+            "command": "node .aiox-core/infrastructure/templates/grok-hooks/enforce-git-push-authority.cjs",
             "timeout": 10
           }
         ]

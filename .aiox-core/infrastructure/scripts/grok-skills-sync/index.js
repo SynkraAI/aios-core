@@ -1066,15 +1066,30 @@ function buildManagedManifest(grokRoot, written) {
   };
 }
 
-function readManagedManifest(manifestPath) {
+function readManagedManifest(manifestPath, options = {}) {
   if (!fs.existsSync(manifestPath)) return null;
-  const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+  // Recoverable by design: a corrupt or foreign manifest must not brick the
+  // sync (the installer propagates a throw and leaves the user with manual
+  // file surgery). Treat it as absent — the sync rebuilds a fresh manifest
+  // and, with no stale file list, never deletes anything it does not own.
+  let manifest;
+  try {
+    manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+  } catch (error) {
+    if (!options.quiet) {
+      console.warn(`⚠️  Corrupt Grok managed manifest (rebuilding): ${manifestPath} — ${error.message}`);
+    }
+    return null;
+  }
   if (
     manifest?.schemaVersion !== 1 ||
     manifest?.generatedBy !== MANAGED_MANIFEST_GENERATOR ||
     !Array.isArray(manifest?.files)
   ) {
-    throw new Error(`Invalid Grok managed manifest: ${manifestPath}`);
+    if (!options.quiet) {
+      console.warn(`⚠️  Unrecognized Grok managed manifest (rebuilding, no stale cleanup): ${manifestPath}`);
+    }
+    return null;
   }
   return manifest;
 }
@@ -1227,7 +1242,7 @@ function syncGrok(options = {}) {
   const written = [];
   const grok = resolved.grokRoot;
   const manifestPath = path.join(grok, MANAGED_MANIFEST_FILENAME);
-  const previousManifest = readManagedManifest(manifestPath);
+  const previousManifest = readManagedManifest(manifestPath, { quiet: resolved.quiet });
 
   const targets = {
     agents: path.join(grok, 'agents'),
@@ -1323,11 +1338,23 @@ ${wf.body}
     })
   );
 
-  // Short slash aliases (Claude-parity names without aiox- prefix)
+  // Short slash aliases (Claude-parity names without aiox- prefix).
+  // Aliases must never point at a skill that was skipped (missing source) —
+  // pass the set of targets that actually exist in this sync.
+  const availableSkillTargets = new Set([
+    ...agents.filter((a) => AGENT_PROFILES[a.id]).map((a) => getSkillId(a.id)),
+    ...WORKFLOW_SKILLS.map(({ name }) => name),
+    ...DEVELOPMENT_WORKFLOW_SKILLS.filter((dirName) =>
+      fs.existsSync(
+        path.join(resolved.projectRoot, '.aiox-core', 'development', 'skills', dirName, 'SKILL.md')
+      )
+    ).map((dirName) => grokSkillIdFromDevSkill(dirName)),
+  ]);
   written.push(
     ...syncShortWorkflowAliases(targets, {
       dryRun: resolved.dryRun,
       quiet: resolved.quiet,
+      availableTargets: availableSkillTargets,
     })
   );
 
@@ -1428,6 +1455,14 @@ function syncShortWorkflowAliases(targets, options = {}) {
       }
       continue;
     }
+    // Never emit an alias whose canonical target was skipped — a redirect to
+    // a missing skill validates textually but cannot run.
+    if (options.availableTargets && !options.availableTargets.has(target)) {
+      if (!options.quiet) {
+        console.warn(`⚠️  Alias ${name} → ${target} skipped: target skill not generated`);
+      }
+      continue;
+    }
     const dest = resolveUnder(targets.skills, name, 'SKILL.md');
     const content = buildShortAliasSkill(name, target);
     if (!options.dryRun) {
@@ -1452,8 +1487,10 @@ function buildGrokConfigToml() {
 # on name collision. Optional user-global skill hygiene lives in ~/.grok/config.toml
 # (not committed).
 #
-# Authority: .grok/hooks/git-push-authority.json is the primary enforcer
-# (devops-only git push / PR). Do not rely on empty permission tables.
+# Native and Claude-compatible hook definitions share canonical commands so
+# Grok deduplicates multi-harness discovery instead of executing hooks twice.
+# Native authority: .grok/hooks/git-push-authority.json remains devops-only
+# for git push / PR.
 `;
 }
 
@@ -1467,7 +1504,7 @@ function buildGrokPushAuthorityHookJson() {
             hooks: [
               {
                 type: 'command',
-                command: 'node .grok/hooks/enforce-git-push-authority.cjs',
+                command: 'node .aiox-core/infrastructure/templates/grok-hooks/enforce-git-push-authority.cjs',
                 timeout: 10,
               },
             ],
@@ -1480,7 +1517,7 @@ function buildGrokPushAuthorityHookJson() {
   )}\n`;
 }
 
-/** Native Grok hooks pointing at wrappers vendored under .grok/hooks/. */
+/** Native Grok hooks share canonical entrypoints with Claude compatibility. */
 function buildGrokSynapseHookJson() {
   return `${JSON.stringify(
     {
@@ -1490,7 +1527,7 @@ function buildGrokSynapseHookJson() {
             hooks: [
               {
                 type: 'command',
-                command: 'node .grok/hooks/synapse-wrapper.cjs',
+                command: 'node .aiox-core/infrastructure/templates/grok-hooks/synapse-wrapper.cjs',
                 timeout: 10,
               },
             ],
@@ -1512,7 +1549,7 @@ function buildGrokPrecompactHookJson() {
             hooks: [
               {
                 type: 'command',
-                command: 'node .grok/hooks/precompact-wrapper.cjs',
+                command: 'node .aiox-core/infrastructure/templates/grok-hooks/precompact-wrapper.cjs',
                 timeout: 10,
               },
             ],

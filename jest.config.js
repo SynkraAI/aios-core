@@ -129,6 +129,11 @@ module.exports = {
   moduleNameMapper: {
     '^aiox-core/(.*)$': '<rootDir>/.aiox-core/$1',
     '^@aiox-core/(.*)$': '<rootDir>/.aiox-core/$1',
+    // Runtime installs keep a private .aiox-core/node_modules tree. Tests must
+    // resolve the root copies so jest.mock() and the module under test share
+    // one dependency instance regardless of whether that runtime tree exists.
+    '^(ajv|chalk|commander|diff|execa|fast-glob|fs-extra|glob|highlight\\.js|inquirer|js-yaml|proper-lockfile|semver|tar|validator)(/.*)?$':
+      '<rootDir>/node_modules/$1$2',
   },
   setupFilesAfterEnv: ['<rootDir>/tests/setup.js'],
 

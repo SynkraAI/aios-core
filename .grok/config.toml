@@ -6,5 +6,7 @@
 # on name collision. Optional user-global skill hygiene lives in ~/.grok/config.toml
 # (not committed).
 #
-# Authority: .grok/hooks/git-push-authority.json is the primary enforcer
-# (devops-only git push / PR). Do not rely on empty permission tables.
+# Native and Claude-compatible hook definitions share canonical commands so
+# Grok deduplicates multi-harness discovery instead of executing hooks twice.
+# Native authority: .grok/hooks/git-push-authority.json remains devops-only
+# for git push / PR.
