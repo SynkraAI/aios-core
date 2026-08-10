@@ -1,5 +1,5 @@
 release: "AIOX 4.0.4"
-updated_at: "2026-02-16"
+updated_at: "2026-08-10"
 source_of_truth:
   docs_matrix: "docs/ide-integration.md"
   validator: ".aiox-core/infrastructure/scripts/validate-parity.js"
@@ -27,6 +27,11 @@ ide_matrix:
       - codex-sync
       - codex-integration
       - codex-skills
+  - ide: "grok"
+    display_name: "Grok Build"
+    expected_status: "Works"
+    required_checks:
+      - grok-skills
   - ide: "cursor"
     display_name: "Cursor"
     expected_status: "Limited"

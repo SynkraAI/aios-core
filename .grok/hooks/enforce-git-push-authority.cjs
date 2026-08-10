@@ -64,6 +64,14 @@ const REMOTE_OPERATION_PATTERNS = [
     pattern: /\bgh\s+api\b(?=[^\n]*\/pulls\b)[^\n]*(?:\s(?:-X|--method)[=\s]*(?:POST|PUT|PATCH)\b|\s(?:-f|-F|--field|--raw-field|--input)(?:[=\s]|$))/i,
     operation: 'gh api (pull request mutation)',
   },
+  {
+    pattern: new RegExp(
+      `\\bgh(?:\\s+${GH_OPTION})*\\s+api(?:\\s+${GH_OPTION})*\\s+graphql\\b` +
+        '(?=[\\s\\S]*\\bmutation\\b)(?=[\\s\\S]*\\b(?:createPullRequest|mergePullRequest)\\s*\\()',
+      'i',
+    ),
+    operation: 'gh api graphql (pull request mutation)',
+  },
 ];
 
 const DEVOPS_AGENT_ALIASES = new Set([
@@ -256,9 +264,8 @@ function emitDecision(permissionDecision, permissionDecisionReason) {
   };
   process.stdout.write(JSON.stringify(payload));
   if (permissionDecision === 'deny') {
-    // Grok Build only blocks the tool call on a non-zero (2) exit status;
-    // Claude Code blocks on exit 2 too (stderr fed back to the model) and
-    // also honors the JSON permissionDecision above.
+    // Both runtimes honor the JSON deny; exit 2 also provides a fail-closed
+    // signal and stderr feedback when a host cannot consume the payload.
     process.stderr.write(permissionDecisionReason);
     process.exitCode = 2;
   }

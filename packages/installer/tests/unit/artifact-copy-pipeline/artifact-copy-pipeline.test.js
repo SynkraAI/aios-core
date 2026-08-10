@@ -191,7 +191,9 @@ describe('artifact-copy-pipeline (Story INS-4.3)', () => {
           'README.md',
           'code-intel-pretool.cjs',
           'enforce-git-push-authority.cjs',
+          'precompact-wrapper.cjs',
           'synapse-engine.cjs',
+          'synapse-wrapper.cjs',
         ));
 
         const settingsPath = await createClaudeSettingsLocal(targetRoot);
@@ -226,7 +228,9 @@ describe('artifact-copy-pipeline (Story INS-4.3)', () => {
           'code-intel-pretool.cjs',
           'enforce-git-push-authority.cjs',
           'precompact-session-digest.cjs',
+          'precompact-wrapper.cjs',
           'synapse-engine.cjs',
+          'synapse-wrapper.cjs',
         ));
 
         const settingsPath = await createClaudeSettingsLocal(targetRoot);
@@ -294,13 +298,16 @@ describe('artifact-copy-pipeline (Story INS-4.3)', () => {
       expect(config.timeout).toBe(10);
     });
 
-    test('covers all 4 known hooks', () => {
+    test('covers all known hooks (4 registered + 2 vendoring-only wrappers)', () => {
       const keys = Object.keys(HOOK_EVENT_MAP);
-      expect(keys).toHaveLength(4);
+      expect(keys).toHaveLength(6);
       expect(keys).toContain('synapse-engine.cjs');
       expect(keys).toContain('code-intel-pretool.cjs');
       expect(keys).toContain('enforce-git-push-authority.cjs');
       expect(keys).toContain('precompact-session-digest.cjs');
+      // Wrappers ship as Grok vendoring sources and must never be registered
+      expect(HOOK_EVENT_MAP['synapse-wrapper.cjs'].event).toBeNull();
+      expect(HOOK_EVENT_MAP['precompact-wrapper.cjs'].event).toBeNull();
     });
 
     test('DEFAULT_HOOK_CONFIG falls back to UserPromptSubmit', () => {

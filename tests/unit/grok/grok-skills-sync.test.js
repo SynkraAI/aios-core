@@ -19,9 +19,15 @@ describe('Grok skills sync + validate', () => {
     const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'aiox-grok-sync-'));
     const grokRoot = path.join(tmp, '.grok');
 
-    // Authority hook source must exist for harness copy
-    const claudeHook = path.join(repoRoot, '.claude', 'hooks', 'enforce-git-push-authority.cjs');
-    expect(fs.existsSync(claudeHook)).toBe(true);
+    const canonicalHook = path.join(
+      repoRoot,
+      '.aiox-core',
+      'infrastructure',
+      'templates',
+      'grok-hooks',
+      'enforce-git-push-authority.cjs',
+    );
+    expect(fs.existsSync(canonicalHook)).toBe(true);
 
     const result = syncGrok({
       projectRoot: repoRoot,
@@ -65,6 +71,7 @@ describe('Grok skills sync + validate', () => {
     expect(fs.existsSync(path.join(grokRoot, 'hooks', 'enforce-git-push-authority.cjs'))).toBe(true);
     expect(fs.existsSync(path.join(grokRoot, 'config.toml'))).toBe(true);
     expect(fs.existsSync(path.join(grokRoot, 'rules', 'aiox-core.md'))).toBe(true);
+    expect(fs.existsSync(path.join(grokRoot, 'aiox-managed.json'))).toBe(true);
 
     // Activation protocol must register active-agent bridge
     const devopsSkill = fs.readFileSync(
@@ -95,11 +102,69 @@ describe('Grok skills sync + validate', () => {
     fs.rmSync(tmp, { recursive: true, force: true });
   });
 
+  it('preserves brownfield rules outside AIOX managed sections', () => {
+    const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'aiox-grok-rules-'));
+    const grokRoot = path.join(tmp, '.grok');
+    const rulesPath = path.join(grokRoot, 'rules', 'aiox-core.md');
+    fs.mkdirSync(path.dirname(rulesPath), { recursive: true });
+    fs.writeFileSync(rulesPath, '# Company Grok Rules\n\nKEEP-COMPANY-SENTINEL\n', 'utf8');
+
+    syncGrok({ projectRoot: repoRoot, grokRoot, quiet: true });
+    const first = fs.readFileSync(rulesPath, 'utf8');
+    expect(first).toContain('KEEP-COMPANY-SENTINEL');
+    expect(first).toContain('<!-- AIOX-MANAGED-START: core -->');
+
+    syncGrok({ projectRoot: repoRoot, grokRoot, quiet: true });
+    expect(fs.readFileSync(rulesPath, 'utf8')).toBe(first);
+    fs.rmSync(tmp, { recursive: true, force: true });
+  });
+
+  it('detects managed content drift but permits custom rule content', () => {
+    const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'aiox-grok-drift-'));
+    const grokRoot = path.join(tmp, '.grok');
+    syncGrok({ projectRoot: repoRoot, grokRoot, quiet: true });
+
+    const rulesPath = path.join(grokRoot, 'rules', 'aiox-core.md');
+    fs.appendFileSync(rulesPath, '\n## Company-only rule\nKeep this.\n', 'utf8');
+    expect(validateGrok({ projectRoot: repoRoot, grokRoot, strict: true, quiet: true }).ok).toBe(true);
+
+    const agentPath = path.join(grokRoot, 'agents', 'aiox-dev.md');
+    fs.appendFileSync(agentPath, '\nMANAGED-DRIFT\n', 'utf8');
+    const result = validateGrok({ projectRoot: repoRoot, grokRoot, strict: true, quiet: true });
+    expect(result.ok).toBe(false);
+    expect(result.errors).toContain('Managed content drift: agents/aiox-dev.md');
+    fs.rmSync(tmp, { recursive: true, force: true });
+  });
+
+  it('removes stale owned artifacts and preserves project extensions', () => {
+    const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'aiox-grok-owned-'));
+    const grokRoot = path.join(tmp, '.grok');
+    syncGrok({ projectRoot: repoRoot, grokRoot, quiet: true });
+
+    const stalePath = path.join(grokRoot, 'skills', 'aiox-obsolete', 'SKILL.md');
+    const customPath = path.join(grokRoot, 'skills', 'company-custom', 'SKILL.md');
+    fs.mkdirSync(path.dirname(stalePath), { recursive: true });
+    fs.mkdirSync(path.dirname(customPath), { recursive: true });
+    fs.writeFileSync(stalePath, 'stale', 'utf8');
+    fs.writeFileSync(customPath, 'name: company-custom\n', 'utf8');
+
+    const manifestPath = path.join(grokRoot, 'aiox-managed.json');
+    const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+    manifest.files.push({ path: 'skills/aiox-obsolete/SKILL.md', mode: 'full', sha256: 'stale' });
+    fs.writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
+
+    const result = syncGrok({ projectRoot: repoRoot, grokRoot, quiet: true });
+    expect(result.removed).toContain(stalePath);
+    expect(fs.existsSync(stalePath)).toBe(false);
+    expect(fs.existsSync(customPath)).toBe(true);
+    expect(validateGrok({ projectRoot: repoRoot, grokRoot, strict: true, quiet: true }).ok).toBe(true);
+    fs.rmSync(tmp, { recursive: true, force: true });
+  });
+
   it('validates the committed .grok tree (strict)', () => {
     const result = validateGrok({ projectRoot: repoRoot, strict: true, quiet: true });
     if (!result.ok) {
       // Surface diagnostics in failure output
-       
       console.error(result.errors, result.warnings);
     }
     expect(result.ok).toBe(true);

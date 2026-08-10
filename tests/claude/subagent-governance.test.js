@@ -18,6 +18,14 @@ const grokAuthorityHookPath = path.join(
   'hooks',
   'enforce-git-push-authority.cjs',
 );
+const canonicalAuthorityHookPath = path.join(
+  repoRoot,
+  '.aiox-core',
+  'infrastructure',
+  'templates',
+  'grok-hooks',
+  'enforce-git-push-authority.cjs',
+);
 const authorityHookPaths = [claudeAuthorityHookPath, grokAuthorityHookPath].filter((p) =>
   fs.existsSync(p),
 );
@@ -55,6 +63,13 @@ function runAuthorityHook(command, env = {}, hookPath = claudeAuthorityHookPath)
 }
 
 describe('Claude native subagent governance', () => {
+  it('keeps Claude and Grok authority hooks equal to the canonical source', () => {
+    const canonical = fs.readFileSync(canonicalAuthorityHookPath, 'utf8');
+    for (const hookPath of authorityHookPaths) {
+      expect(fs.readFileSync(hookPath, 'utf8')).toBe(canonical);
+    }
+  });
+
   it('keeps all native subagents compliant with supported frontmatter fields', () => {
     const onDisk = fs.readdirSync(agentsDir).filter(file => file.endsWith('.md')).sort();
     // Require every core native subagent to exist (authoritative set).
@@ -136,11 +151,13 @@ describe('Claude native subagent governance', () => {
       'gh api repos/owner/repo/pulls -f title=t -f head=h -f base=main',
       'gh api -X POST repos/owner/repo/pulls --input body.json',
       'gh api --method PUT repos/owner/repo/pulls/1/merge',
+      "gh api graphql -f query='mutation { createPullRequest(input: {}) { pullRequest { id } } }'",
+      "gh --repo owner/repo api graphql -f query='mutation { mergePullRequest(input: {}) { pullRequest { merged } } }'",
     ];
 
     for (const command of blockedCommands) {
       const result = runAuthorityHook(command, { AIOX_ACTIVE_AGENT: 'dev' });
-      // Grok Build only blocks on non-zero exit; deny paths exit 2.
+      // Deny paths emit a decision payload and exit 2 for fail-closed hosts.
       expect(result.status).toBe(2);
       const decision = JSON.parse(result.stdout);
       expect(decision.hookSpecificOutput.permissionDecision).toBe('deny');
@@ -164,6 +181,7 @@ describe('Claude native subagent governance', () => {
       // Read-only API access to pull endpoints stays allowed
       'gh api repos/owner/repo/pulls',
       'gh api repos/owner/repo/pulls --paginate',
+      "gh api graphql -f query='{ repository(owner: \"o\", name: \"r\") { pullRequests(first: 1) { totalCount } } }'",
       'gh issue create --title test',
     ];
 

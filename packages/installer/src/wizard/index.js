@@ -731,27 +731,25 @@ async function runWizard(options = {}) {
           const grokValidation = validateGrok({
             projectRoot: targetProjectRoot,
             grokRoot: path.join(targetProjectRoot, '.grok'),
-            strict: false,
+            strict: true,
             quiet: true,
           });
           answers.grokValidationOk = grokValidation.ok;
           if (!grokValidation.ok) {
-            console.warn(
-              `⚠️  Grok surface validation reported ${grokValidation.errors.length} issue(s) — run 'npm run validate:skills:grok'`,
+            throw new Error(
+              `Grok surface validation reported ${grokValidation.errors.length} issue(s): ${grokValidation.errors.join('; ')}`,
             );
           } else {
             console.log('✅ Grok surface validation passed');
           }
         } catch (validateError) {
           answers.grokValidationOk = false;
-          console.warn(`⚠️  Grok validation skipped: ${validateError.message}`);
+          throw validateError;
         }
       } catch (grokSkillsError) {
-        console.warn(
-          `⚠️  Grok skills sync failed: ${grokSkillsError.message} — run 'npm run sync:skills:grok' post-install`,
-        );
         answers.grokSkillsStatus = 'failed';
         answers.grokSkillsGenerated = answers.grokSkillsGenerated || 0;
+        throw new Error(`Grok installation failed: ${grokSkillsError.message}`);
       }
     }
 

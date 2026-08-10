@@ -338,7 +338,7 @@ describe('IDE Config Generator', () => {
         projectRoot: testDir,
       });
 
-      expect(result.success).toBe(true);
+      expect(result.success).toBe(false);
       expect(result.files).toHaveLength(0);
       expect(result.errors).toBeDefined();
       expect(result.errors[0].error).toContain('not found');

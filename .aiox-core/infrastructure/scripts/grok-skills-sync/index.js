@@ -25,12 +25,30 @@
 
 const fs = require('fs-extra');
 const path = require('path');
+const crypto = require('crypto');
 
 const {
   parseAllAgents,
   normalizeCommands,
   getVisibleCommands,
 } = require('../ide-sync/agent-parser');
+
+const MANAGED_MANIFEST_FILENAME = 'aiox-managed.json';
+const MANAGED_MANIFEST_GENERATOR = 'aiox-grok-skills-sync';
+const GROK_RULES_TEMPLATE = path.join(
+  '.aiox-core',
+  'product',
+  'templates',
+  'ide-rules',
+  'grok-rules.md'
+);
+const GROK_HOOK_SOURCE_FILES = [
+  'enforce-git-push-authority.cjs',
+  'synapse-wrapper.cjs',
+  'precompact-wrapper.cjs',
+  'synapse-engine.cjs',
+  'precompact-session-digest.cjs',
+];
 
 // ─── Agent profiles (Grok-optimized overlays) ───────────────────────────────
 
@@ -613,6 +631,11 @@ function resolveUnder(baseDir, ...segments) {
   return target;
 }
 
+function isPathInside(baseDir, targetPath) {
+  const relative = path.relative(path.resolve(baseDir), path.resolve(targetPath));
+  return relative !== '' && !relative.startsWith('..') && !path.isAbsolute(relative);
+}
+
 function getDefaultOptions() {
   const projectRoot = process.cwd();
   return {
@@ -940,59 +963,148 @@ reasoning_effort = ${tomlBasicString(profile.reasoning_effort)}
 `;
 }
 
-function buildRulesMarkdown() {
-  return `# AIOX × Grok — Compact Rules
+function getCanonicalGrokHookSourceDir(projectRoot) {
+  return path.join(projectRoot, '.aiox-core', 'infrastructure', 'templates', 'grok-hooks');
+}
 
-These rules apply in every Grok session in this repo. Full constitution: \`.aiox-core/constitution.md\`.
+function assertCanonicalGrokHookSources(sourceDir) {
+  const missingSources = GROK_HOOK_SOURCE_FILES.filter(
+    (fileName) => !fs.existsSync(path.join(sourceDir, fileName))
+  );
+  if (missingSources.length > 0) {
+    throw new Error(
+      `Missing canonical Grok hook source(s) in ${sourceDir}: ${missingSources.join(', ')}`
+    );
+  }
+}
 
-## Authority (non-negotiable)
+function buildRulesMarkdown(projectRoot = process.cwd()) {
+  const templatePath = path.join(projectRoot, GROK_RULES_TEMPLATE);
+  if (!fs.existsSync(templatePath)) {
+    throw new Error(`Canonical Grok rules template not found: ${templatePath}`);
+  }
+  return fs.readFileSync(templatePath, 'utf8');
+}
 
-| Operation | Exclusive agent | Skill |
-|-----------|-----------------|-------|
-| \`git push\`, PR create/merge, releases | devops (Gage) | \`/aiox-devops\` |
-| Story draft/create | sm (River) | \`/aiox-sm\` |
-| Story validate → Ready | po (Pax) | \`/aiox-po\` |
-| Implementation | dev (Dex) | \`/aiox-dev\` |
-| QA gate verdict | qa (Quinn) | \`/aiox-qa\` |
-| Architecture decisions | architect (Aria) | \`/aiox-architect\` |
-| Schema/migrations/RLS | data-engineer (Dara) | \`/aiox-data-engineer\` |
+function getManagedRuleSections(content) {
+  const sections = new Map();
+  const pattern = /<!-- AIOX-MANAGED-START:\s*([a-z0-9-]+)\s*-->[\s\S]*?<!-- AIOX-MANAGED-END:\s*\1\s*-->/gi;
+  for (const match of String(content || '').matchAll(pattern)) {
+    sections.set(match[1].toLowerCase(), match[0]);
+  }
+  return sections;
+}
 
-On every \`/aiox-*\` activation, write the active-agent bridge:
+function serializeManagedRuleSections(content) {
+  return [...getManagedRuleSections(content).entries()]
+    .sort(([left], [right]) => left.localeCompare(right))
+    .map(([name, block]) => `${name}\0${block}`)
+    .join('\0');
+}
 
-\`\`\`bash
-mkdir -p .aiox .synapse/sessions
-printf '%s\\n' '{agent-id}' > .aiox/active-agent
-\`\`\`
+function mergeGrokRules(existingContent, generatedContent) {
+  const existing = String(existingContent || '');
+  const generated = String(generatedContent || '');
+  const generatedSections = getManagedRuleSections(generated);
+  if (generatedSections.size === 0) {
+    throw new Error('Canonical Grok rules template has no AIOX-MANAGED sections');
+  }
+  if (!existing.trim()) return generated;
 
-Remote Git is denied unless the bridge/env identifies devops.
+  const existingSections = getManagedRuleSections(existing);
+  if (existingSections.size === 0) {
+    if (/^# AIOX × Grok(?: Build)? — (?:Compact|Project) Rules\s*$/m.test(existing)) {
+      return generated;
+    }
+    return `${existing.trimEnd()}\n\n${generated}`;
+  }
 
-## Story lifecycle
+  let merged = existing;
+  for (const [name, block] of generatedSections) {
+    const sectionPattern = new RegExp(
+      `<!-- AIOX-MANAGED-START:\\s*${name}\\s*-->[\\s\\S]*?<!-- AIOX-MANAGED-END:\\s*${name}\\s*-->`,
+      'i'
+    );
+    if (sectionPattern.test(merged)) {
+      merged = merged.replace(sectionPattern, block);
+    } else {
+      merged = `${merged.trimEnd()}\n\n${block}\n`;
+    }
+  }
+  return merged.endsWith('\n') ? merged : `${merged}\n`;
+}
 
-\`Draft → Ready → InProgress → InReview → Done\`
+function sha256(content) {
+  return crypto.createHash('sha256').update(content).digest('hex');
+}
 
-SDC: \`/aiox-full-sdc\` (lean) or \`/aiox-sdc\` (index). Atomics: \`/aiox-validate-story-draft\`, \`/aiox-develop-story\`, \`/aiox-review-story\`, \`/aiox-apply-qa-fixes\`, \`/aiox-close-story\`.
+function normalizeManagedPath(grokRoot, filePath) {
+  const relative = path.relative(grokRoot, filePath).split(path.sep).join('/');
+  if (!relative || relative.startsWith('../') || path.isAbsolute(relative)) {
+    throw new Error(`Managed Grok path escapes root: ${filePath}`);
+  }
+  return relative;
+}
 
-## Quality gates
+function buildManagedManifest(grokRoot, written) {
+  const files = [...new Set(written.map((filePath) => normalizeManagedPath(grokRoot, filePath)))]
+    .sort()
+    .map((relativePath) => {
+      const absolutePath = path.join(grokRoot, ...relativePath.split('/'));
+      const content = fs.readFileSync(absolutePath, 'utf8');
+      const managedRules = relativePath === 'rules/aiox-core.md';
+      return {
+        path: relativePath,
+        mode: managedRules ? 'managed-sections' : 'full',
+        sha256: sha256(managedRules ? serializeManagedRuleSections(content) : content),
+      };
+    });
+  return {
+    schemaVersion: 1,
+    generatedBy: MANAGED_MANIFEST_GENERATOR,
+    files,
+  };
+}
 
-\`\`\`bash
-npm run lint && npm run typecheck && npm test
-\`\`\`
+function readManagedManifest(manifestPath) {
+  if (!fs.existsSync(manifestPath)) return null;
+  const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+  if (
+    manifest?.schemaVersion !== 1 ||
+    manifest?.generatedBy !== MANAGED_MANIFEST_GENERATOR ||
+    !Array.isArray(manifest?.files)
+  ) {
+    throw new Error(`Invalid Grok managed manifest: ${manifestPath}`);
+  }
+  return manifest;
+}
 
-## Layers (do not corrupt)
+function pruneEmptyManagedParents(grokRoot, filePath) {
+  let current = path.dirname(filePath);
+  const root = path.resolve(grokRoot);
+  while (current !== root && isPathInside(root, current)) {
+    if (fs.readdirSync(current).length > 0) return;
+    fs.rmdirSync(current);
+    current = path.dirname(current);
+  }
+}
 
-- **L1/L2** framework core & templates under \`.aiox-core/\` — extend carefully; frameworkProtection may deny edits
-- **L4** work: \`docs/stories/\` (project) and/or \`docs/framework/epics/\` (framework OSS), \`packages/\`, \`squads/\`, \`tests/\`
-
-## Grok entry points
-
-- Agents: \`.grok/agents/\` (also spawnable as \`subagent_type\`)
-- Skills: \`/aiox-*\` under \`.grok/skills/\`
-- Source of truth agents: \`.aiox-core/development/agents/\`
-
-## Portable paths
-
-Never commit machine-specific absolute paths. Use repo-relative paths.
-`;
+function removeStaleManagedFiles(grokRoot, previousManifest, currentManifest) {
+  if (!previousManifest) return [];
+  const currentPaths = new Set(currentManifest.files.map(({ path: filePath }) => filePath));
+  const removed = [];
+  for (const entry of previousManifest.files) {
+    if (!entry?.path || currentPaths.has(entry.path)) continue;
+    const target = resolveUnder(grokRoot, ...entry.path.split('/'));
+    if (!fs.existsSync(target)) continue;
+    if (!fs.statSync(target).isFile()) {
+      throw new Error(`Refusing to remove non-file managed Grok path: ${entry.path}`);
+    }
+    fs.unlinkSync(target);
+    pruneEmptyManagedParents(grokRoot, target);
+    removed.push(target);
+  }
+  return removed;
 }
 
 function buildReadme() {
@@ -1012,7 +1124,8 @@ Optimized agents, skills, roles, personas, hooks, and project config for [Grok B
 | \`personas/\` | Behavioral overlays for subagents |
 | \`rules/\` | Always-on compact AIOX rules |
 | \`hooks/\` | PreToolUse git-push authority (Article II) |
-| \`config.toml\` | Project skill hygiene (ignore Codex dumps) |
+| \`aiox-managed.json\` | Ownership and hashes for generated artifacts |
+| \`config.toml\` | Project harness notes and native hook registration |
 
 ## Activate an agent
 
@@ -1048,7 +1161,7 @@ Identity resolution order:
    - \`.aiox/active-agent.json\`
    - \`.synapse/sessions/_active-agent.json\`
 
-Also: \`hooks/synapse-prompt.json\`, \`hooks/precompact.json\` — fully Grok-native: their commands run wrappers vendored under \`.grok/hooks/\` (copied at sync time from \`.claude/hooks/\`), so no Claude settings or runtime files are required.
+Also: \`hooks/synapse-prompt.json\`, \`hooks/precompact.json\` — fully Grok-native. Their commands run wrappers vendored under \`.grok/hooks/\` from canonical sources in \`.aiox-core/infrastructure/templates/grok-hooks/\`; no Claude files are required.
 
 Short agent spawn aliases: \`dev\`, \`po\`, \`qa\`, \`devops\`, … under \`agents/\`.
 
@@ -1074,7 +1187,8 @@ npm run sync:skills:grok -- --dry-run
 1. **Token-efficient** — condensed profiles; full YAML stays in \`.aiox-core/development/agents/\`
 2. **Authority-safe** — devops-only push; story lifecycle ownership
 3. **Task-first** — formal work loads \`.aiox-core/development/tasks/*\`
-4. **Grok-native** — frontmatter \`permission_mode\`, roles, personas, hooks fully self-contained under \`.grok/hooks/\` (wrappers vendored at sync time from \`.claude/hooks/\`)
+4. **Grok-native** — frontmatter \`permission_mode\`, roles, personas, hooks fully self-contained under \`.grok/hooks/\`
+5. **Brownfield-safe** — only paths owned by \`aiox-managed.json\` are replaced or removed; custom project artifacts remain untouched
 
 ## Related
 
@@ -1098,6 +1212,8 @@ function syncGrok(options = {}) {
       'Run from the repo root or pass { projectRoot }.'
     );
   }
+  buildRulesMarkdown(resolved.projectRoot);
+  assertCanonicalGrokHookSources(getCanonicalGrokHookSourceDir(resolved.projectRoot));
 
   const agents = [];
   for (const parsed of parseAllAgents(resolved.sourceDir)) {
@@ -1110,6 +1226,8 @@ function syncGrok(options = {}) {
 
   const written = [];
   const grok = resolved.grokRoot;
+  const manifestPath = path.join(grok, MANAGED_MANIFEST_FILENAME);
+  const previousManifest = readManagedManifest(manifestPath);
 
   const targets = {
     agents: path.join(grok, 'agents'),
@@ -1230,19 +1348,13 @@ ${wf.body}
   );
 
   // Rules + README
-  // The wizard's IDE-rules flow owns .grok/rules/aiox-core.md when it carries
-  // AIOX-MANAGED markers (user may have chosen skip/backup/merge there). The
-  // sync only writes the rules file when that managed version is absent.
   const rulesPath = resolveUnder(targets.rules, 'aiox-core.md');
-  const rulesManagedByWizard =
-    fs.existsSync(rulesPath) &&
-    fs.readFileSync(rulesPath, 'utf8').includes('AIOX-MANAGED-START');
+  const generatedRules = buildRulesMarkdown(resolved.projectRoot);
+  const existingRules = fs.existsSync(rulesPath) ? fs.readFileSync(rulesPath, 'utf8') : '';
   const extras = [
+    { path: rulesPath, content: mergeGrokRules(existingRules, generatedRules) },
     { path: resolveUnder(grok, 'README.md'), content: buildReadme() },
   ];
-  if (!rulesManagedByWizard) {
-    extras.unshift({ path: rulesPath, content: buildRulesMarkdown() });
-  }
   for (const file of extras) {
     if (!resolved.dryRun) {
       fs.ensureDirSync(path.dirname(file.path));
@@ -1251,12 +1363,21 @@ ${wf.body}
     written.push(file.path);
   }
 
+  let removed = [];
+  if (!resolved.dryRun) {
+    const manifest = buildManagedManifest(grok, written);
+    removed = removeStaleManagedFiles(grok, previousManifest, manifest);
+    fs.writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
+  }
+  written.push(manifestPath);
+
   return {
     agents: agents.filter((a) => AGENT_PROFILES[a.id]).length,
     files: written.length,
     written,
     grokRoot: grok,
     dryRun: resolved.dryRun,
+    removed,
   };
 }
 
@@ -1498,74 +1619,34 @@ function syncShortAgentAliases(targets, options = {}) {
 function syncGrokHarnessFiles(projectRoot, grokRoot, options = {}) {
   const written = [];
   const hooksDir = path.join(grokRoot, 'hooks');
-  const claudeHooks = path.join(projectRoot, '.claude', 'hooks');
-  const authoritySrc = path.join(claudeHooks, 'enforce-git-push-authority.cjs');
-  const synapseSrc = path.join(claudeHooks, 'synapse-wrapper.cjs');
-  const precompactSrc = path.join(claudeHooks, 'precompact-wrapper.cjs');
-  // Optional engine deps used by wrappers (copy if present)
-  const optionalWrapperDeps = [
-    'synapse-engine.cjs',
-    'precompact-session-digest.cjs',
-  ];
+  const sourceDir =
+    options.hookSourceDir ||
+    getCanonicalGrokHookSourceDir(projectRoot);
+  assertCanonicalGrokHookSources(sourceDir);
 
-  const authorityDest = resolveUnder(hooksDir, 'enforce-git-push-authority.cjs');
-  const synapseWrapperDest = resolveUnder(hooksDir, 'synapse-wrapper.cjs');
-  const precompactWrapperDest = resolveUnder(hooksDir, 'precompact-wrapper.cjs');
   const hookJsonDest = resolveUnder(hooksDir, 'git-push-authority.json');
   const synapseJsonDest = resolveUnder(hooksDir, 'synapse-prompt.json');
   const precompactJsonDest = resolveUnder(hooksDir, 'precompact.json');
   const configDest = resolveUnder(grokRoot, 'config.toml');
+  const sourceCopies = GROK_HOOK_SOURCE_FILES.map((fileName) => ({
+    source: path.join(sourceDir, fileName),
+    destination: resolveUnder(hooksDir, fileName),
+  }));
 
   if (!options.dryRun) {
     fs.ensureDirSync(hooksDir);
-
-    if (!fs.existsSync(authoritySrc)) {
-      if (!options.quiet) {
-        console.warn(
-          '⚠️  Missing .claude/hooks/enforce-git-push-authority.cjs — skipping Grok authority harness'
-        );
-      }
-    } else {
-      fs.copyFileSync(authoritySrc, authorityDest);
-      fs.writeFileSync(hookJsonDest, buildGrokPushAuthorityHookJson(), 'utf8');
-      written.push(authorityDest, hookJsonDest);
+    for (const { source, destination } of sourceCopies) {
+      fs.copyFileSync(source, destination);
+      written.push(destination);
     }
-
-    if (fs.existsSync(synapseSrc)) {
-      fs.copyFileSync(synapseSrc, synapseWrapperDest);
-      fs.writeFileSync(synapseJsonDest, buildGrokSynapseHookJson(), 'utf8');
-      written.push(synapseWrapperDest, synapseJsonDest);
-    } else if (!options.quiet) {
-      console.warn('⚠️  Missing synapse-wrapper.cjs — Grok synapse hook not generated');
-    }
-
-    if (fs.existsSync(precompactSrc)) {
-      fs.copyFileSync(precompactSrc, precompactWrapperDest);
-      fs.writeFileSync(precompactJsonDest, buildGrokPrecompactHookJson(), 'utf8');
-      written.push(precompactWrapperDest, precompactJsonDest);
-    } else if (!options.quiet) {
-      console.warn(
-        '⚠️  Missing precompact-wrapper.cjs — Grok precompact hook not generated'
-      );
-    }
-
-    for (const dep of optionalWrapperDeps) {
-      const src = path.join(claudeHooks, dep);
-      if (fs.existsSync(src)) {
-        const dest = resolveUnder(hooksDir, dep);
-        fs.copyFileSync(src, dest);
-        written.push(dest);
-      }
-    }
-
+    fs.writeFileSync(hookJsonDest, buildGrokPushAuthorityHookJson(), 'utf8');
+    fs.writeFileSync(synapseJsonDest, buildGrokSynapseHookJson(), 'utf8');
+    fs.writeFileSync(precompactJsonDest, buildGrokPrecompactHookJson(), 'utf8');
     fs.writeFileSync(configDest, buildGrokConfigToml(), 'utf8');
-    written.push(configDest);
+    written.push(hookJsonDest, synapseJsonDest, precompactJsonDest, configDest);
   } else {
-    // Dry-run accounting: report intended paths
     written.push(
-      authorityDest,
-      synapseWrapperDest,
-      precompactWrapperDest,
+      ...sourceCopies.map(({ destination }) => destination),
       hookJsonDest,
       synapseJsonDest,
       precompactJsonDest,
@@ -1612,6 +1693,12 @@ module.exports = {
   syncShortWorkflowAliases,
   syncShortAgentAliases,
   syncGrokHarnessFiles,
+  buildRulesMarkdown,
+  getManagedRuleSections,
+  serializeManagedRuleSections,
+  mergeGrokRules,
+  buildManagedManifest,
+  readManagedManifest,
   buildGrokConfigToml,
   buildGrokPushAuthorityHookJson,
   grokSkillIdFromDevSkill,
@@ -1622,4 +1709,7 @@ module.exports = {
   yamlFoldedSafe,
   resolveUnder,
   SAFE_SKILL_ID_RE,
+  MANAGED_MANIFEST_FILENAME,
+  MANAGED_MANIFEST_GENERATOR,
+  GROK_HOOK_SOURCE_FILES,
 };

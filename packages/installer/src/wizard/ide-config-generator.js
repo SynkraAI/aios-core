@@ -524,6 +524,7 @@ async function generateIDEConfigs(selectedIDEs, wizardState, options = {}) {
   const createdFolders = [];
   const backupFiles = [];
   const errors = [];
+  const originalFiles = new Map();
 
   // Generate template variables
   const templateVars = generateTemplateVariables(wizardState);
@@ -555,6 +556,7 @@ async function generateIDEConfigs(selectedIDEs, wizardState, options = {}) {
         let userAction = null;
 
         if (exists) {
+          originalFiles.set(configPath, await fs.readFile(configPath));
           spinner.stop();
           userAction = await promptFileExists(configPath, {
             projectType: wizardState.projectType,
@@ -720,22 +722,6 @@ async function generateIDEConfigs(selectedIDEs, wizardState, options = {}) {
 
         // Grok Build: generate agents, skills, roles, personas, hooks, config
         if (ideKey === 'grok') {
-          // Grok-only installs still need the canonical hook sources that the
-          // sync vendors into .grok/hooks (Constitution Article II authority).
-          const authorityHookSource = path.join(
-            projectRoot, '.claude', 'hooks', 'enforce-git-push-authority.cjs',
-          );
-          if (!await fs.pathExists(authorityHookSource)) {
-            spinner.start('Copying AIOX hook sources for Grok Build...');
-            const hookFiles = await copyClaudeHooksFolder(projectRoot, wizardState);
-            createdFiles.push(...hookFiles);
-            if (hookFiles.length > 0) {
-              spinner.succeed(`Copied ${hookFiles.length} hook source file(s) to .claude/hooks`);
-            } else {
-              spinner.info('No hook source files available to copy');
-            }
-          }
-
           spinner.start('Generating Grok Build agents/skills/hooks...');
           const grokDirs = ['agents', 'skills', 'hooks', 'roles', 'personas', 'rules']
             .map((dir) => path.join(projectRoot, '.grok', dir));
@@ -747,9 +733,7 @@ async function generateIDEConfigs(selectedIDEs, wizardState, options = {}) {
           }
           const grokResult = generateGrokSkills(projectRoot);
           if (grokResult.skipped) {
-            spinner.info(
-              `Skipped Grok sync (${grokResult.reason || 'canonical agent source not found'})`,
-            );
+            throw new Error(grokResult.reason || 'canonical Grok source not found');
           } else {
             // Precise rollback surface: only files written by this invocation,
             // and only directories that did not exist before it — pre-existing
@@ -766,9 +750,13 @@ async function generateIDEConfigs(selectedIDEs, wizardState, options = {}) {
         spinner.fail(`Failed to configure ${ide.name}`);
         errors.push({ ide: ide.name, error: error.message });
 
-        // Rollback: Delete all created files
+        // Rollback: restore pre-existing files; remove only files created here.
         for (const file of createdFiles) {
-          await fs.remove(file).catch(() => {});
+          if (originalFiles.has(file)) {
+            await fs.writeFile(file, originalFiles.get(file)).catch(() => {});
+          } else {
+            await fs.remove(file).catch(() => {});
+          }
         }
 
         // Rollback: Delete created folders
@@ -787,7 +775,7 @@ async function generateIDEConfigs(selectedIDEs, wizardState, options = {}) {
     }
 
     return {
-      success: true,
+      success: errors.length === 0,
       files: createdFiles,
       errors: errors.length > 0 ? errors : undefined,
     };
@@ -833,10 +821,16 @@ function showSuccessSummary(result) {
  */
 async function copyClaudeHooksFolder(projectRoot, wizardState = {}) {
   const sourceDir = resolveAioxCorePath('.claude', 'hooks');
+  const canonicalSourceDir = resolveAioxCorePath(
+    '.aiox-core',
+    'infrastructure',
+    'templates',
+    'grok-hooks',
+  );
   const targetDir = path.join(projectRoot, '.claude', 'hooks');
   const copiedFiles = [];
 
-  if (!await fs.pathExists(sourceDir)) {
+  if (!await fs.pathExists(sourceDir) && !await fs.pathExists(canonicalSourceDir)) {
     return copiedFiles;
   }
 
@@ -862,14 +856,11 @@ async function copyClaudeHooksFolder(projectRoot, wizardState = {}) {
     ? [...HOOKS_FREE, ...HOOKS_PRO_ONLY]
     : HOOKS_FREE;
 
-  const files = await fs.readdir(sourceDir);
-
-  for (const file of files) {
-    if (!HOOKS_TO_COPY.includes(file)) {
-      continue;
-    }
-
-    const sourcePath = path.join(sourceDir, file);
+  for (const file of HOOKS_TO_COPY) {
+    const canonicalPath = path.join(canonicalSourceDir, file);
+    const legacyPath = path.join(sourceDir, file);
+    const sourcePath = await fs.pathExists(canonicalPath) ? canonicalPath : legacyPath;
+    if (!await fs.pathExists(sourcePath)) continue;
     const targetPath = path.join(targetDir, file);
 
     const stat = await fs.stat(sourcePath);
@@ -936,6 +927,12 @@ const HOOK_EVENT_MAP = {
     matcher: null,
     timeout: 10,
   },
+  // Wrapper entrypoints ship as vendoring sources for the Grok surface
+  // (.grok/hooks). Claude settings register synapse-engine and
+  // precompact-session-digest directly — registering the wrappers too would
+  // double-execute SYNAPSE and run the digest on every prompt.
+  'synapse-wrapper.cjs': { event: null },
+  'precompact-wrapper.cjs': { event: null },
 };
 
 /** Default event config for unmapped hooks (backwards compatible). */
@@ -1031,6 +1028,11 @@ async function createClaudeSettingsLocal(projectRoot) {
     const hookFilePath = path.join(hooksDir, hookFileName);
     const hookConfig = HOOK_EVENT_MAP[hookFileName] || DEFAULT_HOOK_CONFIG;
     const eventName = hookConfig.event;
+
+    // event: null → file ships as a vendoring source only, never registered
+    if (!eventName) {
+      continue;
+    }
 
     // Ensure event array exists
     if (!Array.isArray(settings.hooks[eventName])) {
@@ -1378,34 +1380,24 @@ function generateGrokSkills(projectRoot) {
   const grokRoot = path.join(projectRoot, '.grok');
 
   if (!fs.existsSync(sourceDir)) {
-    return { agents: 0, files: 0, skipped: true, reason: 'canonical agent source not found' };
+    throw new Error(`Canonical Grok agent source not found: ${sourceDir}`);
   }
 
-  try {
-    const { syncGrok } = loadGrokSkillsSync();
-    const result = syncGrok({
-      projectRoot,
-      sourceDir,
-      grokRoot,
-      dryRun: false,
-      quiet: true,
-    });
+  const { syncGrok } = loadGrokSkillsSync();
+  const result = syncGrok({
+    projectRoot,
+    sourceDir,
+    grokRoot,
+    dryRun: false,
+    quiet: true,
+  });
 
-    return {
-      agents: result.agents || 0,
-      files: result.files || 0,
-      written: result.written || [],
-      skipped: false,
-    };
-  } catch (error) {
-    return {
-      agents: 0,
-      files: 0,
-      written: [],
-      skipped: true,
-      reason: error.message || 'grok-skills-sync failed',
-    };
-  }
+  return {
+    agents: result.agents || 0,
+    files: result.files || 0,
+    written: result.written || [],
+    skipped: false,
+  };
 }
 
 /**

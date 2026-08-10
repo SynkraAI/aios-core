@@ -14,7 +14,8 @@ Optimized agents, skills, roles, personas, hooks, and project config for [Grok B
 | `personas/` | Behavioral overlays for subagents |
 | `rules/` | Always-on compact AIOX rules |
 | `hooks/` | PreToolUse git-push authority (Article II) |
-| `config.toml` | Project skill hygiene (ignore Codex dumps) |
+| `aiox-managed.json` | Ownership and hashes for generated artifacts |
+| `config.toml` | Project harness notes and native hook registration |
 
 ## Activate an agent
 
@@ -50,7 +51,7 @@ Identity resolution order:
    - `.aiox/active-agent.json`
    - `.synapse/sessions/_active-agent.json`
 
-Also: `hooks/synapse-prompt.json`, `hooks/precompact.json` — fully Grok-native: their commands run wrappers vendored under `.grok/hooks/` (copied at sync time from `.claude/hooks/`), so no Claude settings or runtime files are required.
+Also: `hooks/synapse-prompt.json`, `hooks/precompact.json` — fully Grok-native. Their commands run wrappers vendored under `.grok/hooks/` from canonical sources in `.aiox-core/infrastructure/templates/grok-hooks/`; no Claude files are required.
 
 Short agent spawn aliases: `dev`, `po`, `qa`, `devops`, … under `agents/`.
 
@@ -76,7 +77,8 @@ npm run sync:skills:grok -- --dry-run
 1. **Token-efficient** — condensed profiles; full YAML stays in `.aiox-core/development/agents/`
 2. **Authority-safe** — devops-only push; story lifecycle ownership
 3. **Task-first** — formal work loads `.aiox-core/development/tasks/*`
-4. **Grok-native** — frontmatter `permission_mode`, roles, personas, hooks fully self-contained under `.grok/hooks/` (wrappers vendored at sync time from `.claude/hooks/`)
+4. **Grok-native** — frontmatter `permission_mode`, roles, personas, hooks fully self-contained under `.grok/hooks/`
+5. **Brownfield-safe** — only paths owned by `aiox-managed.json` are replaced or removed; custom project artifacts remain untouched
 
 ## Related
 

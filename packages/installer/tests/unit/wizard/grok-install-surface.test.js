@@ -19,6 +19,20 @@ const { generateCoreConfig } = require('../../../src/config/templates/core-confi
 
 const repoRoot = path.resolve(__dirname, '..', '..', '..', '..', '..');
 
+function copyGrokCanonicalSources(projectRoot) {
+  for (const relativePath of [
+    path.join('development', 'agents'),
+    path.join('development', 'skills'),
+    path.join('infrastructure', 'templates', 'grok-hooks'),
+    path.join('product', 'templates', 'ide-rules', 'grok-rules.md'),
+  ]) {
+    fs.copySync(
+      path.join(repoRoot, '.aiox-core', relativePath),
+      path.join(projectRoot, '.aiox-core', relativePath),
+    );
+  }
+}
+
 describe('Grok Build install surface', () => {
   it('registers grok as a recommended IDE choice', () => {
     expect(isValidIDE('grok')).toBe(true);
@@ -61,23 +75,7 @@ describe('Grok Build install surface', () => {
     const projectRoot = path.join(tmp, 'project');
     fs.ensureDirSync(projectRoot);
 
-    // Minimal package layout: agents source under project .aiox-core
-    const agentsSrc = path.join(repoRoot, '.aiox-core', 'development', 'agents');
-    const agentsDst = path.join(projectRoot, '.aiox-core', 'development', 'agents');
-    fs.copySync(agentsSrc, agentsDst);
-
-    // Authority hook source used by harness copy
-    const hookSrc = path.join(repoRoot, '.claude', 'hooks', 'enforce-git-push-authority.cjs');
-    if (fs.existsSync(hookSrc)) {
-      fs.ensureDirSync(path.join(projectRoot, '.claude', 'hooks'));
-      fs.copySync(hookSrc, path.join(projectRoot, '.claude', 'hooks', 'enforce-git-push-authority.cjs'));
-    }
-
-    // Development workflow skills (optional for sync)
-    const skillsSrc = path.join(repoRoot, '.aiox-core', 'development', 'skills');
-    if (fs.existsSync(skillsSrc)) {
-      fs.copySync(skillsSrc, path.join(projectRoot, '.aiox-core', 'development', 'skills'));
-    }
+    copyGrokCanonicalSources(projectRoot);
 
     const result = generateGrokSkills(projectRoot);
     expect(result.skipped).toBe(false);
@@ -89,6 +87,8 @@ describe('Grok Build install surface', () => {
     expect(fs.existsSync(path.join(projectRoot, '.grok', 'hooks', 'git-push-authority.json'))).toBe(true);
     expect(fs.existsSync(path.join(projectRoot, '.grok', 'config.toml'))).toBe(true);
     expect(fs.existsSync(path.join(projectRoot, '.grok', 'rules', 'aiox-core.md'))).toBe(true);
+    expect(fs.existsSync(path.join(projectRoot, '.grok', 'aiox-managed.json'))).toBe(true);
+    expect(fs.existsSync(path.join(projectRoot, '.claude'))).toBe(false);
 
     fs.removeSync(tmp);
   });
@@ -98,21 +98,7 @@ describe('Grok Build install surface', () => {
     const projectRoot = path.join(tmp, 'project');
     fs.ensureDirSync(projectRoot);
 
-    // Provide template source via AIOX package root resolution (uses local repo)
-    // and agents source inside project for generateGrokSkills.
-    fs.copySync(
-      path.join(repoRoot, '.aiox-core', 'development', 'agents'),
-      path.join(projectRoot, '.aiox-core', 'development', 'agents'),
-    );
-    const hookSrc = path.join(repoRoot, '.claude', 'hooks', 'enforce-git-push-authority.cjs');
-    if (fs.existsSync(hookSrc)) {
-      fs.ensureDirSync(path.join(projectRoot, '.claude', 'hooks'));
-      fs.copySync(hookSrc, path.join(projectRoot, '.claude', 'hooks', 'enforce-git-push-authority.cjs'));
-    }
-    const skillsSrc = path.join(repoRoot, '.aiox-core', 'development', 'skills');
-    if (fs.existsSync(skillsSrc)) {
-      fs.copySync(skillsSrc, path.join(projectRoot, '.aiox-core', 'development', 'skills'));
-    }
+    copyGrokCanonicalSources(projectRoot);
 
     // Ensure product template exists for resolveAioxCorePath
     const templatePath = path.join(
@@ -146,9 +132,61 @@ describe('Grok Build install surface', () => {
     expect(fs.existsSync(path.join(projectRoot, '.grok', 'rules', 'aiox-core.md'))).toBe(true);
     expect(fs.existsSync(path.join(projectRoot, '.grok', 'agents', 'aiox-dev.md'))).toBe(true);
     expect(fs.existsSync(path.join(projectRoot, '.grok', 'skills', 'aiox-devops', 'SKILL.md'))).toBe(true);
+    expect(fs.existsSync(path.join(projectRoot, '.grok', 'hooks', 'precompact-wrapper.cjs'))).toBe(true);
+    expect(fs.existsSync(path.join(projectRoot, '.claude'))).toBe(false);
 
     fs.removeSync(tmp);
   }, 60000);
+
+  it('preserves brownfield Grok rules through installer and sync', async () => {
+    const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'aiox-grok-brownfield-'));
+    const projectRoot = path.join(tmp, 'project');
+    copyGrokCanonicalSources(projectRoot);
+    const rulesPath = path.join(projectRoot, '.grok', 'rules', 'aiox-core.md');
+    fs.ensureDirSync(path.dirname(rulesPath));
+    fs.writeFileSync(rulesPath, '# Company Rules\n\nKEEP-BROWNFIELD-SENTINEL\n', 'utf8');
+
+    const result = await generateIDEConfigs(
+      ['grok'],
+      { projectName: 'existing', projectType: 'brownfield', selectedIDEs: ['grok'] },
+      { projectRoot, ci: true, yes: true, forceMerge: true, skipPrompts: true },
+    );
+
+    expect(result.success).toBe(true);
+    expect(fs.readFileSync(rulesPath, 'utf8')).toContain('KEEP-BROWNFIELD-SENTINEL');
+    expect(fs.readFileSync(rulesPath, 'utf8')).toContain('AIOX-MANAGED-START');
+    fs.removeSync(tmp);
+  });
+
+  it('fails a Grok install when canonical hook sources are absent', async () => {
+    const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'aiox-grok-missing-hooks-'));
+    const projectRoot = path.join(tmp, 'project');
+    for (const relativePath of [
+      path.join('development', 'agents'),
+      path.join('development', 'skills'),
+      path.join('product', 'templates', 'ide-rules', 'grok-rules.md'),
+    ]) {
+      fs.copySync(
+        path.join(repoRoot, '.aiox-core', relativePath),
+        path.join(projectRoot, '.aiox-core', relativePath),
+      );
+    }
+    const rulesPath = path.join(projectRoot, '.grok', 'rules', 'aiox-core.md');
+    const originalRules = '# Existing Company Rules\n\nDO-NOT-DELETE\n';
+    fs.ensureDirSync(path.dirname(rulesPath));
+    fs.writeFileSync(rulesPath, originalRules, 'utf8');
+
+    const result = await generateIDEConfigs(
+      ['grok'],
+      { projectName: 'broken', projectType: 'brownfield', selectedIDEs: ['grok'] },
+      { projectRoot, ci: true, yes: true, forceMerge: true, skipPrompts: true },
+    );
+
+    expect(result.success).toBe(false);
+    expect(result.errors[0].error).toContain('Missing canonical Grok hook source');
+    expect(fs.readFileSync(rulesPath, 'utf8')).toBe(originalRules);
+    fs.removeSync(tmp);
+  });
 
   it('exposes IDE_CONFIGS with seven primary surfaces including grok', () => {
     const keys = Object.keys(IDE_CONFIGS);

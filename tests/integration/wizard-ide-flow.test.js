@@ -97,15 +97,41 @@ describe('Wizard IDE Flow Integration', () => {
         __dirname,
         '..',
         '..',
-        '.claude',
-        'hooks',
-        'enforce-git-push-authority.cjs',
+        '.aiox-core',
+        'infrastructure',
+        'templates',
+        'grok-hooks',
       );
       if (await fs.pathExists(hookSrc)) {
-        await fs.ensureDir(path.join(testDir, '.claude', 'hooks'));
+        await fs.copy(hookSrc, path.join(
+          testDir,
+          '.aiox-core',
+          'infrastructure',
+          'templates',
+          'grok-hooks',
+        ));
+      }
+      const rulesSrc = path.join(
+        __dirname,
+        '..',
+        '..',
+        '.aiox-core',
+        'product',
+        'templates',
+        'ide-rules',
+        'grok-rules.md',
+      );
+      if (await fs.pathExists(rulesSrc)) {
         await fs.copy(
-          hookSrc,
-          path.join(testDir, '.claude', 'hooks', 'enforce-git-push-authority.cjs'),
+          rulesSrc,
+          path.join(
+            testDir,
+            '.aiox-core',
+            'product',
+            'templates',
+            'ide-rules',
+            'grok-rules.md',
+          ),
         );
       }
 

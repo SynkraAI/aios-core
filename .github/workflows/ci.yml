@@ -395,6 +395,9 @@ jobs:
       - name: Validate IDE sync
         run: npm run sync:ide:check
 
+      - name: Validate Grok projection
+        run: npm run validate:skills:grok
+
       - name: Report on failure
         if: failure()
         run: |

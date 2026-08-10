@@ -17,6 +17,8 @@
 
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
+const crypto = require('crypto');
 const { spawnSync } = require('child_process');
 
 const {
@@ -25,6 +27,10 @@ const {
   DEVELOPMENT_WORKFLOW_SKILLS,
   SHORT_WORKFLOW_ALIASES,
   SHORT_AGENT_ALIASES,
+  syncGrok,
+  readManagedManifest,
+  serializeManagedRuleSections,
+  MANAGED_MANIFEST_FILENAME,
   getSkillId,
   grokSkillIdFromDevSkill,
 } = require('./index');
@@ -61,6 +67,108 @@ function hasFrontmatterName(content, name) {
   return new RegExp(`^name:\\s*${name}\\s*$`, 'm').test(content);
 }
 
+function sha256(content) {
+  return crypto.createHash('sha256').update(content).digest('hex');
+}
+
+function getManifestEntryContent(grokRoot, entry) {
+  const absolutePath = path.resolve(grokRoot, entry.path);
+  const relative = path.relative(path.resolve(grokRoot), absolutePath);
+  if (!relative || relative.startsWith('..') || path.isAbsolute(relative)) {
+    throw new Error(`Managed manifest path escapes .grok: ${entry.path}`);
+  }
+  const content = readText(absolutePath);
+  return entry.mode === 'managed-sections'
+    ? serializeManagedRuleSections(content)
+    : content;
+}
+
+function validateDeterministicProjection(projectRoot, grokRoot, errors) {
+  const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'aiox-grok-validate-'));
+  try {
+    syncGrok({ projectRoot, grokRoot: tempRoot, quiet: true });
+    const expectedManifest = readManagedManifest(path.join(tempRoot, MANAGED_MANIFEST_FILENAME));
+    const actualManifest = readManagedManifest(path.join(grokRoot, MANAGED_MANIFEST_FILENAME));
+    if (!actualManifest) {
+      errors.push(`Missing managed manifest: .grok/${MANAGED_MANIFEST_FILENAME}`);
+      return;
+    }
+
+    const expectedByPath = new Map(expectedManifest.files.map((entry) => [entry.path, entry]));
+    const actualByPath = new Map(actualManifest.files.map((entry) => [entry.path, entry]));
+    for (const expected of expectedManifest.files) {
+      const actual = actualByPath.get(expected.path);
+      if (!actual) {
+        errors.push(`Managed manifest missing expected path: ${expected.path}`);
+        continue;
+      }
+      const actualPath = path.join(grokRoot, ...expected.path.split('/'));
+      if (!exists(actualPath)) {
+        errors.push(`Missing managed Grok artifact: ${expected.path}`);
+        continue;
+      }
+      const expectedContent = getManifestEntryContent(tempRoot, expected);
+      const actualContent = getManifestEntryContent(grokRoot, actual);
+      const actualHash = sha256(actualContent);
+      if (actual.mode !== expected.mode || actual.sha256 !== expected.sha256) {
+        errors.push(`Managed manifest drift: ${expected.path}`);
+      }
+      if (actualHash !== expected.sha256 || actualContent !== expectedContent) {
+        errors.push(`Managed content drift: ${expected.path}`);
+      }
+    }
+    for (const actual of actualManifest.files) {
+      if (!expectedByPath.has(actual.path)) {
+        errors.push(`Stale managed Grok artifact: ${actual.path}`);
+      }
+    }
+  } catch (error) {
+    errors.push(`Deterministic Grok validation failed: ${error.message}`);
+  } finally {
+    fs.rmSync(tempRoot, { recursive: true, force: true });
+  }
+}
+
+function collectSkillNames(root) {
+  const names = new Map();
+  if (!exists(root)) return names;
+  const visit = (directory) => {
+    for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+      const absolutePath = path.join(directory, entry.name);
+      if (entry.isDirectory()) visit(absolutePath);
+      if (!entry.isFile() || entry.name !== 'SKILL.md') continue;
+      const match = readText(absolutePath).match(/^name:\s*([^\s]+)\s*$/m);
+      if (match) names.set(match[1], absolutePath);
+    }
+  };
+  visit(root);
+  return names;
+}
+
+function getRuntimeDiagnostics(projectRoot, grokRoot) {
+  const diagnostics = [];
+  const grokSkills = collectSkillNames(path.join(grokRoot, 'skills'));
+  const universalSkills = collectSkillNames(path.join(projectRoot, '.agents', 'skills'));
+  const collisions = [...grokSkills.keys()].filter((name) => universalSkills.has(name)).sort();
+  if (collisions.length > 0) {
+    diagnostics.push(
+      `Grok runtime skill collision (${collisions.length}): ${collisions.join(', ')}. ` +
+      'The .agents tree is external to this projection; configure user-global skills.ignore if Grok does not deduplicate it.'
+    );
+  }
+  const claudeSettings = path.join(projectRoot, '.claude', 'settings.local.json');
+  if (
+    exists(claudeSettings) &&
+    readText(claudeSettings).includes('enforce-git-push-authority.cjs') &&
+    exists(path.join(grokRoot, 'hooks', 'git-push-authority.json'))
+  ) {
+    diagnostics.push(
+      'Grok discovers native and Claude-compatible authority registrations; matchers are harness-specific, but both remain visible in grok inspect.'
+    );
+  }
+  return diagnostics;
+}
+
 function validateGrok(options = {}) {
   const resolved = { ...getDefaultOptions(), ...options };
   // Derive grokRoot from the caller's projectRoot (not process.cwd()) unless
@@ -71,12 +179,13 @@ function validateGrok(options = {}) {
   const { projectRoot, grokRoot } = resolved;
   const errors = [];
   const warnings = [];
+  const diagnostics = [];
 
   const push = (list, msg) => list.push(msg);
 
   if (!exists(grokRoot)) {
     push(errors, `Missing .grok root at ${grokRoot}`);
-    return { ok: false, errors, warnings, counts: {} };
+    return { ok: false, errors, warnings, diagnostics, counts: {} };
   }
 
   const expectedAgentIds = Object.keys(AGENT_PROFILES);
@@ -187,6 +296,7 @@ function validateGrok(options = {}) {
     path.join(grokRoot, 'hooks', 'synapse-prompt.json'),
     path.join(grokRoot, 'hooks', 'precompact.json'),
     path.join(grokRoot, 'hooks', 'enforce-git-push-authority.cjs'),
+    path.join(grokRoot, MANAGED_MANIFEST_FILENAME),
   ];
   for (const filePath of requiredFiles) {
     if (!exists(filePath)) {
@@ -284,7 +394,7 @@ function validateGrok(options = {}) {
         encoding: 'utf8',
         env: { ...cleanEnv(), ...testCase.env },
       });
-      // Deny paths exit 2 (Grok Build blocks only on non-zero); allow exits 0.
+      // Deny paths emit JSON and exit 2; allow paths exit 0 without output.
       const expectedStatus = testCase.expectDeny ? 2 : 0;
       if (result.status !== expectedStatus) {
         push(
@@ -347,64 +457,15 @@ function validateGrok(options = {}) {
     }
   }
 
-  // Orphan detection: files present in .grok/ that no expected set covers.
-  // The sync never deletes, so renamed/removed agents or skills would linger
-  // forever without this check. Orphans are warnings (fail under --strict).
-  const listDir = (dirPath) => (exists(dirPath) ? fs.readdirSync(dirPath) : []);
-
-  const expectedAgentFiles = new Set([
-    ...skillIds.map((id) => `${id}.md`),
-    ...SHORT_AGENT_ALIASES.map(({ alias }) => `${alias}.md`),
-  ]);
-  for (const entry of listDir(path.join(grokRoot, 'agents'))) {
-    if (!expectedAgentFiles.has(entry)) {
-      push(warnings, `Orphan agent file (not generated by sync): agents/${entry}`);
-    }
-  }
-
-  const expectedSkillDirs = new Set([
-    ...skillIds,
-    ...WORKFLOW_SKILLS.map(({ name }) => name),
-    ...DEVELOPMENT_WORKFLOW_SKILLS.map((dirName) => grokSkillIdFromDevSkill(dirName)),
-    ...SHORT_WORKFLOW_ALIASES.map(({ name }) => name),
-  ]);
-  for (const entry of listDir(path.join(grokRoot, 'skills'))) {
-    if (!expectedSkillDirs.has(entry)) {
-      push(warnings, `Orphan skill dir (not generated by sync): skills/${entry}`);
-    }
-  }
-
-  const expectedTomls = new Set(skillIds.map((id) => `${id}.toml`));
-  for (const dirName of ['roles', 'personas']) {
-    for (const entry of listDir(path.join(grokRoot, dirName))) {
-      if (!expectedTomls.has(entry)) {
-        push(warnings, `Orphan ${dirName} file (not generated by sync): ${dirName}/${entry}`);
-      }
-    }
-  }
-
-  const expectedHookFiles = new Set([
-    'git-push-authority.json',
-    'synapse-prompt.json',
-    'precompact.json',
-    'enforce-git-push-authority.cjs',
-    // Wrappers + engine deps vendored from .claude/hooks/ at sync time
-    'synapse-wrapper.cjs',
-    'precompact-wrapper.cjs',
-    'synapse-engine.cjs',
-    'precompact-session-digest.cjs',
-  ]);
-  for (const entry of listDir(path.join(grokRoot, 'hooks'))) {
-    if (!expectedHookFiles.has(entry)) {
-      push(warnings, `Orphan hook file (not generated by sync): hooks/${entry}`);
-    }
-  }
+  validateDeterministicProjection(projectRoot, grokRoot, errors);
+  diagnostics.push(...getRuntimeDiagnostics(projectRoot, grokRoot));
 
   const ok = errors.length === 0 && (!resolved.strict || warnings.length === 0);
   return {
     ok,
     errors,
     warnings,
+    diagnostics,
     counts: {
       agents: skillIds.length,
       workflowSkills: WORKFLOW_SKILLS.length,
@@ -426,6 +487,7 @@ function main() {
       `Grok validate: agents=${result.counts.agents} workflows=${result.counts.workflowSkills} aliases=${result.counts.shortAliases}`
     );
     for (const w of result.warnings) console.warn(`⚠️  ${w}`);
+    for (const diagnostic of result.diagnostics) console.info(`ℹ️  ${diagnostic}`);
     for (const e of result.errors) console.error(`❌ ${e}`);
     if (result.ok) {
       console.log('✅ Grok skills/agents/hooks validation passed');
