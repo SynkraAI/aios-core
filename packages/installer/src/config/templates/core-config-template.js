@@ -51,10 +51,11 @@ function generateCoreConfig(options = {}) {
 
     // IDE Configuration (from Story 1.4)
     ide: {
-      selected: selectedIDEs.length > 0 ? selectedIDEs : ['claude-code', 'codex'],
+      selected: selectedIDEs.length > 0 ? selectedIDEs : ['claude-code', 'codex', 'grok'],
       configs: {
         vscode: selectedIDEs.includes('vscode') || selectedIDEs.length === 0, // Legacy compatibility
         codex: selectedIDEs.includes('codex'),
+        grok: selectedIDEs.includes('grok'),
         gemini: selectedIDEs.includes('gemini'),
         cursor: selectedIDEs.includes('cursor'),
         'github-copilot': selectedIDEs.includes('github-copilot'),

@@ -55,6 +55,7 @@ npm test
 - Validar integracao Grok: `npm run validate:skills:grok`
 - Artefatos Grok versionados em `.grok/` (ver `.grok/README.md`)
 - Descoberta local: `grok inspect`
+- Instalacao: wizard lista **Grok Build** (recomendado) e gera `.grok/` via `sync:skills:grok`
 
 ## Agent Shortcuts (Grok Build)
 

@@ -356,6 +356,11 @@ function getIDEConfigFile(ideKey) {
     zed: '.zed/settings.json',
     antigravity: '.antigravity.yaml',
     continue: '.continue/config.json',
+    'claude-code': '.claude/CLAUDE.md',
+    codex: 'AGENTS.md',
+    grok: '.grok/rules/aiox-core.md',
+    gemini: '.gemini/rules.md',
+    'github-copilot': '.github/copilot-instructions.md',
   };
 
   return ideConfigMap[ideKey] || ideKey;

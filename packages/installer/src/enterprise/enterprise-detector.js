@@ -7,6 +7,7 @@ const yaml = require('js-yaml');
 const IDE_SURFACES = [
   { id: 'claude', path: '.claude' },
   { id: 'codex', path: '.codex' },
+  { id: 'grok', path: '.grok' },
   { id: 'gemini', path: '.gemini' },
   { id: 'agents', path: '.agents' },
   { id: 'cursor', path: '.cursor' },

@@ -22,6 +22,10 @@ function loadCodexSkillsSync() {
   return requireAioxCoreModule('.aiox-core', 'infrastructure', 'scripts', 'codex-skills-sync', 'index');
 }
 
+function loadGrokSkillsSync() {
+  return requireAioxCoreModule('.aiox-core', 'infrastructure', 'scripts', 'grok-skills-sync', 'index');
+}
+
 function escapeMdcFrontmatterString(value) {
   return String(value || '')
     .replace(/\r?\n/g, ' ')
@@ -714,6 +718,29 @@ async function generateIDEConfigs(selectedIDEs, wizardState, options = {}) {
           }
         }
 
+        // Grok Build: generate agents, skills, roles, personas, hooks, config
+        if (ideKey === 'grok') {
+          spinner.start('Generating Grok Build agents/skills/hooks...');
+          const grokResult = generateGrokSkills(projectRoot);
+          if (grokResult.skipped) {
+            spinner.info(
+              `Skipped Grok sync (${grokResult.reason || 'canonical agent source not found'})`,
+            );
+          } else {
+            createdFolders.push(
+              path.join(projectRoot, '.grok', 'agents'),
+              path.join(projectRoot, '.grok', 'skills'),
+              path.join(projectRoot, '.grok', 'hooks'),
+              path.join(projectRoot, '.grok', 'roles'),
+              path.join(projectRoot, '.grok', 'personas'),
+              path.join(projectRoot, '.grok', 'rules'),
+            );
+            spinner.succeed(
+              `Grok Build: ${grokResult.agents} agents → ${grokResult.files} files in .grok/`,
+            );
+          }
+        }
+
       } catch (error) {
         spinner.fail(`Failed to configure ${ide.name}`);
         errors.push({ ide: ide.name, error: error.message });
@@ -1318,6 +1345,45 @@ function generateCodexSkills(projectRoot) {
 }
 
 /**
+ * Generate project-local Grok Build surface (agents, skills, roles, personas, hooks).
+ * Local-first: installed projects get `.grok/` without a manual post-install sync.
+ * @param {string} projectRoot - Project root directory
+ * @returns {{agents: number, files: number, skipped: boolean, reason?: string}} Generation result
+ */
+function generateGrokSkills(projectRoot) {
+  const sourceDir = path.join(projectRoot, '.aiox-core', 'development', 'agents');
+  const grokRoot = path.join(projectRoot, '.grok');
+
+  if (!fs.existsSync(sourceDir)) {
+    return { agents: 0, files: 0, skipped: true, reason: 'canonical agent source not found' };
+  }
+
+  try {
+    const { syncGrok } = loadGrokSkillsSync();
+    const result = syncGrok({
+      projectRoot,
+      sourceDir,
+      grokRoot,
+      dryRun: false,
+      quiet: true,
+    });
+
+    return {
+      agents: result.agents || 0,
+      files: result.files || 0,
+      skipped: false,
+    };
+  } catch (error) {
+    return {
+      agents: 0,
+      files: 0,
+      skipped: true,
+      reason: error.message || 'grok-skills-sync failed',
+    };
+  }
+}
+
+/**
  * Copy extra .claude/commands/ files during installation (Story INS-4.3, Gap #12)
  * Uses an allowlist of distributable top-level directories to prevent leaking
  * private squads or project-specific content into installed projects.
@@ -1407,6 +1473,7 @@ module.exports = {
   createCursorMdcFallbackContent,
   copySkillFiles,
   generateCodexSkills,
+  generateGrokSkills,
   copyExtraCommandFiles,
   copyGeminiHooksFolder,
   createGeminiSettings,
