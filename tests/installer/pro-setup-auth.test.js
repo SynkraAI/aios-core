@@ -247,6 +247,158 @@ describe('pro-setup npm invocation', () => {
       execOptions: {},
     });
   });
+
+  it('falls back to the bundled npm-cli.js next to node.exe when npm_execpath is absent', () => {
+    // Simulates a globally-installed `aiox`/`aiox-core` bin invoked directly
+    // (`npm install -g aiox-core` then `aiox install`) on Windows: npm/npx did
+    // not launch us, so `npm_execpath` is unset, but Node.js still ships its
+    // own npm alongside node.exe.
+    const bundledNpmCliPath = 'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js';
+
+    const invocation = proSetup._testing.resolveNpmInvocation({
+      platform: 'win32',
+      execPath: 'C:\\Program Files\\nodejs\\node.exe',
+      env: {},
+      fileExists: (candidate) => candidate === bundledNpmCliPath,
+    });
+
+    expect(invocation).toEqual({
+      command: 'C:\\Program Files\\nodejs\\node.exe',
+      prefixArgs: [bundledNpmCliPath],
+      execOptions: {},
+    });
+  });
+
+  it('invokes the bundled npm-cli.js via argv (no shell) unlike the npm.cmd fallback', () => {
+    const bundledNpmCliPath = '/usr/local/bin/node_modules/npm/bin/npm-cli.js';
+
+    const invocation = proSetup._testing.resolveNpmInvocation({
+      platform: 'linux',
+      execPath: '/usr/local/bin/node',
+      env: {},
+      fileExists: (candidate) => candidate === bundledNpmCliPath,
+    });
+
+    // No `shell: true` — the bundled npm-cli.js is invoked directly via
+    // argv, sidestepping cmd.exe/batch-file argument re-parsing entirely.
+    expect(invocation.execOptions).toEqual({});
+    expect(invocation.command).toBe('/usr/local/bin/node');
+    expect(invocation.prefixArgs).toEqual([bundledNpmCliPath]);
+  });
+
+  it('prefers npm_execpath resolution over the bundled npm-cli.js fallback', () => {
+    // When npm/npx launched us, npm_execpath is the source of truth even if a
+    // bundled npm-cli.js also happens to exist next to node.exe.
+    const invocation = proSetup._testing.resolveNpmInvocation({
+      platform: 'win32',
+      execPath: 'C:\\Program Files\\nodejs\\node.exe',
+      env: {
+        npm_execpath: 'C:\\Users\\dev\\AppData\\Roaming\\npm\\node_modules\\npm\\bin\\npm-cli.js',
+      },
+      fileExists: () => true,
+    });
+
+    expect(invocation).toEqual({
+      command: 'C:\\Program Files\\nodejs\\node.exe',
+      prefixArgs: [
+        'C:\\Users\\dev\\AppData\\Roaming\\npm\\node_modules\\npm\\bin\\npm-cli.js',
+      ],
+      execOptions: {},
+    });
+  });
+
+  it('falls back to npm.cmd + shell only when neither npm_execpath nor a bundled npm-cli.js exist', () => {
+    const invocation = proSetup._testing.resolveNpmInvocation({
+      platform: 'win32',
+      execPath: 'C:\\Program Files\\nodejs\\node.exe',
+      env: {},
+      fileExists: () => false,
+    });
+
+    expect(invocation).toEqual({
+      command: 'npm.cmd',
+      prefixArgs: [],
+      execOptions: { shell: true },
+    });
+  });
+});
+
+describe('pro-setup resolveBundledNpmCliPath', () => {
+  it('resolves node_modules/npm/bin/npm-cli.js next to a Windows node.exe', () => {
+    const expected = 'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js';
+
+    const result = proSetup._testing.resolveBundledNpmCliPath(
+      'C:\\Program Files\\nodejs\\node.exe',
+      (candidate) => candidate === expected,
+    );
+
+    expect(result).toBe(expected);
+  });
+
+  it('resolves node_modules/npm/bin/npm-cli.js next to a POSIX node binary', () => {
+    const expected = '/usr/local/bin/node_modules/npm/bin/npm-cli.js';
+
+    const result = proSetup._testing.resolveBundledNpmCliPath(
+      '/usr/local/bin/node',
+      (candidate) => candidate === expected,
+    );
+
+    expect(result).toBe(expected);
+  });
+
+  it('returns null when the bundled npm-cli.js does not exist', () => {
+    const result = proSetup._testing.resolveBundledNpmCliPath(
+      'C:\\Program Files\\nodejs\\node.exe',
+      () => false,
+    );
+
+    expect(result).toBeNull();
+  });
+});
+
+describe('pro-setup withSuppressedStderr', () => {
+  let originalWrite;
+
+  beforeEach(() => {
+    originalWrite = process.stderr.write;
+  });
+
+  afterEach(() => {
+    process.stderr.write = originalWrite;
+  });
+
+  it('suppresses stderr writes made during fn and restores the original writer after', () => {
+    const writeSpy = jest.fn().mockReturnValue(true);
+    process.stderr.write = writeSpy;
+
+    proSetup._testing.withSuppressedStderr(() => {
+      // Simulates node-machine-id's Windows path shelling out to `reg.exe`
+      // via execSync, which forwards the child's stderr straight through.
+      process.stderr.write('ERRO: a edicao do Registro foi desabilitada\n');
+    });
+
+    expect(writeSpy).not.toHaveBeenCalled();
+    expect(process.stderr.write).toBe(writeSpy);
+  });
+
+  it('restores the original stderr writer even when fn throws', () => {
+    const writeSpy = jest.fn().mockReturnValue(true);
+    process.stderr.write = writeSpy;
+
+    expect(() =>
+      proSetup._testing.withSuppressedStderr(() => {
+        throw new Error('reg.exe exited with a non-zero code');
+      }),
+    ).toThrow('reg.exe exited with a non-zero code');
+
+    expect(process.stderr.write).toBe(writeSpy);
+  });
+
+  it("returns fn's return value unchanged", () => {
+    const result = proSetup._testing.withSuppressedStderr(() => 'native-machine-id-value');
+
+    expect(result).toBe('native-machine-id-value');
+  });
 });
 
 describe('pro-setup interactive email fallback', () => {

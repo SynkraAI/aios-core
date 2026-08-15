@@ -53,6 +53,18 @@ function resolveNpmExecPath(npmExecPath, fileExists = fs.existsSync) {
   return null;
 }
 
+function resolveBundledNpmCliPath(execPath, fileExists) {
+  const pathApi = execPath.includes('\\') ? path.win32 : path.posix;
+  const candidate = pathApi.join(
+    pathApi.dirname(execPath),
+    'node_modules',
+    'npm',
+    'bin',
+    'npm-cli.js',
+  );
+  return fileExists(candidate) ? candidate : null;
+}
+
 function resolveNpmInvocation(options = {}) {
   const platform = options.platform || process.platform;
   const env = options.env || process.env;
@@ -65,6 +77,30 @@ function resolveNpmInvocation(options = {}) {
     return {
       command: execPath,
       prefixArgs: [npmCliPath],
+      execOptions: {},
+    };
+  }
+
+  // `npm_execpath` is only set by npm/npx while THEY are the process that
+  // launched us (e.g. `npx aiox-core install`). It is NOT set when the user
+  // runs a globally-installed `aiox`/`aiox-core` bin directly (a very common
+  // path: `npm install -g aiox-core` then `aiox install`), which otherwise
+  // silently falls all the way through to the `npm.cmd` + `shell: true`
+  // branch below on every Windows machine.
+  //
+  // Node.js ships its own npm alongside node.exe on every officially
+  // supported install method (nodejs.org installer, nvm-windows, fnm).
+  // Prefer that bundled npm-cli.js and invoke it directly via
+  // `node npm-cli.js <args>` with a plain argv array — this avoids
+  // `cmd.exe`/batch-file argument re-parsing entirely, sidestepping the
+  // Windows quoting pitfalls that `npm.cmd` + `shell: true` is exposed to
+  // (e.g. a path ending in a backslash swallowing the closing quote and
+  // merging with the next argument).
+  const bundledNpmCliPath = resolveBundledNpmCliPath(execPath, fileExists);
+  if (bundledNpmCliPath) {
+    return {
+      command: execPath,
+      prefixArgs: [bundledNpmCliPath],
       execOptions: {},
     };
   }
@@ -621,11 +657,38 @@ function generateMachineId() {
   return generateLegacyMachineId();
 }
 
+/**
+ * Run `fn` with `process.stderr.write` temporarily silenced.
+ *
+ * `node-machine-id`'s Windows implementation shells out to `reg.exe` via
+ * Node's `child_process.execSync`, which — unless the caller overrides
+ * `stdio` — forwards the child's stderr straight to the parent's stderr by
+ * default. On machines where Group Policy disables the registry editing
+ * tools (common on school/corporate-managed Windows images), `reg.exe`
+ * prints a raw, OS-localized error (in whatever OEM codepage the console
+ * uses, which is why it can render as mojibake in a UTF-8 terminal) directly
+ * into our wizard output — even though the failure is already caught below
+ * and gracefully handled by falling back to `generateLegacyMachineId()`.
+ * There is nothing for the user to act on in that text, so we swallow it.
+ *
+ * @param {Function} fn - Synchronous function to run
+ * @returns {*} fn's return value
+ */
+function withSuppressedStderr(fn) {
+  const originalWrite = process.stderr.write;
+  process.stderr.write = () => true;
+  try {
+    return fn();
+  } finally {
+    process.stderr.write = originalWrite;
+  }
+}
+
 function generateNativeMachineId() {
   const crypto = require('crypto');
   try {
     const { machineIdSync } = require('node-machine-id');
-    const nativeMachineId = machineIdSync(true);
+    const nativeMachineId = withSuppressedStderr(() => machineIdSync(true));
 
     if (!nativeMachineId || typeof nativeMachineId !== 'string') {
       throw new Error('Native machine id unavailable');
@@ -871,7 +934,14 @@ async function extractProArtifactToTemp(artifactPath, tempRoot) {
         '--no-audit',
         '--no-fund',
         '--no-save',
-        '--silent',
+        // NOTE: intentionally NOT `--silent`. npm's "silent" loglevel
+        // suppresses its own `npm error` output too, so a real failure here
+        // (e.g. disk/network/permissions) previously surfaced to the user
+        // as a bare "Command failed: <command line>" with no diagnostic
+        // detail at all — undebuggable both for the user and for us reading
+        // `error.stderr` below. `--loglevel=error` keeps normal progress
+        // noise off while still reporting the actual npm error on failure.
+        '--loglevel=error',
       ],
       {
         cwd: installRoot,
@@ -923,7 +993,9 @@ async function installProArtifactIntoTarget(artifactPath, targetDir) {
         '--no-fund',
         '--no-save',
         '--package-lock=false',
-        '--silent',
+        // See NOTE in extractProArtifactToTemp() above: `--silent` hides
+        // npm's own error output, not just progress noise.
+        '--loglevel=error',
       ],
       {
         cwd: targetDir,
@@ -2356,6 +2428,8 @@ module.exports = {
     persistLicenseCache,
     resolveLicenseServerUrl,
     resolveNpmInvocation,
+    resolveBundledNpmCliPath,
+    withSuppressedStderr,
     ensureKeyValidationParity,
     acquireProArtifactSourceDir,
     downloadArtifactFile,
