@@ -7,8 +7,8 @@
 # - SHA256 hashes for change detection
 # - File types for categorization
 #
-version: 5.4.0
-generated_at: "2026-08-15T17:16:26.019Z"
+version: 5.4.1
+generated_at: "2026-08-15T18:03:37.513Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1172
 files:
@@ -3865,7 +3865,7 @@ files:
     type: monitor
     size: 856
   - path: package.json
-    hash: sha256:bc9e3ffae60d398652ac6f1732e49cb01373f33d47ef32e7f46c081263d1fe72
+    hash: sha256:f7de5907215c34b2a28ad1ce7c9cf6696e6eacec15681902b9408cc062a27e1f
     type: other
     size: 1445
   - path: product/checklists/accessibility-wcag-checklist.md
