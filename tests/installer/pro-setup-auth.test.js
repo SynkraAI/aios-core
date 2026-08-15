@@ -247,6 +247,158 @@ describe('pro-setup npm invocation', () => {
       execOptions: {},
     });
   });
+
+  it('falls back to the bundled npm-cli.js next to node.exe when npm_execpath is absent', () => {
+    // Simulates a globally-installed `aiox`/`aiox-core` bin invoked directly
+    // (`npm install -g aiox-core` then `aiox install`) on Windows: npm/npx did
+    // not launch us, so `npm_execpath` is unset, but Node.js still ships its
+    // own npm alongside node.exe.
+    const bundledNpmCliPath = 'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js';
+
+    const invocation = proSetup._testing.resolveNpmInvocation({
+      platform: 'win32',
+      execPath: 'C:\\Program Files\\nodejs\\node.exe',
+      env: {},
+      fileExists: (candidate) => candidate === bundledNpmCliPath,
+    });
+
+    expect(invocation).toEqual({
+      command: 'C:\\Program Files\\nodejs\\node.exe',
+      prefixArgs: [bundledNpmCliPath],
+      execOptions: {},
+    });
+  });
+
+  it('invokes the bundled npm-cli.js via argv (no shell) unlike the npm.cmd fallback', () => {
+    const bundledNpmCliPath = '/usr/local/bin/node_modules/npm/bin/npm-cli.js';
+
+    const invocation = proSetup._testing.resolveNpmInvocation({
+      platform: 'linux',
+      execPath: '/usr/local/bin/node',
+      env: {},
+      fileExists: (candidate) => candidate === bundledNpmCliPath,
+    });
+
+    // No `shell: true` — the bundled npm-cli.js is invoked directly via
+    // argv, sidestepping cmd.exe/batch-file argument re-parsing entirely.
+    expect(invocation.execOptions).toEqual({});
+    expect(invocation.command).toBe('/usr/local/bin/node');
+    expect(invocation.prefixArgs).toEqual([bundledNpmCliPath]);
+  });
+
+  it('prefers npm_execpath resolution over the bundled npm-cli.js fallback', () => {
+    // When npm/npx launched us, npm_execpath is the source of truth even if a
+    // bundled npm-cli.js also happens to exist next to node.exe.
+    const invocation = proSetup._testing.resolveNpmInvocation({
+      platform: 'win32',
+      execPath: 'C:\\Program Files\\nodejs\\node.exe',
+      env: {
+        npm_execpath: 'C:\\Users\\dev\\AppData\\Roaming\\npm\\node_modules\\npm\\bin\\npm-cli.js',
+      },
+      fileExists: () => true,
+    });
+
+    expect(invocation).toEqual({
+      command: 'C:\\Program Files\\nodejs\\node.exe',
+      prefixArgs: [
+        'C:\\Users\\dev\\AppData\\Roaming\\npm\\node_modules\\npm\\bin\\npm-cli.js',
+      ],
+      execOptions: {},
+    });
+  });
+
+  it('falls back to npm.cmd + shell only when neither npm_execpath nor a bundled npm-cli.js exist', () => {
+    const invocation = proSetup._testing.resolveNpmInvocation({
+      platform: 'win32',
+      execPath: 'C:\\Program Files\\nodejs\\node.exe',
+      env: {},
+      fileExists: () => false,
+    });
+
+    expect(invocation).toEqual({
+      command: 'npm.cmd',
+      prefixArgs: [],
+      execOptions: { shell: true },
+    });
+  });
+});
+
+describe('pro-setup resolveBundledNpmCliPath', () => {
+  it('resolves node_modules/npm/bin/npm-cli.js next to a Windows node.exe', () => {
+    const expected = 'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js';
+
+    const result = proSetup._testing.resolveBundledNpmCliPath(
+      'C:\\Program Files\\nodejs\\node.exe',
+      (candidate) => candidate === expected,
+    );
+
+    expect(result).toBe(expected);
+  });
+
+  it('resolves node_modules/npm/bin/npm-cli.js next to a POSIX node binary', () => {
+    const expected = '/usr/local/bin/node_modules/npm/bin/npm-cli.js';
+
+    const result = proSetup._testing.resolveBundledNpmCliPath(
+      '/usr/local/bin/node',
+      (candidate) => candidate === expected,
+    );
+
+    expect(result).toBe(expected);
+  });
+
+  it('returns null when the bundled npm-cli.js does not exist', () => {
+    const result = proSetup._testing.resolveBundledNpmCliPath(
+      'C:\\Program Files\\nodejs\\node.exe',
+      () => false,
+    );
+
+    expect(result).toBeNull();
+  });
+});
+
+describe('pro-setup withSuppressedStderr', () => {
+  let originalWrite;
+
+  beforeEach(() => {
+    originalWrite = process.stderr.write;
+  });
+
+  afterEach(() => {
+    process.stderr.write = originalWrite;
+  });
+
+  it('suppresses stderr writes made during fn and restores the original writer after', () => {
+    const writeSpy = jest.fn().mockReturnValue(true);
+    process.stderr.write = writeSpy;
+
+    proSetup._testing.withSuppressedStderr(() => {
+      // Simulates node-machine-id's Windows path shelling out to `reg.exe`
+      // via execSync, which forwards the child's stderr straight through.
+      process.stderr.write('ERRO: a edicao do Registro foi desabilitada\n');
+    });
+
+    expect(writeSpy).not.toHaveBeenCalled();
+    expect(process.stderr.write).toBe(writeSpy);
+  });
+
+  it('restores the original stderr writer even when fn throws', () => {
+    const writeSpy = jest.fn().mockReturnValue(true);
+    process.stderr.write = writeSpy;
+
+    expect(() =>
+      proSetup._testing.withSuppressedStderr(() => {
+        throw new Error('reg.exe exited with a non-zero code');
+      }),
+    ).toThrow('reg.exe exited with a non-zero code');
+
+    expect(process.stderr.write).toBe(writeSpy);
+  });
+
+  it("returns fn's return value unchanged", () => {
+    const result = proSetup._testing.withSuppressedStderr(() => 'native-machine-id-value');
+
+    expect(result).toBe('native-machine-id-value');
+  });
 });
 
 describe('pro-setup interactive email fallback', () => {
@@ -725,5 +877,177 @@ describe('resolveProSourceDir', () => {
       proSourceDir: null,
       bootstrapError: 'git unavailable',
     });
+  });
+});
+
+describe('extractProArtifactToTemp — direct tar extraction (no npm)', () => {
+  const os = require('os');
+  const { execFileSync } = childProcess;
+
+  const NPM_PACK_TIMEOUT_MS = 60 * 1000;
+
+  function makeTempDir(prefix) {
+    return fs.mkdtempSync(path.join(os.tmpdir(), prefix));
+  }
+
+  function removeDir(dir) {
+    try {
+      fs.rmSync(dir, { recursive: true, force: true });
+    } catch {
+      // best effort
+    }
+  }
+
+  function writePackageJson(dir, body) {
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(path.join(dir, 'package.json'), JSON.stringify(body, null, 2));
+  }
+
+  /**
+   * Build a real `@aiox-squads/pro` tarball via `npm pack`, the same way
+   * tests/installer/pro-setup-target-install.test.js does for
+   * installProArtifactIntoTarget. A real npm tarball (not a hand-rolled one)
+   * is what proves `strip: 1` correctly removes npm's `package/` wrapper.
+   */
+  let cachedFixtureTarball = null;
+  let cachedFixtureBuildDir = null;
+  function buildFixtureTarball() {
+    if (cachedFixtureTarball) {
+      return cachedFixtureTarball;
+    }
+
+    const buildDir = makeTempDir('aiox-pro-extract-fixture-');
+    cachedFixtureBuildDir = buildDir;
+
+    const pkg = {
+      name: '@aiox-squads/pro',
+      version: '0.0.0-test-fixture',
+      description: 'Minimal @aiox-squads/pro fixture for extraction regression tests',
+      private: false,
+      files: ['squads/index.js', 'license/license-cache.js'],
+    };
+    writePackageJson(buildDir, pkg);
+    fs.mkdirSync(path.join(buildDir, 'squads'), { recursive: true });
+    fs.writeFileSync(
+      path.join(buildDir, 'squads', 'index.js'),
+      'module.exports = { fixture: true };\n',
+    );
+    fs.mkdirSync(path.join(buildDir, 'license'), { recursive: true });
+    fs.writeFileSync(
+      path.join(buildDir, 'license', 'license-cache.js'),
+      'module.exports = { writeLicenseCache: () => ({ success: true }) };\n',
+    );
+
+    const npmBin = process.platform === 'win32' ? 'npm.cmd' : 'npm';
+    const packOutput = execFileSync(npmBin, ['pack', '--json'], {
+      cwd: buildDir,
+      timeout: NPM_PACK_TIMEOUT_MS,
+      encoding: 'utf8',
+      shell: process.platform === 'win32',
+    });
+
+    const packed = JSON.parse(packOutput)[0];
+    cachedFixtureTarball = path.join(buildDir, packed.filename);
+    return cachedFixtureTarball;
+  }
+
+  afterAll(() => {
+    if (cachedFixtureBuildDir) {
+      removeDir(cachedFixtureBuildDir);
+      cachedFixtureBuildDir = null;
+      cachedFixtureTarball = null;
+    }
+  });
+
+  it('extracts a real npm tarball without shelling out to npm, stripping the package/ wrapper', async () => {
+    const tarballPath = buildFixtureTarball();
+    const tempRoot = makeTempDir('aiox-pro-extract-temp-');
+
+    try {
+      const proSourceDir = await proSetup._testing.extractProArtifactToTemp(
+        tarballPath,
+        tempRoot,
+      );
+
+      // Contract preserved: installRoot/node_modules/@aiox-squads/pro.
+      expect(proSourceDir).toBe(
+        path.join(tempRoot, 'package-root', 'node_modules', '@aiox-squads', 'pro'),
+      );
+
+      // package/ wrapper stripped: package.json lands directly in proSourceDir,
+      // not in proSourceDir/package/package.json.
+      const pkgJsonPath = path.join(proSourceDir, 'package.json');
+      expect(fs.existsSync(pkgJsonPath)).toBe(true);
+      expect(fs.existsSync(path.join(proSourceDir, 'package', 'package.json'))).toBe(false);
+
+      const extractedPkg = JSON.parse(fs.readFileSync(pkgJsonPath, 'utf8'));
+      expect(extractedPkg.name).toBe('@aiox-squads/pro');
+
+      // Nested file content survives extraction intact.
+      const licenseCacheContent = fs.readFileSync(
+        path.join(proSourceDir, 'license', 'license-cache.js'),
+        'utf8',
+      );
+      expect(licenseCacheContent).toContain('writeLicenseCache');
+    } finally {
+      removeDir(tempRoot);
+    }
+  });
+
+  it('rejects with a descriptive error when the artifact path does not exist', async () => {
+    const tempRoot = makeTempDir('aiox-pro-extract-missing-');
+
+    try {
+      await expect(
+        proSetup._testing.extractProArtifactToTemp(
+          path.join(tempRoot, 'does-not-exist.tgz'),
+          tempRoot,
+        ),
+      ).rejects.toThrow(/Failed to extract Pro artifact package:/);
+    } finally {
+      removeDir(tempRoot);
+    }
+  });
+
+  it('rejects with a descriptive error when the artifact is not a valid tarball', async () => {
+    const tempRoot = makeTempDir('aiox-pro-extract-corrupt-');
+    const corruptPath = path.join(tempRoot, 'corrupt.tgz');
+    fs.writeFileSync(corruptPath, 'this is not a gzip tarball');
+
+    try {
+      await expect(
+        proSetup._testing.extractProArtifactToTemp(corruptPath, tempRoot),
+      ).rejects.toThrow(/Failed to extract Pro artifact package:/);
+    } finally {
+      removeDir(tempRoot);
+    }
+  });
+
+  it('rejects when the tarball does not contain @aiox-squads/pro package metadata', async () => {
+    const tar = require('tar');
+    const buildDir = makeTempDir('aiox-pro-extract-nopkg-build-');
+    const tempRoot = makeTempDir('aiox-pro-extract-nopkg-');
+
+    try {
+      // A valid tarball, but with no package.json inside — simulates a
+      // malformed/unexpected artifact rather than a corrupt file. Built
+      // with the `tar` package directly (not npm pack) since there is
+      // nothing to `npm pack` without a package.json.
+      fs.mkdirSync(path.join(buildDir, 'package'), { recursive: true });
+      fs.writeFileSync(path.join(buildDir, 'package', 'readme.txt'), 'no package.json here\n');
+
+      const tarballPath = path.join(buildDir, 'no-pkg.tgz');
+      await tar.create(
+        { gzip: true, file: tarballPath, cwd: buildDir },
+        ['package'],
+      );
+
+      await expect(
+        proSetup._testing.extractProArtifactToTemp(tarballPath, tempRoot),
+      ).rejects.toThrow('Extracted Pro artifact did not contain @aiox-squads/pro package metadata.');
+    } finally {
+      removeDir(buildDir);
+      removeDir(tempRoot);
+    }
   });
 });
