@@ -397,8 +397,21 @@ jobs:
     # in parallel, the legacy smoke test races against npm propagation of the
     # scoped package and times out — making the workflow appear failed even
     # though both packages were published successfully.
+    #
+    # `needs.publish.result == 'skipped'` is an intentionally allowed case
+    # (a scoped `packages=aiox-core` dispatch, without `core`, skips `publish`
+    # by design). GitHub Actions propagates a skipped `needs` job to this job
+    # by default REGARDLESS of a custom `if:` — the only way to opt out of
+    # that default propagation is to start the expression with `always()`.
+    # Without it, this whole condition was dead code: a scoped
+    # `packages=aiox-core` dispatch could never actually run this job. See
+    # https://github.com/SynkraAI/aiox-core/issues/827 (Bug 3).
+    #
+    # `always()` also bypasses the *failure*-propagation default, so the
+    # `test`/`build` success checks below are load-bearing, not redundant —
+    # without them this job would run even when `test` or `build` failed.
     needs: [test, build, publish]
-    if: ${{ contains(format(',{0},', needs.build.outputs.packages), ',aiox-core,') && (needs.publish.result == 'success' || needs.publish.result == 'skipped') }}
+    if: ${{ always() && needs.test.result == 'success' && needs.build.result == 'success' && contains(format(',{0},', needs.build.outputs.packages), ',aiox-core,') && (needs.publish.result == 'success' || needs.publish.result == 'skipped') }}
     runs-on: ubuntu-latest
     outputs:
       published: ${{ steps.should-publish.outputs.should_publish }}
