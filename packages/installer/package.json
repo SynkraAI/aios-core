@@ -44,7 +44,8 @@
     "js-yaml": "^4.1.0",
     "node-machine-id": "^1.1.12",
     "ora": "^5.4.1",
-    "semver": "^7.7.2"
+    "semver": "^7.7.2",
+    "tar": "^7.5.7"
   },
   "devDependencies": {
     "jest": "^30.2.0"

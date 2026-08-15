@@ -19,6 +19,7 @@ const path = require('path');
 const fs = require('fs-extra');
 const os = require('os');
 const crypto = require('crypto');
+const tar = require('tar');
 const { execFile } = require('child_process');
 const { promisify } = require('util');
 const { createSpinner, showSuccess, showError, showWarning, showInfo } = require('./feedback');
@@ -956,48 +957,46 @@ async function downloadArtifactFile(artifactUrl, destinationPath, expectedSizeBy
   };
 }
 
+/**
+ * Extract the downloaded Pro artifact tarball into a scratch directory.
+ *
+ * This used to shell out to `npm install <tarball> --prefix <temp> ...` purely
+ * to unpack the `.tgz` — no dependency resolution was ever needed here (the
+ * synthetic `package.json` this function wrote declared zero dependencies,
+ * and every downstream consumer of the result only reads static files or
+ * requires modules with no external deps — see `persistLicenseCache`'s
+ * `license-cache.js` fallback, which only needs `fs`/`path`). Routing plain
+ * decompression through npm meant every one of npm's own failure modes
+ * (locating the npm binary, Windows `.cmd` + shell quoting, an ancestor
+ * `package.json`/workspace hijacking `--prefix`, npm version drift) became a
+ * failure mode for what is fundamentally `tar -x`. That's exactly the class
+ * of bug that broke Pro activation for a student on Windows (see the commit
+ * this replaces). Extracting the tarball directly with the `tar` package
+ * removes all of it.
+ *
+ * @param {string} artifactPath - Local path to the downloaded `.tgz`
+ * @param {string} tempRoot - Scratch directory to extract into
+ * @returns {Promise<string>} Absolute path to the extracted @aiox-squads/pro package
+ */
 async function extractProArtifactToTemp(artifactPath, tempRoot) {
   const installRoot = path.join(tempRoot, 'package-root');
-  await fs.ensureDir(installRoot);
-  await fs.writeJson(path.join(installRoot, 'package.json'), {
-    private: true,
-    dependencies: {},
-  });
+  const proSourceDir = path.join(installRoot, 'node_modules', '@aiox-squads', 'pro');
+  await fs.ensureDir(proSourceDir);
 
   try {
-    await runNpm(
-      [
-        'install',
-        artifactPath,
-        '--prefix',
-        installRoot,
-        '--workspaces=false',
-        '--include-workspace-root=false',
-        '--ignore-scripts',
-        '--no-audit',
-        '--no-fund',
-        '--no-save',
-        // NOTE: intentionally NOT `--silent`. npm's "silent" loglevel
-        // suppresses its own `npm error` output too, so a real failure here
-        // (e.g. disk/network/permissions) previously surfaced to the user
-        // as a bare "Command failed: <command line>" with no diagnostic
-        // detail at all — undebuggable both for the user and for us reading
-        // `error.stderr` below. `--loglevel=error` keeps normal progress
-        // noise off while still reporting the actual npm error on failure.
-        '--loglevel=error',
-      ],
-      {
-        cwd: installRoot,
-        timeout: PRO_ARTIFACT_INSTALL_TIMEOUT_MS,
-        maxBuffer: 1024 * 1024 * 10,
-      },
-    );
+    // npm tarballs (from `npm pack`/registry) always nest their contents
+    // under a single top-level `package/` directory; `strip: 1` removes
+    // that wrapper so the package's own files land directly in
+    // proSourceDir, matching what `npm install` used to produce there.
+    await tar.extract({
+      file: artifactPath,
+      cwd: proSourceDir,
+      strip: 1,
+    });
   } catch (error) {
-    const details = error.stderr || error.stdout || error.message;
-    throw new Error(`Failed to extract Pro artifact package: ${String(details).trim()}`);
+    throw new Error(`Failed to extract Pro artifact package: ${error.message}`);
   }
 
-  const proSourceDir = path.join(installRoot, 'node_modules', '@aiox-squads', 'pro');
   if (!(await fs.pathExists(path.join(proSourceDir, 'package.json')))) {
     throw new Error('Extracted Pro artifact did not contain @aiox-squads/pro package metadata.');
   }
@@ -1005,6 +1004,22 @@ async function extractProArtifactToTemp(artifactPath, tempRoot) {
   return proSourceDir;
 }
 
+/**
+ * Install the Pro artifact tarball into the target project's own node_modules.
+ *
+ * Unlike `extractProArtifactToTemp()` above, this genuinely needs npm: the
+ * `@aiox-squads/pro` package declares real runtime dependencies (currently
+ * `node-machine-id` and `yaml` — see `pro/package.json`), and post-install
+ * Pro CLI commands (`aiox pro validate`, license activation, etc.) run with
+ * `process.cwd()` inside the target project and `require()` Pro's license
+ * modules from `targetDir/node_modules/@aiox-squads/pro/...`. Those modules
+ * resolve their own dependencies (e.g. `license-crypto.js` requiring
+ * `node-machine-id`) by walking up to `targetDir/node_modules/`, which only
+ * npm's real dependency resolution populates. A plain tar extraction here
+ * would leave those requires unresolved. `extractProArtifactToTemp()` never
+ * had this problem because nothing reads Pro's own dependencies out of its
+ * temp scratch directory — only static files get copied out of it.
+ */
 async function installProArtifactIntoTarget(artifactPath, targetDir) {
   await fs.ensureDir(targetDir);
 
@@ -1036,8 +1051,10 @@ async function installProArtifactIntoTarget(artifactPath, targetDir) {
         '--no-fund',
         '--no-save',
         '--package-lock=false',
-        // See NOTE in extractProArtifactToTemp() above: `--silent` hides
-        // npm's own error output, not just progress noise.
+        // `--silent` would hide npm's own error output, not just progress
+        // noise (see resolveNpmInvocation()/extractProArtifactToTemp()'s
+        // history above) — keep `--loglevel=error` so real failures here
+        // stay diagnosable.
         '--loglevel=error',
       ],
       {
