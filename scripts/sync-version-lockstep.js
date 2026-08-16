@@ -83,4 +83,4 @@ function main() {
 
 main();
 
-# Fix for issue #827: safe input handling
+// Fix for issue #827: safe input handling
