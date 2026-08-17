@@ -118,7 +118,7 @@ const checks = [
           (rule) =>
             typeof rule === 'string'
               ? rule.includes('.env')
-              : rule.pattern && rule.pattern.includes('.env'),
+              : rule.pattern && rule.pattern.includes('.env')
         );
       } catch {
         return false;

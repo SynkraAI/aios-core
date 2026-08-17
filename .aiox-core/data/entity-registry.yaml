@@ -1,7 +1,7 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-08-10T22:57:44.852Z'
-  entityCount: 846
+  lastUpdated: '2026-08-17T18:54:03.057Z'
+  entityCount: 847
   checksumAlgorithm: sha256
   resolutionRate: 100
 entities:
@@ -14659,6 +14659,25 @@ entities:
         extensionPoints: []
       checksum: sha256:dd025894f8f0d3bd22a147dbc0debef8b83e96f3c59483653404b3cd5a01d5aa
       lastVerified: '2026-08-10T22:57:44.155Z'
+    ..-core-config:
+      path: .aiox-core/core-config.yaml
+      layer: L4
+      type: module
+      purpose: Entity at .aiox-core/core-config.yaml
+      keywords:
+        - core
+        - config
+      usedBy: []
+      dependencies: []
+      externalDeps: []
+      plannedDeps: []
+      lifecycle: orphan
+      adaptability:
+        score: 0.4
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:eef627e7b54e3fc402a2a0d89a867a678272de844a0b743edfc260fe675f8dd9
+      lastVerified: '2026-08-17T18:54:03.042Z'
   agents:
     aiox-master:
       path: .aiox-core/development/agents/aiox-master.md
