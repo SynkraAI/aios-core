@@ -60,7 +60,7 @@
 
 2. Survey project requirements:
    - Which directories need write access? (src/, tests/, docs/, node_modules/)
-   - Which directories should be read-only? (.aiox-core/, config files)
+   - Which directories should be read-only? (.aios-core/, config files)
    - Which directories should be invisible? (secrets/, .env files)
    - What external network access is needed? (npm registry, API servers, CDN)
    - Are any system commands needed outside sandbox? (git, docker)
@@ -152,7 +152,7 @@ Set filesystem access controls:
         "//tmp"
       ],
       "denyWrite": [
-        "/.aiox-core/core",
+        "/.aios-core/core",
         "/node_modules",
         "/.git"
       ],
@@ -179,7 +179,7 @@ Set filesystem access controls:
 
 | Level | Write Allowed | Write Denied |
 |-------|---------------|--------------|
-| standard | src/, tests/, docs/, tmp/ | node_modules/, .git/, .aiox-core/core/ |
+| standard | src/, tests/, docs/, tmp/ | node_modules/, .git/, .aios-core/core/ |
 | strict | src/ only | Everything else |
 | airgapped | src/ with review | Everything else |
 

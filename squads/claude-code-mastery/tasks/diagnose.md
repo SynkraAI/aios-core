@@ -85,7 +85,7 @@ Apply keyword matching against the 7 specialist domains:
 | subagents | subagent, agent team, swarm, teammate, worktree, parallel, background agent, spawn, multi-agent, TeammateTool | swarm-orchestrator | Nexus |
 | config | settings, permission, CLAUDE.md, rules, sandbox, managed, enterprise, allow, deny, keybinding, context window, compaction | config-engineer | Sigil |
 | skills | skill, command, plugin, SKILL.md, slash command, context engineering, spec-driven, .claude/commands, .claude/skills, marketplace | skill-craftsman | Anvil |
-| integration | integrate, repository, project setup, CI/CD, headless, brownfield, monorepo, AIOX, git workflow | project-integrator | Conduit |
+| integration | integrate, repository, project setup, CI/CD, headless, brownfield, monorepo, AIOS, git workflow | project-integrator | Conduit |
 | roadmap | update, changelog, version, roadmap, new feature, what changed, migration, upgrade, adoption | roadmap-sentinel | Vigil |
 
 **Scoring rules:**
@@ -98,7 +98,7 @@ Apply keyword matching against the 7 specialist domains:
 
 If the question is cross-cutting or general:
 
-1. Synthesize knowledge from the quick_reference section and AIOX awareness
+1. Synthesize knowledge from the quick_reference section and AIOS awareness
 2. Provide a complete, actionable answer
 3. Reference relevant specialist agents the user can consult for deeper exploration
 4. Include code snippets, configuration examples, or reference tables as appropriate

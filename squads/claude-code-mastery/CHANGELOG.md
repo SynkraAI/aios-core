@@ -14,9 +14,9 @@ All notable changes to the Claude Code Mastery squad.
 - 1 validation script (validate-setup.js)
 - Tier architecture: Tier 0 (Diagnosis), Tier 1 (Core Mastery), Tier 2 (Strategic & Context)
 - Handoff matrix with full routing between all agents
-- AIOX-core integration bridge (agents, tasks, hooks, config mapping)
+- AIOS-core integration bridge (agents, tasks, hooks, config mapping)
 
 ### Architecture
 - Entry agent: claude-mastery-chief (Orion) with 7-domain routing matrix
-- Cross-cutting concern: all agents understand AIOX-core architecture
+- Cross-cutting concern: all agents understand AIOS-core architecture
 - Knowledge sources: Claude Code changelog, official docs, community resources

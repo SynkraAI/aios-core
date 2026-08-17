@@ -35,7 +35,7 @@
 | 1 | swarm-orchestrator | Nexus | Kieran Klaassen + Reuven Cohen | 1,008 | Agent teams, subagents, parallel execution |
 | 1 | config-engineer | Sigil | SuperClaude-Org | 663 | Settings, permissions, CLAUDE.md, sandbox |
 | 2 | skill-craftsman | Anvil | BMAD-CODE-ORG | 1,046 | Skills, plugins, commands, context engineering |
-| 2 | project-integrator | Conduit | Daniel Miessler (PAI) | 959 | Project integration, CI/CD, AIOX bridge |
+| 2 | project-integrator | Conduit | Daniel Miessler (PAI) | 959 | Project integration, CI/CD, AIOS bridge |
 | 2 | roadmap-sentinel | Vigil | Boris Cherny | 707 | Roadmap, changelog, feature adoption |
 
 ## Quick Start
@@ -44,20 +44,20 @@
 ```
 @claude-code-mastery:claude-mastery-chief
 ```
-Or use the AIOX activation:
+Or use the AIOS activation:
 ```
-/AIOX:agents:claude-mastery-chief
+/AIOS:agents:claude-mastery-chief
 ```
 
 ### Direct Specialist Access
 ```
-/AIOX:agents:hooks-architect        # Hook automation
-/AIOX:agents:mcp-integrator         # MCP servers
-/AIOX:agents:swarm-orchestrator     # Multi-agent orchestration
-/AIOX:agents:config-engineer        # Settings & permissions
-/AIOX:agents:skill-craftsman        # Skills & plugins
-/AIOX:agents:project-integrator     # Project integration
-/AIOX:agents:roadmap-sentinel       # Updates & roadmap
+/AIOS:agents:hooks-architect        # Hook automation
+/AIOS:agents:mcp-integrator         # MCP servers
+/AIOS:agents:swarm-orchestrator     # Multi-agent orchestration
+/AIOS:agents:config-engineer        # Settings & permissions
+/AIOS:agents:skill-craftsman        # Skills & plugins
+/AIOS:agents:project-integrator     # Project integration
+/AIOS:agents:roadmap-sentinel       # Updates & roadmap
 ```
 
 ## Feature Coverage
@@ -71,7 +71,7 @@ Or use the AIOX activation:
 | Skills & Plugins | Anvil | `*create-skill`, `*create-plugin`, `*context-strategy` |
 | Project Integration | Conduit | `*integrate-project`, `*brownfield-setup`, `*ci-cd-setup` |
 | Roadmap & Updates | Vigil | `*update-knowledge`, `*feature-radar`, `*migration-guide` |
-| AIOX Bridge | Orion + Conduit | `*aiox-bridge`, `*aiox-guide` |
+| AIOS Bridge | Orion + Conduit | `*aios-bridge`, `*aios-guide` |
 
 ## Elite Minds Research Attribution
 
@@ -88,14 +88,14 @@ This squad was created through iterative research with devil's advocate validati
 | **Daniel Miessler** | Personal AI Infrastructure (PAI), Unix philosophy for AI | [Blog](https://danielmiessler.com/), [GitHub](https://github.com/danielmiessler/Personal_AI_Infrastructure) |
 | **Boris Cherny** | Claude Code creator, plan-first methodology, parallel instances | [Blog](https://boristane.com/), [Pragmatic Engineer](https://newsletter.pragmaticengineer.com/p/how-claude-code-is-built) |
 
-## AIOX-Core Integration
+## AIOS-Core Integration
 
-This squad understands both Claude Code native capabilities AND the AIOX-core framework:
+This squad understands both Claude Code native capabilities AND the AIOS-core framework:
 
-| AIOX Concept | Claude Code Equivalent | Bridge Agent |
+| AIOS Concept | Claude Code Equivalent | Bridge Agent |
 |-------------|----------------------|-------------|
 | Agents (@dev, @qa...) | Subagents (.claude/agents/) | Nexus |
-| Tasks (.aiox-core/tasks/) | Skills (.claude/skills/) | Anvil |
+| Tasks (.aios-core/tasks/) | Skills (.claude/skills/) | Anvil |
 | Workflows | Multi-step sessions | Nexus + Orion |
 | core-config.yaml | .claude/settings.json | Sigil |
 | Python hooks (monitor/) | Native hooks (command/http/prompt/agent) | Latch |
