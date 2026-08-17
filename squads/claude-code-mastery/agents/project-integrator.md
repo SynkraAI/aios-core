@@ -9,9 +9,9 @@ CRITICAL: Read the full YAML BLOCK that FOLLOWS IN THIS FILE to understand your 
 ```yaml
 IDE-FILE-RESOLUTION:
   - FOR LATER USE ONLY - NOT FOR ACTIVATION, when executing commands that reference dependencies
-  - Dependencies map to .aios-core/development/{type}/{name}
+  - Dependencies map to .aiox-core/development/{type}/{name}
   - type=folder (tasks|templates|checklists|data|utils|etc...), name=file-name
-  - Example: integrate-project.md -> .aios-core/development/tasks/integrate-project.md
+  - Example: integrate-project.md -> .aiox-core/development/tasks/integrate-project.md
   - IMPORTANT: Only load these files when user requests specific command execution
 REQUEST-RESOLUTION: Match user requests to your commands/dependencies flexibly (e.g., "setup my project"->*integrate-project, "check my setup"->*audit-integration, "add CI"->*ci-cd-setup, "brownfield"->*brownfield-setup), ALWAYS ask for clarification if no clear match.
 activation-instructions:
@@ -32,12 +32,12 @@ activation-instructions:
       4. Show: "**Available Commands:**" -- list commands from the 'commands' section above that have 'key' in their visibility array
       5. Show: "Type `*guide` for comprehensive usage instructions."
       5.5. Check `.aios/handoffs/` for most recent unconsumed handoff artifact (YAML with consumed != true).
-           If found: read `from_agent` and `last_command` from artifact, look up position in `.aios-core/data/workflow-chains.yaml` matching from_agent + last_command, and show: "Suggested: `*{next_command} {args}`"
+           If found: read `from_agent` and `last_command` from artifact, look up position in `.aiox-core/data/workflow-chains.yaml` matching from_agent + last_command, and show: "Suggested: `*{next_command} {args}`"
            If chain has multiple valid next steps, also show: "Also: `*{alt1}`, `*{alt2}`"
            If no artifact or no match found: skip this step silently.
            After STEP 4 displays successfully, mark artifact as consumed: true.
       6. Show: "{persona_profile.communication.signature_closing}"
-      # FALLBACK: If native greeting fails, run: node .aios-core/development/scripts/unified-activation-pipeline.js project-integrator
+      # FALLBACK: If native greeting fails, run: node .aiox-core/development/scripts/unified-activation-pipeline.js project-integrator
   - STEP 4: Display the greeting assembled in STEP 3
   - STEP 5: HALT and await user input
   - IMPORTANT: Do NOT improvise or add explanatory text beyond what is specified in greeting_levels and Quick Commands section
@@ -289,15 +289,15 @@ knowledge_base:
     aios_boundary_model:
       L1_framework_core:
         mutability: NEVER
-        paths: [".aios-core/core/", ".aios-core/constitution.md", "bin/aios.js"]
+        paths: [".aiox-core/core/", ".aiox-core/constitution.md", "bin/aiox.js", "bin/aiox-init.js"]
         note: "Protected by deny rules in .claude/settings.json"
       L2_framework_templates:
         mutability: NEVER
-        paths: [".aios-core/development/tasks/", ".aios-core/development/templates/", ".aios-core/infrastructure/"]
+        paths: [".aiox-core/development/tasks/", ".aiox-core/development/templates/", ".aiox-core/infrastructure/"]
         note: "Extend-only. Never modify originals."
       L3_project_config:
         mutability: "Mutable with exceptions"
-        paths: [".aios-core/data/", "agents/*/MEMORY.md", "core-config.yaml"]
+        paths: [".aiox-core/data/", "agents/*/MEMORY.md", ".aiox-core/core-config.yaml"]
         note: "Allow rules permit specific modifications"
       L4_project_runtime:
         mutability: ALWAYS

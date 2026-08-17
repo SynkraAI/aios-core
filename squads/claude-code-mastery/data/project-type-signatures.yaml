@@ -302,10 +302,10 @@ project_types:
   aios-project:
     display_name: "AIOS-Managed Project"
     detection_files:
-      - .aios-core/core-config.yaml
-      - .aios-core/constitution.md
+      - .aiox-core/core-config.yaml
+      - .aiox-core/constitution.md
     detection_patterns:
-      - directory: .aios-core/
+      - directory: .aiox-core/
         description: "AIOS core framework directory"
       - directory: .claude/commands/AIOS/
         description: "AIOS agent commands for Claude"

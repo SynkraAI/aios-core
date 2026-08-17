@@ -101,13 +101,17 @@ Check that critical sensitive files are protected:
 | `Bash(rm -rf *)` | Destructive deletion | CRITICAL |
 | `Bash(curl * \| bash)` | Pipe-to-shell attacks | HIGH |
 
-**AIOS-specific deny rules (if .aios-core/ exists):**
+**AIOS-specific deny rules (if .aiox-core/ exists):**
 
 | Pattern | Protects | Severity if Missing |
 |---------|----------|---------------------|
-| `Edit(.aios-core/core/**)` | L1 Framework Core | HIGH |
-| `Edit(.aios-core/constitution.md)` | Constitution | HIGH |
-| `Edit(bin/aios.js)` | CLI entry point | MEDIUM |
+| `Edit(.aiox-core/core/**)` | L1 Framework Core | HIGH |
+| `Edit(.aiox-core/constitution.md)` | Constitution | HIGH |
+| `Edit(bin/aiox.js)` | CLI entry point | MEDIUM |
+| `Edit(bin/aiox-init.js)` | CLI init entry point | MEDIUM |
+| `Edit(.aiox-core/development/tasks/**)` | L2 Task templates | MEDIUM |
+| `Edit(.aiox-core/development/templates/**)` | L2 Templates | MEDIUM |
+| `Edit(.aiox-core/infrastructure/**)` | L2 Infrastructure | MEDIUM |
 
 ### Phase 4: Check Permission Mode Appropriateness
 
