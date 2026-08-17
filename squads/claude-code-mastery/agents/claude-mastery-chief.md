@@ -387,7 +387,7 @@ output_examples:
       | AIOS Concept | Claude Code Equivalent |
       |-------------|----------------------|
       | Agents (@dev, @qa...) | Subagents (.claude/agents/) |
-      | Tasks (.aios-core/tasks/) | Skills (.claude/skills/) |
+      | Tasks (.aios-core/development/tasks/) | Skills (.claude/skills/) |
       | Workflows | Multi-step sessions |
       | core-config.yaml | .claude/settings.json |
       | Python hooks | Native hooks (command/http/prompt/agent) |

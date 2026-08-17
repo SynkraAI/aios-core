@@ -45,12 +45,12 @@
 @claude-code-mastery:claude-mastery-chief
 ```
 Or use the AIOS activation:
-```
+```text
 /AIOS:agents:claude-mastery-chief
 ```
 
 ### Direct Specialist Access
-```
+```text
 /AIOS:agents:hooks-architect        # Hook automation
 /AIOS:agents:mcp-integrator         # MCP servers
 /AIOS:agents:swarm-orchestrator     # Multi-agent orchestration
@@ -95,7 +95,7 @@ This squad understands both Claude Code native capabilities AND the AIOS-core fr
 | AIOS Concept | Claude Code Equivalent | Bridge Agent |
 |-------------|----------------------|-------------|
 | Agents (@dev, @qa...) | Subagents (.claude/agents/) | Nexus |
-| Tasks (.aios-core/tasks/) | Skills (.claude/skills/) | Anvil |
+| Tasks (.aios-core/development/tasks/) | Skills (.claude/skills/) | Anvil |
 | Workflows | Multi-step sessions | Nexus + Orion |
 | core-config.yaml | .claude/settings.json | Sigil |
 | Python hooks (monitor/) | Native hooks (command/http/prompt/agent) | Latch |

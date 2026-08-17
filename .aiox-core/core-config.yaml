@@ -367,7 +367,7 @@ autoClaude:
   qa:
     enabled: false
 boundary:
-  frameworkProtection: false
+  frameworkProtection: true
   protected:
     - .aiox-core/core/**
     - .aiox-core/development/tasks/**
