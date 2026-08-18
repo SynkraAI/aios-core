@@ -1,0 +1,24 @@
+{
+  "name": "@aiox/content-ai",
+  "version": "0.1.0",
+  "description": "Content AI module — image generation via Stability AI API",
+  "type": "module",
+  "main": "index.js",
+  "bin": {
+    "generate-image": "bin/generate.js"
+  },
+  "scripts": {
+    "test": "node --test --test-concurrency=1",
+    "lint": "eslint ."
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "author": "SynkraAI",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SynkraAI/aiox-core.git",
+    "directory": "packages/content-ai"
+  }
+}

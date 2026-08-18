@@ -155,6 +155,18 @@ module.exports = [
     },
   },
 
+  // content-ai package - ESM (Node 18+)
+  {
+    files: ['packages/content-ai/**/*.js'],
+    languageOptions: {
+      sourceType: 'module',
+      globals: {
+        FormData: 'readonly',
+        crypto: 'readonly',
+      },
+    },
+  },
+
   // TypeScript files configuration
   {
     files: ['**/*.ts', '**/*.tsx'],

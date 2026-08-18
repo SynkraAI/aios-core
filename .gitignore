@@ -160,6 +160,7 @@ supabase/
 
 # Output directories (generated artifacts)
 outputs/
+output/
 
 # Test fixtures (generated during tests)
 tests/*/__fixtures__/

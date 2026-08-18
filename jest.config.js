@@ -57,6 +57,8 @@ module.exports = {
     'tests/integration/install-transaction.test.js',
     // License tests require network/crypto resources unavailable in CI (pre-existing)
     'tests/license/',
+    // content-ai package uses ESM + node:test runner — run via npm test in the package
+    'packages/content-ai/',
   ],
 
   // Coverage collection (Story TD-3: Updated paths)
