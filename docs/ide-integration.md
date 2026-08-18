@@ -37,6 +37,7 @@ AIOX supports multiple AI-powered development platforms. Choose the one that bes
 | Cursor | Limited | `@agent` + synced rules | Not available | Follow synced rules and run validators manually (`npm run validate:parity`) |
 | GitHub Copilot | Limited | chat modes + repo instructions | Not available | Use repo instructions and VS Code MCP config for context |
 | AntiGravity | Limited | workflow-driven activation | Not available | Use generated workflows and run validators manually |
+| **Opencode** | **Works** | **`task` tool with `aiox-<agent>` skill** | **Works (opencode tool-based)** | **--** |
 
 Legend:
 - `Works`: fully recommended for new users in AIOX 4.2.11.
@@ -63,6 +64,7 @@ If your goal is to get started as fast as possible:
 1. **Best option:** Use `Claude Code` or `Gemini CLI` -- they have the most automation and fewest manual steps.
 2. **Good option:** Use `Codex CLI` if you prefer a terminal-first workflow and can follow the `/skills` activation flow.
 3. **Usable with extra steps:** Use `Cursor`, `Copilot`, or `AntiGravity` -- they work but require more manual validation steps (see workarounds in the table above).
+4. **Opencode option:** Use `Opencode` if you prefer a CLI-first, tool-oriented workflow with the `task` subagent delegation model.
 
 ### Practical Consequences by Capability
 
@@ -312,6 +314,50 @@ npm run validate:gemini-integration
 
 ---
 
+### Opencode
+
+**Recommendation Level:** Works (CLI-first, tool-oriented)
+
+```yaml
+config_file: .opencode/skills/aiox-core/SKILL.md
+agent_folder: .opencode/skills/
+activation: task subagent with aiox-<agent> skill
+format: SKILL.md (opencode native)
+mcp_support: via tool-based architecture
+special_features:
+  - Tool-based agent activation (no slash commands)
+  - Native task subagent delegation
+  - Background delegate for parallel work
+  - Built-in file tools (read/write/edit/bash/grep/glob)
+  - Skill system for persona injection
+  - Multi-agent orchestration via task tool
+```
+
+**Setup:**
+
+1. Copy `.opencode/skills/` to your project root
+2. Skills are available when referenced via the `task` tool with the corresponding `aiox-<agent>` skill name
+3. No MCP configuration needed — opencode's tool-based architecture handles all interactions
+
+**Configuration:**
+
+```bash
+# List available skills
+ls .opencode/skills/
+
+# Each skill is a directory with SKILL.md:
+ls .opencode/skills/aiox-dev/
+cat .opencode/skills/aiox-core/SKILL.md
+```
+
+**Activation:**
+
+- Agents are invoked via the `task` tool with the skill description matching `aiox-<agent>`
+- Example: `task` with `subagent_type=general` and description referencing "aiox-dev" skill
+- Background work: `delegate` tool for parallel research/analysis tasks
+
+---
+
 ## Sync System
 
 ### How Sync Works
@@ -323,10 +369,10 @@ AIOX maintains a single source of truth for agent definitions and synchronizes t
 │                    AIOX Core                         │
 │  .aiox-core/development/agents/  (Source of Truth)  │
 │                        │                             │
-│            ┌───────────┼───────────┐                │
-│            ▼           ▼           ▼                │
-│  .claude/     .codex/      .cursor/                  │
-│  .antigravity/ .gemini/                              │
+│         ┌──────┼──────┬──────┬──────┐                │
+│         ▼      ▼      ▼      ▼      ▼                │
+│  .claude/ .codex/ .cursor/ .gemini/ .opencode/       │
+│  .antigravity/                                        │
 └─────────────────────────────────────────────────────┘
 ```
 
@@ -336,10 +382,11 @@ AIOX maintains a single source of truth for agent definitions and synchronizes t
 # Sync all IDE targets
 npm run sync:ide
 
-# Sync only Gemini
+# Sync specific IDE
 npm run sync:ide:gemini
 npm run sync:ide:github-copilot
 npm run sync:ide:antigravity
+npm run sync:ide:opencode
 
 # Validate sync
 npm run sync:ide:check
@@ -362,6 +409,7 @@ auto_sync:
     - cursor
     - gemini
     - antigravity
+    - opencode
 ```
 
 ---
@@ -382,6 +430,7 @@ npm run sync:ide:check
 ls .cursor/rules/agents/               # Cursor
 ls .claude/commands/AIOX/agents/       # Claude Code
 ls .gemini/rules/AIOX/agents/          # Gemini CLI
+ls .opencode/skills/                   # Opencode
 ```
 
 ### Sync Conflicts
@@ -418,6 +467,12 @@ cat .cursor/mcp.json  # For Cursor
 - Restart Cursor after sync
 - Check `.cursor/rules/` permissions
 
+**Opencode:**
+
+- Skills are auto-discovered from `.opencode/skills/` directory
+- No restart needed — skills are loaded per-session
+- Verify skill loading: check opencode output for skill activation messages
+
 ## Platform Decision Guide
 
 Use this guide to choose the right platform:
@@ -435,7 +490,10 @@ Do you use Claude/Anthropic API?
             │   ├── Claude/GPT --> Cursor (Most popular AI IDE)
             └── No --> Use Google Cloud?
                 ├── Yes --> AntiGravity (Google integration)
-                └── No --> Gemini CLI (Specialized)
+                └── No
+                    ├── Use opencode?
+                    │   ├── Yes --> Opencode (CLI-first, tool-oriented)
+                    └── No --> Gemini CLI (Specialized)
 ```
 
 ---
