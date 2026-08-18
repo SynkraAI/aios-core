@@ -1,0 +1,37 @@
+audit_finding:
+  version: "1.0"
+  id: "AF-20260614-quality-harness"
+  date: "2026-06-14"
+  auditor: "external-contributor (@aiox-master in a consumer project)"
+  source_session: "Comparative audit of a hardened consumer fork against aiox-core v5.2.9"
+
+  context:
+    project: "a production consumer project (anonymized)"
+    epic: "framework learning-loop audit"
+    triggered_by: "'Quality First' is a constitution article but nothing mechanizes it per moment/owner"
+
+  finding:
+    summary: "'Quality First' (Article V) is declarative — there is no harness tying gates to moments and owning agents, no rule forcing the full suite before a seal, and no mechanical 'no push without a QA gate'."
+    evidence:
+      - "Article V states the principle but no mechanism ties gates to moments/owners/fail-modes"
+      - "No 'run the full suite (no path filter) + build + typecheck before seal' rule → subset runs hide regressions in untouched modules"
+      - "No mechanical enforcement that a push carries a QA gate verdict for modified work"
+    impact_observed:
+      blast_radius: "medium"
+      affected_artifacts: ["every change that ships", "the constitution's Quality First article"]
+      cost: "Cross-module regressions slip through subset runs; quality depends on humans remembering"
+
+  framework_candidate: true
+  framework_candidate_rationale: |
+    Project-agnostic. Any project using the framework benefits from a quality harness with
+    named owners + automatic gates, and from running the full suite before a seal. All gates
+    start advisory; only the PR/CI gate blocks (already the correct place) — preserves freedom.
+
+  references:
+    - kind: pattern
+      path: "Quality harness: layered gates with an owning agent and a fail-mode"
+
+  proposed_disposition:
+    - "Add a quality-suite rule: a moment x owning-agent x fail-mode map; gates run automatically"
+    - "Add full-suite-before-seal: whole suite + build + typecheck before work is shippable"
+    - "Add a pre-push QA gate (no push without a gate verdict for modified work)"

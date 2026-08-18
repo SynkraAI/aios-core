@@ -1,0 +1,59 @@
+framework_proposal:
+  version: "1.0"
+  id: "PROP-20260614-quality-harness"
+  date: "2026-06-14"
+  proposer: "external-contributor (consumer-project audit)"
+  source_finding: "AF-20260614-quality-harness"
+
+  target:
+    layer: "L2"
+    artifact_type: "rule"
+    artifact_path: ".claude/rules/quality-suite.md (NEW) + .claude/rules/full-suite-before-seal.md (NEW) + optional pre-push QA gate"
+    operation: "create"
+
+  generalization:
+    pattern_name: "Quality harness: layered gates, each with an owning agent and a fail-mode"
+    when_to_apply: |
+      Any project where "quality first" is a stated principle but has no mechanism.
+      Three invariants make it real:
+        1. every gate has a NAMED owning agent (not "whoever remembers");
+        2. every gate runs AUTOMATICALLY at its moment (git hook or CI), never by human initiative;
+        3. the PR/CI gate is the one nobody can bypass (merge is blocked there).
+      Plus "full-suite-before-seal": run the WHOLE test suite (no path filter) + build +
+      typecheck before marking work shippable. Subset runs hide cross-module regressions —
+      a change shifts lines/exports and breaks a test in an *untouched* module.
+    examples_from_other_domains:
+      - "A 'Quality First' constitution article with no enforcement is a slogan, not a gate"
+      - "Subset test runs (--testPathPattern) pass while an untouched module's test breaks"
+      - "CI runs after push; the seal happens before — so the seal needs its own full check"
+
+  migration_path:
+    breaking_change: false
+    affected_consumers: []
+    rollout_plan: |
+      Additive. Adds process rules + a moment x owning-agent x fail-mode map. Gates start
+      advisory; a project opts each gate into blocking via config. Only the PR/CI gate
+      blocks by default (already the correct place).
+
+  deprecation_plan:
+    deprecates: []
+    sunset_window: "n/a"
+
+  cost_benefit:
+    cost: "~2 documentation rules + a moment x owner x fail-mode map; optional pre-push QA gate"
+    benefit: |
+      Turns the constitution's own "Quality First" (Article V) from a declarative principle
+      into a mechanism with named owners and automatic gates. full-suite-before-seal catches
+      the cross-module regressions that subset runs miss.
+    risk: "low-medium — additive; advisory by default; only the PR/CI gate blocks"
+
+  approval:
+    eliel_decision: "PENDING"
+    eliel_decision_at: null
+    eliel_decision_rationale: ""
+    revision_request: []
+
+  implementation:
+    pr_url: ""
+    merged_at: ""
+    distributed_to: []
