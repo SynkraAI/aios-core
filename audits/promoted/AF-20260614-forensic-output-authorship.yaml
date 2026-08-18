@@ -1,0 +1,37 @@
+audit_finding:
+  version: "1.0"
+  id: "AF-20260614-forensic-output-authorship"
+  date: "2026-06-14"
+  auditor: "external-contributor (@aiox-master in a consumer project)"
+  source_session: "Comparative audit of a hardened consumer fork against aiox-core v5.2.9"
+
+  context:
+    project: "a production consumer project (anonymized)"
+    epic: "framework learning-loop audit"
+    triggered_by: "The framework's evolution-pipeline needs provenance and recurring-breakpoint signals it cannot currently capture"
+
+  finding:
+    summary: "Agent-produced artifacts carry no authorship/provenance metadata, and failed gates record the symptom rather than WHERE in the process the error was born — so recurring issues get re-fixed at the symptom and the loop never learns."
+    evidence:
+      - "No produced_by header on stories/gates/reports → cannot tell which agent/model produced an artifact"
+      - "Gate findings describe the defect, not the process step that produced it (story / handoff / input / environment)"
+      - "Without a breakpoint tag, the same root cause recurs and is patched again at the symptom"
+    impact_observed:
+      blast_radius: "medium"
+      affected_artifacts: ["stories", "quality gates", "reports", "the evolution-pipeline's own inputs"]
+      cost: "Lost provenance for model-tiering decisions; recurring defects re-fixed instead of mechanized"
+
+  framework_candidate: true
+  framework_candidate_rationale: |
+    Project-agnostic. Any agentic framework with multiple models and quality gates
+    benefits from provenance (produced_by) and root-cause tagging (process_breakpoint).
+    Both are presence-of-field predicates — mechanizable as advisory, no judgement needed.
+
+  references:
+    - kind: pattern
+      path: "Forensic authorship + root-cause tagging"
+
+  proposed_disposition:
+    - "Add produced_by frontmatter convention to agent-generated artifacts"
+    - "Add process_breakpoint to every non-PASS gate finding"
+    - "Adopt 'a recurring breakpoint is fixed at the process, not the symptom' as a closing rule"
