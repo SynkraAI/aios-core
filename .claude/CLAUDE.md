@@ -111,7 +111,7 @@ O AIOX usa um modelo de 4 camadas (L1-L4) para separar artefatos do framework e 
 
 **Boundary L1-L4 está OFF neste repo agora.** `.aiox-core/core-config.yaml` → `boundary.frameworkProtection: false` (comentário no arquivo: "TEMPORARY: TOK-3 contributor mode"). Ou seja, as deny rules do L1/L2 acima (nunca editar `.aiox-core/core/`, `bin/aiox.js`) **não estão ativas neste checkout** — faz sentido, já que este É o repo fonte do framework, não um projeto que o instalou. `protected`/`exceptions` (fonte de verdade do boundary) vivem no mesmo `core-config.yaml`; mudar o valor sozinho não adiciona/remove deny rules em `.claude/settings.json` — isso exige reexecutar o installer.
 
-**Mapa de `.aiox-core/core/`** (26 subpastas — o "motor" do framework):
+**Mapa de `.aiox-core/core/`** (27 subpastas — o "motor" do framework):
 - `orchestration/` — invoca agentes, coordena builds (`bob-orchestrator`, `brownfield-handler`)
 - `execution/` — motor de execução (`autonomous-build-loop`, `parallel-executor`), chamado por `orchestration/`
 - `synapse/` — engine de contexto de sessão (context/diagnostics/domain/memory layers)
@@ -206,7 +206,7 @@ Use prefixo `*` para comandos:
 | Interfaces | PascalCase + sufixo | `WorkflowListProps` |
 
 ### Imports
-**Sempre use imports absolutos, nunca relativos.** Neste repo o alias real é `aiox-core/*` (ou `@aiox-core/*`), definido em `tsconfig.json` (`paths`) e espelhado em `jest.config.js` (`moduleNameMapper`) — **não** `@/*` (esse é o alias de `apps/dashboard/`, que não existe neste checkout). Não há regra ESLint (`no-restricted-imports` ou similar) que force isso — é convenção, não gate automático.
+**Sempre use imports absolutos, nunca relativos.** O único alias válido neste repo é `aiox-core/*` (também espelhado como `@aiox-core/*` em `jest.config.js` `moduleNameMapper`, embora só `aiox-core`/`aiox-core/*` estejam declarados em `tsconfig.json` `paths`). O alias `@/*` citado em templates genéricos de React **não existe neste checkout** — pertence a `apps/dashboard/`, que não está presente aqui. Não há regra ESLint (`no-restricted-imports` ou similar) que force o uso de imports absolutos — é convenção, não gate automático.
 ```typescript
 // ✓ Correto
 import { AgentInvoker } from 'aiox-core/orchestration/agent-invoker'
@@ -257,7 +257,7 @@ npm run typecheck           # TypeScript
 ```bash
 npx jest caminho/para/arquivo.test.js -t "nome do teste"
 ```
-`jest.config.js` é single-project. `testPathIgnorePatterns` exclui deliberadamente testes legados em quarentena (`tests/tools/*`, `tests/installer/*` — débito técnico OSR-10/migração v2.1); thresholds de cobertura estão temporariamente baixos (`global: 22%`, `.aiox-core/core/: 38%`, marcados "TEMPORARY" no config). `npm run test:health-check` roda **mocha** (não jest) sobre `tests/health-check/**` — cobre o engine/healers/reporters de `.aiox-core/core/health-check/`, mantido separado porque o próprio `jest.config.js` exclui `.aiox-core/core/health-check/checks/**` da cobertura como "candidatos a teste de integração".
+`jest.config.js` é single-project. `testPathIgnorePatterns` exclui deliberadamente arquivos específicos de testes legados em quarentena (não os diretórios inteiros) — ex.: `tests/tools/backward-compatibility.test.js`, `tests/tools/clickup-helpers.test.js` (débito técnico OSR-10/migração v2.1 → v4.31.0), além de `pro/` (roda via CI `pro-integration.yml`, não localmente) e testes Windows-only. Thresholds de cobertura: `global` = 19% branches / 22% functions, lines, statements; `.aiox-core/core/` = 38% lines — comentários no config marcam esses valores como "TEMPORARY". `npm run test:health-check` roda **mocha** (não jest) sobre `tests/health-check/**` — cobre o engine/healers/reporters de `.aiox-core/core/health-check/`, mantido separado porque o próprio `jest.config.js` exclui `.aiox-core/core/health-check/checks/**` da cobertura como candidato a teste de integração.
 
 ### Quality Gates (Pre-Push)
 Antes de push, todos os checks devem passar:
