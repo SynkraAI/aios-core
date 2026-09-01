@@ -481,8 +481,13 @@ describe('integration: real constitution.md', () => {
     const content = fs.readFileSync(realConstitutionPath, 'utf8');
     const articles = parseConstitution(content);
 
+    // 6, não 8: o documento traz 8 cabeçalhos de artigo (I-VI + XI-XII), mas
+    // `parseConstitution` só reconhece a sequência I-VI — os Artigos XI-XII, acrescentados
+    // pela emenda de 2026-07-09, NÃO são parseados. Contar cabeçalhos com grep dá 8 e
+    // induz ao erro; o número que vale aqui é o que o parser devolve.
     expect(articles).toHaveLength(6);
-    expect(articles[0].title).toBe('CLI First');
+    // Artigo I renomeado pela emenda MAJOR de 2026-09-01: CLI First -> CLI Complete.
+    expect(articles[0].title).toBe('CLI Complete');
     expect(articles[5].title).toBe('Absolute Imports');
   });
 
