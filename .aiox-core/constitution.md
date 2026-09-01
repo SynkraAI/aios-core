@@ -1,7 +1,9 @@
 # Synkra AIOX Constitution
 
-> **Version:** 1.1.0 | **Ratified:** 2025-01-30 | **Last Amended:** 2026-07-09  
-> **Amendments:** Articles XI–XII (CORE-SUPER-UPDATE Wave E; hub lineage, OSS-safe)
+> **Version:** 2.0.0 | **Ratified:** 2025-01-30 | **Last Amended:** 2026-09-01  
+> **Amendments:** Article I (2026-09-01 — MAJOR: *CLI First* → **CLI Complete**; precedência temporal
+> substituída por paridade de capacidade; interface gráfica passa a poder controlar) ·
+> Articles XI–XII (CORE-SUPER-UPDATE Wave E; hub lineage, OSS-safe)
 
 Este documento define os princípios fundamentais e inegociáveis do Synkra AIOX. Todos os agentes, tasks, e workflows DEVEM respeitar estes princípios. Violações são bloqueadas automaticamente via gates.
 
@@ -9,22 +11,38 @@ Este documento define os princípios fundamentais e inegociáveis do Synkra AIOX
 
 ## Core Principles
 
-### I. CLI First (NON-NEGOTIABLE)
+### I. CLI Complete (NON-NEGOTIABLE)
 
-O CLI é a fonte da verdade onde toda inteligência, execução, e automação vivem.
+O CLI é a **superfície completa**: toda capacidade DEVE ser alcançável sem interface gráfica, para que
+automação, CI e operação remota nunca dependam dela.
 
 **Regras:**
-- MUST: Toda funcionalidade nova DEVE funcionar 100% via CLI antes de qualquer UI
-- MUST: Dashboards apenas observam, NUNCA controlam ou tomam decisões
-- MUST: A UI NUNCA é requisito para operação do sistema
-- MUST: Ao decidir onde implementar, sempre CLI > Observability > UI
+- MUST: Toda capacidade é **operável sem interface gráfica** — por verbo próprio do produto, por
+  ferramenta de linha de comando de terceiro, ou por skill executável headless
+- MUST: Nenhuma capacidade existe **APENAS** na interface gráfica
+- MUST: A operação headless (CI, servidor, script) é sempre possível
+- **PODE**: uma interface gráfica ser a superfície primária de uso, **inclusive de controle**
 
-**Hierarquia:**
-```
-CLI (Máxima) → Observability (Secundária) → UI (Terciária)
-```
+**Gate:** capacidade nova sem caminho headless documentado — BLOCK (§Gate Severity Levels)
 
-**Gate:** `dev-develop-story.md` - WARN se UI criada antes de CLI funcional
+> **Emenda MAJOR de 2026-09-01 — supersede o antigo "CLI First".** O artigo original exigia
+> precedência temporal (*"funcionar 100% via CLI antes de qualquer UI"*) e proibia controle por
+> interface (*"dashboards apenas observam, NUNCA controlam"*; *"a UI NUNCA é requisito para
+> operação"*). Essas três regras foram substituídas pelo critério de **paridade de capacidade** acima.
+>
+> **Por que:** o valor que o artigo protege é que o sistema permaneça operável sem interface — para
+> CI, servidor e automação. Esse valor não conflita com uma interface gráfica que controla; o que
+> conflitava eram os *meios* escolhidos (precedência e proibição de controle), não o *fim*.
+>
+> **Duas correções que a emenda também faz:**
+> 1. O artigo declarava `NON-NEGOTIABLE` — que a tabela de severidade deste documento manda tratar
+>    como **BLOCK** — mas o gate real era `WARN`. Texto e enforcement divergiam desde antes.
+> 2. O critério antigo era inverificável na prática ("antes" não é auditável depois do fato). O novo
+>    é mecânico: **existe caminho headless para esta capacidade?**
+>
+> **Escopo do que a emenda NÃO afeta:** a hierarquia de decisão continua valendo para *onde
+> implementar lógica* — inteligência e execução no núcleo, nunca na camada de apresentação. O que
+> mudou é quem PODE acionar essa lógica.
 
 ---
 
