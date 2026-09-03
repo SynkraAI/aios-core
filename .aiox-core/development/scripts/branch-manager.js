@@ -211,9 +211,10 @@ class BranchManager {
     const cutoffDate = new Date();
     cutoffDate.setDate(cutoffDate.getDate() - daysOld);
 
-    const toDelete = branches.filter(branch => 
-      branch.lastCommitDate < cutoffDate && 
-      branch.name !== await this.git.getCurrentBranch()
+    const currentBranch = await this.git.getCurrentBranch();
+    const toDelete = branches.filter(branch =>
+      branch.lastCommitDate < cutoffDate &&
+      branch.name !== currentBranch
     );
 
     if (toDelete.length === 0) {
