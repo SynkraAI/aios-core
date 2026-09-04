@@ -29,9 +29,11 @@ const yaml = require('js-yaml');
 const ROOT_DIR = path.join(__dirname, '..', '..');
 const AGENTS_DIR = path.join(ROOT_DIR, 'development', 'agents');
 const TASKS_DIR = path.join(ROOT_DIR, 'development', 'tasks');
-const TEMPLATES_DIR = path.join(ROOT_DIR, 'development', 'templates');
-const CHECKLISTS_DIR = path.join(ROOT_DIR, 'development', 'checklists');
-const DATA_DIR = path.join(ROOT_DIR, 'development', 'data');
+// Checklists, templates and product data live under product/; the knowledge base under data/.
+// development/ is kept as a fallback for legacy files.
+const TEMPLATES_DIR = [path.join(ROOT_DIR, 'product', 'templates'), path.join(ROOT_DIR, 'development', 'templates')];
+const CHECKLISTS_DIR = [path.join(ROOT_DIR, 'product', 'checklists'), path.join(ROOT_DIR, 'development', 'checklists')];
+const DATA_DIR = [path.join(ROOT_DIR, 'product', 'data'), path.join(ROOT_DIR, 'data'), path.join(ROOT_DIR, 'development', 'data')];
 const UTILS_DIR = path.join(ROOT_DIR, 'development', 'utils');
 const WORKFLOWS_DIR = path.join(ROOT_DIR, 'development', 'workflows');
 const SCRIPTS_DIR = path.join(ROOT_DIR, 'development', 'scripts');
@@ -220,8 +222,12 @@ async function validateDependencies(agents) {
       }
 
       for (const depFile of depList) {
-        const depPath = path.join(depDir, depFile);
-        const exists = await fileExists(depPath);
+        const candidates = [].concat(depDir).map((dir) => path.join(dir, depFile));
+        const depPath = candidates[0];
+        let exists = false;
+        for (const candidate of candidates) {
+          if (await fileExists(candidate)) { exists = true; break; }
+        }
 
         if (!exists) {
           // Missing dependencies are warnings, not errors (pre-existing technical debt)
