@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-09-04T15:26:57.058Z'
+  lastUpdated: '2026-08-10T22:57:44.852Z'
   entityCount: 846
   checksumAlgorithm: sha256
   resolutionRate: 100
@@ -227,7 +227,8 @@ entities:
         - apply
         - qa
         - fixes
-      usedBy: []
+      usedBy:
+        - dev
       dependencies:
         - qa
         - dev
@@ -453,7 +454,8 @@ entities:
         - build
         - autonomous
         - 'task:'
-      usedBy: []
+      usedBy:
+        - dev
       dependencies:
         - autonomous-build-loop.js
         - plan-execute-subtask
@@ -503,7 +505,8 @@ entities:
         - build
         - resume
         - 'task:'
-      usedBy: []
+      usedBy:
+        - dev
       dependencies:
         - dev
       externalDeps: []
@@ -525,7 +528,8 @@ entities:
         - build
         - status
         - 'task:'
-      usedBy: []
+      usedBy:
+        - dev
       dependencies:
         - dev
       externalDeps: []
@@ -971,7 +975,8 @@ entities:
       keywords:
         - create
         - service
-      usedBy: []
+      usedBy:
+        - dev
       dependencies:
         - code-intel
         - dev-helper
@@ -1085,6 +1090,7 @@ entities:
       usedBy:
         - list-worktrees
         - remove-worktree
+        - dev
         - devops
         - auto-worktree
       dependencies:
@@ -1723,7 +1729,8 @@ entities:
         - develop
         - story
         - task
-      usedBy: []
+      usedBy:
+        - dev
       dependencies:
         - decision-recorder
         - sm
@@ -1757,7 +1764,8 @@ entities:
         - task
         - performs
         - automated
-      usedBy: []
+      usedBy:
+        - dev
       dependencies:
         - code-quality-improver
       externalDeps: []
@@ -1786,7 +1794,8 @@ entities:
         - aiox
         - developer
         - task
-      usedBy: []
+      usedBy:
+        - dev
       dependencies:
         - performance-optimizer
       externalDeps: []
@@ -1816,7 +1825,8 @@ entities:
         - aiox
         - developer
         - task
-      usedBy: []
+      usedBy:
+        - dev
       dependencies:
         - refactoring-suggester
       externalDeps: []
@@ -2166,6 +2176,7 @@ entities:
         - aiox-master
         - architect
         - data-engineer
+        - dev
         - pm
         - po
         - sm
@@ -2617,7 +2628,8 @@ entities:
         - gotcha
         - 'task:'
         - add
-      usedBy: []
+      usedBy:
+        - dev
       dependencies:
         - gotchas-memory.js
         - gotchas
@@ -2644,6 +2656,7 @@ entities:
       usedBy:
         - document-gotchas
         - gotcha
+        - dev
       dependencies:
         - gotchas-memory.js
         - dev
@@ -2934,6 +2947,7 @@ entities:
       usedBy:
         - create-worktree
         - remove-worktree
+        - dev
         - devops
       dependencies:
         - worktree-manager
@@ -3283,6 +3297,7 @@ entities:
         - agent)
       usedBy:
         - build-autonomous
+        - dev
       dependencies:
         - plan-tracker
         - dev
@@ -3363,6 +3378,7 @@ entities:
         - backlog
         - manage-story-backlog
       usedBy:
+        - dev
         - po
       dependencies: []
       externalDeps: []
@@ -3793,7 +3809,8 @@ entities:
         - issue
         - fixer
         - task
-      usedBy: []
+      usedBy:
+        - dev
       dependencies:
         - plan-tracker
         - dev
@@ -4225,6 +4242,7 @@ entities:
       usedBy:
         - create-worktree
         - list-worktrees
+        - dev
         - devops
       dependencies:
         - worktree-manager
@@ -5147,7 +5165,8 @@ entities:
         - sync
         - documentation
         - sync-documentation
-      usedBy: []
+      usedBy:
+        - dev
       dependencies:
         - documentation-synchronizer
       externalDeps: []
@@ -5495,6 +5514,7 @@ entities:
         - story
         - task
       usedBy:
+        - dev
         - po
       dependencies:
         - po-master-checklist
@@ -5577,7 +5597,8 @@ entities:
       keywords:
         - verify
         - subtask
-      usedBy: []
+      usedBy:
+        - dev
       dependencies:
         - dev
         - architect
@@ -5603,7 +5624,8 @@ entities:
         - '`*waves`'
         - wave
         - analysis
-      usedBy: []
+      usedBy:
+        - dev
       dependencies:
         - dev
       externalDeps: []
@@ -9167,6 +9189,7 @@ entities:
       usedBy:
         - build-autonomous
         - build-orchestrator
+        - dev
       dependencies:
         - build-state-manager
         - recovery-tracker
@@ -9190,6 +9213,7 @@ entities:
         - orchestrator
       usedBy:
         - build
+        - dev
       dependencies:
         - autonomous-build-loop
         - build-state-manager
@@ -9216,6 +9240,7 @@ entities:
       usedBy:
         - autonomous-build-loop
         - build-orchestrator
+        - dev
       dependencies:
         - errors-index
         - stuck-detector
@@ -10019,6 +10044,7 @@ entities:
         - gotchas
         - build-orchestrator
         - active-modules.verify
+        - dev
       dependencies: []
       externalDeps: []
       plannedDeps: []
@@ -14970,6 +14996,44 @@ entities:
         - story-draft-checklist
       dependencies:
         - decision-log-generator
+        - apply-qa-fixes
+        - qa-fix-issues
+        - create-service
+        - dev-develop-story
+        - execute-checklist
+        - plan-execute-subtask
+        - verify-subtask
+        - dev-improve-code-quality
+        - po-manage-story-backlog
+        - dev-optimize-performance
+        - dev-suggest-refactoring
+        - sync-documentation
+        - validate-next-story
+        - waves
+        - build-resume
+        - build-status
+        - build-autonomous
+        - gotcha
+        - gotchas
+        - create-worktree
+        - list-worktrees
+        - remove-worktree
+        - story-dod-checklist
+        - self-critique-checklist
+        - context7
+        - supabase
+        - n8n
+        - browser
+        - ffmpeg
+        - recovery-tracker.js
+        - stuck-detector.js
+        - approach-manager.js
+        - rollback-manager.js
+        - build-state-manager.js
+        - autonomous-build-loop.js
+        - build-orchestrator.js
+        - gotchas-memory.js
+        - worktree-manager.js
       externalDeps:
         - coderabbit
         - git
@@ -14979,8 +15043,8 @@ entities:
         score: 0.3
         constraints: []
         extensionPoints: []
-      checksum: sha256:d9b2b194a9442b74aa5a94311dda78c6e93f6618bf2715eeac8f37d48736ff17
-      lastVerified: '2026-09-04T15:26:57.050Z'
+      checksum: sha256:91a63332b1cc19af47b3cd2811b5e00635b72a747b5858efc09ce3aa7826d1b7
+      lastVerified: '2026-08-10T22:57:44.215Z'
     devops:
       path: .aiox-core/development/agents/devops.md
       layer: L2
@@ -16573,7 +16637,8 @@ entities:
       keywords:
         - approach
         - manager
-      usedBy: []
+      usedBy:
+        - dev
       dependencies: []
       externalDeps: []
       plannedDeps: []
@@ -17731,6 +17796,7 @@ entities:
         - autonomous-build-loop
         - build-state-manager
         - recovery-handler
+        - dev
       dependencies: []
       externalDeps: []
       plannedDeps: []
@@ -17818,6 +17884,7 @@ entities:
       usedBy:
         - recovery-handler
         - epic-5-executor
+        - dev
       dependencies: []
       externalDeps: []
       plannedDeps: []
@@ -17945,6 +18012,7 @@ entities:
         - build-state-manager
         - recovery-handler
         - epic-5-executor
+        - dev
       dependencies: []
       externalDeps: []
       plannedDeps: []
@@ -18384,6 +18452,7 @@ entities:
         - remove-worktree
         - autonomous-build-loop
         - build-orchestrator
+        - dev
         - auto-worktree
         - project-status-loader
         - story-worktree-hooks
@@ -19085,7 +19154,8 @@ entities:
       purpose: Entity at .aiox-core/infrastructure/tools/local/ffmpeg.yaml
       keywords:
         - ffmpeg
-      usedBy: []
+      usedBy:
+        - dev
       dependencies: []
       externalDeps: []
       plannedDeps: []
@@ -19125,6 +19195,7 @@ entities:
       keywords:
         - browser
       usedBy:
+        - dev
         - qa
         - ux-design-expert
       dependencies: []
@@ -19167,6 +19238,7 @@ entities:
         - qa-library-validation
         - analyst
         - architect
+        - dev
         - po
         - qa
         - sm
@@ -19247,7 +19319,8 @@ entities:
       purpose: Entity at .aiox-core/infrastructure/tools/mcp/n8n.yaml
       keywords:
         - n8n
-      usedBy: []
+      usedBy:
+        - dev
       dependencies: []
       externalDeps: []
       plannedDeps: []
@@ -19266,6 +19339,7 @@ entities:
       keywords:
         - supabase
       usedBy:
+        - dev
         - qa
       dependencies: []
       externalDeps: []
@@ -19598,6 +19672,7 @@ entities:
         - self-critique
       usedBy:
         - build-autonomous
+        - dev
       dependencies:
         - dev
       externalDeps: []
@@ -19623,6 +19698,7 @@ entities:
         - (dod)
       usedBy:
         - aiox-master
+        - dev
       dependencies: []
       externalDeps: []
       plannedDeps: []
