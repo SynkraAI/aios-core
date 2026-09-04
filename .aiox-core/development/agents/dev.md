@@ -295,6 +295,8 @@ dependencies:
     - n8n # Workflow automation and integration
     - browser # Test web applications and debug UI
     - ffmpeg # Process media files during development
+    - typebot-api # Lead capture via API (Bash + curl; token in macOS Keychain "typebot-api-token")
+    - evolution-api # WhatsApp integration via API (Bash + curl; project at ~/evolution-api)
 
   coderabbit_integration:
     enabled: true
